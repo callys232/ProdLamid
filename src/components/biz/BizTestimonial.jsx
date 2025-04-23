@@ -14,14 +14,14 @@ const BizTestimonial = () => {
             width={1920}
             height={1080}
             priority
-            className="w-full h-auto object-contain"
+            className="w-full h-auto object-contain hover:opacity-90 transition-opacity duration-300"
             sizes="100vw"
           />
         </div>
       </div>
 
       {/* Job Loss Question Image */}
-      <div className="w-full max-w-[300px] mx-auto py-8 px-4">
+      <div className="w-full max-w-[300px] mx-auto py-8 px-4 transform hover:scale-105 transition-transform duration-300">
         <Link href="mailto:info@lamidconsulting.com">
           <Image
             src="/biz-question.png"
@@ -29,7 +29,7 @@ const BizTestimonial = () => {
             width={300}
             height={375}
             priority
-            className="w-full h-auto object-contain hover:scale-105 transition-transform"
+            className="w-full h-auto object-contain"
           />
         </Link>
       </div>

@@ -34,14 +34,14 @@ const BizHeader = () => {
             layout="fill"
             objectFit="cover"
             priority
-            className="opacity-50"
+            className="opacity-50 transition-opacity duration-700"
           />
         </div>
 
         <div className="relative z-20 container mx-auto px-4 py-10 md:py-16 flex flex-col md:flex-row items-center justify-between gap-8 h-full">
           {/* Left side - Logo */}
           <div className="w-full md:w-1/3 flex justify-center md:justify-start">
-            <div className="relative w-64 h-64">
+            <div className="relative w-64 h-64 transform hover:scale-105 transition duration-300">
               <Image
                 src="/BIZ_LOGOS.png"
                 alt="BIZ Logo"
@@ -57,8 +57,8 @@ const BizHeader = () => {
           {/* Right side - Content */}
           <div className="w-full md:w-2/3 flex flex-col items-center md:items-start space-y-6">
             {/* BIZ Heading with colored letters */}
-            <div className="bg-black/60 border border-red-800 rounded-md p-4 w-full max-w-lg text-center">
-              <h1 className="text-3xl md:text-4xl font-bold">
+            <div className="bg-black/60 border border-red-800 rounded-md p-4 w-full max-w-lg text-center hover:bg-red-900 transition duration-300">
+              <h1 className="text-3xl md:text-4xl font-bold hover:text-red-500 transition duration-300">
                 <span className="text-blue-500">B</span>usiness
                 <span className="text-blue-500"> I</span>nnovation
                 <span className="text-blue-500"> Z</span>one
@@ -66,16 +66,16 @@ const BizHeader = () => {
             </div>
 
             {/* Main description */}
-            <p className="text-lg md:text-xl text-center md:text-left max-w-2xl">
+            <p className="text-lg md:text-xl text-center md:text-left max-w-2xl hover:text-gray-300 transition duration-300">
               The one-stop place that rapidly nurtures and expands startups to
               deliver exceptional value and become world-class organizations
             </p>
 
             {/* Secondary description */}
-            <p className="text-base md:text-lg text-center md:text-left max-w-2xl">
+            <p className="text-base md:text-lg text-center md:text-left max-w-2xl hover:text-gray-400 transition duration-300">
               The BIZ suite of services empowers organizations to attract a
               continuous stream of clients and excel as best practices, thriving
-              on a culture of innovation, management and sustainability.
+              on a culture of innovation, management, and sustainability.
             </p>
           </div>
         </div>

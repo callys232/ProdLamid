@@ -3,9 +3,13 @@ import Image from "next/image";
 
 const ServiceCard = ({ image, text, position = "left" }) => {
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 flex flex-col md:flex-row items-center gap-4 h-full">
-      <div className={`flex-shrink-0 ${position === "right" ? "md:order-last" : ""}`}>
-        <div className="relative w-12 h-12">
+    <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 flex flex-col md:flex-row items-center gap-4 h-full hover:border-gray-500 transition duration-300">
+      <div
+        className={`flex-shrink-0 ${
+          position === "right" ? "md:order-last" : ""
+        }`}
+      >
+        <div className="relative w-12 h-12 transform hover:scale-110 transition duration-300">
           <Image
             src={image}
             alt="Service Icon"
@@ -14,7 +18,11 @@ const ServiceCard = ({ image, text, position = "left" }) => {
           />
         </div>
       </div>
-      <p className={`text-white text-sm md:text-base ${position === "right" ? "md:text-right" : "md:text-left"} text-center`}>
+      <p
+        className={`text-white text-sm md:text-base ${
+          position === "right" ? "md:text-right" : "md:text-left"
+        } text-center hover:text-gray-300 transition duration-300`}
+      >
         {text}
       </p>
     </div>
@@ -22,7 +30,6 @@ const ServiceCard = ({ image, text, position = "left" }) => {
 };
 
 const BusinessServicesGrid = () => {
-  // Update the paths to your images (ensure these files exist in /public/images)
   const images = {
     dollar: "/biz-dollar.png",
     chart: "/biz-chart.png",
@@ -35,7 +42,6 @@ const BusinessServicesGrid = () => {
     lightbulb: "/biz-lightbulb.png",
   };
 
-  // Define each service card with its image, text and image position
   const cards = [
     {
       image: images.dollar,
@@ -66,7 +72,9 @@ const BusinessServicesGrid = () => {
       image: images.tech,
       text: (
         <span>
-          Use technology to <span className="text-red-500 font-bold">connect</span> to clients to deliver and track value.
+          Use technology to{" "}
+          <span className="text-red-500 font-bold">connect</span> to clients to
+          deliver and track value.
         </span>
       ),
       position: "left",

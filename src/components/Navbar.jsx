@@ -12,8 +12,12 @@ const Navbar = () => {
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target) &&
-          mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        mobileDropdownRef.current &&
+        !mobileDropdownRef.current.contains(event.target)
+      ) {
         setDropdownOpen(false);
       }
     }
@@ -236,6 +240,8 @@ const Navbar = () => {
           </div>
         </div>
       )}
+      {/* Red Line at the End of Navbar */}
+      <div className="w-full h-0.5 bg-red-700"></div>
     </nav>
   );
 };

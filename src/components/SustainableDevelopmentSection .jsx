@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 const SustainableDevelopmentSection = () => {
   return (
@@ -21,9 +21,9 @@ const SustainableDevelopmentSection = () => {
       <div className="relative z-10 flex flex-col px-4">
         {/* Header section with content and images */}
         <div className="flex items-center justify-between w-full pt-20 pb-8">
-          <div className='flex items-center'>
+          <div className="flex items-center">
             {/* Left globe image - smaller size */}
-            <div className="w-1/4 max-w-[140px]">
+            <div className="w-1/4 max-w-[140px] transform hover:scale-105 transition duration-300">
               <Image
                 src="/sustainable-icon.png"
                 alt="Hands holding small globe"
@@ -35,12 +35,12 @@ const SustainableDevelopmentSection = () => {
 
             {/* Center text content */}
             <div className="text-center mx-4">
-              <h1 className="text-3xl md:text-5xl font-bold mb-4">
+              <h1 className="text-3xl md:text-5xl font-bold mb-4 hover:text-emerald-300 transition duration-300">
                 <span className="text-emerald-400">S</span>ustainable
                 <span className="text-emerald-400"> D</span>evelopment
               </h1>
 
-              <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm">
+              <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm hover:bg-emerald-500 hover:text-black transition duration-300">
                 <p className="text-xs md:text-sm">
                   Growing groups to world-class communities with sustainable
                   development
@@ -50,7 +50,7 @@ const SustainableDevelopmentSection = () => {
           </div>
 
           {/* Right globe image - larger size */}
-          <div className="w-1/3 max-w-[340px]">
+          <div className="w-1/3 max-w-[340px] transform hover:scale-105 transition duration-300">
             <Image
               src="/sustainable-icon.png"
               alt="Multiple hands holding globe"
@@ -73,12 +73,12 @@ const SustainableDevelopmentSection = () => {
 
           <Link
             href="/details"
-            className="inline-flex items-center text-xs font-medium text-gray-300 hover:text-white"
+            className="inline-flex items-center text-xs font-medium text-gray-300 hover:text-white transition duration-300"
           >
             SEE HOW
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 ml-2"
+              className="h-4 w-4 ml-2 transform hover:scale-110 transition duration-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

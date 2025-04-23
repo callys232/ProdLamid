@@ -14,6 +14,7 @@ const Testimonial = () => {
     { name: "Champion", logo: "/champion-logo.png" },
     { name: "TotalEnergies", logo: "/total-energies-logo.png" },
   ];
+
   return (
     <div className="bg-black text-white">
       {/* Testimonials section */}
@@ -22,12 +23,12 @@ const Testimonial = () => {
           <div className="flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-2/5">
               <div
-                className="border-2 border-blue-600 aspect-video relative cursor-pointer"
+                className="border-2 border-blue-600 aspect-video relative cursor-pointer hover:opacity-80 transition duration-300"
                 onClick={() => setVideoPlaying(!videoPlaying)}
               >
                 {!videoPlaying ? (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:scale-110 transition duration-300">
                       <div className="w-0 h-0 border-t-8 border-t-transparent border-l-16 border-l-white border-b-8 border-b-transparent ml-1"></div>
                     </div>
                   </div>
@@ -43,9 +44,11 @@ const Testimonial = () => {
             </div>
 
             <div className="w-full md:w-3/5">
-              <h2 className="text-blue-600 text-2xl mb-6">Testimonials</h2>
+              <h2 className="text-blue-600 text-2xl mb-6 hover:text-blue-400 transition duration-300">
+                Testimonials
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gray-900 p-4 rounded">
+                <div className="bg-gray-900 p-4 rounded hover:bg-gray-800 transition duration-300">
                   <p className="text-sm">
                     “The programs helped in the effective management and
                     motivation of staff to enable them leverage their
@@ -53,7 +56,7 @@ const Testimonial = () => {
                     into opportunities.”
                   </p>
                 </div>
-                <div className="bg-gray-900 p-4 rounded">
+                <div className="bg-gray-900 p-4 rounded hover:bg-gray-800 transition duration-300">
                   <p className="text-sm">
                     “LAMID’s training program enhanced the quality of the
                     negotiation processes with respective Trade Unions, and led
@@ -70,12 +73,15 @@ const Testimonial = () => {
       {/* Clients section */}
       <div className="py-8">
         <div className="container mx-auto px-4">
-          <h3 className="text-gray-400 text-sm mb-6">
-            others we've worked for:
+          <h3 className="text-gray-400 text-sm mb-6 hover:text-white transition duration-300">
+            Others we've worked for:
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {clients.map((client, index) => (
-              <div key={index} className="flex items-center justify-center p-2">
+              <div
+                key={index}
+                className="flex items-center justify-center p-2 transform hover:scale-105 transition duration-300"
+              >
                 <div className="w-full h-16 relative">
                   <Image
                     src={client.logo}
