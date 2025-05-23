@@ -1,8 +1,11 @@
 import React from "react";
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
+import SignupForm from "./SignupForm";
 
 const HcdEvent = () => {
+  const [showForm, setShowForm] = useState(false);
   return (
     <div className="relative min-h-screen bg-black text-white">
       {/* Background circular gradients */}
@@ -20,15 +23,15 @@ const HcdEvent = () => {
           <section className="mb-16">
             <div className="flex flex-col md:flex-row gap-8">
               <div className="w-full md:w-1/3">
-                  <div className="relative">
-                    <div className="relative h-[27rem] w-full overflow-hidden rounded-lg mb-4">
-                      <Image
-                        src="/SD-training-graphic.png"
-                        alt="People studying together"
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
+                <div className="relative">
+                  <div className="relative h-[27rem] w-full overflow-hidden rounded-lg mb-4">
+                    <Image
+                      src="/SD-training-graphic.png"
+                      alt="People studying together"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -66,7 +69,6 @@ const HcdEvent = () => {
             <div className="border border-zinc-800 rounded px-4 py-2 inline-block mb-8">
               <h2 className="text-xl font-bold text-orange-500">EVENTS</h2>
             </div>
-
             <div className="flex flex-wrap justify-between gap-4 mb-8">
               <div className="text-center">
                 <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-2">
@@ -136,13 +138,35 @@ const HcdEvent = () => {
                 </h3>
               </div>
             </div>
-
-            <div className="flex justify-center mb-8">
+            {/* <div className="flex justify-center mb-8">
               <button className="px-6 py-2 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700 transition-colors">
                 Sign Up Now
               </button>
-            </div>
+            </div> */}
+            return (
+            <div className="flex justify-center mb-8">
+              <button
+                type="button"
+                className="px-6 py-2 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700 transition-colors"
+                onClick={() => setShowForm(true)} // Shows signup form
+              >
+                Sign Up Now
+              </button>
 
+              {showForm && (
+                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+                  <div className="bg-white p-6 rounded-md">
+                    <SignupForm />
+                    <button
+                      className="mt-4 text-red-600"
+                      onClick={() => setShowForm(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             <p className="text-center text-sm">
               We have been retained by an array of clients with personalized
               solutions, enabling them to maintain an enviable leadership
