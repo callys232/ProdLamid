@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link"; // Import Next.js Link component
 
 const Serv = () => {
   const [expanded, setExpanded] = useState(null);
 
-  // Function to toggle expansion on click
   const handleClick = (section) => {
     setExpanded(expanded === section ? null : section);
   };
@@ -27,75 +27,77 @@ const Serv = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
         style={{ backgroundImage: `url('/assets/images/HeroServices.png')` }}
       >
-        {/* Content container */}
         <div className="relative z-10 flex items-center justify-center h-full gap-2 px-4">
           {/* Biz Section */}
           <motion.div
             className="group cursor-pointer"
-            onClick={() => handleClick("biz")}
             animate={{
               scale: expanded === "biz" ? 1.2 : 1,
               rotate: expanded === "biz" ? 10 : 0,
             }}
-            whileHover={{ scale: 1.15 }} // Hover pop effect
-            whileTap={{ scale: 0.9 }} // Click shrink effect
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="relative w-30 h-22 rounded-tr-3xl rounded-bl-3xl overflow-hidden border-2 hover:border-blue-400">
-              <Image
-                src="/bizLogo.png"
-                alt="Business"
-                width={80}
-                height={80}
-                className="object-cover w-full h-full"
-              />
-            </div>
+            <Link href="/biz">
+              <div className="relative w-30 h-22 rounded-tr-3xl rounded-bl-3xl overflow-hidden border-2 hover:border-blue-400">
+                <Image
+                  src="/bizLogo.png"
+                  alt="Business"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </Link>
           </motion.div>
 
           {/* HCD Section */}
           <motion.div
             className="group cursor-pointer"
-            onClick={() => handleClick("HCD")}
             animate={{
               scale: expanded === "hcd" ? 1.2 : 1,
               rotate: expanded === "hcd" ? -10 : 0,
             }}
-            whileHover={{ scale: 1.15 }} // Hover pop effect
-            whileTap={{ scale: 0.9 }} // Click shrink effect
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="relative w-30 h-46 rounded-tl-3xl rounded-br-3xl overflow-hidden border-2 border-orange-500 hover:border-orange-400">
-              <Image
-                src="/hcdLogo.png"
-                alt="hcd"
-                width={80}
-                height={100}
-                className="object-cover w-full h-full"
-              />
-            </div>
+            <Link href="/hcd">
+              <div className="relative w-30 h-46 rounded-tl-3xl rounded-br-3xl overflow-hidden border-2 border-orange-500 hover:border-orange-400">
+                <Image
+                  src="/hcdLogo.png"
+                  alt="Human Capital Development"
+                  width={80}
+                  height={100}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </Link>
           </motion.div>
 
-          {/* sd Section */}
+          {/* SD Section */}
           <motion.div
             className="group cursor-pointer"
-            onClick={() => handleClick("Sd")}
             animate={{
               scale: expanded === "Sd" ? 1.2 : 1,
               rotate: expanded === "Sd" ? 10 : 0,
             }}
-            whileHover={{ scale: 1.15 }} // Hover pop effect
-            whileTap={{ scale: 0.9 }} // Click shrink effect
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="relative w-30 h-22 rounded-tr-3xl rounded-bl-3xl overflow-hidden border-2 border-black-500 hover:border-green-500">
-              <Image
-                src="/sdLogo.png"
-                alt="Sd"
-                width={80}
-                height={80}
-                className="object-cover w-full h-full"
-              />
-            </div>
+            <Link href="/sustainableDev">
+              <div className="relative w-30 h-22 rounded-tr-3xl rounded-bl-3xl overflow-hidden border-2 border-black-500 hover:border-green-500">
+                <Image
+                  src="/sdLogo.png"
+                  alt="Social Development"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </Link>
           </motion.div>
         </div>
       </motion.div>

@@ -1,68 +1,74 @@
 import { useState } from "react";
 
-const SignupForm = () => {
+const SignupForm = ({ closeModal }) => {
   const [formData, setFormData] = useState({
     fullname: "",
+    address: "",
+    city: "",
+    state: "",
+    maritalStatus: "",
+    gender: "",
     email: "",
     eventCategory: "",
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // Form validation
   const validateForm = () => {
     let newErrors = {};
-
-    if (formData.fullname.length < 3) {
+    if (formData.fullname.length < 3)
       newErrors.fullname = "Full Name must be at least 3 characters.";
-    }
-
-    if (!formData.email.includes("@") || !formData.email.includes(".")) {
+    if (!formData.email.includes("@") || !formData.email.includes("."))
       newErrors.email = "Enter a valid email address.";
-    }
-
-    if (!formData.eventCategory) {
+    if (!formData.eventCategory)
       newErrors.eventCategory = "Please select an event category.";
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (validateForm()) {
+      setIsSubmitting(true); // Show loading spinner
+
       fetch("https://example.com/signup", {
-        // Replace with actual API
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       })
-        .then((response) => response.json())
-        .then(() => alert("Signup Successful!"))
-        .catch(() => alert("Signup failed. Please try again."));
+        .then(() => {
+          alert("Signup Successful!");
+          setIsSubmitting(false);
+          closeModal(); // Close modal after successful signup
+        })
+        .catch(() => {
+          alert("Signup failed. Please try again.");
+          setIsSubmitting(false);
+        });
     }
   };
 
   return (
-    <div className="flex justify-center mb-8">
+    <div className="flex justify-center items-center min-h-screen bg-gray-900">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-gray-100 p-6 rounded-md"
+        className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
       >
+        <h2 className="text-center text-xl font-bold text-gray-800 mb-4">
+          Signup Form
+        </h2>
+
         <input
           type="text"
           id="fullname"
-          className="w-full p-2 border border-gray-300 rounded mb-4"
           placeholder="Full Name"
-          value={formData.fullname}
+          className="w-full p-2 border rounded mb-2 text-black"
           onChange={handleChange}
         />
         {errors.fullname && (
@@ -70,24 +76,67 @@ const SignupForm = () => {
         )}
 
         <input
+          type="text"
+          id="address"
+          placeholder="Address"
+          className="w-full p-2 border rounded mb-2 text-black"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          id="city"
+          placeholder="City"
+          className="w-full p-2 border rounded mb-2 text-black"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          id="state"
+          placeholder="State"
+          className="w-full p-2 border rounded mb-2 text-black"
+          onChange={handleChange}
+        />
+
+        <select
+          id="maritalStatus"
+          className="w-full p-2 border rounded mb-2 text-black"
+          onChange={handleChange}
+        >
+          <option value="">Marital Status</option>
+          <option value="single">Single</option>
+          <option value="married">Married</option>
+          <option value="divorced">Divorced</option>
+        </select>
+
+        <select
+          id="gender"
+          className="w-full p-2 border rounded mb-2 text-black"
+          onChange={handleChange}
+        >
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+
+        <input
           type="email"
           id="email"
-          className="w-full p-2 border border-gray-300 rounded mb-4"
           placeholder="Email"
-          value={formData.email}
+          className="w-full p-2 border rounded mb-2 text-black"
           onChange={handleChange}
         />
         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
         <select
           id="eventCategory"
-          className="w-full p-2 border border-gray-300 rounded mb-4"
-          value={formData.eventCategory}
+          className="w-full p-2 border rounded mb-4 text-black"
           onChange={handleChange}
         >
           <option value="">Event Category</option>
-          <option value="tech">Tech</option>
           <option value="business">Business</option>
+          <option value="hcd">Human Resource</option>
+          <option value="social dev">Social Development</option>
         </select>
         {errors.eventCategory && (
           <p className="text-red-500 text-sm">{errors.eventCategory}</p>
@@ -95,9 +144,12 @@ const SignupForm = () => {
 
         <button
           type="submit"
-          className="px-6 py-2 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700 transition-colors"
+          className={`px-6 py-2 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700 transition-colors ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={isSubmitting}
         >
-          Sign Up Now
+          {isSubmitting ? "Signing Up..." : "Sign Up Now"}
         </button>
       </form>
     </div>
