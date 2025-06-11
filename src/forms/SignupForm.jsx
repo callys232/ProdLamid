@@ -1,41 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SignupForm = ({ closeModal }) => {
-  const [formData, setFormData] = useState({
-    fullname: "",
-    address: "",
-    city: "",
-    state: "",
-    maritalStatus: "",
-    gender: "",
-    email: "",
-    eventCategory: "",
+  const [formData, setFormData] = useState(() => {
+    const savedData = localStorage.getItem("signupData");
+    return savedData ? JSON.parse(savedData) : {
+      fullname: "",
+      address: "",
+      city: "",
+      state: "",
+      maritalStatus: "",
+      gender: "",
+      email: "",
+      eventCategory: "",
+    };
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    localStorage.setItem("signupData", JSON.stringify(formData));
+  }, [formData]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const validateForm = () => {
-    let newErrors = {};
-    if (formData.fullname.length < 3)
-      newErrors.fullname = "Full Name must be at least 3 characters.";
-    if (!formData.email.includes("@") || !formData.email.includes("."))
-      newErrors.email = "Enter a valid email address.";
-    if (!formData.eventCategory)
-      newErrors.eventCategory = "Please select an event category.";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      setIsSubmitting(true); // Show loading spinner
+    if (Object.keys(errors).length === 0) {
+      setIsSubmitting(true);
 
       fetch("https://example.com/signup", {
         method: "POST",
@@ -43,9 +37,9 @@ const SignupForm = ({ closeModal }) => {
         body: JSON.stringify(formData),
       })
         .then(() => {
-          alert(" Successful!");
+          alert("Signup Successful!");
           setIsSubmitting(false);
-          closeModal(); // Close modal after successful
+          closeModal();
         })
         .catch(() => {
           alert("Signup failed. Please try again.");
@@ -55,105 +49,40 @@ const SignupForm = ({ closeModal }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
+    <div 
+      className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-md transition-all duration-500" 
+      onClick={closeModal}
+    >
+      <div 
+        className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative transition-all duration-500" 
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside form
       >
-        <h2 className="text-center text-xl font-bold text-gray-800 mb-4">
-          Signup Form
-        </h2>
-
-        <input
-          type="text"
-          id="fullname"
-          placeholder="Full Name"
-          className="w-full p-2 border rounded mb-2 text-black"
-          onChange={handleChange}
-        />
-        {errors.fullname && (
-          <p className="text-red-500 text-sm">{errors.fullname}</p>
-        )}
-
-        <input
-          type="text"
-          id="address"
-          placeholder="Address"
-          className="w-full p-2 border rounded mb-2 text-black"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          id="city"
-          placeholder="City"
-          className="w-full p-2 border rounded mb-2 text-black"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          id="state"
-          placeholder="State"
-          className="w-full p-2 border rounded mb-2 text-black"
-          onChange={handleChange}
-        />
-
-        <select
-          id="maritalStatus"
-          className="w-full p-2 border rounded mb-2 text-black"
-          onChange={handleChange}
+        <button 
+          onClick={closeModal} 
+          className="absolute top-3 right-3 text-gray-700 hover:text-black transition-all"
         >
-          <option value="">Marital Status</option>
-          <option value="single">Single</option>
-          <option value="married">Married</option>
-          <option value="divorced">Divorced</option>
-        </select>
+          ✖
+        </button>
+        <h2 className="text-center text-xl font-bold text-gray-800 mb-4">Signup Form</h2>
 
-        <select
-          id="gender"
-          className="w-full p-2 border rounded mb-2 text-black"
-          onChange={handleChange}
-        >
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
+        <input type="text" id="fullname" placeholder="Full Name" className="w-full p-2 border rounded mb-2 text-black" onChange={handleChange} />
 
-        <input
-          type="email"
-          id="email"
-          placeholder="Email"
-          className="w-full p-2 border rounded mb-2 text-black"
-          onChange={handleChange}
-        />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+        <input type="email" id="email" placeholder="Email" className="w-full p-2 border rounded mb-2 text-black" onChange={handleChange} />
 
-        <select
-          id="eventCategory"
-          className="w-full p-2 border rounded mb-4 text-black"
-          onChange={handleChange}
-        >
-          <option value="">Event Category</option>
-          <option value="business">Business</option>
-          <option value="hcd">Human Resource</option>
-          <option value="social dev">Social Development</option>
-        </select>
-        {errors.eventCategory && (
-          <p className="text-red-500 text-sm">{errors.eventCategory}</p>
-        )}
-
-        <button
-          type="submit"
-          className={`px-6 py-2 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700 transition-colors ${
-            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-          }`}
+        <button 
+          type="submit" 
+          className={`glow-btn px-6 py-2 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700 transition-colors ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} 
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Signing Up..." : "Sign Up Now"}
+          {isSubmitting ? <Spinner /> : "Sign Up Now"}
         </button>
-      </form>
+      </div>
     </div>
   );
 };
+
+const Spinner = () => (
+  <div className="border-t-4 border-white border-solid rounded-full w-5 h-5 animate-spin mx-auto"></div>
+);
 
 export default SignupForm;

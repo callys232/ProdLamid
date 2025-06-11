@@ -1,7 +1,10 @@
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import GetDignostics from "../forms/diagnostics/GetDiagnostic"; // Import CTA Form
 
 const BusinessInnovationZone = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <div className="bg-black text-white py-6 sm:py-8 md:py-10 px-3 sm:px-4 md:px-8">
       <div className="w-full h-px bg-gray-700 mb-6"></div>
@@ -37,7 +40,7 @@ const BusinessInnovationZone = () => {
           </div>
         </div>
 
-        {/* BEST Section with Hover & Animation */}
+        {/* BEST Section */}
         <div className="mt-8 sm:mt-10 md:mt-12">
           <div className="border border-amber-500 rounded-md p-4 flex flex-col md:flex-row justify-between items-center mb-4 hover:bg-amber-800 transition duration-300">
             <h3 className="text-xl text-center md:text-left mb-3 md:mb-0 transform hover:scale-105 transition duration-300">
@@ -63,11 +66,10 @@ const BusinessInnovationZone = () => {
               />
             </div>
           </div>
-          {/* Added Paragraph */}
           <p className="text-sm md:text-base text-center md:text-left mt-4 px-2 md:px-4">
-            Our portfolio of simple, easy-to- use entrepreneurial management
+            Our portfolio of simple, easy-to-use entrepreneurial management
             know-how delivers sustainable growth by executing a lean plan on
-            digitalized, client-centered systems and processes.{" "}
+            digitalized, client-centered systems and processes.
           </p>
         </div>
 
@@ -86,14 +88,39 @@ const BusinessInnovationZone = () => {
 
           {/* Interactive Buttons */}
           <div className="flex flex-col md:flex-row justify-between gap-4 mt-4 px-4">
-            <button className="border border-white px-6 py-3 rounded-md bg-transparent hover:bg-gray-900 text-white font-medium text-lg transform hover:scale-105 transition duration-300">
+            <button className="border border-white px-6 py-3 rounded-md bg-transparent hover:bg-red-700 text-white font-medium text-lg transform hover:scale-105 transition duration-300">
               Build Right! Avoid costly trial and error.
             </button>
 
-            <button className="border border-white px-6 py-3 rounded-md bg-transparent hover:bg-red-700 text-white font-medium text-lg transform hover:scale-105 transition duration-300">
+            {/* CTA Popup Button */}
+            <button
+              onClick={() => setShowPopup(true)}
+              className="border border-white px-6 py-3 rounded-md bg-transparent hover:bg-red-700 text-white font-medium text-lg transform hover:scale-105 transition duration-300"
+            >
               Get started - FREE Diagnostics, Limited time only!
             </button>
           </div>
+
+          {/* CTA Popup Modal (With Background Blur) */}
+          {showPopup && (
+            <div
+              className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-lg z-[999999] w-full"
+              onClick={() => setShowPopup(false)}
+            >
+              <div
+                className="bg-black rounded-lg shadow-2xl border border-gray-600 w-[80%] sm:w-[70%] md:w-[50%] max-h-[60vh] overflow-y-auto relative transition-all duration-500"
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside form
+              >
+                <button
+                  onClick={() => setShowPopup(false)}
+                  className="absolute top-3 right-3 text-gray-700 hover:text-black transition-all"
+                >
+                  ✖
+                </button>
+                <GetDignostics closeModal={() => setShowPopup(false)} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

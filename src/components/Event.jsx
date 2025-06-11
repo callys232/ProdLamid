@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import BizSphereModal from "./BizSphereModal";
+import Signup from "./SignupForm";
 
 const EventCard = ({ event, index, selectedEventId, onSelect }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -95,7 +96,7 @@ const Events = ({
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           {showSignUp && (
             <button
-              onClick={() => console.log("Sign Up clicked")}
+              onClick={() => console.log("Events clicked")}
               className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-xs md:text-sm transition duration-300"
               aria-label="Sign up for events"
             >

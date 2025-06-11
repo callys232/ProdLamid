@@ -1,0 +1,29 @@
+.progress-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.progress-text {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #d1d5db;
+  border-radius: 999px;
+  height: 16px;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  background: linear-gradient(to right, #ef4444, #b91c1c);
+  height: 16px;
+  border-radius: 999px;
+  transition: width 0.5s ease-in-out;
+}
