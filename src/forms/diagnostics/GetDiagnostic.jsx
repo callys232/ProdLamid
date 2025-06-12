@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import PersonalInfo from "./PersonalInfo";
-import Portfolio from "./Portfolio";
+import Portfolio from "./portfolio";
 import TablePage from "./TablePage";
 import CheckboxesPage from "./CheckboxesPage";
 import ReviewPage from "./ReviewPage";
 import SuccessPage from "./SuccessPage";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "./progressBar";
 
 const GetDiagnostics = () => {
   const [step, setStep] = useState(1);
