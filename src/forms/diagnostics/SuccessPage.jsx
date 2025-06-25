@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const SuccessPage = ({ closeForm }) => {
+const SuccessPage = ({ setShowForm, setShowModal }) => {
   const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsFading(true); // Start fade-out
-      setTimeout(() => {
-        closeForm(); // Auto-close after fade-out
-      }, 1000); // Matches fade-out duration
-    }, 4000); // Wait 4 seconds before fading out
+    // Start fade-out animation after 4 seconds
+    const fadeTimer = setTimeout(() => setIsFading(true), 4000);
 
-    return () => clearTimeout(timer);
-  }, [closeForm]);
+    // Close form and modal after fade-out completes
+    const closeTimer = setTimeout(() => {
+      setShowForm(false); // Hide form
+      setShowModal(false); // Close modal
+    }, 5000);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(closeTimer);
+    };
+  }, [setShowForm, setShowModal]); // Ensure both states update correctly
 
   return (
     <motion.div

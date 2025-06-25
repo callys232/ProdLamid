@@ -1,8 +1,12 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const HcdTrainer = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <div className="relative min-h-screen bg-black text-white">
       {/* Background circular gradients */}
@@ -35,12 +39,10 @@ const HcdTrainer = () => {
                 <h2 className="text-3xl font-bold mb-4 text-orange-500">
                   Training
                 </h2>
-
                 <p className="text-sm mb-4">
                   We are leaders in providing far-reaching range of programs
                   suited to meet the challenges of today's rapid changes.
                 </p>
-
                 <p className="text-sm mb-6">
                   We match clients' unique circumstances with customized
                   solutions that help them adapt to global best practices. You
@@ -48,14 +50,43 @@ const HcdTrainer = () => {
                   ways that seamlessly integrate your team back to the
                   workplace, using hands-on methodologies.
                 </p>
-
-                <div className="mt-4 mb-6">
+                {/* <div className="mt-4 mb-6">
                   <button className="px-4 py-2 bg-orange-600 text-white rounded text-sm uppercase border border-orange-700 hover:bg-orange-700 transition-colors">
                     RESERVE A SLOT NOW!
                   </button>
-                </div>
+                </div> */}
+                <div className="flex flex-wrap justify-center gap-4 mb-8">
+                  <button
+                    onClick={() => setShowPopup(true)}
+                    className="bg-orange-500 hover:bg-orange-700 text-white px-6 py-2 rounded-md text-xs md:text-sm transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    aria-label="Sign up for Training"
+                  >
+                    RESERVE A SLOT NOW!!
+                  </button>
 
-                <div className="flex flex-wrap gap-2 mt-6">
+                  {/* Conditional Rendering for Popup */}
+                  {showPopup && (
+                    <div
+                      className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-lg z-[999999] w-full transition-opacity duration-500"
+                      onClick={() => setShowPopup(false)} // Close popup when clicking outside
+                    >
+                      <div
+                        className="bg-white rounded-lg shadow-2xl border border-gray-600 w-[80%] sm:w-[70%] md:w-[50%] max-h-[60vh] overflow-y-auto relative transition-all duration-500"
+                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                      >
+                        <button
+                          onClick={() => setShowPopup(false)}
+                          className="absolute top-3 right-3 text-gray-500 hover:text-black transition-all"
+                        >
+                          ✖
+                        </button>
+
+                        <ReserveSlot closeModal={() => setShowPopup(false)} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* <div className="flex flex-wrap gap-2 mt-6">
                   <span className="px-3 py-1 text-xs bg-gray-700 rounded">
                     BUSINESS
                   </span>
@@ -82,6 +113,32 @@ const HcdTrainer = () => {
                   </span>
                 </div>
               </div>
+            </div> */}
+
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {[
+                    { text: "BUSINESS", color: "bg-gray-700" },
+                    { text: "SOFT SKILLS", color: "bg-orange-700" },
+                    { text: "CLIENTS", color: "bg-blue-900" },
+                    { text: "PRODUCT", color: "bg-blue-600" },
+                    { text: "MANAGEMENT", color: "bg-red-800" },
+                    { text: "ENTREPRENEURSHIP", color: "bg-purple-700" },
+                    { text: "LEADERSHIP", color: "bg-green-700" },
+                    { text: "SALES", color: "bg-gray-700" },
+                  ].map((item, index) => (
+                    <motion.span
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      whileHover={{ scale: 1.1 }}
+                      className={`px-3 py-1 text-xs ${item.color} rounded cursor-pointer`}
+                    >
+                      {item.text}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 
@@ -94,10 +151,10 @@ const HcdTrainer = () => {
             <div className="flex flex-col md:flex-row gap-8">
               <div className="w-full md:w-2/3">
                 <p className="text-sm mb-6">
-                  Leveraging cutting-edge tools, we conduct executive searches 
-                  and headhunts to identify and secure top-tier talent for 
-                  permanent, temporary, and contract positions. Our approaches 
-                  ensure organizations attract the brightest and most dedicated 
+                  Leveraging cutting-edge tools, we conduct executive searches
+                  and headhunts to identify and secure top-tier talent for
+                  permanent, temporary, and contract positions. Our approaches
+                  ensure organizations attract the brightest and most dedicated
                   professionals, empowering them to succeed and thrive.
                 </p>
 
@@ -108,7 +165,12 @@ const HcdTrainer = () => {
                 </div>
 
                 <p className="text-sm mt-8 mb-4">
-                  We support the effective pairing, management and retention of cutting-edge expertise as a pool of accessible peer mentors and leaders, leveraging their intellectual capacity and experience to transform everyday challenges into opportunities that birth and launch organizations as raving global successes.
+                  We support the effective pairing, management and retention of
+                  cutting-edge expertise as a pool of accessible peer mentors
+                  and leaders, leveraging their intellectual capacity and
+                  experience to transform everyday challenges into opportunities
+                  that birth and launch organizations as raving global
+                  successes.
                 </p>
 
                 <div className="flex flex-wrap gap-4 mt-4">

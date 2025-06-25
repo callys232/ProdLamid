@@ -41,7 +41,7 @@ const BusinessDocsPage = ({ formData, handleChange, handleProceed }) => {
     >
       {/* Form Frame */}
       <div className="bg-black p-6 rounded-lg shadow-lg w-full max-w-md backdrop-blur-lg border border-white/20">
-        <h2 className="text-2xl font-bold text-blue-500 mb-4 text-center">
+        <h2 className="text-2xl font-bold text-red-500 mb-4 text-center">
           Upload Business Documents
         </h2>
         <p className="text-gray-400 mb-6 text-center">

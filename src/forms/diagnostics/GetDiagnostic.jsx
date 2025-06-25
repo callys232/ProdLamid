@@ -120,21 +120,28 @@ const GetDiagnostics = () => {
         {/* Navigation Buttons */}
         <div className="flex justify-between mt-4">
           {step > 1 && step < 6 && (
-            <button className="bg-red-700 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-red-800 hover:scale-105">
+            <button
+              onClick={handlePrevious}
+              className="bg-red-700 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-red-800 hover:scale-105"
+              disabled={step <= 1}
+              aria-label="Go to previous step"
+            >
               Previous
             </button>
           )}
+
           {step < 6 && (
             <button
               onClick={handleProceed}
               className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-red-700 hover:scale-105"
+              disabled={step >= 6}
+              aria-label={step === 5 ? "Submit form" : "Proceed to next step"}
             >
               {step === 5 ? "Submit" : "Proceed"}
             </button>
           )}
         </div>
       </div>
-
       {/* Progress Bar BELOW the form */}
       <div className="w-full max-w-md p-4 mt-6">
         <ProgressBar step={step} totalSteps={6} />

@@ -24,7 +24,7 @@
 //     </div>
 //   );
 // };
-// import "./";
+import "./progress.css";
 
 const ProgressBar = ({ step, totalSteps }) => {
   const progressPercentage = (step / totalSteps) * 100;

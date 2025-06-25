@@ -6,14 +6,15 @@ const ReserveSlot = ({ closeModal }) => {
     address: "",
     city: "",
     state: "",
-    // maritalStatus: "",
+    maritalStatus: "",
     gender: "",
     email: "",
-    eventCategory: "",
+    trainingCategory: "",
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -21,7 +22,7 @@ const ReserveSlot = ({ closeModal }) => {
 
   const validateForm = () => {
     let newErrors = {};
-    if (formData.fullname.length < 3)
+    if (!formData.fullname || formData.fullname.length < 3)
       newErrors.fullname = "Full Name must be at least 3 characters.";
     if (!formData.email.includes("@") || !formData.email.includes("."))
       newErrors.email = "Enter a valid email address.";
@@ -45,7 +46,8 @@ const ReserveSlot = ({ closeModal }) => {
         .then(() => {
           alert("Signup Successful!");
           setIsSubmitting(false);
-          closeModal(); // Close modal after successful signup
+          setIsClosing(true); // Start fade-out effect
+          setTimeout(() => closeModal(), 500); // Delay modal close for smooth transition
         })
         .catch(() => {
           alert("Signup failed. Please try again.");
@@ -55,7 +57,11 @@ const ReserveSlot = ({ closeModal }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900">
+    <div
+      className={`flex justify-center items-center min-h-screen bg-gray-900 transition-opacity duration-500 ${
+        isClosing ? "opacity-0" : "opacity-100"
+      }`}
+    >
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
@@ -72,7 +78,7 @@ const ReserveSlot = ({ closeModal }) => {
           onChange={handleChange}
         />
         {errors.fullname && (
-          <p className="text-orange-500 text-sm">{errors.fullname}</p>
+          <p className="text-red-500 text-sm">{errors.fullname}</p>
         )}
 
         <input
@@ -96,7 +102,7 @@ const ReserveSlot = ({ closeModal }) => {
           className="w-full p-2 border rounded mb-2 text-black"
           onChange={handleChange}
         />
-        {/* 
+
         <select
           id="maritalStatus"
           className="w-full p-2 border rounded mb-2 text-black"
@@ -106,7 +112,7 @@ const ReserveSlot = ({ closeModal }) => {
           <option value="single">Single</option>
           <option value="married">Married</option>
           <option value="divorced">Divorced</option>
-        </select> */}
+        </select>
 
         <select
           id="gender"
@@ -126,20 +132,20 @@ const ReserveSlot = ({ closeModal }) => {
           className="w-full p-2 border rounded mb-2 text-black"
           onChange={handleChange}
         />
-        {errors.email && <p className="text-orange-500 text-sm">{errors.email}</p>}
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
         <select
           id="eventCategory"
           className="w-full p-2 border rounded mb-4 text-black"
           onChange={handleChange}
         >
-          <option value="">Event Category</option>
+          <option value="">Training Category</option>
           <option value="business">Business</option>
           <option value="hcd">Human Resource</option>
           <option value="social dev">Social Development</option>
         </select>
         {errors.eventCategory && (
-          <p className="text-orange-500 text-sm">{errors.eventCategory}</p>
+          <p className="text-red-500 text-sm">{errors.eventCategory}</p>
         )}
 
         <button
@@ -149,7 +155,7 @@ const ReserveSlot = ({ closeModal }) => {
           }`}
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Reserve slt..." : "Reserve Now"}
+          {isSubmitting ? "Reserving..." : "Reserve Now"}
         </button>
       </form>
     </div>
