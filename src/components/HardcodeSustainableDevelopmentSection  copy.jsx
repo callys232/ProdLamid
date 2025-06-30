@@ -35,14 +35,9 @@ const SustainableDevelopmentSection = () => {
 
             {/* Center text content */}
             <div className="text-center mx-4">
-              <h1 className="text-3xl md:text-5xl font-bold mb-4 text-center group">
-                <span className="text-white">
-                  <span className="animate-glitch">S</span>
-                  <span className="text-emerald-400">ustainable </span>
-                  <span className="group-hover:animate-colorTrail transition-colors duration-500 text-emerald-400">
-                    Development
-                  </span>
-                </span>
+              <h1 className="text-3xl md:text-5xl font-bold mb-4 hover:text-emerald-300 transition duration-300">
+                <span className="text-emerald-400">S</span>ustainable
+                <span className="text-emerald-400"> D</span>evelopment
               </h1>
 
               <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm hover:bg-emerald-500 hover:text-black transition duration-300">

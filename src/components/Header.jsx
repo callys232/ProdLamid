@@ -49,7 +49,7 @@ const Header = () => {
 
       {/* Left Side - Typing Text with Glow */}
       <motion.div
-        className="w-full md:w-2/3 flex flex-col justify-center relative z-10 p-6 border-2 border-transparent rounded-lg"
+        className="w-full md:w-2/3 flex flex-col justify-center relative z-10 px-4 pt-20 md:pt-0"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
