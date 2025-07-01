@@ -2,8 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import Events from "./Event";
 import { motion } from "framer-motion";
+import Events from "./Event";
 
 export default function HumanCapitalDevelopment() {
   return (
@@ -48,11 +48,6 @@ export default function HumanCapitalDevelopment() {
               </span>
             </motion.h1>
 
-            {/* <div className="border border-orange-500 rounded-full mt-2 md:mt-4 p-2 hover:bg-orange-500 hover:text-black transition duration-300">
-              <p className="text-center text-xs md:text-sm lg:text-base">
-                Attracting and Growing World-class Talent
-              </p>
-            </div> */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -74,54 +69,89 @@ export default function HumanCapitalDevelopment() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-6 md:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {/* Recruitment Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col sm:flex-row"
-          >
-            <div className="bg-gray-300 w-full sm:w-24 md:w-32 h-24 md:h-32 mb-4 sm:mb-0 sm:mr-4"></div>
-            <div>
-              <h2 className="text-orange-500 text-lg md:text-xl lg:text-2xl mb-2 md:mb-4 hover:text-orange-300 transition duration-300">
-                Recruitment
-              </h2>
-              <p className="text-xs md:text-sm mb-3 md:mb-4">
-                We recognize and deal with the growing challenges posed by
-                attracting and retaining skilled, qualified, fit-for-role
-                talent.
-              </p>
-              <div className="flex gap-2">
-                <button className="bg-black text-white border border-white px-3 py-1 text-xs md:text-sm hover:bg-orange-500 hover:text-white transition duration-300">
-                  Read More
-                </button>
-                <button className="bg-black text-white border border-white px-3 py-1 text-xs md:text-sm hover:bg-orange-500 hover:text-white transition duration-300">
-                  Learn How
-                </button>
-              </div>
-            </div>
-          </motion.div>
+      {/* Recruitment + Training Section */}
+      <div className="container mx-auto px-4 py-6 md:py-8 space-y-8">
+        {/* Recruitment */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative flex flex-col sm:flex-row bg-white/5 backdrop-blur-md rounded-lg p-4 overflow-hidden"
+        >
+          {/* Glare Overlay */}
+          <div className="pointer-events-none absolute inset-0 before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-black/30 before:via-black/20 before:to-transparent before:opacity-70 before:blur-sm" />
 
-          {/* Training Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="flex flex-col items-start md:items-end"
-          >
-            <h2 className="text-orange-500 text-lg md:text-xl lg:text-2xl mb-2 md:mb-4 hover:text-orange-300 transition duration-300">
+          {/* Image + Title */}
+          <div className="group flex flex-col items-center sm:mr-4 mb-4 sm:mb-0 w-full sm:w-32 relative z-10">
+            <h2 className="text-orange-400 group-hover:text-white text-sm md:text-base lg:text-lg mb-2 text-center transition duration-300">
+              Recruitment
+            </h2>
+            <div className="w-full h-24 md:h-32 relative rounded overflow-hidden transform transition duration-300 group-hover:scale-105 shadow-md hover:shadow-orange-400/40">
+              <Image
+                src="/recruitment.png"
+                alt="Recruitment visual"
+                fill
+                className="object-cover rounded"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 flex flex-col justify-center z-10">
+            <p className="text-xs md:text-sm mb-3 md:mb-4">
+              We recognize and deal with the growing challenges posed by
+              attracting and retaining skilled, qualified, fit-for-role talent.
+            </p>
+            <div className="flex gap-2">
+              <button className="bg-black text-orange-500 border border-orange-500 px-3 py-1 text-xs md:text-sm hover:bg-orange-500 hover:text-white hover:border-white transition duration-300">
+                Read More
+              </button>
+              <button
+                className="bg-black text-orange-500 border border-orange-500 px-3 py-1 text-xs md:text-sm hover:bg-orange-500 hover:text-white 
+             hover:border-white transition duration-300"
+              >
+                Learn How
+              </button>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Training */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="relative flex flex-col sm:flex-row-reverse bg-white/5 backdrop-blur-md rounded-lg p-4 overflow-hidden"
+        >
+          {/* Black Glare Overlay */}
+          <div className="pointer-events-none absolute inset-0 before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-tl before:from-black/30 before:via-black/20 before:to-transparent before:opacity-70 before:blur-sm" />
+
+          {/* Image + Title */}
+          <div className="group flex flex-col items-center sm:ml-4 mb-4 sm:mb-0 w-full sm:w-32 relative z-10">
+            <h2 className="text-orange-400 group-hover:text-white text-sm md:text-base lg:text-lg mb-2 text-center transition duration-300">
               Training
             </h2>
-            <p className="text-xs md:text-sm mb-3 md:mb-4 text-left md:text-right">
+            <div className="w-full h-24 md:h-32 relative rounded overflow-hidden transform transition duration-300 group-hover:scale-105 shadow-md hover:shadow-orange-400/40">
+              <Image
+                src="/trainingHall.png"
+                alt="Training visual"
+                fill
+                className="object-cover rounded"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 flex flex-col justify-center z-10">
+            <p className="text-xs md:text-sm mb-3 md:mb-4 text-left sm:text-right">
               We light up your team and remodel their mindset and strategies to
               succeed beyond the 21st century.
             </p>
-            <p className="text-xs md:text-sm mb-3 md:mb-4 text-left md:text-right opacity-80 hover:opacity-100 transition duration-300">
+            <p className="text-xs md:text-sm mb-3 md:mb-4 text-left sm:text-right opacity-80 hover:opacity-100 transition duration-300">
               Our training programs focus on{" "}
               <strong>leadership, efficiency, and innovation</strong>, equipping
               employees with the necessary skills to navigate today's evolving
@@ -129,38 +159,78 @@ export default function HumanCapitalDevelopment() {
               capabilities or strengthening collaboration, our expertise ensures{" "}
               <strong>measurable success</strong>.
             </p>
-            <button className="bg-gray-800 text-white px-3 py-1 text-xs md:text-sm hover:bg-gray-900 transition duration-300">
-              See How
-            </button>
-          </motion.div>
-        </div>
+            <div className="flex justify-start sm:justify-end">
+              <button className="bg-gray-800 text-white px-3 py-1 text-xs md:text-sm hover:bg-gray-900 transition duration-300">
+                See How
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       {/* Skills Section */}
       <div className="container mx-auto px-4 py-6 md:py-8">
         <div className="flex flex-wrap justify-center gap-2 mb-6 md:mb-8">
           {[
-            { text: "STRATEGY", bg: "bg-gray-700 hover:bg-gray-600" },
-            { text: "SOFT SKILLS", bg: "bg-orange-500 hover:bg-orange-600" },
-            { text: "LEADERSHIP", bg: "bg-green-700 hover:bg-green-800" },
-            { text: "MANAGEMENT", bg: "bg-purple-900 hover:bg-purple-950" },
-            { text: "ENTREPRENEURSHIP", bg: "bg-amber-700 hover:bg-amber-800" },
-            { text: "MARKETING", bg: "bg-blue-700 hover:bg-blue-800" },
+            {
+              text: "STRATEGY",
+              bg: "bg-gray-700 hover:bg-gray-600",
+              tooltipBg: "bg-gray-700 text-white",
+              tip: "Planning long-term direction and execution",
+            },
+            {
+              text: "SOFT SKILLS",
+              bg: "bg-orange-500 hover:bg-orange-600",
+              tooltipBg: "bg-orange-500 text-white",
+              tip: "Communication, teamwork, adaptability",
+            },
+            {
+              text: "LEADERSHIP",
+              bg: "bg-green-700 hover:bg-green-800",
+              tooltipBg: "bg-green-700 text-white",
+              tip: "Inspiring and guiding teams effectively",
+            },
+            {
+              text: "MANAGEMENT",
+              bg: "bg-purple-900 hover:bg-purple-950",
+              tooltipBg: "bg-purple-900 text-white",
+              tip: "Supervising tasks, people, and outcomes",
+            },
+            {
+              text: "ENTREPRENEURSHIP",
+              bg: "bg-amber-700 hover:bg-amber-800",
+              tooltipBg: "bg-amber-700 text-white",
+              tip: "Building ventures through innovation and risk",
+            },
+            {
+              text: "MARKETING",
+              bg: "bg-blue-700 hover:bg-blue-800",
+              tooltipBg: "bg-blue-700 text-white",
+              tip: "Creating value and connecting with audiences",
+            },
             {
               text: "SALES",
               bg: "bg-transparent text-white border border-white hover:bg-white hover:text-black",
+              tooltipBg: "bg-white text-black",
+              tip: "Converting prospects into revenue",
             },
           ].map((tag, idx) => (
-            <motion.div
-              key={tag.text}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className={`${tag.bg} px-2 py-1 text-xs md:text-sm rounded transform hover:scale-105 transition duration-300 cursor-pointer`}
-            >
-              {tag.text}
-            </motion.div>
+            <div key={tag.text} className="relative group">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className={`${tag.bg} px-2 py-1 text-xs md:text-sm rounded transform hover:scale-105 transition duration-300 cursor-pointer`}
+              >
+                {tag.text}
+              </motion.div>
+              <div
+                className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-1 px-3 py-1 w-max max-w-xs text-[10px] md:text-xs rounded shadow-md opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 z-50 ${tag.tooltipBg}`}
+              >
+                {tag.tip}
+              </div>
+            </div>
           ))}
         </div>
       </div>
