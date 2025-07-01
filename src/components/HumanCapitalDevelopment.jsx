@@ -38,8 +38,9 @@ export default function HumanCapitalDevelopment() {
             <motion.h1
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-xl md:text-2xl lg:text-3xl font-bold animate-colorCycle animate-bounceSlow transition duration-300"
+              whileHover={{ y: -8 }}
+              transition={{ type: "spring", stiffness: 300, damping: 10 }}
+              className="text-xl md:text-2xl lg:text-3xl font-bold transition duration-300"
             >
               <span className="animate-colorCycle">
                 Human Capital Development
