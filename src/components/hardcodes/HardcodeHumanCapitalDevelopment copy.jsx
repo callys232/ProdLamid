@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Events from "./Event";
+import Events from "../Event";
 
 export default function HumanCapitalDevelopment() {
   return (

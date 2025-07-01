@@ -22,9 +22,10 @@ export default function HumanCapitalDevelopment() {
             <Image
               src="/human-capital-icon.png"
               alt="Human Capital Logo"
-              width={80}
-              height={80}
-              className="object-contain"
+              width={128}
+              height={128}
+              priority
+              className="object-contain w-20 h-20 md:w-28 md:h-28"
             />
           </motion.div>
 
@@ -38,20 +39,37 @@ export default function HumanCapitalDevelopment() {
             <motion.h1
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8 }}
+              whileHover={{ y: -8, scale: 1.05, color: "#f97316" }}
               transition={{ type: "spring", stiffness: 300, damping: 10 }}
-              className="text-xl md:text-2xl lg:text-3xl font-bold transition duration-300"
+              className="text-xl md:text-2xl lg:text-3xl font-bold transition duration-300 hover:drop-shadow-[0_2px_8px_rgba(249,115,22,0.6)]"
             >
               <span className="animate-colorCycle">
                 Human Capital Development
               </span>
             </motion.h1>
 
-            <div className="border border-orange-500 rounded-full mt-2 md:mt-4 p-2 hover:bg-orange-500 hover:text-black transition duration-300">
+            {/* <div className="border border-orange-500 rounded-full mt-2 md:mt-4 p-2 hover:bg-orange-500 hover:text-black transition duration-300">
               <p className="text-center text-xs md:text-sm lg:text-base">
                 Attracting and Growing World-class Talent
               </p>
-            </div>
+            </div> */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: "#f97316",
+                color: "#000",
+              }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="relative group border border-orange-500 rounded-full mt-2 md:mt-4 px-4 py-2 transition duration-300 text-center text-xs md:text-sm lg:text-base font-semibold text-white"
+            >
+              Attracting and Growing World-class Talent
+              <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 w-max max-w-xs bg-black text-white text-[10px] md:text-xs px-3 py-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
+                Empowering organizations through strategic hiring, tailored
+                development, and globally competitive team building.
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
