@@ -5,14 +5,35 @@ import Link from "next/link";
 const SustainableDevelopmentSection = () => {
   return (
     <div className="relative w-full bg-black text-white overflow-hidden">
+      {/* Floating Leaf Particles */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        {Array.from({ length: 12 }).map((_, i) => {
+          const randomLeft = Math.random() * 100;
+          const randomTop = Math.random() * 100;
+          const delay = `${i * 0.3}s`;
+          const duration = `${4 + Math.random() * 4}s`;
+          return (
+            <span
+              key={i}
+              className="absolute w-2.5 h-2.5 rounded-full bg-emerald-400 opacity-20 animate-float"
+              style={{
+                left: `${randomLeft}%`,
+                top: `${randomTop}%`,
+                animationDelay: delay,
+                animationDuration: duration,
+              }}
+            />
+          );
+        })}
+      </div>
+
       {/* Background Tree Image */}
       <div className="absolute inset-0 opacity-70">
         <Image
           src="/tree-background.jpg"
           alt="Tree background"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
+          fill
+          className="object-cover"
           priority
         />
       </div>
@@ -37,9 +58,9 @@ const SustainableDevelopmentSection = () => {
             <div className="text-center mx-4">
               <h1 className="text-3xl md:text-5xl font-bold mb-4 text-center group">
                 <span className="text-white">
-                  <span className="animate-glitch">S</span>
+                  <span className="animate-pulse">S</span>
                   <span className="text-emerald-400">ustainable </span>
-                  <span className="group-hover:animate-colorTrail transition-colors duration-500 text-emerald-400">
+                  <span className="group-hover:text-white transition-colors duration-500 text-emerald-400">
                     Development
                   </span>
                 </span>

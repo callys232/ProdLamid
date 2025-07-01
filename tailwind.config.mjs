@@ -20,6 +20,9 @@ module.exports = {
         colorTrail: "colorTrail 2s linear infinite",
         glitch: "glitch 1.5s infinite",
         colorTrail: "colorTrail 2s linear infinite",
+        float: "float 6s ease-in-out infinite",
+        typing: "typing 4s steps(40, end) forwards",
+        blink: "blink 0.8s step-end infinite",
       },
       keyframes: {
         typing: {
@@ -124,6 +127,13 @@ module.exports = {
           "50%": { color: "#C12129" },
           "75%": { color: "#34d399" },
           "100%": { color: "#f97316" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        fontFamily: {
+          display: ['"Poppins"', "sans-serif"],
         },
       },
     },

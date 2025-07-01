@@ -1,21 +1,20 @@
-import { useState } from 'react';
-import Image from 'next/image';
-import BizSphereModal from './BizSphereModal';
+import { useState } from "react";
+import Image from "next/image";
+import BizSphereModal from "../BizSphereModal";
 
-const Events = ({ 
+const Events = ({
   categories = ["Startups", "Growth Firms", "Co-operatives", "Social Sector"],
   events = [
     { id: 1, name: "Event Name", image: "/EfficiencyIcon.png" },
     { id: 2, name: "Event Name", image: "/EfficiencyIcon.png" },
     { id: 3, name: "Event Name", image: "/EfficiencyIcon.png" },
-    { id: 4, name: "Event Name", image: "/EfficiencyIcon.png" }
+    { id: 4, name: "Event Name", image: "/EfficiencyIcon.png" },
   ],
   showSignUp = true,
   showMore = true,
   onSignUp = () => console.log("Sign Up clicked"),
-  onMore = () => console.log("More clicked")
+  onMore = () => console.log("More clicked"),
 }) => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -26,9 +25,9 @@ const Events = ({
       <div className="container mx-auto px-4 py-4 md:py-6">
         <nav className="flex flex-wrap justify-center gap-3 md:gap-6 text-xs md:text-sm lg:text-base">
           {categories.map((category, index) => (
-            <a 
-              key={index} 
-              href="#" 
+            <a
+              key={index}
+              href="#"
               className="text-orange-500 hover:text-orange-400 transition duration-300"
             >
               {category}
@@ -49,9 +48,9 @@ const Events = ({
           {events.map((event) => (
             <div key={event.id} className="flex flex-col items-center">
               <div className="relative w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden mb-2 md:mb-3">
-                <Image 
-                  src={event.image} 
-                  alt={event.name} 
+                <Image
+                  src={event.image}
+                  alt={event.name}
                   fill
                   className="object-cover"
                 />
@@ -64,7 +63,7 @@ const Events = ({
         {/* CTA Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           {showSignUp && (
-            <button 
+            <button
               onClick={openModal}
               className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-xs md:text-sm transition duration-300"
             >
@@ -72,7 +71,7 @@ const Events = ({
             </button>
           )}
           {showMore && (
-            <button 
+            <button
               onClick={openModal}
               className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-xs md:text-sm transition duration-300"
             >

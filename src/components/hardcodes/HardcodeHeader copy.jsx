@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import { loadFull } from "tsparticles";
 import Particles from "react-tsparticles";
-import Serv from "./Serv";
+import Serv from "../Serv";
 
 export default function Header() {
   const particlesInit = useCallback(async (engine) => {
@@ -48,13 +48,13 @@ export default function Header() {
       />
 
       {/* Left – Typing Text */}
-      <div className="w-full md:w-2/3 z-10 pt-28 md:pt-0 text-center md:text-left font-display">
-        <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-snug max-w-2xl mx-auto md:mx-0 px-2 font-display text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-white">
+      <div className="w-full md:w-2/3 z-10 pt-28 md:pt-0 text-center md:text-left">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug max-w-2xl mx-auto md:mx-0 px-2">
           <Typewriter
             words={["We build and grow", "world-class organizations"]}
-            loop={Infinity}
+            loop={1}
             typeSpeed={60}
-            deleteSpeed={50}
+            deleteSpeed={0}
             delaySpeed={1000}
             cursor
             cursorStyle="|"
