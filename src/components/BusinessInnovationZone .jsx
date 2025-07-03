@@ -1,9 +1,17 @@
-import { useState } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import GetDignostics from "../forms/diagnostics/GetDiagnostic"; // Import CTA Form
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const BusinessInnovationZone = () => {
   const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    AOS.init({ duration: 800 });
+  }, []);
 
   return (
     <div className="bg-black text-white py-6 sm:py-8 md:py-10 px-3 sm:px-4 md:px-8">
@@ -24,13 +32,12 @@ const BusinessInnovationZone = () => {
 
           {/* BIZ Text */}
           <div className="flex flex-col justify-center mt-2 w-full">
-            <h2 className="text-3xl font-bold text-center md:text-left transition-all duration-300 hover:text-blue-300">
-              <span className="text-blue-500 hover:text-blue-300">B</span>
-              usiness{" "}
-              <span className="text-blue-500 hover:text-blue-300">I</span>
-              nnovation{" "}
-              <span className="text-blue-500 hover:text-blue-300">Z</span>one
-            </h2>
+            <div data-aos="fade-up">
+              <h2 className="text-3xl font-bold text-center md:text-left animate-rainbowPulse drop-shadow-md">
+                Business Innovation Zone
+              </h2>
+            </div>
+
             <div className="border border-blue-500 rounded-md p-4 mt-2 transform hover:scale-105 transition duration-300">
               <p className="text-white text-center md:text-left">
                 The one-stop place that rapidly nurtures and expands startups to
@@ -44,15 +51,26 @@ const BusinessInnovationZone = () => {
         <div className="mt-8 sm:mt-10 md:mt-12">
           <div className="border border-amber-500 rounded-md p-4 flex flex-col md:flex-row justify-between items-center mb-4 hover:bg-amber-800 transition duration-300">
             <h3 className="text-xl text-center md:text-left mb-3 md:mb-0 transform hover:scale-105 transition duration-300">
-              <span className="text-red-500 hover:text-red-700">B</span>usiness{" "}
-              <span className="text-green-500 hover:text-green-700">E</span>
+              <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">
+                B
+              </span>
+              usiness{" "}
+              <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">
+                E
+              </span>
               xpansion{" "}
-              <span className="text-blue-500 hover:text-blue-700">S</span>
-              trategy & Technology -{" "}
-              <span className="text-amber-500 hover:text-amber-700">
+              <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">
+                S
+              </span>
+              trategy &
+              <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">
+                T
+              </span>
+              echnology –{" "}
+              <span className="animate-glitchPulse [animation-delay:0.6s]">
                 BEST
               </span>{" "}
-              - our all-in-one growth toolbox
+              – our all-in-one growth toolbox
             </h3>
 
             {/* BEST Icon */}

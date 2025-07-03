@@ -13,6 +13,7 @@ module.exports = {
         blink: "blink 0.75s step-end infinite",
         float: "float 2.5s ease-in-out infinite",
         colorCycle: "colorCycle 6s ease-in-out infinite",
+        rainbowPulse: "rainbowPulse 2s linear infinite",
         bounceSlow: "bounceSlow 2s infinite ease-in-out",
         glitch: "glitch 1.5s infinite",
         wave: "wave 2s infinite ease-in-out",
@@ -23,6 +24,8 @@ module.exports = {
         float: "float 6s ease-in-out infinite",
         typing: "typing 4s steps(40, end) forwards",
         blink: "blink 0.8s step-end infinite",
+        fadeInUp: "fadeInUp 1s ease-out forwards",
+        glitchPulse: "glitchPulse 1.5s infinite",
       },
       keyframes: {
         typing: {
@@ -134,6 +137,43 @@ module.exports = {
         },
         fontFamily: {
           display: ['"Poppins"', "sans-serif"],
+        },
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        rainbowPulse: {
+          "0%": { color: "#f97316" }, // orange
+          "25%": { color: "#22d3ee" }, // cyan
+          "50%": { color: "#C12129" }, // brand red
+          "75%": { color: "#34d399" }, // green
+          "100%": { color: "#f97316" }, // loop back
+        },
+        glitchPulse: {
+          "0%": {
+            textShadow: "2px 0 red, -2px 0 cyan",
+            transform: "translate(0)",
+          },
+          "20%": {
+            textShadow: "-2px 0 red, 2px 0 cyan",
+            transform: "translate(-1px, 1px)",
+          },
+          "40%": {
+            textShadow: "2px 0 red, -1px 0 cyan",
+            transform: "translate(1px, -1px)",
+          },
+          "60%": {
+            textShadow: "1px 0 red, 1px 0 cyan",
+            transform: "translate(-1px, 0px)",
+          },
+          "80%": {
+            textShadow: "-1px 0 red, 2px 0 cyan",
+            transform: "translate(0px, 1px)",
+          },
+          "100%": {
+            textShadow: "2px 0 red, -2px 0 cyan",
+            transform: "translate(0)",
+          },
         },
       },
     },
