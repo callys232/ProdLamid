@@ -9,14 +9,14 @@ import LastEvent from "@/components/event/LastEvent";
 const Eventpage = () => {
   return (
     <div>
-        <EventHeader/>
-        <EventSummary/>
-        <div className="w-full h-px bg-gray-700"></div>
-        <HCDEvent/>
-        <div className="w-full h-px bg-gray-700"></div>
-        <BusinessPrototypes />
-        <div className="w-full h-px bg-gray-700"></div>
-        <LastEvent/>
+      <EventHeader />
+      <EventSummary />
+      <div className="w-full h-px bg-gray-700"></div>
+      <HCDEvent />
+      <div className="w-full h-px bg-gray-700"></div>
+      <BusinessPrototypes />
+      <div className="w-full h-px bg-gray-700"></div>
+      <LastEvent />
     </div>
   );
 };

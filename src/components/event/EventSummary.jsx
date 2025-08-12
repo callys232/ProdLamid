@@ -76,55 +76,67 @@ const EventSummary = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-black text-white py-6 px-4">
-        <Head>
-          <title>Events</title>
-          <meta name="lamid events" content="Events listing page" />{" "}
-          <meta
-            name="description"
-            content="Explore Lamid Consulting's events—from corporate summits to community activations—designed to foster innovation, collaboration, and sustainable impact."
-          />
-          <meta
-            name="keywords"
-            content="Lamid events, corporate summits, community engagement, strategic events, business networking, innovation workshops, sustainable development"
-          />
-          <meta name="lamid" content="Lamid Consulting" />
-          {/* Open Graph for social sharing */}
-          <meta
-            property="og:title"
-            content="Lamid Events | Strategic Engagements & Impactful Experiences"
-          />
-          <meta
-            property="og:description"
-            content="Join Lamid Consulting's events that drive innovation, collaboration, and sustainable impact across industries and communities."
-          />
-          <meta
-            property="og:image"
-            content="https://lamidconsulting.com/events-banner.jpg"
-          />
-          <meta
-            property="og:url"
-            content="https://lamidconsulting.com/events"
-          />
-          <meta property="og:type" content="website" />
-          {/* Twitter Card */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta
-            name="twitter:title"
-            content="Lamid Events | Strategic Engagements & Impactful Experiences"
-          />
-          <meta
-            name="twitter:description"
-            content="Discover Lamid Consulting's events that connect leaders, innovators, and changemakers."
-          />
-          <meta
-            name="twitter:image"
-            content="https://lamidconsulting.com/events-banner.jpg"
-          />
-          {/* Canonical URL */}
-          <link rel="canonical" href="https://lamidconsulting.com/events" />
-        </Head>
+      <Head>
+        <title>Events</title>
+        <meta name="lamid events" content="Events listing page" />{" "}
+        <meta
+          name="description"
+          content="Explore Lamid Consulting's events—from corporate summits to community activations—designed to foster innovation, collaboration, and sustainable impact."
+        />
+        <meta
+          name="keywords"
+          content="Lamid events, corporate summits, community engagement, strategic events, business networking, innovation workshops, sustainable development"
+        />
+        <meta name="lamid" content="Lamid Consulting" />
+        {/* Open Graph for social sharing */}
+        <meta
+          property="og:title"
+          content="Lamid Events | Strategic Engagements & Impactful Experiences"
+        />
+        <meta
+          property="og:description"
+          content="Join Lamid Consulting's events that drive innovation, collaboration, and sustainable impact across industries and communities."
+        />
+        <meta
+          property="og:image"
+          content="https://lamidconsulting.com/events-banner.jpg"
+        />
+        <meta property="og:url" content="https://lamidconsulting.com/events" />
+        <meta property="og:type" content="website" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Lamid Events | Strategic Engagements & Impactful Experiences"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover Lamid Consulting's events that connect leaders, innovators, and changemakers."
+        />
+        <meta
+          name="twitter:image"
+          content="https://lamidconsulting.com/events-banner.jpg"
+        />
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://lamidconsulting.com/events" />
+      </Head>
 
+      <div className="relative min-h-screen bg-black text-white">
+        {/* Background circular gradients */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="w-full h-full relative">
+            {[800, 600, 400].map((size, i) => (
+              <div
+                key={i}
+                className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[${size}px] h-[${size}px] border border-gray-800 rounded-full opacity-${
+                  50 - i * 10
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="min-h-screen bg-black text-white py-6 px-4"></div>
         <main className="max-w-6xl mx-auto">
           {paginatedEvents.map((pageEvents, pageIndex) => (
             <div

@@ -130,7 +130,7 @@ const HcdEvent = () => {
         />
         <link rel="canonical" href="https://lamidconsulting.com/hcd-event" />
       </Head>
-      ;
+
       <div className="relative min-h-screen bg-black text-white">
         {/* Background circular gradients */}
         <div className="absolute inset-0 z-0 overflow-hidden">
