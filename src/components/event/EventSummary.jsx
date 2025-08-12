@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import Head from 'next/head';
-import Image from 'next/image';
-import { useState } from 'react';
+import Head from "next/head";
+import Image from "next/image";
+import { useState } from "react";
 
 const EventSummary = () => {
-    const [activePage, setActivePage] = useState(0);
-  
+  const [activePage, setActivePage] = useState(0);
+
   // Sample event data - in a real app, this would come from an API or database
   const events = [
     {
@@ -14,128 +14,192 @@ const EventSummary = () => {
       name: "EVENT NAME",
       info: "some more information about this event1",
       image: "/tree-background.jpg",
-      time: "TIME"
+      time: "TIME",
     },
     {
       id: 2,
       name: "EVENT NAME",
       info: "some more information about this event2",
       image: "/tree-background.jpg",
-      time: "TIME"
+      time: "TIME",
     },
     {
       id: 3,
       name: "EVENT NAME",
       info: "some more information about this event3",
       image: "/tree-background.jpg",
-      time: "TIME"
+      time: "TIME",
     },
     {
       id: 4,
       name: "EVENT NAME",
       info: "some more information about this event4",
       image: "/tree-background.jpg",
-      time: "TIME"
+      time: "TIME",
     },
     {
       id: 5,
       name: "EVENT NAME",
       info: "some more information about this event5",
       image: "/tree-background.jpg",
-      time: "TIME"
+      time: "TIME",
     },
     {
       id: 6,
       name: "EVENT NAME",
       info: "some more information about this event6",
       image: "/tree-background.jpg",
-      time: "TIME"
+      time: "TIME",
     },
     {
       id: 7,
       name: "EVENT NAME",
       info: "some more information about this event7",
       image: "/tree-background.jpg",
-      time: "TIME"
+      time: "TIME",
     },
     {
       id: 8,
       name: "EVENT NAME",
       info: "some more information about this event8",
       image: "/tree-background.jpg",
-      time: "TIME"
+      time: "TIME",
     },
   ];
-  
+
   // Split events into pages of 4
   const eventsPerPage = 4;
   const totalPages = Math.ceil(events.length / eventsPerPage);
-  const paginatedEvents = Array.from({ length: totalPages }, (_, i) => 
+  const paginatedEvents = Array.from({ length: totalPages }, (_, i) =>
     events.slice(i * eventsPerPage, (i + 1) * eventsPerPage)
   );
 
   return (
-    <div className="min-h-screen bg-black text-white py-6 px-4">
-      <Head>
-        <title>Events</title>
-        <meta name="description" content="Events listing page" />
-      </Head>
+    <>
+      <div className="min-h-screen bg-black text-white py-6 px-4">
+        <Head>
+          <title>Events</title>
+          <meta name="lamid events" content="Events listing page" />{" "}
+          <meta
+            name="description"
+            content="Explore Lamid Consulting's events—from corporate summits to community activations—designed to foster innovation, collaboration, and sustainable impact."
+          />
+          <meta
+            name="keywords"
+            content="Lamid events, corporate summits, community engagement, strategic events, business networking, innovation workshops, sustainable development"
+          />
+          <meta name="lamid" content="Lamid Consulting" />
+          {/* Open Graph for social sharing */}
+          <meta
+            property="og:title"
+            content="Lamid Events | Strategic Engagements & Impactful Experiences"
+          />
+          <meta
+            property="og:description"
+            content="Join Lamid Consulting's events that drive innovation, collaboration, and sustainable impact across industries and communities."
+          />
+          <meta
+            property="og:image"
+            content="https://lamidconsulting.com/events-banner.jpg"
+          />
+          <meta
+            property="og:url"
+            content="https://lamidconsulting.com/events"
+          />
+          <meta property="og:type" content="website" />
+          {/* Twitter Card */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content="Lamid Events | Strategic Engagements & Impactful Experiences"
+          />
+          <meta
+            name="twitter:description"
+            content="Discover Lamid Consulting's events that connect leaders, innovators, and changemakers."
+          />
+          <meta
+            name="twitter:image"
+            content="https://lamidconsulting.com/events-banner.jpg"
+          />
+          {/* Canonical URL */}
+          <link rel="canonical" href="https://lamidconsulting.com/events" />
+        </Head>
 
-      <main className="max-w-6xl mx-auto">
-        {paginatedEvents.map((pageEvents, pageIndex) => (
-          <div 
-            key={pageIndex} 
-            className={`${pageIndex === activePage ? 'block' : 'hidden'} mb-8`}
-          >
-            <div className="flex justify-between items-center mb-6">
-              <button className="border border-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
-                EVENT SUMMARY
-              </button>
-              <button className="border border-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                FILTER
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {pageEvents.map((event) => (
-                <div key={event.id} className="flex flex-col items-center">
-                  <div className="w-36 h-36 rounded-full overflow-hidden mb-3 relative">
-                    <Image
-                      src={event.image}
-                      alt={event.name}
-                      layout="fill"
-                      objectFit="cover"
-                      className="transition-transform hover:scale-110"
+        <main className="max-w-6xl mx-auto">
+          {paginatedEvents.map((pageEvents, pageIndex) => (
+            <div
+              key={pageIndex}
+              className={`${
+                pageIndex === activePage ? "block" : "hidden"
+              } mb-8`}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <button className="border border-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
+                  EVENT SUMMARY
+                </button>
+                <button className="border border-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
                     />
-                  </div>
-                  <button className="border border-white px-4 py-1 mb-3 text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
-                    {event.name}
-                  </button>
-                  <p className="text-center text-sm mb-2 opacity-80">{event.info}</p>
-                  <p className="text-center text-xs uppercase tracking-wider">{event.time}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+                  </svg>
+                  FILTER
+                </button>
+              </div>
 
-        {/* Pagination dots */}
-        <div className="flex justify-center space-x-2 mt-8">
-          {paginatedEvents.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActivePage(index)}
-              className={`w-4 h-4 rounded-full ${index === activePage ? 'bg-white' : 'bg-gray-600'}`}
-              aria-label={`Go to page ${index + 1}`}
-            ></button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {pageEvents.map((event) => (
+                  <div key={event.id} className="flex flex-col items-center">
+                    <div className="w-36 h-36 rounded-full overflow-hidden mb-3 relative">
+                      <Image
+                        src={event.image}
+                        alt={event.name}
+                        layout="fill"
+                        objectFit="cover"
+                        className="transition-transform hover:scale-110"
+                      />
+                    </div>
+                    <button className="border border-white px-4 py-1 mb-3 text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
+                      {event.name}
+                    </button>
+                    <p className="text-center text-sm mb-2 opacity-80">
+                      {event.info}
+                    </p>
+                    <p className="text-center text-xs uppercase tracking-wider">
+                      {event.time}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
-        </div>
-      </main>
-    </div>
-    )
+
+          {/* Pagination dots */}
+          <div className="flex justify-center space-x-2 mt-8">
+            {paginatedEvents.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActivePage(index)}
+                className={`w-4 h-4 rounded-full ${
+                  index === activePage ? "bg-white" : "bg-gray-600"
+                }`}
+                aria-label={`Go to page ${index + 1}`}
+              ></button>
+            ))}
+          </div>
+        </main>
+      </div>
+    </>
+  );
 };
 
 export default EventSummary;

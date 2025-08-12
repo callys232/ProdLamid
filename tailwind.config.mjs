@@ -8,10 +8,9 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        typing:
-          "typing 5s steps(30, end) infinite, blink 0.75s step-end infinite",
-        blink: "blink 0.75s step-end infinite",
-        float: "float 2.5s ease-in-out infinite",
+        typing: "typing 4s steps(40, end) forwards",
+        blink: "blink 0.8s step-end infinite",
+        float: "float 6s ease-in-out infinite",
         colorCycle: "colorCycle 6s ease-in-out infinite",
         rainbowPulse: "rainbowPulse 2s linear infinite",
         bounceSlow: "bounceSlow 2s infinite ease-in-out",
@@ -19,13 +18,10 @@ module.exports = {
         wave: "wave 2s infinite ease-in-out",
         colorType: "colorType 2s linear infinite",
         colorTrail: "colorTrail 2s linear infinite",
-        glitch: "glitch 1.5s infinite",
-        colorTrail: "colorTrail 2s linear infinite",
-        float: "float 6s ease-in-out infinite",
-        typing: "typing 4s steps(40, end) forwards",
-        blink: "blink 0.8s step-end infinite",
         fadeInUp: "fadeInUp 1s ease-out forwards",
-        glitchPulse: "glitchPulse 1.5s infinite",
+        glitchPulse: "glitchPulse 3s infinite",
+        fadeIn: "fadeIn 0.4s ease-out forwards",
+        blurIn: "blurIn 6s ease-out forwards", // ✅ Added for modal
       },
       keyframes: {
         typing: {
@@ -39,14 +35,14 @@ module.exports = {
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-6px)" },
+          "50%": { transform: "translateY(-20px)" },
         },
         colorCycle: {
-          "0%": { color: "#f97316" }, // orange-500
-          "25%": { color: "#22d3ee" }, // cyan-400
-          "50%": { color: "#C12129" }, // your brand red
-          "75%": { color: "#34d399" }, // green-400
-          "100%": { color: "#f97316" }, // loop back to orange
+          "0%": { color: "#f97316" },
+          "25%": { color: "#22d3ee" },
+          "50%": { color: "#C12129" },
+          "75%": { color: "#34d399" },
+          "100%": { color: "#f97316" },
         },
         bounceSlow: {
           "0%, 100%": { transform: "translateY(0)" },
@@ -85,10 +81,10 @@ module.exports = {
           "75%": { transform: "translateY(-5px)" },
         },
         colorType: {
-          "0%": { color: "#f97316" }, // orange-500
-          "25%": { color: "#22d3ee" }, // cyan-400
-          "50%": { color: "#C12129" }, // your red
-          "75%": { color: "#34d399" }, // green-400
+          "0%": { color: "#f97316" },
+          "25%": { color: "#22d3ee" },
+          "50%": { color: "#C12129" },
+          "75%": { color: "#34d399" },
           "100%": { color: "#f97316" },
         },
         colorTrail: {
@@ -97,57 +93,17 @@ module.exports = {
           "50%": { color: "#C12129" },
           "75%": { color: "#34d399" },
           "100%": { color: "#f97316" },
-        },
-        glitch: {
-          "0%": {
-            textShadow: "2px 0 red, -2px 0 cyan",
-            transform: "translate(0)",
-          },
-          "20%": {
-            textShadow: "-2px 0 red, 2px 0 cyan",
-            transform: "translate(-1px, 1px)",
-          },
-          "40%": {
-            textShadow: "2px 0 red, -1px 0 cyan",
-            transform: "translate(1px, -1px)",
-          },
-          "60%": {
-            textShadow: "1px 0 red, 1px 0 cyan",
-            transform: "translate(-1px, 0px)",
-          },
-          "80%": {
-            textShadow: "-1px 0 red, 2px 0 cyan",
-            transform: "translate(0px, 1px)",
-          },
-          "100%": {
-            textShadow: "2px 0 red, -2px 0 cyan",
-            transform: "translate(0)",
-          },
-        },
-        colorTrail: {
-          "0%": { color: "#f97316" },
-          "25%": { color: "#22d3ee" },
-          "50%": { color: "#C12129" },
-          "75%": { color: "#34d399" },
-          "100%": { color: "#f97316" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-20px)" },
-        },
-        fontFamily: {
-          display: ['"Poppins"', "sans-serif"],
         },
         fadeInUp: {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         rainbowPulse: {
-          "0%": { color: "#f97316" }, // orange
-          "25%": { color: "#22d3ee" }, // cyan
-          "50%": { color: "#C12129" }, // brand red
-          "75%": { color: "#34d399" }, // green
-          "100%": { color: "#f97316" }, // loop back
+          "0%": { color: "#f97316" },
+          "25%": { color: "#22d3ee" },
+          "50%": { color: "#C12129" },
+          "75%": { color: "#34d399" },
+          "100%": { color: "#f97316" },
         },
         glitchPulse: {
           "0%": {
@@ -175,8 +131,16 @@ module.exports = {
             transform: "translate(0)",
           },
         },
+        fadeIn: {
+          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        blurIn: {
+          "0%": { opacity: 0, filter: "blur(10px)" },
+          "100%": { opacity: 1, filter: "blur(0)" },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

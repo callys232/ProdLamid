@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import BizSphereModal from "./BizSphereModal";
-import Signup from "./SignupForm";
+import Signup from "@/forms/eventsSignUpForm";
+import Head from "next/head";
 
 const EventCard = ({ event, index, selectedEventId, onSelect }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -56,65 +57,93 @@ const Events = ({
   const [selectedEventId, setSelectedEventId] = useState(null);
 
   return (
-    <section className="w-full bg-black text-white py-6 md:py-8">
-      {/* Category Navigation */}
-      <div className="container mx-auto px-4 py-4 md:py-6">
-        <nav className="flex flex-wrap justify-center gap-3 md:gap-6 text-xs md:text-sm lg:text-base">
-          {categories.map((category, index) => (
-            <a
-              key={index}
-              href="#"
-              className="text-orange-500 hover:text-orange-400 transition duration-300"
-            >
-              {category}
-            </a>
-          ))}
-        </nav>
-      </div>
+    <>
+      <Head>
+        <meta
+          name="description"
+          content="Explore upcoming events, workshops, and conferences that drive innovation, leadership, and sustainable development across communities."
+        />
+        <meta
+          name="keywords"
+          content="Events, Workshops, Conferences, Community Engagement, Innovation, Leadership, Sustainable Development, Networking"
+        />
+        <meta name="lamid" content="Lamid Consulting" />
+        <meta
+          property="og:title"
+          content="Events | Empowering Communities Through Innovation & Collaboration"
+        />
+        <meta
+          property="og:description"
+          content="Join us for transformative events that connect leaders, innovators, and changemakers."
+        />
+        <meta property="og:image" content="/events-banner.jpg" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://lamidconsulting.com/events" />
+        <link rel="canonical" href="https://lamidconsulting.com/events" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
 
-      {/* Events Section */}
-      <div className="container mx-auto px-4 py-6 md:py-8">
-        <div className="flex justify-start mb-6 md:mb-8">
-          <div className="border hover:bg-orange-700 border-orange-900 rounded-lg inline-block px-6 py-2">
-            <h2 className="text-white text-sm md:text-base">EVENTS</h2>
+      <section className="w-full bg-black text-white py-6 md:py-8">
+        {/* Category Navigation */}
+        <div className="container mx-auto px-4 py-4 md:py-6">
+          <nav className="flex flex-wrap justify-center gap-3 md:gap-6 text-xs md:text-sm lg:text-base">
+            {categories.map((category, index) => (
+              <a
+                key={index}
+                href="#"
+                className="text-orange-500 hover:text-orange-400 transition duration-300"
+              >
+                {category}
+              </a>
+            ))}
+          </nav>
+        </div>
+
+        {/* Events Section */}
+        <div className="container mx-auto px-4 py-6 md:py-8">
+          <div className="flex justify-start mb-6 md:mb-8">
+            <div className="border hover:bg-orange-700 border-orange-900 rounded-lg inline-block px-6 py-2">
+              <h2 className="text-white text-sm md:text-base">EVENTS</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8">
+            {events.map((event, index) => (
+              <EventCard
+                key={event.id}
+                event={event}
+                index={index}
+                selectedEventId={selectedEventId}
+                onSelect={setSelectedEventId}
+              />
+            ))}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            {showSignUp && (
+              <button
+                onClick={() => console.log("Events clicked")}
+                className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-xs md:text-sm transition duration-300"
+                aria-label="Sign up for events"
+              >
+                Sign Up
+              </button>
+            )}
+            {showMore && (
+              <button
+                onClick={() => console.log("More clicked")}
+                className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-xs md:text-sm transition duration-300"
+                aria-label="See more events"
+              >
+                More
+              </button>
+            )}
           </div>
         </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8">
-          {events.map((event, index) => (
-            <EventCard
-              key={event.id}
-              event={event}
-              index={index}
-              selectedEventId={selectedEventId}
-              onSelect={setSelectedEventId}
-            />
-          ))}
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {showSignUp && (
-            <button
-              onClick={() => console.log("Events clicked")}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-xs md:text-sm transition duration-300"
-              aria-label="Sign up for events"
-            >
-              Sign Up
-            </button>
-          )}
-          {showMore && (
-            <button
-              onClick={() => console.log("More clicked")}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-xs md:text-sm transition duration-300"
-              aria-label="See more events"
-            >
-              More
-            </button>
-          )}
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

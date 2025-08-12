@@ -9,7 +9,6 @@ const BusinessTraining = () => {
           {/* Left side - Business diagram */}
           <div className="w-full md:w-1/3">
             <div className="relative w-64 h-64 mx-auto">
-              {/* This would be replaced with your actual image */}
               <div className="relative">
                 <Image
                   src="/BIZ_LOGOS.png"
@@ -26,9 +25,10 @@ const BusinessTraining = () => {
           <div className="w-full md:w-1/3 space-y-4">
             <div className="mb-6">
               <p className="text-white text-sm mb-4">
-                "Use cutting-edge tools to secure top-tier talent for permanent, temporary, and contract roles."
+                "Use cutting-edge tools to secure top-tier talent for permanent,
+                temporary, and contract roles."
               </p>
-              
+
               <div className="space-y-1">
                 <div className="bg-red-900 px-3 py-1 text-sm text-white">
                   Functional management training

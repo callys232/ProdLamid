@@ -3,6 +3,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Typewriter } from "react-simple-typewriter";
 
 const BizHeader = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -57,11 +58,23 @@ const BizHeader = () => {
           {/* Right - Text */}
           <div className="w-full md:w-2/3 flex flex-col items-center md:items-start space-y-6">
             <div className="bg-black/60 border border-blue-800 rounded-md p-4 w-full max-w-lg text-center hover:bg-blue-900 transition duration-300">
-              <h1 className="text-3xl md:text-4xl font-bold text-blue-500 border-r-2 border-white whitespace-nowrap overflow-hidden max-w-full animate-typing">
-                <span className="text-blue-500">B</span>usiness
-                <span className="text-blue-500"> I</span>nnovation
-                <span className="text-blue-500"> Z</span>one
-              </h1>
+              <div
+                className={`transition-opacity duration-1000 delay-300 ${
+                  isVisible ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <h1 className="text-3xl md:text-4xl font-bold text-blue-500 border-r-2 border-white whitespace-nowrap overflow-hidden max-w-full">
+                  <Typewriter
+                    words={["Business Innovation Zone"]}
+                    loop={Infinity}
+                    typeSpeed={60}
+                    deleteSpeed={30}
+                    delaySpeed={1800}
+                    cursor
+                    cursorStyle="|"
+                  />
+                </h1>
+              </div>
             </div>
 
             <p className="text-lg md:text-xl text-center md:text-left max-w-2xl hover:text-gray-300 transition duration-300">
