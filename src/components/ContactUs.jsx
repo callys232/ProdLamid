@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const ContactSection = () => {
+const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -131,4 +131,4 @@ const ContactSection = () => {
   );
 };
 
-export default ContactSection;
+export default ContactUs;

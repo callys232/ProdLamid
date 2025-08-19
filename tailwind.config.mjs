@@ -22,6 +22,7 @@ module.exports = {
         glitchPulse: "glitchPulse 3s infinite",
         fadeIn: "fadeIn 0.4s ease-out forwards",
         blurIn: "blurIn 6s ease-out forwards", // ✅ Added for modal
+        "slide-horizontal": "slideH 2s ease-in-out infinite",
       },
       keyframes: {
         typing: {
@@ -32,6 +33,10 @@ module.exports = {
         blink: {
           "0%, 100%": { borderColor: "transparent" },
           "50%": { borderColor: "white" },
+        },
+        slideH: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(20px)" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },

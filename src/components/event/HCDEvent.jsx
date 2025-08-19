@@ -1,6 +1,7 @@
 "use client";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 const HCDEvent = () => {
   return (
@@ -109,9 +110,11 @@ const HCDEvent = () => {
 
             {/* See all events button */}
             <div className="flex justify-center mb-8">
-              <button className="bg-orange-500 text-white px-4 py-2 rounded text-sm uppercase hover:bg-orange-600 transition duration-300">
-                See all events
-              </button>
+              <Link href="/event">
+                <button className="bg-orange-500 text-white px-4 py-2 rounded text-sm uppercase hover:bg-orange-800 transition duration-300">
+                  See all events
+                </button>
+              </Link>
             </div>
 
             {/* Job search clinic section */}
