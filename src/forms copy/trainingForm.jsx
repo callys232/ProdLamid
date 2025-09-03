@@ -4,24 +4,24 @@ import React, { useState } from "react";
 import Head from "next/head";
 
 const GOOGLE_FORM_ACTION =
-  "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdBaxkl4rnCIiIOzsnwGa-_8r5kAyQrX4JnSI-SxRH-D9ygOA/formResponse"; // Replace with your actual form URL
+  "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse"; // Replace with your actual form URL
 
 const TrainingForm = () => {
   const [formData, setFormData] = useState({
-    "entry.684716547": "", // Full Name
-    "entry.453242755": "", // Email
-    "entry.455505361": "", // Phone
-    "entry.1130635419": "", // Company Name
-    "entry.936353538": "", // Job Title
-    "entry.654626252": "", // Department
-    "entry.1584629109": "", // Training Track
-    "entry.1570013187": "", // Preferred Date
-    "entry.359638256": "", // Mode of Attendance
-    "entry.2010885931": "", // Dietary Restrictions
-    "entry.538148797": "", // Accessibility Needs
+    "entry.111111111": "", // Full Name
+    "entry.222222222": "", // Email
+    "entry.333333333": "", // Phone
+    "entry.444444444": "", // Company Name
+    "entry.555555555": "", // Job Title
+    "entry.666666666": "", // Department
+    "entry.777777777": "", // Training Track
+    "entry.888888888": "", // Preferred Date
+    "entry.999999999": "", // Mode of Attendance
+    "entry.101010101": "", // Dietary Restrictions
+    "entry.121212121": "", // Accessibility Needs
     "entry.131313131": "", // Payment Agreement
-    "entry.1977285325": "", // Consent to Record
-    "entry.1736919905": "", // Comments
+    "entry.141414141": "", // Consent to Record
+    // "entry.151515151": "", // Comments
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,14 +41,14 @@ const TrainingForm = () => {
 
   const validate = () => {
     const requiredFields = [
-      "entry.684716547", // Name
-      "entry.453242755", // Email
-      "entry.1130635419", // Company
-      "entry.1584629109", // Track
-      "entry.1570013187", // Date
-      "entry.359638256", // Mode
+      "entry.111111111", // Name
+      "entry.222222222", // Email
+      "entry.444444444", // Company
+      "entry.777777777", // Track
+      "entry.888888888", // Date
+      "entry.999999999", // Mode
       "entry.131313131", // Payment
-      "entry.1977285325", // Consent
+      "entry.141414141", // Consent
     ];
     const newErrors = {};
 
@@ -58,14 +58,14 @@ const TrainingForm = () => {
       }
     });
 
-    const email = formData["entry.453242755"];
+    const email = formData["entry.222222222"];
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors["entry.453242755"] = "Invalid email format";
+      newErrors["entry.222222222"] = "Invalid email format";
     }
 
-    const phone = formData["entry.455505361"];
+    const phone = formData["entry.333333333"];
     if (phone && !/^\+?\d{7,15}$/.test(phone)) {
-      newErrors["entry.455505361"] = "Invalid phone number";
+      newErrors["entry.333333333"] = "Invalid phone number";
     }
 
     return newErrors;
@@ -80,38 +80,28 @@ const TrainingForm = () => {
     }
 
     setIsSubmitting(true);
-
-    const formPayload = new URLSearchParams();
+    const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      formPayload.append(key, value || "");
+      data.append(key, value);
     });
 
     try {
-      await fetch(
-        "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdBaxkl4rnCIiIOzsnwGa-_8r5kAyQrX4JnSI-SxRH-D9ygOA/formResponse",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: formPayload,
-        }
-      );
-
+      await fetch(GOOGLE_FORM_ACTION, {
+        method: "POST",
+        mode: "no-cors",
+        body: data,
+      });
       setShowSuccess(true);
       setFormData(
-        Object.fromEntries(Object.keys(formData).map((key) => [key, ""]))
+        Object.fromEntries(Object.keys(formData).map((k) => [k, ""]))
       );
-      console.log("formData", formData);
-      setErrors({});
-    } catch (error) {
-      console.error("Submission error:", error);
-    } finally {
-      setTimeout(() => {
-        setIsSubmitting(false);
-      }, 2000);
+    } catch (err) {
+      console.error("Submission failed:", err);
     }
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
   };
 
   const totalFields = Object.keys(formData).length;
@@ -162,12 +152,12 @@ const TrainingForm = () => {
         </div>
 
         {Object.entries({
-          "entry.684716547": "Full Name",
-          "entry.453242755": "Email Address",
-          "entry.455505361": "Phone Number",
-          "entry.1130635419": "Company Name",
-          "entry.936353538": "Job Title",
-          "entry.654626252": "Department",
+          "entry.111111111": "Full Name",
+          "entry.222222222": "Email Address",
+          "entry.333333333": "Phone Number",
+          "entry.444444444": "Company Name",
+          "entry.555555555": "Job Title",
+          "entry.666666666": "Department",
         }).map(([name, placeholder]) => (
           <div key={name}>
             <input
@@ -185,8 +175,8 @@ const TrainingForm = () => {
         ))}
 
         <select
-          name="entry.1584629109"
-          value={formData["entry.1584629109"]}
+          name="entry.777777777"
+          value={formData["entry.777777777"]}
           onChange={handleChange}
           className="w-full px-4 py-2 rounded-lg border border-white/30 bg-black text-orange focus:outline-none focus:ring-2 focus:ring-orange focus:border-orange-500 transition-all duration-200"
         >
@@ -196,24 +186,24 @@ const TrainingForm = () => {
           <option value="Sales Enablement">Sales Enablement</option>
           <option value="Digital Transformation">Digital Transformation</option>
         </select>
-        {errors["entry.1584629109"] && (
-          <p className="text-red-400 text-sm">{errors["entry.1584629109"]}</p>
+        {errors["entry.777777777"] && (
+          <p className="text-red-400 text-sm">{errors["entry.777777777"]}</p>
         )}
 
         <input
           type="date"
-          name="entry.1570013187"
-          value={formData["entry.1570013187"]}
+          name="entry.888888888"
+          value={formData["entry.888888888"]}
           onChange={handleChange}
           className="w-full px-4 py-2 rounded-lg border border-white/30 bg-white/10 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
         />
-        {errors["entry.1570013187"] && (
-          <p className="text-red-400 text-sm">{errors["entry.1570013187"]}</p>
+        {errors["entry.888888888"] && (
+          <p className="text-red-400 text-sm">{errors["entry.888888888"]}</p>
         )}
 
         <select
-          name="entry.359638256"
-          value={formData["entry.359638256"]}
+          name="entry.999999999"
+          value={formData["entry.999999999"]}
           onChange={handleChange}
           className="w-full px-4 py-2 rounded-lg border border-white/30 bg-black text-orange focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
         >
@@ -222,14 +212,14 @@ const TrainingForm = () => {
           <option value="In-Person">In-Person</option>
           <option value="Hybrid">Hybrid</option>
         </select>
-        {errors["entry.359638256"] && (
-          <p className="text-red-400 text-sm">{errors["entry.359638256"]}</p>
+        {errors["entry.999999999"] && (
+          <p className="text-red-400 text-sm">{errors["entry.999999999"]}</p>
         )}
 
         <input
           type="text"
-          name="entry.2010885931"
-          value={formData["entry.2010885931"]}
+          name="entry.101010101"
+          value={formData["entry.101010101"]}
           onChange={handleChange}
           placeholder="Dietary Restrictions (if any)"
           className="w-full px-4 py-2 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
@@ -237,8 +227,8 @@ const TrainingForm = () => {
 
         <input
           type="text"
-          name="entry.538148797"
-          value={formData["entry.538148797"]}
+          name="entry.121212121"
+          value={formData["entry.121212121"]}
           onChange={handleChange}
           placeholder="Accessibility Needs (if any)"
           className="w-full px-4 py-2 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
@@ -263,8 +253,8 @@ const TrainingForm = () => {
         )}
 
         <select
-          name="entry.1977285325"
-          value={formData["entry.1977285325"]}
+          name="entry.141414141"
+          value={formData["entry.141414141"]}
           onChange={handleChange}
           className="w-full px-4 py-2 rounded-lg border border-white/30 bg-black text-orange focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
         >
@@ -274,14 +264,14 @@ const TrainingForm = () => {
           </option>
           <option value="No, I do not consent">No, I do not consent</option>
         </select>
-        {errors["entry.1977285325"] && (
-          <p className="text-red-400 text-sm">{errors["entry.1977285325"]}</p>
+        {errors["entry.141414141"] && (
+          <p className="text-red-400 text-sm">{errors["entry.141414141"]}</p>
         )}
 
         {/* Optional Comments Field */}
         <textarea
-          name="entry.1736919905"
-          value={formData["entry.1736919905"] || ""}
+          name="entry.151515151"
+          value={formData["entry.151515151"] || ""}
           onChange={handleChange}
           placeholder="Additional Comments (optional)"
           rows={4}

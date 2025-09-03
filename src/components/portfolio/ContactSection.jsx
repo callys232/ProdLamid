@@ -56,19 +56,19 @@ const ContactSection = () => {
   return (
     <section className="bg-black text-white min-h-screen w-full flex flex-col items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-6xl">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold inline-block border border-red-600 px-6 py-3 mb-12">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold inline-block border border-red-600 px-6 py-3 mb-12 animate-glitch">
           CONTACT US
         </h2>
 
         <div className="relative">
           <div className="hidden sm:block absolute left-0 bottom-0 w-1/2 h-full z-0">
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full group">
               <Image
                 src="/contact-illustration.png"
                 alt="Contact illustration"
                 width={400}
                 height={300}
-                className="object-contain object-left-bottom"
+                className="glow-circle object-contain object-left-bottom transition-transform duration-300 group-hover:scale-105"
                 unoptimized
               />
             </div>

@@ -9,7 +9,7 @@ import Serv from "./Serv";
 
 export default function Header() {
   const particlesInit = useCallback(async (engine) => {
-    await loadFull(engine);
+    // await loadFull(engine);
   }, []);
 
   return (
