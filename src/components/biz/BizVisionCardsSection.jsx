@@ -32,7 +32,7 @@ const BizVisionCardsSection = () => {
           className="w-full md:w-5/12 flex"
         >
           <Link
-            href="/portfolio#lamid-tech"
+            href="/portfolio"
             className="w-full"
             aria-label="View Lamid Tech portfolio"
           >
@@ -68,7 +68,7 @@ const BizVisionCardsSection = () => {
           className="w-full md:w-5/12 flex"
         >
           <Link
-            href="/portfolio#vision-2030"
+            href="/portfolio"
             className="w-full"
             aria-label="View Vision 2030 portfolio"
           >

@@ -125,3 +125,15 @@
 .glow-circle {
   animation: pulseGlow 2.5s infinite;
 }
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-slide {
+  animation: slide 30s linear infinite;
+}

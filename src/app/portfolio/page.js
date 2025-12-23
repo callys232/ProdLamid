@@ -4,18 +4,21 @@ import Values from "@/components/portfolio/Values";
 import Section from "@/components/portfolio/Section";
 import PledgeStrategySection from "@/components/portfolio/PledgeStrategySection ";
 import ContactSection from "@/components/portfolio/ContactSection";
+import Slider from "@/components/slider";
 
 const PortfolioPage = () => {
-    return (
-        <div>
-            <Header/>
-            <AboutUs/>
-            <Values/>
-            <Section/>
-            <PledgeStrategySection/>
-            <ContactSection/>
-        </div>
-    );
+  return (
+    <div>
+      <Header />
+      <AboutUs />
+      <Values />
+      <Slider />
+      <Section />
+
+      <PledgeStrategySection />
+      <ContactSection />
+    </div>
+  );
 };
 
 export default PortfolioPage;

@@ -1,4 +1,4 @@
-import Consultants from "../../components/consultants/consultancyMatching";
+import Consultants from "@/components/talent/consultProject";
 import Reviews from "../../components/review/review";
 
 const TalentPage = () => {

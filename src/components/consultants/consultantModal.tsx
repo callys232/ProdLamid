@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Star } from "lucide-react";
-import Modal from "../Modals/hcdModal";
+import Modal from "@/components/Modals/hcdModal";
 import Feedback from "./feedback";
 import type { Consultant } from "@/types/client";
 import { useState } from "react";

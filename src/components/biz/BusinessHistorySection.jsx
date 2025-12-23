@@ -15,7 +15,7 @@ const BusinessHistorySection = () => {
               now digitalized the process, making it even easier and more
               efficient with our{" "}
               <Link
-                href="/star-value"
+                href="/portfolio"
                 className="text-green-400 hover:text-green-300 transition duration-300 underline"
               >
                 A star value.

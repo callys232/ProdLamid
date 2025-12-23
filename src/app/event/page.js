@@ -1,24 +1,19 @@
-import React from "react";
-import Image from "next/image";
-import EventHeader from "@/components/event/EventHeader";
-import EventSummary from "@/components/event/EventSummary";
-import HCDEvent from "@/components/event/HCDEvent";
-import BusinessPrototypes from "@/components/event/BusinessPrototypes ";
-import LastEvent from "@/components/event/LastEvent";
+import EventsHeader from "@/components/Events/eventsHeader";
+import BusinessPrototypes from "@/components/bizprototype/bizPrototypes";
+import Testimonial from "@/components/Testimonial";
+import Slider from "../../components/slider";
+import EventList from "@/components/Events/EventsList";
+import Allevents from "@/components/Events/allEvents";
 
-const Eventpage = () => {
+export default async function EventsPage() {
   return (
-    <div>
-      <EventHeader />
-      <EventSummary />
-      <div className="w-full h-px bg-gray-700"></div>
-      <HCDEvent />
-      <div className="w-full h-px bg-gray-700"></div>
+    <main>
+      <EventsHeader />
+      <Allevents />
+      <EventList />
       <BusinessPrototypes />
-      <div className="w-full h-px bg-gray-700"></div>
-      <LastEvent />
-    </div>
+      <Testimonial />
+      <Slider />
+    </main>
   );
-};
-
-export default Eventpage;
+}
