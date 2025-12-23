@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/Footer";
 import ModalWrapper from "@/components/ModalWrapper";
 
@@ -26,7 +26,8 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
-        {children}
+        {/* Add padding-top equal to navbar height so content isn't hidden */}
+        <main className="pt-20">{children}</main>
         <Footer />
         <ModalWrapper />
       </body>
