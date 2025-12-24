@@ -81,6 +81,7 @@ export default function ConsultantCard({ consultant }: ConsultantCardProps) {
         onClick={() => setShowModal(true)}
       >
         {/* Avatar / Image */}
+        {/* Avatar / Image */}
         <div className="flex flex-col items-center mb-4">
           <div className="relative w-16 h-16 rounded-full bg-[#2a0d0d] flex items-center justify-center overflow-hidden">
             {image ? (
@@ -91,7 +92,8 @@ export default function ConsultantCard({ consultant }: ConsultantCardProps) {
                 className="object-cover rounded-full"
               />
             ) : (
-              <div className="text-red-500 text-2xl font-bold">👤</div>
+              // Blank space placeholder
+              <div className="w-full h-full bg-[#1a1a1a]" />
             )}
           </div>
           <h3 className="text-lg font-semibold text-white mt-3">{name}</h3>

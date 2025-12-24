@@ -1,7 +1,7 @@
 // next.config.mjs
 const nextConfig = {
   images: {
-    domains: ["randomuser.me"],
+    domains: ["randomuser.me", "images.remotePatterns", "randomuser.me"],
   },
 };
 

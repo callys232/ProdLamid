@@ -1,5 +1,5 @@
-import Consultants from "../../components/consultants/consultancyMatching";
-import Reviews from "../../components/review/review";
+import Consultants from "@/components/talent/consultProject";
+import Reviews from "@/components/review/review";
 
 const TalentPage = () => {
   return (

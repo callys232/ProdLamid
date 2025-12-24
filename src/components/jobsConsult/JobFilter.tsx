@@ -21,6 +21,10 @@ export default function JobFilter({
   const [clicked, setClicked] = useState<string | null>(null);
   const [focusIndex, setFocusIndex] = useState<number>(0);
 
+  // search state
+  const [query, setQuery] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+
   const showTooltip = (opt: string) => hovered === opt || clicked === opt;
 
   const classes = (opt: string) =>
@@ -47,50 +51,84 @@ export default function JobFilter({
     }
   };
 
+  // filter options live as user types
+  const filteredOptions = options.filter((opt) =>
+    opt.toLowerCase().includes(query.toLowerCase())
+  );
+
   return (
     <div className="mb-4">
       {label && <p className="text-sm text-gray-400 mb-2">{label}</p>}
-      <div
-        className="flex flex-wrap gap-2"
-        role="radiogroup"
-        aria-label={label || "Job categories"}
-      >
-        {options.map((opt, i) => (
-          <div
-            key={opt}
-            className="relative"
-            onMouseEnter={() => setHovered(opt)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            <button
-              type="button"
-              aria-label={`Filter by ${opt}`}
-              // aria-pressed={active === opt ? "true" : "false"} // ✅ string values
-              className={classes(opt)}
-              onClick={() => {
-                onChange(opt);
-                setClicked(opt);
-                setTimeout(() => setClicked(null), 2000);
-              }}
-              onKeyDown={(e) => handleKeyDown(e, i, opt)}
-              tabIndex={focusIndex === i ? 0 : -1}
-            >
-              {opt}
-              {counts[opt] !== undefined && (
-                <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-white/20 text-gray-200">
-                  {counts[opt]}
-                </span>
-              )}
-            </button>
 
-            {showTooltip(opt) && (
-              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap z-10">
-                {counts[opt]} {opt} {counts[opt] === 1 ? "job" : "jobs"}
-              </div>
-            )}
-          </div>
-        ))}
+      {/* Search input */}
+      <div className="flex gap-2 mb-3">
+        <input
+          type="text"
+          value={query}
+          onFocus={() => setShowFilters(true)} // show filters when focused
+          onBlur={() => setShowFilters(false)} // hide filters when blurred
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search categories..."
+          className="flex-1 px-3 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none border border-gray-600"
+        />
+        {query && (
+          <button
+            type="button"
+            onClick={() => setQuery("")}
+            className="px-3 py-2 text-xs bg-gray-700 text-white rounded-md hover:bg-gray-600 transition"
+          >
+            Clear
+          </button>
+        )}
       </div>
+
+      {/* Filters appear only when search bar is active */}
+      {showFilters && (
+        <div
+          className="flex flex-wrap gap-2"
+          role="radiogroup"
+          aria-label={label || "Job categories"}
+        >
+          {filteredOptions.length > 0 ? (
+            filteredOptions.map((opt, i) => (
+              <div
+                key={opt}
+                className="relative"
+                onMouseEnter={() => setHovered(opt)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                <button
+                  type="button"
+                  aria-label={`Filter by ${opt}`}
+                  className={classes(opt)}
+                  onClick={() => {
+                    onChange(opt);
+                    setClicked(opt);
+                    setTimeout(() => setClicked(null), 2000);
+                  }}
+                  onKeyDown={(e) => handleKeyDown(e, i, opt)}
+                  tabIndex={focusIndex === i ? 0 : -1}
+                >
+                  {opt}
+                  {counts[opt] !== undefined && (
+                    <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-white/20 text-gray-200">
+                      {counts[opt]}
+                    </span>
+                  )}
+                </button>
+
+                {showTooltip(opt) && (
+                  <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap z-10">
+                    {counts[opt]} {opt} {counts[opt] === 1 ? "job" : "jobs"}
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-400 text-sm">No results found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
