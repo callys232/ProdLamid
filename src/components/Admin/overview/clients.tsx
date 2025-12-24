@@ -10,7 +10,6 @@ import {
   Tooltip,
   CartesianGrid,
   PieChart,
-  ArcElement,
   Pie,
   Cell,
 } from "recharts";
