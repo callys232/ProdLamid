@@ -43,7 +43,7 @@ const SDHeader = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/LD4.jpg"
+            src="/LD4sd.png"
             alt="Lush forest background representing sustainability"
             fill
             className="object-cover opacity-40"

@@ -15,7 +15,7 @@ const serviceItems: ServiceItem[] = [
   { name: "BizPrototype", href: "/bizprototype" },
   { name: "HCD", href: "/hcd" },
   { name: "SustainableDev", href: "/sustainableDev" },
-  { name: "Consultancy", href: "/jobs" },
+  { name: "Portfolio", href: "/portfolio" },
   { name: "Event", href: "/event" },
 ];
 
@@ -126,12 +126,12 @@ const Navbar: React.FC = () => {
             <Link href="/" className="hover:text-red-500">
               HOME
             </Link>
-            <Link href="/portfolio" className="hover:text-red-500">
+            {/* <Link href="/portfolio" className="hover:text-red-500">
               PORTFOLIO
-            </Link>
-            <Link href="/talent" className="hover:text-red-500">
+            </Link> */}
+            {/* <Link href="/talent" className="hover:text-red-500">
               TALENT CLUB
-            </Link>
+            </Link> */}
 
             {/* Services Dropdown (Desktop) */}
             <div ref={servicesRef} className="relative">
