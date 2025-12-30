@@ -126,12 +126,6 @@ const Navbar: React.FC = () => {
             <Link href="/" className="hover:text-red-500">
               HOME
             </Link>
-            {/* <Link href="/portfolio" className="hover:text-red-500">
-              PORTFOLIO
-            </Link> */}
-            {/* <Link href="/talent" className="hover:text-red-500">
-              TALENT CLUB
-            </Link> */}
 
             {/* Services Dropdown (Desktop) */}
             <div ref={servicesRef} className="relative">
