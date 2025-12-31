@@ -70,7 +70,7 @@ export default function HybridConsultingHero() {
       {/* Background Image */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
-        style={{ backgroundImage: "url('/hero-bg.jpg')" }} // 👈 replace with your image path
+        style={{ backgroundImage: "url('/hero-bg.jpg')" }}
       />
 
       {/* Background Video layered above image */}

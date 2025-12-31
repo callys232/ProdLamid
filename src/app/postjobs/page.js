@@ -1,5 +1,5 @@
 import React from "react";
-import PostJobs from "@/components/";
+import PostJobs from "@/components/postjobs/jobPost";
 
 const ProfilePage = () => {
   return (
