@@ -15,7 +15,7 @@ const serviceItems: ServiceItem[] = [
   { name: "BizPrototype", href: "/bizprototype" },
   { name: "HCD", href: "/hcd" },
   { name: "SustainableDev", href: "/sustainableDev" },
-  { name: "Portfolio", href: "/portfolio" },
+  { name: "Values", href: "/portfolio" },
   { name: "Event", href: "/event" },
 ];
 
