@@ -16,7 +16,7 @@ interface ProjectDocument {
   uploadedAt: string;
 }
 
-export function ProjectDocumentsDropdown({
+export default function ProjectDocumentsDropdown({
   escrow,
   isOpen,
 }: ProjectDocumentsDropdownProps) {
