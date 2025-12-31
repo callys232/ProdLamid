@@ -11,7 +11,7 @@ const accountItems = [
   { name: "Sign In", href: "/signin" },
   { name: "Sign Up", href: "/signup" },
   { name: "Admin", href: "/admin" },
-  { name: "Continue with Google", href: "/google-login" },
+  // { name: "Continue with Google", href: "/google-login" },
   { name: "Consultant Login", href: "/profile" },
   { name: "Jobs", href: "/jobs" },
   { name: "Clients", href: "/talent" },
