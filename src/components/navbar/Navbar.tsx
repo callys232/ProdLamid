@@ -200,20 +200,6 @@ const Navbar: React.FC = () => {
             >
               HOME
             </Link>
-            <Link
-              href="/portfolio"
-              className="block py-2 hover:text-red-500"
-              onClick={() => setIsOpen(false)}
-            >
-              PORTFOLIO
-            </Link>
-            <Link
-              href="/talentclub"
-              className="block py-2 hover:text-red-500"
-              onClick={() => setIsOpen(false)}
-            >
-              TALENT CLUB
-            </Link>
 
             {/* Services Dropdown (Mobile) */}
             <div ref={mobileServicesRef}>

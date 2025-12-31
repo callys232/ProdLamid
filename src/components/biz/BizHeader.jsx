@@ -63,7 +63,15 @@ const BizHeader = () => {
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <h1 className="text-3xl md:text-4xl font-bold text-blue-500 border-r-2 border-white whitespace-nowrap overflow-hidden max-w-full">
+                <h1
+                  className="
+    text-3xl md:text-4xl 
+    font-bold text-blue-500 
+    border-r-2 border-white 
+    whitespace-normal md:whitespace-nowrap   /* ✅ allow wrapping on small, prevent on md+ */
+    overflow-hidden max-w-full
+  "
+                >
                   <Typewriter
                     words={["Business Innovation Zone"]}
                     loop={Infinity}

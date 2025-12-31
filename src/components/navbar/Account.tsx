@@ -10,7 +10,7 @@ interface AccountMenuProps {
 const accountItems = [
   { name: "Sign In", href: "/signin" },
   { name: "Sign Up", href: "/signup" },
-  { name: "Admin", href: "/admin" },
+  // { name: "Admin", href: "/admin" },
   // { name: "Continue with Google", href: "/google-login" },
   { name: "Consultant Login", href: "/profile" },
   { name: "Jobs", href: "/jobs" },

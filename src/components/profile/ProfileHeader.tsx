@@ -70,13 +70,15 @@ export default function ProfileHeader() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-white">Caleb Johnson</h1>
+              <h1 className="text-2xl font-bold text-white">
+                Lamid Consulting
+              </h1>
               <FaCheckCircle
                 className="text-blue-500"
                 title="Verified Profile"
               />
             </div>
-            <p className="text-gray-400 text-sm">Full Stack Developer</p>
+            <p className="text-gray-400 text-sm">Hybrid Consultants</p>
             <p className="text-xs text-gray-500 mt-1">Lagos, Nigeria</p>
           </div>
         </motion.div>
@@ -123,12 +125,12 @@ export default function ProfileHeader() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
-        <button className="px-6 py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-medium rounded-lg shadow-md transition transform hover:scale-105">
+        {/* <button className="px-6 py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-medium rounded-lg shadow-md transition transform hover:scale-105">
           Hire Me
         </button>
         <button className="px-6 py-2 bg-gray-700 hover:bg-gray-600 active:bg-gray-700 text-white font-medium rounded-lg shadow-md transition transform hover:scale-105">
           Message
-        </button>
+        </button> */}
         <button className="px-6 py-2 border border-gray-600 hover:border-red-500 text-gray-300 hover:text-white font-medium rounded-lg shadow-md transition transform hover:scale-105">
           Download CV
         </button>
