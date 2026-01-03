@@ -1,12 +1,28 @@
 
 import { NextResponse } from "next/server";
-import { teamProjects, individualProjects } from "@/mocks/mockClient";
+import connectDB from "@/lib/db";
+import { Project } from "@/lib/models/Project";
 
 export async function GET() {
-    const allProjects = [...teamProjects, ...individualProjects];
+    try {
+        await connectDB();
+        const projects = await Project.find({}).sort({ createdAt: -1 });
 
-    // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+        return NextResponse.json({ success: true, data: projects });
+    } catch (error: any) {
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+    }
+}
 
-    return NextResponse.json(allProjects);
+export async function POST(request: Request) {
+    try {
+        await connectDB();
+        const body = await request.json();
+
+        const project = await Project.create(body);
+
+        return NextResponse.json({ success: true, data: project }, { status: 201 });
+    } catch (error: any) {
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+    }
 }

@@ -1,9 +1,9 @@
 
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
-import { Project } from "@/lib/models/Project";
+import { Bid } from "@/lib/models/Bid";
 
-// GET single project
+// GET single bid
 export async function GET(
     request: Request,
     { params }: { params: { id: string } }
@@ -12,22 +12,25 @@ export async function GET(
         await connectDB();
         const { id } = params;
 
-        const project = await Project.findById(id);
+        const bid = await Bid.findById(id);
 
-        if (!project) {
+        if (!bid) {
             return NextResponse.json(
-                { success: false, message: "Project not found" },
+                { success: false, message: "Bid not found" },
                 { status: 404 }
             );
         }
 
-        return NextResponse.json({ success: true, data: project });
+        return NextResponse.json({ success: true, data: bid });
     } catch (error: any) {
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+        return NextResponse.json(
+            { success: false, message: error.message },
+            { status: 500 }
+        );
     }
 }
 
-// PUT (Update) project
+// PUT update bid (e.g. status change)
 export async function PUT(
     request: Request,
     { params }: { params: { id: string } }
@@ -37,25 +40,28 @@ export async function PUT(
         const { id } = params;
         const body = await request.json();
 
-        const project = await Project.findByIdAndUpdate(id, body, {
+        const bid = await Bid.findByIdAndUpdate(id, body, {
             new: true,
             runValidators: true,
         });
 
-        if (!project) {
+        if (!bid) {
             return NextResponse.json(
-                { success: false, message: "Project not found" },
+                { success: false, message: "Bid not found" },
                 { status: 404 }
             );
         }
 
-        return NextResponse.json({ success: true, data: project });
+        return NextResponse.json({ success: true, data: bid });
     } catch (error: any) {
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+        return NextResponse.json(
+            { success: false, message: error.message },
+            { status: 500 }
+        );
     }
 }
 
-// DELETE project
+// DELETE bid
 export async function DELETE(
     request: Request,
     { params }: { params: { id: string } }
@@ -64,17 +70,20 @@ export async function DELETE(
         await connectDB();
         const { id } = params;
 
-        const project = await Project.findByIdAndDelete(id);
+        const bid = await Bid.findByIdAndDelete(id);
 
-        if (!project) {
+        if (!bid) {
             return NextResponse.json(
-                { success: false, message: "Project not found" },
+                { success: false, message: "Bid not found" },
                 { status: 404 }
             );
         }
 
         return NextResponse.json({ success: true, data: {} });
     } catch (error: any) {
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+        return NextResponse.json(
+            { success: false, message: error.message },
+            { status: 500 }
+        );
     }
 }

@@ -16,6 +16,14 @@ const ProfileSchema = new mongoose.Schema({
   firstName: { type: String },
   lastName: { type: String },
 
+  // Consultant specific fields
+  industry: { type: String },
+  rate: { type: Number }, // Hourly rate
+  rating: { type: Number, default: 0 },
+  delivery: { type: String, enum: ["Remote", "Onsite", "Hybrid"] },
+  title: { type: String }, // e.g. "Full Stack Developer"
+  skills: { type: [String], default: [] },
+
   addresses: [
     {
       line1: { type: String, required: true },
