@@ -33,11 +33,10 @@ export default function ConsultantCard({ consultant }: ConsultantCardProps) {
     Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-4 h-4 ${
-          i + 1 <= Math.round(rating)
+        className={`w-4 h-4 ${i + 1 <= Math.round(rating)
             ? "text-red-500 fill-red-500"
             : "text-gray-600"
-        }`}
+          }`}
       />
     ));
 
@@ -45,31 +44,20 @@ export default function ConsultantCard({ consultant }: ConsultantCardProps) {
   const handleHire = async (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const res = await fetch("/api/hire-consultant", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          consultantId: consultant.id || consultant._id,
-          consultantEmail: email,
-        }),
-      });
+      const { hireConsultant } = await import("@/lib/api/consultantApi");
+      await hireConsultant(consultant.id || consultant._id || "", "");
 
-      if (res.ok) {
-        setFeedback({
-          message: "Hire request sent successfully!",
-          type: "success",
-        });
-        setTimeout(() => setFeedback(null), 2500);
-      } else {
-        setFeedback({
-          message: "Something went wrong. Try again.",
-          type: "error",
-        });
-        setTimeout(() => setFeedback(null), 2500);
-      }
+      setFeedback({
+        message: "Hire request sent successfully!",
+        type: "success",
+      });
+      setTimeout(() => setFeedback(null), 2500);
     } catch (err) {
       console.error(err);
-      setFeedback({ message: "Error sending hire request.", type: "error" });
+      setFeedback({
+        message: "Error sending hire request. Please try again.",
+        type: "error"
+      });
       setTimeout(() => setFeedback(null), 2500);
     }
   };

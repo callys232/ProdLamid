@@ -1,18 +1,24 @@
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
-import { User } from "@/lib/models/User";
-import { Profile } from "@/lib/models/Profile"; // Ensure Profile model is imported to register schema
+import { getConsultants } from "@/lib/services/consultantService";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
     try {
         await connectDB();
 
-        // Find users with role "seller" (consultants)
-        // Populate the 'profile' virtual
-        const consultants = await User.find({ role: "seller" })
-            .populate("profile")
-            .select("-password -__v"); // Exclude sensitive fields
+        const { searchParams } = new URL(request.url);
+        const industry = searchParams.get("industry") || undefined;
+        const minRate = searchParams.get("minRate") ? parseFloat(searchParams.get("minRate")!) : undefined;
+        const maxRate = searchParams.get("maxRate") ? parseFloat(searchParams.get("maxRate")!) : undefined;
+        const minRating = searchParams.get("minRating") ? parseFloat(searchParams.get("minRating")!) : undefined;
+
+        const consultants = await getConsultants({
+            industry,
+            minRate,
+            maxRate,
+            minRating
+        });
 
         return NextResponse.json({ success: true, data: consultants });
     } catch (error: any) {

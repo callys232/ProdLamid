@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import type { EventItem } from "@/types/eventTypes";
-import { mockEvents } from "@/mocks/mockEvents";
+import { getEvents } from "@/lib/api/eventApi";
 import EventListCard from "./eventListCard";
 import EventModal from "./eventsModal";
 import JobCategoryEvents from "./jobCategoryEvents";
@@ -12,19 +12,29 @@ import JobCategoryEvents from "./jobCategoryEvents";
 const EventList = () => {
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
 
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
-        const res = await fetch(`${baseUrl}/api/events`, { cache: "no-store" });
-        if (!res.ok) throw new Error("Failed to fetch events");
-        const data = await res.json();
-        setEvents(Array.isArray(data) ? data : mockEvents);
-      } catch (error) {
-        console.error("Error fetching events, using mock data:", error);
-        setEvents(mockEvents);
+        setLoading(true);
+        setError(null);
+        const data = await getEvents();
+        // Map Event to EventItem if needed
+        setEvents(data.map((e: any) => ({
+          id: e._id ? parseInt(e._id.toString().slice(-8), 16) : Date.now(),
+          title: e.title || e.eventTitle || "",
+          description: e.description || "",
+          image: e.image || e.images?.[0]?.path || "",
+          date: e.date || "",
+          time: e.time || "",
+          location: e.location || "",
+          category: e.category || ""
+        })) as EventItem[]);
+      } catch (err: any) {
+        console.error("Error fetching events:", err);
+        setError("Failed to load events. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -72,6 +82,16 @@ const EventList = () => {
                   <div className="bg-gray-700 aspect-video rounded animate-pulse"></div>
                   <div className="bg-gray-700 aspect-video rounded animate-pulse"></div>
                 </>
+              ) : error ? (
+                <div className="col-span-4 text-center text-red-400 py-8">
+                  <p className="mb-4">{error}</p>
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="bg-orange-500 px-4 py-2 rounded hover:bg-orange-600"
+                  >
+                    Retry
+                  </button>
+                </div>
               ) : events.length > 0 ? (
                 events
                   .slice(0, 4)
