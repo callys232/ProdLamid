@@ -12,7 +12,7 @@ import DeleteAccount from "./DeleteAccount";
 
 // Business + AI features
 import BusinessProfile from "./premium/BusinessProfile";
-import AIPreferences from "./premium/AIPreferences";
+import Tiers from "../tiers/tier";
 import OnboardingAssistant from "./premium/OnboardingAssistant";
 
 export default function Settings() {
@@ -22,8 +22,8 @@ export default function Settings() {
   const tabs = [
     { key: "profile", label: "Profile" },
     { key: "business", label: "Business Profile" },
-    { key: "ai", label: "AI Preferences" },
-    { key: "onboarding", label: "Onboarding Assistant" },
+    { key: "tiers", label: "Tiers" },
+    // { key: "onboarding", label: "Onboarding Assistant" },
     { key: "security", label: "Security" },
     { key: "payment", label: "Payment Info" },
     { key: "resume", label: "Upload Resume" },
@@ -36,8 +36,8 @@ export default function Settings() {
         return <EditProfileForm />;
       case "business":
         return <BusinessProfile />;
-      case "ai":
-        return <AIPreferences />;
+      case "tiers":
+        return <Tiers />;
       case "onboarding":
         return <OnboardingAssistant />;
       case "security":

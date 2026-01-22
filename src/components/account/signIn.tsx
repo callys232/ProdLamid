@@ -54,7 +54,7 @@ export default function SignInPage() {
         className="w-full max-w-sm sm:max-w-md bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-8 shadow-2xl"
       >
         <h2 className="text-2xl font-serif font-bold text-center mb-6 text-white">
-          Sign In to Lamid
+          Sign In
         </h2>
 
         {/* Email + Password Form */}

@@ -5,45 +5,28 @@ import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
 interface FormData {
-  UserName: string;
+  fullName: string;
   email: string;
   password: string;
   confirmPassword: string;
   accountType: string;
 }
 
-interface PasswordRules {
-  length: boolean;
-  upper: boolean;
-  lower: boolean;
-  number: boolean;
-  special: boolean;
-  whitespace: boolean;
-}
-
 export default function SignUpPage() {
   const [formData, setFormData] = useState<FormData>({
-    UserName: "",
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    accountType: "FreeLancer",
+    accountType: "user",
   });
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState<
     "Weak" | "Medium" | "Strong" | ""
   >("");
-  const [rules, setRules] = useState<PasswordRules>({
-    length: false,
-    upper: false,
-    lower: false,
-    number: false,
-    special: false,
-    whitespace: false,
-  });
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -54,41 +37,21 @@ export default function SignUpPage() {
   };
 
   const evaluatePasswordStrength = (password: string) => {
-    const newRules: PasswordRules = {
-      length: password.length >= 12,
-      upper: /[A-Z]/.test(password),
-      lower: /[a-z]/.test(password),
-      number: /\d/.test(password),
-      special: /[^A-Za-z0-9]/.test(password),
-      whitespace: /\s/.test(password),
-    };
-    setRules(newRules);
-
     let strength: "Weak" | "Medium" | "Strong" | "" = "";
-    if (
-      !newRules.length ||
-      !newRules.upper ||
-      !newRules.lower ||
-      !newRules.number ||
-      !newRules.special ||
-      newRules.whitespace
-    ) {
+    if (password.length > 0 && password.length < 6) {
       strength = "Weak";
     } else if (
-      newRules.length &&
-      newRules.upper &&
-      newRules.lower &&
-      newRules.number
+      password.length >= 6 &&
+      /[A-Z]/.test(password) &&
+      /\d/.test(password)
     ) {
       strength = "Medium";
     }
     if (
-      newRules.length &&
-      newRules.upper &&
-      newRules.lower &&
-      newRules.number &&
-      newRules.special &&
-      !newRules.whitespace
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /\d/.test(password) &&
+      /[^A-Za-z0-9]/.test(password)
     ) {
       strength = "Strong";
     }
@@ -112,8 +75,8 @@ export default function SignUpPage() {
       return;
     }
 
-    if (passwordStrength !== "Strong") {
-      toast.error("Password does not meet security requirements ❌");
+    if (passwordStrength === "Weak" || passwordStrength === "") {
+      toast.error("Password is too weak ❌");
       return;
     }
 
@@ -129,21 +92,13 @@ export default function SignUpPage() {
 
       toast.success("Account created successfully 🎉");
       setFormData({
-        UserName: "",
+        fullName: "",
         email: "",
         password: "",
         confirmPassword: "",
-        accountType: "FreeLancer",
+        accountType: "user",
       });
       setPasswordStrength("");
-      setRules({
-        length: false,
-        upper: false,
-        lower: false,
-        number: false,
-        special: false,
-        whitespace: false,
-      });
     } catch {
       toast.error("Something went wrong. Please try again ⚠️");
     } finally {
@@ -174,9 +129,9 @@ export default function SignUpPage() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
-            name="UserName"
-            placeholder="UserName"
-            value={formData.UserName}
+            name="fullName"
+            placeholder="Full Name"
+            value={formData.fullName}
             onChange={handleChange}
             required
             className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 
@@ -208,49 +163,18 @@ export default function SignUpPage() {
                          border border-transparent focus:ring-2 focus:ring-[#c12129] focus:ring-offset-2 focus:ring-offset-[#0d0d0d]
                          transition-all duration-300 shadow-sm"
             />
-
-            {/* Strength meter only shows when typing */}
-            {formData.password.length > 0 && passwordStrength && (
+            {passwordStrength && (
               <p
                 className={`text-xs ${
                   passwordStrength === "Weak"
                     ? "text-red-500"
                     : passwordStrength === "Medium"
-                      ? "text-yellow-400"
-                      : "text-green-400"
+                    ? "text-yellow-400"
+                    : "text-green-400"
                 }`}
               >
                 Password strength: {passwordStrength}
               </p>
-            )}
-
-            {/* Real-time checklist, only shows unmet rules */}
-            {formData.password.length > 0 && (
-              <div className="text-xs text-gray-300 mt-2 space-y-1">
-                <p>Still required:</p>
-                <ul className="list-disc list-inside space-y-1">
-                  {!rules.length && (
-                    <li className="text-red-500">❌ At least 12 characters</li>
-                  )}
-                  {!rules.upper && (
-                    <li className="text-red-500">❌ One uppercase (A–Z)</li>
-                  )}
-                  {!rules.lower && (
-                    <li className="text-red-500">❌ One lowercase (a–z)</li>
-                  )}
-                  {!rules.number && (
-                    <li className="text-red-500">❌ One number (0–9)</li>
-                  )}
-                  {!rules.special && (
-                    <li className="text-red-500">
-                      ❌ One special character (!@#$%^&*)
-                    </li>
-                  )}
-                  {rules.whitespace && (
-                    <li className="text-red-500">❌ No spaces allowed</li>
-                  )}
-                </ul>
-              </div>
             )}
           </div>
 
@@ -275,15 +199,13 @@ export default function SignUpPage() {
             aria-label="Account Type"
             value={formData.accountType}
             onChange={handleChange}
-            className="w-full px-4 py-3 rounded-xl bg-white/20 text-white 
-                       border border-transparent focus:ring-2 focus:ring-[#c12129] 
-                       focus:ring-offset-2 focus:ring-offset-[#0d0d0d] transition-all duration-300 shadow-sm"
+            className="..."
           >
-            <option value="FreeLancer" className="text-black">
-              FreeLancer
+            <option value="user" className="text-black">
+              User
             </option>
-            <option value="Client" className="text-black">
-              Client
+            <option value="consultant" className="text-black">
+              Consultant
             </option>
           </select>
 

@@ -1,4 +1,3 @@
-import React from "react";
 import PostJobs from "@/components/postjobs/jobPost";
 
 const ProfilePage = () => {

@@ -1,12 +1,52 @@
+// components/ProfileHeader.tsx
 "use client";
 
+import { useState, useEffect } from "react";
 import { FaLinkedin, FaGithub, FaTwitter, FaCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import StatCard from "./statCard";
-import ProgressBar from "./progressBar"; // ✅ import the reusable ProgressBar
+import ProgressBar from "./progressBar";
+import ReviewPopupContainer from "./popContainer";
+import axios from "axios";
+import {
+  UserAlert,
+  mockAlerts,
+  mockNotifications,
+  mockPayments,
+  mockDeadlines,
+} from "@/mocks/useralert";
 
 export default function ProfileHeader() {
-  const completion = 70; // profile completion in percentage
+  const completion = 70;
+  const [showPopup, setShowPopup] = useState(false);
+
+  // Prefetch for badge count
+  const [alerts, setAlerts] = useState<UserAlert[]>([]);
+  const [notifications, setNotifications] = useState<UserAlert[]>([]);
+  const [payments, setPayments] = useState<UserAlert[]>([]);
+  const [deadlines, setDeadlines] = useState<UserAlert[]>([]);
+
+  useEffect(() => {
+    const prefetch = async () => {
+      try {
+        const res = await axios.get("/api/user/alerts");
+        const data = res.data || {};
+        setAlerts((data.alerts as UserAlert[]) || []);
+        setNotifications((data.notifications as UserAlert[]) || []);
+        setPayments((data.payments as UserAlert[]) || []);
+        setDeadlines((data.deadlines as UserAlert[]) || []);
+      } catch {
+        setAlerts(mockAlerts);
+        setNotifications(mockNotifications);
+        setPayments(mockPayments);
+        setDeadlines(mockDeadlines);
+      }
+    };
+    prefetch();
+  }, []);
+
+  const badgeCount =
+    alerts.length + notifications.length + payments.length + deadlines.length;
 
   const stats = [
     {
@@ -20,14 +60,14 @@ export default function ProfileHeader() {
       details: ["Completed A", "Completed B", "Completed C"],
     },
     {
+      value: "3",
+      label: "Pending",
+      details: ["project website", "project ecommerce", "project careers"],
+    },
+    {
       value: "4.9",
       label: "Avg. Rating",
       details: ["Review 1: ⭐⭐⭐⭐⭐", "Review 2: ⭐⭐⭐⭐"],
-    },
-    {
-      value: "3 yrs",
-      label: "Experience",
-      details: ["React", "Node.js", "MongoDB"],
     },
   ];
 
@@ -90,8 +130,7 @@ export default function ProfileHeader() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <ProgressBar label="Profile Completion" value={completion} />{" "}
-          {/* ✅ Clean usage */}
+          <ProgressBar label="Profile Completion" value={completion} />
         </motion.div>
       </div>
 
@@ -125,14 +164,16 @@ export default function ProfileHeader() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
-        {/* <button className="px-6 py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-medium rounded-lg shadow-md transition transform hover:scale-105">
-          Hire Me
-        </button>
-        <button className="px-6 py-2 bg-gray-700 hover:bg-gray-600 active:bg-gray-700 text-white font-medium rounded-lg shadow-md transition transform hover:scale-105">
-          Message
-        </button> */}
-        <button className="px-6 py-2 border border-gray-600 hover:border-red-500 text-gray-300 hover:text-white font-medium rounded-lg shadow-md transition transform hover:scale-105">
-          Download CV
+        <button
+          onClick={() => setShowPopup(true)}
+          className="relative px-6 py-2 border border-gray-600 hover:border-red-500 text-gray-300 hover:text-white font-medium rounded-lg shadow-md transition transform hover:scale-105"
+        >
+          All Reviews
+          {badgeCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
+              {badgeCount}
+            </span>
+          )}
         </button>
       </motion.div>
 
@@ -171,6 +212,14 @@ export default function ProfileHeader() {
           <FaTwitter size={24} />
         </a>
       </motion.div>
+
+      {/* Review Popup */}
+      {showPopup && (
+        <ReviewPopupContainer
+          isOpen={showPopup}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
     </motion.div>
   );
 }

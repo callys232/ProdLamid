@@ -42,12 +42,12 @@ export default function SettingsSidebar({
       icon: <CreditCard size={18} />,
     },
     { key: "resume", label: "Upload Resume", icon: <Upload size={18} /> },
-    { key: "ai", label: "AI Preferences", icon: <Cpu size={18} /> },
-    {
-      key: "onboarding",
-      label: "Onboarding Assistant",
-      icon: <BookOpen size={18} />,
-    },
+    { key: "tiers", label: "Tiers", icon: <Cpu size={18} /> },
+    // {
+    //   key: "onboarding",
+    //   label: "Onboarding Assistant",
+    //   icon: <BookOpen size={18} />,
+    // },
     {
       key: "business",
       label: "Business Profile",
@@ -112,8 +112,8 @@ export default function SettingsSidebar({
                       isActive
                         ? "text-white font-medium"
                         : tab.danger
-                        ? "text-red-400 hover:text-red-300"
-                        : "text-gray-300 hover:text-white"
+                          ? "text-red-400 hover:text-red-300"
+                          : "text-gray-300 hover:text-white"
                     }
                   `}
                 >

@@ -18,7 +18,7 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
         throw new Error("Backend not ok");
       } catch {
         const fallbackProject = mockClients[0].projects.find(
-          (p) => p.id === projectId || p._id === projectId
+          (p) => p.id === projectId || p._id === projectId,
         );
         if (fallbackProject) {
           setProject({
@@ -41,11 +41,11 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
                     hover:border-[#c12129] relative group"
     >
       <div>
-        <p className="text-sm text-gray-400">Budget</p>
+        <p className="text-sm text-gray-400">review time(date)</p>
         <p className="text-white">{project.budget}</p>
       </div>
       <div>
-        <p className="text-sm text-gray-400">Rate</p>
+        <p className="text-sm text-gray-400">calender schedule</p>
         <p className="text-white">{project.hourlyRate}</p>
       </div>
       <div>
@@ -58,7 +58,7 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
       </div>
       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
         <span className="bg-[#c12129] text-white text-xs px-2 py-1 rounded shadow-md">
-          Budget, rate, tech stack summary
+          Project Summary
         </span>
       </div>
     </div>

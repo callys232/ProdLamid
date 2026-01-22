@@ -18,7 +18,7 @@ export default function MilestonesCard({ projectId }: { projectId: string }) {
         throw new Error("Backend not ok");
       } catch {
         const fallbackProject = mockClients[0].projects.find(
-          (p) => p.id === projectId || p._id === projectId
+          (p) => p.id === projectId || p._id === projectId,
         );
         setMilestones(fallbackProject?.milestones || []);
       }
@@ -51,7 +51,7 @@ export default function MilestonesCard({ projectId }: { projectId: string }) {
       </ul>
       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
         <span className="bg-[#c12129] text-white text-xs px-2 py-1 rounded shadow-md">
-          Project milestones and status
+          Project group phrases
         </span>
       </div>
     </div>
