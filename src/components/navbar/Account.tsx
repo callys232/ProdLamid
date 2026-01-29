@@ -13,7 +13,7 @@ const accountItems = [
   // { name: "Admin", href: "/admin" },
   // { name: "Continue with Google", href: "/google-login" },
   { name: "Consultant Login", href: "/profile" },
-  { name: "Careers", href: "/jobs" },
+  { name: "Projects", href: "/jobs" },
   { name: "Clients", href: "/talent" },
   { name: "Client Login", href: "/client" },
 ];
@@ -97,9 +97,8 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
       {open && (
         <div
           id="account-dropdown"
-          className={`absolute ${
-            align === "right" ? "right-0" : "left-0"
-          } mt-3 w-56 bg-white text-black rounded-lg shadow-xl z-50`}
+          className={`absolute ${align === "right" ? "right-0" : "left-0"
+            } mt-3 w-56 bg-white text-black rounded-lg shadow-xl z-50`}
           aria-label="Account options"
         >
           <ul className="py-1">

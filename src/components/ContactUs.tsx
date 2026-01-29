@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import FAQSection from "./FaqSection";
-// import FloatingChatWindow from "@/components/floatContact";
 
 export default function ContactPage() {
   const [chatExpanded, setChatExpanded] = useState(false);
@@ -26,11 +25,6 @@ export default function ContactPage() {
           </button>
         </section>
       </div>
-
-      {/* Floating Chat Window */}
-      {/* {chatExpanded && (
-        <FloatingChatWindow onClose={() => setChatExpanded(false)} />
-      )} */}
     </div>
   );
 }

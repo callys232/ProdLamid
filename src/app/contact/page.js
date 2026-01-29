@@ -7,7 +7,6 @@ const ContactPage = () => {
     <div>
       <Navbar />
       <ContactUs />
-      <Footer />
     </div>
   );
 };

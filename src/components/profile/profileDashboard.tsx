@@ -76,7 +76,7 @@ export default function ProfileDashboard({
         return <Teams />;
       case "notifications":
         return <Notifications />;
-      case "escrow":
+      case "Projects":
         return <Escrow />;
       // case "Project":
       //   return <ProjectEscrow />;
