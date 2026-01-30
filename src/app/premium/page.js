@@ -1,4 +1,4 @@
-import Premium from "@/components/profile/settings/premium/premuim";
+import Premium from "@/components/premium/premuim";
 
 const PremiumPage = () => {
   return (

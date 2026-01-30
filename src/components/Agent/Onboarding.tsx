@@ -41,7 +41,7 @@ interface ISpeechRecognition extends EventTarget {
 
 declare global {
   interface SpeechRecognitionConstructor {
-    new (): ISpeechRecognition;
+    new(): ISpeechRecognition;
   }
   interface Window {
     SpeechRecognition?: SpeechRecognitionConstructor;
@@ -218,17 +218,15 @@ export default function AIAgent() {
               <h2 className="font-semibold">
                 {activeAgent === "onboarding"
                   ? "Onboarding Assistant"
-                  : `${
-                      activeAgent.charAt(0).toUpperCase() + activeAgent.slice(1)
-                    } Agent`}
+                  : `${activeAgent.charAt(0).toUpperCase() + activeAgent.slice(1)
+                  } Agent`}
               </h2>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => recognitionRef.current?.start()}
-                className={`px-2 py-1 rounded ${
-                  isListening ? "bg-white/20" : "bg-white/10"
-                }`}
+                className={`px-2 py-1 rounded ${isListening ? "bg-white/20" : "bg-white/10"
+                  }`}
                 title="Voice input"
               >
                 🎤
@@ -263,18 +261,16 @@ export default function AIAgent() {
                 {chatHistory.map((msg, i) => (
                   <div
                     key={i}
-                    className={`flex items-end gap-2 ${
-                      msg.sender === "bot"
+                    className={`flex items-end gap-2 ${msg.sender === "bot"
                         ? "self-start flex-row"
                         : "self-end flex-row-reverse"
-                    }`}
+                      }`}
                   >
                     <div
-                      className={`max-w-[75%] text-sm p-4 rounded-2xl shadow-md leading-relaxed ${
-                        msg.sender === "bot"
+                      className={`max-w-[75%] text-sm p-4 rounded-2xl shadow-md leading-relaxed ${msg.sender === "bot"
                           ? "bg-gray-800/80 text-gray-100 rounded-tl-none"
                           : "bg-gradient-to-r from-[#c21219] to-[#a40e14] text-white rounded-tr-none"
-                      }`}
+                        }`}
                     >
                       {msg.text}
                       <div className="text-xs text-gray-400 mt-2">
@@ -319,9 +315,8 @@ export default function AIAgent() {
             />
             <button
               onClick={() => recognitionRef.current?.start()}
-              className={`px-4 py-2 rounded-lg ${
-                isListening ? "bg-red-600" : "bg-[#3b82f6]"
-              } text-white hover:opacity-90`}
+              className={`px-4 py-2 rounded-lg ${isListening ? "bg-red-600" : "bg-[#3b82f6]"
+                } text-white hover:opacity-90`}
               title="Voice input"
             >
               🎤

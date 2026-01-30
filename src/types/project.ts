@@ -16,17 +16,35 @@ export interface Project {
   image?: string;
   images?: string[];
   description?: string;
+
+  /* 🔹 NEW: Client-facing project meaning */
+  purpose?: string;
+  color?: string; // hex color for branding (e.g. "#c12129")
+
+  /* 🔹 NEW: Capability-driven representation */
+  skills?: string[];
+
+  /* 🔹 NEW: Execution structure */
+  workPhases?: WorkPhase[];
+
   milestones?: Milestone[];
+
   // type?: "fixed" | "hourly";
   type?: number;
+
   adminIds?: string[];
   currentMilestoneId?: string;
+
   suggestedBidRange?: {
     min: number;
     max: number;
   };
 
+  /* 🔹 Existing + compatible */
   consultants?: string[] | Consultant[];
+
+  /* 🔹 NEW: Project-scoped consultant assignments */
+  assignedConsultants?: ProjectConsultant[];
 
   priority?: string;
   deadline?: string;
@@ -37,9 +55,31 @@ export interface Project {
 
   milestoneProgress?: number;
   timeline?: string;
-  skills?: string[];
+
   escrow?: EscrowTransaction[];
   activities?: ActivityItem[];
+}
+
+/* -------------------- WORK PHASES -------------------- */
+export interface WorkPhase {
+  id?: string;
+  name: string;
+  duration: string; // e.g. "2 weeks", "4 weeks"
+  description?: string;
+  order?: number;
+  status?: "pending" | "active" | "completed";
+}
+
+/* -------------------- PROJECT CONSULTANT -------------------- */
+export interface ProjectConsultant {
+  id: string;
+  consultantId?: string; // links to Consultant entity
+  name: string;
+  role: string;
+  schedule: string; // "Mon–Fri, 9am–5pm"
+  progress: number; // 0–100
+  assignedAt?: string;
+  status?: "active" | "paused" | "completed";
 }
 
 /* -------------------- MILESTONES -------------------- */
@@ -62,15 +102,16 @@ export interface Milestone {
   progress?: number;
   status?: MilestoneStatus;
   deadline?: string;
+  workPhaseId?: string;
 }
 
 /* -------------------- ACTIVITY LOG -------------------- */
 export interface ActivityItem {
-  id: string; // unique identifier
-  action: string; // e.g. "Bid Placed", "Milestone Updated"
-  user: string; // who performed the action
-  timestamp: string; // ISO date string
-  details?: string; // optional extra info
+  id: string;
+  action: string;
+  user: string;
+  timestamp: string;
+  details?: string;
   type?: "system" | "user";
 }
 
@@ -88,7 +129,7 @@ export interface EscrowTransaction {
   updatedAt: string;
   date?: string;
   type?: string;
-  action?: string; // descriptive action
+  action?: string;
 }
 
 /* -------------------- WALLET -------------------- */
@@ -125,14 +166,14 @@ export interface Dispute {
   openedBy: string;
   status: DisputeStatus;
   resolution?: "refund" | "release" | "split";
-  resolutionRatio?: number; // e.g. 0.5 for 50/50 split
+  resolutionRatio?: number;
   evidenceRefs?: string[];
   notes?: string[];
   createdAt: string;
   updatedAt: string;
 }
 
-// types/project.ts
+/* -------------------- ESCROW DASHBOARD -------------------- */
 export interface EscrowDashboardProps {
   balance: number;
   fundedTotal: number;

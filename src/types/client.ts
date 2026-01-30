@@ -28,12 +28,12 @@ export interface EscrowTransaction {
   amount: number;
   currency: string;
   status:
-    | "pending"
-    | "funded"
-    | "released"
-    | "cancelled"
-    | "disputed"
-    | "completed";
+  | "pending"
+  | "funded"
+  | "released"
+  | "cancelled"
+  | "disputed"
+  | "completed";
 
   createdAt: string;
   updatedAt: string;
@@ -80,12 +80,12 @@ export interface AiActionLog {
   _id?: string;
 
   actionType:
-    | "onboarding"
-    | "project-scoping"
-    | "matching"
-    | "notification"
-    | "marketing"
-    | "support";
+  | "onboarding"
+  | "project-scoping"
+  | "matching"
+  | "notification"
+  | "marketing"
+  | "support";
 
   message: string;
   createdAt: string;
@@ -117,17 +117,17 @@ export interface BusinessProfile {
 export interface Alert {
   id: string;
   type:
-    | "Broadcast"
-    | "escrow"
-    | "payment"
-    | "milestone"
-    | "message"
-    | "Email"
-    | "Slack"
-    | "Sms"
-    | "Risk"
-    | "document"
-    | "complaint";
+  | "Broadcast"
+  | "escrow"
+  | "payment"
+  | "milestone"
+  | "message"
+  | "Email"
+  | "Slack"
+  | "Sms"
+  | "Risk"
+  | "document"
+  | "complaint";
 
   message: string;
 
@@ -143,17 +143,17 @@ export interface Notification {
   createdAt?: string;
 
   type:
-    | "Broadcast"
-    | "escrow"
-    | "payment"
-    | "milestone"
-    | "message"
-    | "Email"
-    | "Slack"
-    | "Sms"
-    | "Risk"
-    | "document"
-    | "complaint";
+  | "Broadcast"
+  | "escrow"
+  | "payment"
+  | "milestone"
+  | "message"
+  | "Email"
+  | "Slack"
+  | "Sms"
+  | "Risk"
+  | "document"
+  | "complaint";
 
   severity?: "Low" | "Medium" | "High";
 }
@@ -186,6 +186,13 @@ export interface ClientProfile {
   location?: string;
   industry?: string;
   balance?: number;
+
+
+  registeredAt?: string;
+  completedProjects?: number;
+  rating?: number;
+  notes?: string;
+  phone?: string;
 
   alerts: Alert[];
   notifications: Notification[];

@@ -11,9 +11,9 @@ import UploadResume from "./UploadResume";
 import DeleteAccount from "./DeleteAccount";
 
 // Business + AI features
-import BusinessProfile from "./premium/BusinessProfile";
+import BusinessProfile from "../../premium/BusinessProfile";
 import Tiers from "../tiers/tier";
-import OnboardingAssistant from "./premium/OnboardingAssistant";
+import OnboardingAssistant from "../../premium/OnboardingAssistant";
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState("profile");
@@ -74,11 +74,10 @@ export default function Settings() {
                   setActiveTab(item.key);
                   setMobileMenuOpen(false);
                 }}
-                className={`block w-full text-left px-4 py-3 hover:bg-gray-800 ${
-                  activeTab === item.key
+                className={`block w-full text-left px-4 py-3 hover:bg-gray-800 ${activeTab === item.key
                     ? "bg-gray-800 text-red-500"
                     : "text-gray-300"
-                }`}
+                  }`}
               >
                 {item.label}
               </button>

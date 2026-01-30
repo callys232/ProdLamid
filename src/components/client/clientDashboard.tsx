@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProfileSidebar from "./CprofileSidebar";
-import Overview from "./tabs/Overview";
+import Overview from "@/components/client/tabs/overview/overview";
 import Settings from "./settings/Settings";
 import Teams from "./tabs/Teams";
 import Notifications from "./tabs/Notifications";
@@ -69,7 +69,7 @@ export default function ClientProfileDashboard() {
         ...prev,
         projects: prev.projects.map((p) =>
           (p.id && updated.id && p.id === updated.id) ||
-          (p._id && updated._id && p._id === updated._id)
+            (p._id && updated._id && p._id === updated._id)
             ? { ...p, ...updated }
             : p
         ),
@@ -85,7 +85,7 @@ export default function ClientProfileDashboard() {
 
     switch (activeTab) {
       case "overview":
-        return <Overview client={client} />;
+        return <Overview />;
       case "settings":
         return <Settings client={client} />;
       case "teams":
@@ -99,7 +99,7 @@ export default function ClientProfileDashboard() {
             onSave={handleProjectSave}
           />
         );
-      case "escrow":
+      case "Project-escrow":
         return (
           <ClientEscrow
             client={client}
@@ -110,7 +110,7 @@ export default function ClientProfileDashboard() {
       case "invitations":
         return <Invitations client={client} consultants={client.consultants} />;
       default:
-        return <Overview client={client} />;
+        return <Overview />;
     }
   };
 
@@ -141,9 +141,8 @@ export default function ClientProfileDashboard() {
       <div className="flex flex-col md:flex-row flex-1">
         {/* Sidebar */}
         <div
-          className={`md:w-64 bg-gray-900 md:border-r border-gray-800 ${
-            sidebarOpen ? "block" : "hidden"
-          } md:block md:relative absolute inset-y-0 left-0 z-40`}
+          className={`md:w-64 bg-gray-900 md:border-r border-gray-800 ${sidebarOpen ? "block" : "hidden"
+            } md:block md:relative absolute inset-y-0 left-0 z-40`}
         >
           <ProfileSidebar
             activeTab={activeTab}

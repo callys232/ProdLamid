@@ -1,217 +1,132 @@
 "use client";
 
 import { useState } from "react";
-import { ClientProfile } from "@/types/client";
-import { motion } from "framer-motion";
-import toast from "react-hot-toast";
-import { Pencil, Shield, Bell, Users, CreditCard } from "lucide-react";
 
-interface ClientSettingsProps {
-  client: ClientProfile;
-  isPremium?: boolean;
+// Core settings tabs
+import SettingsSidebar from "./SettingsSidebar";
+import EditProfileForm from "./EditProfileForm";
+import SecuritySettings from "./SecuritySettings";
+import PaymentInformation from "./payment";
+import UploadResume from "./UploadResume";
+import DeleteAccount from "./DeleteAccount";
+
+// Business + AI features
+import BusinessProfile from "@/components/premium/BusinessProfile";
+import Tiers from "@/components/profile/tiers/tier";
+import OnboardingAssistant from "@/components/premium/OnboardingAssistant";
+
+import { ClientProfile } from "@/types/client";
+
+interface SettingsProps {
+  client: ClientProfile | null;
 }
 
-export default function ClientSettings({
-  client,
-  isPremium = false,
-}: ClientSettingsProps) {
-  const [formData, setFormData] = useState({
-    name: client.name,
-    email: client.email,
-    companyName: client.companyname || "",
-    industry: client.industry || "",
-    location: client.location || "",
-    password: "",
-    newPassword: "",
-  });
+export default function Settings({ client }: SettingsProps) {
+  const [activeTab, setActiveTab] = useState("profile");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const tabs = [
+    { key: "profile", label: "Profile" },
+    { key: "business", label: "Business Profile" },
+    { key: "tiers", label: "Tiers" },
+    // { key: "onboarding", label: "Onboarding Assistant" },
+    { key: "security", label: "Security" },
+    { key: "payment", label: "Payment Info" },
+    { key: "resume", label: "Upload Resume" },
+    { key: "delete", label: "Delete Account" },
+  ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSave = () => {
-    toast.success("Settings saved successfully!");
-    // ✅ Call backend API here
-  };
-
-  const fadeSlide = {
-    hidden: { opacity: 0, y: -10 },
-    visible: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -10 },
+  const renderTab = () => {
+    switch (activeTab) {
+      case "profile":
+        return <EditProfileForm />;
+      case "business":
+        return <BusinessProfile />;
+      case "tiers":
+        return <Tiers />;
+      case "onboarding":
+        return <OnboardingAssistant />;
+      case "security":
+        return <SecuritySettings />;
+      case "payment":
+        return <PaymentInformation />;
+      case "resume":
+        return <UploadResume />;
+      case "delete":
+        return <DeleteAccount />;
+      default:
+        return <EditProfileForm />;
+    }
   };
 
   return (
-    <div className="p-6 space-y-8 w-full text-white">
-      <motion.h1
-        variants={fadeSlide}
-        initial="hidden"
-        animate="visible"
-        className="text-3xl font-bold"
-      >
-        Client Settings
-      </motion.h1>
-
-      {/* Profile Section */}
-      <motion.section
-        variants={fadeSlide}
-        initial="hidden"
-        animate="visible"
-        className="bg-gray-900 border border-gray-800 rounded-md p-6 space-y-4"
-      >
-        <div className="flex items-center gap-2">
-          <Pencil className="w-5 h-5 text-red-600" />
-          <h2 className="text-xl font-semibold">Profile Details</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Contact Name"
-            className="px-3 py-2 rounded bg-gray-800 border border-gray-700 w-full"
-          />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email Address"
-            className="px-3 py-2 rounded bg-gray-800 border border-gray-700 w-full"
-          />
-          <input
-            type="text"
-            name="companyName"
-            value={formData.companyName}
-            onChange={handleChange}
-            placeholder="Company Name"
-            className="px-3 py-2 rounded bg-gray-800 border border-gray-700 w-full"
-          />
-          <input
-            type="text"
-            name="industry"
-            value={formData.industry}
-            onChange={handleChange}
-            placeholder="Industry"
-            className="px-3 py-2 rounded bg-gray-800 border border-gray-700 w-full"
-          />
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Location"
-            className="px-3 py-2 rounded bg-gray-800 border border-gray-700 w-full"
-          />
-        </div>
-      </motion.section>
-
-      {/* Security Section */}
-      <motion.section
-        variants={fadeSlide}
-        initial="hidden"
-        animate="visible"
-        className="bg-gray-900 border border-gray-800 rounded-md p-6 space-y-4"
-      >
-        <div className="flex items-center gap-2">
-          <Shield className="w-5 h-5 text-red-600" />
-          <h2 className="text-xl font-semibold">Security</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Current Password"
-            className="px-3 py-2 rounded bg-gray-800 border border-gray-700 w-full"
-          />
-          <input
-            type="password"
-            name="newPassword"
-            value={formData.newPassword}
-            onChange={handleChange}
-            placeholder="New Password"
-            className="px-3 py-2 rounded bg-gray-800 border border-gray-700 w-full"
-          />
-        </div>
-      </motion.section>
-
-      {/* Notifications Section */}
-      <motion.section
-        variants={fadeSlide}
-        initial="hidden"
-        animate="visible"
-        className="bg-gray-900 border border-gray-800 rounded-md p-6 space-y-4"
-      >
-        <div className="flex items-center gap-2">
-          <Bell className="w-5 h-5 text-red-600" />
-          <h2 className="text-xl font-semibold">Notifications</h2>
-        </div>
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={notificationsEnabled}
-            onChange={(e) => setNotificationsEnabled(e.target.checked)}
-            className="w-5 h-5 rounded bg-gray-800 border border-gray-700 accent-red-600"
-          />
-          Enable Email Notifications
-        </label>
-      </motion.section>
-
-      {/* Team Management */}
-      <motion.section
-        variants={fadeSlide}
-        initial="hidden"
-        animate="visible"
-        className="bg-gray-900 border border-gray-800 rounded-md p-6 space-y-4"
-      >
-        <div className="flex items-center gap-2">
-          <Users className="w-5 h-5 text-red-600" />
-          <h2 className="text-xl font-semibold">Team Management</h2>
-        </div>
-        <p className="text-gray-400">
-          Add, remove or manage team members and assign roles.
-        </p>
-        <button className="px-4 py-2 bg-red-600 rounded hover:bg-red-700">
-          Manage Team
-        </button>
-      </motion.section>
-
-      {/* Premium Features */}
-      {isPremium && (
-        <motion.section
-          variants={fadeSlide}
-          initial="hidden"
-          animate="visible"
-          className="bg-gray-900 border border-yellow-600 rounded-md p-6 space-y-4"
-        >
-          <div className="flex items-center gap-2">
-            <CreditCard className="w-5 h-5 text-yellow-500" />
-            <h2 className="text-xl font-semibold text-yellow-400">
-              Premium Features
-            </h2>
-          </div>
-          <p className="text-gray-400">
-            Access AI consultant recommendations, analytics, priority support,
-            and advanced project settings.
-          </p>
-          <button className="px-4 py-2 bg-yellow-600 rounded hover:bg-yellow-700 text-black">
-            Manage Premium Settings
-          </button>
-        </motion.section>
-      )}
-
-      <div className="flex justify-end">
+    <div className="flex flex-col md:flex-row w-full min-h-screen bg-black text-white">
+      {/* Mobile Dropdown */}
+      <div className="md:hidden border-b border-gray-800 p-3 bg-gray-900/40">
         <button
-          onClick={handleSave}
-          className="px-6 py-3 bg-red-600 rounded hover:bg-red-700 text-white font-semibold"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="w-full flex justify-between items-center px-4 py-2 bg-gray-800 rounded-lg"
         >
-          Save All Changes
+          <span>{tabs.find((t) => t.key === activeTab)?.label}</span>
+          <span className="text-gray-300">{mobileMenuOpen ? "▲" : "▼"}</span>
         </button>
+
+        {mobileMenuOpen && (
+          <div className="mt-2 bg-gray-900 rounded-lg border border-gray-800">
+            {tabs.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => {
+                  setActiveTab(item.key);
+                  setMobileMenuOpen(false);
+                }}
+                className={`block w-full text-left px-4 py-3 hover:bg-gray-800 ${activeTab === item.key
+                  ? "bg-gray-800 text-red-500"
+                  : "text-gray-300"
+                  }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
+
+      {/* Desktop Sidebar */}
+      <aside
+        className="
+        hidden md:block 
+        w-full md:w-64 
+        border-r border-gray-800 
+        bg-gray-900/40 backdrop-blur-xl 
+        sticky top-0 h-screen
+      "
+      >
+        <SettingsSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      </aside>
+
+      {/* Content */}
+      <main
+        className="
+        flex-1 
+        p-4 sm:p-6 md:p-10 
+        overflow-y-auto 
+        flex justify-center
+      "
+      >
+        <div
+          className="
+            w-full max-w-3xl 
+            bg-gray-900/40 border border-gray-800 
+            rounded-xl p-5 sm:p-6 md:p-8
+            shadow-[0_0_25px_rgba(193,33,41,0.15)]
+            backdrop-blur-xl transition-all 
+            min-h-[75vh]
+          "
+        >
+          {renderTab()}
+        </div>
+      </main>
     </div>
   );
 }

@@ -1,0 +1,47 @@
+"use client";
+
+import { Consultant } from "@/types/client";
+
+interface ConsultantsListProps {
+    consultants: Consultant[];
+}
+
+export function ConsultantsList({ consultants }: ConsultantsListProps) {
+    if (!consultants || consultants.length === 0) {
+        return (
+            <section className="bg-[#111] border border-white/20 rounded-xl p-6 shadow-md">
+                <h2 className="text-xl font-semibold text-[#c12129] mb-4">Consultants</h2>
+                <p className="text-gray-400">No consultants assigned yet.</p>
+            </section>
+        );
+    }
+
+    return (
+        <section className="bg-[#111] border border-white/20 rounded-xl p-6 shadow-md hover:shadow-lg transition">
+            <h2 className="text-xl font-semibold text-[#c12129] mb-4">Consultants</h2>
+            <div className="space-y-4">
+                {consultants.map((c) => (
+                    <div
+                        key={c.id}
+                        className="bg-gray-800 p-4 rounded-lg hover:bg-[#1a1a1a] transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+                    >
+                        <div>
+                            <p className="font-bold text-white text-lg">{c.name}</p>
+                            <p className="text-sm text-gray-400">{c.role}</p>
+                            <p className="text-xs text-gray-500 mt-1">{c.industry}</p>
+                        </div>
+                        <div className="text-left sm:text-right">
+                            <div className="flex items-center gap-1 sm:justify-end">
+                                <span className="text-[#c12129] font-medium">{c.rating}</span>
+                                <span className="text-yellow-500">★</span>
+                            </div>
+                            <p className="text-sm text-gray-300 font-medium mt-1">
+                                {typeof c.rate === "number" ? `$${c.rate}/hr` : c.rate}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
