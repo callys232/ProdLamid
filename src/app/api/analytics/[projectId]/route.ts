@@ -5,13 +5,14 @@ import { Bid } from "@/lib/models/Bid";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { projectId: string } }
+    { params }: { params: Promise<{ projectId: string }> }
 ) {
     try {
         await connectDB();
 
-        const { projectId } = params;
-        const project = await Project.findById(projectId).lean();
+        const { projectId } = await params;
+
+        const project = await Project.findById(projectId);
 
         if (!project) {
             return NextResponse.json(
@@ -20,10 +21,8 @@ export async function GET(
             );
         }
 
-        // Get bids count
         const bidsCount = await Bid.countDocuments({ projectId });
 
-        // Calculate basic analytics
         const analytics = {
             projectId,
             title: project.title,
@@ -35,12 +34,12 @@ export async function GET(
             milestonesTotal: project.milestones?.length || 0,
             consultantsCount: project.consultants?.length || 0,
             createdAt: project.createdAt,
-            deadline: project.deadline
+            deadline: project.deadline,
         };
 
         return NextResponse.json({
             success: true,
-            data: analytics
+            data: analytics,
         });
     } catch (error: any) {
         return NextResponse.json(

@@ -1,18 +1,22 @@
-
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Team } from "@/lib/models/Team";
 
+type Params = Promise<{ id: string }>;
+
 // GET single team
 export async function GET(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+        const { id } = await params;
 
-        const team = await Team.findById(id).populate("members.user", "firstName lastName email profile");
+        const team = await Team.findById(id).populate(
+            "members.user",
+            "firstName lastName email profile"
+        );
 
         if (!team) {
             return NextResponse.json(
@@ -30,14 +34,14 @@ export async function GET(
     }
 }
 
-// PUT update team (e.g. add/remove members, change name)
+// PUT update team
 export async function PUT(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+        const { id } = await params;
         const body = await request.json();
 
         const team = await Team.findByIdAndUpdate(id, body, {
@@ -63,12 +67,12 @@ export async function PUT(
 
 // DELETE team
 export async function DELETE(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+        const { id } = await params;
 
         const team = await Team.findByIdAndDelete(id);
 

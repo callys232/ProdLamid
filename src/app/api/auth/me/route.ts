@@ -12,7 +12,7 @@ export async function GET(request: Request) {
         await connectDB();
 
         // Get token from cookie or header
-        const cookieStore = cookies();
+        const cookieStore = await cookies();
         const tokenCookie = cookieStore.get("token");
         let token = tokenCookie?.value;
 

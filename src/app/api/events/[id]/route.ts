@@ -1,16 +1,17 @@
-
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Event } from "@/lib/models/Event";
 
+type Params = Promise<{ id: string }>;
+
 // GET single event
 export async function GET(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+        const { id } = await params;
 
         const event = await Event.findById(id);
 
@@ -32,12 +33,12 @@ export async function GET(
 
 // PUT update event
 export async function PUT(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+        const { id } = await params;
         const body = await request.json();
 
         const event = await Event.findByIdAndUpdate(id, body, {
@@ -63,12 +64,12 @@ export async function PUT(
 
 // DELETE event
 export async function DELETE(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+        const { id } = await params;
 
         const event = await Event.findByIdAndDelete(id);
 

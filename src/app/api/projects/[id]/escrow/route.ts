@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Project } from "@/lib/models/Project";
 
+type Params = Promise<{ id: string }>;
+
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Params }
 ) {
+    const { id } = await params;
+
     try {
         await connectDB();
 
-        const project = await Project.findById(params.id).lean();
+        const project: any = await Project.findById(id).lean();
 
         if (!project) {
             return NextResponse.json(

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getActivities, getMessages, getAlerts } from "@/lib/api/notificationApi";
 
 interface Activity {
-  id: string;
+  id?: string;
   type: string;
   title?: string;
   message?: string;
@@ -12,7 +12,7 @@ interface Activity {
   value?: string;
 }
 interface Message {
-  id: string;
+  id?: string;
   type: string;
   title?: string;
   message?: string;
@@ -20,7 +20,7 @@ interface Message {
   count?: number;
 }
 interface Alert {
-  id: string;
+  id?: string;
   type: string;
   title?: string;
   message?: string;

@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Project } from "@/lib/models/Project";
 
+type Params = Promise<{ id: string }>;
+
+// GET project escrow
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
+        const { id } = await params;
 
-        const project = await Project.findById(params.id)
+        const project = await Project.findById(id)
             .populate("consultants")
             .lean();
 
@@ -29,17 +33,19 @@ export async function GET(
     }
 }
 
+// PUT update project escrow
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
+        const { id } = await params;
 
         const body = await request.json();
 
         const project = await Project.findByIdAndUpdate(
-            params.id,
+            id,
             { $set: body },
             { new: true, runValidators: true }
         );
@@ -60,14 +66,16 @@ export async function PUT(
     }
 }
 
+// DELETE project escrow
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Params }
 ) {
     try {
         await connectDB();
+        const { id } = await params;
 
-        const project = await Project.findByIdAndDelete(params.id);
+        const project = await Project.findByIdAndDelete(id);
 
         if (!project) {
             return NextResponse.json(
@@ -78,7 +86,7 @@ export async function DELETE(
 
         return NextResponse.json({
             success: true,
-            message: "Project deleted successfully"
+            message: "Project deleted successfully",
         });
     } catch (error: any) {
         return NextResponse.json(

@@ -4,12 +4,14 @@ import { getConsultantById } from "@/lib/services/consultantService";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         await connectDB();
 
-        const consultant = await getConsultantById(params.id);
+        const { id } = await params;
+
+        const consultant = await getConsultantById(id);
 
         if (!consultant) {
             return NextResponse.json(

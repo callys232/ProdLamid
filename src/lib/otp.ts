@@ -1,7 +1,7 @@
 // lib/otp.ts
 
 import dbConnect from "@/lib/db";
-import { User } from "./models/User";
+import { Users } from "./models/User";
 import { signAccessToken, signRefreshToken } from "./jwt";
 
 export function generateOtp(): string {
@@ -10,7 +10,7 @@ export function generateOtp(): string {
 
 export async function verifyOtpAndGenerateToken(otp: string, email: string) {
   await dbConnect();
-  const user = await User.findOne({ verificationCode: otp, email });
+  const user = await Users.findOne({ verificationCode: otp, email });
 
 
   if (!user) throw new Error("Invalid or expired OTP");

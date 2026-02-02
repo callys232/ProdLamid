@@ -1,16 +1,16 @@
-
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Bid } from "@/lib/models/Bid";
 
 // GET single bid
 export async function GET(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+
+        const { id } = await params;
 
         const bid = await Bid.findById(id);
 
@@ -30,14 +30,15 @@ export async function GET(
     }
 }
 
-// PUT update bid (e.g. status change)
+// PUT update bid
 export async function PUT(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+
+        const { id } = await params;
         const body = await request.json();
 
         const bid = await Bid.findByIdAndUpdate(id, body, {
@@ -63,12 +64,13 @@ export async function PUT(
 
 // DELETE bid
 export async function DELETE(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         await connectDB();
-        const { id } = params;
+
+        const { id } = await params;
 
         const bid = await Bid.findByIdAndDelete(id);
 
