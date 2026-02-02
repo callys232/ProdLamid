@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getProjectById } from "@/lib/api/projectApi";
 import ProfileHeader from "./ProfileHeader";
 import ProfileSidebar from "./ProfileSideBar";
 import Overview from "./overview/overview";
@@ -10,9 +10,7 @@ import Teams from "./Teams/Teams";
 import Notifications from "./tabs/Notifications";
 import Escrow from "./escrow/Escrow";
 import { Project } from "@/types/project";
-import { teamProjects, individualProjects } from "@/mocks/mockClient";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
-import ProjectEscrow from "../Escrow/Dashboard";
 
 export default function ProfileDashboard({
   params,
@@ -26,28 +24,22 @@ export default function ProfileDashboard({
 
   useEffect(() => {
     const fetchData = async () => {
-      const PROJECT_ID = params?.id || teamProjects[0]?.id;
+      const PROJECT_ID = params?.id;
 
-      const fallback =
-        teamProjects.find((p) => p.id === PROJECT_ID) ||
-        individualProjects.find((p) => p.id === PROJECT_ID);
-
-      if (fallback) {
-        setProject(fallback);
+      if (!PROJECT_ID) {
+        setError("No project ID provided");
         setLoading(false);
         return;
       }
 
       try {
-        const res = await axios.get(`/api/projects/${PROJECT_ID}`);
-        if (res.data?.data) {
-          setProject(res.data.data as Project);
-        } else {
-          throw new Error("No data returned from API");
-        }
-      } catch (err) {
-        console.error("API failed. Using mock data.", err);
-        setError("Unable to fetch project data. Showing fallback.");
+        setLoading(true);
+        setError(null);
+        const data = await getProjectById(PROJECT_ID);
+        setProject(data);
+      } catch (err: any) {
+        console.error("Failed to fetch project:", err);
+        setError("Unable to fetch project data. Please try again.");
         setProject(null);
       } finally {
         setLoading(false);
