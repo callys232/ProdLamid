@@ -18,72 +18,58 @@ export default function ProfileDashboard({
   params?: { id?: string };
 }) {
   const [activeTab, setActiveTab] = useState("overview");
-  const [project, setProject] = useState<Project | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const PROJECT_ID = params?.id;
-
-      if (!PROJECT_ID) {
-        setError("No project ID provided");
-        setLoading(false);
-        return;
-      }
-
+    const fetchUserData = async () => {
       try {
         setLoading(true);
         setError(null);
-        const data = await getProjectById(PROJECT_ID);
-        setProject(data);
+        // Import getMe from authApi
+        const { getMe } = await import("@/lib/api/authApi");
+        const userData = await getMe();
+        setUser(userData);
       } catch (err: any) {
-        console.error("Failed to fetch project:", err);
-        setError("Unable to fetch project data. Please try again.");
-        setProject(null);
+        console.error("Failed to fetch user:", err);
+        setError("Unable to fetch profile data. Please login again.");
+        setUser(null);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [params?.id]);
+    fetchUserData();
+  }, []);
 
   const renderTab = () => {
     if (loading) return <p>Loading...</p>;
-    if (!project) return <p>No project data available.</p>;
+    if (!user) return <p>No profile data available.</p>;
 
-    const projectId = project.id;
+    // For now, Overview expects a projectId. If we don't have one, we might need to adjust Overview.
+    // Let's pass null for now and see if we need to fix Overview.
+    const projectId = "";
 
     switch (activeTab) {
       case "overview":
-        return projectId ? (
-          <Overview projectId={projectId} />
-        ) : (
-          <SkeletonLoader />
-        );
+        return <Overview projectId={projectId} />;
       case "settings":
-        return <Settings />;
+        return <Settings user={user} />;
       case "teams":
         return <Teams />;
       case "notifications":
         return <Notifications />;
       case "Projects":
         return <Escrow />;
-      // case "Project":
-      //   return <ProjectEscrow />;
       default:
-        return projectId ? (
-          <Overview projectId={projectId} />
-        ) : (
-          <SkeletonLoader />
-        );
+        return <Overview projectId={projectId} />;
     }
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-[#0B0F19] text-white font-sans">
-      <ProfileHeader />
+      <ProfileHeader user={user} />
       <div className="flex flex-col md:flex-row flex-1">
         <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-800">
           <ProfileSidebar activeTab={activeTab} setActiveTab={setActiveTab} />

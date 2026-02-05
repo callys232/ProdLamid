@@ -16,7 +16,7 @@ interface ProjectStats {
 }
 
 interface ProfileHeaderProps {
-  client?: ClientProfile | null;
+  client?: any;
   projectStats?: ProjectStats;
   loading?: boolean;
 }
@@ -51,19 +51,19 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const completionRate =
     milestones.length > 0
       ? Math.round(
-          milestones.reduce((acc, m) => acc + (m.progress ?? 0), 0) /
-            milestones.length
-        )
+        milestones.reduce((acc, m) => acc + (m.progress ?? 0), 0) /
+        milestones.length
+      )
       : 0;
 
   const progressColor =
     completionRate >= 80
       ? "bg-green-500"
       : completionRate >= 50
-      ? "bg-yellow-500"
-      : completionRate > 0
-      ? "bg-orange-500"
-      : "bg-red-500";
+        ? "bg-yellow-500"
+        : completionRate > 0
+          ? "bg-orange-500"
+          : "bg-red-500";
 
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
@@ -91,10 +91,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
             msProgress >= 100
               ? "bg-green-500"
               : msProgress >= 50
-              ? "bg-yellow-500"
-              : msProgress > 0
-              ? "bg-orange-500"
-              : "bg-red-500";
+                ? "bg-yellow-500"
+                : msProgress > 0
+                  ? "bg-orange-500"
+                  : "bg-red-500";
 
           return (
             <div key={ms.id}>
@@ -154,14 +154,24 @@ export default function ProfileHeader({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // ✅ Use mock data if no client passed in
-  const activeClient: ClientProfile = client ?? mockClients[0];
+  // ✅ Use data from props, mapping from user object structure if needed
+  const activeClient: any = client ? {
+    ...client,
+    name: client.profile?.firstName ? `${client.profile.firstName} ${client.profile.lastName || ""}` : (client.username || client.email || "Client"),
+    bio: client.profile?.bio || "",
+    avatar: client.profile?.profilePicture || "/avatar.png",
+    isPremium: true, // Placeholder or check user property if it exists
+    projects: client.projects || [],
+    consultants: client.consultants || [],
+    teamMembers: client.teamMembers || [],
+    escrowTransactions: client.escrowTransactions || [],
+  } : mockClients[0];
 
   // Editable states
   const [bio, setBio] = useState(activeClient.bio ?? "");
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [avatar, setAvatar] = useState(
-    activeClient.avatar ?? "/images/default-avatar.png"
+    activeClient.avatar ?? "/avatar.png"
   );
 
   // ✅ Handle avatar upload
@@ -176,10 +186,10 @@ export default function ProfileHeader({
   // ✅ Collect projects based on selected type
   const projects: Project[] =
     selectedType === "team"
-      ? activeClient.teamMembers?.flatMap((m) => m.projects ?? []) ?? []
+      ? activeClient.teamMembers?.flatMap((m: any) => m.projects ?? []) ?? []
       : selectedType === "individual"
-      ? activeClient.consultants?.flatMap((c) => c.projects ?? []) ?? []
-      : [];
+        ? activeClient.consultants?.flatMap((c: any) => c.projects ?? []) ?? []
+        : [];
 
   return (
     <div className="w-full bg-gray-900 border-b border-gray-800 px-6 py-6 lg:grid lg:grid-cols-3 gap-6 flex flex-col relative overflow-x-hidden">
@@ -281,11 +291,10 @@ export default function ProfileHeader({
                   )
                 }
                 variant={selectedType === type ? "default" : "outline"}
-                className={`rounded-full px-4 py-2 ${
-                  selectedType === type
-                    ? "bg-red-600 text-white"
-                    : "border border-gray-500 text-gray-300"
-                }`}
+                className={`rounded-full px-4 py-2 ${selectedType === type
+                  ? "bg-red-600 text-white"
+                  : "border border-gray-500 text-gray-300"
+                  }`}
               >
                 {type === "team" ? "Teams" : "Individuals"}{" "}
                 <ChevronDown size={14} />

@@ -16,7 +16,7 @@ import {
   mockDeadlines,
 } from "@/mocks/useralert";
 
-export default function ProfileHeader() {
+export default function ProfileHeader({ user }: { user: any }) {
   const completion = 70;
   const [showPopup, setShowPopup] = useState(false);
 
@@ -48,26 +48,35 @@ export default function ProfileHeader() {
   const badgeCount =
     alerts.length + notifications.length + payments.length + deadlines.length;
 
+  const displayName = user?.profile?.firstName
+    ? `${user.profile.firstName} ${user.profile.lastName || ""}`
+    : user?.username || user?.email || "Lamid Consultant";
+
+  const displayTitle = user?.profile?.title || (user?.role === "seller" ? "Independent Consultant" : "Client Account");
+  const displayLocation = user?.profile?.addresses?.[0]?.city
+    ? `${user.profile.addresses[0].city}, ${user.profile.addresses[0].country || ""}`
+    : "Lagos, Nigeria";
+
   const stats = [
     {
-      value: 24,
+      value: 0,
       label: "Projects",
-      details: ["Project A", "Project B", "Project C"],
+      details: [],
     },
     {
-      value: 18,
+      value: 0,
       label: "Completed",
-      details: ["Completed A", "Completed B", "Completed C"],
+      details: [],
     },
     {
-      value: "3",
+      value: "0",
       label: "Pending",
-      details: ["project website", "project ecommerce", "project careers"],
+      details: [],
     },
     {
-      value: "4.9",
+      value: user?.profile?.rating || "0",
       label: "Avg. Rating",
-      details: ["Review 1: ⭐⭐⭐⭐⭐", "Review 2: ⭐⭐⭐⭐"],
+      details: [],
     },
   ];
 
@@ -102,24 +111,24 @@ export default function ProfileHeader() {
           <div className="relative">
             <div className="absolute inset-0 rounded-full ring-2 ring-red-500 animate-pulse" />
             <img
-              src="/avatar.png"
+              src={user?.profile?.profilePicture || "/avatar.png"}
               alt="User Avatar"
               className="w-20 h-20 rounded-full border-4 border-red-500 shadow-md 
-                         transform hover:scale-105 transition relative z-10"
+                         transform hover:scale-105 transition relative z-10 object-cover"
             />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-white">
-                Lamid Consulting
+              <h1 className="text-2xl font-bold text-white uppercase">
+                {displayName}
               </h1>
               <FaCheckCircle
                 className="text-blue-500"
                 title="Verified Profile"
               />
             </div>
-            <p className="text-gray-400 text-sm">Hybrid Consultants</p>
-            <p className="text-xs text-gray-500 mt-1">Lagos, Nigeria</p>
+            <p className="text-gray-400 text-sm">{displayTitle}</p>
+            <p className="text-xs text-gray-500 mt-1">{displayLocation}</p>
           </div>
         </motion.div>
 
@@ -185,7 +194,7 @@ export default function ProfileHeader() {
         transition={{ delay: 1.8 }}
       >
         <a
-          href="https://linkedin.com/in/yourprofile"
+          href="#"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn Profile"
@@ -194,7 +203,7 @@ export default function ProfileHeader() {
           <FaLinkedin size={24} />
         </a>
         <a
-          href="https://github.com/yourprofile"
+          href="#"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub Profile"
@@ -203,7 +212,7 @@ export default function ProfileHeader() {
           <FaGithub size={24} />
         </a>
         <a
-          href="https://twitter.com/yourprofile"
+          href="#"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Twitter Profile"

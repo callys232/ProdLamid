@@ -15,7 +15,7 @@ import BusinessProfile from "../../premium/BusinessProfile";
 import Tiers from "../tiers/tier";
 import OnboardingAssistant from "../../premium/OnboardingAssistant";
 
-export default function Settings() {
+export default function Settings({ user }: { user: any }) {
   const [activeTab, setActiveTab] = useState("profile");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,7 +33,7 @@ export default function Settings() {
   const renderTab = () => {
     switch (activeTab) {
       case "profile":
-        return <EditProfileForm />;
+        return <EditProfileForm user={user} />;
       case "business":
         return <BusinessProfile />;
       case "tiers":
@@ -49,7 +49,7 @@ export default function Settings() {
       case "delete":
         return <DeleteAccount />;
       default:
-        return <EditProfileForm />;
+        return <EditProfileForm user={user} />;
     }
   };
 
@@ -75,8 +75,8 @@ export default function Settings() {
                   setMobileMenuOpen(false);
                 }}
                 className={`block w-full text-left px-4 py-3 hover:bg-gray-800 ${activeTab === item.key
-                    ? "bg-gray-800 text-red-500"
-                    : "text-gray-300"
+                  ? "bg-gray-800 text-red-500"
+                  : "text-gray-300"
                   }`}
               >
                 {item.label}

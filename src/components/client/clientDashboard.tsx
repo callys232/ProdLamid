@@ -36,29 +36,21 @@ export default function ClientProfileDashboard() {
 
   /* -------------------- Fetch Client -------------------- */
   useEffect(() => {
-    const fetchClient = async () => {
+    const fetchClientData = async () => {
       try {
         setLoading(true);
-        setUsingMock(false);
-
-        const clientId = "654321abcdef1234567890";
-        const res = await axios.get(`/api/clients/${clientId}`);
-
-        if (res.data.success && res.data.data) {
-          setClient(res.data.data);
-        } else {
-          throw new Error("No client data from API");
-        }
+        // Import getMe from authApi
+        const { getMe } = await import("@/lib/api/authApi");
+        const userData = await getMe();
+        setClient(userData);
       } catch (err) {
-        console.warn("Using mock client data due to error:", err);
-        setClient(mockClients[0]); // ✅ fallback
-        setUsingMock(true);
+        console.error("Failed to fetch client profile:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchClient();
+    fetchClientData();
   }, []);
 
   /* -------------------- Project Update -------------------- */
