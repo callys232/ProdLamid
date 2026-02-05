@@ -3,10 +3,16 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Project } from "@/lib/models/Project";
 
-export async function GET() {
+export async function GET(request: Request) {
     try {
         await connectDB();
-        const projects = await Project.find({}).sort({ createdAt: -1 });
+        const { searchParams } = new URL(request.url);
+        const teamId = searchParams.get("teamId");
+
+        const query: any = {};
+        if (teamId) query.teamId = teamId;
+
+        const projects = await Project.find(query).sort({ createdAt: -1 });
 
         return NextResponse.json({ success: true, data: projects });
     } catch (error: any) {

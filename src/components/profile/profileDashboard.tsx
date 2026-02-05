@@ -57,7 +57,7 @@ export default function ProfileDashboard({
       case "settings":
         return <Settings user={user} />;
       case "teams":
-        return <Teams />;
+        return <Teams user={user} /> as any;
       case "notifications":
         return <Notifications />;
       case "Projects":

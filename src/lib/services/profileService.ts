@@ -30,8 +30,14 @@ export async function getClientProfile(userId: string) {
         .sort({ createdAt: -1 })
         .lean();
 
-    // Get teams user is part of
-    const teams = await Team.find({ members: userId })
+    // Get teams user is part of (as owner or member)
+    const teams = await Team.find({
+        $or: [
+            { ownerId: userId },
+            { "members.user": userId }
+        ]
+    })
+        .populate("members.user", "username email profile")
         .lean();
 
     // Get consultants user has worked with (from projects)
