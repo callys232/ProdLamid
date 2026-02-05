@@ -35,6 +35,22 @@ const ProfileSchema = new mongoose.Schema({
       isDefault: { type: Boolean, default: false },
     }
   ],
+
+  // Payment Information
+  walletAddress: { type: String },
+  network: { type: String },
+  bankAccount: { type: String },
+  routingNumber: { type: String },
+  bankName: { type: String },
+
+  // Business Profile
+  companyName: { type: String },
+  companySize: { type: String },
+  website: { type: String },
+  description: { type: String },
+
+  // Resume
+  resumeUrl: { type: String },
 });
 
 export const Profile =

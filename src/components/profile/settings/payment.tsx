@@ -8,7 +8,7 @@ import { Check, Copy } from "lucide-react";
 const paymentSchema = z
   .object({
     walletAddress: z.string().optional(),
-    network: z.enum(["usdt_erc20", "usdt_trc20"]).optional(),
+    network: z.string().optional(),
     bankAccount: z.string().optional(),
     routingNumber: z.string().optional(),
     bankName: z.string().optional(),
@@ -53,17 +53,20 @@ const paymentSchema = z
     }
   });
 
-export default function PaymentInformation() {
+import { toast } from "react-hot-toast";
+
+export default function PaymentInformation({ user }: { user: any }) {
   const [formData, setFormData] = useState({
-    walletAddress: "",
-    network: "",
-    bankAccount: "",
-    routingNumber: "",
-    bankName: "",
+    walletAddress: user?.profile?.walletAddress || "",
+    network: user?.profile?.network || "",
+    bankAccount: user?.profile?.bankAccount || "",
+    routingNumber: user?.profile?.routingNumber || "",
+    bankName: user?.profile?.bankName || "",
   });
 
   const [copied, setCopied] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -78,7 +81,7 @@ export default function PaymentInformation() {
     setTimeout(() => setCopied(false), 1500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const validation = paymentSchema.safeParse(formData);
@@ -92,7 +95,26 @@ export default function PaymentInformation() {
     }
 
     setErrors({});
-    console.log("✅ Payment Details Submitted:", formData);
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/me", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        toast.success("Payment information updated! 💰");
+      } else {
+        throw new Error(result.message || "Failed to update payment info");
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong ❌");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -216,9 +238,10 @@ export default function PaymentInformation() {
         <div className="flex gap-4 pt-3">
           <button
             type="submit"
-            className="flex-1 py-2 rounded-md bg-[#C12129] hover:bg-red-700 transition font-semibold"
+            disabled={loading}
+            className="flex-1 py-2 rounded-md bg-[#C12129] hover:bg-red-700 transition font-semibold disabled:opacity-50"
           >
-            SAVE
+            {loading ? "SAVING..." : "SAVE"}
           </button>
 
           <button

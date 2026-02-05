@@ -35,17 +35,17 @@ export default function Settings({ user }: { user: any }) {
       case "profile":
         return <EditProfileForm user={user} />;
       case "business":
-        return <BusinessProfile />;
+        return <BusinessProfile user={user} />;
       case "tiers":
         return <Tiers />;
       case "onboarding":
         return <OnboardingAssistant />;
       case "security":
-        return <SecuritySettings />;
+        return <SecuritySettings user={user} />;
       case "payment":
-        return <PaymentInformation />;
+        return <PaymentInformation user={user} />;
       case "resume":
-        return <UploadResume />;
+        return <UploadResume user={user} />;
       case "delete":
         return <DeleteAccount />;
       default:

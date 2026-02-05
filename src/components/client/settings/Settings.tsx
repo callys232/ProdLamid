@@ -39,23 +39,23 @@ export default function Settings({ client }: SettingsProps) {
   const renderTab = () => {
     switch (activeTab) {
       case "profile":
-        return <EditProfileForm />;
+        return <EditProfileForm user={client} />;
       case "business":
-        return <BusinessProfile />;
+        return <BusinessProfile user={client} />;
       case "tiers":
         return <Tiers />;
       case "onboarding":
         return <OnboardingAssistant />;
       case "security":
-        return <SecuritySettings />;
+        return <SecuritySettings user={client} />;
       case "payment":
-        return <PaymentInformation />;
+        return <PaymentInformation user={client} />;
       case "resume":
-        return <UploadResume />;
+        return <UploadResume user={client} />;
       case "delete":
         return <DeleteAccount />;
       default:
-        return <EditProfileForm />;
+        return <EditProfileForm user={client} />;
     }
   };
 

@@ -11,21 +11,46 @@ interface BusinessForm {
   description: string;
 }
 
-export default function BusinessProfile() {
+import { toast } from "react-hot-toast";
+
+export default function BusinessProfile({ user }: { user: any }) {
   const [form, setForm] = useState<BusinessForm>({
-    companyName: "",
-    industry: "",
-    location: "",
-    website: "",
-    companySize: "",
-    description: "",
+    companyName: user?.profile?.companyName || "",
+    industry: user?.profile?.industry || "",
+    location: user?.profile?.location || "",
+    website: user?.profile?.website || "",
+    companySize: user?.profile?.companySize || "",
+    description: user?.profile?.description || "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/me", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        toast.success("Business profile updated! 🏢");
+      } else {
+        throw new Error(result.message || "Failed to update business profile");
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong ❌");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fields: { label: string; name: keyof BusinessForm; type?: string }[] = [
@@ -80,8 +105,11 @@ export default function BusinessProfile() {
 
       {/* Save Button */}
       <div className="mt-8">
-        <button className="w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 px-6 py-3 rounded-md font-semibold text-white shadow-md transition">
-          Save Changes
+        <button
+          onClick={handleSave}
+          disabled={loading}
+          className="w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 px-6 py-3 rounded-md font-semibold text-white shadow-md transition disabled:opacity-50">
+          {loading ? "Saving..." : "Save Changes"}
         </button>
       </div>
     </div>

@@ -9,12 +9,12 @@ interface ProfileFormData {
   zipcode: string;
 }
 
-export default function EditProfileForm() {
+export default function EditProfileForm({ user }: { user: any }) {
   const [formData, setFormData] = useState<ProfileFormData>({
-    fullName: "",
-    address: "",
-    state: "",
-    zipcode: "",
+    fullName: user?.name || "",
+    address: user?.profile?.addresses?.[0]?.line1 || "",
+    state: user?.profile?.addresses?.[0]?.state || "",
+    zipcode: user?.profile?.addresses?.[0]?.zip || "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -18,6 +18,11 @@ const UserSchema = new mongoose.Schema({
     type: String, enum: ["admin", "seller", "client"], default: "client"
   },
   joinedAt: { type: Date, default: Date.now },
+
+  // Security
+  twoFAEnabled: { type: Boolean, default: false },
+  twoFASecret: { type: String },
+  twoFAMethod: { type: String, enum: ["email", "google"], default: "email" },
 });
 UserSchema.virtual("profile", {
   ref: "Profile", // 👈 must match the model name string in mongoose.model("Profile", ...)

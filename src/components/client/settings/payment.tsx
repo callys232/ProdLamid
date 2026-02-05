@@ -53,13 +53,15 @@ const paymentSchema = z
     }
   });
 
-export default function PaymentInformation() {
+import { toast } from "react-hot-toast";
+
+export default function PaymentInformation({ user }: { user: any }) {
   const [formData, setFormData] = useState({
-    walletAddress: "",
-    network: "",
-    bankAccount: "",
-    routingNumber: "",
-    bankName: "",
+    walletAddress: user?.profile?.walletAddress || "",
+    network: user?.profile?.network || "",
+    bankAccount: user?.profile?.bankAccount || "",
+    routingNumber: user?.profile?.routingNumber || "",
+    bankName: user?.profile?.bankName || "",
   });
 
   const [copied, setCopied] = useState(false);

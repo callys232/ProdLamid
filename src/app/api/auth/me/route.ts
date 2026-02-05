@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/User";
+import { Profile } from "@/lib/models/Profile";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
@@ -61,7 +62,6 @@ export async function GET(request: Request) {
 export async function PATCH(request: Request) {
     try {
         await connectDB();
-        const { Profile } = await import("@/lib/models/Profile");
 
         // Get token
         const cookieStore = await cookies();
@@ -89,12 +89,17 @@ export async function PATCH(request: Request) {
         const body = await request.json();
 
         // Update Profile
-        // We assume update fields like firstName, lastName, bio, addresses are in the body
+        // We allow updating any field in the Profile model
         const updatedProfile = await Profile.findOneAndUpdate(
             { user: user._id },
             { $set: body },
             { new: true, upsert: true }
         );
+
+        // Update User (e.g. for twoFAEnabled)
+        if (body.twoFAEnabled !== undefined) {
+            await Users.findByIdAndUpdate(user._id, { twoFAEnabled: body.twoFAEnabled });
+        }
 
         // Return updated user with profile
         const updatedUser = await Users.findById(user._id).select("-password").populate("profile");
