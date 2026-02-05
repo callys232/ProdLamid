@@ -41,7 +41,7 @@ export async function GET(request: Request) {
         }
 
         // Find User
-        const user = await Users.findById(decoded.userId).select("-password").populate("profile"); // Populate profile info
+        const user = await Users.findById(decoded.userId).select("-password").populate("profile");
         if (!user) {
             return NextResponse.json(
                 { success: false, message: "User not found" },
@@ -49,7 +49,8 @@ export async function GET(request: Request) {
             );
         }
 
-        return NextResponse.json({ success: true, data: user });
+        const userData = user.toJSON();
+        return NextResponse.json({ success: true, data: userData });
 
     } catch (error: any) {
         return NextResponse.json(
@@ -103,8 +104,9 @@ export async function PATCH(request: Request) {
 
         // Return updated user with profile
         const updatedUser = await Users.findById(user._id).select("-password").populate("profile");
+        const userData = updatedUser.toJSON();
 
-        return NextResponse.json({ success: true, data: updatedUser });
+        return NextResponse.json({ success: true, data: userData });
 
     } catch (error: any) {
         return NextResponse.json(
