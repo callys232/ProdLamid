@@ -94,18 +94,12 @@ export default function SignUpPage() {
 
     setLoading(true);
     try {
-      // ✅ Mock data only
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate delay
-      const mockResponse = { success: true, userId: 999, ...formData };
-
-      if (mockResponse.success) {
-        toast.success("Proceeding with mock signup 🎉");
-        // Save mock data temporarily (so Account Type page can use it)
-        localStorage.setItem("signupData", JSON.stringify(mockResponse));
-        router.push("/account-type");
-      } else {
-        toast.error("Signup failed ⚠️");
-      }
+      // Save data temporarily for the next step (Account Type selection)
+      sessionStorage.setItem("signupData", JSON.stringify(formData));
+      router.push("/account-type");
+    } catch (error) {
+      console.error("Error saving signup data:", error);
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }

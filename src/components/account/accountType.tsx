@@ -20,49 +20,56 @@ export default function AccountTypePage() {
 
         setLoading(true);
         try {
-            // Retrieve signup data from localStorage
-            const signupData = localStorage.getItem("signupData");
-            const parsedData = signupData ? JSON.parse(signupData) : {};
+            // Retrieve signup data from sessionStorage (preferred) or localStorage
+            const signupData = sessionStorage.getItem("signupData") || localStorage.getItem("signupData");
+            if (!signupData) {
+                toast.error("No signup data found. Please start over.");
+                router.push("/signup");
+                return;
+            }
 
-            // Try real API first
-            const res = await fetch("/api/groupware/complete-signup", {
+            const parsedData = JSON.parse(signupData);
+
+            // Map Account Type to Role
+            const role = accountType === "Freelancer" ? "seller" : "client";
+
+            const payload = {
+                name: parsedData.UserName, // Map UserName to name
+                email: parsedData.email,
+                password: parsedData.password,
+                role: role
+            };
+
+            const res = await fetch("/api/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...parsedData, accountType }),
+                body: JSON.stringify(payload),
             });
 
-            if (!res.ok) throw new Error("Signup failed");
+            const result = await res.json();
+
+            if (!res.ok || !result.success) {
+                throw new Error(result.message || "Signup failed");
+            }
 
             toast.success("Account created successfully 🎉");
 
-            // ✅ Save to localStorage so dashboard can read it
-            localStorage.setItem(
-                "signupData",
-                JSON.stringify({ ...parsedData, accountType })
-            );
+            // Save user & token
+            localStorage.setItem("token", result.data.token);
+            localStorage.setItem("user", JSON.stringify(result.data.user));
 
-            router.push(`/dashboard/${accountType.toLowerCase()}`);
-        } catch (error) {
-            console.warn("API failed, using mock fallback:", error);
+            // Clear temp data
+            sessionStorage.removeItem("signupData");
+            localStorage.removeItem("signupData");
 
-            // ✅ Mock fallback
-            await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate delay
-            const mockResponse = {
-                success: true,
-                userId: 999,
-                accountType,
-            };
+            // Redirect based on role
+            if (role === "seller") router.push("/profile");
+            else if (role === "client") router.push("/client");
+            else router.push("/dashboard");
 
-            if (mockResponse.success) {
-                toast.success("Account created with mock data 🎉 (fallback)");
-
-                // ✅ Save mock data to localStorage
-                localStorage.setItem("signupData", JSON.stringify(mockResponse));
-
-                router.push(`/dashboard/${accountType.toLowerCase()}`);
-            } else {
-                toast.error("Signup failed ⚠️");
-            }
+        } catch (error: any) {
+            console.error("Registration error:", error);
+            toast.error(error.message || "Signup failed ⚠️");
         } finally {
             setLoading(false);
         }

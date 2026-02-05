@@ -3,6 +3,8 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface FormData {
   email: string;
@@ -10,6 +12,7 @@ interface FormData {
 }
 
 export default function SignInPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
@@ -27,19 +30,40 @@ export default function SignInPage() {
     setError(null);
 
     try {
-      const res = await fetch("/api/auth/signin", {
+      console.log("Submitting login form...");
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (res.ok) {
-        console.log("Signed in successfully");
+      const result = await res.json();
+      console.log("API Result:", result);
+
+      if (res.ok && result.success) {
+        const { user, token } = result.data;
+        const role = user.role;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        toast.success("Signed in successfully 🎉");
+
+        setTimeout(() => {
+          if (role === "seller") router.push("/profile");
+          else if (role === "client") router.push("/client");
+          else if (role === "admin") router.push("/admin");
+          else router.push("/dashboard");
+        }, 100);
       } else {
-        setError("Invalid email or password");
+        const errorMsg = result.message || "Invalid email or password";
+        setError(errorMsg);
+        toast.error(errorMsg);
       }
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      console.error("Login error:", err);
+      setError("Something went wrong. Please check your connection.");
+      toast.error("Connection error ❌");
     } finally {
       setLoading(false);
     }
