@@ -12,8 +12,7 @@ export default function ProfileSidebar({
     { key: "settings", label: "Settings" },
     { key: "teams", label: "Teams" },
     { key: "notifications", label: "Notifications" },
-    { key: "escrow", label: "Escrow" },
-    // { key: "Project", label: "projectEscrow" },
+    { key: "escrow", label: "Escrow & Wallet" },
   ];
 
   return (
@@ -23,11 +22,10 @@ export default function ProfileSidebar({
           <li
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-3 cursor-pointer transition-colors rounded-md ${
-              activeTab === tab.key
+            className={`px-4 py-3 cursor-pointer transition-colors rounded-md ${activeTab === tab.key
                 ? "bg-red-600 text-white"
                 : "hover:bg-gray-700 text-gray-300"
-            }`}
+              }`}
           >
             {tab.label}
           </li>

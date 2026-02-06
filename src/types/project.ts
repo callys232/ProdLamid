@@ -116,7 +116,7 @@ export interface ActivityItem {
 }
 
 /* -------------------- ESCROW -------------------- */
-export type EscrowStatus = "pending" | "funded" | "released" | "failed";
+export type EscrowStatus = "pending" | "funded" | "released" | "completed" | "failed" | "disputed";
 
 export interface EscrowTransaction {
   id: string;

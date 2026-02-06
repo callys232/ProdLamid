@@ -9,6 +9,7 @@ import Settings from "./settings/Settings";
 import Teams from "./Teams/Teams";
 import Notifications from "./tabs/Notifications";
 import Escrow from "./escrow/Escrow";
+import EscrowDashboard from "@/components/Escrow/Dashboard";
 import { Project } from "@/types/project";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 
@@ -60,8 +61,8 @@ export default function ProfileDashboard({
         return <Teams user={user} /> as any;
       case "notifications":
         return <Notifications />;
-      case "Projects":
-        return <Escrow />;
+      case "escrow":
+        return <EscrowDashboard currentUserId={user._id} />;
       default:
         return <Overview projectId={projectId} />;
     }

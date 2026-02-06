@@ -3,6 +3,7 @@ import { Profile } from "../models/Profile";
 import { Project } from "../models/Project";
 import { Bid } from "../models/Bid";
 import { Team } from "../models/Team";
+import { Wallet } from "../models/Wallet";
 import { getConsultantById } from "./consultantService";
 
 /**
@@ -52,6 +53,9 @@ export async function getClientProfile(userId: string) {
         Array.from(consultantIds).map(id => getConsultantById(id))
     );
 
+    // Get wallet
+    const wallet = await Wallet.findOne({ user: userId }).lean();
+
     return {
         id: user._id.toString(),
         _id: user._id.toString(),
@@ -65,6 +69,7 @@ export async function getClientProfile(userId: string) {
         projects,
         bids,
         teams,
+        wallet,
         consultants: consultants.filter(c => c !== null),
         createdAt: user.joinedAt,
         updatedAt: new Date().toISOString()
