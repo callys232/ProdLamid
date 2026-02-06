@@ -20,8 +20,13 @@ export async function getClientProfile(userId: string) {
         throw new Error("User not found");
     }
 
-    // Get user's projects
-    const projects = await Project.find({ ownerId: userId })
+    // Get user's projects (as owner or via teams)
+    const projects = await Project.find({
+        $or: [
+            { ownerId: userId },
+            { teamId: { $in: teams.map(t => t._id.toString()) } }
+        ]
+    })
         .sort({ createdAt: -1 })
         .lean();
 

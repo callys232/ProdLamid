@@ -9,6 +9,7 @@ export default function ProfileSidebar({
 }: SidebarProps) {
   const tabs = [
     { key: "overview", label: "Overview" },
+    { key: "projects", label: "Projects" },
     { key: "settings", label: "Settings" },
     { key: "teams", label: "Teams" },
     { key: "notifications", label: "Notifications" },
@@ -23,8 +24,8 @@ export default function ProfileSidebar({
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
             className={`px-4 py-3 cursor-pointer transition-colors rounded-md ${activeTab === tab.key
-                ? "bg-red-600 text-white"
-                : "hover:bg-gray-700 text-gray-300"
+              ? "bg-red-600 text-white"
+              : "hover:bg-gray-700 text-gray-300"
               }`}
           >
             {tab.label}

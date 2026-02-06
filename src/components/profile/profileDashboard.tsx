@@ -8,6 +8,7 @@ import Overview from "./overview/overview";
 import Settings from "./settings/Settings";
 import Teams from "./Teams/Teams";
 import Notifications from "./tabs/Notifications";
+import ProjectsTab from "./tabs/ProjectsTab";
 import Escrow from "./escrow/Escrow";
 import EscrowDashboard from "@/components/Escrow/Dashboard";
 import { Project } from "@/types/project";
@@ -55,6 +56,8 @@ export default function ProfileDashboard({
     switch (activeTab) {
       case "overview":
         return <Overview projectId={projectId} />;
+      case "projects":
+        return <ProjectsTab projects={user.projects || []} />;
       case "settings":
         return <Settings user={user} />;
       case "teams":
