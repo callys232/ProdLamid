@@ -11,6 +11,7 @@ import MilestonesCard from "./milestoneCard";
 import FinanceCard from "./financeCard";
 import TeamCard from "./teamCard";
 import BidCard from "./bidCard";
+import BidsList from "./BidsList";
 import ProgressCard from "./progresscard";
 import ActivityLog from "./activityLog";
 import * as mockData from "@/mocks/mockClient";
@@ -63,6 +64,7 @@ export default function ProjectOverview({
           </div>
 
           <BidCard />
+          <BidsList projectId={project._id || project.id} />
           <ActivityLog items={activity} />
         </>
       )}

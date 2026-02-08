@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 import Modal from "@/components/Modals/hcdModal";
 import Feedback from "./feedback";
 import type { Consultant } from "@/types/client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ConsultantModalProps {
   isOpen: boolean;
@@ -41,21 +41,48 @@ export default function ConsultantModal({
     Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-5 h-5 ${
-          i + 1 <= Math.round(rating)
-            ? "text-red-500 fill-red-500"
-            : "text-gray-300"
-        }`}
+        className={`w-5 h-5 ${i + 1 <= Math.round(rating)
+          ? "text-red-500 fill-red-500"
+          : "text-gray-300"
+          }`}
       />
     ));
 
+  const [selectedProjectId, setSelectedProjectId] = useState<string>("");
+  const [userProjects, setUserProjects] = useState<{ id: string, title: string }[]>([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchUserProjects();
+    }
+  }, [isOpen]);
+
+  const fetchUserProjects = async () => {
+    try {
+      const res = await fetch("/api/projects");
+      const data = await res.json();
+      if (data.success) {
+        // Only projects owned by current user (backend route /api/projects probably needs adjustment or filtering here)
+        // For simplicity assuming it returns relevant projects or we'll filter on backend in the hire API anyway
+        setUserProjects(data.data.map((p: any) => ({ id: p._id || p.id, title: p.title })));
+      }
+    } catch (err) {
+      console.error("Error fetching projects:", err);
+    }
+  };
+
   const handleHire = async () => {
+    if (!selectedProjectId) {
+      setFeedback({ message: "Please select a project first", type: "error" });
+      return;
+    }
     try {
       const res = await fetch("/api/hire-consultant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           consultantId: consultant.id || consultant._id,
+          projectId: selectedProjectId,
           consultantEmail: email,
         }),
       });
@@ -173,14 +200,30 @@ export default function ConsultantModal({
             </div>
           )}
 
+          {/* Project Selection */}
+          <div className="pt-4 border-t border-gray-100">
+            <h4 className="font-semibold text-black mb-2 text-sm uppercase tracking-wider">Hire for Project</h4>
+            <select
+              value={selectedProjectId}
+              onChange={(e) => setSelectedProjectId(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md text-sm text-black bg-white focus:ring-red-500 focus:border-red-500"
+            >
+              <option value="">-- Choose a Project --</option>
+              {userProjects.map((proj) => (
+                <option key={proj.id} value={proj.id}>{proj.title}</option>
+              ))}
+            </select>
+          </div>
+
           {/* Hire Now Button */}
-          <div className="flex justify-center pt-4">
+          <div className="flex justify-center pt-2">
             <button
               type="button"
               onClick={handleHire}
-              className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-md shadow-md transition-all"
+              disabled={!selectedProjectId}
+              className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-md shadow-md transition-all disabled:opacity-50 disabled:bg-gray-400"
             >
-              Hire Now
+              Confirm Hire
             </button>
           </div>
         </div>

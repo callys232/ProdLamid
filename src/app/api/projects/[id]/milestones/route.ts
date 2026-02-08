@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Project } from "@/lib/models/Project";
+import { requireAuth } from "@/lib/middleware/auth";
 
 type Params = Promise<{ id: string }>;
 
@@ -41,7 +42,28 @@ export async function POST(
 ) {
     try {
         await connectDB();
+
+        // Require authentication
+        const auth = await requireAuth(request);
+        if (auth instanceof NextResponse) return auth;
+
         const { id } = await params;
+
+        // Verify ownership
+        const project = await Project.findById(id);
+        if (!project) {
+            return NextResponse.json(
+                { success: false, message: "Project not found" },
+                { status: 404 }
+            );
+        }
+
+        if (project.ownerId.toString() !== auth.userId) {
+            return NextResponse.json(
+                { success: false, message: "Only the project owner can create milestones" },
+                { status: 403 }
+            );
+        }
 
         const body = await request.json();
         const { title, description, amount, dueDate, deadline } = body;
@@ -64,18 +86,11 @@ export async function POST(
             status: "pending",
         };
 
-        const project = await Project.findByIdAndUpdate(
+        const updatedProject = await Project.findByIdAndUpdate(
             id,
             { $push: { milestones: milestone } },
             { new: true }
         );
-
-        if (!project) {
-            return NextResponse.json(
-                { success: false, message: "Project not found" },
-                { status: 404 }
-            );
-        }
 
         return NextResponse.json(
             { success: true, data: milestone },
