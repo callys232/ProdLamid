@@ -6,6 +6,7 @@ export interface ProjectFilters {
     status?: string;
     minBudget?: number;
     maxBudget?: number;
+    scope?: string;
 }
 
 export interface CreateProjectData {
@@ -31,6 +32,7 @@ export async function getProjects(filters?: ProjectFilters): Promise<Project[]> 
         if (filters?.status) params.append("status", filters.status);
         if (filters?.minBudget) params.append("minBudget", filters.minBudget.toString());
         if (filters?.maxBudget) params.append("maxBudget", filters.maxBudget.toString());
+        if (filters?.scope) params.append("scope", filters.scope);
 
         const response = await apiClient.get(`/projects?${params.toString()}`);
         return response.data.data || [];

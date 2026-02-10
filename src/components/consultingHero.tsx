@@ -24,7 +24,7 @@ export default function HybridConsultingHero() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            video.play().catch(() => {});
+            video.play().catch(() => { });
           } else {
             video.pause();
           }
@@ -70,11 +70,11 @@ export default function HybridConsultingHero() {
       {/* Background Image */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
-        style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+        style={{ backgroundImage: "url('/tree-background.jpg')" }}
       />
 
-      {/* Background Video layered above image */}
-      <video
+      {/* Background Video layered above image (Optional - removed if missing) */}
+      {/* <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
         src="/hero-bg.mp4"
@@ -82,7 +82,7 @@ export default function HybridConsultingHero() {
         loop
         playsInline
         preload="auto"
-      />
+      /> */}
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10" />
@@ -104,21 +104,19 @@ export default function HybridConsultingHero() {
           <div className="flex justify-center items-center bg-black/30 rounded-xl border border-gray-700 backdrop-blur-sm overflow-hidden">
             <button
               onClick={() => setActiveTab("consultants")}
-              className={`flex-1 py-3 text-base font-semibold transition-all ${
-                activeTab === "consultants"
+              className={`flex-1 py-3 text-base font-semibold transition-all ${activeTab === "consultants"
                   ? "bg-[#c12129] text-white"
                   : "text-[#c12129] hover:text-red-400"
-              }`}
+                }`}
             >
               CONSULTANTS
             </button>
             <button
               onClick={() => setActiveTab("jobs")}
-              className={`flex-1 py-3 text-base font-semibold transition-all ${
-                activeTab === "jobs"
+              className={`flex-1 py-3 text-base font-semibold transition-all ${activeTab === "jobs"
                   ? "bg-[#c12129] text-white"
                   : "text-[#c12129] hover:text-red-400"
-              }`}
+                }`}
             >
               JOBS
             </button>

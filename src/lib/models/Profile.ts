@@ -24,33 +24,7 @@ const ProfileSchema = new mongoose.Schema({
   title: { type: String }, // e.g. "Full Stack Developer"
   skills: { type: [String], default: [] },
 
-  addresses: [
-    {
-      line1: { type: String, required: true },
-      line2: { type: String },
-      city: { type: String },
-      state: { type: String },
-      zip: { type: String },
-      country: { type: String },
-      isDefault: { type: Boolean, default: false },
-    }
-  ],
-
-  // Payment Information
-  walletAddress: { type: String },
-  network: { type: String },
-  bankAccount: { type: String },
-  routingNumber: { type: String },
-  bankName: { type: String },
-
-  // Business Profile
-  companyName: { type: String },
-  companySize: { type: String },
-  website: { type: String },
-  description: { type: String },
-
-  // Resume
-  resumeUrl: { type: String },
+  skills: { type: [String], default: [] },
 });
 
 export const Profile =

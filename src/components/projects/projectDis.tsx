@@ -41,7 +41,7 @@ export default function ProjectsSection({
       try {
         setLoading(true);
         setError(null);
-        const data = await getProjects();
+        const data = await getProjects({ scope: "browse" } as any);
 
         const normalizedProjects: Project[] = data.map((p) => ({
           ...p,

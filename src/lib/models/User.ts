@@ -23,12 +23,36 @@ const UserSchema = new mongoose.Schema({
   twoFAEnabled: { type: Boolean, default: false },
   twoFASecret: { type: String },
   twoFAMethod: { type: String, enum: ["email", "google"], default: "email" },
+}, {
+  timestamps: true,
+  strictPopulate: false
 });
 UserSchema.virtual("profile", {
-  ref: "Profile", // 👈 must match the model name string in mongoose.model("Profile", ...)
+  ref: "Profile",
   localField: "_id",
   foreignField: "user",
-  justOne: true, // because one user = one profile
+  justOne: true,
+});
+
+UserSchema.virtual("businessProfile", {
+  ref: "BusinessProfile",
+  localField: "_id",
+  foreignField: "user",
+  justOne: true,
+});
+
+UserSchema.virtual("paymentInfo", {
+  ref: "PaymentInfo",
+  localField: "_id",
+  foreignField: "user",
+  justOne: true,
+});
+
+UserSchema.virtual("addresses", {
+  ref: "Address",
+  localField: "_id",
+  foreignField: "user",
+  justOne: false,
 });
 
 // Enable virtuals in outputs

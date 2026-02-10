@@ -161,17 +161,15 @@ export default function JobModal({
           {/* ✅ Countdown Timer */}
           {job.deadline && (
             <div
-              className={`px-4 py-3 rounded-xl mb-6 inline-block ${
-                deadlinePassed
-                  ? "bg-red-700 text-white"
-                  : "bg-white/10 border border-white/20 text-gray-200"
-              }`}
+              className={`px-4 py-3 rounded-xl mb-6 inline-block ${deadlinePassed
+                ? "bg-red-700 text-white"
+                : "bg-white/10 border border-white/20 text-gray-200"
+                }`}
             >
               <span className="font-semibold">Time Left:</span>{" "}
               <span
-                className={`ml-2 font-bold ${
-                  timeLeft.includes("0d") ? "text-red-400" : "text-white"
-                }`}
+                className={`ml-2 font-bold ${timeLeft.includes("0d") ? "text-red-400" : "text-white"
+                  }`}
               >
                 {timeLeft}
               </span>
@@ -245,11 +243,10 @@ export default function JobModal({
           <div className="flex justify-end">
             <button
               disabled={deadlinePassed}
-              className={`px-6 py-3 rounded-xl font-semibold transition shadow-lg ${
-                deadlinePassed
-                  ? "bg-gray-600 cursor-not-allowed text-gray-300"
-                  : "bg-[#c21219] hover:bg-red-700 text-white"
-              }`}
+              className={`px-6 py-3 rounded-xl font-semibold transition shadow-lg ${deadlinePassed
+                ? "bg-gray-600 cursor-not-allowed text-gray-300"
+                : "bg-[#c21219] hover:bg-red-700 text-white"
+                }`}
               onClick={() => !deadlinePassed && setShowApplyModal(true)}
             >
               {deadlinePassed ? "Deadline Passed" : "Apply Now"}
@@ -260,13 +257,40 @@ export default function JobModal({
           {showApplyModal && (
             <ApplyModal
               job={job}
-              // consultant={loggedInConsultant}
-              // client={0}
               isRegisteredUser={true}
               bids={bids}
               onBid={onBid}
               onClose={() => setShowApplyModal(false)}
-              onSubmit={(payload) => {}}
+              onSubmit={async (payload) => {
+                try {
+                  const res = await fetch("/api/projects/apply", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      projectId: job._id || job.id,
+                      amount: payload.bidAmount,
+                      coverLetter: payload.coverLetter,
+                      timeline: "Not specified",
+                    }),
+                  });
+                  const result = await res.json();
+                  if (result.success) {
+                    import("react-hot-toast").then((m) =>
+                      m.default.success("Application submitted! 🚀")
+                    );
+                    setShowApplyModal(false);
+                    onClose();
+                  } else {
+                    import("react-hot-toast").then((m) =>
+                      m.default.error(result.message || "Failed to apply")
+                    );
+                  }
+                } catch (err) {
+                  import("react-hot-toast").then((m) =>
+                    m.default.error("Something went wrong ❌")
+                  );
+                }
+              }}
             />
           )}
         </motion.div>

@@ -44,9 +44,15 @@ export default function Job({
   useEffect(() => {
     const fetchEntities = async () => {
       try {
-        const res = await axios.get("/api/projects");
+        const res = await axios.get("/api/projects?scope=browse");
         const data: Project[] = res.data?.data || [];
         setAllEntities(data.length ? data : mockJobs);
+
+        // Also check if user is logged in
+        const meRes = await axios.get("/api/auth/me");
+        if (meRes.data?.success) {
+          // You could store the full user object if needed
+        }
       } catch (err) {
         console.error("Backend fetch failed, using mock data:", err);
         setAllEntities(mockJobs);

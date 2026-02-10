@@ -12,10 +12,10 @@ const accountItems = [
   { name: "Sign Up", href: "/signup" },
   // { name: "Admin", href: "/admin" },
   // { name: "Continue with Google", href: "/google-login" },
-  { name: "Consultant Login", href: "/profile" },
+  // { name: "Consultant Login", href: "/profile" },
   { name: "Projects", href: "/jobs" },
-  { name: "Clients", href: "/talent" },
-  { name: "Client Login", href: "/client" },
+  // { name: "Clients", href: "/talent" },
+  // { name: "Client Login", href: "/client" },
 ];
 
 const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
