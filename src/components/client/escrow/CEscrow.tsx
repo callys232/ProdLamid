@@ -1,25 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Project } from "@/types/project";
 import { ClientProfile } from "@/types/client";
 import { Milestone, MilestoneStatus } from "@/types/project"; // ✅ shared types
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface Escrow {
+  _id?: string;
   id: string;
   projectId: string;
   amount: number;
   status:
-    | "pending"
-    | "funded"
-    | "released"
-    | "cancelled"
-    | "disputed"
-    | "completed";
+  | "pending"
+  | "funded"
+  | "released"
+  | "cancelled"
+  | "disputed"
+  | "failed"
+  | "completed";
   createdAt: string;
   releaseDate?: string;
   notes?: string;
+  milestoneId?: string;
   milestones?: Milestone[];
 }
 
@@ -35,6 +40,7 @@ export default function ClientEscrow({
   initialEscrows = [],
 }: ClientEscrowProps) {
   const [escrows, setEscrows] = useState<Escrow[]>(initialEscrows);
+  const [loading, setLoading] = useState(false);
   const [filterProject, setFilterProject] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [newEscrow, setNewEscrow] = useState<Omit<Escrow, "id" | "createdAt">>({
@@ -46,24 +52,60 @@ export default function ClientEscrow({
     milestones: [],
   });
 
-  // Add new escrow
-  const addEscrow = () => {
-    if (!newEscrow.projectId || newEscrow.amount <= 0) return;
-    const escrow: Escrow = {
-      ...newEscrow,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
+  // Fetch escrows on mount or when client changes
+  useEffect(() => {
+    const fetchEscrows = async () => {
+      try {
+        const res = await axios.get(`/api/escrow?userId=${client.id}`);
+        if (res.data.success) {
+          setEscrows(res.data.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch escrows:", err);
+      }
     };
-    setEscrows((prev) => [escrow, ...prev]);
-    setNewEscrow({
-      projectId: "",
-      amount: 0,
-      status: "pending",
-      releaseDate: "",
-      notes: "",
-      milestones: [],
-    });
-    setShowModal(false);
+    fetchEscrows();
+  }, [client.id]);
+
+  // Add new escrow to DB
+  const addEscrow = async () => {
+    if (!newEscrow.projectId || newEscrow.amount <= 0) {
+      toast.error("Please select a project and enter an amount");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const payload = {
+        projectId: newEscrow.projectId,
+        amount: newEscrow.amount,
+        userId: client.id, // Client's ID for wallet deduction
+        notes: newEscrow.notes,
+        // Using first milestone or none for now to keep it simple with existing API
+        milestoneId: newEscrow.milestones?.[0]?.id || undefined
+      };
+
+      const res = await axios.post("/api/escrow", payload);
+
+      if (res.data.success) {
+        toast.success("Funds added to escrow successfully! 💸");
+        setEscrows((prev) => [res.data.data, ...prev]);
+        setShowModal(false);
+        setNewEscrow({
+          projectId: "",
+          amount: 0,
+          status: "pending",
+          releaseDate: "",
+          notes: "",
+          milestones: [],
+        });
+      }
+    } catch (err: any) {
+      console.error("Escrow error:", err);
+      toast.error(err.response?.data?.message || "Failed to create escrow");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const filteredEscrows = escrows.filter(
@@ -128,19 +170,18 @@ export default function ClientEscrow({
                   <p className="text-xs text-gray-400">
                     Amount: ${e.amount.toLocaleString()} | Status:{" "}
                     <span
-                      className={`px-2 py-1 rounded text-xs ${
-                        e.status === "pending"
-                          ? "bg-yellow-600"
-                          : e.status === "released"
+                      className={`px-2 py-1 rounded text-xs ${e.status === "pending"
+                        ? "bg-yellow-600"
+                        : e.status === "released"
                           ? "bg-green-600"
                           : e.status === "funded"
-                          ? "bg-blue-600"
-                          : e.status === "completed"
-                          ? "bg-green-700"
-                          : e.status === "disputed"
-                          ? "bg-orange-600"
-                          : "bg-red-600"
-                      } text-white`}
+                            ? "bg-blue-600"
+                            : e.status === "completed"
+                              ? "bg-green-700"
+                              : e.status === "disputed"
+                                ? "bg-orange-600"
+                                : "bg-red-600"
+                        } text-white`}
                     >
                       {e.status}
                     </span>

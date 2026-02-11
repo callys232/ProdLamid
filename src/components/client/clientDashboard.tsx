@@ -77,7 +77,7 @@ export default function ClientProfileDashboard() {
 
     switch (activeTab) {
       case "overview":
-        return <Overview />;
+        return <Overview client={client} consultants={client.consultants || []} />;
       case "settings":
         return <Settings client={client} />;
       case "teams":
@@ -102,7 +102,7 @@ export default function ClientProfileDashboard() {
       case "invitations":
         return <Invitations client={client} consultants={client.consultants} />;
       default:
-        return <Overview />;
+        return <Overview client={client} consultants={client.consultants || []} />;
     }
   };
 

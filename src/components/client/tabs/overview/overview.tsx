@@ -9,34 +9,12 @@ import { InvitationsSection } from "./invitation";
 import { AnalyticsSection } from "./analytics";
 
 
-const mockClient = {
-    id: "1",
-    name: "Caleb",
-    email: "caleb@example.com",
-    username: "caleb_user",
-    role: "client",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    projects: [],
-    consultants: [],
-    escrowTransactions: [],
-    invitations: [],
-    teamMembers: [],
-    alerts: [],
-    notifications: [],
-    // Optional fields populated for specific UI checking
-    phone: "123-456-7890",
-    companyname: "Tech Corp",
-    industry: "Software",
-    location: "New York",
-    isPremium: true,
-    registeredAt: "2023-01-01",
-    completedProjects: 5,
-    rating: 4.8,
-    notes: "Top tier client"
-};
+interface OverviewPageProps {
+    client: any;
+    consultants: any[];
+}
 
-export default function OverviewPage() {
+export default function OverviewPage({ client, consultants }: OverviewPageProps) {
     return (
         <div className="w-full min-h-screen bg-black text-white p-8 space-y-8">
             {/* 🔍 SearchBar always first */}
@@ -46,16 +24,16 @@ export default function OverviewPage() {
             <ProjectOverview />
 
             {/* Other sections follow */}
-            <ClientDetails client={mockClient} />
-            <ConsultantsList consultants={[]} />
-            {/* <EscrowSection escrows={[]} /> */}
-            <InvitationsSection client={mockClient} consultants={[]} />
+            <ClientDetails client={client} />
+            <ConsultantsList consultants={consultants || []} />
+            {/* <EscrowSection escrows={client.escrowTransactions || []} /> */}
+            <InvitationsSection client={client} consultants={consultants || []} />
             <AnalyticsSection
                 analytics={{
-                    projects: 5,
-                    consultants: 2,
-                    budget: 50000,
-                    workphrase: 12,
+                    projects: client.projects?.length || 0,
+                    consultants: consultants?.length || 0,
+                    budget: client.projects?.reduce((acc: number, p: any) => acc + (p.budget || 0), 0) || 0,
+                    workphrase: 12, // Still fallback or keep for now
                 }}
             />
         </div>
