@@ -24,7 +24,7 @@ const ProfileSchema = new mongoose.Schema({
   title: { type: String }, // e.g. "Full Stack Developer"
   skills: { type: [String], default: [] },
 
-  skills: { type: [String], default: [] },
+  // skills: { type: [String], default: [] },
 });
 
 export const Profile =

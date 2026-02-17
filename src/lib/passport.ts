@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { User } from './models/User';
+import { Users } from './models/User';
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL } = process.env;
 
@@ -21,16 +21,16 @@ passport.use(
                 if (!email) {
                     return done(new Error('No email found in Google profile'));
                 }
-                const userByEmail = await User.findOne({ email });
+                const userByEmail = await Users.findOne({ email });
 
                 if (userByEmail && !userByEmail.googleId) {
                     return done(new Error('Account exists. Use email/password instead.'));
                 }
 
-                let user = await User.findOne({ googleId: profile.id, email });
+                let user = await Users.findOne({ googleId: profile.id, email });
 
                 if (!user) {
-                    user = await User.create({
+                    user = await Users.create({
                         googleId: profile.id,
                         email,
                         username: profile.displayName,

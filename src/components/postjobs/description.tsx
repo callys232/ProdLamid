@@ -32,16 +32,15 @@ export default function DescriptionStep({
     <>
       {/* Description */}
       <div>
-        <label className="block text-sm mb-1">Description</label>
+        <label className="block text-sm mb-1">About Project</label>
         <textarea
           aria-label="description"
           value={project.description}
           onChange={(e) => handleChange("description", e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.description
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          }`}
+          className={`w-full px-3 py-2 rounded-md border ${errors.description
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            }`}
           rows={4}
           required
         />
@@ -90,7 +89,7 @@ export default function DescriptionStep({
 
       {/* Milestones */}
       <div>
-        <label className="block text-sm mb-1">Milestones</label>
+        <label className="block text-sm mb-1">Workphrases</label>
         <div className="flex gap-2 mb-2">
           <input
             type="text"
