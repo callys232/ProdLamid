@@ -8,4 +8,5 @@ const ActivityItemSchema = new mongoose.Schema({
     type: { type: String, enum: ["system", "user"], default: "user" }
 });
 
+export { ActivityItemSchema };
 export const ActivityItem = mongoose.models.ActivityItem || mongoose.model("ActivityItem", ActivityItemSchema);

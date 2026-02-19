@@ -17,4 +17,5 @@ const EscrowTransactionSchema = new mongoose.Schema({
     action: { type: String }
 });
 
+export { EscrowTransactionSchema };
 export const EscrowTransaction = mongoose.models.EscrowTransaction || mongoose.model("EscrowTransaction", EscrowTransactionSchema);
