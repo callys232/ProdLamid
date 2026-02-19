@@ -11,10 +11,7 @@ import ExtrasStep from "./extraStep";
 import ReviewStep from "./review";
 
 interface JobPostingFormProps {
-  onSubmit: (
-    // project: Project,
-    // extras: { purpose: string; extraField: string }
-  ) => void;
+  onSubmit: (project: Project, extras: { purpose: string; extraField: string }) => void;
 }
 
 const steps = [
@@ -41,51 +38,17 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     status: "",
   });
 
-  const [purpose, setpurpose] = useState("");
+  const [purpose, setPurpose] = useState("");
   const [extraField, setExtraField] = useState("");
   const [skillInput, setSkillInput] = useState("");
   const [milestoneInput, setMilestoneInput] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleChange = (field: keyof Project, value: string) => {
-    setProject((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const addSkill = () => {
-    if (skillInput.trim()) {
-      setProject((prev) => ({
-        ...prev,
-        skills: [...(prev.skills || []), skillInput.trim()],
-      }));
-      setSkillInput("");
-    }
-  };
-
-  const removeSkill = (index: number) => {
+  const handleChange = (field: keyof Project, value: string | number) => {
     setProject((prev) => ({
       ...prev,
-      skills: prev.skills?.filter((_, i) => i !== index),
-    }));
-  };
-
-  const addMilestone = () => {
-    if (milestoneInput.trim()) {
-      setProject((prev) => ({
-        ...prev,
-        milestones: [
-          ...(prev.milestones || []),
-          { title: milestoneInput.trim(), status: "pending" },
-        ],
-      }));
-      setMilestoneInput("");
-    }
-  };
-
-  const removeMilestone = (index: number) => {
-    setProject((prev) => ({
-      ...prev,
-      milestones: prev.milestones?.filter((_, i) => i !== index),
+      [field]: typeof value === "string" ? value : Number(value),
     }));
   };
 
@@ -119,17 +82,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       }
     }
 
-    if (step === 3) {
-      if (purpose.length > 500) {
-        newErrors.purpose = "Purpose cannot exceed 500 characters.";
-      }
-      if (extraField.length > 200) {
-        newErrors.extraField = "Extra field cannot exceed 200 characters.";
-      }
-    }
-
-    if (step === 4) {
-      // Final check before submission
+    if (step === 3 || step === 4) {
       if (purpose.length > 500) {
         newErrors.purpose = "Purpose cannot exceed 500 characters.";
       }
@@ -147,7 +100,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     if (!validateStep(currentStep)) return;
 
     const finalProject = { ...project };
-    onSubmit();
+    onSubmit(finalProject, { purpose, extraField });
 
     // reset state
     setProject({
@@ -164,7 +117,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       priority: "",
       status: "",
     });
-    setpurpose("");
+    setPurpose("");
     setExtraField("");
     setSkillInput("");
     setMilestoneInput("");
@@ -181,55 +134,82 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white border border-[#c21219] rounded-lg shadow-lg p-6 space-y-6 text-gray-900"
+      className="bg-white border border-[#c21219] rounded-lg shadow-md p-4 md:p-6 space-y-4 text-gray-900"
     >
       <ProgressBar steps={steps} currentStep={currentStep} />
 
-      {currentStep === 0 && (
-        <DetailsStep project={project} handleChange={handleChange} errors={errors} />
-      )}
-      {currentStep === 1 && (
-        <BudgetStep project={project} handleChange={handleChange} errors={errors} />
-      )}
-      {currentStep === 2 && (
-        <DescriptionStep
-          project={project}
-          handleChange={handleChange}
-          skillInput={skillInput}
-          setSkillInput={setSkillInput}
-          addSkill={addSkill}
-          removeSkill={removeSkill}
-          milestoneInput={milestoneInput}
-          setMilestoneInput={setMilestoneInput}
-          addMilestone={addMilestone}
-          removeMilestone={removeMilestone}
-          errors={errors}
-        />
-      )}
-      {currentStep === 3 && (
-        <ExtrasStep
-          purpose={purpose}
-          setpurpose={setpurpose}
-          extraField={extraField}
-          setExtraField={setExtraField}
-          errors={errors}
-        />
-      )}
-      {currentStep === 4 && (
-        <ReviewStep
-          project={project}
-          purpose={purpose}
-          extraField={extraField}
-        />
-      )}
+      <div className="bg-red-50 rounded-md p-3 md:p-4">
+        {currentStep === 0 && (
+          <DetailsStep project={project} handleChange={handleChange} errors={errors} />
+        )}
+        {currentStep === 1 && (
+          <BudgetStep project={project} handleChange={handleChange} errors={errors} />
+        )}
+        {currentStep === 2 && (
+          <DescriptionStep
+            project={project}
+            handleChange={handleChange}
+            skillInput={skillInput}
+            setSkillInput={setSkillInput}
+            addSkill={() => {
+              if (skillInput.trim()) {
+                setProject((prev) => ({
+                  ...prev,
+                  skills: [...(prev.skills || []), skillInput.trim()],
+                }));
+                setSkillInput("");
+              }
+            }}
+            removeSkill={(index) =>
+              setProject((prev) => ({
+                ...prev,
+                skills: prev.skills?.filter((_, i) => i !== index),
+              }))
+            }
+            milestoneInput={milestoneInput}
+            setMilestoneInput={setMilestoneInput}
+            addMilestone={() => {
+              if (milestoneInput.trim()) {
+                setProject((prev) => ({
+                  ...prev,
+                  milestones: [
+                    ...(prev.milestones || []),
+                    { title: milestoneInput.trim(), status: "pending" },
+                  ],
+                }));
+                setMilestoneInput("");
+              }
+            }}
+            removeMilestone={(index) =>
+              setProject((prev) => ({
+                ...prev,
+                milestones: prev.milestones?.filter((_, i) => i !== index),
+              }))
+            }
+            errors={errors}
+          />
+        )}
+        {currentStep === 3 && (
+          <ExtrasStep
+            purpose={purpose}
+            setpurpose={setPurpose}
+            extraField={extraField}
+            setExtraField={setExtraField}
+            errors={errors}
+          />
+        )}
+        {currentStep === 4 && (
+          <ReviewStep project={project} purpose={purpose} extraField={extraField} errors={errors} />
+        )}
+      </div>
 
       {/* Navigation buttons */}
-      <div className="flex justify-between pt-4">
+      <div className="flex justify-between pt-2">
         {currentStep > 0 && (
           <button
             type="button"
             onClick={() => setCurrentStep((prev) => prev - 1)}
-            className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-md"
+            className="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-sm md:text-base"
           >
             Back
           </button>
@@ -239,14 +219,14 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
           <button
             type="button"
             onClick={nextStep}
-            className="ml-auto px-6 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md shadow-md"
+            className="ml-auto px-4 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md shadow-sm text-sm md:text-base"
           >
             {currentStep === steps.length - 2 ? "Review" : "Next"}
           </button>
         ) : (
           <button
             type="submit"
-            className="ml-auto px-6 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md shadow-md"
+            className="ml-auto px-4 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md shadow-sm text-sm md:text-base"
           >
             Post Project
           </button>

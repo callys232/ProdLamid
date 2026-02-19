@@ -18,6 +18,9 @@ export interface Project {
   description?: string;
   comment?: string; // ✅ add 
   extraField?: string;
+  startDate?: string;
+  endDate?: string;
+  TaskType?: string;
 
 
   /* 🔹 NEW: Client-facing project meaning */

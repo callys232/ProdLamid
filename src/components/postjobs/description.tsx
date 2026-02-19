@@ -3,7 +3,7 @@ import type { Project } from "@/types/project";
 
 interface DescriptionStepProps {
   project: Project;
-  handleChange: (field: keyof Project, value: string) => void;
+  handleChange: (field: keyof Project, value: string | number) => void;
   skillInput: string;
   setSkillInput: (val: string) => void;
   addSkill: () => void;
