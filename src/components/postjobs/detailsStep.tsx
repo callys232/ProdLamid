@@ -12,20 +12,37 @@ export default function DetailsStep({
   handleChange,
   errors,
 }: DetailsStepProps) {
+  const categories = [
+    "All",
+    "Entertainment",
+    "Food & Beverages",
+    "Art and Culture",
+    "Hybrid",
+    "Web 3.0",
+    "Games",
+    "Graphics",
+    "Consulting",
+    "Video and Animation",
+    "Literature",
+    "Business",
+    "Finance",
+  ];
+
+  const locations = ["Remote", "In‑Person", "Hybrid"];
+
   return (
     <>
       <div>
-        <label className="block text-sm mb-1">Title</label>
+        <label className="block text-sm mb-1">Project Title</label>
         <input
-          aria-label="tit"
+          aria-label="title"
           type="text"
           value={project.title}
           onChange={(e) => handleChange("title", e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.title
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          }`}
+          className={`w-full px-3 py-2 rounded-md border ${errors.title
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            }`}
         />
         {errors.title && (
           <p className="text-red-500 text-xs mt-1">{errors.title}</p>
@@ -34,17 +51,22 @@ export default function DetailsStep({
 
       <div>
         <label className="block text-sm mb-1">Category</label>
-        <input
+        <select
           aria-label="category"
-          type="text"
           value={project.category}
           onChange={(e) => handleChange("category", e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.category
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          }`}
-        />
+          className={`w-full px-3 py-2 rounded-md border ${errors.category
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            }`}
+        >
+          <option value="">Select category</option>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
         {errors.category && (
           <p className="text-red-500 text-xs mt-1">{errors.category}</p>
         )}
@@ -52,13 +74,25 @@ export default function DetailsStep({
 
       <div>
         <label className="block text-sm mb-1">Location</label>
-        <input
+        <select
           aria-label="location"
-          type="text"
           value={project.location}
           onChange={(e) => handleChange("location", e.target.value)}
-          className="w-full px-3 py-2 rounded-md border border-[#c21219] focus:ring-[#c21219]"
-        />
+          className={`w-full px-3 py-2 rounded-md border ${errors.location
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            }`}
+        >
+          <option value="">Select location</option>
+          {locations.map((loc) => (
+            <option key={loc} value={loc.toLowerCase()}>
+              {loc}
+            </option>
+          ))}
+        </select>
+        {errors.location && (
+          <p className="text-red-500 text-xs mt-1">{errors.location}</p>
+        )}
       </div>
 
       <div>
@@ -68,11 +102,10 @@ export default function DetailsStep({
           type="date"
           value={project.deadline}
           onChange={(e) => handleChange("deadline", e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.deadline
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          }`}
+          className={`w-full px-3 py-2 rounded-md border ${errors.deadline
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            }`}
         />
         {errors.deadline && (
           <p className="text-red-500 text-xs mt-1">{errors.deadline}</p>
@@ -82,14 +115,13 @@ export default function DetailsStep({
       <div>
         <label className="block text-sm mb-1">Priority</label>
         <select
-          aria-label="proiorty"
+          aria-label="priority"
           value={project.priority}
           onChange={(e) => handleChange("priority", e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.priority
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          }`}
+          className={`w-full px-3 py-2 rounded-md border ${errors.priority
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            }`}
         >
           <option value="">Select priority</option>
           <option value="low">Low</option>
@@ -107,11 +139,10 @@ export default function DetailsStep({
           aria-label="status"
           value={project.status}
           onChange={(e) => handleChange("status", e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.status
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          }`}
+          className={`w-full px-3 py-2 rounded-md border ${errors.status
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            }`}
         >
           <option value="">Select status</option>
           <option value="open">Open</option>

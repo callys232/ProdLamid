@@ -42,6 +42,8 @@ const pendingVariant = {
     x: 0,
     transition: { duration: 0.3 },
   },
+
+
 };
 
 /* -------------------- MAP STATUS TO ALERT TYPE -------------------- */
@@ -73,6 +75,9 @@ export default function Teams({ user }: { user: any }) {
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newTeamName, setNewTeamName] = useState("");
+  const [showManageMembersModal, setShowManageMembersModal] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState("member");
 
   /* -------------------- INITIAL LOAD -------------------- */
   useEffect(() => {
@@ -214,6 +219,61 @@ export default function Teams({ user }: { user: any }) {
       setLoading(false);
     }
   };
+  const handleAddMember = async () => {
+    if (!inviteEmail.trim() || !selectedTeam) return;
+
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/teams/${selectedTeam._id}/invite`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: inviteEmail,
+          role: inviteRole,
+        }),
+      });
+
+      if (res.ok) {
+        toast.success("Invitation sent!");
+        setInviteEmail("");
+        setInviteRole("member");
+      } else {
+        toast.error("Failed to send invite");
+      }
+    } catch (err) {
+      toast.error("Error inviting member");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRemoveMember = async (memberId: string) => {
+    if (!selectedTeam) return;
+
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `/api/teams/${selectedTeam._id}/members/${memberId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (res.ok) {
+        toast.success("Member removed");
+        setTeamMembers((prev) =>
+          prev.filter((m) => m.id !== memberId)
+        );
+      } else {
+        toast.error("Failed to remove member");
+      }
+    } catch (err) {
+      toast.error("Error removing member");
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   /* -------------------- UI -------------------- */
   return (

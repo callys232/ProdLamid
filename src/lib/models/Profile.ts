@@ -23,6 +23,8 @@ const ProfileSchema = new mongoose.Schema({
   delivery: { type: String, enum: ["Remote", "Onsite", "Hybrid"] },
   title: { type: String }, // e.g. "Full Stack Developer"
   skills: { type: [String], default: [] },
+
+  // skills: { type: [String], default: [] },
 });
 
 export const Profile =
