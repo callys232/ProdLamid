@@ -6,6 +6,7 @@ interface ExtrasStepProps {
   extraField: string;
   setExtraField: (val: string) => void;
   errors: Record<string, string>; // ✅ new prop for validation errors
+
 }
 
 export default function ExtrasStep({
@@ -25,11 +26,10 @@ export default function ExtrasStep({
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.comment
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          } focus:outline-none`}
+          className={`w-full px-3 py-2 rounded-md border ${errors.comment
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            } focus:outline-none`}
           rows={3}
           placeholder="Add any additional notes..."
         />
@@ -47,11 +47,10 @@ export default function ExtrasStep({
           type="text"
           value={extraField}
           onChange={(e) => setExtraField(e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.extraField
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          } focus:outline-none`}
+          className={`w-full px-3 py-2 rounded-md border ${errors.extraField
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
+            } focus:outline-none`}
           placeholder="Optional custom input..."
         />
         {errors.extraField && (

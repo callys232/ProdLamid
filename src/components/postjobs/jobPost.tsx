@@ -11,7 +11,10 @@ import ExtrasStep from "./extraStep";
 import ReviewStep from "./review";
 
 interface JobPostingFormProps {
-  onSubmit: (project: Project) => void;
+  onSubmit: (
+    project: Project,
+    extras: { comment: string; extraField: string }
+  ) => void;
 }
 
 const steps = [
@@ -122,10 +125,8 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateStep(currentStep)) return;
-    const finalProject = { ...project, comment, extraField };
-    onSubmit(finalProject as Project);
+    e.preventDefault(); if (!validateStep(currentStep))
+      return; const finalProject = { ...project }; onSubmit(finalProject, { comment, extraField });
 
     // reset state
     setProject({
@@ -210,6 +211,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       )}
 
       {/* Navigation buttons */}
+
       <div className="flex justify-between pt-4">
         {currentStep > 0 && (
           <button
@@ -220,13 +222,14 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             Back
           </button>
         )}
+
         {currentStep < steps.length - 1 ? (
           <button
             type="button"
             onClick={nextStep}
             className="ml-auto px-6 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md shadow-md"
           >
-            Next
+            {currentStep === steps.length - 2 ? "Review" : "Next"}
           </button>
         ) : (
           <button
@@ -237,6 +240,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
           </button>
         )}
       </div>
+
     </form>
   );
 }

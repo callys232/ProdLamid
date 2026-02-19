@@ -16,6 +16,8 @@ export interface Project {
   image?: string;
   images?: string[];
   description?: string;
+  comment?: string; // ✅ add 
+  extraField?: string;
 
   /* 🔹 NEW: Client-facing project meaning */
   purpose?: string;
