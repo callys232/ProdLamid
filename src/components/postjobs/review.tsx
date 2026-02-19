@@ -3,14 +3,14 @@ import type { Project } from "@/types/project";
 
 interface ReviewStepProps {
   project: Project;
-  comment: string;
+  purpose: string;
   extraField: string;
 }
 
 
 export default function ReviewStep({
   project,
-  comment,
+  purpose,
   extraField,
 }: ReviewStepProps) {
   return (
@@ -100,8 +100,8 @@ export default function ReviewStep({
 
       {/* Extras */}
       <div>
-        <p className="font-medium">Comments:</p>
-        <p>{comment || "—"}</p>
+        <p className="font-medium">Purpose:</p>
+        <p>{purpose || "—"}</p>
       </div>
       <div>
         <p className="font-medium">Extra Field:</p>

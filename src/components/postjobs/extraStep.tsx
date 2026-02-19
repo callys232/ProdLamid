@@ -1,8 +1,8 @@
 "use client";
 
 interface ExtrasStepProps {
-  comment: string;
-  setComment: (val: string) => void;
+  purpose: string;
+  setpurpose: (val: string) => void;
   extraField: string;
   setExtraField: (val: string) => void;
   errors: Record<string, string>; // ✅ new prop for validation errors
@@ -10,31 +10,31 @@ interface ExtrasStepProps {
 }
 
 export default function ExtrasStep({
-  comment,
-  setComment,
+  purpose,
+  setpurpose,
   extraField,
   setExtraField,
   errors,
 }: ExtrasStepProps) {
   return (
     <div className="space-y-4">
-      {/* Comment Box */}
+      {/* purpose Box */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Comments
+          Project Purpose
         </label>
         <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${errors.comment
+          value={purpose}
+          onChange={(e) => setpurpose(e.target.value)}
+          className={`w-full px-3 py-2 rounded-md border ${errors.purpose
             ? "border-red-500 focus:ring-red-500"
             : "border-[#c21219] focus:ring-[#c21219]"
             } focus:outline-none`}
           rows={3}
-          placeholder="Add any additional notes..."
+          placeholder="What is the purpose of this project?"
         />
-        {errors.comment && (
-          <p className="text-red-500 text-xs mt-1">{errors.comment}</p>
+        {errors.purpose && (
+          <p className="text-red-500 text-xs mt-1">{errors.purpose}</p>
         )}
       </div>
 

@@ -19,6 +19,7 @@ export interface Project {
   comment?: string; // ✅ add 
   extraField?: string;
 
+
   /* 🔹 NEW: Client-facing project meaning */
   purpose?: string;
   color?: string; // hex color for branding (e.g. "#c12129")

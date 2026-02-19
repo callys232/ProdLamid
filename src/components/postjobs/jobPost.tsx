@@ -12,8 +12,8 @@ import ReviewStep from "./review";
 
 interface JobPostingFormProps {
   onSubmit: (
-    project: Project,
-    extras: { comment: string; extraField: string }
+    // project: Project,
+    // extras: { purpose: string; extraField: string }
   ) => void;
 }
 
@@ -41,7 +41,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     status: "",
   });
 
-  const [comment, setComment] = useState("");
+  const [purpose, setpurpose] = useState("");
   const [extraField, setExtraField] = useState("");
   const [skillInput, setSkillInput] = useState("");
   const [milestoneInput, setMilestoneInput] = useState("");
@@ -89,9 +89,10 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     }));
   };
 
-  // Validation per step
+  // ✅ Validation per step
   const validateStep = (step: number): boolean => {
     const newErrors: Record<string, string> = {};
+
     if (step === 0) {
       if (!project.title) newErrors.title = "Title is required.";
       if (!project.category) newErrors.category = "Category is required.";
@@ -99,6 +100,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       if (!project.priority) newErrors.priority = "Priority is required.";
       if (!project.status) newErrors.status = "Status is required.";
     }
+
     if (step === 1) {
       if (!project.budget && !project.hourlyRate) {
         newErrors.budget = "Either budget or hourly rate is required.";
@@ -110,23 +112,42 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
         newErrors.hourlyRate = "Hourly rate must be a number.";
       }
     }
+
     if (step === 2) {
       if (!project.description || project.description.length < 10) {
         newErrors.description = "Description must be at least 10 characters.";
       }
     }
+
     if (step === 3) {
-      if (comment.length > 500) {
-        newErrors.comment = "Comment cannot exceed 500 characters.";
+      if (purpose.length > 500) {
+        newErrors.purpose = "Purpose cannot exceed 500 characters.";
+      }
+      if (extraField.length > 200) {
+        newErrors.extraField = "Extra field cannot exceed 200 characters.";
       }
     }
+
+    if (step === 4) {
+      // Final check before submission
+      if (purpose.length > 500) {
+        newErrors.purpose = "Purpose cannot exceed 500 characters.";
+      }
+      if (extraField.length > 200) {
+        newErrors.extraField = "Extra field cannot exceed 200 characters.";
+      }
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); if (!validateStep(currentStep))
-      return; const finalProject = { ...project }; onSubmit(finalProject, { comment, extraField });
+    e.preventDefault();
+    if (!validateStep(currentStep)) return;
+
+    const finalProject = { ...project };
+    onSubmit();
 
     // reset state
     setProject({
@@ -143,7 +164,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       priority: "",
       status: "",
     });
-    setComment("");
+    setpurpose("");
     setExtraField("");
     setSkillInput("");
     setMilestoneInput("");
@@ -165,18 +186,10 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       <ProgressBar steps={steps} currentStep={currentStep} />
 
       {currentStep === 0 && (
-        <DetailsStep
-          project={project}
-          handleChange={handleChange}
-          errors={errors}
-        />
+        <DetailsStep project={project} handleChange={handleChange} errors={errors} />
       )}
       {currentStep === 1 && (
-        <BudgetStep
-          project={project}
-          handleChange={handleChange}
-          errors={errors}
-        />
+        <BudgetStep project={project} handleChange={handleChange} errors={errors} />
       )}
       {currentStep === 2 && (
         <DescriptionStep
@@ -195,8 +208,8 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       )}
       {currentStep === 3 && (
         <ExtrasStep
-          comment={comment}
-          setComment={setComment}
+          purpose={purpose}
+          setpurpose={setpurpose}
           extraField={extraField}
           setExtraField={setExtraField}
           errors={errors}
@@ -205,13 +218,12 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       {currentStep === 4 && (
         <ReviewStep
           project={project}
-          comment={comment}
+          purpose={purpose}
           extraField={extraField}
         />
       )}
 
       {/* Navigation buttons */}
-
       <div className="flex justify-between pt-4">
         {currentStep > 0 && (
           <button
@@ -240,7 +252,6 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
           </button>
         )}
       </div>
-
     </form>
   );
 }
