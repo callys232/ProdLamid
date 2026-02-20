@@ -12,8 +12,7 @@ import ReviewStep from "./review";
 
 interface JobPostingFormProps {
   onSubmit: (
-    project: Project,
-    extras: { purpose: string; extraField: string }
+    project: Project & { purpose: string; extraField: string; images: string[] }
   ) => void;
 }
 
@@ -39,10 +38,12 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     deadline: "",
     priority: "",
     status: "",
+    images: [],
   });
 
   const [purpose, setPurpose] = useState("");
   const [extraField, setExtraField] = useState("");
+  const [images, setImages] = useState<File[]>([]);
   const [skillInput, setSkillInput] = useState("");
   const [milestoneInput, setMilestoneInput] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
@@ -71,30 +72,17 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       if (!project.budget && !project.hourlyRate) {
         newErrors.budget = "Either budget or hourly rate is required.";
       }
-      if (project.budget && isNaN(Number(project.budget))) {
-        newErrors.budget = "Budget must be a number.";
-      }
-      if (project.hourlyRate && isNaN(Number(project.hourlyRate))) {
-        newErrors.hourlyRate = "Hourly rate must be a number.";
-      }
     }
 
     if (step === 2) {
       if (!project.description || project.description.length < 10) {
-        newErrors.description =
-          "Description must be at least 10 characters.";
+        newErrors.description = "Description must be at least 10 characters.";
       }
     }
 
     if (step === 3) {
-      if (purpose.length > 500) {
-        newErrors.purpose =
-          "Purpose cannot exceed 500 characters.";
-      }
-      if (extraField.length > 200) {
-        newErrors.extraField =
-          "Extra field cannot exceed 200 characters.";
-      }
+      if (purpose.length > 500) newErrors.purpose = "Purpose too long.";
+      if (extraField.length > 200) newErrors.extraField = "Extra field too long.";
     }
 
     setErrors(newErrors);
@@ -105,19 +93,18 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Prevent submission before Review step
     if (currentStep !== steps.length - 1) {
       const valid = validateStep(currentStep);
-      if (valid) {
-        setCurrentStep((prev) => prev + 1);
-      }
+      if (valid) setCurrentStep((prev) => prev + 1);
       return;
     }
 
-    // Final validation
     if (!validateStep(currentStep)) return;
 
-    onSubmit({ ...project }, { purpose, extraField });
+    // Convert File[] → string[] (URLs for now; replace with upload logic if needed)
+    const imageStrings = images.map((file) => URL.createObjectURL(file));
+
+    onSubmit({ ...project, purpose, extraField, images: imageStrings });
 
     // Reset form
     setProject({
@@ -133,10 +120,11 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       deadline: "",
       priority: "",
       status: "",
+      images: [],
     });
-
     setPurpose("");
     setExtraField("");
+    setImages([]);
     setSkillInput("");
     setMilestoneInput("");
     setCurrentStep(0);
@@ -159,19 +147,11 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
 
       <div className="bg-red-50 rounded-md p-3 md:p-4">
         {currentStep === 0 && (
-          <DetailsStep
-            project={project}
-            handleChange={handleChange}
-            errors={errors}
-          />
+          <DetailsStep project={project} handleChange={handleChange} errors={errors} />
         )}
 
         {currentStep === 1 && (
-          <BudgetStep
-            project={project}
-            handleChange={handleChange}
-            errors={errors}
-          />
+          <BudgetStep project={project} handleChange={handleChange} errors={errors} />
         )}
 
         {currentStep === 2 && (
@@ -222,10 +202,12 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
         {currentStep === 3 && (
           <ExtrasStep
             purpose={purpose}
-            setpurpose={setPurpose}
+            setPurpose={setPurpose}
             extraField={extraField}
             setExtraField={setExtraField}
             errors={errors}
+            images={images}
+            setImages={setImages}
           />
         )}
 
@@ -238,6 +220,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             handleChange={handleChange}
             setPurpose={setPurpose}
             setExtraField={setExtraField}
+            images={images}
           />
         )}
       </div>
@@ -262,7 +245,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             }}
             className="ml-auto px-4 py-2 rounded-md shadow-sm text-sm md:text-base bg-[#c21219] hover:bg-red-700 text-white"
           >
-            {currentStep < steps.length - 2 ? "Next" : "Review"}
+            {currentStep < steps.length - 2 ? "Next" : "Go to Review"}
           </button>
         ) : (
           <button

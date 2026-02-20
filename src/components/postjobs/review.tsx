@@ -9,6 +9,7 @@ interface ReviewStepProps {
   handleChange: (field: keyof Project, value: string | number) => void;
   setPurpose: (val: string) => void;
   setExtraField: (val: string) => void;
+  images: File[];
 }
 
 export default function ReviewStep({
@@ -19,9 +20,10 @@ export default function ReviewStep({
   handleChange,
   setPurpose,
   setExtraField,
+  images,
 }: ReviewStepProps) {
   return (
-    <div className="space-y-4 text-sm text-gray-700">
+    <div className="space-y-6 text-sm text-gray-700">
       <h3 className="text-lg font-semibold text-[#c21219]">
         Review and edit your project before posting
       </h3>
@@ -48,7 +50,46 @@ export default function ReviewStep({
           />
           {errors.category && <p className="text-xs text-[#c21219]">{errors.category}</p>}
         </div>
-        {/* Repeat for location, deadline, priority, status */}
+        <div>
+          <label className="font-medium">Location</label>
+          <input
+            type="text"
+            value={project.location}
+            onChange={(e) => handleChange("location", e.target.value)}
+            className="w-full px-2 py-1 border rounded-md"
+          />
+          {errors.location && <p className="text-xs text-[#c21219]">{errors.location}</p>}
+        </div>
+        <div>
+          <label className="font-medium">Deadline</label>
+          <input
+            type="date"
+            value={project.deadline}
+            onChange={(e) => handleChange("deadline", e.target.value)}
+            className="w-full px-2 py-1 border rounded-md"
+          />
+          {errors.deadline && <p className="text-xs text-[#c21219]">{errors.deadline}</p>}
+        </div>
+        <div>
+          <label className="font-medium">Priority</label>
+          <input
+            type="text"
+            value={project.priority}
+            onChange={(e) => handleChange("priority", e.target.value)}
+            className="w-full px-2 py-1 border rounded-md"
+          />
+          {errors.priority && <p className="text-xs text-[#c21219]">{errors.priority}</p>}
+        </div>
+        <div>
+          <label className="font-medium">Status</label>
+          <input
+            type="text"
+            value={project.status}
+            onChange={(e) => handleChange("status", e.target.value)}
+            className="w-full px-2 py-1 border rounded-md"
+          />
+          {errors.status && <p className="text-xs text-[#c21219]">{errors.status}</p>}
+        </div>
       </div>
 
       {/* Budget */}
@@ -86,6 +127,31 @@ export default function ReviewStep({
         {errors.description && <p className="text-xs text-[#c21219]">{errors.description}</p>}
       </div>
 
+      {/* Skills */}
+      <div>
+        <label className="font-medium">Skills</label>
+        <ul className="flex flex-wrap gap-2 mt-1">
+          {project.skills?.map((skill, idx) => (
+            <li
+              key={`skill-${idx}`}
+              className="px-2 py-1 bg-red-100 text-[#c21219] rounded-md text-xs font-medium"
+            >
+              {skill}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Milestones */}
+      <div>
+        <label className="font-medium">Work Phases</label>
+        <ul className="list-disc list-inside text-sm text-gray-700 space-y-1 mt-1">
+          {project.milestones?.map((m, idx) => (
+            <li key={`milestone-${idx}`}>{m.title} ({m.status})</li>
+          ))}
+        </ul>
+      </div>
+
       {/* Extras */}
       <div>
         <label className="font-medium">Purpose</label>
@@ -105,6 +171,21 @@ export default function ReviewStep({
           className="w-full px-2 py-1 border rounded-md"
         />
         {errors.extraField && <p className="text-xs text-[#c21219]">{errors.extraField}</p>}
+      </div>
+
+      {/* Images */}
+      <div>
+        <label className="font-medium">Project Images</label>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {images.map((file, index) => (
+            <img
+              key={index}
+              src={URL.createObjectURL(file)}
+              alt={`Project image ${index + 1}`}
+              className="w-24 h-24 object-cover rounded-md border"
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

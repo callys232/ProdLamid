@@ -7,121 +7,165 @@ interface DetailsStepProps {
   errors: Record<string, string>;
 }
 
-export default function DetailsStep({
-  project,
-  handleChange,
-  errors,
-}: DetailsStepProps) {
-  const categories = [
-    "All",
-    "Entertainment",
-    "Food & Beverages",
-    "Art and Culture",
-    "Hybrid",
-    "Web 3.0",
-    "Games",
-    "Graphics",
-    "Consulting",
-    "Video and Animation",
-    "Literature",
-    "Business",
-    "Finance",
-  ];
+const CATEGORIES = [
+  "Entertainment",
+  "Food & Beverages",
+  "Art and Culture",
+  "Hybrid",
+  "Web 3.0",
+  "Games",
+  "Graphics",
+  "Consulting",
+  "Video and Animation",
+  "Literature",
+  "Business",
+  "Finance",
+];
 
-  const locations = ["Remote", "Hybrid", "Full time", "Part time", "Contract", "On-site"];
+const LOCATIONS = ["Remote", "Hybrid", "Full-time", "Part-time", "Contract", "On-site"];
 
+export default function DetailsStep({ project, handleChange, errors }: DetailsStepProps) {
   return (
-    <>
+    <div className="space-y-6">
+      {/* Title */}
       <div>
-        <label className="block text-sm mb-1">Project Title</label>
+        <label
+          htmlFor="title"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Project Title
+        </label>
         <input
-          aria-label="title"
+          id="title"
           type="text"
           value={project.title}
           onChange={(e) => handleChange("title", e.target.value)}
           className={`w-full px-3 py-2 rounded-md border ${errors.title
-            ? "border-red-500 focus:ring-red-500"
-            : "border-[#c21219] focus:ring-[#c21219]"
-            }`}
+              ? "border-red-500 focus:ring-red-500"
+              : "border-[#c21219] focus:ring-[#c21219]"
+            } focus:outline-none`}
+          placeholder="Enter project title"
+          required
+          aria-describedby={errors.title ? "title-error" : undefined}
         />
         {errors.title && (
-          <p className="text-red-500 text-xs mt-1">{errors.title}</p>
+          <p id="title-error" className="text-red-500 text-xs mt-1">
+            {errors.title}
+          </p>
         )}
       </div>
 
+      {/* Category */}
       <div>
-        <label className="block text-sm mb-1">Category</label>
+        <label
+          htmlFor="category"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Category
+        </label>
         <select
-          aria-label="category"
+          id="category"
           value={project.category}
           onChange={(e) => handleChange("category", e.target.value)}
           className={`w-full px-3 py-2 rounded-md border ${errors.category
-            ? "border-red-500 hover:bg-red-500 focus:ring-red-500"
-            : "border-[#c21219] focus:ring-[#c21219]"
-            }`}
+              ? "border-red-500 focus:ring-red-500"
+              : "border-[#c21219] focus:ring-[#c21219]"
+            } focus:outline-none`}
+          required
+          aria-describedby={errors.category ? "category-error" : undefined}
         >
           <option value="">Select category</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
+          {CATEGORIES.map((cat, idx) => (
+            <option key={`cat-${idx}`} value={cat}>
               {cat}
             </option>
           ))}
         </select>
         {errors.category && (
-          <p className="text-red-500  text-xs mt-1">{errors.category}</p>
+          <p id="category-error" className="text-red-500 text-xs mt-1">
+            {errors.category}
+          </p>
         )}
       </div>
 
+      {/* Location */}
       <div>
-        <label className="block text-sm mb-1">Location</label>
+        <label
+          htmlFor="location"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Location
+        </label>
         <select
-          aria-label="location"
+          id="location"
           value={project.location}
           onChange={(e) => handleChange("location", e.target.value)}
           className={`w-full px-3 py-2 rounded-md border ${errors.location
-            ? "border-red-500 focus:ring-red-500"
-            : "border-[#c21219] focus:ring-[#c21219]"
-            }`}
+              ? "border-red-500 focus:ring-red-500"
+              : "border-[#c21219] focus:ring-[#c21219]"
+            } focus:outline-none`}
+          required
+          aria-describedby={errors.location ? "location-error" : undefined}
         >
           <option value="">Select location</option>
-          {locations.map((loc) => (
-            <option key={loc} value={loc.toLowerCase()}>
+          {LOCATIONS.map((loc, idx) => (
+            <option key={`loc-${idx}`} value={loc.toLowerCase()}>
               {loc}
             </option>
           ))}
         </select>
         {errors.location && (
-          <p className="text-red-500 text-xs mt-1">{errors.location}</p>
+          <p id="location-error" className="text-red-500 text-xs mt-1">
+            {errors.location}
+          </p>
         )}
       </div>
 
+      {/* Deadline */}
       <div>
-        <label className="block text-sm mb-1">Deadline</label>
+        <label
+          htmlFor="deadline"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Deadline
+        </label>
         <input
-          aria-label="date"
+          id="deadline"
           type="date"
           value={project.deadline}
           onChange={(e) => handleChange("deadline", e.target.value)}
           className={`w-full px-3 py-2 rounded-md border ${errors.deadline
-            ? "border-red-500 focus:ring-red-500"
-            : "border-[#c21219] focus:ring-[#c21219]"
-            }`}
+              ? "border-red-500 focus:ring-red-500"
+              : "border-[#c21219] focus:ring-[#c21219]"
+            } focus:outline-none`}
+          required
+          aria-describedby={errors.deadline ? "deadline-error" : undefined}
         />
         {errors.deadline && (
-          <p className="text-red-500 text-xs mt-1">{errors.deadline}</p>
+          <p id="deadline-error" className="text-red-500 text-xs mt-1">
+            {errors.deadline}
+          </p>
         )}
       </div>
 
+      {/* Priority */}
       <div>
-        <label className="block text-sm mb-1">Priority</label>
+        <label
+          htmlFor="priority"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Priority
+        </label>
         <select
-          aria-label="priority"
+          id="priority"
           value={project.priority}
           onChange={(e) => handleChange("priority", e.target.value)}
           className={`w-full px-3 py-2 rounded-md border ${errors.priority
-            ? "border-red-500 focus:ring-red-500"
-            : "border-[#c21219] focus:ring-[#c21219]"
-            }`}
+              ? "border-red-500 focus:ring-red-500"
+              : "border-[#c21219] focus:ring-[#c21219]"
+            } focus:outline-none`}
+          required
+          aria-describedby={errors.priority ? "priority-error" : undefined}
         >
           <option value="">Select priority</option>
           <option value="low">Low</option>
@@ -129,20 +173,30 @@ export default function DetailsStep({
           <option value="high">High</option>
         </select>
         {errors.priority && (
-          <p className="text-red-500 text-xs mt-1">{errors.priority}</p>
+          <p id="priority-error" className="text-red-500 text-xs mt-1">
+            {errors.priority}
+          </p>
         )}
       </div>
 
+      {/* Status */}
       <div>
-        <label className="block text-sm mb-1">Status</label>
+        <label
+          htmlFor="status"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Status
+        </label>
         <select
-          aria-label="status"
+          id="status"
           value={project.status}
           onChange={(e) => handleChange("status", e.target.value)}
           className={`w-full px-3 py-2 rounded-md border ${errors.status
-            ? "border-red-500 focus:ring-red-500"
-            : "border-[#c21219] focus:ring-[#c21219]"
-            }`}
+              ? "border-red-500 focus:ring-red-500"
+              : "border-[#c21219] focus:ring-[#c21219]"
+            } focus:outline-none`}
+          required
+          aria-describedby={errors.status ? "status-error" : undefined}
         >
           <option value="">Select status</option>
           <option value="open">Open</option>
@@ -150,9 +204,11 @@ export default function DetailsStep({
           <option value="completed">Completed</option>
         </select>
         {errors.status && (
-          <p className="text-red-500 text-xs mt-1">{errors.status}</p>
+          <p id="status-error" className="text-red-500 text-xs mt-1">
+            {errors.status}
+          </p>
         )}
       </div>
-    </>
+    </div>
   );
 }
