@@ -3,7 +3,7 @@ import type { Project } from "@/types/project";
 
 interface DetailsStepProps {
   project: Project;
-  handleChange: (field: keyof Project, value: string) => void;
+  handleChange: (field: keyof Project, value: string | number) => void;
   errors: Record<string, string>;
 }
 
@@ -28,7 +28,7 @@ export default function DetailsStep({
     "Finance",
   ];
 
-  const locations = ["Remote", "In‑Person", "Hybrid"];
+  const locations = ["Remote", "Hybrid", "Full time", "Part time", "Contract", "On-site"];
 
   return (
     <>

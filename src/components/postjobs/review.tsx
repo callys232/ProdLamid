@@ -3,14 +3,17 @@ import type { Project } from "@/types/project";
 
 interface ReviewStepProps {
   project: Project;
-  comment: string;
+  purpose: string;
   extraField: string;
+  errors: Record<string, string>;
 }
+
 
 export default function ReviewStep({
   project,
-  comment,
+  purpose,
   extraField,
+  errors,
 }: ReviewStepProps) {
   return (
     <div className="space-y-4 text-sm text-gray-700">
@@ -99,12 +102,18 @@ export default function ReviewStep({
 
       {/* Extras */}
       <div>
-        <p className="font-medium">Comments:</p>
-        <p>{comment || "—"}</p>
+        <p className="font-medium">Purpose:</p>
+        <p>{purpose || "—"}</p>
+        {errors.purpose && (
+          <p className="text-xs text-[#c21219] mt-1">{errors.purpose}</p>
+        )}
       </div>
       <div>
         <p className="font-medium">Extra Field:</p>
         <p>{extraField || "—"}</p>
+        {errors.extraField && (
+          <p className="text-xs text-[#c21219] mt-1">{errors.extraField}</p>
+        )}
       </div>
     </div>
   );
