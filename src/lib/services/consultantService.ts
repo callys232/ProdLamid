@@ -75,7 +75,7 @@ export async function getConsultantById(id: string): Promise<Consultant | null> 
     const user = await Users.findById(id)
         .populate("profile")
         .select("-password -__v -verificationCode -refreshTokenJTI")
-        .lean();
+        .lean() as any;
 
     if (!user || user.role !== "seller") {
         return null;

@@ -14,27 +14,11 @@ export async function getClientProfile(userId: string) {
     const user = await Users.findById(userId)
         .populate("profile")
         .select("-password -__v -verificationCode -refreshTokenJTI")
-        .lean();
+        .lean() as any;
 
     if (!user) {
         throw new Error("User not found");
     }
-
-    // Get user's projects (as owner or via teams)
-    const projects = await Project.find({
-        $or: [
-            { ownerId: userId },
-            { teamId: { $in: teams.map(t => t._id.toString()) } }
-        ]
-    })
-        .sort({ createdAt: -1 })
-        .lean();
-
-    // Get bids made by user
-    const bids = await Bid.find({ bidderId: userId })
-        .populate("projectId")
-        .sort({ createdAt: -1 })
-        .lean();
 
     // Get teams user is part of (as owner or member)
     const teams = await Team.find({
@@ -44,13 +28,29 @@ export async function getClientProfile(userId: string) {
         ]
     })
         .populate("members.user", "username email profile")
-        .lean();
+        .lean() as any;
+
+    // Get user's projects (as owner or via teams)
+    const projects = await Project.find({
+        $or: [
+            { ownerId: userId },
+            { teamId: { $in: teams.map((t: any) => t._id.toString()) } }
+        ]
+    })
+        .sort({ createdAt: -1 })
+        .lean() as any;
+
+    // Get bids made by user
+    const bids = await Bid.find({ bidderId: userId })
+        .populate("projectId")
+        .sort({ createdAt: -1 })
+        .lean() as any;
 
     // Get consultants user has worked with (from projects)
     const consultantIds = new Set<string>();
-    projects.forEach(project => {
+    projects.forEach((project: any) => {
         if (project.consultants && Array.isArray(project.consultants)) {
-            project.consultants.forEach(id => consultantIds.add(id.toString()));
+            project.consultants.forEach((id: any) => consultantIds.add(id.toString()));
         }
     });
 
