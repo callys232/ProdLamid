@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Project, Milestone } from "@/types/project";
-import { Consultant } from "@/types/client";
+
 import ApplyModal from "./applyModal";
 
 interface JobModalProps {
