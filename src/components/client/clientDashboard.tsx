@@ -39,9 +39,8 @@ export default function ClientProfileDashboard() {
     const fetchClientData = async () => {
       try {
         setLoading(true);
-        // Import getMe from authApi
-        const { getMe } = await import("@/lib/api/authApi");
-        const userData = await getMe();
+        const { getClientDashboardProfile } = await import("@/lib/api/clientApi");
+        const userData = await getClientDashboardProfile();
         setClient(userData);
       } catch (err) {
         console.error("Failed to fetch client profile:", err);

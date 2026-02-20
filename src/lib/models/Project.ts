@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { Milestone } from "./Milestone";
-import { EscrowTransaction } from "./EscrowTransaction";
-import { ActivityItem } from "./ActivityItem";
+import { MilestoneSchema } from "./Milestone";
+import { EscrowTransactionSchema } from "./EscrowTransaction";
+import { ActivityItemSchema } from "./ActivityItem";
 
 const ProjectSchema = new mongoose.Schema({
     title: { type: String, required: true },
@@ -15,7 +15,7 @@ const ProjectSchema = new mongoose.Schema({
     image: { type: String },
     images: { type: [String], default: [] },
     description: { type: String },
-    milestones: { type: [Milestone], default: [] },
+    milestones: { type: [MilestoneSchema], default: [] },
     type: { type: Number }, // 0 = fixed, 1 = hourly
     adminIds: { type: [String], default: [] },
     currentMilestoneId: { type: String },
@@ -23,7 +23,7 @@ const ProjectSchema = new mongoose.Schema({
         min: { type: Number },
         max: { type: Number }
     },
-    consultants: { type: [mongoose.Schema.Types.ObjectId], ref: "User", default: [] },
+    consultants: { type: [mongoose.Schema.Types.ObjectId], ref: "Users", default: [] },
     priority: { type: String },
     deadline: { type: String },
     status: {
@@ -32,12 +32,12 @@ const ProjectSchema = new mongoose.Schema({
         default: "open"
     },
     teamId: { type: String },
-    ownerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    ownerId: { type: mongoose.Schema.Types.ObjectId, ref: "Users", required: true },
     milestoneProgress: { type: Number, default: 0 },
     timeline: { type: String },
     skills: { type: [String], default: [] },
-    escrow: { type: [EscrowTransaction], default: [] },
-    activities: { type: [ActivityItem], default: [] }
+    escrow: { type: [EscrowTransactionSchema], default: [] },
+    activities: { type: [ActivityItemSchema], default: [] }
 }, { timestamps: true });
 
 export const Project = mongoose.models.Project || mongoose.model("Project", ProjectSchema);

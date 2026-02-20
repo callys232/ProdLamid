@@ -22,15 +22,42 @@ export default function Invitations({
     client.invitations || []
   );
   const [filter, setFilter] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // Fetch invitations if they change or on initial load (though profileService provides them)
+  const refreshInvitations = async () => {
+    try {
+      const res = await fetch(`/api/invitations?invitedBy=${client.id}`);
+      if (res.ok) {
+        const { data } = await res.json();
+        setInvitations(data);
+      }
+    } catch (err) {
+      console.error("Failed to refresh invitations:", err);
+    }
+  };
 
   // Add new invitation
-  const addInvitation = (inv: Omit<Invitation, "id" | "createdAt">) => {
-    const newInvite: Invitation = {
-      ...inv,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-    };
-    setInvitations((prev) => [newInvite, ...prev]);
+  const addInvitation = async (inv: Omit<Invitation, "id" | "createdAt">) => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/invitations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...inv, invitedBy: client.id }),
+      });
+      if (res.ok) {
+        await refreshInvitations();
+        alert("Invitation sent successfully!");
+      } else {
+        const { message } = await res.json();
+        alert(`Failed to send invitation: ${message}`);
+      }
+    } catch (err) {
+      alert("Error sending invitation");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Invite handlers
@@ -40,7 +67,6 @@ export default function Invitations({
       email,
       method: "email",
       status: "pending",
-      invitedBy: client.id,
     });
     setEmail("");
   };
@@ -51,7 +77,6 @@ export default function Invitations({
       consultantId: selectedConsultant,
       method: "consultant",
       status: "pending",
-      invitedBy: client.id,
     });
     setSelectedConsultant("");
   };
@@ -65,32 +90,43 @@ export default function Invitations({
   };
 
   // Invitation actions
-  const handleResend = (id: string) => {
-    setInvitations((prev) =>
-      prev.map((inv) =>
-        inv.id === id
-          ? { ...inv, status: "pending", createdAt: new Date().toISOString() }
-          : inv
-      )
-    );
-    alert("Invitation resent!");
+  const handleResend = async (id: string) => {
+    try {
+      const res = await fetch(`/api/invitations/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "pending", updatedAt: new Date() }),
+      });
+      if (res.ok) {
+        await refreshInvitations();
+        alert("Invitation resent!");
+      }
+    } catch (err) {
+      alert("Failed to resend");
+    }
   };
 
-  const handleCancel = (id: string) => {
-    setInvitations((prev) =>
-      prev.map((inv) => (inv.id === id ? { ...inv, status: "declined" } : inv))
-    );
-    alert("Invitation cancelled.");
+  const handleCancel = async (id: string) => {
+    try {
+      const res = await fetch(`/api/invitations/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        await refreshInvitations();
+        alert("Invitation cancelled.");
+      }
+    } catch (err) {
+      alert("Failed to cancel");
+    }
   };
 
   // Filter invitations
   const filteredInvitations = invitations.filter((inv) => {
     const consultantName = inv.consultantId
-      ? consultants.find((c) => c.id === inv.consultantId)?.name || ""
+      ? consultants.find((c: any) => (c.id === inv.consultantId || c._id === inv.consultantId))?.name || ""
       : "";
-    const searchTarget = `${inv.email || ""} ${consultantName} ${
-      inv.status
-    }`.toLowerCase();
+    const searchTarget = `${inv.email || ""} ${consultantName} ${inv.status
+      }`.toLowerCase();
     return searchTarget.includes(filter.toLowerCase());
   });
 
@@ -173,7 +209,6 @@ export default function Invitations({
                         consultantId: c.id,
                         method: "ai",
                         status: "pending",
-                        invitedBy: client.id,
                       })
                     }
                     className="text-xs bg-green-600 px-2 py-1 rounded text-white hover:bg-green-700"

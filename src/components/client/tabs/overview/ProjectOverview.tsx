@@ -17,11 +17,11 @@ export default function ProjectOverview() {
         const fetchProjects = async () => {
             try {
                 const res = await fetch("/api/projects?role=owner");
-                if (!res.ok) throw new Error("Fetch failed");
                 const result = await res.json();
+                if (!res.ok) throw new Error(result.message || "Fetch failed");
                 setProjects(result.data || []);
-            } catch (error) {
-                console.error("Failed to fetch owner projects:", error);
+            } catch (error: any) {
+                console.error("Failed to fetch owner projects:", error.message);
             } finally {
                 setLoading(false);
             }

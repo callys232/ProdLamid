@@ -1,6 +1,6 @@
 // lib/utils.ts
 
-import { User } from "./models/User";
+import { Users } from "./models/User";
 
 import crypto from "crypto";
 import PDFDocument from "pdfkit";
@@ -37,7 +37,7 @@ export async function generateUsername(joinedAt: Date): Promise<string> {
   let count = 1;
 
   // Ensure the username is unique
-  while (await User.findOne({ username })) {
+  while (await Users.findOne({ username })) {
     username = `${baseUsername}${count}`;
     count += 1;
   }
@@ -54,14 +54,14 @@ export function generateTicketKey() {
 }
 
 export async function getUserFromUuid(uuid: string) {
-  const user = await User.findOne({
+  const user = await Users.findOne({
     uuid
   });
   return user;
 }
 
 export async function getUserFromUserid(userId: string) {
-  const user = await User.findOne({
+  const user = await Users.findOne({
     _id: userId
   });
   return user;

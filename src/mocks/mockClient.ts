@@ -354,6 +354,7 @@ export const mockClients: ClientProfile[] = [
     teamMembers: mockTeamMembers,
     escrowTransactions: mockEscrowTransactions,
     invitations: mockInvitations,
+    teams: [],
     aiLogs: mockAiLogs,
     alerts: [
       {
@@ -386,6 +387,7 @@ export const mockClients: ClientProfile[] = [
     teamMembers: mockTeamMembers,
     escrowTransactions: [],
     invitations: [],
+    teams: [],
     aiLogs: [],
     alerts: [
       {
