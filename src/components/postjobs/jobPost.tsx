@@ -48,6 +48,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
   const [milestoneInput, setMilestoneInput] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleChange = (field: keyof Project, value: string | number) => {
     setProject((prev) => ({
@@ -85,25 +86,32 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       if (extraField.length > 200) newErrors.extraField = "Extra field too long.";
     }
 
+    if (step === 4) {
+      // ✅ Re-validate all critical fields on Review
+      if (!project.title) newErrors.title = "Title is required.";
+      if (!project.category) newErrors.category = "Category is required.";
+      if (!project.description || project.description.length < 10) {
+        newErrors.description = "Description must be at least 10 characters.";
+      }
+      if (!project.deadline) newErrors.deadline = "Deadline is required.";
+      if (!project.priority) newErrors.priority = "Priority is required.";
+      if (!project.status) newErrors.status = "Status is required.";
+      if (!project.budget && !project.hourlyRate) {
+        newErrors.budget = "Either budget or hourly rate is required.";
+      }
+      if (purpose.length > 500) newErrors.purpose = "Purpose too long.";
+      if (extraField.length > 200) newErrors.extraField = "Extra field too long.";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // 🧠 Submit Handler
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // 🧠 Final Submit Handler
+  const handleFinalSubmit = () => {
+    if (!validateStep(4)) return;
 
-    if (currentStep !== steps.length - 1) {
-      const valid = validateStep(currentStep);
-      if (valid) setCurrentStep((prev) => prev + 1);
-      return;
-    }
-
-    if (!validateStep(currentStep)) return;
-
-    // Convert File[] → string[] (URLs for now; replace with upload logic if needed)
     const imageStrings = images.map((file) => URL.createObjectURL(file));
-
     onSubmit({ ...project, purpose, extraField, images: imageStrings });
 
     // Reset form
@@ -129,11 +137,12 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     setMilestoneInput("");
     setCurrentStep(0);
     setErrors({});
+    setShowConfirm(false);
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={(e) => e.preventDefault()}
       onKeyDown={(e) => {
         if (e.key === "Enter" && currentStep < steps.length - 1) {
           e.preventDefault();
@@ -149,11 +158,9 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
         {currentStep === 0 && (
           <DetailsStep project={project} handleChange={handleChange} errors={errors} />
         )}
-
         {currentStep === 1 && (
           <BudgetStep project={project} handleChange={handleChange} errors={errors} />
         )}
-
         {currentStep === 2 && (
           <DescriptionStep
             project={project}
@@ -198,7 +205,6 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             errors={errors}
           />
         )}
-
         {currentStep === 3 && (
           <ExtrasStep
             purpose={purpose}
@@ -210,7 +216,6 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             setImages={setImages}
           />
         )}
-
         {currentStep === 4 && (
           <ReviewStep
             project={project}
@@ -249,13 +254,49 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
           </button>
         ) : (
           <button
-            type="submit"
+            type="button"
+            onClick={() => {
+              const valid = validateStep(currentStep);
+              if (valid) setShowConfirm(true);
+            }}
             className="ml-auto px-4 py-2 rounded-md shadow-sm text-sm md:text-base bg-[#c21219] hover:bg-red-700 text-white"
           >
             Post Project
           </button>
         )}
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              Confirm Project Posting
+            </h2>
+            <p className="text-sm text-gray-700 mb-6">
+              Are you sure you want to post this project? Please review all details carefully.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setShowConfirm(false)}
+                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleFinalSubmit}
+                className="px-4 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md text-sm"
+              >
+                Confirm & Post
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
+
+

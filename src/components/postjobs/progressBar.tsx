@@ -30,10 +30,10 @@ export default function ProgressBar({ steps, currentStep }: ProgressBarProps) {
               {/* Circle with icon */}
               <div
                 className={`w-10 h-10 flex items-center justify-center rounded-full border-2 text-lg transition-colors duration-300 ${isCompleted
-                    ? "bg-[#c21219] border-[#c21219] text-white"
-                    : isActive
-                      ? "bg-white border-[#c21219] text-[#c21219]"
-                      : "border-gray-300 text-gray-500"
+                  ? "bg-[#c21219] border-[#c21219] text-white"
+                  : isActive
+                    ? "bg-white border-[#c21219] text-[#c21219]"
+                    : "border-gray-300 text-gray-500"
                   }`}
               >
                 {step.icon}
@@ -52,13 +52,13 @@ export default function ProgressBar({ steps, currentStep }: ProgressBarProps) {
                 <span className="text-[#c21219] text-sm font-bold mt-1">✓</span>
               )}
 
-              {/* Connector line */}
+              {/* Connector line
               {index < steps.length - 1 && (
                 <div
                   className={`absolute top-5 left-full w-full h-0.5 ${index < currentStep ? "bg-[#c21219]" : "bg-gray-300"
                     }`}
                 />
-              )}
+              )} */}
             </div>
           );
         })}
