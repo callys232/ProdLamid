@@ -4,6 +4,7 @@ import { Project } from "../models/Project";
 import { Bid } from "../models/Bid";
 import { Team } from "../models/Team";
 import { Wallet } from "../models/Wallet";
+import { Invitation } from "../models/Invitation";
 import { getConsultantById } from "./consultantService";
 
 /**
@@ -46,6 +47,12 @@ export async function getClientProfile(userId: string) {
         .sort({ createdAt: -1 })
         .lean() as any;
 
+    // Get invitations sent by user
+    const invitations = await Invitation.find({ invitedBy: userId })
+        .populate("consultantId", "firstName lastName email profile")
+        .sort({ createdAt: -1 })
+        .lean() as any;
+
     // Get consultants user has worked with (from projects)
     const consultantIds = new Set<string>();
     projects.forEach((project: any) => {
@@ -75,6 +82,7 @@ export async function getClientProfile(userId: string) {
         bids,
         teams,
         wallet,
+        invitations,
         consultants: consultants.filter(c => c !== null),
         createdAt: user.joinedAt,
         updatedAt: new Date().toISOString()

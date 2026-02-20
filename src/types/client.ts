@@ -61,6 +61,21 @@ export interface Invitation {
   createdAt: string;
 }
 
+export interface Team {
+  id: string;
+  _id?: string;
+  name: string;
+  ownerId: string;
+  description?: string;
+  members: {
+    user: any; // Populated user info
+    role?: string;
+    addedAt: string;
+  }[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 /* -------------------- TEAM MEMBERS -------------------- */
 export interface TeamMember {
   id: string;
@@ -174,6 +189,7 @@ export interface ClientProfile {
   escrowTransactions: EscrowTransaction[];
   invitations: Invitation[];
   teamMembers: TeamMember[];
+  teams: Team[];
   aiLogs?: AiActionLog[];
 
   createdAt: string;
