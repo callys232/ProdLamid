@@ -56,7 +56,7 @@ export default function DetailsStep({
           value={project.category}
           onChange={(e) => handleChange("category", e.target.value)}
           className={`w-full px-3 py-2 rounded-md border ${errors.category
-            ? "border-red-500 focus:ring-red-500"
+            ? "border-red-500 hover:bg-red-500 focus:ring-red-500"
             : "border-[#c21219] focus:ring-[#c21219]"
             }`}
         >
@@ -68,7 +68,7 @@ export default function DetailsStep({
           ))}
         </select>
         {errors.category && (
-          <p className="text-red-500 text-xs mt-1">{errors.category}</p>
+          <p className="text-red-500  text-xs mt-1">{errors.category}</p>
         )}
       </div>
 

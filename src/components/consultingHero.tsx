@@ -66,11 +66,11 @@ export default function HybridConsultingHero() {
       : "Search for available jobs or opportunities...";
 
   return (
-    <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center text-white overflow-hidden bg-black">
+    <section className="relative w-full min-h-[55vh] flex flex-col items-center justify-center text-white overflow-hidden bg-black">
       {/* Background Image */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
-        style={{ backgroundImage: "url('/tree-background.jpg')" }}
+        style={{ backgroundImage: "url('/hybrid.png')" }}
       />
 
       {/* Background Video layered above image (Optional - removed if missing) */}
@@ -105,8 +105,8 @@ export default function HybridConsultingHero() {
             <button
               onClick={() => setActiveTab("consultants")}
               className={`flex-1 py-3 text-base font-semibold transition-all ${activeTab === "consultants"
-                  ? "bg-[#c12129] text-white"
-                  : "text-[#c12129] hover:text-red-400"
+                ? "bg-[#c12129] text-white"
+                : "text-[#c12129] hover:text-red-400"
                 }`}
             >
               CONSULTANTS
@@ -114,8 +114,8 @@ export default function HybridConsultingHero() {
             <button
               onClick={() => setActiveTab("jobs")}
               className={`flex-1 py-3 text-base font-semibold transition-all ${activeTab === "jobs"
-                  ? "bg-[#c12129] text-white"
-                  : "text-[#c12129] hover:text-red-400"
+                ? "bg-[#c12129] text-white"
+                : "text-[#c12129] hover:text-red-400"
                 }`}
             >
               JOBS

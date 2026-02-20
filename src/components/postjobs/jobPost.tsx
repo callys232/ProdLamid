@@ -11,7 +11,10 @@ import ExtrasStep from "./extraStep";
 import ReviewStep from "./review";
 
 interface JobPostingFormProps {
-  onSubmit: (project: Project, extras: { purpose: string; extraField: string }) => void;
+  onSubmit: (
+    project: Project,
+    extras: { purpose: string; extraField: string }
+  ) => void;
 }
 
 const steps = [
@@ -52,7 +55,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     }));
   };
 
-  // ✅ Validation per step
+  // 🔎 Step Validation
   const validateStep = (step: number): boolean => {
     const newErrors: Record<string, string> = {};
 
@@ -78,16 +81,19 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
 
     if (step === 2) {
       if (!project.description || project.description.length < 10) {
-        newErrors.description = "Description must be at least 10 characters.";
+        newErrors.description =
+          "Description must be at least 10 characters.";
       }
     }
 
-    if (step === 3 || step === 4) {
+    if (step === 3) {
       if (purpose.length > 500) {
-        newErrors.purpose = "Purpose cannot exceed 500 characters.";
+        newErrors.purpose =
+          "Purpose cannot exceed 500 characters.";
       }
       if (extraField.length > 200) {
-        newErrors.extraField = "Extra field cannot exceed 200 characters.";
+        newErrors.extraField =
+          "Extra field cannot exceed 200 characters.";
       }
     }
 
@@ -95,14 +101,25 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     return Object.keys(newErrors).length === 0;
   };
 
+  // 🧠 Submit Handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Prevent submission before Review step
+    if (currentStep !== steps.length - 1) {
+      const valid = validateStep(currentStep);
+      if (valid) {
+        setCurrentStep((prev) => prev + 1);
+      }
+      return;
+    }
+
+    // Final validation
     if (!validateStep(currentStep)) return;
 
-    const finalProject = { ...project };
-    onSubmit(finalProject, { purpose, extraField });
+    onSubmit({ ...project }, { purpose, extraField });
 
-    // reset state
+    // Reset form
     setProject({
       id: "",
       title: "",
@@ -117,6 +134,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
       priority: "",
       status: "",
     });
+
     setPurpose("");
     setExtraField("");
     setSkillInput("");
@@ -125,26 +143,37 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     setErrors({});
   };
 
-  const nextStep = () => {
-    if (validateStep(currentStep)) {
-      setCurrentStep((prev) => prev + 1);
-    }
-  };
-
   return (
     <form
       onSubmit={handleSubmit}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && currentStep < steps.length - 1) {
+          e.preventDefault();
+          const valid = validateStep(currentStep);
+          if (valid) setCurrentStep((prev) => prev + 1);
+        }
+      }}
       className="bg-white border border-[#c21219] rounded-lg shadow-md p-4 md:p-6 space-y-4 text-gray-900"
     >
       <ProgressBar steps={steps} currentStep={currentStep} />
 
       <div className="bg-red-50 rounded-md p-3 md:p-4">
         {currentStep === 0 && (
-          <DetailsStep project={project} handleChange={handleChange} errors={errors} />
+          <DetailsStep
+            project={project}
+            handleChange={handleChange}
+            errors={errors}
+          />
         )}
+
         {currentStep === 1 && (
-          <BudgetStep project={project} handleChange={handleChange} errors={errors} />
+          <BudgetStep
+            project={project}
+            handleChange={handleChange}
+            errors={errors}
+          />
         )}
+
         {currentStep === 2 && (
           <DescriptionStep
             project={project}
@@ -155,7 +184,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
               if (skillInput.trim()) {
                 setProject((prev) => ({
                   ...prev,
-                  skills: [...(prev.skills || []), skillInput.trim()],
+                  skills: [...(prev.skills ?? []), skillInput.trim()],
                 }));
                 setSkillInput("");
               }
@@ -163,7 +192,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             removeSkill={(index) =>
               setProject((prev) => ({
                 ...prev,
-                skills: prev.skills?.filter((_, i) => i !== index),
+                skills: (prev.skills ?? []).filter((_, i) => i !== index),
               }))
             }
             milestoneInput={milestoneInput}
@@ -173,7 +202,7 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
                 setProject((prev) => ({
                   ...prev,
                   milestones: [
-                    ...(prev.milestones || []),
+                    ...(prev.milestones ?? []),
                     { title: milestoneInput.trim(), status: "pending" },
                   ],
                 }));
@@ -183,12 +212,13 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             removeMilestone={(index) =>
               setProject((prev) => ({
                 ...prev,
-                milestones: prev.milestones?.filter((_, i) => i !== index),
+                milestones: (prev.milestones ?? []).filter((_, i) => i !== index),
               }))
             }
             errors={errors}
           />
         )}
+
         {currentStep === 3 && (
           <ExtrasStep
             purpose={purpose}
@@ -198,12 +228,20 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             errors={errors}
           />
         )}
+
         {currentStep === 4 && (
-          <ReviewStep project={project} purpose={purpose} extraField={extraField} errors={errors} />
+          <ReviewStep
+            project={project}
+            purpose={purpose}
+            extraField={extraField}
+            errors={errors}
+            handleChange={handleChange}
+            setPurpose={setPurpose}
+            setExtraField={setExtraField}
+          />
         )}
       </div>
 
-      {/* Navigation buttons */}
       <div className="flex justify-between pt-2">
         {currentStep > 0 && (
           <button
@@ -218,15 +256,18 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
         {currentStep < steps.length - 1 ? (
           <button
             type="button"
-            onClick={nextStep}
-            className="ml-auto px-4 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md shadow-sm text-sm md:text-base"
+            onClick={() => {
+              const valid = validateStep(currentStep);
+              if (valid) setCurrentStep((prev) => prev + 1);
+            }}
+            className="ml-auto px-4 py-2 rounded-md shadow-sm text-sm md:text-base bg-[#c21219] hover:bg-red-700 text-white"
           >
-            {currentStep === steps.length - 2 ? "Review" : "Next"}
+            {currentStep < steps.length - 2 ? "Next" : "Review"}
           </button>
         ) : (
           <button
             type="submit"
-            className="ml-auto px-4 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md shadow-sm text-sm md:text-base"
+            className="ml-auto px-4 py-2 rounded-md shadow-sm text-sm md:text-base bg-[#c21219] hover:bg-red-700 text-white"
           >
             Post Project
           </button>

@@ -5,7 +5,7 @@ interface ExtrasStepProps {
   setpurpose: (val: string) => void;
   extraField: string;
   setExtraField: (val: string) => void;
-  errors: Record<string, string>; // ✅ new prop for validation errors
+  errors: Record<string, string>;
 
 }
 
@@ -51,7 +51,7 @@ export default function ExtrasStep({
             ? "border-red-500 focus:ring-red-500"
             : "border-[#c21219] focus:ring-[#c21219]"
             } focus:outline-none`}
-          placeholder="Optional custom input..."
+          placeholder="Optional information..."
         />
         {errors.extraField && (
           <p className="text-red-500 text-xs mt-1">{errors.extraField}</p>
