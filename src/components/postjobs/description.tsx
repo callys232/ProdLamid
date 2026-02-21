@@ -70,7 +70,7 @@ export default function DescriptionStep({
           htmlFor="description"
           className="block text-sm font-medium text-gray-700 mb-1"
         >
-          About Project
+          Project Description
         </label>
         <textarea
           id="description"
@@ -79,8 +79,8 @@ export default function DescriptionStep({
           value={project.description}
           onChange={(e) => handleChange("description", e.target.value)}
           className={`w-full px-3 py-2 rounded-md border ${errors.description
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
+            ? "border-red-500 focus:ring-red-500"
+            : "border-[#c21219] focus:ring-[#c21219]"
             } focus:outline-none`}
           rows={4}
           placeholder="Describe your project in detail..."
@@ -118,8 +118,8 @@ export default function DescriptionStep({
             onClick={handleAddSkill}
             disabled={!skillInput.trim()}
             className={`px-4 py-2 rounded-md text-white ${skillInput.trim()
-                ? "bg-[#c21219] hover:bg-red-700"
-                : "bg-gray-300 cursor-not-allowed"
+              ? "bg-[#c21219] hover:bg-red-700"
+              : "bg-gray-300 cursor-not-allowed"
               }`}
           >
             Add
@@ -173,8 +173,8 @@ export default function DescriptionStep({
             onClick={handleAddMilestone}
             disabled={!milestoneInput.trim()}
             className={`px-4 py-2 rounded-md text-white ${milestoneInput.trim()
-                ? "bg-[#c21219] hover:bg-red-700"
-                : "bg-gray-300 cursor-not-allowed"
+              ? "bg-[#c21219] hover:bg-red-700"
+              : "bg-gray-300 cursor-not-allowed"
               }`}
           >
             Add

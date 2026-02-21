@@ -87,7 +87,7 @@ const Footer = () => {
             Bizphere
           </Link>
           <Link
-            href="/events"
+            href="/event"
             className="bg-red-900 hover:bg-red-800 px-4 py-2 rounded text-white"
           >
             Events
@@ -105,7 +105,7 @@ const Footer = () => {
             HCD
           </Link>
           <Link
-            href="/sd"
+            href="/sustainableDev"
             className="bg-red-900 hover:bg-red-800 px-4 py-2 rounded text-white"
           >
             SD

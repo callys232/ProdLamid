@@ -1,4 +1,3 @@
-// components/ProfileHeader.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -15,10 +14,19 @@ import {
   mockPayments,
   mockDeadlines,
 } from "@/mocks/useralert";
+import { UserGuide } from "@/components/Guides/UserGuide";
+import { profileHeaderGuide } from "@/lib/UserGuide/profileHeaderGuide";
 
 export default function ProfileHeader({ user }: { user: any }) {
   const completion = 70;
+
   const [showPopup, setShowPopup] = useState(false);
+
+  // ✅ Auto-open on first visit
+  const [showGuide, setShowGuide] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem("lamid-profile-header-guide");
+  });
 
   // Prefetch for badge count
   const [alerts, setAlerts] = useState<UserAlert[]>([]);
@@ -52,27 +60,21 @@ export default function ProfileHeader({ user }: { user: any }) {
     ? `${user.profile.firstName} ${user.profile.lastName || ""}`
     : user?.username || user?.email || "Lamid Consultant";
 
-  const displayTitle = user?.profile?.title || (user?.role === "seller" ? "Independent Consultant" : "Client Account");
+  const displayTitle =
+    user?.profile?.title ||
+    (user?.role === "seller"
+      ? "Independent Consultant"
+      : "Client Account");
+
   const displayLocation = user?.profile?.addresses?.[0]?.city
-    ? `${user.profile.addresses[0].city}, ${user.profile.addresses[0].country || ""}`
+    ? `${user.profile.addresses[0].city}, ${user.profile.addresses[0].country || ""
+    }`
     : "Lagos, Nigeria";
 
   const stats = [
-    {
-      value: 0,
-      label: "Projects",
-      details: [],
-    },
-    {
-      value: 0,
-      label: "Completed",
-      details: [],
-    },
-    {
-      value: "0",
-      label: "Pending",
-      details: [],
-    },
+    { value: 0, label: "Projects", details: [] },
+    { value: 0, label: "Completed", details: [] },
+    { value: "0", label: "Pending", details: [] },
     {
       value: user?.profile?.rating || "0",
       label: "Avg. Rating",
@@ -89,6 +91,16 @@ export default function ProfileHeader({ user }: { user: any }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
+      {/* ✅ Guide Trigger */}
+      <button
+        onClick={() => setShowGuide(true)}
+        className="absolute top-4 right-4 text-gray-400 hover:text-red-500 
+                   transition text-sm border border-gray-600 px-3 py-1 rounded-lg"
+        aria-label="Open Profile Guide"
+      >
+        Guide
+      </button>
+
       {/* Premium Ribbon */}
       <motion.div
         className="absolute top-4 left-0 bg-red-600 text-white text-xs font-semibold 
@@ -143,7 +155,7 @@ export default function ProfileHeader({ user }: { user: any }) {
         </motion.div>
       </div>
 
-      {/* Stats Section */}
+      {/* Stats */}
       <motion.div
         className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4"
         initial="hidden"
@@ -166,7 +178,7 @@ export default function ProfileHeader({ user }: { user: any }) {
         ))}
       </motion.div>
 
-      {/* CTA Buttons */}
+      {/* Reviews Button */}
       <motion.div
         className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start"
         initial={{ opacity: 0 }}
@@ -175,51 +187,30 @@ export default function ProfileHeader({ user }: { user: any }) {
       >
         <button
           onClick={() => setShowPopup(true)}
-          className="relative px-6 py-2 border border-gray-600 hover:border-red-500 text-gray-300 hover:text-white font-medium rounded-lg shadow-md transition transform hover:scale-105"
+          className="relative px-6 py-2 border border-gray-600 hover:border-red-500 
+                     text-gray-300 hover:text-white font-medium rounded-lg shadow-md 
+                     transition transform hover:scale-105"
         >
           All Reviews
           {badgeCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white 
+                             text-xs font-bold rounded-full px-2 py-0.5">
               {badgeCount}
             </span>
           )}
         </button>
       </motion.div>
 
-      {/* Social Media Links */}
+      {/* Social Links */}
       <motion.div
         className="mt-6 flex gap-6 justify-center md:justify-start text-gray-400"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}
       >
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn Profile"
-          className="hover:text-red-500 transition transform hover:scale-110"
-        >
-          <FaLinkedin size={24} />
-        </a>
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub Profile"
-          className="hover:text-red-500 transition transform hover:scale-110"
-        >
-          <FaGithub size={24} />
-        </a>
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Twitter Profile"
-          className="hover:text-red-500 transition transform hover:scale-110"
-        >
-          <FaTwitter size={24} />
-        </a>
+        <FaLinkedin className="hover:text-red-500 transition cursor-pointer" size={24} />
+        <FaGithub className="hover:text-red-500 transition cursor-pointer" size={24} />
+        <FaTwitter className="hover:text-red-500 transition cursor-pointer" size={24} />
       </motion.div>
 
       {/* Review Popup */}
@@ -229,6 +220,14 @@ export default function ProfileHeader({ user }: { user: any }) {
           onClose={() => setShowPopup(false)}
         />
       )}
+
+      {/* ✅ User Guide */}
+      <UserGuide
+        storageKey="lamid-profile-header-guide"
+        steps={profileHeaderGuide}
+        isOpen={showGuide}
+        onClose={() => setShowGuide(false)}
+      />
     </motion.div>
   );
 }
