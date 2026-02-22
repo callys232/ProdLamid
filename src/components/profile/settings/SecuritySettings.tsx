@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
-import Image from "next/image";
 
 interface SecurityForm {
   oldPassword: string;
@@ -23,10 +22,9 @@ export default function SecuritySettings({ user }: { user: any }) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name as keyof SecurityForm]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  /* -------------------- Password Update -------------------- */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.newPassword !== formData.confirmPassword) {
@@ -41,8 +39,8 @@ export default function SecuritySettings({ user }: { user: any }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           oldPassword: formData.oldPassword,
-          newPassword: formData.newPassword
-        })
+          newPassword: formData.newPassword,
+        }),
       });
 
       const result = await res.json();
@@ -59,14 +57,13 @@ export default function SecuritySettings({ user }: { user: any }) {
     }
   };
 
-  /* -------------------- 2FA Toggling -------------------- */
   const toggle2FA = async (enable: boolean) => {
     setLoading(true);
     try {
       const res = await fetch("/api/auth/me", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ twoFAEnabled: enable })
+        body: JSON.stringify({ twoFAEnabled: enable }),
       });
 
       const result = await res.json();
@@ -90,10 +87,8 @@ export default function SecuritySettings({ user }: { user: any }) {
     const hasSymbol = /[^A-Za-z0-9]/.test(password);
     const length = password.length;
 
-    if (length >= 8 && hasUpper && hasLower && hasNumber && hasSymbol)
-      return "strong";
-    if (length >= 6 && ((hasUpper && hasLower) || (hasNumber && hasLower)))
-      return "medium";
+    if (length >= 8 && hasUpper && hasLower && hasNumber && hasSymbol) return "strong";
+    if (length >= 6 && ((hasUpper && hasLower) || (hasNumber && hasLower))) return "medium";
     return "weak";
   };
 
@@ -106,17 +101,14 @@ export default function SecuritySettings({ user }: { user: any }) {
       transition={{ duration: 0.4 }}
       className="w-full max-w-2xl p-6 bg-black/30 backdrop-blur-xl border border-red-900/30 rounded-xl shadow-xl text-white space-y-6"
     >
-      <h2 className="text-xl font-semibold tracking-wide">SECURITY SETTINGS</h2>
-
-      <div className="space-y-3">
+      {/* ======== 2FA Section ======== */}
+      <div data-guide="security-2fa" className="space-y-3">
         <h3 className="text-lg font-medium">Two-Factor Authentication</h3>
-
         {!twoFAEnabled ? (
           <div className="flex flex-col gap-3">
             <button
               onClick={() => toggle2FA(true)}
               disabled={loading}
-              aria-label="Enable Email 2FA"
               className="bg-gray-800 hover:bg-gray-700 py-2 rounded-md font-semibold disabled:opacity-50"
             >
               Enable Email 2FA
@@ -124,7 +116,6 @@ export default function SecuritySettings({ user }: { user: any }) {
             <button
               onClick={() => toggle2FA(true)}
               disabled={loading}
-              aria-label="Enable Google Authenticator"
               className="bg-gray-800 hover:bg-gray-700 py-2 rounded-md font-semibold disabled:opacity-50"
             >
               Use Google Authenticator
@@ -134,7 +125,6 @@ export default function SecuritySettings({ user }: { user: any }) {
           <button
             onClick={() => toggle2FA(false)}
             disabled={loading}
-            aria-label="Disable 2FA"
             className="bg-red-700 hover:bg-red-800 py-2 rounded-md font-semibold disabled:opacity-50"
           >
             Disable 2FA
@@ -142,7 +132,8 @@ export default function SecuritySettings({ user }: { user: any }) {
         )}
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      {/* ======== Password Update Section ======== */}
+      <form onSubmit={handleSubmit} data-guide="security-password" className="space-y-5">
         {[
           ["oldPassword", "Old Password"],
           ["newPassword", "New Password"],
@@ -160,7 +151,6 @@ export default function SecuritySettings({ user }: { user: any }) {
               value={formData[key as keyof SecurityForm]}
               onChange={handleChange}
               className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700"
-              aria-label={label}
             />
           </div>
         ))}
@@ -168,10 +158,10 @@ export default function SecuritySettings({ user }: { user: any }) {
         {formData.newPassword && (
           <p
             className={`text-sm ${passwordStrength === "strong"
-              ? "text-green-400"
-              : passwordStrength === "medium"
-                ? "text-yellow-400"
-                : "text-red-400"
+                ? "text-green-400"
+                : passwordStrength === "medium"
+                  ? "text-yellow-400"
+                  : "text-red-400"
               }`}
           >
             Password strength: {passwordStrength}
