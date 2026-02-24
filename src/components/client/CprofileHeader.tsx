@@ -7,6 +7,8 @@ import { Star, Edit, MessageCircle, ChevronDown } from "lucide-react";
 import { ClientProfile } from "@/types/client";
 import { Project, Milestone } from "@/types/project";
 import { mockClients } from "@/mocks/mockClient";
+import { UserGuide } from "@/components/Guides/UserGuide";
+import { clientProfileHeaderGuide } from "@/lib/UserGuide/clientProfileGuide";
 
 interface ProjectStats {
   total?: number;
@@ -20,6 +22,8 @@ interface ProfileHeaderProps {
   projectStats?: ProjectStats;
   loading?: boolean;
 }
+
+/* ---------------- Button ---------------- */
 
 const Button = ({
   children,
@@ -38,6 +42,7 @@ const Button = ({
     variant === "outline"
       ? "bg-transparent border border-gray-600 text-white hover:bg-gray-700"
       : "bg-red-600 text-white hover:bg-red-500";
+
   return (
     <button onClick={onClick} className={`${base} ${styles} ${className}`}>
       {children}
@@ -45,9 +50,11 @@ const Button = ({
   );
 };
 
-// ✅ Project Card
+/* ---------------- Project Card ---------------- */
+
 const ProjectCard = ({ project }: { project: Project }) => {
   const milestones: Milestone[] = project.milestones ?? [];
+
   const completionRate =
     milestones.length > 0
       ? Math.round(
@@ -73,6 +80,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           {completionRate}% Complete
         </span>
       </div>
+
       <div className="h-2 bg-gray-700 rounded-full overflow-hidden mb-2">
         <motion.div
           className={`${progressColor} h-full`}
@@ -83,18 +91,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
         />
       </div>
 
-      {/* Milestones */}
       <div className="space-y-1">
         {milestones.map((ms) => {
           const msProgress = ms.progress ?? 0;
-          const msColor =
-            msProgress >= 100
-              ? "bg-green-500"
-              : msProgress >= 50
-                ? "bg-yellow-500"
-                : msProgress > 0
-                  ? "bg-orange-500"
-                  : "bg-red-500";
 
           return (
             <div key={ms.id}>
@@ -104,7 +103,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
               </div>
               <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
                 <motion.div
-                  className={`${msColor} h-full`}
+                  className="bg-blue-500 h-full"
                   style={{ width: `${msProgress}%` }}
                   initial={{ width: 0 }}
                   animate={{ width: `${msProgress}%` }}
@@ -119,6 +118,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
   );
 };
 
+/* ---------------- Main Component ---------------- */
+
 export default function ProfileHeader({
   client = null,
   projectStats,
@@ -126,9 +127,22 @@ export default function ProfileHeader({
   const [selectedType, setSelectedType] = useState<
     "team" | "individual" | null
   >(null);
+
+  /* ---------- Guide Logic ---------- */
+
+  const [showGuide, setShowGuide] = useState(false);
+
+  useEffect(() => {
+    const hasSeenGuide = localStorage.getItem(
+      "lamid-client-profile-guide"
+    );
+    if (!hasSeenGuide) {
+      setShowGuide(true);
+    }
+  }, []);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // ✅ Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event: PointerEvent) {
       if (
@@ -143,66 +157,71 @@ export default function ProfileHeader({
       document.removeEventListener("pointerdown", handleClickOutside);
   }, []);
 
-  // ✅ Escape key closes dropdown
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setSelectedType(null);
-      }
+  const activeClient: any = client
+    ? {
+      ...client,
+      name: client.profile?.firstName
+        ? `${client.profile.firstName} ${client.profile.lastName || ""
+        }`
+        : client.username || client.email || "Client",
+      bio: client.profile?.bio || "",
+      avatar: client.profile?.profilePicture || "/avatar.png",
+      isPremium: true,
+      projects: client.projects || [],
+      consultants: client.consultants || [],
+      teamMembers: client.teamMembers || [],
     }
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+    : mockClients[0];
 
-  // ✅ Use data from props, mapping from user object structure if needed
-  const activeClient: any = client ? {
-    ...client,
-    name: client.profile?.firstName ? `${client.profile.firstName} ${client.profile.lastName || ""}` : (client.username || client.email || "Client"),
-    bio: client.profile?.bio || "",
-    avatar: client.profile?.profilePicture || "/avatar.png",
-    isPremium: true, // Placeholder or check user property if it exists
-    projects: client.projects || [],
-    consultants: client.consultants || [],
-    teamMembers: client.teamMembers || [],
-    escrowTransactions: client.escrowTransactions || [],
-  } : mockClients[0];
-
-  // Editable states
   const [bio, setBio] = useState(activeClient.bio ?? "");
   const [isEditingBio, setIsEditingBio] = useState(false);
-  const [avatar, setAvatar] = useState(
-    activeClient.avatar ?? "/avatar.png"
-  );
+  const [avatar, setAvatar] = useState(activeClient.avatar);
 
-  // ✅ Handle avatar upload
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setAvatar(imageUrl);
-    }
+    if (file) setAvatar(URL.createObjectURL(file));
   };
 
-  // ✅ Collect projects based on selected type
   const projects: Project[] =
     selectedType === "team"
-      ? activeClient.teamMembers?.flatMap((m: any) => m.projects ?? []) ?? []
+      ? activeClient.teamMembers?.flatMap(
+        (m: any) => m.projects ?? []
+      ) ?? []
       : selectedType === "individual"
-        ? activeClient.consultants?.flatMap((c: any) => c.projects ?? []) ?? []
+        ? activeClient.consultants?.flatMap(
+          (c: any) => c.projects ?? []
+        ) ?? []
         : [];
 
   return (
-    <div className="w-full bg-gray-900 border-b border-gray-800 px-6 py-6 lg:grid lg:grid-cols-3 gap-6 flex flex-col relative overflow-x-hidden">
+    <div
+      data-guide="client-profile-container"
+      className="w-full bg-gray-900 border-b border-gray-800 px-6 py-6 lg:grid lg:grid-cols-3 gap-6 flex flex-col relative"
+    >
+      {/* Start Guide Button */}
+      <div className="absolute hover:border-red-500 top-5 right-6 z-20">
+        <Button
+          variant="outline"
+          onClick={() => setShowGuide(true)}
+        >
+          Start Guide
+        </Button>
+      </div>
+
       {/* Profile Info */}
       <motion.div
-        whileHover={{ scale: 1.02 }}
-        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex items-center gap-4 shadow-xl border border-red-600 backdrop-blur-sm"
+        data-guide="client-profile-info"
+        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex items-center gap-4 shadow-xl border border-red-600"
       >
-        {/* Avatar with upload */}
-        <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-red-500 shadow-lg group">
+        <div
+          data-guide="client-avatar"
+          className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-red-500 group"
+        >
           <Image
             src={avatar}
-            alt={activeClient.name ?? "Client Avatar"}
+            alt="Client Avatar"
             fill
             className="object-cover"
           />
@@ -215,47 +234,52 @@ export default function ProfileHeader({
               onChange={handleAvatarChange}
             />
           </label>
+
           {activeClient.isPremium && (
-            <span className="absolute bottom-0 right-0 bg-yellow-400 w-5 h-5 rounded-full border-2 border-black flex items-center justify-center">
+            <span
+              data-guide="client-premium-status"
+              className="absolute bottom-0 right-0 bg-yellow-400 w-5 h-5 rounded-full border-2 border-black flex items-center justify-center"
+            >
               <Star className="w-3 h-3 text-black" />
             </span>
           )}
         </div>
 
-        {/* User Info */}
         <div className="flex flex-col">
           <h2 className="text-xl font-bold text-white">
             {activeClient.username || activeClient.name}
           </h2>
-          <p className="text-sm text-gray-400">{activeClient.email}</p>
+          <p className="text-sm text-gray-400">
+            {activeClient.email}
+          </p>
 
-          {/* Editable Bio */}
-          {isEditingBio ? (
-            <textarea
-              aria-label="Edit Bio"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              onBlur={() => setIsEditingBio(false)}
-              className="mt-1 text-sm text-gray-200 bg-gray-700 rounded-md p-2 resize-none"
-              rows={2}
-              autoFocus
-            />
-          ) : (
-            <p
-              className="text-sm text-gray-500 mt-1 line-clamp-2 cursor-pointer flex items-center gap-1"
-              onClick={() => setIsEditingBio(true)}
-            >
-              {bio || "Click to add a bio"}
-              <Edit size={14} className="inline-block text-gray-400" />
-            </p>
-          )}
+          <div data-guide="client-bio">
+            {isEditingBio ? (
+              <textarea
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                onBlur={() => setIsEditingBio(false)}
+                className="mt-1 text-sm text-gray-200 bg-gray-700 rounded-md p-2 resize-none"
+                rows={2}
+                autoFocus
+              />
+            ) : (
+              <p
+                className="text-sm text-gray-500 mt-1 cursor-pointer flex items-center gap-1"
+                onClick={() => setIsEditingBio(true)}
+              >
+                {bio || "Click to add a bio"}
+                <Edit size={14} />
+              </p>
+            )}
+          </div>
         </div>
       </motion.div>
 
       {/* Actions */}
       <motion.div
-        whileHover={{ scale: 1.02 }}
-        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col justify-center items-center gap-3 shadow-xl border border-red-600 backdrop-blur-sm"
+        data-guide="client-actions"
+        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col justify-center items-center gap-3 shadow-xl border border-red-600"
       >
         <div className="flex gap-2 flex-wrap justify-center">
           <Button variant="outline">
@@ -265,64 +289,60 @@ export default function ProfileHeader({
             <MessageCircle size={16} /> Message
           </Button>
         </div>
-        {activeClient.isPremium && (
-          <div className="flex items-center gap-2 text-yellow-400 mt-2">
-            <Star className="w-4 h-4 fill-yellow-400" />
-            <span className="text-sm font-medium">Premium Client</span>
-          </div>
-        )}
       </motion.div>
 
-      {/* Teams / Individuals Projects */}
+      {/* Projects */}
       <motion.div
-        whileHover={{ scale: 1.02 }}
-        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col shadow-xl border border-red-600 backdrop-blur-sm relative"
+        data-guide="client-project-display"
+        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col shadow-xl border border-red-600"
       >
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex gap-2 flex-wrap">
-            {["team", "individual"].map((type) => (
-              <Button
-                key={type}
-                onClick={() =>
-                  setSelectedType(
-                    selectedType === type
-                      ? null
-                      : (type as "team" | "individual")
-                  )
-                }
-                variant={selectedType === type ? "default" : "outline"}
-                className={`rounded-full px-4 py-2 ${selectedType === type
-                  ? "bg-red-600 text-white"
-                  : "border border-gray-500 text-gray-300"
-                  }`}
-              >
-                {type === "team" ? "Teams" : "Individuals"}{" "}
-                <ChevronDown size={14} />
-              </Button>
-            ))}
-          </div>
+        <div
+          data-guide="client-project-filters"
+          className="flex gap-2 flex-wrap"
+        >
+          {["team", "individual"].map((type) => (
+            <Button
+              key={type}
+              onClick={() =>
+                setSelectedType(
+                  selectedType === type
+                    ? null
+                    : (type as "team" | "individual")
+                )
+              }
+              variant={
+                selectedType === type ? "default" : "outline"
+              }
+              className="rounded-full px-4 py-2"
+            >
+              {type === "team"
+                ? "Teams"
+                : "Individuals"}{" "}
+              <ChevronDown size={14} />
+            </Button>
+          ))}
         </div>
 
-        {/* AnimatePresence for smooth dropdown */}
         <AnimatePresence>
           {selectedType && (
             <motion.div
-              ref={dropdownRef} // ✅ attach ref directly to dropdown
-              key={selectedType}
+              ref={dropdownRef}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
+              className="overflow-hidden mt-4"
             >
               {projects.length > 0 ? (
-                <div className="mt-6 space-y-4">
+                <div className="space-y-4">
                   {projects.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                    />
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-400 text-sm mt-4">
+                <p className="text-gray-400 text-sm">
                   No {selectedType} projects available.
                 </p>
               )}
@@ -330,6 +350,20 @@ export default function ProfileHeader({
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* Guide */}
+      <UserGuide
+        storageKey="lamid-client-profile-guide"
+        steps={clientProfileHeaderGuide}
+        isOpen={showGuide}
+        onClose={() => {
+          localStorage.setItem(
+            "lamid-client-profile-guide",
+            "true"
+          );
+          setShowGuide(false);
+        }}
+      />
     </div>
   );
 }

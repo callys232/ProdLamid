@@ -19,16 +19,13 @@ import { profileHeaderGuide } from "@/lib/UserGuide/profileHeaderGuide";
 
 export default function ProfileHeader({ user }: { user: any }) {
   const completion = 70;
-
   const [showPopup, setShowPopup] = useState(false);
 
-  // ✅ Auto-open on first visit
   const [showGuide, setShowGuide] = useState(() => {
     if (typeof window === "undefined") return false;
     return !localStorage.getItem("lamid-profile-header-guide");
   });
 
-  // Prefetch for badge count
   const [alerts, setAlerts] = useState<UserAlert[]>([]);
   const [notifications, setNotifications] = useState<UserAlert[]>([]);
   const [payments, setPayments] = useState<UserAlert[]>([]);
@@ -91,18 +88,19 @@ export default function ProfileHeader({ user }: { user: any }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      {/* ✅ Guide Trigger */}
+      {/* Guide Trigger */}
       <button
+        data-guide="guide-trigger"
         onClick={() => setShowGuide(true)}
         className="absolute top-4 right-4 text-gray-400 hover:text-red-500 
                    transition text-sm border border-gray-600 px-3 py-1 rounded-lg"
-        aria-label="Open Profile Guide"
       >
         Guide
       </button>
 
       {/* Premium Ribbon */}
       <motion.div
+        data-guide="premium-status"
         className="absolute top-4 left-0 bg-red-600 text-white text-xs font-semibold 
                    px-4 py-1 rounded-r-lg shadow-md animate-pulse"
         initial={{ x: -50, opacity: 0 }}
@@ -113,8 +111,9 @@ export default function ProfileHeader({ user }: { user: any }) {
       </motion.div>
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        {/* Avatar + Info */}
+        {/* Avatar + Identity */}
         <motion.div
+          data-guide="profile-identity"
           className="flex items-center gap-5"
           initial={{ x: -40, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -129,23 +128,25 @@ export default function ProfileHeader({ user }: { user: any }) {
                          transform hover:scale-105 transition relative z-10 object-cover"
             />
           </div>
+
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-2xl font-bold text-white uppercase">
                 {displayName}
               </h1>
-              <FaCheckCircle
-                className="text-blue-500"
-                title="Verified Profile"
-              />
+              <FaCheckCircle className="text-blue-500" />
             </div>
-            <p className="text-gray-400 text-sm">{displayTitle}</p>
-            <p className="text-xs text-gray-500 mt-1">{displayLocation}</p>
+
+            <div data-guide="professional-info">
+              <p className="text-gray-400 text-sm">{displayTitle}</p>
+              <p className="text-xs text-gray-500 mt-1">{displayLocation}</p>
+            </div>
           </div>
         </motion.div>
 
         {/* Profile Completion */}
         <motion.div
+          data-guide="profile-completion"
           className="w-full md:w-1/3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -157,6 +158,7 @@ export default function ProfileHeader({ user }: { user: any }) {
 
       {/* Stats */}
       <motion.div
+        data-guide="performance-stats"
         className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4"
         initial="hidden"
         animate="visible"
@@ -178,8 +180,9 @@ export default function ProfileHeader({ user }: { user: any }) {
         ))}
       </motion.div>
 
-      {/* Reviews Button */}
+      {/* Reviews */}
       <motion.div
+        data-guide="reviews-alerts"
         className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -192,6 +195,7 @@ export default function ProfileHeader({ user }: { user: any }) {
                      transition transform hover:scale-105"
         >
           All Reviews
+
           {badgeCount > 0 && (
             <span className="absolute -top-2 -right-2 bg-red-600 text-white 
                              text-xs font-bold rounded-full px-2 py-0.5">
@@ -203,6 +207,7 @@ export default function ProfileHeader({ user }: { user: any }) {
 
       {/* Social Links */}
       <motion.div
+        data-guide="social-presence"
         className="mt-6 flex gap-6 justify-center md:justify-start text-gray-400"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -221,7 +226,7 @@ export default function ProfileHeader({ user }: { user: any }) {
         />
       )}
 
-      {/* ✅ User Guide */}
+      {/* User Guide */}
       <UserGuide
         storageKey="lamid-profile-header-guide"
         steps={profileHeaderGuide}
