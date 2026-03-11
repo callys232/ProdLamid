@@ -1,45 +1,38 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FaLinkedin, FaGithub, FaTwitter, FaCheckCircle } from "react-icons/fa";
+import { FaLinkedin, FaGlobe, FaTwitter, FaGithub, FaCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import StatCard from "./statCard";
-import ProgressBar from "./progressBar";
-import ReviewPopupContainer from "./popContainer";
 import axios from "axios";
-import {
-  UserAlert,
-  mockAlerts,
-  mockNotifications,
-  mockPayments,
-  mockDeadlines,
-} from "@/mocks/useralert";
 import { UserGuide } from "@/components/Guides/UserGuide";
 import { profileHeaderGuide } from "@/lib/UserGuide/profileHeaderGuide";
+import { calculateCompletion } from "@/lib/profileCompletion";
+import ReviewPopupContainer from "./popContainer";
+import StatDropdown from "../client/statDropdown";
+import { UserAlert, mockAlerts, mockNotifications, mockPayments, mockDeadlines } from "@/mocks/useralert";
 
-export default function ProfileHeader({ user }: { user: any }) {
-  const completion = 70;
+export default function ConsultantProfileHeader({ user }: { user: any }) {
   const [showPopup, setShowPopup] = useState(false);
-
   const [showGuide, setShowGuide] = useState(() => {
     if (typeof window === "undefined") return false;
-    return !localStorage.getItem("lamid-profile-header-guide");
+    return !localStorage.getItem("lamid-consultant-profile-header-guide");
   });
 
   const [alerts, setAlerts] = useState<UserAlert[]>([]);
   const [notifications, setNotifications] = useState<UserAlert[]>([]);
   const [payments, setPayments] = useState<UserAlert[]>([]);
   const [deadlines, setDeadlines] = useState<UserAlert[]>([]);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const prefetch = async () => {
       try {
-        const res = await axios.get("/api/user/alerts");
+        const res = await axios.get("/api/consultant/alerts");
         const data = res.data || {};
-        setAlerts((data.alerts as UserAlert[]) || []);
-        setNotifications((data.notifications as UserAlert[]) || []);
-        setPayments((data.payments as UserAlert[]) || []);
-        setDeadlines((data.deadlines as UserAlert[]) || []);
+        setAlerts(data.alerts || mockAlerts);
+        setNotifications(data.notifications || mockNotifications);
+        setPayments(data.payments || mockPayments);
+        setDeadlines(data.deadlines || mockDeadlines);
       } catch {
         setAlerts(mockAlerts);
         setNotifications(mockNotifications);
@@ -50,115 +43,157 @@ export default function ProfileHeader({ user }: { user: any }) {
     prefetch();
   }, []);
 
-  const badgeCount =
-    alerts.length + notifications.length + payments.length + deadlines.length;
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".relative")) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const displayName = user?.profile?.firstName
-    ? `${user.profile.firstName} ${user.profile.lastName || ""}`
-    : user?.username || user?.email || "Lamid Consultant";
+  const badgeCount = alerts.length + notifications.length + payments.length + deadlines.length;
 
-  const displayTitle =
-    user?.profile?.title ||
-    (user?.role === "seller"
-      ? "Independent Consultant"
-      : "Client Account");
+  const displayName = user?.profile?.name || "Freelancer";
+  const displayTitle = user?.profile?.title || "Independent Consultant";
+  const displayLocation = user?.profile?.location || "Remote";
 
-  const displayLocation = user?.profile?.addresses?.[0]?.city
-    ? `${user.profile.addresses[0].city}, ${user.profile.addresses[0].country || ""
-    }`
-    : "Lagos, Nigeria";
+  const status = {
+    photoUploaded: !!user?.profile?.photoUrl,
+    verifiedBadge: !!user?.profile?.verified,
+    paymentMethodAdded: !!user?.profile?.paymentMethod,
+    accountDetailsComplete: !!(user?.profile?.name && user?.profile?.title && user?.profile?.location),
+  };
+  const completion = calculateCompletion(status);
 
   const stats = [
-    { value: 0, label: "Projects", details: [] },
-    { value: 0, label: "Completed", details: [] },
-    { value: "0", label: "Pending", details: [] },
     {
-      value: user?.profile?.rating || "0",
-      label: "Avg. Rating",
-      details: [],
+      value: user?.profile?.projectsCompleted || 0,
+      label: "Projects Completed",
+      details: [
+        { title: "Active Projects", value: user?.profile?.activeProjects || 0, route: "/consultant/projects/active" },
+        { title: "Pending Projects", value: user?.profile?.pendingProjects || 0, route: "/consultant/projects/pending" },
+        { title: "Under Review", value: user?.profile?.underReviewProjects || 0, route: "/consultant/projects/review" },
+      ],
+    },
+    {
+      value: `$${user?.profile?.earnings || 0}`,
+      label: "Earnings",
+      details: [
+        { title: "Total Earnings", value: `$${user?.profile?.totalEarnings || 0}`, route: "/consultant/earnings/total" },
+        { title: "Pending Payments", value: `$${user?.profile?.pendingPayments || 0}`, route: "/consultant/earnings/pending" },
+      ],
+    },
+    {
+      value: user?.profile?.avgRating || "0",
+      label: "Avg. Client Rating",
+      details: [
+        { title: "Reviews Count", value: user?.profile?.reviewsCount || 0, route: "/consultant/reviews" },
+        { title: "Highest Rating", value: user?.profile?.highestRating || "5", route: "/consultant/reviews/highest" },
+      ],
+    },
+    {
+      value: user?.profile?.skills?.length || 0,
+      label: "Skills",
+      details: user?.profile?.skills?.map((skill: string) => ({
+        title: skill,
+        value: "",
+        route: `/consultant/skills/${skill.toLowerCase()}`,
+      })) || [],
     },
   ];
 
   return (
     <motion.div
       className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 
-                 border-b border-gray-700 p-8 rounded-lg shadow-lg overflow-hidden 
+                 border-b border-gray-700 p-6 md:p-8 rounded-lg shadow-lg overflow-hidden 
                  ring-1 ring-gray-700 hover:ring-red-500 transition"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      {/* Guide Trigger */}
-      <button
-        data-guide="guide-trigger"
-        onClick={() => setShowGuide(true)}
-        className="absolute top-4 right-4 text-gray-400 hover:text-red-500 
-                   transition text-sm border border-gray-600 px-3 py-1 rounded-lg"
-      >
-        Guide
-      </button>
-
       {/* Premium Ribbon */}
-      <motion.div
-        data-guide="premium-status"
-        className="absolute top-4 left-0 bg-red-600 text-white text-xs font-semibold 
-                   px-4 py-1 rounded-r-lg shadow-md animate-pulse"
-        initial={{ x: -50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        Premium Member
-      </motion.div>
+      {user?.profile?.premium && (
+        <motion.div
+          className="absolute top-4 left-0 bg-red-600 text-white text-xs font-semibold 
+                     px-4 py-1 rounded-r-lg shadow-md animate-pulse"
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          Premium Freelancer
+        </motion.div>
+      )}
+
+      {/* Business Profile Badge */}
+      {user?.profile?.businessEnrolled && (
+        <motion.div
+          className="absolute top-4 left-40 bg-green-600 text-white text-xs font-semibold 
+                     px-4 py-1 rounded-lg shadow-md"
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          Business Profile
+        </motion.div>
+      )}
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        {/* Avatar + Identity */}
+        {/* Photo + Identity */}
         <motion.div
-          data-guide="profile-identity"
           className="flex items-center gap-5"
           initial={{ x: -40, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
         >
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full ring-2 ring-red-500 animate-pulse" />
-            <img
-              src={user?.profile?.profilePicture || "/avatar.png"}
-              alt="User Avatar"
-              className="w-20 h-20 rounded-full border-4 border-red-500 shadow-md 
-                         transform hover:scale-105 transition relative z-10 object-cover"
-            />
-          </div>
-
+          <img
+            src={user?.profile?.photoUrl || "/freelancer-placeholder.png"}
+            alt="Freelancer Photo"
+            className="w-20 h-20 rounded-full border-4 border-red-500 shadow-md 
+                       object-cover transform hover:scale-105 transition"
+          />
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-white uppercase">
-                {displayName}
-              </h1>
-              <FaCheckCircle className="text-blue-500" />
+              <h1 className="text-2xl font-bold text-white">{displayName}</h1>
+              {user?.profile?.verified && <FaCheckCircle className="text-blue-500" />}
             </div>
-
-            <div data-guide="professional-info">
-              <p className="text-gray-400 text-sm">{displayTitle}</p>
-              <p className="text-xs text-gray-500 mt-1">{displayLocation}</p>
-            </div>
+            <p className="text-gray-400 text-sm">{displayTitle}</p>
+            <p className="text-xs text-gray-500 mt-1">{displayLocation}</p>
           </div>
         </motion.div>
 
         {/* Profile Completion */}
         <motion.div
-          data-guide="profile-completion"
           className="w-full md:w-1/3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <ProgressBar label="Profile Completion" value={completion} />
+          <div className="flex flex-col gap-2">
+            <p className="text-sm text-gray-400">Profile Completion</p>
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <div className="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    className="bg-red-500 h-2 rounded-full transition-all"
+                    style={{ width: `${completion}%` }}
+                  />
+                </div>
+              </div>
+              <span className="text-xs text-gray-300">{completion}%</span>
+            </div>
+            <button className="text-xs text-red-500 hover:text-white underline">
+              Complete Profile
+            </button>
+          </div>
         </motion.div>
       </div>
 
-      {/* Stats */}
+      {/* Stats Grid */}
       <motion.div
-        data-guide="performance-stats"
         className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4"
         initial="hidden"
         animate="visible"
@@ -175,14 +210,19 @@ export default function ProfileHeader({ user }: { user: any }) {
               visible: { opacity: 1, y: 0 },
             }}
           >
-            <StatCard {...stat} />
+            <StatDropdown
+              {...stat}
+              isOpen={activeDropdown === stat.label}
+              onToggle={() =>
+                setActiveDropdown(activeDropdown === stat.label ? null : stat.label)
+              }
+            />
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Reviews */}
+      {/* Alerts */}
       <motion.div
-        data-guide="reviews-alerts"
         className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -194,8 +234,7 @@ export default function ProfileHeader({ user }: { user: any }) {
                      text-gray-300 hover:text-white font-medium rounded-lg shadow-md 
                      transition transform hover:scale-105"
         >
-          All Reviews
-
+          View Alerts
           {badgeCount > 0 && (
             <span className="absolute -top-2 -right-2 bg-red-600 text-white 
                              text-xs font-bold rounded-full px-2 py-0.5">
@@ -207,28 +246,61 @@ export default function ProfileHeader({ user }: { user: any }) {
 
       {/* Social Links */}
       <motion.div
-        data-guide="social-presence"
         className="mt-6 flex gap-6 justify-center md:justify-start text-gray-400"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}
       >
-        <FaLinkedin className="hover:text-red-500 transition cursor-pointer" size={24} />
-        <FaGithub className="hover:text-red-500 transition cursor-pointer" size={24} />
-        <FaTwitter className="hover:text-red-500 transition cursor-pointer" size={24} />
+        {user?.profile?.linkedin && (
+          <a
+            href={user.profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+          >
+            <FaLinkedin className="hover:text-red-500 transition cursor-pointer" size={24} />
+          </a>
+        )}
+        {user?.profile?.website && (
+          <a
+            href={user.profile.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Personal Website"
+          >
+            <FaGlobe className="hover:text-red-500 transition cursor-pointer" size={24} />
+          </a>
+        )}
+        {user?.profile?.twitter && (
+          <a
+            href={user.profile.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter Profile"
+          >
+            <FaTwitter className="hover:text-red-500 transition cursor-pointer" size={24} />
+          </a>
+        )}
+        {user?.profile?.github && (
+          <a
+            href={user.profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+          >
+            <FaGithub className="hover:text-red-500 transition cursor-pointer" size={24} />
+          </a>
+        )}
       </motion.div>
 
       {/* Review Popup */}
       {showPopup && (
-        <ReviewPopupContainer
-          isOpen={showPopup}
-          onClose={() => setShowPopup(false)}
-        />
+        <ReviewPopupContainer isOpen={showPopup} onClose={() => setShowPopup(false)} />
       )}
 
       {/* User Guide */}
       <UserGuide
-        storageKey="lamid-profile-header-guide"
+        storageKey="lamid-consultant-profile-header-guide"
         steps={profileHeaderGuide}
         isOpen={showGuide}
         onClose={() => setShowGuide(false)}

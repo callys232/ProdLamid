@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import AccountMenu from "./Account";
 
 interface ServiceItem {
@@ -19,14 +21,59 @@ const serviceItems: ServiceItem[] = [
   { name: "Event", href: "/event" },
 ];
 
+/* ---------------- Notification Hook ---------------- */
+
+function useNotifications() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchNotifications = async () => {
+      try {
+        const res = await fetch("/api/notifications", {
+          credentials: "include",
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (mounted) {
+          setCount(data.notifications?.length ?? 0);
+        }
+      } catch { }
+    };
+
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 60000);
+
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
+  }, []);
+
+  return count;
+}
+
+/* ---------------- Navbar ---------------- */
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const pathname = usePathname();
+  const notificationCount = useNotifications();
+
   const servicesRef = useRef<HTMLDivElement>(null);
   const mobileServicesRef = useRef<HTMLDivElement>(null);
   const desktopServiceRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const mobileServiceRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
+  /* Close menus on route change */
+  useEffect(() => {
+    setIsOpen(false);
+    setServicesOpen(false);
+  }, [pathname]);
+
+  /* Outside click + escape */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -48,12 +95,14 @@ const Navbar: React.FC = () => {
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
+  /* Keyboard nav desktop */
   const onDesktopServicesKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>
   ) => {
@@ -61,7 +110,9 @@ const Navbar: React.FC = () => {
     const items = desktopServiceRefs.current.filter(
       Boolean
     ) as HTMLAnchorElement[];
-    const currentIndex = items.findIndex((el) => el === document.activeElement);
+    const currentIndex = items.findIndex(
+      (el) => el === document.activeElement
+    );
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -78,6 +129,7 @@ const Navbar: React.FC = () => {
     }
   };
 
+  /* Keyboard nav mobile */
   const onMobileServicesKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>
   ) => {
@@ -85,7 +137,9 @@ const Navbar: React.FC = () => {
     const items = mobileServiceRefs.current.filter(
       Boolean
     ) as HTMLAnchorElement[];
-    const currentIndex = items.findIndex((el) => el === document.activeElement);
+    const currentIndex = items.findIndex(
+      (el) => el === document.activeElement
+    );
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -101,6 +155,22 @@ const Navbar: React.FC = () => {
       items[prevIndex]?.focus();
     }
   };
+
+  const renderNotificationBadge = (size = "desktop") => (
+    <span
+      className={`absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full flex items-center justify-center ${size === "mobile"
+          ? "h-4 min-w-[16px] px-1"
+          : "h-5 min-w-[20px] px-1.5"
+        }`}
+      aria-label={`${notificationCount} unread notifications`}
+    >
+      {notificationCount > 99 ? "99+" : notificationCount}
+    </span>
+  );
+
+  const linkClass = (href: string) =>
+    `hover:text-red-500 ${pathname === href ? "text-red-500" : "text-white"
+    }`;
 
   return (
     <header>
@@ -123,12 +193,17 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
-            <Link href="/" className="hover:text-red-500">
+            <Link href="/" className={linkClass("/")}>
               HOME
             </Link>
 
             {/* Services Dropdown (Desktop) */}
-            <div ref={servicesRef} className="relative">
+            <div
+              ref={servicesRef}
+              className="relative"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
               <button
                 type="button"
                 aria-haspopup="true"
@@ -140,38 +215,52 @@ const Navbar: React.FC = () => {
               >
                 SERVICES <Chevron open={servicesOpen} />
               </button>
-              {servicesOpen && (
-                <div
-                  id="services-dropdown"
-                  className="absolute left-0 mt-2 w-48 bg-black rounded shadow-lg"
-                  aria-label="Services"
-                >
-                  <ul className="py-1">
-                    {serviceItems.map((item, idx) => (
-                      <li key={item.name}>
-                        <Link
-                          href={item.href}
-                          ref={(el) => {
-                            desktopServiceRefs.current[idx] = el;
-                          }}
-                          className="block w-full text-left px-4 py-2 hover:text-red-500 focus:bg-gray-800 focus:outline-none"
-                          onClick={() => setServicesOpen(false)}
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+
+              <AnimatePresence>
+                {servicesOpen && (
+                  <motion.div
+                    id="services-dropdown"
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute left-0 mt-2 w-48 bg-black rounded shadow-lg"
+                  >
+                    <ul className="py-1">
+                      {serviceItems.map((item, idx) => (
+                        <li key={item.name}>
+                          <Link
+                            href={item.href}
+                            ref={(el) => {
+                              desktopServiceRefs.current[idx] = el;
+                            }
+                            }
+                            className="block px-4 py-2 hover:text-red-500 focus:bg-gray-800"
+                            onClick={() => setServicesOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
-            <Link href="/contact" className="hover:text-red-500">
+            <Link href="/jobs" className={linkClass("/jobs")}>
+              PROJECTS
+            </Link>
+
+            <Link href="/contact" className={linkClass("/contact")}>
               CONTACT US
             </Link>
 
             {/* Account */}
-            <AccountMenu />
+            <div className="relative inline-block">
+              <AccountMenu />
+              {renderNotificationBadge()}
+            </div>
           </div>
 
           {/* Mobile Hamburger */}
@@ -188,75 +277,93 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <div
-            id="mobile-nav"
-            className="md:hidden bg-black px-4 pb-4 space-y-2"
-          >
-            <Link
-              href="/"
-              className="block py-2 hover:text-red-500"
-              onClick={() => setIsOpen(false)}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              id="mobile-nav"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-black px-4 pb-4 space-y-2"
             >
-              HOME
-            </Link>
-
-            {/* Services Dropdown (Mobile) */}
-            <div ref={mobileServicesRef}>
-              <button
-                type="button"
-                aria-haspopup="true"
-                aria-expanded={servicesOpen}
-                aria-controls="mobile-services-dropdown"
-                className="flex justify-between w-full py-2"
-                onClick={() => setServicesOpen((v) => !v)}
-                onKeyDown={onMobileServicesKeyDown}
+              <Link
+                href="/"
+                className="block py-2 hover:text-red-500"
+                onClick={() => setIsOpen(false)}
               >
-                SERVICES <Chevron open={servicesOpen} />
-              </button>
-              {servicesOpen && (
-                <div
-                  id="mobile-services-dropdown"
-                  className="pl-4"
-                  aria-label="Services"
+                HOME
+              </Link>
+
+              {/* Services (Mobile) */}
+              <div ref={mobileServicesRef}>
+                <button
+                  type="button"
+                  aria-haspopup="true"
+                  aria-expanded={servicesOpen}
+                  aria-controls="mobile-services-dropdown"
+                  className="flex justify-between w-full py-2"
+                  onClick={() => setServicesOpen((v) => !v)}
+                  onKeyDown={onMobileServicesKeyDown}
                 >
-                  <ul className="space-y-1">
-                    {serviceItems.map((item, idx) => (
-                      <li key={item.name}>
-                        <Link
-                          href={item.href}
-                          ref={(el) => {
-                            mobileServiceRefs.current[idx] = el;
-                          }}
-                          className="block w-full text-left py-1 hover:text-red-500"
-                          onClick={() => {
-                            setServicesOpen(false);
-                            setIsOpen(false);
-                          }}
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+                  SERVICES <Chevron open={servicesOpen} />
+                </button>
 
-            <Link
-              href="/contact"
-              className="block py-2 hover:text-red-500"
-              onClick={() => setIsOpen(false)}
-            >
-              CONTACT US
-            </Link>
+                <AnimatePresence>
+                  {servicesOpen && (
+                    <motion.div
+                      id="mobile-services-dropdown"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="pl-4"
+                    >
+                      <ul className="space-y-1">
+                        {serviceItems.map((item, idx) => (
+                          <li key={item.name}>
+                            <Link
+                              href={item.href}
+                              ref={(el) => {
+                                mobileServiceRefs.current[idx] = el;
+                              }}
+                              className="block py-1 hover:text-red-500"
+                              onClick={() => {
+                                setServicesOpen(false);
+                                setIsOpen(false);
+                              }}
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
-            {/* Account Dropdown */}
-            <div className="pt-2">
-              <AccountMenu align="left" />
-            </div>
-          </div>
-        )}
+              <Link
+                href="/jobs"
+                className="block py-2 hover:text-red-500"
+              >
+                PROJECTS
+              </Link>
+
+              <Link
+                href="/contact"
+                className="block py-2 hover:text-red-500"
+                onClick={() => setIsOpen(false)}
+              >
+                CONTACT US
+              </Link>
+
+              {/* Account Mobile */}
+              <div className="pt-2 relative inline-block">
+                <AccountMenu align="left" />
+                {renderNotificationBadge("mobile")}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="h-0.5 bg-red-700" />
       </nav>
@@ -264,10 +371,12 @@ const Navbar: React.FC = () => {
   );
 };
 
+/* Chevron */
 const Chevron: React.FC<{ open: boolean }> = ({ open }) => (
   <svg
     aria-hidden="true"
-    className={`ml-1 h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
+    className={`ml-1 h-4 w-4 transition-transform ${open ? "rotate-180" : ""
+      }`}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"

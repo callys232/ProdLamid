@@ -16,6 +16,7 @@ interface Escrow {
   status:
   | "pending"
   | "funded"
+  | "in_progress"
   | "released"
   | "cancelled"
   | "disputed"
@@ -172,7 +173,9 @@ export default function ClientEscrow({
                     <span
                       className={`px-2 py-1 rounded text-xs ${e.status === "pending"
                         ? "bg-yellow-600"
-                        : e.status === "released"
+                        : e.status === "in_progress"
+                          ? "bg-blue-500"
+                          : e.status === "released"
                           ? "bg-green-600"
                           : e.status === "funded"
                             ? "bg-blue-600"
@@ -297,6 +300,7 @@ export default function ClientEscrow({
               >
                 <option value="pending">Pending</option>
                 <option value="funded">Funded</option>
+                <option value="in_progress">In Progress</option>
                 <option value="released">Released</option>
                 <option value="completed">Completed</option>
                 <option value="disputed">Disputed</option>

@@ -1,4 +1,5 @@
 import { Consultant } from "./client";
+import { EscrowStatus, EscrowTransaction } from "./escrow";
 
 /* -------------------- PROJECT -------------------- */
 export interface Project {
@@ -77,15 +78,30 @@ export interface WorkPhase {
 }
 
 /* -------------------- PROJECT CONSULTANT -------------------- */
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start_at: string;
+  end_at: string;
+  location: string;
+}
+
 export interface ProjectConsultant {
   id: string;
   consultantId?: string; // links to Consultant entity
   name: string;
   role: string;
+  industry: string;
+  delivery: string;
+  rate: number | string;
+  rating: number;
   schedule: string; // "Mon–Fri, 9am–5pm"
   progress: number; // 0–100
   assignedAt?: string;
-  status?: "active" | "paused" | "completed";
+  availability: string[];
+  reminders: { id: string; message: string; date: string }[];
+  calendarEvents?: CalendarEvent[];
+  status?: "pending" | "active" | "paused" | "completed";
 }
 
 /* -------------------- MILESTONES -------------------- */
@@ -109,6 +125,14 @@ export interface Milestone {
   status?: MilestoneStatus;
   deadline?: string;
   workPhaseId?: string;
+  documents?: ProjectDocument[];
+}
+
+export interface ProjectDocument {
+  id: string;
+  name: string;
+  url: string;
+  uploadedAt: string;
 }
 
 /* -------------------- ACTIVITY LOG -------------------- */
@@ -121,22 +145,6 @@ export interface ActivityItem {
   type?: "system" | "user";
 }
 
-/* -------------------- ESCROW -------------------- */
-export type EscrowStatus = "pending" | "funded" | "released" | "completed" | "failed" | "disputed";
-
-export interface EscrowTransaction {
-  id: string;
-  projectId: string;
-  milestoneId?: string;
-  amount: number;
-  currency: string;
-  status: EscrowStatus;
-  createdAt: string;
-  updatedAt: string;
-  date?: string;
-  type?: string;
-  action?: string;
-}
 
 /* -------------------- WALLET -------------------- */
 export interface Wallet {

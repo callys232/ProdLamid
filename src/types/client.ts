@@ -1,5 +1,6 @@
-// types/client.ts
 import { Project, Milestone } from "./project";
+import { EscrowTransaction, EscrowStatus } from "./escrow";
+export type { Project, Milestone, EscrowTransaction, EscrowStatus };
 
 /* -------------------- CONSULTANTS -------------------- */
 export interface Consultant {
@@ -18,31 +19,6 @@ export interface Consultant {
   skills?: string[];
 
   projects?: Project[];
-}
-
-/* -------------------- ESCROW TRANSACTIONS -------------------- */
-export interface EscrowTransaction {
-  id: string;
-  _id?: string;
-  projectId: string;
-  amount: number;
-  currency: string;
-  status:
-  | "pending"
-  | "funded"
-  | "released"
-  | "cancelled"
-  | "disputed"
-  | "completed";
-
-  createdAt: string;
-  updatedAt: string;
-
-  releaseDate?: string;
-  notes?: string;
-
-  milestoneId?: string;
-  milestones?: Milestone[];
 }
 
 /* -------------------- INVITATIONS -------------------- */

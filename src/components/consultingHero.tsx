@@ -142,19 +142,19 @@ export default function HybridConsultingHero() {
             href="/jobs"
             className="text-white text-lg hover:text-[#c12129] transition"
           >
-            Find Jobs
+            Find Projects
           </Link>
           <Link
             href="/postjobs"
             className="text-white text-lg hover:text-[#c12129] transition"
           >
-            Post Jobs
+            Post Projects
           </Link>
           <Link
             href="/talent"
             className="bg-[#c12129] px-6 py-3 rounded-xl text-white text-lg hover:bg-[#a11e25] transition"
           >
-            Seek a Consultant
+            Find a Consultant
           </Link>
         </motion.div>
       </div>

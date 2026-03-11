@@ -9,7 +9,7 @@ const SDImapactandSocial = () => {
         <title>Sustainable Development Impact</title>
         <meta
           name="description"
-          content="Sustainable Development CALEB BREAK-TREES impact and social inclusion"
+          content="Sustainable Development impact and social inclusion"
         />
       </Head>
 
@@ -40,8 +40,7 @@ const SDImapactandSocial = () => {
           <div>
             <h2 className="text-2xl font-bold mb-3">Impact</h2>
             <p className="text-sm text-gray-300 mb-4">
-              Sustainable Development CALEB BREAK-TREES INTO 3 MORE IMPACTS
-              UNDER RUST_DEVELOP. By building diverse agricultural and artisanal
+              Sustainable Development, By building diverse agricultural and artisanal
               vibrant businesses, we have scaled up green tree energy, conflict
               decreased deputation, quality education, responsive media,
               replication and agility. In the social consciousness huge public

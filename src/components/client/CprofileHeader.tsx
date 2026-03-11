@@ -1,369 +1,291 @@
 "use client";
 
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Star, Edit, MessageCircle, ChevronDown } from "lucide-react";
-import { ClientProfile } from "@/types/client";
-import { Project, Milestone } from "@/types/project";
-import { mockClients } from "@/mocks/mockClient";
+import { useState, useEffect } from "react";
+import { FaLinkedin, FaGlobe, FaTwitter, FaGithub, FaCheckCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
+import axios from "axios";
+import { UserAlert, mockAlerts, mockNotifications, mockPayments, mockDeadlines } from "@/mocks/useralert";
 import { UserGuide } from "@/components/Guides/UserGuide";
-import { clientProfileHeaderGuide } from "@/lib/UserGuide/clientProfileGuide";
+import { profileHeaderGuide } from "@/lib/UserGuide/profileHeaderGuide";
+import { calculateCompletion } from "@/lib/profileCompletion";
+import ReviewPopupContainer from "./popContainer";
+import StatDropdown from "./statDropdown";
+import { ClientProfile } from "@/types/client";
 
-interface ProjectStats {
-  total?: number;
-  completed?: number;
-  ongoing?: number;
-  suspended?: number;
-}
+export default function ClientProfileHeader({ client, loading }: { client: ClientProfile | null; loading: boolean }) {
+  const [showPopup, setShowPopup] = useState(false);
+  const [showGuide, setShowGuide] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem("lamid-client-profile-header-guide");
+  });
 
-interface ProfileHeaderProps {
-  client?: any;
-  projectStats?: ProjectStats;
-  loading?: boolean;
-}
-
-/* ---------------- Button ---------------- */
-
-const Button = ({
-  children,
-  onClick,
-  variant = "default",
-  className = "",
-}: {
-  children: React.ReactNode;
-  onClick?: () => void;
-  variant?: "default" | "outline";
-  className?: string;
-}) => {
-  const base =
-    "px-3 py-2 rounded-md font-medium text-sm transition-all flex items-center gap-2";
-  const styles =
-    variant === "outline"
-      ? "bg-transparent border border-gray-600 text-white hover:bg-gray-700"
-      : "bg-red-600 text-white hover:bg-red-500";
-
-  return (
-    <button onClick={onClick} className={`${base} ${styles} ${className}`}>
-      {children}
-    </button>
-  );
-};
-
-/* ---------------- Project Card ---------------- */
-
-const ProjectCard = ({ project }: { project: Project }) => {
-  const milestones: Milestone[] = project.milestones ?? [];
-
-  const completionRate =
-    milestones.length > 0
-      ? Math.round(
-        milestones.reduce((acc, m) => acc + (m.progress ?? 0), 0) /
-        milestones.length
-      )
-      : 0;
-
-  const progressColor =
-    completionRate >= 80
-      ? "bg-green-500"
-      : completionRate >= 50
-        ? "bg-yellow-500"
-        : completionRate > 0
-          ? "bg-orange-500"
-          : "bg-red-500";
-
-  return (
-    <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-      <div className="flex justify-between items-center mb-2">
-        <h4 className="text-white font-semibold text-sm">{project.title}</h4>
-        <span className="text-xs text-gray-400">
-          {completionRate}% Complete
-        </span>
-      </div>
-
-      <div className="h-2 bg-gray-700 rounded-full overflow-hidden mb-2">
-        <motion.div
-          className={`${progressColor} h-full`}
-          style={{ width: `${completionRate}%` }}
-          initial={{ width: 0 }}
-          animate={{ width: `${completionRate}%` }}
-          transition={{ duration: 0.6 }}
-        />
-      </div>
-
-      <div className="space-y-1">
-        {milestones.map((ms) => {
-          const msProgress = ms.progress ?? 0;
-
-          return (
-            <div key={ms.id}>
-              <div className="flex justify-between text-xs text-gray-400 mb-0.5">
-                <span>{ms.title}</span>
-                <span>{msProgress}%</span>
-              </div>
-              <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
-                <motion.div
-                  className="bg-blue-500 h-full"
-                  style={{ width: `${msProgress}%` }}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${msProgress}%` }}
-                  transition={{ duration: 0.6 }}
-                />
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-/* ---------------- Main Component ---------------- */
-
-export default function ProfileHeader({
-  client = null,
-  projectStats,
-}: ProfileHeaderProps) {
-  const [selectedType, setSelectedType] = useState<
-    "team" | "individual" | null
-  >(null);
-
-  /* ---------- Guide Logic ---------- */
-
-  const [showGuide, setShowGuide] = useState(false);
+  const [alerts, setAlerts] = useState<UserAlert[]>([]);
+  const [notifications, setNotifications] = useState<UserAlert[]>([]);
+  const [payments, setPayments] = useState<UserAlert[]>([]);
+  const [deadlines, setDeadlines] = useState<UserAlert[]>([]);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
-    const hasSeenGuide = localStorage.getItem(
-      "lamid-client-profile-guide"
-    );
-    if (!hasSeenGuide) {
-      setShowGuide(true);
-    }
-  }, []);
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: PointerEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setSelectedType(null);
+    const prefetch = async () => {
+      try {
+        const res = await axios.get("/api/client/alerts");
+        const data = res.data || {};
+        setAlerts(data.alerts || mockAlerts);
+        setNotifications(data.notifications || mockNotifications);
+        setPayments(data.payments || mockPayments);
+        setDeadlines(data.deadlines || mockDeadlines);
+      } catch {
+        setAlerts(mockAlerts);
+        setNotifications(mockNotifications);
+        setPayments(mockPayments);
+        setDeadlines(mockDeadlines);
       }
-    }
-    document.addEventListener("pointerdown", handleClickOutside);
-    return () =>
-      document.removeEventListener("pointerdown", handleClickOutside);
+    };
+    prefetch();
   }, []);
 
-  const activeClient: any = client
-    ? {
-      ...client,
-      name: client.profile?.firstName
-        ? `${client.profile.firstName} ${client.profile.lastName || ""
-        }`
-        : client.username || client.email || "Client",
-      bio: client.profile?.bio || "",
-      avatar: client.profile?.profilePicture || "/avatar.png",
-      isPremium: true,
-      projects: client.projects || [],
-      consultants: client.consultants || [],
-      teamMembers: client.teamMembers || [],
-    }
-    : mockClients[0];
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".relative")) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const [bio, setBio] = useState(activeClient.bio ?? "");
-  const [isEditingBio, setIsEditingBio] = useState(false);
-  const [avatar, setAvatar] = useState(activeClient.avatar);
-
-  const handleAvatarChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (file) setAvatar(URL.createObjectURL(file));
-  };
-
-  const projects: Project[] =
-    selectedType === "team"
-      ? activeClient.teamMembers?.flatMap(
-        (m: any) => m.projects ?? []
-      ) ?? []
-      : selectedType === "individual"
-        ? activeClient.consultants?.flatMap(
-          (c: any) => c.projects ?? []
-        ) ?? []
-        : [];
-
-  return (
-    <div
-      data-guide="client-profile-container"
-      className="w-full bg-gray-900 border-b border-gray-800 px-6 py-6 lg:grid lg:grid-cols-3 gap-6 flex flex-col relative"
-    >
-      {/* Start Guide Button */}
-      <div className="absolute hover:border-red-500 top-5 right-6 z-20">
-        <Button
-          variant="outline"
-          onClick={() => setShowGuide(true)}
-        >
-          Start Guide
-        </Button>
-      </div>
-
-      {/* Profile Info */}
-      <motion.div
-        data-guide="client-profile-info"
-        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex items-center gap-4 shadow-xl border border-red-600"
-      >
-        <div
-          data-guide="client-avatar"
-          className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-red-500 group"
-        >
-          <Image
-            src={avatar}
-            alt="Client Avatar"
-            fill
-            className="object-cover"
-          />
-          <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer text-white text-xs">
-            Upload
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleAvatarChange}
-            />
-          </label>
-
-          {activeClient.isPremium && (
-            <span
-              data-guide="client-premium-status"
-              className="absolute bottom-0 right-0 bg-yellow-400 w-5 h-5 rounded-full border-2 border-black flex items-center justify-center"
-            >
-              <Star className="w-3 h-3 text-black" />
-            </span>
-          )}
-        </div>
-
-        <div className="flex flex-col">
-          <h2 className="text-xl font-bold text-white">
-            {activeClient.username || activeClient.name}
-          </h2>
-          <p className="text-sm text-gray-400">
-            {activeClient.email}
-          </p>
-
-          <div data-guide="client-bio">
-            {isEditingBio ? (
-              <textarea
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                onBlur={() => setIsEditingBio(false)}
-                className="mt-1 text-sm text-gray-200 bg-gray-700 rounded-md p-2 resize-none"
-                rows={2}
-                autoFocus
-              />
-            ) : (
-              <p
-                className="text-sm text-gray-500 mt-1 cursor-pointer flex items-center gap-1"
-                onClick={() => setIsEditingBio(true)}
-              >
-                {bio || "Click to add a bio"}
-                <Edit size={14} />
-              </p>
-            )}
+  if (loading || !client) {
+    return (
+      <div className="animate-pulse bg-gray-900 border-b border-gray-700 p-6 md:p-8 rounded-lg">
+        <div className="flex items-center gap-5">
+          <div className="w-20 h-20 bg-gray-700 rounded-full"></div>
+          <div className="space-y-2">
+            <div className="h-6 bg-gray-700 rounded w-48"></div>
+            <div className="h-4 bg-gray-700 rounded w-32"></div>
           </div>
         </div>
-      </motion.div>
+      </div>
+    );
+  }
 
-      {/* Actions */}
-      <motion.div
-        data-guide="client-actions"
-        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col justify-center items-center gap-3 shadow-xl border border-red-600"
-      >
-        <div className="flex gap-2 flex-wrap justify-center">
-          <Button variant="outline">
-            <Edit size={16} /> Edit Profile
-          </Button>
-          <Button>
-            <MessageCircle size={16} /> Message
-          </Button>
-        </div>
-      </motion.div>
+  const badgeCount = alerts.length + notifications.length + payments.length + deadlines.length;
 
-      {/* Projects */}
-      <motion.div
-        data-guide="client-project-display"
-        className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col shadow-xl border border-red-600"
-      >
-        <div
-          data-guide="client-project-filters"
-          className="flex gap-2 flex-wrap"
+  const displayName = client.business?.companyName || client.companyname || client.name;
+  const displayIndustry = client.business?.industry || client.industry || "Industry not set";
+  const displayLocation = client.business?.location || client.location || "Lagos, Nigeria";
+
+  const status = {
+    logoUploaded: !!client.avatar,
+    verifiedBadge: !!client.isPremium, // Assuming premium as a proxy for verified for now
+    paymentMethodAdded: true, // Placeholder
+    accountDetailsComplete: !!(displayName && displayIndustry && displayLocation),
+  };
+  const completion = calculateCompletion(status);
+
+  const stats = [
+    {
+      value: client.projects?.length || 0,
+      label: "Projects Posted",
+      details: [
+        { title: "Active Projects", value: client.projects?.filter(p => p.status === 'ongoing').length || 0, route: "/projects/active" },
+        { title: "Completed Projects", value: client.projects?.filter(p => p.status === 'completed').length || 0, route: "/projects/completed" },
+        { title: "Open Projects", value: client.projects?.filter(p => p.status === 'open').length || 0, route: "/projects/pending" },
+      ],
+    },
+    {
+      value: client.consultants?.length || 0,
+      label: "Active Consultants",
+      details: [
+        { title: "Engaged Consultants", value: client.consultants?.length || 0, route: "/consultants/active" },
+        { title: "Pending Invitations", value: client.invitations?.length || 0, route: "/consultants/pending" },
+      ],
+    },
+    {
+      value: `$${client.balance || 0}`,
+      label: "Balance",
+      details: [
+        { title: "Available Balance", value: `$${client.balance || 0}`, route: "/budget/total" },
+        { title: "Escrow Locked", value: `$${client.escrowTransactions?.reduce((acc, curr) => acc + (curr.status === 'funded' ? curr.amount : 0), 0) || 0}`, route: "/budget/spent" },
+      ],
+    },
+    {
+      value: client.rating || "0",
+      label: "Client Rating",
+      details: [
+        { title: "Completed Projects", value: client.completedProjects || 0, route: "/reviews" },
+      ],
+    },
+  ];
+
+  return (
+    <motion.div
+      className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 
+                 border-b border-gray-700 p-6 md:p-8 rounded-lg shadow-lg overflow-hidden 
+                 ring-1 ring-gray-700 hover:ring-red-500 transition"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      {/* Premium Ribbon */}
+      {client.isPremium && (
+        <motion.div
+          className="absolute top-4 left-0 bg-red-600 text-white text-xs font-semibold 
+                     px-4 py-1 rounded-r-lg shadow-md animate-pulse"
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
         >
-          {["team", "individual"].map((type) => (
-            <Button
-              key={type}
-              onClick={() =>
-                setSelectedType(
-                  selectedType === type
-                    ? null
-                    : (type as "team" | "individual")
-                )
-              }
-              variant={
-                selectedType === type ? "default" : "outline"
-              }
-              className="rounded-full px-4 py-2"
-            >
-              {type === "team"
-                ? "Teams"
-                : "Individuals"}{" "}
-              <ChevronDown size={14} />
-            </Button>
-          ))}
-        </div>
+          Premium Enterprise
+        </motion.div>
+      )}
 
-        <AnimatePresence>
-          {selectedType && (
-            <motion.div
-              ref={dropdownRef}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden mt-4"
-            >
-              {projects.length > 0 ? (
-                <div className="space-y-4">
-                  {projects.map((project) => (
-                    <ProjectCard
-                      key={project.id}
-                      project={project}
-                    />
-                  ))}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        {/* Logo + Identity */}
+        <motion.div
+          className="flex items-center gap-5"
+          initial={{ x: -40, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          <img
+            src={client.avatar || "/company-placeholder.png"}
+            alt="Company Logo"
+            className="w-20 h-20 rounded-full border-4 border-red-500 shadow-md 
+                       object-cover                        object-cover transform hover:scale-105 transition"
+          />
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-bold text-white">{displayName}</h1>
+              {client.isPremium && <FaCheckCircle className="text-blue-500" />}
+            </div>
+            <p className="text-gray-400 text-sm">{displayIndustry}</p>
+            <p className="text-xs text-gray-500 mt-1">{displayLocation}</p>
+          </div>
+        </motion.div>
+
+        {/* Profile Completion */}
+        <motion.div
+          className="w-full md:w-1/3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <div className="flex flex-col gap-2">
+            <p className="text-sm text-gray-400">Profile Completion</p>
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <div className="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    className="bg-red-500 h-2 rounded-full transition-all"
+                    style={{ width: `${completion}%` }}
+                  />
                 </div>
-              ) : (
-                <p className="text-gray-400 text-sm">
-                  No {selectedType} projects available.
-                </p>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </div>
+              <span className="text-xs text-gray-300">{completion}%</span>
+            </div>
+            <button className="text-xs text-red-500 hover:text-white underline">
+              Complete Profile
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Stats Grid */}
+      <motion.div
+        className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.2, delayChildren: 1 } },
+        }}
+      >
+        {stats.map((stat, idx) => (
+          <motion.div
+            key={idx}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <StatDropdown
+              {...stat}
+              isOpen={activeDropdown === stat.label}
+              onToggle={() =>
+                setActiveDropdown(activeDropdown === stat.label ? null : stat.label)
+              }
+            />
+          </motion.div>
+        ))}
       </motion.div>
 
-      {/* Guide */}
+      {/* Alerts */}
+      <motion.div
+        className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+      >
+        <button
+          onClick={() => setShowPopup(true)}
+          className="relative px-6 py-2 border border-gray-600 hover:border-red-500 
+                     text-gray-300 hover:text-white font-medium rounded-lg shadow-md 
+                     transition transform hover:scale-105"
+        >
+          View Alerts
+          {badgeCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white 
+                             text-xs font-bold rounded-full px-2 py-0.5">
+              {badgeCount}
+            </span>
+          )}
+        </button>
+      </motion.div>
+
+      {/* Social Links */}
+      <motion.div
+        className="mt-6 flex gap-6 justify-center md:justify-start text-gray-400"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8 }}
+      >
+        {client.business?.website && (
+          <a
+            href={client.business.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+          >
+            <FaLinkedin className="hover:text-red-500 transition cursor-pointer" size={24} />
+          </a>
+        )}
+        {client.business?.website && (
+          <a
+            href={client.business.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Company Website"
+          >
+            <FaGlobe className="hover:text-red-500 transition cursor-pointer" size={24} />
+          </a>
+        )}
+        {/* Twitter and Github are not currently in the ClientProfile type, keeping them as placeholders if they were there */}
+      </motion.div>
+
+      {/* Review Popup */}
+      {showPopup && (
+        <ReviewPopupContainer isOpen={showPopup} onClose={() => setShowPopup(false)} />
+      )}
+
+      {/* User Guide */}
       <UserGuide
-        storageKey="lamid-client-profile-guide"
-        steps={clientProfileHeaderGuide}
+        storageKey="lamid-client-profile-header-guide"
+        steps={profileHeaderGuide}
         isOpen={showGuide}
-        onClose={() => {
-          localStorage.setItem(
-            "lamid-client-profile-guide",
-            "true"
-          );
-          setShowGuide(false);
-        }}
+        onClose={() => setShowGuide(false)}
       />
-    </div>
+    </motion.div>
   );
 }

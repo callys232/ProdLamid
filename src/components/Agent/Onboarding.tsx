@@ -95,7 +95,7 @@ export default function AIAgent() {
       switch (activeAgent) {
         case "onboarding":
           response =
-            "👋 Welcome! I’m your onboarding assistant. Tell me what you’d like to do and I’ll connect you to the right agent.";
+            "👋 Welcome! I’m your onboarding agent. Tell me what you’d like to do and I’ll connect you to the right agent.";
           break;
         case "learning":
           response =
@@ -107,7 +107,7 @@ export default function AIAgent() {
           break;
         case "shopping":
           response =
-            "🛒 Let’s connect you with our Shopping Agent for product discovery.";
+            "🛒 Let’s connect you with our prototype Shopping Agent for product discovery.";
           break;
         case "creative":
           response =
@@ -253,7 +253,7 @@ export default function AIAgent() {
                 {activeAgent === "onboarding" && (
                   <div className="text-sm text-gray-300 leading-relaxed mb-4">
                     👋 Welcome, {user.name}. I’ll guide you to the right agent:
-                    manage projects, get creative, shop, learn, or boost
+                    create, manage projects, get creative, shop business prototypes, learn, or boost
                     productivity. Ask me anything or choose below.
                   </div>
                 )}
@@ -262,14 +262,14 @@ export default function AIAgent() {
                   <div
                     key={i}
                     className={`flex items-end gap-2 ${msg.sender === "bot"
-                        ? "self-start flex-row"
-                        : "self-end flex-row-reverse"
+                      ? "self-start flex-row"
+                      : "self-end flex-row-reverse"
                       }`}
                   >
                     <div
                       className={`max-w-[75%] text-sm p-4 rounded-2xl shadow-md leading-relaxed ${msg.sender === "bot"
-                          ? "bg-gray-800/80 text-gray-100 rounded-tl-none"
-                          : "bg-gradient-to-r from-[#c21219] to-[#a40e14] text-white rounded-tr-none"
+                        ? "bg-gray-800/80 text-gray-100 rounded-tl-none"
+                        : "bg-gradient-to-r from-[#c21219] to-[#a40e14] text-white rounded-tr-none"
                         }`}
                     >
                       {msg.text}

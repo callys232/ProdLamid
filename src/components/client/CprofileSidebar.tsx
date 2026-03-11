@@ -8,6 +8,7 @@ import {
   FaBell,
   FaLock,
   FaEnvelopeOpenText,
+  FaFolder
 } from "react-icons/fa";
 import { UserGuide } from "@/components/Guides/UserGuide";
 import { profileSidebarGuideSteps } from "@/lib/UserGuide/cleintSideBar";
@@ -39,6 +40,7 @@ export default function ProfileSidebar({
     { key: "notifications", label: "Notifications", icon: <FaBell />, guide: "guide-notifications-tab" },
     { key: "escrow", label: "Escrow", icon: <FaLock />, guide: "guide-escrow-tab" },
     { key: "invitations", label: "Invitations", icon: <FaEnvelopeOpenText />, guide: "guide-invitations-tab" },
+    { key: "projects", label: "Projects", icon: <FaFolder /> },
   ];
 
   return (

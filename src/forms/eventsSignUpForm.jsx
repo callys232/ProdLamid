@@ -9,7 +9,7 @@ export default function EventSignupForm() {
     event: "",
     date: "",
     mode: "",
-    dietary: "",
+    // dietary: "",
     accessibility: "",
     consent: false,
     comments: "",
@@ -129,18 +129,18 @@ export default function EventSignupForm() {
             >
               <option value="">Mode of Attendance</option>
               <option value="Online">Online</option>
-              <option value="In-person">In-person</option>
-              <option value="Hybrid">Hybrid</option>
+              {/* <option value="In-person">In-person</option>
+              <option value="Hybrid">Hybrid</option> */}
             </select>
 
-            <input
+            {/* <input
               type="text"
               name="dietary"
               placeholder="Dietary Restrictions (optional)"
               value={formData.dietary}
               onChange={handleChange}
               className="w-full p-2 border rounded"
-            />
+            /> */}
             <input
               type="text"
               name="accessibility"

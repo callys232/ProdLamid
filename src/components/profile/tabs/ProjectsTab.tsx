@@ -1,62 +1,97 @@
 "use client";
 
 import React, { useState } from "react";
-import ProjectCard from "@/components/projects/projectCard";
-import { Project } from "@/types/project";
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import SectionWrapper from "./wrapper";
+import PremiumCard from "./card";
+import UploadZone from "./upload";
 
-interface ProjectsTabProps {
-    projects: Project[];
-}
+type Project = {
+    id: number;
+    title: string;
+    status: string;
+    type: "team" | "individual";
+    dueDate?: string;
+    docUrl?: string;
+};
 
-export default function ProjectsTab({ projects }: ProjectsTabProps) {
-    const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
+const projectsMock: Project[] = [
+    { id: 1, title: "Website Redesign", status: "In Progress", type: "team", dueDate: "2026-04-01" },
+    { id: 2, title: "Mobile App Launch", status: "Pending", type: "individual", dueDate: "2026-05-15" },
+];
 
-    const filteredProjects = projects.filter((p) => {
-        if (filter === "all") return true;
-        if (filter === "active") return p.status !== "completed";
-        if (filter === "completed") return p.status === "completed";
-        return true;
-    });
+const ProjectsSection: React.FC = () => {
+    const [projects, setProjects] = useState<Project[]>(projectsMock);
+    const [selectedType, setSelectedType] = useState<"team" | "individual" | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleUpload = (file: File) => {
+        setLoading(true);
+        setTimeout(() => {
+            const newProject: Project = {
+                id: projects.length + 1,
+                title: file.name,
+                status: "Uploaded",
+                type: "team",
+                docUrl: URL.createObjectURL(file),
+            };
+            setProjects([...projects, newProject]);
+            setLoading(false);
+        }, 1000);
+    };
+
+    const filteredProjects = selectedType
+        ? projects.filter((p) => p.type === selectedType)
+        : projects;
 
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold text-white">My Projects</h2>
-                <div className="flex gap-2 bg-gray-900 p-1 rounded-lg border border-gray-800">
-                    {(["all", "active", "completed"] as const).map((f) => (
+        <SectionWrapper title="Projects">
+            {/* Filters */}
+            <motion.div
+                data-guide="client-project-display"
+                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col shadow-xl border border-red-600"
+            >
+                <div
+                    data-guide="client-project-filters"
+                    className="flex gap-2 flex-wrap mb-6"
+                >
+                    {["team", "individual"].map((type) => (
                         <button
-                            key={f}
-                            onClick={() => setFilter(f)}
-                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${filter === f
-                                    ? "bg-red-600 text-white shadow-lg"
-                                    : "text-gray-400 hover:text-white"
+                            key={type}
+                            onClick={() =>
+                                setSelectedType(
+                                    selectedType === type ? null : (type as "team" | "individual")
+                                )
+                            }
+                            className={`rounded-full px-4 py-2 flex items-center gap-1 transition-colors duration-300 ${selectedType === type
+                                ? "bg-[#c12129] text-white"
+                                : "border border-gray-600 text-gray-300 hover:bg-gray-700"
                                 }`}
                         >
-                            {f.charAt(0).toUpperCase() + f.slice(1)}
+                            {type === "team" ? "Teams" : "Individuals"}
+                            <ChevronDown size={14} />
                         </button>
                     ))}
                 </div>
-            </div>
 
-            {filteredProjects.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {filteredProjects.map((project) => (
-                        <ProjectCard key={project._id || project.id} project={project} isRegisteredUser={true} />
+                {/* Upload */}
+                <UploadZone
+                    label="Upload a project plan (PDF, DOCX)"
+                    accept=".pdf,.doc,.docx"
+                    onUpload={handleUpload}
+                />
+
+                {/* Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    {loading && <div className="animate-pulse bg-gray-800 h-40 rounded-lg" />}
+                    {filteredProjects.map((proj) => (
+                        <PremiumCard key={proj.id} {...proj} type="doc" />
                     ))}
                 </div>
-            ) : (
-                <div className="bg-[#1a0d0d] border border-gray-800 rounded-xl p-12 text-center space-y-4">
-                    <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto text-3xl">📁</div>
-                    <div className="space-y-1">
-                        <h3 className="text-xl font-bold text-white">No projects found</h3>
-                        <p className="text-gray-400 max-w-sm mx-auto">
-                            {filter === "all"
-                                ? "You don't have any projects assigned to you yet."
-                                : `No ${filter} projects found matching your selection.`}
-                        </p>
-                    </div>
-                </div>
-            )}
-        </div>
+            </motion.div>
+        </SectionWrapper>
     );
-}
+};
+
+export default ProjectsSection;

@@ -4,7 +4,27 @@ export type EscrowStatus =
   | "in_progress"
   | "released"
   | "completed"
-  | "disputed";
+  | "failed"
+  | "disputed"
+  | "cancelled";
+
+export interface EscrowTransaction {
+  id: string;
+  _id?: string;
+  projectId: string;
+  milestoneId?: string;
+  amount: number;
+  currency: string;
+  status: EscrowStatus;
+  createdAt: string;
+  updatedAt: string;
+  date?: string;
+  type?: string;
+  action?: string;
+  releaseDate?: string;
+  notes?: string;
+  milestones?: any[]; // Avoiding circular dependency if possible, or using a generic Milestone if needed.
+}
 
 export interface Milestone {
   id: string;

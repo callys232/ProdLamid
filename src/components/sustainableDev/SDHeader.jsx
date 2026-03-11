@@ -76,7 +76,7 @@ const SDHeader = () => {
                 Sustainable Development
               </h1>
 
-              <p className="text-xs sm:text-sm text-gray-300 animate-glitchPulse [animation-delay:3s]">
+              <p className="text-sm sm:text-base md:text-lg text-gray-300 animate-glitchPulse [animation-delay:3s]text-xs sm:text-sm  text-gray-300 animate-glitchPulse [animation-delay:3s]">
                 Growing groups to world-class communities with sustainable
                 development
               </p>

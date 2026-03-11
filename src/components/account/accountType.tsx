@@ -105,7 +105,7 @@ export default function AccountTypePage() {
                         <div>
                             <h3 className="text-xl font-semibold text-[#c12129]">Freelancer</h3>
                             <p className="text-gray-300 text-sm">
-                                Freelancers are consultants seeking jobs. You can create and send invoices,
+                                Consultants are freelancers seeking jobs. You can create and send invoices,
                                 track payments, and showcase your services to potential clients.
                             </p>
                         </div>

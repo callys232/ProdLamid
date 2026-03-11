@@ -18,7 +18,7 @@ interface TrainingFormData {
   trainingTrack: string;
   preferredDate: string;
   modeOfAttendance: string;
-  dietaryRestrictions?: string;
+  // dietaryRestrictions?: string;
   accessibilityNeeds?: string;
   paymentAgreement: string;
   consent: string;
@@ -35,7 +35,7 @@ const initialData: TrainingFormData = {
   trainingTrack: "",
   preferredDate: "",
   modeOfAttendance: "",
-  dietaryRestrictions: "",
+  // dietaryRestrictions: "",
   accessibilityNeeds: "",
   paymentAgreement: "",
   consent: "",
@@ -193,8 +193,8 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
       >
         <option value="">Mode of Attendance</option>
         <option value="Online">Online</option>
-        <option value="In-Person">In-Person</option>
-        <option value="Hybrid">Hybrid</option>
+        {/* <option value="In-Person">In-Person</option>
+        <option value="Hybrid">Hybrid</option> */}
       </select>
       {errors.modeOfAttendance && (
         <p className="text-red-400 text-sm">{errors.modeOfAttendance}</p>
@@ -250,11 +250,10 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full py-3 mt-4 rounded-lg font-bold text-lg transition-all duration-300 ${
-          isSubmitting
-            ? "bg-gray-500 cursor-not-allowed"
-            : "bg-orange-500 hover:bg-orange-600"
-        }`}
+        className={`w-full py-3 mt-4 rounded-lg font-bold text-lg transition-all duration-300 ${isSubmitting
+          ? "bg-gray-500 cursor-not-allowed"
+          : "bg-orange-500 hover:bg-orange-600"
+          }`}
       >
         {isSubmitting ? "Submitting..." : "Submit Registration"}
       </button>

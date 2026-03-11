@@ -9,6 +9,7 @@ import SecuritySettings from "./SecuritySettings";
 import PaymentInformation from "./payment";
 import UploadResume from "./UploadResume";
 import DeleteAccount from "./DeleteAccount";
+import Contract from "./contract";
 
 // Business + AI features
 import BusinessProfile from "../../premium/BusinessProfile";
@@ -21,12 +22,12 @@ export default function Settings({ user }: { user: any }) {
 
   const tabs = [
     { key: "profile", label: "Profile" },
+    { key: "security", label: "Security" },
+    { key: "resume", label: "Upload Resume" },
     { key: "business", label: "Business Profile" },
     { key: "tiers", label: "Tiers" },
-    // { key: "onboarding", label: "Onboarding Assistant" },
-    { key: "security", label: "Security" },
+    { key: "Contract", label: "Contract and Legal" },
     { key: "payment", label: "Payment Info" },
-    { key: "resume", label: "Upload Resume" },
     { key: "delete", label: "Delete Account" },
   ];
 
@@ -48,6 +49,8 @@ export default function Settings({ user }: { user: any }) {
         return <UploadResume user={user} />;
       case "delete":
         return <DeleteAccount />;
+      case "Contract":
+        return <Contract />;
       default:
         return <EditProfileForm user={user} />;
     }

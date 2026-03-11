@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { FaBars } from "react-icons/fa";
 import axios from "axios";
 import ProfileSidebar from "./CprofileSidebar";
 import Overview from "@/components/client/tabs/overview/overview";
@@ -9,10 +10,10 @@ import Teams from "./tabs/Teams";
 import Notifications from "./tabs/Notifications";
 import ClientEscrow from "./escrow/CEscrow";
 import Invitations from "./tabs/Invitation";
+import ProjectsSection from "./project"; // ✅ Correct import
 import ClientProjectSettings from "./settings/projectSettings";
 import { ClientProfile } from "@/types/client";
 import { Project } from "@/types/project";
-import { FaBars } from "react-icons/fa";
 import { mockClients } from "@/mocks/mockClient";
 import CProfileHeader from "./CprofileHeader";
 
@@ -44,6 +45,8 @@ export default function ClientProfileDashboard() {
         setClient(userData);
       } catch (err) {
         console.error("Failed to fetch client profile:", err);
+        setUsingMock(true);
+        setClient(mockClients[0]); // fallback to mock
       } finally {
         setLoading(false);
       }
@@ -81,6 +84,8 @@ export default function ClientProfileDashboard() {
         return <Settings client={client} />;
       case "teams":
         return <Teams client={client} />;
+      case "projects":
+        return <ProjectsSection client={client} />; // ✅ Full project section
       case "notifications":
         return <Notifications clientId={client.id} />;
       case "project-settings":
@@ -90,7 +95,7 @@ export default function ClientProfileDashboard() {
             onSave={handleProjectSave}
           />
         );
-      case "Project-escrow":
+      case "project-escrow":
         return (
           <ClientEscrow
             client={client}

@@ -24,7 +24,7 @@ export interface RecruitmentFormData {
   recruitmentTrack: string;
   preferredDate: string;
   modeOfWork: string;
-  dietaryRestrictions: string;
+  // dietaryRestrictions: string;
   accessibilityNeeds: string;
   consent: string;
   comments: string;
@@ -44,7 +44,7 @@ const initialFormState: RecruitmentFormData = {
   recruitmentTrack: "",
   preferredDate: "",
   modeOfWork: "",
-  dietaryRestrictions: "",
+  // dietaryRestrictions: "",
   accessibilityNeeds: "",
   consent: "",
   comments: "",
@@ -162,7 +162,7 @@ const RecruitmentForm: React.FC<RecruitmentFormProps> = ({
         "recruitmentTrack",
         "preferredDate",
         "modeOfWork",
-        "dietaryRestrictions",
+        // "dietaryRestrictions",
         "accessibilityNeeds",
         "consent",
         "comments",
@@ -357,19 +357,19 @@ const RecruitmentForm: React.FC<RecruitmentFormProps> = ({
           onChange={handleChange}
           options={[
             { label: "Remote", value: "Remote" },
-            { label: "Hybrid", value: "Hybrid" },
-            { label: "Onsite", value: "Onsite" },
+            // { label: "Hybrid", value: "Hybrid" },
+            // { label: "Onsite", value: "Onsite" },
           ]}
           error={errors.modeOfWork}
         />
 
-        <FormInput
+        {/* <FormInput
           name="dietaryRestrictions"
           label="Dietary Restrictions"
           value={formData.dietaryRestrictions}
           placeholder="Any dietary restrictions"
           onChange={handleChange}
-        />
+        /> */}
 
         <FormInput
           name="accessibilityNeeds"

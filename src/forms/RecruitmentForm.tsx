@@ -20,7 +20,7 @@ interface FormData {
   track: string;
   date: string;
   mode: string;
-  dietary: string;
+  // dietary: string;
   accessibility: string;
   consent: string;
   comments: string;
@@ -42,7 +42,7 @@ const initialFormData: FormData = {
   track: "",
   date: "",
   mode: "",
-  dietary: "",
+  // dietary: "",
   accessibility: "",
   consent: "",
   comments: "",
@@ -233,13 +233,13 @@ const RecruitmentForm: React.FC<RecruitmentFormProps> = ({
       >
         <option value="">Mode of Work</option>
         <option value="Remote">Remote</option>
-        <option value="Hybrid">Hybrid</option>
-        <option value="Onsite">Onsite</option>
+        {/* <option value="Hybrid">Hybrid</option>
+        <option value="Onsite">Onsite</option> */}
       </select>
       {errors.mode && <p className="text-red-400 text-sm">{errors.mode}</p>}
 
       {/* Optional fields */}
-      <input
+      {/* <input
         type="text"
         name="dietary"
         value={formData.dietary}
@@ -247,7 +247,7 @@ const RecruitmentForm: React.FC<RecruitmentFormProps> = ({
         placeholder="Dietary Restrictions (if any)"
         aria-label="Dietary Restrictions"
         className="w-full px-4 py-2 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
-      />
+      /> */}
       <input
         type="text"
         name="accessibility"
@@ -317,11 +317,10 @@ const RecruitmentForm: React.FC<RecruitmentFormProps> = ({
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
-          isSubmitting
-            ? "bg-gray-500 cursor-not-allowed"
-            : "bg-orange-500 hover:bg-orange-600"
-        }`}
+        className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${isSubmitting
+          ? "bg-gray-500 cursor-not-allowed"
+          : "bg-orange-500 hover:bg-orange-600"
+          }`}
       >
         {isSubmitting ? "Submitting..." : "Submit Application"}
       </button>

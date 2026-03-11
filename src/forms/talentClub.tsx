@@ -30,7 +30,7 @@ export interface TalentClubFormData {
   yearsExperience: string;
   industry: string;
   modeOfWork: "Remote" | "Hybrid" | "Onsite" | "";
-  dietaryRestrictions: string;
+  // dietaryRestrictions: string;
   accessibilityNeeds: string;
   consentToRecord: "Yes" | "No" | "";
   additionalComments: string;
@@ -48,7 +48,7 @@ const initialFormData: TalentClubFormData = {
   yearsExperience: "",
   industry: "",
   modeOfWork: "",
-  dietaryRestrictions: "",
+  // dietaryRestrictions: "",
   accessibilityNeeds: "",
   consentToRecord: "",
   additionalComments: "",
@@ -252,8 +252,8 @@ const TalentClubForm: React.FC<TalentClubProps> = ({ closeModal, user }) => {
           value={formData.modeOfWork}
           options={[
             { label: "Remote", value: "Remote" },
-            { label: "Hybrid", value: "Hybrid" },
-            { label: "Onsite", value: "Onsite" },
+            // { label: "Hybrid", value: "Hybrid" },
+            // { label: "Onsite", value: "Onsite" },
           ]}
           onChange={handleChange}
           error={errors.modeOfWork}
@@ -271,12 +271,12 @@ const TalentClubForm: React.FC<TalentClubProps> = ({ closeModal, user }) => {
         />
 
         {/* Textareas */}
-        <FormTextArea
+        {/* <FormTextArea
           label="Dietary Restrictions"
           name="dietaryRestrictions"
           value={formData.dietaryRestrictions}
           onChange={handleChange}
-        />
+        /> */}
         <FormTextArea
           label="Accessibility Needs"
           name="accessibilityNeeds"

@@ -2,8 +2,17 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { FaLeaf, FaHospital, FaLightbulb, FaUsers } from "react-icons/fa";
+import { FaLeaf, FaHospital, FaUsers } from "react-icons/fa";
+
+// Glassmorphic tooltip with dark orange tone
+const tooltipClasses =
+  "absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 " +
+  "bg-orange-900/80 backdrop-blur-md border border-orange-400/40 text-sm text-orange-100 " +
+  "px-3 py-2 rounded-lg shadow-lg w-64 z-10";
+
+// Arrow pointer styled in dark orange glassmorphic
+const arrowClasses =
+  "absolute -top-2 left-4 w-4 h-4 bg-yellow-900/80 backdrop-blur-md border border-yellow-400/40 rotate-45";
 
 const Impact: React.FC = () => {
   return (
@@ -15,7 +24,7 @@ const Impact: React.FC = () => {
 
         <div className="space-y-20">
           {/* Section 1: Job and Wealth Creation */}
-          <section className="flex flex-col md:flex-row gap-8 group relative">
+          <section className="flex flex-col md:flex-row gap-8 relative">
             <div className="w-full md:w-1/4 flex-shrink-0">
               <div className="relative h-48 w-full rounded-lg overflow-hidden">
                 <Image
@@ -32,16 +41,19 @@ const Impact: React.FC = () => {
                 <div className="mt-1">
                   <FaUsers className="h-8 w-8 text-yellow-500" />
                 </div>
-                <div className="bg-transparent border border-green-500 text-green-400 px-4 py-2 rounded-md flex-grow">
-                  <h2 className="text-xl font-medium">
-                    Job and Wealth Creation for Social Cohesion & Economic
-                    Recovery
-                  </h2>
-                </div>
-                {/* Hover popup */}
-                <div className="absolute left-12 top-full mt-2 hidden group-hover:block bg-gray-800 text-sm text-gray-200 p-2 rounded shadow-lg w-64">
-                  Cooperatives drive job creation and wealth distribution across
-                  communities.
+                {/* Heading with tooltip */}
+                <div className="relative group flex-grow">
+                  <div className="bg-transparent border border-green-500 text-green-400 px-4 py-2 rounded-md">
+                    <h2 className="text-xl font-medium">
+                      Job and Wealth Creation for Social Cohesion & Economic
+                      Recovery
+                    </h2>
+                  </div>
+                  <div className={tooltipClasses}>
+                    <div className={arrowClasses}></div>
+                    Cooperatives drive job creation and wealth distribution
+                    across communities.
+                  </div>
                 </div>
               </div>
 
@@ -59,7 +71,7 @@ const Impact: React.FC = () => {
           </section>
 
           {/* Section 2: Healthcare Partnerships */}
-          <section className="flex flex-col md:flex-row gap-8 group relative">
+          <section className="flex flex-col md:flex-row gap-8 relative">
             <div className="w-full md:w-1/4 flex-shrink-0">
               <div className="relative h-48 w-full rounded-lg overflow-hidden">
                 <Image
@@ -76,15 +88,18 @@ const Impact: React.FC = () => {
                 <div className="mt-1">
                   <FaHospital className="h-8 w-8 text-white" />
                 </div>
-                <div className="bg-transparent border border-green-500 text-green-400 px-4 py-2 rounded-md flex-grow">
-                  <h2 className="text-xl font-medium">
-                    Building Communities on Managed Healthcare Partnerships
-                  </h2>
-                </div>
-                {/* Hover popup */}
-                <div className="absolute left-12 top-full mt-2 hidden group-hover:block bg-gray-800 text-sm text-gray-200 p-2 rounded shadow-lg w-64">
-                  Sustainable healthcare partnerships improved maternal care and
-                  child survival.
+                {/* Heading with tooltip */}
+                <div className="relative group flex-grow">
+                  <div className="bg-transparent border border-green-500 text-green-400 px-4 py-2 rounded-md">
+                    <h2 className="text-xl font-medium">
+                      Building Communities on Managed Healthcare Partnerships
+                    </h2>
+                  </div>
+                  <div className={tooltipClasses}>
+                    <div className={arrowClasses}></div>
+                    Sustainable healthcare partnerships improved maternal care
+                    and child survival.
+                  </div>
                 </div>
               </div>
 
@@ -100,20 +115,20 @@ const Impact: React.FC = () => {
           </section>
 
           {/* Section 3: Climate Change */}
-          <section className="flex flex-col md:flex-row gap-8 group relative">
+          <section className="flex flex-col md:flex-row gap-8 relative">
             <div className="w-full md:w-1/5 flex-shrink-0 flex justify-center">
               <FaLeaf className="h-12 w-12 text-white" />
             </div>
 
             <div className="w-full md:w-2/3 relative">
-              <div className="mb-3">
+              <div className="mb-3 relative group">
                 <div className="bg-transparent border border-green-500 text-green-400 px-4 py-2 rounded-md">
                   <h2 className="text-xl font-medium">
                     Combating Climate Change with Renewable Energy
                   </h2>
                 </div>
-                {/* Hover popup */}
-                <div className="absolute left-0 top-full mt-2 hidden group-hover:block bg-gray-800 text-sm text-gray-200 p-2 rounded shadow-lg w-64">
+                <div className={tooltipClasses}>
+                  <div className={arrowClasses}></div>
                   Renewable energy projects foster peace and sustainability in
                   Niger Delta communities.
                 </div>
@@ -127,8 +142,8 @@ const Impact: React.FC = () => {
                 remediation and tactical stakeholder engagements.
               </p>
 
-              <p className="text-gray-400 hover:underline cursor-pointer">
-                Read more.
+              <p className="text-yellow-500 hover:underline cursor-pointer">
+                Read more
               </p>
             </div>
 
@@ -145,21 +160,21 @@ const Impact: React.FC = () => {
           </section>
 
           {/* Section 4: Digital Divide */}
-          <section className="flex flex-col md:flex-row gap-8 group relative">
+          <section className="flex flex-col md:flex-row gap-8 relative">
             <div className="w-full md:w-1/5 flex-shrink-0 flex justify-center">
               <FaUsers className="h-12 w-12 text-white" />
             </div>
 
             <div className="w-full md:w-1/2 relative">
-              <div className="mb-3">
+              <div className="mb-3 relative group">
                 <div className="bg-transparent border border-green-500 text-green-400 px-4 py-2 rounded-md">
                   <h2 className="text-xl font-medium">
                     Bridging the Digital and Generational Divide for Global
                     Partnerships
                   </h2>
                 </div>
-                {/* Hover popup */}
-                <div className="absolute left-0 top-full mt-2 hidden group-hover:block bg-gray-800 text-sm text-gray-200 p-2 rounded shadow-lg w-64">
+                <div className={tooltipClasses}>
+                  <div className={arrowClasses}></div>
                   Digital skills and startups help bridge youth unemployment and
                   generational gaps.
                 </div>
@@ -173,7 +188,7 @@ const Impact: React.FC = () => {
               </p>
 
               <div className="flex items-center">
-                <span className="text-gray-400 text-sm">READ MORE</span>
+                <span className="text-yellow-500 text-sm">Read more</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 ml-2 text-gray-400"
@@ -202,6 +217,7 @@ const Impact: React.FC = () => {
           </section>
         </div>
       </main>
+
     </div>
   );
 };

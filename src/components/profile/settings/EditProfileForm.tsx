@@ -12,8 +12,9 @@ interface ProfileFormData {
   bio: string;
   location: string;
 }
+interface EditProfileFormProps { user: any; onClose: () => void; }
 
-export default function EditProfileForm({ user }: { user: any }) {
+export default function EditProfileForm({ user, onClose }: EditProfileFormProps) {
   const [formData, setFormData] = useState<ProfileFormData>({
     firstName: user?.profile?.firstName || "",
     lastName: user?.profile?.lastName || "",
@@ -49,6 +50,7 @@ export default function EditProfileForm({ user }: { user: any }) {
       const result = await res.json();
       if (result.success) {
         toast.success("Profile updated successfully! 🎉");
+        onClose();
         // Optionally update parent state or refresh
       } else {
         throw new Error(result.message || "Failed to update profile");
