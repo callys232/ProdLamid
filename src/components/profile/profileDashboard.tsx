@@ -49,8 +49,6 @@ export default function ProfileDashboard({
     if (loading) return <p>Loading...</p>;
     if (!user) return <p>No profile data available.</p>;
 
-    // For now, Overview expects a projectId. If we don't have one, we might need to adjust Overview.
-    // Let's pass null for now and see if we need to fix Overview.
     const projectId = "";
 
     switch (activeTab) {
@@ -76,7 +74,7 @@ export default function ProfileDashboard({
       <ProfileHeader user={user} />
       <div className="flex flex-col md:flex-row flex-1">
         <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-800">
-          <ProfileSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+          <ProfileSidebar activeTab={activeTab} setActiveTab={setActiveTab} role={user?.role} />
         </div>
         <div className="flex-1 p-4 md:p-6 overflow-y-auto">
           {error && (

@@ -1,5 +1,6 @@
 import { Consultant } from "./client";
 import { EscrowStatus, EscrowTransaction } from "./escrow";
+export type { EscrowStatus, EscrowTransaction };
 
 /* -------------------- PROJECT -------------------- */
 export interface Project {
@@ -65,6 +66,12 @@ export interface Project {
 
   escrow?: EscrowTransaction[];
   activities?: ActivityItem[];
+  
+  // Extended fields used in mocks
+  currency?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  tags?: string[];
 }
 
 /* -------------------- WORK PHASES -------------------- */
@@ -125,6 +132,7 @@ export interface Milestone {
   status?: MilestoneStatus;
   deadline?: string;
   workPhaseId?: string;
+  acceptanceCriteria?: string;
   documents?: ProjectDocument[];
 }
 
@@ -155,6 +163,13 @@ export interface Wallet {
   heldBalance: number;
   status: "active" | "frozen" | "closed";
   updatedAt: string;
+
+  // Extended fields used in mocks
+  totalBalance?: number;
+  kycStatus?: string;
+  riskScore?: number;
+  lastKycAt?: string;
+  metadata?: any;
 }
 
 /* -------------------- LEDGER -------------------- */
@@ -168,6 +183,11 @@ export interface LedgerEntry {
   creditAccount: string;
   referenceId?: string;
   createdAt: string;
+
+  // Extended fields used in mocks
+  type?: "debit" | "credit";
+  reference?: string;
+  notes?: string;
 }
 
 /* -------------------- DISPUTES -------------------- */
@@ -179,12 +199,19 @@ export interface Dispute {
   milestoneId?: string;
   openedBy: string;
   status: DisputeStatus;
-  resolution?: "refund" | "release" | "split";
+  resolution?: "refund" | "release" | "split" | null;
   resolutionRatio?: number;
   evidenceRefs?: string[];
   notes?: string[];
   createdAt: string;
   updatedAt: string;
+
+  // Extended fields used in mocks
+  openedByRole?: string;
+  evidence?: { id: string; name: string; url: string; uploadedAt: string }[];
+  assignedTo?: string;
+  slaDueAt?: string;
+  outcome?: string | null;
 }
 
 /* -------------------- ESCROW DASHBOARD -------------------- */

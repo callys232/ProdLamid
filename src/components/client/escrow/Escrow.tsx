@@ -9,17 +9,26 @@ import ActionModal from "./actionModal";
 import { fetchEscrowSummary, fetchEscrowTransactions, fetchProjects } from "@/lib/escrowService";
 import { Project } from "@/types/project";
 import type { EscrowTransaction } from "@/types/escrow";
+import { ClientProfile } from "@/types/client";
 
 type ActionType = "release" | "refund" | "dispute";
 
 const CURRENCIES = ["USD", "NGN", "EUR"];
 
-export default function EscrowTab({ client }: { client?: any }) {
+export default function EscrowTab({
+  client,
+  projects: initialProjects = [],
+  initialEscrows = []
+}: {
+  client?: ClientProfile;
+  projects?: Project[];
+  initialEscrows?: EscrowTransaction[];
+}) {
   const safeClient = client ?? undefined;
   const [currency, setCurrency] = useState<string>(CURRENCIES[0]);
   const [summary, setSummary] = useState<any>(null);
-  const [transactions, setTransactions] = useState<EscrowTransaction[]>([]);
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [transactions, setTransactions] = useState<EscrowTransaction[]>(initialEscrows);
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [query, setQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [actionModal, setActionModal] = useState<{ type: ActionType | null; tx?: EscrowTransaction | null }>({ type: null });

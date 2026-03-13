@@ -21,8 +21,24 @@ const projectsMock: Project[] = [
     { id: 2, title: "Mobile App Launch", status: "Pending", type: "individual", dueDate: "2026-05-15" },
 ];
 
-const ProjectsSection: React.FC = () => {
-    const [projects, setProjects] = useState<Project[]>(projectsMock);
+interface ProjectsSectionProps {
+    projects?: any[];
+}
+
+const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects: initialProjects }) => {
+    const [projects, setProjects] = useState<Project[]>(() => {
+        if (initialProjects && initialProjects.length > 0) {
+            return initialProjects.map((p, index) => ({
+                id: p.id || index + 1,
+                title: p.title || "Untitled Project",
+                status: p.status || "Pending",
+                type: "team", // Default type
+                dueDate: p.dueDate || p.deadline,
+                docUrl: p.docUrl
+            }));
+        }
+        return projectsMock;
+    });
     const [selectedType, setSelectedType] = useState<"team" | "individual" | null>(null);
     const [loading, setLoading] = useState(false);
 

@@ -8,9 +8,9 @@ import Overview from "@/components/client/tabs/overview/overview";
 import Settings from "./settings/Settings";
 import Teams from "./tabs/Teams";
 import Notifications from "./tabs/Notifications";
-import ClientEscrow from "./escrow/CEscrow";
+import ClientEscrow from "./escrow/Escrow";
 import Invitations from "./tabs/Invitation";
-import ProjectsSection from "./project"; // ✅ Correct import
+import ProjectsSection from "./project";
 import ClientProjectSettings from "./settings/projectSettings";
 import { ClientProfile } from "@/types/client";
 import { Project } from "@/types/project";
@@ -85,9 +85,11 @@ export default function ClientProfileDashboard() {
       case "teams":
         return <Teams client={client} />;
       case "projects":
-        return <ProjectsSection client={client} />; // ✅ Full project section
+        return <ProjectsSection client={client} />;
       case "notifications":
         return <Notifications clientId={client.id} />;
+      case "escrow":
+        return <ClientEscrow client={client} />;
       case "project-settings":
         return (
           <ClientProjectSettings

@@ -23,7 +23,23 @@ export interface EscrowTransaction {
   action?: string;
   releaseDate?: string;
   notes?: string;
-  milestones?: any[]; // Avoiding circular dependency if possible, or using a generic Milestone if needed.
+  milestones?: any[];
+
+  // Extended fields used in mocks and dashboard
+  payerId?: string;
+  payeeId?: string;
+  receiptUrl?: string;
+  fee?: number;
+  netAmount?: number;
+  metadata?: any;
+  approvals?: any[];
+  scheduledRelease?: string | null;
+  timeLockUntil?: string | null;
+  exchangeRate?: {
+    base: string;
+    target: string;
+    rate: number;
+  };
 }
 
 export interface Milestone {

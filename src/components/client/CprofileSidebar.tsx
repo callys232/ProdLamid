@@ -12,15 +12,18 @@ import {
 } from "react-icons/fa";
 import { UserGuide } from "@/components/Guides/UserGuide";
 import { profileSidebarGuideSteps } from "@/lib/UserGuide/cleintSideBar";
+import LogoutButton from "@/components/logout";
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  role?: "client" | "freelancer" | string;
 }
 
 export default function ProfileSidebar({
   activeTab,
   setActiveTab,
+  role = "client",
 }: SidebarProps) {
   const [showGuide, setShowGuide] = useState(false);
 
@@ -45,7 +48,7 @@ export default function ProfileSidebar({
 
   return (
     <nav
-      className="relative w-full sm:w-64 h-auto sm:h-full p-2 mt bg-gray-900 sm:bg-transparent"
+      className="relative w-full sm:w-64 h-auto sm:h-full p-2 mt bg-gray-900 sm:bg-transparent flex flex-col"
       role="navigation"
       aria-label="Client dashboard"
     >
@@ -59,7 +62,7 @@ export default function ProfileSidebar({
         </button>
       </div>
 
-      <ul className="space-y-1">
+      <ul className="space-y-1 flex-1">
         {tabs.map((tab) => (
           <li key={tab.key}>
             <button
@@ -78,6 +81,13 @@ export default function ProfileSidebar({
           </li>
         ))}
       </ul>
+
+      {/* Logout section */}
+      <div className="mt-4 pt-4 border-t border-gray-700">
+        <div className="px-2">
+          <LogoutButton role={role} className="w-full justify-start" />
+        </div>
+      </div>
 
       {/* Guide Component */}
       <UserGuide

@@ -3,15 +3,19 @@
 import { useState } from "react";
 import { UserGuide } from "@/components/Guides/UserGuide";
 import { profileSidebarGuide } from "@/lib/UserGuide/sideBar";
+import LogoutButton from "@/components/logout";
+import { Role } from "@/lib/auth";
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  role?: Role;
 }
 
 export default function ProfileSidebar({
   activeTab,
   setActiveTab,
+  role = "client",
 }: SidebarProps) {
 
   // ✅ Auto-open on first visit
@@ -54,6 +58,13 @@ export default function ProfileSidebar({
           </li>
         ))}
       </ul>
+
+      {/* Logout section */}
+      <div className="mt-4 pt-4 border-t border-gray-700">
+        <div className="px-2">
+          <LogoutButton role={role} className="w-full justify-start" />
+        </div>
+      </div>
 
       {/* User Guide */}
       <UserGuide
