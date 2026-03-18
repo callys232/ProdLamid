@@ -1,7 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import type { Project } from "@/types/project";
+import type {
+  PhaseInput,
+  MilestoneInput,
+  ProjectPayload,
+  PresignedUploadRequest,
+  PresignedUploadResponse,
+  CreateProjectResponse,
+} from "@/types/projectPosting";
 
 import ProgressBar from "./progressBar";
 import DetailsStep from "./detailsStep";
@@ -10,11 +20,9 @@ import DescriptionStep from "./description";
 import ExtrasStep from "./extraStep";
 import ReviewStep from "./review";
 
-interface JobPostingFormProps {
-  onSubmit: (
-    project: Project & { purpose: string; extraField: string; images: string[] }
-  ) => void;
-}
+/* -----------------------------
+   Steps
+------------------------------*/
 
 const steps = [
   { label: "Details", icon: "📝" },
@@ -24,13 +32,39 @@ const steps = [
   { label: "Review", icon: "✅" },
 ];
 
-export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
+interface JobPostingFormProps {
+  onSubmit: (project: Project) => void;
+  onDraftSave?: (payload: ProjectPayload) => void;
+}
+
+/* =====================================================
+   JobPostingForm
+===================================================== */
+
+export default function JobPostingForm({
+  onSubmit,
+  onDraftSave,
+}: JobPostingFormProps) {
+
+  /* -----------------------------
+     Premium Mode (FOR TESTING)
+  ------------------------------*/
+
+  const premiumUser = true;
+
+  const tagVisibility = premiumUser;
+  const enableAIBudget = premiumUser;
+  const enableConsultantMatching = premiumUser;
+
+  /* -----------------------------
+     Project State
+  ------------------------------*/
+
   const [project, setProject] = useState<Project>({
     id: "",
     title: "",
     category: "",
     description: "",
-    location: "",
     budget: 0,
     hourlyRate: 0,
     skills: [],
@@ -41,170 +75,308 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
     images: [],
   });
 
+  /* -----------------------------
+     Structured Inputs
+  ------------------------------*/
+
+  const [phases, setPhases] = useState<PhaseInput[]>([]);
+  const [milestones, setMilestones] = useState<MilestoneInput[]>([]);
+
+  /* -----------------------------
+     Images
+  ------------------------------*/
+
+  const [images, setImages] = useState<File[]>([]);
+
+  /* -----------------------------
+     Smart Tags
+  ------------------------------*/
+
+  const [tags, setTags] = useState<string[]>([]);
+
+  /* -----------------------------
+     Extras
+  ------------------------------*/
+
   const [purpose, setPurpose] = useState("");
   const [extraField, setExtraField] = useState("");
-  const [images, setImages] = useState<File[]>([]);
+
   const [skillInput, setSkillInput] = useState("");
   const [milestoneInput, setMilestoneInput] = useState("");
+
   const [currentStep, setCurrentStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (field: keyof Project, value: string | number) => {
+
+
+  /* =====================================================
+     FIELD CHANGE
+  ===================================================== */
+
+  const handleChange = (field: keyof Project, value: string | number | null) => {
     setProject((prev) => ({
       ...prev,
-      [field]: typeof value === "string" ? value : Number(value),
+      [field]: value === null ? null : value,
     }));
   };
 
-  // 🔎 Step Validation
+  /* =====================================================
+     SKILLS
+  ===================================================== */
+
+  const addSkill = () => {
+    const trimmed = skillInput.trim();
+    if (!trimmed) return;
+
+    if ((project.skills ?? []).includes(trimmed)) {
+      setErrors((e) => ({ ...e, skills: "Skill already added." }));
+      return;
+    }
+
+    setProject((prev) => ({
+      ...prev,
+      skills: [...(prev.skills ?? []), trimmed],
+    }));
+
+    setSkillInput("");
+  };
+
+  const removeSkill = (index: number) =>
+    setProject((prev) => ({
+      ...prev,
+      skills: (prev.skills ?? []).filter((_, i) => i !== index),
+    }));
+
+  /* =====================================================
+     WORK PHASES
+  ===================================================== */
+
+  const addPhase = (title: string) => {
+    const trimmed = title.trim();
+    if (!trimmed) return;
+
+    setPhases((prev) => [
+      ...prev,
+      {
+        id: `phase-${uuidv4()}`,
+        title: trimmed,
+        order: prev.length,
+      },
+    ]);
+  };
+
+  const removePhase = (id: string) => {
+    setPhases((prev) => prev.filter((p) => p.id !== id));
+    setMilestones((prev) => prev.filter((m) => m.workPhaseId !== id));
+  };
+
+  /* =====================================================
+     MILESTONES
+  ===================================================== */
+
+  const addMilestone = (title: string, workPhaseId?: string | null) => {
+    const trimmed = title.trim();
+    if (!trimmed) return;
+
+    const phaseId = workPhaseId ?? phases[phases.length - 1]?.id ?? null;
+
+    setMilestones((prev) => [
+      ...prev,
+      {
+        id: `m-${uuidv4()}`,
+        title: trimmed,
+        status: "pending",
+        workPhaseId: phaseId,
+      },
+    ]);
+  };
+
+  const removeMilestone = (index: number) =>
+    setMilestones((prev) => prev.filter((_, i) => i !== index));
+
+  /* =====================================================
+     VALIDATION
+  ===================================================== */
+
   const validateStep = (step: number): boolean => {
     const newErrors: Record<string, string> = {};
 
     if (step === 0) {
-      if (!project.title) newErrors.title = "Title is required.";
-      if (!project.category) newErrors.category = "Category is required.";
-      if (!project.deadline) newErrors.deadline = "Deadline is required.";
-      if (!project.priority) newErrors.priority = "Priority is required.";
-      if (!project.status) newErrors.status = "Status is required.";
+      if (!project.title?.trim()) newErrors.title = "Title required";
+      if (!project.category?.trim()) newErrors.category = "Category required";
+      if (!project.deadline) newErrors.deadline = "Deadline required";
     }
 
     if (step === 1) {
-      if (!project.budget && !project.hourlyRate) {
-        newErrors.budget = "Either budget or hourly rate is required.";
-      }
+      if (!project.budget && !project.hourlyRate)
+        newErrors.budget = "Budget or hourly rate required";
     }
 
     if (step === 2) {
-      if (!project.description || project.description.length < 10) {
+      if (!project.description || project.description.length < 10)
         newErrors.description = "Description must be at least 10 characters.";
-      }
-    }
-
-    if (step === 3) {
-      if (purpose.length > 500) newErrors.purpose = "Purpose too long.";
-      if (extraField.length > 200) newErrors.extraField = "Extra field too long.";
-    }
-
-    if (step === 4) {
-      // ✅ Re-validate all critical fields on Review
-      if (!project.title) newErrors.title = "Title is required.";
-      if (!project.category) newErrors.category = "Category is required.";
-      if (!project.description || project.description.length < 10) {
-        newErrors.description = "Description must be at least 10 characters.";
-      }
-      if (!project.deadline) newErrors.deadline = "Deadline is required.";
-      if (!project.priority) newErrors.priority = "Priority is required.";
-      if (!project.status) newErrors.status = "Status is required.";
-      if (!project.budget && !project.hourlyRate) {
-        newErrors.budget = "Either budget or hourly rate is required.";
-      }
-      if (purpose.length > 500) newErrors.purpose = "Purpose too long.";
-      if (extraField.length > 200) newErrors.extraField = "Extra field too long.";
     }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
-  // 🧠 Final Submit Handler
-  const handleFinalSubmit = () => {
+  /* =====================================================
+     BUILD PAYLOAD
+  ===================================================== */
+
+  function buildProjectPayload(): ProjectPayload {
+    return {
+      clientRequestId: `crid-${uuidv4()}`,
+      title: project.title ?? "",
+      description: project.description ?? "",
+      category: project.category ?? "",
+      budget: project.budget ?? undefined,
+      hourlyRate: project.hourlyRate ?? undefined,
+      deadline: project.deadline ?? null,
+      priority: project.priority ?? undefined,
+      type: project.type,
+      TaskType: project.TaskType,
+      purpose,
+      extraField,
+      workPhases: phases.map(phase => ({
+        id: phase.id,
+        name: phase.title,
+        description: phase.description,
+        order: phase.order,
+      })),
+      milestones: milestones.map(m => ({
+        id: m.id,
+        title: m.title,
+        description: m.description,
+        amount: m.amount,
+        dueDate: m.dueDate,
+        progress: m.progress,
+        status: m.status,
+        workPhaseId: m.workPhaseId,
+        acceptanceCriteria: m.acceptanceCriteria,
+        documents: m.documents?.map(doc => typeof doc === 'string' ? doc : doc.url)
+      })),
+      skills: project.skills ?? [],
+      tags,
+      images: [],
+      consultants: project.assignedConsultants ?? [],
+      suggestedBidRange: project.suggestedBidRange ?? null,
+    };
+  }
+
+  /* =====================================================
+     FINAL SUBMIT
+  ===================================================== */
+
+  const handleFinalSubmit = async () => {
     if (!validateStep(4)) return;
 
-    const imageStrings = images.map((file) => URL.createObjectURL(file));
-    onSubmit({ ...project, purpose, extraField, images: imageStrings });
+    setLoading(true);
 
-    // Reset form
-    setProject({
-      id: "",
-      title: "",
-      category: "",
-      description: "",
-      location: "",
-      budget: 0,
-      hourlyRate: 0,
-      skills: [],
-      milestones: [],
-      deadline: "",
-      priority: "",
-      status: "",
-      images: [],
-    });
-    setPurpose("");
-    setExtraField("");
-    setImages([]);
-    setSkillInput("");
-    setMilestoneInput("");
-    setCurrentStep(0);
-    setErrors({});
-    setShowConfirm(false);
+    try {
+      const payload = buildProjectPayload();
+
+      const res = await fetch("/api/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Idempotency-Key": payload.clientRequestId ?? "",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const created: CreateProjectResponse = await res.json();
+
+      onSubmit(created.project);
+
+      setCurrentStep(0);
+      setTags([]);
+      setPhases([]);
+      setMilestones([]);
+      setImages([]);
+
+    } catch (err: any) {
+      setErrors((prev) => ({
+        ...prev,
+        submit: err?.message ?? "Failed to post project",
+      }));
+    } finally {
+      setLoading(false);
+    }
   };
+
+  /* =====================================================
+     SAVE DRAFT
+  ===================================================== */
+
+  const saveDraft = async () => {
+    const payload = buildProjectPayload();
+
+    try {
+      await fetch("/api/projects/drafts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      onDraftSave?.(payload);
+    } catch { }
+  };
+
+  /* =====================================================
+     RENDER
+  ===================================================== */
 
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" && currentStep < steps.length - 1) {
-          e.preventDefault();
-          const valid = validateStep(currentStep);
-          if (valid) setCurrentStep((prev) => prev + 1);
-        }
-      }}
-      className="bg-white border border-[#c21219] rounded-lg shadow-md p-4 md:p-6 space-y-4 text-gray-900"
+      className="bg-white border border-[#c21219] rounded-lg shadow-md p-6 space-y-4"
     >
+
       <ProgressBar steps={steps} currentStep={currentStep} />
 
-      <div className="bg-red-50 rounded-md p-3 md:p-4">
+      <div className="bg-red-50 rounded-md p-4">
+
         {currentStep === 0 && (
-          <DetailsStep project={project} handleChange={handleChange} errors={errors} />
-        )}
-        {currentStep === 1 && (
-          <BudgetStep project={project} handleChange={handleChange} errors={errors} />
-        )}
-        {currentStep === 2 && (
-          <DescriptionStep
+          <DetailsStep
             project={project}
             handleChange={handleChange}
-            skillInput={skillInput}
-            setSkillInput={setSkillInput}
-            addSkill={() => {
-              if (skillInput.trim()) {
-                setProject((prev) => ({
-                  ...prev,
-                  skills: [...(prev.skills ?? []), skillInput.trim()],
-                }));
-                setSkillInput("");
-              }
-            }}
-            removeSkill={(index) =>
-              setProject((prev) => ({
-                ...prev,
-                skills: (prev.skills ?? []).filter((_, i) => i !== index),
-              }))
-            }
-            milestoneInput={milestoneInput}
-            setMilestoneInput={setMilestoneInput}
-            addMilestone={() => {
-              if (milestoneInput.trim()) {
-                setProject((prev) => ({
-                  ...prev,
-                  milestones: [
-                    ...(prev.milestones ?? []),
-                    { title: milestoneInput.trim(), status: "pending" },
-                  ],
-                }));
-                setMilestoneInput("");
-              }
-            }}
-            removeMilestone={(index) =>
-              setProject((prev) => ({
-                ...prev,
-                milestones: (prev.milestones ?? []).filter((_, i) => i !== index),
-              }))
-            }
+            errors={errors}
+            tags={tags}
+            setTags={setTags}
+            tagVisibility={tagVisibility}
+          />
+        )}
+
+        {currentStep === 1 && (
+          <BudgetStep
+            project={project}
+            handleChange={handleChange}
+            errors={errors}
+            premiumUser={enableAIBudget}
+          />
+        )}
+
+        {currentStep === 2 && (
+          <DescriptionStep
+            description={project.description ?? ""}
+            setDescription={(val) => handleChange("description", val)}
+            skills={project.skills ?? []}
+            setSkills={(val) => handleChange("skills", val)}
+            phases={phases}
+            addPhase={addPhase}
+            removePhase={removePhase}
+            milestones={milestones}
+            addMilestone={addMilestone}
+            removeMilestone={removeMilestone}
             errors={errors}
           />
         )}
+
         {currentStep === 3 && (
           <ExtrasStep
             purpose={purpose}
@@ -216,87 +388,72 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
             setImages={setImages}
           />
         )}
+
         {currentStep === 4 && (
           <ReviewStep
             project={project}
             purpose={purpose}
             extraField={extraField}
             errors={errors}
+            phases={phases}
+            milestones={milestones}
+            tags={tags}
+            premiumUser={enableConsultantMatching}
             handleChange={handleChange}
             setPurpose={setPurpose}
             setExtraField={setExtraField}
             images={images}
           />
         )}
+
       </div>
 
       <div className="flex justify-between pt-2">
+
         {currentStep > 0 && (
           <button
             type="button"
             onClick={() => setCurrentStep((prev) => prev - 1)}
-            className="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-sm md:text-base"
+            className="px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded-md"
           >
             Back
           </button>
         )}
 
-        {currentStep < steps.length - 1 ? (
+        <div className="flex gap-3">
+
           <button
             type="button"
-            onClick={() => {
-              const valid = validateStep(currentStep);
-              if (valid) setCurrentStep((prev) => prev + 1);
-            }}
-            className="ml-auto px-4 py-2 rounded-md shadow-sm text-sm md:text-base bg-[#c21219] hover:bg-red-700 text-white"
+            onClick={saveDraft}
+            className="px-3 py-2 border rounded-md"
           >
-            {currentStep < steps.length - 2 ? "Next" : "Go to Review"}
+            Save Draft
           </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() => {
-              const valid = validateStep(currentStep);
-              if (valid) setShowConfirm(true);
-            }}
-            className="ml-auto px-4 py-2 rounded-md shadow-sm text-sm md:text-base bg-[#c21219] hover:bg-red-700 text-white"
-          >
-            Post Project
-          </button>
-        )}
+
+          {currentStep < steps.length - 1 ? (
+            <button
+              type="button"
+              onClick={() => {
+                const valid = validateStep(currentStep);
+                if (valid) setCurrentStep((prev) => prev + 1);
+              }}
+              className="px-4 py-2 bg-[#c21219] text-white rounded-md"
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setShowConfirm(true)}
+              className="px-4 py-2 bg-[#c21219] text-white rounded-md"
+            >
+              Post Project
+            </button>
+          )}
+
+        </div>
       </div>
 
-      {/* Confirmation Modal */}
-      {showConfirm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
-              Confirm Project Posting
-            </h2>
-            <p className="text-sm text-gray-700 mb-6">
-              Are you sure you want to post this project? Please review all details carefully.
-            </p>
-            <div className="flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-sm"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={handleFinalSubmit}
-                className="px-4 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md text-sm"
-              >
-                Confirm & Post
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </form>
   );
 }
-
-

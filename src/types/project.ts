@@ -2,89 +2,198 @@ import { Consultant } from "./client";
 import { EscrowStatus, EscrowTransaction } from "./escrow";
 export type { EscrowStatus, EscrowTransaction };
 
-/* -------------------- PROJECT -------------------- */
+/* =========================================================
+   PROJECT TYPES
+========================================================= */
+
+export type ProjectType =
+  | "fixed"
+  | "hourly"
+  | "consulting"
+  | "retainer"
+  | "internal";
+
+export type ProjectStage =
+  | "draft"
+  | "open"
+  | "bidding"
+  | "active"
+  | "paused"
+  | "completed"
+  | "cancelled"
+  | "archived";
+
+/* =========================================================
+   PROJECT METRICS
+========================================================= */
+
+export interface ProjectMetrics {
+  totalMilestones: number;
+  completedMilestones: number;
+  fundedAmount: number;
+  releasedAmount: number;
+  progress: number;
+}
+
+/* =========================================================
+   PROJECT
+========================================================= */
+
 export interface Project {
   _id?: string;
   id: string;
 
+  /* ---------------- BASIC INFO ---------------- */
+
   title: string;
+  description?: string;
   category: string;
+
   tech?: string;
-  location?: string;
-  budget?: number;
-  hourlyRate?: number;
-  rating?: number;
   organization?: string;
+  location?: string;
+  documents?: string;
   image?: string;
   images?: string[];
-  description?: string;
-  comment?: string; // ✅ add 
-  extraField?: string;
-  startDate?: string;
-  endDate?: string;
-  TaskType?: string;
 
+  color?: string;
 
-  /* 🔹 NEW: Client-facing project meaning */
-  purpose?: string;
-  color?: string; // hex color for branding (e.g. "#c12129")
-
-  /* 🔹 NEW: Capability-driven representation */
+  tags?: string[];
   skills?: string[];
 
-  /* 🔹 NEW: Execution structure */
-  workPhases?: WorkPhase[];
+  /* ---------------- TYPE + STAGE ---------------- */
 
-  milestones?: Milestone[];
+  type?: ProjectType;
+  stage?: ProjectStage;
 
-  // type?: "fixed" | "hourly";
-  type?: number;
+  /* ---------------- CLIENT PURPOSE ---------------- */
 
+  purpose?: string;
+
+  /* ---------------- PROJECT TIMING ---------------- */
+
+  startDate?: string;
+  endDate?: string;
+  deadline?: string;
+  status: string;
+  timeline?: string;
+
+  /* ---------------- PROJECT STRUCTURE ---------------- */
+
+  execution?: ProjectExecution;
+
+  /* ---------------- FINANCIAL LAYER ---------------- */
+
+  finance?: ProjectFinance;
+
+  /* ---------------- CONSULTANTS ---------------- */
+
+  consultants?: Consultant[];
+  assignedConsultants?: ProjectConsultant[];
+
+  /* ---------------- PROJECT MANAGEMENT ---------------- */
+
+  ownerId?: string;
+  teamId?: string;
   adminIds?: string[];
-  currentMilestoneId?: string;
+
+  priority?: string;
 
   suggestedBidRange?: {
     min: number;
     max: number;
   };
 
-  /* 🔹 Existing + compatible */
-  consultants?: string[] | Consultant[];
+  /* ---------------- ACTIVITY ---------------- */
 
-  /* 🔹 NEW: Project-scoped consultant assignments */
-  assignedConsultants?: ProjectConsultant[];
+  activities?: ActivityItem[];
 
-  priority?: string;
-  deadline?: string;
-  status?: string;
+  /* ---------------- PROJECT METRICS ---------------- */
 
-  teamId?: string;
-  ownerId?: string;
+  metrics?: ProjectMetrics;
+
+  /* ---------------- LEGACY SUPPORT ---------------- */
+
+  workPhases?: WorkPhase[];
+  milestones?: Milestone[];
 
   milestoneProgress?: number;
-  timeline?: string;
+  currentMilestoneId?: string;
+
+  /* ---------------- FINANCE (LEGACY) ---------------- */
 
   escrow?: EscrowTransaction[];
-  activities?: ActivityItem[];
-  
-  // Extended fields used in mocks
+
   currency?: string;
+  budget?: number;
+  hourlyRate?: number;
+
+  /* ---------------- EXTRA FIELDS ---------------- */
+
+  comment?: string;
+  extraField?: string;
+  TaskType?: string;
+
+  rating?: number;
+
   createdAt?: string;
   updatedAt?: string;
-  tags?: string[];
 }
 
-/* -------------------- WORK PHASES -------------------- */
+/* =========================================================
+   PROJECT EXECUTION LAYER
+========================================================= */
+
+export interface ProjectExecution {
+  workPhases?: WorkPhase[];
+
+  milestones?: Milestone[];
+
+  assignedConsultants?: ProjectConsultant[];
+
+  milestoneProgress?: number;
+
+  currentMilestoneId?: string;
+
+  timeline?: string;
+}
+
+/* =========================================================
+   PROJECT FINANCE LAYER
+========================================================= */
+
+export interface ProjectFinance {
+  budget?: number;
+  hourlyRate?: number;
+  currency?: string;
+
+  escrow?: EscrowTransaction[];
+
+  ledger?: LedgerEntry[];
+}
+
+/* =========================================================
+   WORK PHASES
+========================================================= */
+
 export interface WorkPhase {
   id?: string;
+
   name: string;
-  duration: string; // e.g. "2 weeks", "4 weeks"
+
+  duration: string;
+
   description?: string;
+
   order?: number;
+
   status?: "pending" | "active" | "completed";
 }
 
-/* -------------------- PROJECT CONSULTANT -------------------- */
+/* =========================================================
+   PROJECT CONSULTANT
+========================================================= */
+
 export interface CalendarEvent {
   id: string;
   title: string;
@@ -95,23 +204,44 @@ export interface CalendarEvent {
 
 export interface ProjectConsultant {
   id: string;
-  consultantId?: string; // links to Consultant entity
+
+  consultantId?: string;
+
   name: string;
+
   role: string;
+
   industry: string;
+
   delivery: string;
+
   rate: number | string;
+
   rating: number;
-  schedule: string; // "Mon–Fri, 9am–5pm"
-  progress: number; // 0–100
+
+  schedule: string;
+
+  progress: number;
+
   assignedAt?: string;
+
   availability: string[];
-  reminders: { id: string; message: string; date: string }[];
+
+  reminders: {
+    id: string;
+    message: string;
+    date: string;
+  }[];
+
   calendarEvents?: CalendarEvent[];
+
   status?: "pending" | "active" | "paused" | "completed";
 }
 
-/* -------------------- MILESTONES -------------------- */
+/* =========================================================
+   MILESTONES
+========================================================= */
+
 export type MilestoneStatus =
   | "pending"
   | "in_progress"
@@ -124,17 +254,31 @@ export type MilestoneStatus =
 export interface Milestone {
   _id?: string;
   id?: string;
+
   title: string;
+
   description?: string;
+
   amount?: number;
+
   dueDate?: string;
-  progress?: number;
-  status?: MilestoneStatus;
+
   deadline?: string;
+
+  progress?: number;
+
+  status?: MilestoneStatus;
+
   workPhaseId?: string;
+
   acceptanceCriteria?: string;
+
   documents?: ProjectDocument[];
 }
+
+/* =========================================================
+   PROJECT DOCUMENTS
+========================================================= */
 
 export interface ProjectDocument {
   id: string;
@@ -143,84 +287,147 @@ export interface ProjectDocument {
   uploadedAt: string;
 }
 
-/* -------------------- ACTIVITY LOG -------------------- */
+/* =========================================================
+   ACTIVITY LOG
+========================================================= */
+
 export interface ActivityItem {
   id: string;
+
   action: string;
+
   user: string;
+
   timestamp: string;
+
   details?: string;
+
   type?: "system" | "user";
 }
 
+/* =========================================================
+   WALLET
+========================================================= */
 
-/* -------------------- WALLET -------------------- */
 export interface Wallet {
   id: string;
+
   userId: string;
+
   currency: string;
+
   availableBalance: number;
+
   heldBalance: number;
+
   status: "active" | "frozen" | "closed";
+
   updatedAt: string;
 
-  // Extended fields used in mocks
   totalBalance?: number;
+
   kycStatus?: string;
+
   riskScore?: number;
+
   lastKycAt?: string;
+
   metadata?: any;
 }
 
-/* -------------------- LEDGER -------------------- */
+/* =========================================================
+   LEDGER
+========================================================= */
+
 export interface LedgerEntry {
   id: string;
+
   userId: string;
+
   projectId?: string;
+
   currency: string;
+
   amount: number;
+
   debitAccount: string;
+
   creditAccount: string;
+
   referenceId?: string;
+
   createdAt: string;
 
-  // Extended fields used in mocks
   type?: "debit" | "credit";
+
   reference?: string;
+
   notes?: string;
 }
 
-/* -------------------- DISPUTES -------------------- */
-export type DisputeStatus = "open" | "under_review" | "resolved" | "closed";
+/* =========================================================
+   DISPUTES
+========================================================= */
+
+export type DisputeStatus =
+  | "open"
+  | "under_review"
+  | "resolved"
+  | "closed";
 
 export interface Dispute {
   id: string;
+
   projectId: string;
+
   milestoneId?: string;
+
   openedBy: string;
+
   status: DisputeStatus;
+
   resolution?: "refund" | "release" | "split" | null;
+
   resolutionRatio?: number;
+
   evidenceRefs?: string[];
+
   notes?: string[];
+
   createdAt: string;
+
   updatedAt: string;
 
-  // Extended fields used in mocks
   openedByRole?: string;
-  evidence?: { id: string; name: string; url: string; uploadedAt: string }[];
+
+  evidence?: {
+    id: string;
+    name: string;
+    url: string;
+    uploadedAt: string;
+  }[];
+
   assignedTo?: string;
+
   slaDueAt?: string;
+
   outcome?: string | null;
 }
 
-/* -------------------- ESCROW DASHBOARD -------------------- */
+/* =========================================================
+   ESCROW DASHBOARD
+========================================================= */
+
 export interface EscrowDashboardProps {
   balance: number;
   fundedTotal: number;
   releasedTotal: number;
+
   transactions: EscrowTransaction[];
+
   ledger: LedgerEntry[];
+
   project: Project;
+
   currentUserId: string;
 }

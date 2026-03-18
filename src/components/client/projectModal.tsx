@@ -1,148 +1,101 @@
 "use client";
 
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Project, Milestone, WorkPhase, ProjectDocument } from "@/types/project";
+import type { Project } from "@/types/project";
+import { mockProjects } from "@/mocks/mockClientProfile";
 
-const statusColors: Record<string, string> = {
-    pending: "bg-gray-500",
-    in_progress: "bg-blue-500",
-    funded: "bg-yellow-500",
-    released: "bg-green-500",
-    completed: "bg-green-700",
-    cancelled: "bg-orange-500",
-    disputed: "bg-red-600",
-};
+import PhasesSection from "./project/workPhrases";
+import ConsultantsSection from "./project/consultants";
+import EscrowSection from "./project/escrow";
+import ActivitySection from "./project/activityLog";
 
-const phaseColors: Record<string, string> = {
-    pending: "text-gray-400",
-    active: "text-red-500",
-    completed: "text-green-500",
-};
+function fmtDate(d?: string) {
+    if (!d) return "N/A";
+    try {
+        return new Date(d).toLocaleDateString();
+    } catch {
+        return d;
+    }
+}
 
-export default function ProjectModal({
-    project,
-    onClose,
-    premiumUser,
-}: {
-    project: Project;
-    onClose: () => void;
-    premiumUser: boolean;
-}) {
+export default function ProjectModal({ project, onClose }: { project?: Project | null; onClose: () => void }) {
+    const containerRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        containerRef.current?.focus();
+        function onKey(e: KeyboardEvent) {
+            if (e.key === "Escape") onClose();
+        }
+        document.addEventListener("keydown", onKey);
+        return () => document.removeEventListener("keydown", onKey);
+    }, [onClose]);
+
+    const effectiveProject: Project = project && Object.keys(project).length > 0 ? project : mockProjects[0];
+    const isFallback = !(project && Object.keys(project).length > 0);
+
     return (
-        <motion.div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <motion.div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <motion.div
-                className="bg-gray-900 rounded-xl p-6 w-full max-w-4xl shadow-lg border border-red-600 overflow-y-auto max-h-[90vh]"
-                initial={{ y: 50 }}
-                animate={{ y: 0 }}
+                ref={containerRef}
+                tabIndex={-1}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="project-modal-title"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="relative z-10 w-full max-w-5xl bg-gray-900 rounded-xl p-6 shadow-xl border border-gray-700 overflow-hidden"
             >
-                {/* Header */}
-                <h2 className="text-xl font-bold text-white mb-2">{project.title}</h2>
-                <p className="text-sm text-gray-400 mb-4">{project.description}</p>
+                {isFallback && (
+                    <div className="mb-4 px-3 py-2 bg-yellow-600 text-black text-xs rounded">
+                        Showing mock project data while the service is unavailable.
+                    </div>
+                )}
 
-                {/* Overview */}
-                <div className="grid grid-cols-2 gap-4 text-sm text-gray-300 mb-6">
-                    <p><strong>Category:</strong> {project.category}</p>
-                    <p><strong>Budget:</strong> ${project.budget || 0}</p>
-                    <p><strong>Deadline:</strong> {project.deadline || "N/A"}</p>
-                    <p><strong>Purpose:</strong> {project.purpose || "N/A"}</p>
-                    {project.suggestedBidRange && (
-                        <p><strong>Suggested Range:</strong> ${project.suggestedBidRange.min} – ${project.suggestedBidRange.max}</p>
-                    )}
+                <div className="flex items-start justify-between gap-4">
+                    <div>
+                        <h2 id="project-modal-title" className="text-2xl font-semibold text-white">
+                            {effectiveProject.title}
+                        </h2>
+                        <p className="text-sm text-gray-400 mt-1">{effectiveProject.description}</p>
+
+                        <div className="mt-3 text-xs text-gray-300 grid grid-cols-2 gap-2">
+                            <div><strong>Category:</strong> {effectiveProject.category ?? "—"}</div>
+                            <div><strong>Budget:</strong> {effectiveProject.currency ? `${effectiveProject.currency} ${effectiveProject.budget ?? 0}` : `$${effectiveProject.budget ?? 0}`}</div>
+                            <div><strong>Deadline:</strong> {fmtDate(effectiveProject.deadline)}</div>
+                            <div><strong>Purpose:</strong> {effectiveProject.purpose ?? "—"}</div>
+                            {effectiveProject.suggestedBidRange && (
+                                <div><strong>Suggested Range:</strong> {effectiveProject.currency ?? "$"}{effectiveProject.suggestedBidRange.min} – {effectiveProject.currency ?? "$"}{effectiveProject.suggestedBidRange.max}</div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="flex-shrink-0">
+                        <button onClick={onClose} aria-label="Close project details" className="px-3 py-2 rounded-md bg-gray-800 text-sm text-gray-200 hover:bg-gray-700 transition">
+                            Close
+                        </button>
+                    </div>
                 </div>
 
-                {/* Work Phases & Milestones */}
-                <h3 className="text-lg text-white mb-2">Work Phases</h3>
-                {project.workPhases?.map((phase: WorkPhase) => (
-                    <div key={phase.id} className="mb-4">
-                        <h4 className={`text-md font-semibold ${phaseColors[phase.status || "pending"]}`}>
-                            {phase.name} ({phase.duration})
-                        </h4>
-                        <p className="text-xs text-gray-400">{phase.description}</p>
-
-                        <ul className="space-y-2 mt-2">
-                            {project.milestones
-                                ?.filter((m) => m.workPhaseId === phase.id)
-                                .map((m: Milestone) => (
-                                    <li
-                                        key={m.id}
-                                        className="bg-gray-800 p-3 rounded-lg border border-gray-700 text-gray-300"
-                                    >
-                                        <div className="flex justify-between items-center">
-                                            <p className="font-semibold">{m.title}</p>
-                                            <span
-                                                className={`px-2 py-0.5 rounded-full text-xs ${statusColors[m.status || "pending"]}`}
-                                            >
-                                                {m.status}
-                                            </span>
-                                        </div>
-                                        <p className="text-xs">{m.description}</p>
-                                        <p className="text-xs text-gray-500">
-                                            Due: {m.dueDate || "N/A"} | Amount: ${m.amount || 0}
-                                        </p>
-                                        {m.progress !== undefined && (
-                                            <div className="h-1 bg-gray-700 rounded-full overflow-hidden mt-1">
-                                                <motion.div
-                                                    className="bg-blue-500 h-full"
-                                                    style={{ width: `${m.progress}%` }}
-                                                    initial={{ width: 0 }}
-                                                    animate={{ width: `${m.progress}%` }}
-                                                    transition={{ duration: 0.6 }}
-                                                />
-                                            </div>
-                                        )}
-                                        {/* Documents */}
-                                        {m.documents?.map((doc: ProjectDocument) => (
-                                            <a
-                                                key={doc.url}
-                                                href={doc.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="block mt-2 text-red-500 hover:text-white underline text-xs"
-                                            >
-                                                {doc.name}
-                                            </a>
-                                        ))}
-                                    </li>
-                                ))}
-                        </ul>
+                <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="lg:col-span-2 overflow-y-auto max-h-[65vh] pr-2">
+                        <PhasesSection project={effectiveProject} />
                     </div>
-                ))}
 
-                {/* Consultants */}
-                <h3 className="text-lg text-white mt-4 mb-2">Assigned Consultants</h3>
-                {project.assignedConsultants?.map((c) => (
-                    <div
-                        key={c.id}
-                        className="bg-gray-800 p-3 rounded-lg border border-gray-700 text-gray-300 mb-2"
-                    >
-                        <p className="font-semibold">{c.name} ({c.role})</p>
-                        <p className="text-xs">Schedule: {c.schedule} | Progress: {c.progress}%</p>
-                    </div>
-                ))}
+                    <aside className="space-y-4">
+                        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                            <ConsultantsSection project={effectiveProject} />
+                        </div>
 
-                {/* Escrow */}
-                <h3 className="text-lg text-white mt-4 mb-2">Escrow Transactions</h3>
-                {project.escrow?.map((tx) => (
-                    <div key={tx.id} className="text-xs text-gray-400 mb-1">
-                        {tx.amount} {tx.currency} – {tx.status} (Milestone: {tx.milestoneId || "N/A"})
-                    </div>
-                ))}
+                        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                            <EscrowSection project={effectiveProject} />
+                        </div>
 
-                {/* Activity Log */}
-                <h3 className="text-lg text-white mt-4 mb-2">Activity Log</h3>
-                {project.activities?.map((a) => (
-                    <div key={a.id} className="text-xs text-gray-400 mb-1">
-                        {a.timestamp}: {a.user} {a.action} – {a.details}
-                    </div>
-                ))}
-
-                {/* Close */}
-                <button
-                    onClick={onClose}
-                    className="mt-6 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-                >
-                    Close
-                </button>
+                        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                            <ActivitySection project={effectiveProject} />
+                        </div>
+                    </aside>
+                </div>
             </motion.div>
         </motion.div>
     );
