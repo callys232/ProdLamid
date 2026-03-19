@@ -1,21 +1,52 @@
+// mocks/mockClientProfile.ts
+
 import { ClientProfile } from "@/types/client";
 import { Project } from "@/types/project";
+
+/* ------------------------------------------------ */
+/* TIMESTAMPS */
+/* ------------------------------------------------ */
+
+const now = new Date().toISOString();
+
+/* ------------------------------------------------ */
+/* MOCK PROJECTS */
+/* ------------------------------------------------ */
 
 export const mockProjects: Project[] = [
     {
         id: "p1",
         title: "Website Redesign",
         category: "Design",
+        status: "active",
         description: "Complete overhaul of the company website.",
         budget: 5000,
         deadline: "2026-04-01",
         purpose: "Improve UX and branding",
+
         suggestedBidRange: { min: 4000, max: 6000 },
+
         images: ["/mockimages/web1.png", "/mockimages/web2.png"],
+
+        /* ---------------- WORK PHASES ---------------- */
+
         workPhases: [
-            { id: "wp1", name: "Design", duration: "2 weeks", status: "completed" },
-            { id: "wp2", name: "Development", duration: "4 weeks", status: "active" },
+            {
+                id: "wp1",
+                name: "Design",
+                duration: "2 weeks",
+                status: "completed",
+            },
+            {
+                id: "wp2",
+                name: "Development",
+                duration: "4 weeks",
+                status: "active",
+            },
         ],
+
+        /* ---------------- MILESTONES ---------------- */
+
         milestones: [
             {
                 id: "m1",
@@ -58,6 +89,9 @@ export const mockProjects: Project[] = [
                 documents: [],
             },
         ],
+
+        /* ---------------- CONSULTANTS ---------------- */
+
         assignedConsultants: [
             {
                 id: "c1",
@@ -70,9 +104,18 @@ export const mockProjects: Project[] = [
                 schedule: "Mon–Fri, 9–5",
                 progress: 100,
                 status: "completed",
+
                 availability: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-                reminders: [{ id: "r1", message: "Review milestone Wireframes", date: "2026-02-14" }],
+
+                reminders: [
+                    {
+                        id: "r1",
+                        message: "Review milestone Wireframes",
+                        date: "2026-02-14",
+                    },
+                ],
             },
+
             {
                 id: "c2",
                 name: "John Smith",
@@ -84,27 +127,88 @@ export const mockProjects: Project[] = [
                 schedule: "Mon–Fri, 10–6",
                 progress: 40,
                 status: "active",
+
                 availability: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-                reminders: [{ id: "r2", message: "Frontend Build due soon", date: "2026-03-18" }],
+
+                reminders: [
+                    {
+                        id: "r2",
+                        message: "Frontend Build due soon",
+                        date: "2026-03-18",
+                    },
+                ],
             },
         ],
-        escrow: [],
-        activities: [],
+
+        /* ---------------- ESCROW ---------------- */
+
+        escrow: [
+            {
+                id: "e1",
+                projectId: "p1",
+                milestoneId: "m1",
+                amount: 1000,
+                currency: "USD",
+                status: "released",
+                createdAt: now,
+                updatedAt: now
+            },
+            {
+                id: "e2",
+                projectId: "p1",
+                milestoneId: "m2",
+                amount: 2000,
+                currency: "USD",
+                status: "funded",
+                createdAt: now,
+                updatedAt: now
+            },
+        ],
+
+        /* ---------------- ACTIVITY ---------------- */
+
+        activities: [
+            {
+                id: "a1",
+                action: "Milestone Completed",
+                user: "Jane Doe",
+                timestamp: now,
+                details: "Wireframes milestone finished",
+            },
+        ],
     },
+
+    /* ======================================================== */
+
     {
         id: "p2",
         title: "Mobile App Launch",
         category: "Development",
+        status: "pending",
         description: "Build and launch a cross-platform mobile app.",
         budget: 8000,
         deadline: "2026-05-15",
         purpose: "Expand product reach",
+
         suggestedBidRange: { min: 7000, max: 9000 },
+
         images: ["/mockimages/app1.png", "/mockimages/app2.png"],
+
         workPhases: [
-            { id: "wp3", name: "Prototype", duration: "3 weeks", status: "pending" },
-            { id: "wp4", name: "Beta Release", duration: "2 weeks", status: "pending" },
+            {
+                id: "wp3",
+                name: "Prototype",
+                duration: "3 weeks",
+                status: "pending",
+            },
+            {
+                id: "wp4",
+                name: "Beta Release",
+                duration: "2 weeks",
+                status: "pending",
+            },
         ],
+
         milestones: [
             {
                 id: "m4",
@@ -131,7 +235,7 @@ export const mockProjects: Project[] = [
             {
                 id: "m6",
                 title: "App Store Deployment",
-                description: "Deploy app to iOS and Android stores",
+                description: "Deploy app to stores",
                 amount: 2500,
                 dueDate: "2026-05-15",
                 progress: 0,
@@ -140,6 +244,7 @@ export const mockProjects: Project[] = [
                 documents: [],
             },
         ],
+
         assignedConsultants: [
             {
                 id: "c3",
@@ -152,20 +257,36 @@ export const mockProjects: Project[] = [
                 schedule: "Mon–Fri, 9–5",
                 progress: 0,
                 status: "pending",
+
                 availability: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-                reminders: [{ id: "r3", message: "Prototype milestone upcoming", date: "2026-03-30" }],
+
+                reminders: [
+                    {
+                        id: "r3",
+                        message: "Prototype milestone upcoming",
+                        date: "2026-03-30",
+                    },
+                ],
             },
         ],
+
         escrow: [],
         activities: [],
     },
 ];
 
+/* ------------------------------------------------ */
+/* CLIENT PROFILE */
+/* ------------------------------------------------ */
+
 export const mockClient: ClientProfile = {
     id: "client1",
     name: "Acme Corp",
-    email: "contact@acmecorp.com",
     username: "acmecorp",
+    email: "contact@acmecorp.com",
+
+    projects: mockProjects,
+
     consultants: [
         {
             id: "c1",
@@ -175,7 +296,7 @@ export const mockClient: ClientProfile = {
             rate: 50,
             rating: 4.8,
             role: "UI Designer",
-            projects: [mockProjects[0]], // ✅ individual project
+            projects: [mockProjects[0]],
         },
         {
             id: "c2",
@@ -185,25 +306,44 @@ export const mockClient: ClientProfile = {
             rate: 60,
             rating: 4.6,
             role: "Frontend Dev",
-            projects: [mockProjects[0]], // ✅ individual project
+            projects: [mockProjects[0]],
         },
     ],
+
     teamMembers: [
         {
             id: "t1",
             name: "Team Alpha",
             role: "Project Manager",
             email: "alpha@example.com",
-            addedAt: "2026-01-01T00:00:00Z",
-            projects: [mockProjects[1]], // ✅ team project
+            addedAt: now,
+            projects: [mockProjects[1]],
         },
     ],
-    projects: mockProjects,
+
     escrowTransactions: mockProjects.flatMap((p) => p.escrow || []),
+
     invitations: [],
     teams: [],
-    createdAt: "2026-01-01T00:00:00Z",
-    updatedAt: "2026-01-01T00:00:00Z",
-    alerts: [{ id: "alert1", message: "Upcoming milestone review", createdAt: "2026-03-18", type: "milestone" }],
-    notifications: [{ id: 1, message: "Escrow funded for Frontend Build", createdAt: "2026-03-01", type: "escrow" }],
+
+    alerts: [
+        {
+            id: "alert1",
+            type: "milestone",
+            message: "Upcoming milestone review",
+            createdAt: now,
+        },
+    ],
+
+    notifications: [
+        {
+            id: 1,
+            type: "escrow",
+            message: "Escrow funded for Frontend Build",
+            createdAt: now,
+        },
+    ],
+
+    createdAt: now,
+    updatedAt: now,
 };

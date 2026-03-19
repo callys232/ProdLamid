@@ -34,7 +34,7 @@ export default function Settings({ user }: { user: any }) {
   const renderTab = () => {
     switch (activeTab) {
       case "profile":
-        return <EditProfileForm user={user} />;
+        return <EditProfileForm user={user} onClose={() => { }} />;
       case "business":
         return <BusinessProfile user={user} />;
       case "tiers":
@@ -52,7 +52,7 @@ export default function Settings({ user }: { user: any }) {
       case "Contract":
         return <Contract />;
       default:
-        return <EditProfileForm user={user} />;
+        return <EditProfileForm user={user} onClose={() => { }} />;
     }
   };
 

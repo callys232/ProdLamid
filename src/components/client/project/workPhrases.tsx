@@ -2,7 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import type { Project, WorkPhase, Milestone, ProjectDocument } from "@/types/project";
+import type { Project, WorkPhase, Milestone } from "@/types/project";
+import type { ProjectDocument } from "@/types/projectPosting";
 import { mockProjects } from "@/mocks/mockClientProfile";
 
 const STATUS_COLORS: Record<string, string> = {

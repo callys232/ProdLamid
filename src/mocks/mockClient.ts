@@ -1,4 +1,5 @@
 // mocks/mockClient.ts
+
 import {
   ClientProfile,
   Consultant,
@@ -9,14 +10,17 @@ import {
   Alert,
   Notification,
 } from "@/types/client";
+
 import { Project, Milestone, ActivityItem } from "@/types/project";
 
 /* -------------------- TIMESTAMP CONSTANTS -------------------- */
+
 const now = new Date().toISOString();
 const oneHourAgo = new Date(Date.now() - 3600 * 1000).toISOString();
 const twoHoursAgo = new Date(Date.now() - 7200 * 1000).toISOString();
 
 /* -------------------- MILESTONES -------------------- */
+
 export const exampleMilestones: Milestone[] = [
   {
     id: "m1",
@@ -41,7 +45,8 @@ export const exampleMilestones: Milestone[] = [
   },
 ];
 
-/* -------------------- PROJECTS (WITH MULTIPLE FREELANCERS) -------------------- */
+/* -------------------- PROJECTS -------------------- */
+
 export const teamProjects: Project[] = [
   {
     _id: "tp1",
@@ -60,7 +65,6 @@ export const teamProjects: Project[] = [
     teamId: "team1",
     ownerId: "client1",
     milestones: exampleMilestones,
-    consultants: ["c1", "c2", "c3"], // MULTIPLE FREELANCERS
     milestoneProgress: 60,
     image: "https://placehold.co/600x400?text=Team+Alpha",
     suggestedBidRange: { min: 4000, max: 6000 },
@@ -82,12 +86,10 @@ export const teamProjects: Project[] = [
     teamId: "team1",
     ownerId: "client1",
     milestones: exampleMilestones.slice(0, 2),
-    consultants: ["c2", "c4"], // MULTIPLE FREELANCERS
     milestoneProgress: 100,
     image: "https://placehold.co/600x400?text=Team+Beta",
     suggestedBidRange: { min: 7000, max: 9000 },
   },
-  /* single-freelancer team project */
   {
     _id: "tp3",
     id: "tp3",
@@ -105,7 +107,6 @@ export const teamProjects: Project[] = [
     teamId: "team1",
     ownerId: "client1",
     milestones: exampleMilestones.slice(0, 1),
-    consultants: ["c3"], // SINGLE FREELANCER
     milestoneProgress: 20,
     image: "https://placehold.co/600x400?text=Team+Omega",
     suggestedBidRange: { min: 3000, max: 4000 },
@@ -129,7 +130,6 @@ export const individualProjects: Project[] = [
     deadline: "2025-11-30",
     ownerId: "client2",
     milestones: exampleMilestones,
-    consultants: ["c1", "c3"], // MULTIPLE FREELANCERS
     milestoneProgress: 30,
     image: "https://placehold.co/600x400?text=Gamma",
     suggestedBidRange: { min: 1800, max: 2500 },
@@ -143,43 +143,21 @@ export const individualProjects: Project[] = [
     location: "Hybrid",
     budget: 1000,
     hourlyRate: 25,
-    rating: 4.0,
+    rating: 4,
     organization: "Independent",
     status: "completed",
     priority: "Low",
     deadline: "2025-09-01",
     ownerId: "client2",
     milestones: exampleMilestones.slice(0, 1),
-    consultants: ["c2"], // SINGLE FREELANCER
     milestoneProgress: 100,
     image: "https://placehold.co/600x400?text=Delta",
     suggestedBidRange: { min: 800, max: 1200 },
   },
-  /* optional: unassigned project (zero freelancers) */
-  {
-    _id: "ip3",
-    id: "ip3",
-    title: "Unassigned Marketing Landing Page",
-    category: "Web",
-    tech: "Next.js, Tailwind",
-    location: "Remote",
-    budget: 1500,
-    hourlyRate: 30,
-    rating: 0,
-    organization: "Independent",
-    status: "open",
-    priority: "Medium",
-    deadline: "2025-07-21",
-    ownerId: "client2",
-    milestones: exampleMilestones.slice(0, 1),
-    consultants: [], // NO FREELANCERS
-    milestoneProgress: 0,
-    image: "https://placehold.co/600x400?text=Landing+Page",
-    suggestedBidRange: { min: 1200, max: 1800 },
-  },
 ];
 
-/* -------------------- CONSULTANTS (EXPANDED FOR MULTI-FREELANCER PROJECTS) -------------------- */
+/* -------------------- CONSULTANTS -------------------- */
+
 export const mockConsultants: Consultant[] = [
   {
     id: "c1",
@@ -191,7 +169,7 @@ export const mockConsultants: Consultant[] = [
     role: "Lead Developer",
     email: "jane@example.com",
     image: "https://randomuser.me/api/portraits/women/65.jpg",
-    projects: [individualProjects[0], teamProjects[0]],
+    projects: [teamProjects[0], individualProjects[0]],
     skills: ["React.js", "Python", "UI/UX"],
   },
   {
@@ -204,7 +182,7 @@ export const mockConsultants: Consultant[] = [
     role: "Financial Consultant",
     email: "bob@example.com",
     image: "https://randomuser.me/api/portraits/men/70.jpg",
-    projects: [individualProjects[1], teamProjects[1]],
+    projects: [teamProjects[1], individualProjects[1]],
     skills: ["Flutter", "Figma", "Financial Analysis"],
   },
   {
@@ -236,6 +214,7 @@ export const mockConsultants: Consultant[] = [
 ];
 
 /* -------------------- TEAM MEMBERS -------------------- */
+
 export const mockTeamMembers: TeamMember[] = [
   {
     id: "t1",
@@ -256,6 +235,7 @@ export const mockTeamMembers: TeamMember[] = [
 ];
 
 /* -------------------- ESCROW TRANSACTIONS -------------------- */
+
 export const mockEscrowTransactions: EscrowTransaction[] = [
   {
     id: "e1",
@@ -267,54 +247,21 @@ export const mockEscrowTransactions: EscrowTransaction[] = [
     updatedAt: now,
     milestoneId: "m1",
   },
-  {
-    id: "e2",
-    projectId: "tp2",
-    amount: 1200,
-    currency: "USD",
-    status: "funded",
-    createdAt: oneHourAgo,
-    updatedAt: now,
-    milestoneId: "m2",
-  },
-  {
-    id: "e3",
-    projectId: "ip1",
-    amount: 300,
-    currency: "USD",
-    status: "pending",
-    createdAt: twoHoursAgo,
-    updatedAt: now,
-    milestoneId: "m3",
-  },
 ];
 
 /* -------------------- ACTIVITY LOG -------------------- */
+
 export const mockActivity: ActivityItem[] = [
   {
     id: "1",
     action: "Bid Placed",
     user: "Consultant A",
     timestamp: now,
-    details: "Proposed $2500 with 3-week delivery",
-  },
-  {
-    id: "2",
-    action: "Milestone Updated",
-    user: "Project Owner",
-    timestamp: oneHourAgo,
-    details: "Design phase marked complete",
-  },
-  {
-    id: "3",
-    action: "Escrow Released",
-    user: "System",
-    timestamp: twoHoursAgo,
-    details: "Payment of $500 released for milestone m1",
   },
 ];
 
 /* -------------------- INVITATIONS -------------------- */
+
 export const mockInvitations: Invitation[] = [
   {
     id: "i1",
@@ -327,6 +274,7 @@ export const mockInvitations: Invitation[] = [
 ];
 
 /* -------------------- AI LOGS -------------------- */
+
 export const mockAiLogs: AiActionLog[] = [
   {
     id: "log1",
@@ -339,6 +287,7 @@ export const mockAiLogs: AiActionLog[] = [
 ];
 
 /* -------------------- CLIENTS -------------------- */
+
 export const mockClients: ClientProfile[] = [
   {
     id: "client1",
@@ -356,58 +305,13 @@ export const mockClients: ClientProfile[] = [
     invitations: mockInvitations,
     teams: [],
     aiLogs: mockAiLogs,
-    alerts: [
-      {
-        id: "a1",
-        type: "Risk",
-        message: "Milestone overdue",
-        severity: "High",
-      } as Alert,
-    ],
-    notifications: [
-      {
-        id: 1,
-        type: "Email",
-        message: "Reminder: Team sync at 3 PM",
-      } as Notification,
-    ],
-    createdAt: now,
-    updatedAt: now,
-  },
-  {
-    id: "client2",
-    username: "alicej",
-    name: "Alice Johnson",
-    email: "alice@example.com",
-    companyname: "Example LLC",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    isPremium: false,
-    projects: [...teamProjects, ...individualProjects],
-    consultants: mockConsultants,
-    teamMembers: mockTeamMembers,
-    escrowTransactions: [],
-    invitations: [],
-    teams: [],
-    aiLogs: [],
-    alerts: [
-      {
-        id: "a1",
-        type: "message",
-        message: "Milestone in progress",
-        severity: "High",
-      } as Alert,
-    ],
-    notifications: [
-      {
-        id: 1,
-        type: "Email",
-        message: "Reminder: upload at 3 PM",
-      } as Notification,
-    ],
+    alerts: [],
+    notifications: [],
     createdAt: now,
     updatedAt: now,
   },
 ];
 
 /* -------------------- ACTIVE CLIENT -------------------- */
+
 export const activeClient = mockClients[0];

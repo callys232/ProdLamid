@@ -1,4 +1,5 @@
-// hooks/useNotifications.ts
+import { useState, useEffect } from "react";
+
 export function useNotifications() {
     const [count, setCount] = useState(0);
 

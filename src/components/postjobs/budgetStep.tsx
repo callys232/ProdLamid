@@ -116,15 +116,14 @@ export default function BudgetStep({
       : null;
 
   const endDateError =
-    startDate && endDate && endDate < minEnd
+    startDate && endDate && minEnd && endDate.getTime() < minEnd.getTime()
       ? "End date must be at least 3 months after start date."
       : null;
 
   const deadlineError =
-    startDate && deadline && deadline < minDeadline
+    startDate && deadline && minDeadline && deadline.getTime() < minDeadline.getTime()
       ? "Deadline must be at least 3 months after start date."
       : null;
-
   /* ================= TIMELINE PROGRESS ================= */
 
   const timelinePercent = useMemo(() => {

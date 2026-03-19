@@ -10,6 +10,12 @@ import ConsultantsSection from "./project/consultants";
 import EscrowSection from "./project/escrow";
 import ActivitySection from "./project/activityLog";
 
+interface ProjectModalProps {
+    project?: Project | null;
+    onClose: () => void;
+    premiumUser?: boolean; // add this line (optional) or boolean (required)
+}
+
 function fmtDate(d?: string) {
     if (!d) return "N/A";
     try {
@@ -18,8 +24,7 @@ function fmtDate(d?: string) {
         return d;
     }
 }
-
-export default function ProjectModal({ project, onClose }: { project?: Project | null; onClose: () => void }) {
+export default function ProjectModal({ project, onClose, premiumUser = false }: ProjectModalProps) {
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {

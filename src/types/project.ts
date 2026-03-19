@@ -1,9 +1,10 @@
 import { Consultant } from "./client";
-import { EscrowStatus, EscrowTransaction } from "./escrow";
+import { EscrowStatus, EscrowTransaction, ProjectDocument } from "./escrow";
+
 export type { EscrowStatus, EscrowTransaction };
 
 /* =========================================================
-   PROJECT TYPES
+   PROJECT TYPE + STAGE
 ========================================================= */
 
 export type ProjectType =
@@ -52,7 +53,8 @@ export interface Project {
   tech?: string;
   organization?: string;
   location?: string;
-  documents?: string;
+
+  documents?: string[]; // FIXED
   image?: string;
   images?: string[];
 
@@ -75,14 +77,15 @@ export interface Project {
   startDate?: string;
   endDate?: string;
   deadline?: string;
+
   status: string;
   timeline?: string;
 
-  /* ---------------- PROJECT STRUCTURE ---------------- */
+  /* ---------------- EXECUTION LAYER ---------------- */
 
   execution?: ProjectExecution;
 
-  /* ---------------- FINANCIAL LAYER ---------------- */
+  /* ---------------- FINANCE LAYER ---------------- */
 
   finance?: ProjectFinance;
 
@@ -90,8 +93,6 @@ export interface Project {
 
   consultants?: Consultant[];
   assignedConsultants?: ProjectConsultant[];
-
-  /* ---------------- PROJECT MANAGEMENT ---------------- */
 
   ownerId?: string;
   teamId?: string;
@@ -138,6 +139,8 @@ export interface Project {
 
   createdAt?: string;
   updatedAt?: string;
+
+  premiumUser?: boolean; // FIXED
 }
 
 /* =========================================================
@@ -146,15 +149,10 @@ export interface Project {
 
 export interface ProjectExecution {
   workPhases?: WorkPhase[];
-
   milestones?: Milestone[];
-
   assignedConsultants?: ProjectConsultant[];
-
   milestoneProgress?: number;
-
   currentMilestoneId?: string;
-
   timeline?: string;
 }
 
@@ -168,7 +166,6 @@ export interface ProjectFinance {
   currency?: string;
 
   escrow?: EscrowTransaction[];
-
   ledger?: LedgerEntry[];
 }
 
@@ -180,11 +177,9 @@ export interface WorkPhase {
   id?: string;
 
   name: string;
-
   duration: string;
 
   description?: string;
-
   order?: number;
 
   status?: "pending" | "active" | "completed";
@@ -208,19 +203,14 @@ export interface ProjectConsultant {
   consultantId?: string;
 
   name: string;
-
   role: string;
-
   industry: string;
-
   delivery: string;
 
   rate: number | string;
-
   rating: number;
 
   schedule: string;
-
   progress: number;
 
   assignedAt?: string;
@@ -256,13 +246,11 @@ export interface Milestone {
   id?: string;
 
   title: string;
-
   description?: string;
 
   amount?: number;
 
   dueDate?: string;
-
   deadline?: string;
 
   progress?: number;
@@ -277,17 +265,6 @@ export interface Milestone {
 }
 
 /* =========================================================
-   PROJECT DOCUMENTS
-========================================================= */
-
-export interface ProjectDocument {
-  id: string;
-  name: string;
-  url: string;
-  uploadedAt: string;
-}
-
-/* =========================================================
    ACTIVITY LOG
 ========================================================= */
 
@@ -295,7 +272,6 @@ export interface ActivityItem {
   id: string;
 
   action: string;
-
   user: string;
 
   timestamp: string;
@@ -317,7 +293,6 @@ export interface Wallet {
   currency: string;
 
   availableBalance: number;
-
   heldBalance: number;
 
   status: "active" | "frozen" | "closed";
@@ -327,9 +302,7 @@ export interface Wallet {
   totalBalance?: number;
 
   kycStatus?: string;
-
   riskScore?: number;
-
   lastKycAt?: string;
 
   metadata?: any;
@@ -343,15 +316,12 @@ export interface LedgerEntry {
   id: string;
 
   userId: string;
-
   projectId?: string;
 
   currency: string;
-
   amount: number;
 
   debitAccount: string;
-
   creditAccount: string;
 
   referenceId?: string;
@@ -361,7 +331,6 @@ export interface LedgerEntry {
   type?: "debit" | "credit";
 
   reference?: string;
-
   notes?: string;
 }
 
@@ -379,7 +348,6 @@ export interface Dispute {
   id: string;
 
   projectId: string;
-
   milestoneId?: string;
 
   openedBy: string;
@@ -387,15 +355,12 @@ export interface Dispute {
   status: DisputeStatus;
 
   resolution?: "refund" | "release" | "split" | null;
-
   resolutionRatio?: number;
 
   evidenceRefs?: string[];
-
   notes?: string[];
 
   createdAt: string;
-
   updatedAt: string;
 
   openedByRole?: string;
@@ -408,7 +373,6 @@ export interface Dispute {
   }[];
 
   assignedTo?: string;
-
   slaDueAt?: string;
 
   outcome?: string | null;
@@ -424,7 +388,6 @@ export interface EscrowDashboardProps {
   releasedTotal: number;
 
   transactions: EscrowTransaction[];
-
   ledger: LedgerEntry[];
 
   project: Project;

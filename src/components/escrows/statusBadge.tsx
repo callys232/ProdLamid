@@ -9,6 +9,8 @@ const statusStyles: Record<EscrowStatus, string> = {
   released: "bg-green-600 text-white",
   completed: "bg-emerald-700 text-white",
   disputed: "bg-red-600 text-white",
+  cancelled: "bg-gray-400 text-white", // added
+  failed: "bg-red-800 text-white",
 };
 
 export function StatusBadge({ status }: { status: EscrowStatus }) {

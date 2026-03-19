@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Project, WorkPhase, Milestone } from "@/types/project";
 
 interface ReviewStepProps {
@@ -32,19 +32,24 @@ export default function ReviewStep({
   tags,
   premiumUser,
 }: ReviewStepProps) {
-  // Cleanup object URLs to prevent memory leaks
+  // 1️⃣ Generate object URLs for previews
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+
   useEffect(() => {
+    const urls = images.map((file) => URL.createObjectURL(file));
+    setImageUrls(urls);
+
     return () => {
-      images.forEach((file) => URL.revokeObjectURL(file));
+      urls.forEach((url) => URL.revokeObjectURL(url));
     };
   }, [images]);
 
-  // Define all main project input fields
-  const projectFields: {
-    key: keyof Project;
+  // 2️⃣ Define only safe editable fields
+  const projectFields: Array<{
+    key: "title" | "category" | "location" | "deadline" | "priority" | "status" | "budget" | "hourlyRate";
     label: string;
     type?: "text" | "number" | "date";
-  }[] = [
+  }> = [
       { key: "title", label: "Title" },
       { key: "category", label: "Category" },
       { key: "location", label: "Location" },
@@ -61,10 +66,10 @@ export default function ReviewStep({
         Review and edit your project before posting
       </h3>
 
-      {/* Project Core Details */}
+      {/* 3️⃣ Project Core Details */}
       <div className="grid grid-cols-2 gap-4">
         {projectFields.map(({ key, label, type }) => (
-          <div key={key as string}>
+          <div key={key}>
             <label className="font-medium">{label}</label>
             <input
               type={type || "text"}
@@ -81,14 +86,12 @@ export default function ReviewStep({
               }
               className="w-full px-2 py-1 border rounded-md"
             />
-            {errors[key as string] && (
-              <p className="text-xs text-[#c21219]">{errors[key as string]}</p>
-            )}
+            {errors[key] && <p className="text-xs text-[#c21219]">{errors[key]}</p>}
           </div>
         ))}
       </div>
 
-      {/* Description */}
+      {/* 4️⃣ Description */}
       <div>
         <label className="font-medium">Description</label>
         <textarea
@@ -101,7 +104,7 @@ export default function ReviewStep({
         )}
       </div>
 
-      {/* Skills */}
+      {/* 5️⃣ Skills */}
       <div>
         <label className="font-medium">Skills</label>
         <ul className="flex flex-wrap gap-2 mt-1">
@@ -116,7 +119,7 @@ export default function ReviewStep({
         </ul>
       </div>
 
-      {/* Purpose & Extra Fields */}
+      {/* 6️⃣ Purpose & Extra Fields */}
       <div>
         <label className="font-medium">Purpose</label>
         <textarea
@@ -144,14 +147,14 @@ export default function ReviewStep({
         </div>
       )}
 
-      {/* Project Images */}
+      {/* 7️⃣ Project Images */}
       <div>
         <label className="font-medium">Project Images</label>
         <div className="flex flex-wrap gap-2 mt-2">
-          {images?.map((file, index) => (
+          {imageUrls.map((url, index) => (
             <img
               key={index}
-              src={URL.createObjectURL(file)}
+              src={url}
               alt={`Project image ${index + 1}`}
               className="w-24 h-24 object-cover rounded-md border"
             />
@@ -159,7 +162,7 @@ export default function ReviewStep({
         </div>
       </div>
 
-      {/* Work Phases */}
+      {/* 8️⃣ Work Phases */}
       <div>
         <label className="font-medium">Work Phases</label>
         <ul className="flex flex-col gap-2 mt-1">
@@ -174,7 +177,7 @@ export default function ReviewStep({
         </ul>
       </div>
 
-      {/* Milestones */}
+      {/* 9️⃣ Milestones */}
       <div>
         <label className="font-medium">Milestones</label>
         <ul className="flex flex-col gap-2 mt-1">
@@ -190,7 +193,7 @@ export default function ReviewStep({
         </ul>
       </div>
 
-      {/* Tags */}
+      {/* 10️⃣ Tags */}
       {tags.length > 0 && (
         <div>
           <label className="font-medium">Tags</label>
