@@ -7,20 +7,65 @@ export interface Consultant {
   id: string;
   _id?: string;
   name: string;
+  role: string;
   industry: string;
   delivery: string;
   rate: string | number;
   rating: number;
-  role: string;
 
   image?: string;
   email?: string;
+  location?: string;
   experience?: number;
+  languages?: string[];
+  certifications?: string[];
   skills?: string[];
 
   projects?: Project[];
+  pastProjectsTimeline?: ConsultantPastProject[];
+  testimonials?: { client: string; feedback: string; rating: number }[];
+  caseStudies?: { title: string; summary: string; link?: string }[];
+
+  aiMatchScore?: number;
+  successRate?: number;
+  clientSatisfaction?: number;
+  earningsToDate?: number;
+
+  availability?: { day: string; slots: string[] }[];
+  responseTime?: string;
+  preferredEngagementModel?: "hourly" | "fixed" | "retainer";
+
+  verifiedStatus?: boolean;
+  gdprConsent?: boolean;
+  insuranceCoverage?: string;
+
+  bonusSkills?: string[];
+  github?: string;
+  website?: string;
+
 }
 
+export interface ConsultantPastProject {
+  id: string;
+
+  projectTitle: string;
+
+  client?: string;
+
+  role?: string;
+
+  startDate: string;
+
+  endDate: string;
+
+  durationMonths?: number;
+
+  status: "completed" | "in_progress" | "cancelled";
+
+  outcome?: string;
+
+  technologies?: string[];
+}
 /* -------------------- INVITATIONS -------------------- */
 export interface Invitation {
   id: string;
@@ -190,4 +235,30 @@ export interface ClientProfile {
   notifications: Notification[];
 
   suggestedBidRange?: { min: number; max: number };
+}
+/* -------------------- ENTERPRISE ADDONS PROFILE -------------------- */
+
+export interface Testimonial {
+  client: string;
+  feedback: string;
+  rating: number;
+  date?: string;
+  role?: string;
+  company?: string;
+}
+
+export interface CaseStudy {
+  title: string;
+  summary: string;
+  link?: string;
+  impact?: string;
+  publishedAt?: string;
+  tags?: string[];
+}
+
+export interface AvailabilitySlot {
+  day: string;
+  slots: string[];
+  timezone?: string;
+  note?: string;
 }

@@ -77,7 +77,7 @@ export interface Project {
   startDate?: string;
   endDate?: string;
   deadline?: string;
-
+  role?: string;
   status: string;
   timeline?: string;
 

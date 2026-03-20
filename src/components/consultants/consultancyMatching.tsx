@@ -1,3 +1,4 @@
+// components/ConsultantsSection.tsx
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
@@ -25,8 +26,12 @@ const defaultFilters: ConsultantFilters = {
 
 export default function ConsultantsSection({
   showSidebar,
+  isPremiumUser = true,
+  isEnterpriseUser = true,
 }: {
   showSidebar: boolean;
+  isPremiumUser?: boolean;
+  isEnterpriseUser?: boolean;
 }) {
   const [filters, setFilters] = useState<ConsultantFilters>(defaultFilters);
   const [consultants, setConsultants] = useState<Consultant[]>([]);
@@ -53,42 +58,35 @@ export default function ConsultantsSection({
 
   /* -------------------- FILTER OPTIONS -------------------- */
   const industries = useMemo(
-    () => ["All", ...new Set(consultants.map((c) => c.industry))],
+    () => ["All", ...Array.from(new Set(consultants.map((c) => c.industry)))],
     [consultants]
   );
 
   const parseRate = (rate: string | number): number =>
-    typeof rate === "number"
-      ? rate
-      : parseInt(rate.replace(/\D/g, ""), 10) || 0;
+    typeof rate === "number" ? rate : parseInt(String(rate).replace(/\D/g, ""), 10) || 0;
 
   /* -------------------- FILTERING LOGIC -------------------- */
   const filteredConsultants = useMemo(() => {
-    const isDefault =
-      JSON.stringify(filters) === JSON.stringify(defaultFilters);
+    const isDefault = JSON.stringify(filters) === JSON.stringify(defaultFilters);
     if (isDefault) return consultants;
 
     const term = filters.search.toLowerCase();
-    return consultants.filter((c) => {
+    return consultants.filter((c: Consultant) => {
       const matchesSearch =
         c.name.toLowerCase().includes(term) ||
         c.industry.toLowerCase().includes(term) ||
         c.delivery.toLowerCase().includes(term);
 
-      const matchesIndustry =
-        filters.industry === "All" || c.industry === filters.industry;
+      const matchesIndustry = filters.industry === "All" || c.industry === filters.industry;
 
       const rateValue = parseRate(c.rate);
       const matchesRate =
         filters.rate === "All" ||
         (filters.rate === "Under $700" && rateValue < 700) ||
-        (filters.rate === "$700-$1800" &&
-          rateValue >= 700 &&
-          rateValue <= 1800) ||
+        (filters.rate === "$700-$1800" && rateValue >= 700 && rateValue <= 1800) ||
         (filters.rate === "Over $2000" && rateValue > 2000);
 
-      const matchesRating =
-        filters.rating === "All" || c.rating >= Number(filters.rating);
+      const matchesRating = filters.rating === "All" || c.rating >= Number(filters.rating);
 
       return matchesSearch && matchesIndustry && matchesRate && matchesRating;
     });
@@ -120,9 +118,7 @@ export default function ConsultantsSection({
             filters={filters}
             setFilters={setFilters}
             filterConfigs={filterConfig}
-            showClearButton={
-              JSON.stringify(filters) !== JSON.stringify(defaultFilters)
-            }
+            showClearButton={JSON.stringify(filters) !== JSON.stringify(defaultFilters)}
             handleClearFilters={() => setFilters(defaultFilters)}
           />
         </aside>
@@ -156,9 +152,13 @@ export default function ConsultantsSection({
             >
               {filteredConsultants.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {filteredConsultants.map((c) => (
+                  {filteredConsultants.map((c: Consultant) => (
                     <motion.div key={c.id} layout>
-                      <ConsultantCard consultant={c} />
+                      <ConsultantCard
+                        consultant={c}
+                        isPremiumUser={isPremiumUser}
+                        isEnterpriseUser={isEnterpriseUser}
+                      />
                     </motion.div>
                   ))}
                 </div>
