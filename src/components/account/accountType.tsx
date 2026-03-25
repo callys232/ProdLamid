@@ -20,8 +20,9 @@ export default function AccountTypePage() {
 
         setLoading(true);
         try {
-            // Retrieve signup data from sessionStorage (preferred) or localStorage
-            const signupData = sessionStorage.getItem("signupData") || localStorage.getItem("signupData");
+            const signupData =
+                sessionStorage.getItem("signupData") ||
+                localStorage.getItem("signupData");
             if (!signupData) {
                 toast.error("No signup data found. Please start over.");
                 router.push("/signup");
@@ -31,13 +32,24 @@ export default function AccountTypePage() {
             const parsedData = JSON.parse(signupData);
 
             // Map Account Type to Role
-            const role = accountType === "Freelancer" ? "seller" : "client";
+            const role =
+                accountType === "Freelancer"
+                    ? "seller"
+                    : accountType === "Client"
+                        ? "client"
+                        : null; // Enterprise not selectable
+
+            if (!role) {
+                toast.error("Enterprise accounts are coming soon 🚀");
+                setLoading(false);
+                return;
+            }
 
             const payload = {
-                name: parsedData.UserName, // Map UserName to name
+                name: parsedData.UserName,
                 email: parsedData.email,
                 password: parsedData.password,
-                role: role
+                role,
             };
 
             const res = await fetch("/api/auth/register", {
@@ -54,11 +66,9 @@ export default function AccountTypePage() {
 
             toast.success("Account created successfully 🎉");
 
-            // Save user & token
             localStorage.setItem("token", result.data.token);
             localStorage.setItem("user", JSON.stringify(result.data.user));
 
-            // Clear temp data
             sessionStorage.removeItem("signupData");
             localStorage.removeItem("signupData");
 
@@ -66,7 +76,6 @@ export default function AccountTypePage() {
             if (role === "seller") router.push("/profile");
             else if (role === "client") router.push("/client");
             else router.push("/dashboard");
-
         } catch (error: any) {
             console.error("Registration error:", error);
             toast.error(error.message || "Signup failed ⚠️");
@@ -74,7 +83,6 @@ export default function AccountTypePage() {
             setLoading(false);
         }
     };
-
 
     return (
         <section className="min-h-screen flex items-center justify-center bg-black px-6">
@@ -105,8 +113,8 @@ export default function AccountTypePage() {
                         <div>
                             <h3 className="text-xl font-semibold text-[#c12129]">Freelancer</h3>
                             <p className="text-gray-300 text-sm">
-                                Consultants are freelancers seeking jobs. You can create and send invoices,
-                                track payments, and showcase your services to potential clients.
+                                Consultants seeking projects. Create invoices, track payments,
+                                and showcase your services to potential clients.
                             </p>
                         </div>
                     </label>
@@ -124,8 +132,25 @@ export default function AccountTypePage() {
                         <div>
                             <h3 className="text-xl font-semibold text-[#c12129]">Client</h3>
                             <p className="text-gray-300 text-sm">
-                                Clients are those who give out jobs. You can hire freelancers,
-                                manage contracts, and securely pay for completed work.
+                                Organizations hiring consultants. Post jobs, manage contracts,
+                                and securely pay for completed work.
+                            </p>
+                        </div>
+                    </label>
+
+                    {/* Enterprise Option (disabled) */}
+                    <label className="flex items-start gap-3 border border-white/20 rounded-xl p-4 opacity-60 cursor-not-allowed">
+                        <input
+                            type="radio"
+                            name="accountType"
+                            value="Enterprise"
+                            disabled
+                            className="mt-1 accent-[#c12129] cursor-not-allowed"
+                        />
+                        <div>
+                            <h3 className="text-xl font-semibold text-[#c12129]">Enterprise</h3>
+                            <p className="text-gray-300 text-sm">
+                                Large organizations with advanced needs. Coming soon 🚀
                             </p>
                         </div>
                     </label>

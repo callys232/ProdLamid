@@ -14,7 +14,7 @@ import Contract from "./contract"
 
 // Business + AI features
 import BusinessProfile from "@/components/premium/BusinessProfile";
-import Tiers from "@/components/profile/tiers/tier";
+import Tiers from "../tiers/tier";
 import OnboardingAssistant from "@/components/premium/OnboardingAssistant";
 
 import { ClientProfile } from "@/types/client";
