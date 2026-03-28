@@ -30,7 +30,8 @@ export default function ProfileSidebar({
     { key: "settings", label: "Settings" },
     { key: "teams", label: "Teams" },
     { key: "notifications", label: "Notifications" },
-    { key: "escrow", label: "Escrow & Wallet" },
+    { key: "messaging", label: "Messaging" },
+    { key: "project-matching", label: "Project Matching" }
   ];
 
   return (

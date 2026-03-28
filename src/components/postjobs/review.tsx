@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Project, WorkPhase, Milestone } from "@/types/project";
 
 interface ReviewStepProps {
@@ -39,25 +39,40 @@ export default function ReviewStep({
     const urls = images.map((file) => URL.createObjectURL(file));
     setImageUrls(urls);
 
-    return () => {
-      urls.forEach((url) => URL.revokeObjectURL(url));
-    };
+    return () => urls.forEach((url) => URL.revokeObjectURL(url));
   }, [images]);
 
-  // 2️⃣ Define only safe editable fields
+  // 2️⃣ Define editable fields with proper input types
   const projectFields: Array<{
-    key: "title" | "category" | "location" | "deadline" | "priority" | "status" | "budget" | "hourlyRate";
+    key: keyof Project;
     label: string;
-    type?: "text" | "number" | "date";
+    inputType?: "text" | "number" | "date" | "select";
+    options?: string[];
   }> = [
-      { key: "title", label: "Title" },
-      { key: "category", label: "Category" },
-      { key: "location", label: "Location" },
-      { key: "deadline", label: "Deadline", type: "date" },
-      { key: "priority", label: "Priority" },
-      { key: "status", label: "Status" },
-      { key: "budget", label: "Budget", type: "number" },
-      { key: "hourlyRate", label: "Hourly Rate", type: "number" },
+      { key: "title", label: "Title", inputType: "text" },
+      { key: "category", label: "Category", inputType: "text" },
+      { key: "location", label: "Location", inputType: "text" }, // fixed
+      { key: "deadline", label: "Deadline", inputType: "date" },
+      {
+        key: "priority",
+        label: "Priority",
+        inputType: "select",
+        options: ["Low", "Medium", "High"],
+      },
+      {
+        key: "status",
+        label: "Status",
+        inputType: "select",
+        options: ["Open", "In Progress", "Completed", "Cancelled"],
+      },
+      { key: "budget", label: "Budget", inputType: "number" },
+      { key: "hourlyRate", label: "Hourly Rate", inputType: "number" },
+      {
+        key: "type",
+        label: "Project Type",
+        inputType: "select",
+        options: ["Full Time", "Part Time", "Contract"],
+      },
     ];
 
   return (
@@ -68,25 +83,43 @@ export default function ReviewStep({
 
       {/* 3️⃣ Project Core Details */}
       <div className="grid grid-cols-2 gap-4">
-        {projectFields.map(({ key, label, type }) => (
+        {projectFields.map(({ key, label, inputType, options }) => (
           <div key={key}>
             <label className="font-medium">{label}</label>
-            <input
-              type={type || "text"}
-              value={project[key] ?? ""}
-              onChange={(e) =>
-                handleChange(
-                  key,
-                  type === "number"
-                    ? e.target.value
-                      ? Number(e.target.value)
-                      : null
-                    : e.target.value
-                )
-              }
-              className="w-full px-2 py-1 border rounded-md"
-            />
-            {errors[key] && <p className="text-xs text-[#c21219]">{errors[key]}</p>}
+
+            {inputType === "select" && options ? (
+              <select
+                value={(project[key] as string | number) ?? ""}
+                onChange={(e) => handleChange(key, e.target.value)}
+                className="w-full px-2 py-1 border rounded-md"
+              >
+                <option value="">Select {label}</option>
+                {options.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type={inputType === "number" ? "number" : inputType || "text"}
+                value={(project[key] as string | number) ?? ""}
+                onChange={(e) => {
+                  const val =
+                    inputType === "number"
+                      ? e.target.value
+                        ? Number(e.target.value)
+                        : null
+                      : e.target.value;
+                  handleChange(key, val);
+                }}
+                className="w-full px-2 py-1 border rounded-md"
+              />
+            )}
+
+            {errors[key] && (
+              <p className="text-xs text-[#c21219]">{errors[key]}</p>
+            )}
           </div>
         ))}
       </div>

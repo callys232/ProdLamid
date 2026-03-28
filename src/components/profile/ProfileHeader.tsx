@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FaLinkedin, FaGlobe, FaTwitter, FaGithub, FaCheckCircle } from "react-icons/fa";
+import { FaLinkedin, FaGlobe, FaTwitter, FaGithub, FaCheckCircle, FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -42,33 +42,35 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
   // -----------------------------
   // Fetch Alerts
   // -----------------------------
+  const fetchAlerts = async () => {
+    try {
+      const res = await axios.get("/api/consultant/alerts");
+      const data = res.data || {};
+      setAlerts(data.alerts || mockAlerts);
+      setNotifications(data.notifications || mockNotifications);
+      setPayments(data.payments || mockPayments);
+      setDeadlines(data.deadlines || mockDeadlines);
+    } catch {
+      setAlerts(mockAlerts);
+      setNotifications(mockNotifications);
+      setPayments(mockPayments);
+      setDeadlines(mockDeadlines);
+    }
+  };
+
   useEffect(() => {
-    const prefetch = async () => {
-      try {
-        const res = await axios.get("/api/consultant/alerts");
-        const data = res.data || {};
-        setAlerts(data.alerts || mockAlerts);
-        setNotifications(data.notifications || mockNotifications);
-        setPayments(data.payments || mockPayments);
-        setDeadlines(data.deadlines || mockDeadlines);
-      } catch {
-        setAlerts(mockAlerts);
-        setNotifications(mockNotifications);
-        setPayments(mockPayments);
-        setDeadlines(mockDeadlines);
-      }
-    };
-    prefetch();
+    fetchAlerts();
   }, []);
 
   // -----------------------------
   // Close dropdown on outside click
   // -----------------------------
+  const handleClickOutside = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest(".relative")) setActiveDropdown(null);
+  };
+
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest(".relative")) setActiveDropdown(null);
-    };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -134,6 +136,16 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
   ];
 
   // -----------------------------
+  // Social Media Links
+  // -----------------------------
+  const socialLinks = [
+    { name: "LinkedIn", icon: <FaLinkedin size={24} />, url: user?.profile?.linkedin, hover: "hover:text-blue-600" },
+    { name: "Website", icon: <FaGlobe size={24} />, url: user?.profile?.website, hover: "hover:text-green-400" },
+    { name: "Twitter", icon: <FaTwitter size={24} />, url: user?.profile?.twitter, hover: "hover:text-blue-400" },
+    { name: "GitHub", icon: <FaGithub size={24} />, url: user?.profile?.github, hover: "hover:text-gray-300" },
+  ];
+
+  // -----------------------------
   // Render
   // -----------------------------
   return (
@@ -145,22 +157,21 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-
       {/* Premium Ribbon */}
       {user?.profile?.premium && (
         <motion.div
-          className="absolute top-4 left-0 bg-red-600 text-white text-xs font-semibold px-4 py-1 rounded-r-lg shadow-md animate-pulse"
+          className="absolute top-4 left-0 bg-red-600 text-white text-xs font-semibold px-4 py-1 rounded-r-lg shadow-md flex items-center gap-1 animate-pulse"
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
         >
-          Premium Freelancer
+          <FaStar /> Premium Freelancer
         </motion.div>
       )}
 
       {/* Business Badge */}
       {user?.profile?.businessEnrolled && (
         <motion.div
-          className="absolute top-4 left-40 bg-green-600 text-white text-xs font-semibold px-4 py-1 rounded-lg shadow-md"
+          className="absolute top-4 left-40 bg-green-600 text-white text-xs font-semibold px-4 py-1 rounded-lg shadow-md flex items-center gap-1"
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
         >
@@ -170,7 +181,6 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
 
       {/* Profile Identity + Completion */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-
         {/* Profile Identity */}
         <div className="flex items-center gap-5">
           <img
@@ -194,7 +204,10 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
           <div className="flex items-center gap-2">
             <div className="flex-1">
               <div className="w-full bg-gray-700 rounded-full h-2">
-                <div className="bg-red-500 h-2 rounded-full transition-all" style={{ width: `${completion}%` }} />
+                <div
+                  className="bg-red-500 h-2 rounded-full transition-all"
+                  style={{ width: `${completion}%` }}
+                />
               </div>
             </div>
             <span className="text-xs text-gray-300">{completion}%</span>
@@ -217,7 +230,9 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
             key={idx}
             {...stat}
             isOpen={activeDropdown === stat.label}
-            onToggle={() => setActiveDropdown(activeDropdown === stat.label ? null : stat.label)}
+            onToggle={() =>
+              setActiveDropdown(activeDropdown === stat.label ? null : stat.label)
+            }
           />
         ))}
       </div>
@@ -240,14 +255,27 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
 
       {/* Social Links */}
       <div className="mt-6 flex gap-6 justify-center md:justify-start text-gray-400">
-        {user?.profile?.linkedin && <a href={user.profile.linkedin} target="_blank"><FaLinkedin size={24} /></a>}
-        {user?.profile?.website && <a href={user.profile.website} target="_blank"><FaGlobe size={24} /></a>}
-        {user?.profile?.twitter && <a href={user.profile.twitter} target="_blank"><FaTwitter size={24} /></a>}
-        {user?.profile?.github && <a href={user.profile.github} target="_blank"><FaGithub size={24} /></a>}
+        {socialLinks.map(
+          (link, idx) =>
+            link.url && (
+              <a
+                key={idx}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={link.name}
+                className={`transition-colors ${link.hover} hover:scale-110`}
+              >
+                {link.icon}
+              </a>
+            )
+        )}
       </div>
 
       {/* Popup */}
-      {showPopup && <ReviewPopupContainer isOpen={showPopup} onClose={() => setShowPopup(false)} />}
+      {showPopup && (
+        <ReviewPopupContainer isOpen={showPopup} onClose={() => setShowPopup(false)} />
+      )}
 
       {/* Guide */}
       <UserGuide
@@ -256,7 +284,6 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
         isOpen={showGuide}
         onClose={() => setShowGuide(false)}
       />
-
     </motion.div>
   );
 }

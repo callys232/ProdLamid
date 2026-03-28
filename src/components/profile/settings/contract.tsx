@@ -13,7 +13,7 @@ const FinanceHub: React.FC = () => {
         <div className="min-h-screen bg-black text-gray-100 font-sans p-8">
             {/* Header */}
             <header className="mb-8 border-b border-gray-800 pb-4">
-                <h1 className="text-4xl font-extrabold text-white tracking-tight">Finance & Legal Hub</h1>
+                <h1 className="text-4xl font-extrabold text-white tracking-tight">Business Services</h1>
                 <p className="text-gray-400 mt-1">Centralized workspace for contracts, invoices & bills</p>
             </header>
 

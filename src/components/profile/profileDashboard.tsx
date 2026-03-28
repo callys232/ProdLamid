@@ -13,6 +13,8 @@ import Escrow from "./escrow/Escrow";
 import EscrowDashboard from "@/components/Escrow/Dashboard";
 import { Project } from "@/types/project";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
+import ProjectMatching from "./projectMatching/projectMatch";
+import Messaging from "@/components/escrows/Dashboard";
 
 export default function ProfileDashboard({
   params,
@@ -64,8 +66,14 @@ export default function ProfileDashboard({
         return <Notifications />;
       case "escrow":
         return <EscrowDashboard currentUserId={user._id} />;
+      case "messaging":
+        return <Messaging />;
+      case "project-matching":
+        return <ProjectMatching showSidebar={true} isPremiumUser={user.isPremium ?? true} />;
+
       default:
         return <Overview projectId={projectId} />;
+
     }
   };
 

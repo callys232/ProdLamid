@@ -1,4 +1,5 @@
-// components/escrow/StatusBadge.tsx
+"use client";
+
 import { EscrowStatus } from "@/types/escrow";
 import clsx from "clsx";
 
@@ -9,19 +10,22 @@ const statusStyles: Record<EscrowStatus, string> = {
   released: "bg-green-600 text-white",
   completed: "bg-emerald-700 text-white",
   disputed: "bg-red-600 text-white",
-  cancelled: "bg-gray-400 text-white", // added
+  cancelled: "bg-gray-400 text-white",
   failed: "bg-red-800 text-white",
 };
 
-export function StatusBadge({ status }: { status: EscrowStatus }) {
+export function StatusBadge({ status }: { status?: EscrowStatus | null }) {
+  // Fallback text if status is undefined
+  const displayText = status ? status.replace("_", " ") : "Unknown";
+
   return (
     <span
       className={clsx(
         "rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide",
-        statusStyles[status]
+        status ? statusStyles[status] : "bg-gray-500 text-white"
       )}
     >
-      {status.replace("_", " ")}
+      {displayText}
     </span>
   );
 }

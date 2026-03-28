@@ -88,16 +88,22 @@ export default function HybridConsultingHero() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10" />
 
       {/* Foreground Content */}
-      <div className="relative z-20 text-center max-w-3xl px-6">
+      <div className="relative z-20 text-center text-red max-w-3xl px-6">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6"
+          className="text-4xl text-red-500  md:text-5xl font-extrabold tracking-tight mb-6"
         >
-          HybridConsulting connects{" "}
-          <span className="text-[#c12129]">{displayText}</span>
+          Hybrid consulting connects{" "}
+          <span className="bg-gradient-to-r from-red-600 to-white bg-clip-text text-transparent font-display">
+            {displayText}
+          </span>
         </motion.h1>
+
+
+
+
 
         {/* Tabs + Search */}
         <div className="mt-6 mx-auto max-w-xl w-full" role="search">
