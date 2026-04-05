@@ -35,7 +35,7 @@ export default function ProjectMatchingCard({
                     {project.title}
                 </h3>
 
-                <span className="text-xs text-gray-400 group-hover:text-[#c12129] transition">
+                <span className="text-xs text-red-400 group-hover:text-[#c12129] transition">
                     {project.location}
                 </span>
             </div>
@@ -72,7 +72,7 @@ export default function ProjectMatchingCard({
                 }}
                 className="
           mt-5 w-full py-2 rounded-lg font-semibold
-          bg-[#c12129] text-white
+          bg-[#c12129] text-red-500
           shadow-sm
           hover:bg-red-700 hover:shadow-md
           transition-all

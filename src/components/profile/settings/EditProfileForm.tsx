@@ -1,109 +1,275 @@
 "use client";
 
-import { useState } from "react";
-
-
-
+import { useState, useEffect } from "react";
+import { useForm, FormProvider, FieldPath } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 
-interface ProfileFormData {
-  firstName: string;
-  lastName: string;
-  bio: string;
-  location: string;
-}
-interface EditProfileFormProps { user: any; onClose: () => void; }
+import { consultantProfileSchema } from "@/lib/validation/consultantProfileSchema";
 
-export default function EditProfileForm({ user, onClose }: EditProfileFormProps) {
-  const [formData, setFormData] = useState<ProfileFormData>({
-    firstName: user?.profile?.firstName || "",
-    lastName: user?.profile?.lastName || "",
-    bio: user?.profile?.bio || "",
-    location: user?.profile?.addresses?.[0]?.city || "",
-  });
+import StepBasicInfo from "./editProfile/basicInfo";
+import StepProfessional from "./editProfile/professionalInfo";
+import StepSocials from "./editProfile/socials";
+import StepStatus from "./editProfile/availibilty";
+import StepReview from "./editProfile/review";
+import { MultiStepFormValues } from "@/types/userProfile";
+
+/* ================= TYPES ================= */
+
+/* ================= ONCHANGE TYPE ================= */
+
+type OnChange = <K extends keyof MultiStepFormValues>(
+  field: K,
+  value: MultiStepFormValues[K]
+) => void;
+
+/* ================= COMPONENT ================= */
+
+interface Props {
+  initialData?: Partial<MultiStepFormValues>;
+  onClose: () => void;
+}
+
+export default function MultiStepForm({
+  initialData = {},
+  onClose,
+}: Props) {
+  /* ---------------- STEPS ---------------- */
+
+  const steps = [
+    {
+      label: "Basic Info",
+      component: StepBasicInfo,
+      fields: ["firstName", "lastName", "bio", "location", "title"],
+    },
+    {
+      label: "Professional Info",
+      component: StepProfessional,
+      fields: ["skills", "industry", "experience", "rate"],
+    },
+    {
+      label: "Social Media",
+      component: StepSocials,
+      fields: ["socialLinks"],
+    },
+    {
+      label: "Verification",
+      component: StepStatus,
+      fields: ["premium", "verified", "businessEnrolled"],
+    },
+    {
+      label: "Review",
+      component: StepReview,
+      fields: [],
+    },
+  ] as const;
+
+  const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const CurrentStep = steps[step].component;
+
+  /* ---------------- FORM ---------------- */
+
+  const methods = useForm<MultiStepFormValues>({
+    resolver: zodResolver(consultantProfileSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      bio: "",
+      location: "",
+      title: "",
+      photo: null,
+
+      skills: [],
+      industry: "",
+      experience: 0,
+      rate: 0,
+
+      socialLinks: {},
+
+      premium: false,
+      verified: false,
+      businessEnrolled: false,
+
+      ...initialData,
+    },
+    mode: "onChange",
+  });
+
+  /* ---------------- CHANGE HANDLER ---------------- */
+
+  const handleChange: OnChange = (field, value) => {
+    methods.setValue(field, value, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  /* ---------------- RESTORE DRAFT ---------------- */
+
+  useEffect(() => {
+    const saved = localStorage.getItem("consultantProfileDraft");
+
+    if (saved) {
+      try {
+        methods.reset(JSON.parse(saved));
+      } catch {
+        // silently ignore bad data
+      }
+    }
+  }, [methods]);
+
+  /* ---------------- AUTO SAVE ---------------- */
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const data = methods.getValues();
+
+      localStorage.setItem(
+        "consultantProfileDraft",
+        JSON.stringify(data)
+      );
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [methods]);
+
+  /* ---------------- NAVIGATION ---------------- */
+
+  const handleNext = async () => {
+    const fields = steps[step].fields as FieldPath<MultiStepFormValues>[];
+
+    // Validate ONLY current step fields
+    const valid = await methods.trigger(fields);
+
+    if (!valid) {
+      toast.error("Fix errors before continuing");
+      return;
+    }
+
+    setStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const handleBack = () => {
+    setStep((prev) => Math.max(prev - 1, 0));
+  };
+
+  const handleJumpToStep = (index: number) => {
+    setStep(index);
+  };
+
+  const handleSaveDraft = () => {
+    const data = methods.getValues();
+
+    localStorage.setItem(
+      "consultantProfileDraft",
+      JSON.stringify(data)
+    );
+
+    toast.success("Draft saved");
+  };
+
+  /* ---------------- SUBMIT ---------------- */
+
+  const handleSubmit = async (data: MultiStepFormValues) => {
     setLoading(true);
 
     try {
-      const payload = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        bio: formData.bio,
-        // Simple mapping for location to address
-        addresses: formData.location ? [{ city: formData.location, line1: "N/A" }] : []
-      };
-
       const res = await fetch("/api/auth/me", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(data),
       });
 
       const result = await res.json();
-      if (result.success) {
-        toast.success("Profile updated successfully! 🎉");
-        onClose();
-        // Optionally update parent state or refresh
-      } else {
-        throw new Error(result.message || "Failed to update profile");
+
+      if (!result.success) {
+        throw new Error(result.message);
       }
-    } catch (error: any) {
-      console.error("Update error:", error);
-      toast.error(error.message || "Something went wrong ❌");
+
+      localStorage.removeItem("consultantProfileDraft");
+
+      toast.success("Profile updated successfully");
+      onClose();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to update profile");
     } finally {
       setLoading(false);
     }
   };
 
+  /* ---------------- PROGRESS ---------------- */
+
+  const progress = ((step + 1) / steps.length) * 100;
+
+  /* ---------------- RENDER ---------------- */
+
   return (
-    <div className="max-w-xl w-full">
-      <h2 className="text-2xl font-semibold mb-6">Edit Profile</h2>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-1" htmlFor="firstName">First Name</label>
-            <input id="firstName" name="firstName" type="text" value={formData.firstName} onChange={handleChange}
-              className="w-full rounded-md border border-gray-700 bg-gray-900 text-white px-3 py-2 
-                           focus:outline-none focus:ring-2 focus:ring-red-600 outline-none" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1" htmlFor="lastName">Last Name</label>
-            <input id="lastName" name="lastName" type="text" value={formData.lastName} onChange={handleChange}
-              className="w-full rounded-md border border-gray-700 bg-gray-900 text-white px-3 py-2 
-                           focus:outline-none focus:ring-2 focus:ring-red-600 outline-none" />
-          </div>
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit(handleSubmit)}
+        className="max-w-3xl mx-auto bg-black/80 p-6 rounded-xl shadow-xl space-y-6"
+      >
+        {/* PROGRESS */}
+        <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-[#c12129] transition-all duration-500"
+            style={{ width: `${progress}%` }}
+          />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="location">Location (City)</label>
-          <input id="location" name="location" type="text" value={formData.location} onChange={handleChange}
-            className="w-full rounded-md border border-gray-700 bg-gray-900 text-white px-3 py-2 
-                       focus:outline-none focus:ring-2 focus:ring-red-600 outline-none" />
-        </div>
+        {/* TITLE */}
+        <h2 className="text-xl font-semibold text-white">
+          {steps[step].label}
+        </h2>
 
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="bio">Bio</label>
-          <textarea id="bio" name="bio" value={formData.bio} onChange={handleChange} rows={4}
-            className="w-full rounded-md border border-gray-700 bg-gray-900 text-white px-3 py-2 
-                       focus:outline-none focus:ring-2 focus:ring-red-600 outline-none resize-none" />
-        </div>
+        {/* STEP */}
+        <CurrentStep
+          data={methods.getValues()}
+          onChange={handleChange}
+          onJumpToStep={handleJumpToStep}
+        />
 
-        <div className="flex flex-col sm:flex-row gap-3 pt-4">
-          <button type="submit" disabled={loading}
-            className="px-6 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 transition" >
-            {loading ? "Saving..." : "Save Changes"}
+        {/* ACTIONS */}
+        <div className="flex justify-between gap-2 flex-wrap">
+          {step > 0 && (
+            <button
+              type="button"
+              onClick={handleBack}
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md transition"
+            >
+              Back
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={handleSaveDraft}
+            className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-md transition"
+          >
+            Save Draft
           </button>
+
+          {step < steps.length - 1 ? (
+            <button
+              type="button"
+              onClick={handleNext}
+              className="px-4 py-2 bg-[#c12129] hover:bg-red-700 rounded-md transition shadow"
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md transition"
+            >
+              {loading ? "Saving..." : "Submit"}
+            </button>
+          )}
         </div>
       </form>
-    </div>
+    </FormProvider>
   );
 }

@@ -135,7 +135,7 @@ export default function ProjectResultCard({
                     e.stopPropagation();
                     setShowExplain((prev) => !prev);
                 }}
-                className="mt-3 text-xs text-gray-400 hover:text-[#c12129] transition"
+                className="mt-3 text-xs text-red-400 hover:text-[#c12129] transition"
             >
                 {showExplain ? "Hide AI Insight" : "Why this match?"}
             </button>

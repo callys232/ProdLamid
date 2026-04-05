@@ -65,12 +65,11 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
   // -----------------------------
   // Close dropdown on outside click
   // -----------------------------
-  const handleClickOutside = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest(".relative")) setActiveDropdown(null);
-  };
-
   useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".relative")) setActiveDropdown(null);
+    };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -80,7 +79,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
   // -----------------------------
   const badgeCount = alerts.length + notifications.length + payments.length + deadlines.length;
 
-  const displayName = user?.profile?.name || "Freelancer";
+  const displayName = user?.profile?.name || "Catalyst";
   const displayTitle = user?.profile?.title || "Independent Consultant";
   const displayLocation = user?.profile?.location || "Remote";
 
@@ -139,10 +138,10 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
   // Social Media Links
   // -----------------------------
   const socialLinks = [
-    { name: "LinkedIn", icon: <FaLinkedin size={24} />, url: user?.profile?.linkedin, hover: "hover:text-blue-600" },
-    { name: "Website", icon: <FaGlobe size={24} />, url: user?.profile?.website, hover: "hover:text-green-400" },
-    { name: "Twitter", icon: <FaTwitter size={24} />, url: user?.profile?.twitter, hover: "hover:text-blue-400" },
-    { name: "GitHub", icon: <FaGithub size={24} />, url: user?.profile?.github, hover: "hover:text-gray-300" },
+    { name: "LinkedIn", icon: <FaLinkedin size={24} />, url: user?.profile?.linkedin || "#", hover: "hover:text-blue-600" },
+    { name: "Website", icon: <FaGlobe size={24} />, url: user?.profile?.website || "#", hover: "hover:text-green-400" },
+    { name: "Twitter", icon: <FaTwitter size={24} />, url: user?.profile?.twitter || "#", hover: "hover:text-blue-400" },
+    { name: "GitHub", icon: <FaGithub size={24} />, url: user?.profile?.github || "#", hover: "hover:text-red-600" },
   ];
 
   // -----------------------------
@@ -253,23 +252,20 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
         </button>
       </div>
 
-      {/* Social Links */}
-      <div className="mt-6 flex gap-6 justify-center md:justify-start text-gray-400">
-        {socialLinks.map(
-          (link, idx) =>
-            link.url && (
-              <a
-                key={idx}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={link.name}
-                className={`transition-colors ${link.hover} hover:scale-110`}
-              >
-                {link.icon}
-              </a>
-            )
-        )}
+      {/* Social Links - AFTER View Alerts */}
+      <div className="mt-4 flex gap-6 justify-center md:justify-start text-gray-400">
+        {socialLinks.map((link, idx) => (
+          <a
+            key={idx}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={link.name}
+            className={`transition-colors ${link.hover} hover:scale-110`}
+          >
+            {link.icon}
+          </a>
+        ))}
       </div>
 
       {/* Popup */}

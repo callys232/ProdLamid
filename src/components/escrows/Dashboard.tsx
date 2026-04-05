@@ -40,13 +40,13 @@ export default function Dashboard() {
   }
 
   return (
-    <section className="flex min-h-screen gap-10 bg-black p-10 text-white">
+    <section className="flex  gap-10 bg-black p-10 text-white">
       {/* Left column */}
       <div className="flex-1 space-y-10">
         {/* ✅ only pass escrow now */}
         <DashboardTabs escrow={escrow} messages={messages} />
         <UploadCard />
-        <UploadCard />
+
       </div>
 
       {/* Right column */}

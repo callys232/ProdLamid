@@ -93,13 +93,13 @@ export default function HybridConsultingHero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl text-red-500  md:text-5xl font-extrabold tracking-tight mb-6"
+          className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 
+             bg-gradient-to-r from-red-600 to-white bg-clip-text text-transparent"
         >
           Hybrid consulting connects{" "}
-          <span className="bg-gradient-to-r from-red-600 to-white bg-clip-text text-transparent font-display">
-            {displayText}
-          </span>
+          <span className="font-display">{displayText}</span>
         </motion.h1>
+
 
 
 

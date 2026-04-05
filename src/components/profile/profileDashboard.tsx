@@ -9,7 +9,7 @@ import Settings from "./settings/Settings";
 import Teams from "./Teams/Teams";
 import Notifications from "./tabs/Notifications";
 import ProjectsTab from "./tabs/ProjectsTab";
-import Escrow from "./escrow/Escrow";
+
 import EscrowDashboard from "@/components/Escrow/Dashboard";
 import { Project } from "@/types/project";
 import { SkeletonLoader } from "@/components/SkeletonLoader";

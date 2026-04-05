@@ -89,7 +89,7 @@ export default function ProjectMatchEntry({
                                hover:bg-[#c12129]/5 hover:shadow-sm
                                active:scale-[0.97] transition-all"
                 >
-                    Unlock AI
+                    Unlock AI and Upgrade
                 </button>
             );
         }
@@ -135,7 +135,7 @@ export default function ProjectMatchEntry({
                 {/* LEFT SECTION */}
                 <div className="space-y-1">
                     <h3 className="font-semibold text-black flex items-center gap-2">
-                        AI Project Matching
+                        AI and Personal Advisor Matching
                         <span className="text-[10px] tracking-wide bg-[#c12129] text-white
                                          px-2 py-[2px] rounded-md shadow-sm">
                             PRO
