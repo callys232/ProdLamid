@@ -14,20 +14,23 @@ interface Profile {
   availability?: { day: string; slots: number[] }[];
 }
 
+import { MultiStepFormValues } from "@/types/userProfile";
+
 interface StepStatusProps {
-  profile?: Profile;
-  onUpdateAvailability: (availability: Profile["availability"]) => void;
+  data: MultiStepFormValues;
+  onChange: (field: any, value: any) => void;
+  onJumpToStep?: (index: number) => void;
 }
 
-export default function StepStatus({ profile, onUpdateAvailability }: StepStatusProps) {
+export default function StepStatus({ data, onChange, onJumpToStep }: StepStatusProps) {
   const [kycOpen, setKycOpen] = useState(false);
 
-  const safeProfile: Profile = {
-    tier: profile?.tier ?? "Freemium",
-    accountType: profile?.accountType ?? "Freelancer",
-    premium: profile?.premium ?? false,
-    verified: profile?.verified ?? false,
-    availability: profile?.availability ?? [],
+  const safeProfile = {
+    tier: data.premium ? "Premium" : "Freemium",
+    accountType: data.businessEnrolled ? "Enterprise" : "Freelancer",
+    premium: data.premium ?? false,
+    verified: data.verified ?? false,
+    availability: (data as any).availability ?? [],
   };
 
   return (
@@ -92,7 +95,7 @@ export default function StepStatus({ profile, onUpdateAvailability }: StepStatus
         <h3 className="text-white font-semibold mb-3">Availability Schedule</h3>
         <AvailabilityCalendar
           availability={safeProfile.availability}
-          onChange={onUpdateAvailability}
+          onChange={(val) => onChange("availability", val)}
         />
       </div>
 

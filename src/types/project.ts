@@ -62,8 +62,8 @@ export interface Project {
 
   tags?: string[];
   skills?: string[];
-  data: any;
-  total: number;
+  data?: any;
+  total?: number;
 
 
   /* ---------------- TYPE + STAGE ---------------- */

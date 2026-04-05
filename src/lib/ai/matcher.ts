@@ -1,4 +1,4 @@
-import { Project, Consultant, Score } from "@/types/AiMatch";
+import { Project, Consultant, Score } from "@/types/aiMatch";
 
 /* ---------------- MOCK SEMANTIC ---------------- */
 function semanticScore(project: Project, consultant: Consultant) {
@@ -6,7 +6,8 @@ function semanticScore(project: Project, consultant: Consultant) {
 
     const ctext = (
         consultant.skills.join(" ") +
-        consultant.portfolio.map(p => p.description).join(" ")
+        " " +
+        (consultant.portfolio?.map(p => p.description).join(" ") || "")
     ).toLowerCase();
 
     let matches = 0;
@@ -35,8 +36,8 @@ export function scoreConsultant(
 
     const skillMatch = matchedSkills.length / project.skills.length;
     const experience = Math.min(consultant.experienceYears / 10, 1);
-    const rating = consultant.rating / 5;
-    const reliability = Math.min(consultant.completedProjects / 50, 1);
+    const rating = (consultant.rating ?? 0) / 5;
+    const reliability = Math.min((consultant.completedProjects ?? 0) / 50, 1);
 
     const total =
         semantic * 0.5 +

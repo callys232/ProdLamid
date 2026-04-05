@@ -115,7 +115,7 @@ export default function SignInPage() {
           {/* Forgot password + Sign up */}
           <div className="flex justify-between text-sm text-gray-400 mt-1">
             <a
-              href="/forgot-password"
+              href="/forgotpassword"
               className="hover:text-[#c12129] transition"
             >
               Forgot Password?

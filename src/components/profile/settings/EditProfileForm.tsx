@@ -18,20 +18,22 @@ import { MultiStepFormValues } from "@/types/userProfile";
 
 /* ================= ONCHANGE TYPE ================= */
 
-type OnChange = <K extends keyof MultiStepFormValues>(
-  field: K,
-  value: MultiStepFormValues[K]
+type OnChange = (
+  field: any,
+  value: any
 ) => void;
 
 /* ================= COMPONENT ================= */
 
 interface Props {
   initialData?: Partial<MultiStepFormValues>;
+  user?: any;
   onClose: () => void;
 }
 
 export default function MultiStepForm({
   initialData = {},
+  user,
   onClose,
 }: Props) {
   /* ---------------- STEPS ---------------- */
@@ -92,6 +94,7 @@ export default function MultiStepForm({
       verified: false,
       businessEnrolled: false,
 
+      ...user,
       ...initialData,
     },
     mode: "onChange",
@@ -100,7 +103,7 @@ export default function MultiStepForm({
   /* ---------------- CHANGE HANDLER ---------------- */
 
   const handleChange: OnChange = (field, value) => {
-    methods.setValue(field, value, {
+    methods.setValue(field as any, value as any, {
       shouldValidate: true,
       shouldDirty: true,
     });
@@ -138,7 +141,7 @@ export default function MultiStepForm({
   /* ---------------- NAVIGATION ---------------- */
 
   const handleNext = async () => {
-    const fields = steps[step].fields as FieldPath<MultiStepFormValues>[];
+    const fields = steps[step].fields as unknown as FieldPath<MultiStepFormValues>[];
 
     // Validate ONLY current step fields
     const valid = await methods.trigger(fields);

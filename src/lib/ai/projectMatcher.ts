@@ -79,6 +79,11 @@ export function scoreProject(
         `Project freshness score: ${(recencyScore * 100).toFixed(0)}%`,
     ];
 
+    /* -------- RELIABILITY -------- */
+    const reliability = consultant.completedProjects
+        ? Math.min(consultant.completedProjects / 10, 1)
+        : 0.8;
+
     return {
         total,
         semantic: semanticScore,
@@ -89,5 +94,6 @@ export function scoreProject(
         matchedSkills,
         missingSkills,
         reasons,
+        reliability,
     };
 }
