@@ -6,12 +6,14 @@ import { useState } from "react";
 interface ProjectMatchEntryProps {
     isPremiumUser: boolean;
     buildPayload: () => any;
+    onResults?: (results: any) => void;
 }
 
 /* -------------------- COMPONENT -------------------- */
 export default function ProjectMatchEntry({
     isPremiumUser,
     buildPayload,
+    onResults,
 }: ProjectMatchEntryProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -42,10 +44,12 @@ export default function ProjectMatchEntry({
             // Cache project matches locally
             localStorage.setItem("projectMatches", JSON.stringify(data));
 
-            // Smooth redirect for UX
-            setTimeout(() => {
-                window.location.href = "/projects/match";
-            }, 300);
+            if (onResults) {
+                onResults(data);
+                return;
+            }
+
+            window.location.href = "/projects/match";
         } catch (err: any) {
             console.error("AI Match Error:", err);
             setError(err.message || "Something went wrong while matching projects.");

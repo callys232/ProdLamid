@@ -8,6 +8,7 @@ import ProjectCard from "./resultcard";
 import AIProjectEntry from "./projectEntry";
 import { getProjects } from "@/lib/api/projectApi";
 import type { Project } from "@/types/project";
+import type { ProjectMatchResult } from "@/types/aiProjectmatch";
 
 /* -------------------- FILTER TYPE -------------------- */
 type ProjectFilters = {
@@ -61,6 +62,7 @@ export default function ProjectsSection({
     const [error, setError] = useState<string | null>(null);
     const [total, setTotal] = useState<number | null>(null);
     const [searchTerm, setSearchTerm] = useState<string>(filters.search);
+    const [aiResults, setAiResults] = useState<ProjectMatchResult[] | null>(null);
 
     const abortRef = useRef<AbortController | null>(null);
     const sentinelRef = useRef<HTMLDivElement | null>(null);
@@ -142,6 +144,7 @@ export default function ProjectsSection({
         setPage(1);
         setHasMore(true);
         setProjects([]);
+        setAiResults(null);
         fetchPage({ page: 1, replace: true });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters]); // fetchPage is stable now
@@ -222,6 +225,15 @@ export default function ProjectsSection({
         filteredProjects,
     ]);
 
+    const handleAiResults = useCallback((data: any) => {
+        const payload = Array.isArray(data) ? data : data?.data;
+        if (Array.isArray(payload)) {
+            setAiResults(payload as ProjectMatchResult[]);
+            return;
+        }
+        setAiResults([]);
+    }, []);
+
     /* ---------------- HELPERS -------------------- */
     const clearFilters = useCallback(() => {
         setFilters(defaultFilters);
@@ -270,7 +282,11 @@ export default function ProjectsSection({
                             placeholder="Search projects, categories, tech..."
                             className="px-3 py-2 border rounded-md border-gray-200 focus:ring-2 focus:ring-[#c12129] focus:outline-none"
                         /> */}
-                        <AIProjectEntry isPremiumUser={isPremiumUser} buildPayload={buildAIPayload} />
+                        <AIProjectEntry
+                            isPremiumUser={isPremiumUser}
+                            buildPayload={buildAIPayload}
+                            onResults={handleAiResults}
+                        />
                     </div>
                 </div>
 
@@ -283,7 +299,20 @@ export default function ProjectsSection({
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.2 }}
                     >
-                        {filteredProjects.length > 0 ? (
+                        {aiResults && aiResults.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                                {aiResults.map((r) => (
+                                    <motion.div key={r.project.id} layout>
+                                        <ProjectCard
+                                            result={r as any}
+                                            selected={false}
+                                            onSelect={() => { }}
+                                            onApply={async () => { }}
+                                        />
+                                    </motion.div>
+                                ))}
+                            </div>
+                        ) : filteredProjects.length > 0 ? (
                             <>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                                     {filteredProjects.map((p) => (
