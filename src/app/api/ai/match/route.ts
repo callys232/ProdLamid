@@ -62,7 +62,7 @@ export async function POST(req: Request) {
         const body = await req.json();
         const project = buildProjectFromBody(body);
 
-        const cookieStore = cookies();
+        const cookieStore = await cookies();
         let token = cookieStore.get("token")?.value;
 
         if (!token) {
@@ -76,7 +76,7 @@ export async function POST(req: Request) {
             try {
                 const decoded: any = jwt.verify(token, JWT_SECRET);
                 if (decoded?.userId) {
-                    const requester = await Users.findById(decoded.userId).lean();
+                    const requester: any = await Users.findById(decoded.userId).lean();
                     if (
                         requester &&
                         requester.role === "client" &&
@@ -117,4 +117,3 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Failed to match consultants" }, { status: 500 });
     }
 }
-

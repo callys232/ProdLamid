@@ -25,8 +25,8 @@ function toNumber(value: unknown, fallback = 0) {
     return fallback;
 }
 
-function getToken(req: Request) {
-    const cookieStore = cookies();
+async function getToken(req: Request) {
+    const cookieStore = await cookies();
     let token = cookieStore.get("token")?.value;
 
     if (!token) {
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
     try {
         await connectDB();
 
-        const token = getToken(req);
+        const token = await getToken(req);
         if (!token) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
@@ -145,4 +145,3 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Failed to match projects" }, { status: 500 });
     }
 }
-
