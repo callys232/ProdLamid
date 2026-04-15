@@ -11,26 +11,62 @@ import ComparePanel from "./compare";
 export default function AIConsultantMatcher({
     project,
     consultants,
+    useBackend = true,
 }: {
     project: Project;
-    consultants: Consultant[];
+    consultants?: Consultant[];
+    useBackend?: boolean;
 }) {
     const [results, setResults] = useState<MatchResult[]>([]);
     const [selected, setSelected] = useState<MatchResult[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    /* ---------------- MATCHING ---------------- */
     useEffect(() => {
         const runMatching = async () => {
             setLoading(true);
+            setError(null);
 
-            // Score each consultant based on project requirements
-            const scored: MatchResult[] = consultants.map((c) => ({
+            const list = consultants ?? [];
+
+            if (useBackend || list.length === 0) {
+                try {
+                    const res = await fetch("/api/ai/match", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(project),
+                    });
+
+                    const data = await res.json();
+                    const payload = Array.isArray(data) ? data : data?.data;
+
+                    if (!res.ok) {
+                        const message = data?.error || data?.message || "Failed to match consultants";
+                        throw new Error(message);
+                    }
+
+                    if (Array.isArray(payload)) {
+                        setResults(payload as MatchResult[]);
+                        setLoading(false);
+                        return;
+                    }
+
+                    throw new Error("Invalid match response");
+                } catch (e: any) {
+                    if (list.length === 0) {
+                        setError(e?.message || "Failed to match consultants");
+                        setResults([]);
+                        setLoading(false);
+                        return;
+                    }
+                }
+            }
+
+            const scored: MatchResult[] = list.map((c) => ({
                 consultant: c,
                 score: scoreConsultant(project, c),
             }));
 
-            // Sort descending by total score
             scored.sort((a, b) => b.score.total - a.score.total);
 
             setResults(scored);
@@ -38,7 +74,7 @@ export default function AIConsultantMatcher({
         };
 
         runMatching();
-    }, [project, consultants]);
+    }, [project, consultants, useBackend]);
 
     /* ---------------- SELECT LOGIC ---------------- */
     function handleSelect(result: MatchResult) {
@@ -66,6 +102,8 @@ export default function AIConsultantMatcher({
 
             {loading ? (
                 <p className="text-gray-500">Analyzing consultants...</p>
+            ) : error ? (
+                <p className="text-red-600">{error}</p>
             ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {results.map((r) => (
