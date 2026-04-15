@@ -47,3 +47,52 @@ export async function generateFashionRecommendations(params: {
 
     return aiResponse.choices[0]?.message?.content || "";
 }
+
+/**
+ * Estimates project budget and timeline based on project details.
+ */
+export async function estimateProjectDetails(params: {
+    title: string;
+    description?: string;
+    category: string;
+    skills?: string[];
+}) {
+    const { title, description, category, skills } = params;
+
+    const prompt = `
+    You are an AI Project Advisor. Based on the following project details, provide a budget range and typical duration.
+    
+    Project Title: ${title}
+    Category: ${category}
+    Description: ${description || "No description provided."}
+    Required Skills: ${skills?.join(", ") || "None specified."}
+    
+    Provide your response in strict JSON format with the following keys:
+    - budgetMin (number): Suggested minimum budget in USD.
+    - budgetMax (number): Suggested maximum budget in USD.
+    - durationMonths (number): Typical duration in months.
+    - explanation (string): A very short (max 15 words) summary of why this estimation was given.
+    
+    Return ONLY the JSON object.
+  `;
+
+    try {
+        const aiResponse = await openai.chat.completions.create({
+            model: "openai/gpt-4o-mini",
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0.5,
+            response_format: { type: "json_object" },
+        });
+
+        const content = aiResponse.choices[0]?.message?.content || "{}";
+        return JSON.parse(content);
+    } catch (error) {
+        console.error("AI Estimation Error:", error);
+        return {
+            budgetMin: 3000,
+            budgetMax: 15000,
+            durationMonths: 4,
+            explanation: "Using standard market averages due to estimation error.",
+        };
+    }
+}

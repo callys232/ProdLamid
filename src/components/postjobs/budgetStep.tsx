@@ -25,6 +25,13 @@ export default function BudgetStep({
   );
 
   const [sliderValue, setSliderValue] = useState<number>(project.budget ?? 0);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiEstimation, setAiEstimation] = useState<{
+    budgetMin: number;
+    budgetMax: number;
+    durationMonths: number;
+    explanation: string;
+  } | null>(null);
 
   const sliderMin = 0;
   const sliderMax = 200000;
@@ -66,6 +73,37 @@ export default function BudgetStep({
   useEffect(() => {
     setSliderValue(project.budget ?? 0);
   }, [project.budget]);
+
+  useEffect(() => {
+    if (!premiumUser || !project.title || !project.category) return;
+
+    const fetchEstimation = async () => {
+      setAiLoading(true);
+      try {
+        const response = await fetch("/api/projects/estimate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: project.title,
+            category: project.category,
+            description: project.description,
+            skills: project.skills,
+          }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setAiEstimation(data);
+        }
+      } catch (error) {
+        console.error("Error fetching AI estimation:", error);
+      } finally {
+        setAiLoading(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(fetchEstimation, 1000);
+    return () => clearTimeout(debounceTimer);
+  }, [project.title, project.category, project.description, project.skills, premiumUser]);
 
   const onSliderChange = (v: number) => {
     const safe = safeNumber(v, sliderMin, sliderMax);
@@ -151,13 +189,14 @@ export default function BudgetStep({
   }, [project.category, premiumUser]);
 
   const autoEndDate = useMemo(() => {
-    if (!premiumUser || !startDate || !timelineSuggestion) return null;
+    if (!premiumUser || !startDate) return null;
 
+    const months = aiEstimation?.durationMonths ?? 4;
     const d = new Date(startDate);
-    d.setMonth(d.getMonth() + timelineSuggestion.months);
+    d.setMonth(d.getMonth() + months);
 
     return d;
-  }, [premiumUser, startDate, timelineSuggestion]);
+  }, [premiumUser, startDate, aiEstimation]);
 
   /* ================= AI BUDGET ADVISOR ================= */
 
@@ -462,31 +501,48 @@ export default function BudgetStep({
 
         {premiumUser ? (
           <div className="space-y-3 mt-3">
-
-            {aiBudgetSuggestion && (
-              <div className="text-sm text-gray-700">
-                Suggested budget range:
-                <span className="font-semibold ml-1">
-                  {aiBudgetSuggestion}
-                </span>
+            {aiLoading ? (
+              <div className="flex items-center gap-2 text-sm text-gray-500 italic">
+                <div className="w-3 h-3 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+                Analyzing project details...
               </div>
-            )}
+            ) : (
+              <>
+                {aiEstimation ? (
+                  <>
+                    <div className="text-sm text-gray-700">
+                      Suggested budget range:
+                      <span className="font-semibold ml-1">
+                        {currency}{aiEstimation.budgetMin.toLocaleString()} – {currency}{aiEstimation.budgetMax.toLocaleString()}
+                      </span>
+                    </div>
 
-            {timelineSuggestion && (
-              <div className="text-sm text-gray-700">
-                {timelineSuggestion.label}
-              </div>
-            )}
+                    <div className="text-sm text-gray-700">
+                      Typical project duration ~{aiEstimation.durationMonths} months.
+                    </div>
 
-            {autoEndDate && (
-              <div className="text-xs text-gray-500">
-                Suggested end date:
-                <span className="font-semibold ml-1">
-                  {formatDate(autoEndDate)}
-                </span>
-              </div>
-            )}
+                    {aiEstimation.explanation && (
+                      <div className="text-xs text-blue-600 bg-blue-50 p-2 rounded border border-blue-100 italic">
+                        " {aiEstimation.explanation} "
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="text-xs text-gray-500 italic">
+                    Fill in project title and category to get AI insights.
+                  </div>
+                )}
 
+                {autoEndDate && (
+                  <div className="text-xs text-gray-500">
+                    Suggested end date:
+                    <span className="font-semibold ml-1">
+                      {formatDate(autoEndDate)}
+                    </span>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         ) : (
           <div className="mt-3 text-xs text-gray-500">
