@@ -20,4 +20,5 @@ export const consultantProfileSchema = z.object({
     premium: z.boolean(),
     verified: z.boolean(),
     businessEnrolled: z.boolean(),
+    accountType: z.string().optional(),
 });

@@ -70,7 +70,7 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
         </p>
       </div>
       <div>
-        <p className="text-sm text-gray-400">Tech Stack</p>
+        <p className="text-sm text-gray-400">Portfolio/Tech Stack</p>
         <p className="text-white">{project.tech ?? "N/A"}</p>
       </div>
       <div>
@@ -84,8 +84,8 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
           <button
             onClick={() => setActiveTab("available")}
             className={`px-3 py-1 rounded text-sm ${activeTab === "available"
-                ? "bg-[#c12129] text-white"
-                : "bg-gray-800 text-gray-300"
+              ? "bg-[#c12129] text-white"
+              : "bg-gray-800 text-gray-300"
               }`}
           >
             Available Time
@@ -93,8 +93,8 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
           <button
             onClick={() => setActiveTab("allocated")}
             className={`px-3 py-1 rounded text-sm ${activeTab === "allocated"
-                ? "bg-[#c12129] text-white"
-                : "bg-gray-800 text-gray-300"
+              ? "bg-[#c12129] text-white"
+              : "bg-gray-800 text-gray-300"
               }`}
           >
             Allocated Time

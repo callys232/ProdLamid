@@ -231,7 +231,7 @@ export default function BudgetStep({
 
       <div className="bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:shadow-lg transition">
         <label className="block text-sm font-medium text-gray-700 mb-3">
-          Budget Type
+          Budget Estimate, Want an estimator?
         </label>
 
         <div className="flex gap-3">

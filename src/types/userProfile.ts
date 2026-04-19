@@ -18,4 +18,5 @@ export interface MultiStepFormValues {
     premium: boolean;
     verified: boolean;
     businessEnrolled: boolean;
+    accountType?: string;
 }
