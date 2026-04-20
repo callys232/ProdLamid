@@ -1,14 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
+import SmartGate from "@/components/smartGate";
 
 interface AIMatchEntryProps {
-    isPremiumUser: boolean;
+    user: {
+        id?: string;
+        plan: "free" | "premium" | "enterprise";
+    };
     buildPayload: () => any;
 }
 
 export default function AIMatchEntry({
-    isPremiumUser,
+    user,
     buildPayload,
 }: AIMatchEntryProps) {
 
@@ -22,10 +26,9 @@ export default function AIMatchEntry({
 
             const payload = buildPayload();
 
-            // Save raw project as fallback
+            // Persist fallback draft
             localStorage.setItem("projectDraft", JSON.stringify(payload));
 
-            /* ---------------- API CALL ---------------- */
             const res = await fetch("/api/ai/match", {
                 method: "POST",
                 headers: {
@@ -40,10 +43,8 @@ export default function AIMatchEntry({
 
             const data = await res.json();
 
-            /* ---------------- STORE RESULTS ---------------- */
             localStorage.setItem("aiMatchResults", JSON.stringify(data));
 
-            /* ---------------- NAVIGATE ---------------- */
             window.location.href = "/postjobs/match";
 
         } catch (err: any) {
@@ -55,63 +56,87 @@ export default function AIMatchEntry({
     };
 
     const handleUpgrade = () => {
-        alert("Upgrade to Premium to unlock AI matching");
+        window.location.href = "/upgrade";
     };
 
     return (
         <div className="border rounded-lg p-4 bg-gray-50 hover:shadow-md hover:scale-[1.01] transition">
 
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <SmartGate
+                user={user}
+                featureTitle="AI Consultant Matching"
+                onUpgrade={handleUpgrade}
 
-                <div>
-                    <h3 className="font-semibold text-black flex items-center gap-2">
-                        AI Consultant Matching
-                        <span className="text-xs bg-[#c12129] text-white px-2 py-1 rounded">
-                            PRO
-                        </span>
-                    </h3>
+                /* ---------------- FREE USER PREVIEW (ALWAYS SAME UX) ---------------- */
+                preview={
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-                    <p className="text-sm text-gray-500">
-                        Instantly find and compare the best consultants for your project using AI.
-                    </p>
-                </div>
+                        <div>
+                            <h3 className="font-semibold text-black flex items-center gap-2">
+                                AI Consultant Matching
+                                <span className="text-xs bg-[#c12129] text-white px-2 py-1 rounded">
+                                    PRO
+                                </span>
+                            </h3>
 
-                {isPremiumUser ? (
-                    <button
-                        type="button"
-                        onClick={handleAIMatch}
-                        disabled={loading}
-                        className={`px-4 py-2 rounded-lg font-semibold transition ${loading
-                            ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                            : "bg-[#c12129] text-white hover:bg-red-700"
-                            }`}
-                    >
-                        {loading ? "Matching..." : "Find Matches"}
-                    </button>
-                ) : (
-                    <button
-                        type="button"
-                        onClick={handleUpgrade}
-                        className="px-4 py-2 rounded-lg border border-[#c12129] text-[#c12129] hover:bg-red-50 transition font-semibold"
-                    >
-                        Unlock AI Match
-                    </button>
-                )}
-            </div>
+                            <p className="text-sm text-gray-500">
+                                Instantly find and compare the best consultants for your project using AI.
+                            </p>
+                        </div>
 
-            {/* ERROR */}
+                        <button
+                            type="button"
+                            className="px-4 py-2 rounded-lg border border-[#c12129] text-[#c12129] hover:bg-red-50 transition font-semibold"
+                        >
+                            Unlock AI Match
+                        </button>
+                    </div>
+                }
+
+                /* ---------------- PREMIUM FULL FEATURE ---------------- */
+                children={
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                        <div>
+                            <h3 className="font-semibold text-black flex items-center gap-2">
+                                AI Consultant Matching
+                                <span className="text-xs bg-[#c12129] text-white px-2 py-1 rounded">
+                                    PRO
+                                </span>
+                            </h3>
+
+                            <p className="text-sm text-gray-500">
+                                Instantly find and compare the best consultants for your project using AI.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={handleAIMatch}
+                            disabled={loading}
+                            className={`px-4 py-2 rounded-lg font-semibold transition ${loading
+                                ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                                : "bg-[#c12129] text-white hover:bg-red-700"
+                                }`}
+                        >
+                            {loading ? "Matching..." : "Find Matches"}
+                        </button>
+                    </div>
+                }
+            />
+
+            {/* ---------------- ERROR STATE (UNCHANGED) ---------------- */}
             {error && (
                 <p className="text-xs text-red-500 mt-2">
                     {error}
                 </p>
             )}
 
-            {/* PREMIUM NOTICE */}
-            {!isPremiumUser && (
-                <p className="text-xs text-gray-400 mt-2">
-                    🔒 Premium feature — includes AI insights, scoring & consultant comparison
-                </p>
-            )}
+            {/* ---------------- GLOBAL PREMIUM INFO (CONSTANT ACROSS APP) ---------------- */}
+            <p className="text-xs text-gray-400 mt-2">
+                🔒 Premium feature — includes AI insights, scoring & consultant comparison
+            </p>
+
         </div>
     );
 }

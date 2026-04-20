@@ -1,7 +1,6 @@
-// components/FinancingInput.tsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Tooltip from "./tooltip";
-import { fetchRecommendation } from "../../utils/api";
+import { useFieldRecommendation } from "@/hooks/useField";
 
 interface FinancingItem {
     interestRate: number;
@@ -15,85 +14,101 @@ export default function FinancingInput() {
         currencyExchangeImpact: 2000,
         insuranceCost: 1500,
     });
-    const [activeField, setActiveField] = useState<string | null>(null);
-    const [tooltipData, setTooltipData] = useState<any>(null);
 
-    useEffect(() => {
-        if (activeField) {
-            fetchRecommendation("finance", "medium", activeField).then((data) =>
-                setTooltipData(data)
-            );
-        }
-    }, [activeField]);
+    const [activeField, setActiveField] = useState<string | null>(null);
+
+    const common = {
+        industry: "finance",
+        complexity: "medium",
+    };
+
+    const interest = useFieldRecommendation({
+        ...common,
+        field: "interestRate",
+        enabled: activeField === "interestRate",
+    });
+
+    const exchange = useFieldRecommendation({
+        ...common,
+        field: "currencyExchangeImpact",
+        enabled: activeField === "currencyExchangeImpact",
+    });
+
+    const insurance = useFieldRecommendation({
+        ...common,
+        field: "insuranceCost",
+        enabled: activeField === "insuranceCost",
+    });
+
+    const update = (field: keyof FinancingItem, value: number) =>
+        setFinancing((p) => ({ ...p, [field]: value }));
 
     return (
-        <div className="space-y-4">
-            <div
-                className={`relative p-4 rounded-lg shadow transition ${activeField === "interestRate" ? "bg-red-50 border border-[#c12129]" : "bg-white"
-                    }`}
-            >
+        <div className="space-y-4 text-red-500">
+
+            {/* INTEREST */}
+            <div className={`relative p-4 rounded-lg shadow ${activeField === "interestRate" ? "bg-red-50 border border-[#c12129]" : "bg-white"}`}>
                 <label className="block text-sm font-semibold mb-2">Interest Rate (%)</label>
+
                 <input
                     type="number"
                     value={financing.interestRate}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] transition w-32"
                     onFocus={() => setActiveField("interestRate")}
                     onBlur={() => setActiveField(null)}
-                    onChange={(e) =>
-                        setFinancing({ ...financing, interestRate: Number(e.target.value) })
-                    }
+                    onChange={(e) => update("interestRate", Number(e.target.value))}
+                    className="border-b-2 w-32"
                 />
+
                 <Tooltip
-                    recommendation={tooltipData?.recommendation || "Typical financing rates: 4–6%"}
-                    source={tooltipData?.source || "Based on 15 similar projects"}
-                    confidence={tooltipData?.confidence || 0.8}
                     visible={activeField === "interestRate"}
+                    recommendation={interest.data?.recommendation || "Typical rates: 4–6%"}
+                    source={interest.data?.source}
+                    confidence={interest.data?.confidence || 0.8}
+                    loading={interest.loading}
                 />
             </div>
 
-            <div
-                className={`relative p-4 rounded-lg shadow transition ${activeField === "currencyExchangeImpact" ? "bg-red-50 border border-[#c12129]" : "bg-white"
-                    }`}
-            >
-                <label className="block text-sm font-semibold mb-2">Currency Exchange Impact ($)</label>
+            {/* EXCHANGE */}
+            <div className={`relative p-4 rounded-lg shadow ${activeField === "currencyExchangeImpact" ? "bg-red-50 border border-[#c12129]" : "bg-white"}`}>
+                <label className="block text-sm font-semibold mb-2">Exchange Impact</label>
+
                 <input
                     type="number"
                     value={financing.currencyExchangeImpact}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] transition w-40"
                     onFocus={() => setActiveField("currencyExchangeImpact")}
                     onBlur={() => setActiveField(null)}
-                    onChange={(e) =>
-                        setFinancing({ ...financing, currencyExchangeImpact: Number(e.target.value) })
-                    }
+                    onChange={(e) => update("currencyExchangeImpact", Number(e.target.value))}
+                    className="border-b-2 w-40"
                 />
+
                 <Tooltip
-                    recommendation={tooltipData?.recommendation || "Exchange impact averages $1.5k–2.5k"}
-                    source={tooltipData?.source || "Based on 10 similar projects"}
-                    confidence={tooltipData?.confidence || 0.76}
                     visible={activeField === "currencyExchangeImpact"}
+                    recommendation={exchange.data?.recommendation || "Avg $1.5k–2.5k"}
+                    source={exchange.data?.source}
+                    confidence={exchange.data?.confidence || 0.76}
+                    loading={exchange.loading}
                 />
             </div>
 
-            <div
-                className={`relative p-4 rounded-lg shadow transition ${activeField === "insuranceCost" ? "bg-red-50 border border-[#c12129]" : "bg-white"
-                    }`}
-            >
-                <label className="block text-sm font-semibold mb-2">Insurance Cost ($)</label>
+            {/* INSURANCE */}
+            <div className={`relative p-4 rounded-lg shadow ${activeField === "insuranceCost" ? "bg-red-50 border border-[#c12129]" : "bg-white"}`}>
+                <label className="block text-sm font-semibold mb-2">Insurance Cost</label>
+
                 <input
                     type="number"
                     value={financing.insuranceCost}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] transition w-40"
                     onFocus={() => setActiveField("insuranceCost")}
                     onBlur={() => setActiveField(null)}
-                    onChange={(e) =>
-                        setFinancing({ ...financing, insuranceCost: Number(e.target.value) })
-                    }
+                    onChange={(e) => update("insuranceCost", Number(e.target.value))}
+                    className="border-b-2 w-40"
                 />
+
                 <Tooltip
-                    recommendation={tooltipData?.recommendation || "Insurance typically costs $1k–2k"}
-                    source={tooltipData?.source || "Based on 8 similar projects"}
-                    confidence={tooltipData?.confidence || 0.72}
                     visible={activeField === "insuranceCost"}
+                    recommendation={insurance.data?.recommendation || "Avg $1k–2k"}
+                    source={insurance.data?.source}
+                    confidence={insurance.data?.confidence || 0.72}
+                    loading={insurance.loading}
                 />
             </div>
         </div>

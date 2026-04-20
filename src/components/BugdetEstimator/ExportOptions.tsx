@@ -1,7 +1,7 @@
 // components/ExportOptions.tsx
 import React from "react";
 
-export default function ExportOptions() {
+export default function ExportOptions({ data }: { data?: any }) {
     const handleExport = (type: string) => {
         // Placeholder export logic — replace with actual backend integration
         alert(`Exporting as ${type}...`);

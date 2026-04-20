@@ -1,5 +1,4 @@
-// components/EstimateSummary.tsx
-import { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 
 interface SummaryProps {
     laborTotal: number;
@@ -14,13 +13,13 @@ interface SummaryProps {
     vendorTotal: number;
     lifecycleTotal: number;
     financingTotal: number;
+    estimate?: any;
 }
 
 export default function EstimateSummary(props: SummaryProps) {
-    const [grandTotal, setGrandTotal] = useState(0);
 
-    useEffect(() => {
-        const total =
+    const grandTotal = useMemo(() => {
+        return (
             props.laborTotal +
             props.materialsTotal +
             props.technologyTotal +
@@ -32,66 +31,39 @@ export default function EstimateSummary(props: SummaryProps) {
             props.sustainabilityTotal +
             props.vendorTotal +
             props.lifecycleTotal +
-            props.financingTotal;
-
-        setGrandTotal(total);
+            props.financingTotal
+        );
     }, [props]);
+
+    const rows = [
+        ["Labor", props.laborTotal],
+        ["Materials", props.materialsTotal],
+        ["Technology", props.technologyTotal],
+        ["Timeline & Overheads", props.timelineTotal],
+        ["Risk", props.riskTotal],
+        ["Regulatory", props.regulatoryTotal],
+        ["QA", props.qaTotal],
+        ["Client Side", props.clientTotal],
+        ["Sustainability", props.sustainabilityTotal],
+        ["Vendors", props.vendorTotal],
+        ["Lifecycle", props.lifecycleTotal],
+        ["Financing", props.financingTotal],
+    ] as const;
 
     return (
         <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition">
+
             <h2 className="text-xl font-bold border-b-2 border-[#c12129] mb-4">
                 Estimate Summary
             </h2>
 
             <div className="space-y-2 text-sm">
-                <p className="flex justify-between">
-                    <span>Labor</span>
-                    <span>${props.laborTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Materials</span>
-                    <span>${props.materialsTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Technology</span>
-                    <span>${props.technologyTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Timeline & Overheads</span>
-                    <span>${props.timelineTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Risk</span>
-                    <span>${props.riskTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Regulatory</span>
-                    <span>${props.regulatoryTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>QA</span>
-                    <span>${props.qaTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Client Side</span>
-                    <span>${props.clientTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Sustainability</span>
-                    <span>${props.sustainabilityTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Vendors</span>
-                    <span>${props.vendorTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Lifecycle</span>
-                    <span>${props.lifecycleTotal.toLocaleString()}</span>
-                </p>
-                <p className="flex justify-between">
-                    <span>Financing</span>
-                    <span>${props.financingTotal.toLocaleString()}</span>
-                </p>
+                {rows.map(([label, value]) => (
+                    <p key={label} className="flex justify-between">
+                        <span>{label}</span>
+                        <span>${value.toLocaleString()}</span>
+                    </p>
+                ))}
             </div>
 
             <div className="mt-6 p-4 bg-black text-white rounded-lg flex justify-between items-center">
@@ -100,6 +72,7 @@ export default function EstimateSummary(props: SummaryProps) {
                     ${grandTotal.toLocaleString()}
                 </span>
             </div>
+
         </div>
     );
 }

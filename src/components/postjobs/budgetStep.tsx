@@ -3,6 +3,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import type { Project } from "@/types/project";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import BudgetEstimatorGate from "./aiBugetEstimator";
+import BudgetEstimator from "../BugdetEstimator/estimator";
+import { Modal } from "./estimateModal";
+import BudgetPreviewVideo from "./peekview";
 
 interface BudgetStepProps {
   project: Project;
@@ -17,11 +22,11 @@ export default function BudgetStep({
   handleChange,
   errors,
   currencyOptions = ["$", "€", "£", "₦"],
-  premiumUser = false,
+  premiumUser = true,
 }: BudgetStepProps) {
 
   const [budgetType, setBudgetType] = useState<"fixed" | "hourly">(
-    project.budget && project.budget > 0 ? "fixed" : "hourly"
+    project.hourlyRate ? "hourly" : "fixed"
   );
 
   const [sliderValue, setSliderValue] = useState<number>(project.budget ?? 0);
@@ -48,8 +53,10 @@ export default function BudgetStep({
     return `${currency}${(value ?? 0).toLocaleString()}`;
   };
 
-  const formatDate = (date: Date) =>
-    date.toISOString().split("T")[0];
+  const formatDate = (date?: Date | null) => {
+    if (!date || isNaN(date.getTime())) return "";
+    return date.toISOString().split("T")[0];
+  };
 
   const presets = useMemo(
     () => [
@@ -61,7 +68,10 @@ export default function BudgetStep({
     ],
     []
   );
-
+  const router = useRouter();
+  const goToPremium = () => {
+    router.push("/premium");
+  };
   const estimatedCost = useMemo(() => {
     if (budgetType === "fixed") return sliderValue;
     if (project.hourlyRate && project.hourlyRate > 0) {
@@ -126,6 +136,15 @@ export default function BudgetStep({
     if (type === "fixed") handleChange("hourlyRate", null);
     else handleChange("budget", 0);
   };
+
+
+
+  const [showEstimatorModal, setShowEstimatorModal] = useState(false);
+
+  const openEstimator = () => {
+    setShowEstimatorModal(true);
+  };
+
 
   /* ================= DATE VALIDATION ================= */
 
@@ -225,121 +244,131 @@ export default function BudgetStep({
   ];
 
   return (
-    <div className="space-y-6 text-black">
+    <div className="space-y-6 text-black hover:text-[#c21219]">
 
       {/* ================= BUDGET TYPE ================= */}
+      <div className="bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:text-[#c21219]  hover:shadow-lg transition">
 
-      <div className="bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:shadow-lg transition">
-        <label className="block text-sm font-medium text-gray-700 mb-3">
-          Budget Estimate, Want an estimator?
+        <label
+          onClick={openEstimator}
+          className="cursor-pointer underline"
+
+        >
+          Want an estimator? Click here
         </label>
+        <div className="flex gap-2 ml-auto">
 
-        <div className="flex gap-3">
           <button
             type="button"
             onClick={() => onBudgetTypeChange("fixed")}
-            className={`px-4 py-2 rounded-md border transition ${budgetType === "fixed"
+            className={`px-3 py-1 rounded-md text-sm border transition ${budgetType === "fixed"
               ? "bg-[#c21219] text-white border-[#c21219]"
               : "border-gray-200"
               }`}
           >
-            Fixed Budget
+            Fixed
           </button>
 
           <button
             type="button"
             onClick={() => onBudgetTypeChange("hourly")}
-            className={`px-4 py-2 rounded-md border transition ${budgetType === "hourly"
+            className={`px-3 py-1 rounded-md text-sm border transition ${budgetType === "hourly"
               ? "bg-[#c21219] text-white border-[#c21219]"
               : "border-gray-200"
               }`}
           >
             Hourly
           </button>
+
         </div>
+
       </div>
 
       {/* ================= FIXED BUDGET ================= */}
 
-      {budgetType === "fixed" && (
-        <div className="bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:shadow-lg transition">
+      {
+        budgetType === "fixed" && (
+          <div className="bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:text-[#c21219] hover:shadow-lg transition">
 
-          <label className="block text-sm font-medium text-gray-700">
-            Project Budget
-          </label>
+            <label className="block text-sm font-medium hover:text-[#c21219] text-gray-700">
+              Project Budget
+            </label>
 
-          <div className="flex gap-3 mt-2">
+            <div className="flex gap-3 mt-2">
+
+              <input
+                type="number"
+                min={0}
+                value={sliderValue}
+                onChange={(e) => onSliderChange(Number(e.target.value))}
+                className={`w-full px-3 py-2 rounded-md border ${errors.budget ? "border-red-500" : "border-gray-200"
+                  } focus:ring-2 focus:ring-[#c21219]`}
+              />
+
+              <div className="text-sm text-gray-500 whitespace-nowrap">
+                {formatCurrency(sliderValue)}
+              </div>
+
+            </div>
+
+            <input
+              type="range"
+              min={sliderMin}
+              max={sliderMax}
+              step={50}
+              value={sliderValue}
+              onChange={(e) => onSliderChange(Number(e.target.value))}
+              className="w-full mt-4 accent-[#c21219]"
+            />
+
+            <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <span>{formatCurrency(sliderMin)}</span>
+              <span>{formatCurrency(sliderMax)}</span>
+            </div>
+
+            <div className="flex flex-wrap gap-2 mt-3">
+              {presets.map((p) => (
+                <button
+                  key={p.label}
+                  type="button"
+                  onClick={() => onPresetClick(p.value)}
+                  className="px-3 py-1 text-xs rounded-md bg-gray-50 border border-gray-200 hover:bg-red-50 transition"
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+
+          </div>
+        )
+      }
+
+      {/* ================= HOURLY ================= */}
+
+      {
+        budgetType === "hourly" && (
+          <div className="bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:shadow-lg transition">
+
+            <label className="block text-sm font-medium hover:text-[#c21219] text-gray-700">
+              Hourly Rate
+            </label>
 
             <input
               type="number"
               min={0}
-              value={sliderValue}
-              onChange={(e) => onSliderChange(Number(e.target.value))}
-              className={`w-full px-3 py-2 rounded-md border ${errors.budget ? "border-red-500" : "border-gray-200"
-                } focus:ring-2 focus:ring-[#c21219]`}
+              step={0.01}
+              value={project.hourlyRate ?? ""}
+              onChange={(e) => onHourlyChange(e.target.value)}
+              className="mt-2 w-full px-3 py-2 border rounded-md border-gray-200 focus:ring-2 focus:ring-[#c21219]"
             />
 
-            <div className="text-sm text-gray-500 whitespace-nowrap">
-              {formatCurrency(sliderValue)}
-            </div>
-
           </div>
-
-          <input
-            type="range"
-            min={sliderMin}
-            max={sliderMax}
-            step={50}
-            value={sliderValue}
-            onChange={(e) => onSliderChange(Number(e.target.value))}
-            className="w-full mt-4 accent-[#c21219]"
-          />
-
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>{formatCurrency(sliderMin)}</span>
-            <span>{formatCurrency(sliderMax)}</span>
-          </div>
-
-          <div className="flex flex-wrap gap-2 mt-3">
-            {presets.map((p) => (
-              <button
-                key={p.label}
-                type="button"
-                onClick={() => onPresetClick(p.value)}
-                className="px-3 py-1 text-xs rounded-md bg-gray-50 border border-gray-200 hover:bg-red-50 transition"
-              >
-                {p.label}
-              </button>
-            ))}
-          </div>
-
-        </div>
-      )}
-
-      {/* ================= HOURLY ================= */}
-
-      {budgetType === "hourly" && (
-        <div className="bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:shadow-lg transition">
-
-          <label className="block text-sm font-medium text-gray-700">
-            Hourly Rate
-          </label>
-
-          <input
-            type="number"
-            min={0}
-            step={0.01}
-            value={project.hourlyRate ?? ""}
-            onChange={(e) => onHourlyChange(e.target.value)}
-            className="mt-2 w-full px-3 py-2 border rounded-md border-gray-200 focus:ring-2 focus:ring-[#c21219]"
-          />
-
-        </div>
-      )}
+        )
+      }
 
       {/* ================= ESTIMATE ================= */}
 
-      <div className="bg-gray-50 rounded-lg p-4 border text-sm text-gray-700">
+      <div className="bg-gray-50 rounded-lg p-4 border  hover:text-[#c21219] text-sm text-gray-700">
 
         Estimated monthly cost:
 
@@ -375,7 +404,7 @@ export default function BudgetStep({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium hover:text-[#c21219] text-gray-700">
               End Date
             </label>
 
@@ -397,7 +426,7 @@ export default function BudgetStep({
 
         <div className="mt-3">
 
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium hover:text-[#c21219] text-gray-700">
             Deadline
           </label>
 
@@ -443,7 +472,7 @@ export default function BudgetStep({
 
       <div className="bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:shadow-lg transition">
 
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-medium hover:text-[#c21219] text-gray-700 mb-3">
           Task Type
         </label>
 
@@ -474,9 +503,11 @@ export default function BudgetStep({
 
       {/* ================= AI SUITE ================= */}
 
-      <Link
-        href={premiumUser ? "/ai-agent" : "/subscription"}
-        className="block bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:shadow-xl hover:-translate-y-[2px] transition cursor-pointer"
+      <button
+        onClick={() =>
+          premiumUser ? router.push("/ai-agent") : router.push("/premium")
+        }
+        className="block w-full text-left bg-white rounded-lg p-4 ring-1 ring-gray-100 hover:shadow-xl hover:-translate-y-[2px] transition"
       >
 
         <div className="flex items-center justify-between">
@@ -550,8 +581,25 @@ export default function BudgetStep({
           </div>
         )}
 
-      </Link>
+      </button>
+      {/* ================= ESTIMATOR MODAL ================= */}
+      <Modal
+        open={showEstimatorModal}
+        onClose={() => setShowEstimatorModal(false)}
+        title="AI Budget Estimator"
+      >
+        {/* Mobile-safe scroll container */}
+        <div className="max-h-[85vh] overflow-y-auto px-3 sm:px-5 pb-6">
 
-    </div>
+          <BudgetEstimatorGate
+            premiumUser={premiumUser}
+            project={project}
+            onUpgrade={goToPremium}
+            mode="modal"
+          />
+
+        </div>
+      </Modal>
+    </div >
   );
 }

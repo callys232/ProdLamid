@@ -128,3 +128,21 @@ export interface ProjectEstimateOutput {
     similarProjects?: HistoricalProject[];
     confidence?: number;
 }
+
+export interface EstimatorState {
+    businessType: BusinessType;
+    complexity: ComplexityLevel;
+    timeline: Timeline;
+    labor: LaborCost[];
+    materials: MaterialCost[];
+    technology: TechnologyCost[];
+    overheads: OverheadCost[];
+    risk: RiskFactor;
+    regulatory: RegulatoryCost[];
+    qa: QualityAssuranceCost[];
+    clientSide: ClientSideCost[];
+    sustainability: SustainabilityCost[];
+    vendors: VendorDependencyCost[];
+    lifecycle: LifecycleCost[];
+    financing: FinancingCost[];
+}

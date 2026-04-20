@@ -1,7 +1,6 @@
-// components/VendorInput.tsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Tooltip from "./tooltip";
-import { fetchRecommendation } from "../../utils/api";
+import { useFieldRecommendation } from "@/hooks/useField";
 
 interface VendorItem {
     vendorName: string;
@@ -13,26 +12,30 @@ export default function VendorInput() {
     const [vendors, setVendors] = useState<VendorItem[]>([
         { vendorName: "Subcontractor A", serviceType: "Electrical", contractCost: 15000 },
     ]);
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [tooltipData, setTooltipData] = useState<any>(null);
 
-    useEffect(() => {
-        if (activeIndex !== null) {
-            const vendor = vendors[activeIndex].serviceType || "vendor";
-            fetchRecommendation("construction", "medium", "contractCost", vendor).then((data) =>
-                setTooltipData(data)
-            );
-        }
-    }, [activeIndex]);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+    const activeVendor = activeIndex !== null ? vendors[activeIndex] : null;
+
+    const { data, loading } = useFieldRecommendation({
+        enabled: activeIndex !== null,
+        industry: "construction",
+        complexity: "medium",
+        field: "contractCost",
+        keyword: activeVendor?.serviceType
+    });
 
     return (
         <div className="space-y-4">
             {vendors.map((v, i) => (
                 <div
                     key={i}
-                    className={`relative flex items-center space-x-4 p-4 rounded-lg shadow transition ${activeIndex === i ? "bg-red-50 border border-[#c12129]" : "bg-white"
+                    className={`relative flex items-center space-x-4 p-4 rounded-lg shadow transition ${activeIndex === i
+                        ? "bg-red-50 border border-[#c12129]"
+                        : "bg-white"
                         }`}
                 >
+                    {/* Vendor Name */}
                     <input
                         type="text"
                         value={v.vendorName}
@@ -41,12 +44,13 @@ export default function VendorInput() {
                         onFocus={() => setActiveIndex(i)}
                         onBlur={() => setActiveIndex(null)}
                         onChange={(e) => {
-                            const newVendors = [...vendors];
-                            newVendors[i].vendorName = e.target.value;
-                            setVendors(newVendors);
+                            const copy = [...vendors];
+                            copy[i].vendorName = e.target.value;
+                            setVendors(copy);
                         }}
                     />
 
+                    {/* Service Type */}
                     <input
                         type="text"
                         value={v.serviceType}
@@ -55,12 +59,13 @@ export default function VendorInput() {
                         onFocus={() => setActiveIndex(i)}
                         onBlur={() => setActiveIndex(null)}
                         onChange={(e) => {
-                            const newVendors = [...vendors];
-                            newVendors[i].serviceType = e.target.value;
-                            setVendors(newVendors);
+                            const copy = [...vendors];
+                            copy[i].serviceType = e.target.value;
+                            setVendors(copy);
                         }}
                     />
 
+                    {/* Contract Cost */}
                     <input
                         type="number"
                         value={v.contractCost}
@@ -69,25 +74,35 @@ export default function VendorInput() {
                         onFocus={() => setActiveIndex(i)}
                         onBlur={() => setActiveIndex(null)}
                         onChange={(e) => {
-                            const newVendors = [...vendors];
-                            newVendors[i].contractCost = Number(e.target.value);
-                            setVendors(newVendors);
+                            const copy = [...vendors];
+                            copy[i].contractCost = Number(e.target.value);
+                            setVendors(copy);
                         }}
                     />
 
-                    {/* Tooltip appears when input is focused */}
+                    {/* Tooltip */}
                     <Tooltip
-                        recommendation={tooltipData?.recommendation || "Typical vendor contracts: $12k–18k"}
-                        source={tooltipData?.source || "Based on 9 similar construction projects"}
-                        confidence={tooltipData?.confidence || 0.77}
+                        recommendation={
+                            data?.recommendation ||
+                            "Typical vendor contracts: $12k–18k"
+                        }
+                        source={
+                            data?.source ||
+                            "Based on similar construction vendor contracts"
+                        }
+                        confidence={data?.confidence || 0.75}
                         visible={activeIndex === i}
+                        loading={loading}
                     />
                 </div>
             ))}
 
             <button
                 onClick={() =>
-                    setVendors([...vendors, { vendorName: "", serviceType: "", contractCost: 0 }])
+                    setVendors([
+                        ...vendors,
+                        { vendorName: "", serviceType: "", contractCost: 0 },
+                    ])
                 }
                 className="bg-[#c12129] text-white px-4 py-2 rounded hover:bg-black hover:text-[#c12129] transition"
             >
