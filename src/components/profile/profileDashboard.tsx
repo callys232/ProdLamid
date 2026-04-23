@@ -14,7 +14,7 @@ import EscrowDashboard from "@/components/Escrow/Dashboard";
 import { Project } from "@/types/project";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ProjectMatching from "./projectMatching/projectMatch";
-import Messaging from "@/components/escrows/Dashboard";
+import Messaging from "@/components/messaging/Dashboard";
 
 export default function ProfileDashboard({
   params,

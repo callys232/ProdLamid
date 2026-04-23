@@ -1,5 +1,5 @@
-import Escrow from "../../components/escrows/Dashboard";
-import Messenger from "@/components/escrows/messenger";
+import Escrow from "../../components/messaging/Dashboard";
+import Messenger from "@/components/messaging/messenger";
 
 const EscrowPage = () => {
   return (

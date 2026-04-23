@@ -16,7 +16,7 @@ import { ClientProfile } from "@/types/client";
 import { Project } from "@/types/project";
 import { mockClients } from "@/mocks/mockClient";
 import CProfileHeader from "./CprofileHeader";
-
+import Messaging from "../messaging/Dashboard";
 /* -------------------- Skeleton Loader -------------------- */
 function SkeletonLoader() {
   return (
@@ -105,6 +105,7 @@ export default function ClientProfileDashboard() {
             initialEscrows={client.escrowTransactions}
           />
         );
+      case "messaging": return <Messaging />;
       case "invitations":
         return <Invitations client={client} consultants={client.consultants} />;
       default:
