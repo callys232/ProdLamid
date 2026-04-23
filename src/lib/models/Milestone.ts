@@ -1,18 +1,24 @@
 import mongoose from "mongoose";
 
 const MilestoneSchema = new mongoose.Schema({
+    projectId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Project",
+        required: true,
+    },
     title: { type: String, required: true },
     description: { type: String },
-    amount: { type: Number },
-    dueDate: { type: String },
-    progress: { type: Number, default: 0 },
+    amount: { type: Number, required: true }, // NGN (multiply *100 for kobo)
     status: {
         type: String,
-        enum: ["pending", "in_progress", "funded", "released", "completed", "cancelled", "disputed"],
-        default: "pending"
+        enum: ["pending", "started", "stopped", "dispute", "approved", "completed"],
+        default: "pending",
     },
-    deadline: { type: String }
-});
+    notes: { type: String },
+    fileUrl: { type: String },
+    startedAt: { type: Date },
+    completedAt: { type: Date },
+}, { timestamps: true });
 
 export const Milestone = mongoose.models.Milestone || mongoose.model("Milestone", MilestoneSchema);
 export { MilestoneSchema };

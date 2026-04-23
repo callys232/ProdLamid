@@ -19,6 +19,8 @@ const BidSchema = new mongoose.Schema({
         enum: ["pending", "accepted", "rejected", "withdrawn"],
         default: "pending",
     },
+    accepted: { type: Boolean, default: false },
+    denied: { type: Boolean, default: false },
     name: { type: String }, // redundant but useful snapshot
     email: { type: String }, // redundant but useful snapshot
 }, { timestamps: true });
