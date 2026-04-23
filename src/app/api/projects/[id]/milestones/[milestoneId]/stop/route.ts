@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
 import * as milestoneController from "@/controllers/milestoneController";
 
-type Params = Promise<{ milestoneId: string }>;
+type Params = Promise<{ id: string; milestoneId: string }>;
 
 export async function PATCH(
     request: NextRequest,

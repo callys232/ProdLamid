@@ -153,13 +153,24 @@ export default function ProjectCard({ project, onClick, compact = false }: Props
                         <span className="text-white font-medium">{pendingMilestones}</span>
                     </div>
 
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center pt-2">
                         <span>Current Milestone</span>
                         <span className="text-white font-medium">
                             {currentMilestone?.title ?? "None"}
                         </span>
                     </div>
 
+                    <div className="pt-4">
+                        <button 
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                window.location.href = `/projects/${project._id || project.id}/workspace`;
+                            }}
+                            className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold transition-all"
+                        >
+                            Go to Workspace
+                        </button>
+                    </div>
                 </div>
             </motion.div>
         </motion.div>

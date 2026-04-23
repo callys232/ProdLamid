@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
-import * as milestoneController from "@/controllers/milestoneController";
+import * as bidController from "@/controllers/bidController";
 
-type Params = Promise<{ milestoneId: string }>;
+type Params = Promise<{ id: string; bidId: string }>;
 
 export async function PATCH(
     request: NextRequest,
@@ -13,13 +13,13 @@ export async function PATCH(
         if (auth instanceof NextResponse) return auth;
 
         if (auth.userRole !== "client") {
-            return NextResponse.json({ error: "Only clients can approve milestones" }, { status: 403 });
+            return NextResponse.json({ error: "Only clients can accept bids" }, { status: 403 });
         }
 
-        const { milestoneId } = await params;
-        const milestone = await milestoneController.approveMilestone(milestoneId, auth.userId);
+        const { id, bidId } = await params;
+        const result = await bidController.acceptBid(id, bidId, auth.userId);
 
-        return NextResponse.json(milestone);
+        return NextResponse.json(result);
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 400 });
     }

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
 import * as messageController from "@/controllers/messageController";
 
-type Params = Promise<{ msgId: string }>;
+type Params = Promise<{ id: string; msgId: string }>;
 
 export async function PATCH(
     request: NextRequest,

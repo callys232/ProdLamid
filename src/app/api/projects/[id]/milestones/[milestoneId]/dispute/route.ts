@@ -3,7 +3,7 @@ import { requireAuth } from "@/lib/middleware/auth";
 import * as milestoneController from "@/controllers/milestoneController";
 import { DisputeSchemaValidator } from "@/lib/validation/validators";
 
-type Params = Promise<{ milestoneId: string }>;
+type Params = Promise<{ id: string; milestoneId: string }>;
 
 export async function PATCH(
     request: NextRequest,

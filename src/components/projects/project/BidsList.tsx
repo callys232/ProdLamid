@@ -49,23 +49,17 @@ export default function BidsList({ projectId }: BidsListProps) {
     const handleHire = async (bid: Bid) => {
         setHiringId(bid._id);
         try {
-            const res = await fetch("/api/hire-consultant", {
-                method: "POST",
+            const res = await fetch(`/api/projects/${projectId}/bids/${bid._id}/accept`, {
+                method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    consultantId: bid.bidderId,
-                    projectId: bid.projectId,
-                    bidId: bid._id,
-                    clientMessage: `You have been hired for the project based on your bid of $${bid.amount}.`
-                }),
             });
 
             const data = await res.json();
-            if (data.success) {
+            if (!res.ok) {
+                toast.error(data.error || "Failed to hire consultant.");
+            } else {
                 toast.success("Consultant hired successfully!");
                 fetchBids(); // Refresh status
-            } else {
-                toast.error(data.message || "Failed to hire consultant.");
             }
         } catch (error) {
             toast.error("An error occurred during hiring.");

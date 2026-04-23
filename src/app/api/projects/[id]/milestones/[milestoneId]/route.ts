@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as milestoneController from "@/controllers/milestoneController";
 
-type Params = Promise<{ milestoneId: string }>;
+type Params = Promise<{ id: string; milestoneId: string }>;
 
 export async function GET(
     request: NextRequest,

@@ -1,105 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import { Project } from "@/lib/models/Project";
 import { requireAuth } from "@/lib/middleware/auth";
+import * as milestoneController from "@/controllers/milestoneController";
+import { MilestoneSchemaValidator } from "@/lib/validation/validators";
 
 type Params = Promise<{ id: string }>;
 
-// GET project milestones
 export async function GET(
     request: NextRequest,
     { params }: { params: Params }
 ) {
     try {
-        await connectDB();
         const { id } = await params;
-
-        const project: any = await Project.findById(id).lean();
-
-        if (!project) {
-            return NextResponse.json(
-                { success: false, message: "Project not found" },
-                { status: 404 }
-            );
-        }
-
-        return NextResponse.json({
-            success: true,
-            data: project.milestones || [],
-        });
+        const milestones = await milestoneController.getMilestones(id);
+        return NextResponse.json(milestones);
     } catch (error: any) {
-        return NextResponse.json(
-            { success: false, message: error.message },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: error.message }, { status: 400 });
     }
 }
 
-// POST create milestone
 export async function POST(
     request: NextRequest,
     { params }: { params: Params }
 ) {
     try {
-        await connectDB();
-
-        // Require authentication
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
 
         const { id } = await params;
-
-        // Verify ownership
-        const project = await Project.findById(id);
-        if (!project) {
-            return NextResponse.json(
-                { success: false, message: "Project not found" },
-                { status: 404 }
-            );
-        }
-
-        if (project.ownerId.toString() !== auth.userId) {
-            return NextResponse.json(
-                { success: false, message: "Only the project owner can create milestones" },
-                { status: 403 }
-            );
-        }
-
         const body = await request.json();
-        const { title, description, amount, dueDate, deadline } = body;
+        
+        const validatedData = MilestoneSchemaValidator.parse(body);
+        const milestone = await milestoneController.createMilestone(id, validatedData, auth.userId);
 
-        if (!title) {
-            return NextResponse.json(
-                { success: false, message: "Milestone title is required" },
-                { status: 400 }
-            );
-        }
-
-        const milestone = {
-            id: new Date().getTime().toString(),
-            title,
-            description,
-            amount,
-            dueDate,
-            deadline,
-            progress: 0,
-            status: "pending",
-        };
-
-        const updatedProject = await Project.findByIdAndUpdate(
-            id,
-            { $push: { milestones: milestone } },
-            { new: true }
-        );
-
-        return NextResponse.json(
-            { success: true, data: milestone },
-            { status: 201 }
-        );
+        return NextResponse.json(milestone, { status: 201 });
     } catch (error: any) {
-        return NextResponse.json(
-            { success: false, message: error.message },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: error.message }, { status: 400 });
     }
 }

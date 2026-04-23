@@ -10,6 +10,7 @@ type CardProps = {
     docUrl?: string;
     amount?: number;
     dueDate?: string;
+    projectId?: string | number;
 };
 
 const PremiumCard: React.FC<CardProps> = ({
@@ -20,6 +21,7 @@ const PremiumCard: React.FC<CardProps> = ({
     amount,
     dueDate,
     type,
+    projectId,
 }) => {
     const [expanded, setExpanded] = useState(false);
 
@@ -80,6 +82,19 @@ const PremiumCard: React.FC<CardProps> = ({
                     {type === "contract" && <p>Parties: (mock data)</p>}
                     {type === "bill" && <p>Payment Method: (mock data)</p>}
                     {type === "doc" && <p>Last Edited: (mock data)</p>}
+                    {projectId && (
+                        <div className="pt-4">
+                            <button 
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    window.location.href = `/projects/${projectId}/workspace`;
+                                }}
+                                className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold transition-all"
+                            >
+                                Go to Workspace
+                            </button>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

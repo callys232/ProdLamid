@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(
     request: NextRequest,
-    context: { params: Promise<{ projectId: string }> }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
         /* -------- CONNECT DATABASE -------- */
@@ -21,7 +21,7 @@ export async function GET(
 
         /* -------- EXTRACT PARAMS -------- */
 
-        const { projectId } = await context.params;
+        const { id: projectId } = await context.params;
 
         if (!projectId) {
             return NextResponse.json(

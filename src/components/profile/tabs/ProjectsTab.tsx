@@ -102,7 +102,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects: initialProj
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     {loading && <div className="animate-pulse bg-gray-800 h-40 rounded-lg" />}
                     {filteredProjects.map((proj) => (
-                        <PremiumCard key={proj.id} {...proj} type="doc" />
+                        <PremiumCard key={proj.id} {...proj} type="doc" projectId={proj.id} />
                     ))}
                 </div>
             </motion.div>

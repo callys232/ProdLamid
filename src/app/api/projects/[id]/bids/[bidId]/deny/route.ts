@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
 import * as bidController from "@/controllers/bidController";
 
-type Params = Promise<{ projectId: string; bidId: string }>;
+type Params = Promise<{ id: string; bidId: string }>;
 
 export async function PATCH(
     request: NextRequest,
@@ -12,8 +12,8 @@ export async function PATCH(
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
 
-        const { projectId, bidId } = await params;
-        const result = await bidController.denyBid(projectId, bidId, auth.userId);
+        const { id, bidId } = await params;
+        const result = await bidController.denyBid(id, bidId, auth.userId);
 
         return NextResponse.json(result);
     } catch (error: any) {
