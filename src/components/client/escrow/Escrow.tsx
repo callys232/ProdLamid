@@ -45,6 +45,7 @@ export default function EscrowTab({
       setSummary(s);
       setTransactions(txs);
       setProjects(prjs);
+
     })();
     return () => { mounted = false; };
   }, [currency]);
@@ -63,7 +64,7 @@ export default function EscrowTab({
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return projects.filter((p) => {
+    return projects?.filter((p) => {
       if (!q) return true;
       return (p.title ?? "").toLowerCase().includes(q) || (p.id ?? "").toLowerCase().includes(q);
     });

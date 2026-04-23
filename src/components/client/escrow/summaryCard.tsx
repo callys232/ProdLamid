@@ -15,8 +15,8 @@ export default function EscrowSummaryCard({
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="text-xs text-gray-400">Total Escrow Balance</div>
-          <div className="text-2xl font-semibold text-white mt-1">{summary.totalByCurrency?.[currency] ?? 0} <span className="text-sm text-gray-400">{currency}</span></div>
-          <div className="text-xs text-gray-400 mt-2">Available: {summary.availableForRelease?.[currency] ?? 0} • Disputes: {summary.pendingDisputes}</div>
+          <div className="text-2xl font-semibold text-white mt-1">{summary?.totalByCurrency?.[currency] ?? 0} <span className="text-sm text-gray-400">{currency}</span></div>
+          <div className="text-xs text-gray-400 mt-2">Available: {summary?.availableForRelease?.[currency] ?? 0} • Disputes: {summary?.pendingDisputes}</div>
         </div>
 
         <div className="flex flex-col items-end gap-2">
@@ -28,7 +28,7 @@ export default function EscrowSummaryCard({
               Export
             </button>
           </div>
-          <div className="text-xs text-gray-400">Last updated: {new Date(summary.lastUpdated).toLocaleString()}</div>
+          <div className="text-xs text-gray-400">Last updated: {new Date(summary?.lastUpdated).toLocaleString()}</div>
         </div>
       </div>
     </div>
