@@ -59,6 +59,8 @@ export async function GET(
             consultantsCount: project.consultants?.length ?? 0,
             createdAt: project.createdAt ?? null,
             deadline: project.deadline ?? null,
+            milestones: project.milestones || [],
+            consultants: project.consultants || [],
         };
 
         /* -------- RESPONSE -------- */

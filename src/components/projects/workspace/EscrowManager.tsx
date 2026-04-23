@@ -23,7 +23,7 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
             // In a real app, you'd have a specific endpoint for project escrows
             const res = await fetch(`/api/projects/${projectId}/milestones`);
             const data = await res.json();
-            if (res.ok) setEscrows(data.filter((m: any) => m.amount > 0));
+            if (res.ok) setEscrows(data.data.filter((m: any) => m.amount > 0));
         } catch (error) {
             console.error("Error fetching escrow status:", error);
         } finally {

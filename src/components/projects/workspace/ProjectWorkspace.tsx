@@ -25,7 +25,7 @@ export default function ProjectWorkspace() {
             const res = await fetch(`/api/projects/${projectId}`);
             const data = await res.json();
             if (res.ok) {
-                setProject(data.project);
+                setProject(data.data);
             }
         } catch (error) {
             console.error("Error fetching project:", error);

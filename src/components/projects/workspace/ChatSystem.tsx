@@ -42,7 +42,7 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
         try {
             const res = await fetch(`/api/projects/${projectId}/messages`);
             const data = await res.json();
-            if (res.ok) setMessages(data);
+            if (res.ok) setMessages(data.data);
         } catch (error) {
             console.error("Error fetching messages:", error);
         } finally {

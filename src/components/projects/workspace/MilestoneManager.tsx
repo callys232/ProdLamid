@@ -32,7 +32,7 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
         try {
             const res = await fetch(`/api/projects/${projectId}/milestones`);
             const data = await res.json();
-            if (res.ok) setMilestones(data);
+            if (res.ok) setMilestones(data.data);
         } catch (error) {
             console.error("Error fetching milestones:", error);
         } finally {

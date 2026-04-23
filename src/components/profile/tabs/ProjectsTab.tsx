@@ -28,12 +28,12 @@ interface ProjectsSectionProps {
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects: initialProjects }) => {
     const [projects, setProjects] = useState<Project[]>(() => {
         if (initialProjects && initialProjects.length > 0) {
-            return initialProjects.map((p, index) => ({
-                id: p.id || index + 1,
+            return initialProjects.map((p) => ({
+                id: p._id || p.id,
                 title: p.title || "Untitled Project",
                 status: p.status || "Pending",
-                type: "team", // Default type
-                dueDate: p.dueDate || p.deadline,
+                type: p.type === 1 ? "individual" : "team",
+                dueDate: p.deadline || p.dueDate,
                 docUrl: p.docUrl
             }));
         }

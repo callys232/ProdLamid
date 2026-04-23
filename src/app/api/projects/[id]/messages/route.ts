@@ -18,9 +18,9 @@ export async function GET(
         const unreadOnly = searchParams.get("unread") === "true";
 
         const messages = await messageController.getMessages(id, unreadOnly, auth.userId);
-        return NextResponse.json(messages);
+        return NextResponse.json({ success: true, data: messages });
     } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 400 });
+        return NextResponse.json({ success: false, error: error.message }, { status: 400 });
     }
 }
 

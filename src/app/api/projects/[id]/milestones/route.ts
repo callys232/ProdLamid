@@ -12,9 +12,9 @@ export async function GET(
     try {
         const { id } = await params;
         const milestones = await milestoneController.getMilestones(id);
-        return NextResponse.json(milestones);
+        return NextResponse.json({ success: true, data: milestones });
     } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 400 });
+        return NextResponse.json({ success: false, error: error.message }, { status: 400 });
     }
 }
 
