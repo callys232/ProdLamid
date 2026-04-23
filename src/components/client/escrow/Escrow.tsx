@@ -52,6 +52,7 @@ export default function EscrowTab({
 
   const holdsByProject = useMemo(() => {
     const map = new Map<string, number>();
+    if (!Array.isArray(transactions)) return map;
     transactions.forEach((t) => {
       if (!t.projectId) return;
       if (t.currency !== currency) return;
@@ -62,9 +63,15 @@ export default function EscrowTab({
     return map;
   }, [transactions, currency]);
 
+  const filteredTransactions = useMemo(() => {
+    if (!Array.isArray(transactions)) return [];
+    return transactions.filter((t) => t.currency === currency);
+  }, [transactions, currency]);
+
   const filtered = useMemo(() => {
+    if (!Array.isArray(projects)) return [];
     const q = query.trim().toLowerCase();
-    return projects?.filter((p) => {
+    return projects.filter((p) => {
       if (!q) return true;
       return (p.title ?? "").toLowerCase().includes(q) || (p.id ?? "").toLowerCase().includes(q);
     });
@@ -122,7 +129,7 @@ export default function EscrowTab({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2">
           <TransactionFeed
-            transactions={transactions.filter((t) => t.currency === currency)}
+            transactions={filteredTransactions}
             onAction={(type: ActionType, tx: EscrowTransaction) => setActionModal({ type, tx })}
           />
         </div>
