@@ -47,17 +47,24 @@ export default function ProfileDashboard({
     fetchUserData();
   }, []);
 
-  const renderTab = () => {
-    if (loading) return <p>Loading...</p>;
-    if (!user) return <p>No profile data available.</p>;
+    const projects = user?.projects || [];
+    const [selectedProjectId, setSelectedProjectId] = useState<string>("");
 
-    const projectId = "";
+    useEffect(() => {
+        if (projects.length > 0 && !selectedProjectId) {
+            setSelectedProjectId(projects[0]._id || projects[0].id);
+        }
+    }, [projects, selectedProjectId]);
 
-    switch (activeTab) {
-      case "overview":
-        return <Overview projectId={projectId} />;
-      case "projects":
-        return <ProjectsTab projects={user.projects || []} />;
+    const renderTab = () => {
+        if (loading) return <p>Loading...</p>;
+        if (!user) return <p>No profile data available.</p>;
+
+        switch (activeTab) {
+            case "overview":
+                return <Overview projectId={selectedProjectId} />;
+            case "projects":
+                return <ProjectsTab projects={projects} />;
       case "settings":
         return <Settings user={user} />;
       case "teams":
@@ -72,7 +79,7 @@ export default function ProfileDashboard({
         return <ProjectMatching showSidebar={true} isPremiumUser={user.isPremium ?? true} />;
 
       default:
-        return <Overview projectId={projectId} />;
+        return <Overview projectId={selectedProjectId} />;
 
     }
   };

@@ -28,12 +28,12 @@ interface ProjectsSectionProps {
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects: initialProjects }) => {
     const [projects, setProjects] = useState<Project[]>(() => {
         if (initialProjects && initialProjects.length > 0) {
-            return initialProjects.map((p, index) => ({
-                id: p.id || index + 1,
+            return initialProjects.map((p) => ({
+                id: p._id || p.id,
                 title: p.title || "Untitled Project",
                 status: p.status || "Pending",
-                type: "team", // Default type
-                dueDate: p.dueDate || p.deadline,
+                type: p.type === 1 ? "individual" : "team",
+                dueDate: p.deadline || p.dueDate,
                 docUrl: p.docUrl
             }));
         }
@@ -102,7 +102,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects: initialProj
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     {loading && <div className="animate-pulse bg-gray-800 h-40 rounded-lg" />}
                     {filteredProjects.map((proj) => (
-                        <PremiumCard key={proj.id} {...proj} type="doc" />
+                        <PremiumCard key={proj.id} {...proj} type="doc" projectId={proj.id} />
                     ))}
                 </div>
             </motion.div>

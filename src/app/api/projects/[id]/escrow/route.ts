@@ -24,7 +24,10 @@ export async function GET(
 
         return NextResponse.json({
             success: true,
-            data: project.escrow || []
+            data: {
+                escrow: project.escrow || [],
+                milestones: project.milestones || []
+            }
         });
     } catch (error: any) {
         return NextResponse.json(

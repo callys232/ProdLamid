@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
-import * as milestoneController from "@/controllers/milestoneController";
-import { MilestoneSchemaValidator } from "@/lib/validation/validators";
+import * as messageController from "@/controllers/messageController";
+import { MessageSchemaValidator } from "@/lib/validation/validators";
 
 type Params = Promise<{ id: string }>;
 
@@ -10,9 +10,15 @@ export async function GET(
     { params }: { params: Params }
 ) {
     try {
+        const auth = await requireAuth(request);
+        if (auth instanceof NextResponse) return auth;
+
         const { id } = await params;
-        const milestones = await milestoneController.getMilestones(id);
-        return NextResponse.json({ success: true, data: milestones });
+        const { searchParams } = new URL(request.url);
+        const unreadOnly = searchParams.get("unread") === "true";
+
+        const messages = await messageController.getMessages(id, unreadOnly, auth.userId);
+        return NextResponse.json({ success: true, data: messages });
     } catch (error: any) {
         return NextResponse.json({ success: false, error: error.message }, { status: 400 });
     }
@@ -29,10 +35,10 @@ export async function POST(
         const { id } = await params;
         const body = await request.json();
         
-        const validatedData = MilestoneSchemaValidator.parse(body);
-        const milestone = await milestoneController.createMilestone(id, validatedData, auth.userId);
+        const validatedData = MessageSchemaValidator.parse(body);
+        const message = await messageController.sendMessage(id, auth.userId, validatedData);
 
-        return NextResponse.json(milestone, { status: 201 });
+        return NextResponse.json(message, { status: 201 });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 400 });
     }

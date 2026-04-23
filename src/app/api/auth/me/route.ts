@@ -59,7 +59,18 @@ export async function GET(request: Request) {
             );
         }
 
+        // Fetch associated projects
+        const { Project } = await import("@/lib/models/Project");
+        const projects = await Project.find({
+            $or: [
+                { ownerId: user._id },
+                { consultants: user._id }
+            ]
+        }).lean();
+
         const userData = user.toJSON();
+        userData.projects = projects;
+        
         return NextResponse.json({ success: true, data: userData });
 
     } catch (error: any) {
