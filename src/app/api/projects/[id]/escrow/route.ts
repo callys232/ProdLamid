@@ -22,11 +22,34 @@ export async function GET(
             );
         }
 
+        // Require authentication for private details
+        const { requireAuth } = await import("@/lib/middleware/auth");
+        const auth = await requireAuth(request);
+        if (auth instanceof NextResponse) return auth;
+
+        const isOwner = project.ownerId.toString() === auth.userId;
+        const isConsultant = project.consultants.some((c: any) => 
+            (c._id || c).toString() === auth.userId
+        );
+
+        if (!isOwner && !isConsultant) {
+            return NextResponse.json(
+                { success: false, message: "You are not authorized to view this project's escrow" },
+                { status: 403 }
+            );
+        }
+
         return NextResponse.json({
             success: true,
             data: {
                 escrow: project.escrow || [],
-                milestones: project.milestones || []
+                milestones: project.milestones || [],
+                // Fetch from Escrow collection for the workspace flow
+                collectionEscrows: await import("@/lib/models/Escrow").then(async ({ Escrow }) => {
+                    const { Milestone } = await import("@/lib/models/Milestone");
+                    const milestoneIds = await Milestone.find({ projectId: id }).distinct("_id");
+                    return await Escrow.find({ milestoneId: { $in: milestoneIds } }).lean();
+                })
             }
         });
     } catch (error: any) {

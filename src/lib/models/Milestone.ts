@@ -11,7 +11,7 @@ const MilestoneSchema = new mongoose.Schema({
     amount: { type: Number, required: true }, // NGN (multiply *100 for kobo)
     status: {
         type: String,
-        enum: ["pending", "started", "stopped", "dispute", "approved", "completed"],
+        enum: ["pending", "started", "funded", "stopped", "dispute", "approved", "completed"],
         default: "pending",
     },
     notes: { type: String },

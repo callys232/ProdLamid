@@ -25,6 +25,22 @@ export async function GET(
             );
         }
 
+        // Require authentication for private details
+        const auth = await requireAuth(request);
+        if (auth instanceof NextResponse) return auth;
+
+        const isOwner = project.ownerId.toString() === auth.userId;
+        const isConsultant = project.consultants.some((c: any) => 
+            (c._id || c).toString() === auth.userId
+        );
+
+        if (!isOwner && !isConsultant) {
+            return NextResponse.json(
+                { success: false, message: "You are not authorized to view this project's workspace" },
+                { status: 403 }
+            );
+        }
+
         return NextResponse.json({ success: true, data: project });
     } catch (error: any) {
         return NextResponse.json(
