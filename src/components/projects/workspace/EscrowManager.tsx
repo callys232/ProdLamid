@@ -20,10 +20,20 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
 
     const fetchEscrowStatus = async () => {
         try {
-            // In a real app, you'd have a specific endpoint for project escrows
-            const res = await fetch(`/api/projects/${projectId}/milestones`);
+            const res = await fetch(`/api/projects/${projectId}/escrow`);
             const data = await res.json();
-            if (res.ok) setEscrows(data.data.filter((m: any) => m.amount > 0));
+            if (res.ok) {
+                // Combine milestone data with escrow data
+                const combined = data.data.collectionEscrows.map((escrow: any) => {
+                    const milestone = data.data.milestones.find((m: any) => m._id === escrow.milestoneId) || {};
+                    return {
+                        ...escrow,
+                        title: milestone.title || "Unknown Milestone",
+                        description: milestone.description
+                    };
+                });
+                setEscrows(combined);
+            }
         } catch (error) {
             console.error("Error fetching escrow status:", error);
         } finally {
@@ -31,22 +41,34 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
         }
     };
 
-    const handleFund = async (milestoneId: string) => {
-        toast.loading("Initializing secure payment...");
+    const handleFund = async (escrowId: string) => {
+        const toastId = toast.loading("Initializing secure payment...");
         try {
-            // This is a stub for the fund logic which usually needs an escrow ID
-            // Here we assume a 1:1 mapping between milestone and escrow for simplicity
-            const res = await fetch(`/api/escrows/${milestoneId}/fund`, { method: "POST" });
+            const res = await fetch(`/api/escrows/${escrowId}/fund`, { method: "POST" });
             const data = await res.json();
             if (res.ok && data.authorization_url) {
                 window.location.href = data.authorization_url;
             } else {
-                toast.dismiss();
-                toast.error(data.error || "Funding failed");
+                toast.error(data.error || "Funding failed", { id: toastId });
             }
         } catch (error) {
-            toast.dismiss();
-            toast.error("An error occurred");
+            toast.error("An error occurred", { id: toastId });
+        }
+    };
+
+    const handleRelease = async (escrowId: string) => {
+        const toastId = toast.loading("Releasing funds...");
+        try {
+            const res = await fetch(`/api/escrows/${escrowId}/release`, { method: "PATCH" });
+            const data = await res.json();
+            if (res.ok) {
+                toast.success("Funds released successfully!", { id: toastId });
+                fetchEscrowStatus();
+            } else {
+                toast.error(data.error || "Release failed", { id: toastId });
+            }
+        } catch (error) {
+            toast.error("An error occurred", { id: toastId });
         }
     };
 
@@ -80,7 +102,7 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
                         <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
                             <div className="text-right">
                                 <p className="text-sm text-gray-400">Milestone Amount</p>
-                                <p className="text-xl font-bold text-white">${m.amount.toLocaleString()}</p>
+                                <p className="text-xl font-bold text-white">₦{(m.amount / 100).toLocaleString()}</p>
                             </div>
 
                             {m.status === "pending" && (
@@ -93,17 +115,18 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
                             )}
 
                             {m.status === "funded" && (
-                                <div className="text-green-500 flex items-center gap-2 font-bold px-4 py-2 bg-green-500/10 rounded-lg border border-green-500/20">
-                                    <FaCheckCircle /> Funded
-                                </div>
-                            )}
-
-                            {m.status === "approved" && (
                                 <button
+                                    onClick={() => handleRelease(m._id)}
                                     className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold transition-all"
                                 >
                                     Release Funds
                                 </button>
+                            )}
+
+                            {m.status === "released" && (
+                                <div className="text-blue-400 flex items-center gap-2 font-bold px-4 py-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                                    <FaHistory /> Released
+                                </div>
                             )}
                         </div>
                     </div>

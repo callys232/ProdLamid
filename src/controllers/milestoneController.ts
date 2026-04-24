@@ -1,5 +1,6 @@
 import { Milestone } from "@/lib/models/Milestone";
 import { Project } from "@/lib/models/Project";
+import { Escrow } from "@/lib/models/Escrow";
 import connectDB from "@/lib/db";
 import { createNotification } from "@/lib/notification";
 
@@ -14,6 +15,7 @@ export const createMilestone = async (projectId: string, data: any, userId: stri
     const milestone = await Milestone.create({
         projectId,
         ...data,
+        amount: Math.round(data.amount * 100), // Convert to kobo
         status: "pending"
     });
 
@@ -29,16 +31,26 @@ export const startMilestone = async (milestoneId: string, userId: string) => {
     milestone.startedAt = new Date();
     await milestone.save();
 
+    // Create Escrow entry if not exists
+    let escrow = await Escrow.findOne({ milestoneId });
+    if (!escrow) {
+        escrow = await Escrow.create({
+            milestoneId: milestone._id,
+            amount: milestone.amount,
+            status: "pending"
+        });
+    }
+
     // Notify client
     const project = await Project.findById(milestone.projectId);
     if (project) {
         await createNotification(
-            `Milestone "${milestone.title}" has been started.`,
+            `Milestone "${milestone.title}" has been started. Please fund the escrow.`,
             project.ownerId.toString()
         );
     }
 
-    return milestone;
+    return { milestone, escrowRequired: escrow.status === "pending" };
 };
 
 export const stopMilestone = async (milestoneId: string, userId: string) => {
@@ -70,12 +82,36 @@ export const approveMilestone = async (milestoneId: string, userId: string) => {
     const milestone = await Milestone.findById(milestoneId);
     if (!milestone) throw new Error("Milestone not found");
 
+    const escrow = await Escrow.findOne({ milestoneId });
+    
+    // If escrow not funded, ask client to fund it first
+    if (!escrow || escrow.status === "pending") {
+        return { 
+            success: false, 
+            requireFunding: true, 
+            message: "Escrow must be funded before milestone can be approved and funds released.",
+            escrowId: escrow?._id
+        };
+    }
+
     milestone.status = "approved";
     milestone.completedAt = new Date();
     await milestone.save();
 
-    // Logic to create escrow entry would go here or in a separate call
-    return milestone;
+    // Release escrow funds
+    escrow.status = "released";
+    await escrow.save();
+
+    // Notify consultant
+    const project = await Project.findById(milestone.projectId);
+    if (project) {
+        await createNotification(
+            `Milestone "${milestone.title}" has been approved! Funds are being released.`,
+            project.consultants[0]?.toString() // Stub: assumes first consultant
+        );
+    }
+
+    return { success: true, milestone };
 };
 
 export const getMilestones = async (projectId: string) => {

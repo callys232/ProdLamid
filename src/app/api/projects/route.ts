@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
                 projectId: project._id,
                 title: m.title,
                 description: m.description,
-                amount: m.amount || 0,
+                amount: (m.amount || 0) * 100,
                 status: "pending"
             }));
             await Milestone.insertMany(milestonesToCreate);

@@ -62,12 +62,21 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
             const res = await fetch(`/api/projects/${projectId}/milestones/${milestoneId}/${action}`, {
                 method: "PATCH",
             });
-            if (res.ok) {
-                toast.success(`Milestone ${action}ed!`);
-                fetchMilestones();
+            const data = await res.json();
+
+            if (!res.ok) {
+                if (data.requireFunding) {
+                    toast.error(data.message, { duration: 5000 });
+                    // Optional: Switch tab or show fund button
+                    return;
+                }
+                throw new Error(data.error || data.message || `Failed to ${action} milestone`);
             }
-        } catch (error) {
-            toast.error(`Failed to ${action} milestone`);
+
+            toast.success(data.message || `Milestone ${action}ed!`);
+            fetchMilestones();
+        } catch (error: any) {
+            toast.error(error.message);
         }
     };
 
@@ -114,7 +123,7 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
                         />
                         <input
                             type="number"
-                            placeholder="Amount ($)"
+                            placeholder="Amount (₦)"
                             className="w-full bg-black border border-white/10 rounded-lg p-2 text-white"
                             onChange={(e) => setNewMilestone({ ...newMilestone, amount: Number(e.target.value) })}
                         />
@@ -137,7 +146,7 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
                                 </span>
                             </div>
                             <p className="text-sm text-gray-400">{m.description}</p>
-                            <p className="text-red-500 font-bold mt-2">${m.amount.toLocaleString()}</p>
+                            <p className="text-red-500 font-bold mt-2">₦{(m.amount / 100).toLocaleString()}</p>
                         </div>
 
                         <div className="flex gap-2">

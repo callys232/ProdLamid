@@ -43,7 +43,13 @@ export async function GET(
             success: true,
             data: {
                 escrow: project.escrow || [],
-                milestones: project.milestones || []
+                milestones: project.milestones || [],
+                // Fetch from Escrow collection for the workspace flow
+                collectionEscrows: await import("@/lib/models/Escrow").then(async ({ Escrow }) => {
+                    const { Milestone } = await import("@/lib/models/Milestone");
+                    const milestoneIds = await Milestone.find({ projectId: id }).distinct("_id");
+                    return await Escrow.find({ milestoneId: { $in: milestoneIds } }).lean();
+                })
             }
         });
     } catch (error: any) {
