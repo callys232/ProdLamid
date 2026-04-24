@@ -52,19 +52,37 @@ export async function POST(request: NextRequest) {
         if (auth instanceof NextResponse) return auth;
 
         const body = await request.json();
+        const { title, category, milestones: initialMilestones, workPhases, ...rest } = body;
 
-        if (!body.title || !body.category) {
+        if (!title || !category) {
             return NextResponse.json(
                 { success: false, message: "Title and Category are required" },
                 { status: 400 }
             );
         }
 
-        // Auto-assign owner
+        // 1. Create the project
         const project = await Project.create({
-            ...body,
-            ownerId: auth.userId
+            title,
+            category,
+            workPhases: workPhases || [],
+            ...rest,
+            ownerId: auth.userId,
+            status: "open"
         });
+
+        // 2. If initial milestones are provided, create them in the separate collection
+        if (initialMilestones && Array.isArray(initialMilestones)) {
+            const { Milestone } = await import("@/lib/models/Milestone");
+            const milestonesToCreate = initialMilestones.map((m: any) => ({
+                projectId: project._id,
+                title: m.title,
+                description: m.description,
+                amount: m.amount || 0,
+                status: "pending"
+            }));
+            await Milestone.insertMany(milestonesToCreate);
+        }
 
         return NextResponse.json({ success: true, data: project }, { status: 201 });
     } catch (error: any) {

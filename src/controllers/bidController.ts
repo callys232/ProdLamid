@@ -20,8 +20,11 @@ export const acceptBid = async (projectId: string, bidId: string, clientId: stri
         { denied: true, status: "rejected" }
     );
 
-    // Update project status if needed
+    // Update project status and assign consultant
     project.status = "ongoing";
+    if (!project.consultants.includes(bid.bidderId)) {
+        project.consultants.push(bid.bidderId);
+    }
     await project.save();
 
     // Notify bidder

@@ -42,6 +42,20 @@ export default function ProjectCard({ project, onClick, compact = false }: Props
 
     const pendingMilestones = milestones.length - completedMilestones;
 
+    const [currentUser, setCurrentUser] = React.useState<any>(null);
+    React.useEffect(() => {
+        fetch("/api/auth/me")
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) setCurrentUser(data.data);
+            });
+    }, []);
+
+    const isOwner = currentUser?._id === (project.ownerId?._id || project.ownerId);
+    const isConsultant = project.consultants?.some((c: any) => 
+        (c._id || c).toString() === currentUser?._id
+    );
+
     return (
         <motion.div
             whileHover={{ scale: 1.03 }}
@@ -160,17 +174,19 @@ export default function ProjectCard({ project, onClick, compact = false }: Props
                         </span>
                     </div>
 
-                    <div className="pt-4">
-                        <button 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                window.location.href = `/projects/${project._id || project.id}/workspace`;
-                            }}
-                            className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold transition-all"
-                        >
-                            Go to Workspace
-                        </button>
-                    </div>
+                    {(isOwner || isConsultant) && (
+                        <div className="pt-4">
+                            <button 
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    window.location.href = `/projects/${project._id || project.id}/workspace`;
+                                }}
+                                className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold transition-all"
+                            >
+                                Go to Workspace
+                            </button>
+                        </div>
+                    )}
                 </div>
             </motion.div>
         </motion.div>
