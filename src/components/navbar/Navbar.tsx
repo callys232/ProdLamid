@@ -255,25 +255,26 @@ const Navbar: React.FC = () => {
             <Link href="/contact" className={linkClass("/contact")}>
               CONTACT US
             </Link>
+          </div>
 
-            {/* Account */}
-            <div className="relative inline-block">
+          {/* Account + mobile hamburger — always at the far right */}
+          <div className="flex items-center gap-2">
+            <div className="relative hidden md:block">
               <AccountMenu />
               {renderNotificationBadge()}
             </div>
-          </div>
 
-          {/* Mobile Hamburger */}
-          <button
-            type="button"
-            className="md:hidden"
-            onClick={() => setIsOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-            aria-controls="mobile-nav"
-          >
-            {!isOpen ? "☰" : "✕"}
-          </button>
+            <button
+              type="button"
+              className="md:hidden"
+              onClick={() => setIsOpen((v) => !v)}
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-nav"
+            >
+              {!isOpen ? "☰" : "✕"}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}

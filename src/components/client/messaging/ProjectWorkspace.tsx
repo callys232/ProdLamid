@@ -7,26 +7,30 @@ import { FaProjectDiagram, FaFileInvoiceDollar, FaComments, FaInfoCircle } from 
 
 import MilestoneManager from "./MilestoneManager";
 import ChatSystem from "./ChatSystem";
-import { EscrowPanel } from "./escrowCard";
-import { getMe } from "@/lib/api/authApi";
+import { EscrowCard } from "./escrowCard";
 import type { Escrow } from "@/types/escrow";
 
-export default function ProjectWorkspace() {
-    const { id: projectId } = useParams();
+interface ProjectWorkspaceProps {
+    projectId?: string;
+}
+
+export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspaceProps = {}) {
+    const params = useParams();
+    // Prop takes priority; fall back to URL param
+    const projectId = propId ?? (params?.id as string) ?? null;
+
     const [activeTab, setActiveTab] = useState("milestones");
     const [project, setProject] = useState<any>(null);
     const [escrow, setEscrow] = useState<Escrow | null>(null);
-    const [role, setRole] = useState<"client" | "consultant">("client");
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!!projectId);
 
     useEffect(() => {
-        getMe()
-            .then((user) => setRole(user.role === "seller" ? "consultant" : "client"))
-            .catch(() => {});
-    }, []);
-
-    useEffect(() => {
-        if (projectId) fetchProject();
+        if (projectId) {
+            setLoading(true);
+            fetchProject();
+        } else {
+            setLoading(false);
+        }
     }, [projectId]);
 
     const fetchProject = async () => {
@@ -54,78 +58,6 @@ export default function ProjectWorkspace() {
         }
     };
 
-    async function handleStart() {
-        if (!escrow) return;
-        setEscrow((prev) => prev ? { ...prev, status: "in_progress" } : prev);
-        try {
-            await fetch("/api/escrow/start", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ escrowId: escrow.id, role }),
-            });
-        } catch (err) {
-            console.warn("Start failed:", err);
-        }
-    }
-
-    async function handleFund() {
-        if (!escrow) return;
-        setEscrow((prev) => prev ? { ...prev, status: "funded" } : prev);
-        try {
-            await fetch("/api/escrow/fund", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ escrowId: escrow.id }),
-            });
-        } catch (err) {
-            console.warn("Fund failed:", err);
-        }
-    }
-
-    async function handleFinish() {
-        if (!escrow) return;
-        setEscrow((prev) => prev ? { ...prev, status: "finished" } : prev);
-        try {
-            await fetch("/api/escrow/finish", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ escrowId: escrow.id }),
-            });
-        } catch (err) {
-            console.warn("Finish failed:", err);
-        }
-    }
-
-    async function handleRelease() {
-        if (!escrow) return;
-        setEscrow((prev) => prev ? { ...prev, status: "paid" } : prev);
-        try {
-            await fetch("/api/escrow/release", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ escrowId: escrow.id }),
-            });
-        } catch (err) {
-            console.warn("Release failed:", err);
-        }
-    }
-
-    async function handleDispute(reason: string) {
-        if (!escrow) return;
-        setEscrow((prev) =>
-            prev ? { ...prev, status: "disputed", disputeReason: reason } : prev
-        );
-        try {
-            await fetch("/api/escrow/dispute", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ escrowId: escrow.id, reason }),
-            });
-        } catch (err) {
-            console.warn("Dispute failed:", err);
-        }
-    }
-
     if (loading) {
         return (
             <div className="flex h-screen items-center justify-center bg-[#050000] text-white">
@@ -137,9 +69,23 @@ export default function ProjectWorkspace() {
         );
     }
 
+    if (!projectId) {
+        return (
+            <div className="flex h-full min-h-[400px] flex-col items-center justify-center gap-3 text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/5">
+                    <FaProjectDiagram className="h-6 w-6 text-gray-500" />
+                </div>
+                <p className="text-sm font-medium text-gray-400">No project selected</p>
+                <p className="text-xs text-gray-600">
+                    Open a project from your Projects tab to view its workspace.
+                </p>
+            </div>
+        );
+    }
+
     if (!project) {
         return (
-            <div className="flex h-screen items-center justify-center bg-[#050000] text-white">
+            <div className="flex h-full min-h-[400px] items-center justify-center text-sm text-gray-500">
                 Project not found.
             </div>
         );
@@ -147,9 +93,9 @@ export default function ProjectWorkspace() {
 
     const tabs = [
         { id: "milestones", label: "Milestones", icon: <FaProjectDiagram /> },
-        { id: "escrow",     label: "Escrow & Payments", icon: <FaFileInvoiceDollar /> },
-        { id: "chat",       label: "Messages", icon: <FaComments /> },
-        { id: "details",    label: "Project Info", icon: <FaInfoCircle /> },
+        { id: "escrow", label: "Escrow & Payments", icon: <FaFileInvoiceDollar /> },
+        { id: "chat", label: "Messages", icon: <FaComments /> },
+        { id: "details", label: "Project Info", icon: <FaInfoCircle /> },
     ];
 
     return (
@@ -182,11 +128,10 @@ export default function ProjectWorkspace() {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-3 transition-all ${
-                                activeTab === tab.id
+                            className={`flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-3 transition-all ${activeTab === tab.id
                                     ? "bg-red-600 text-white shadow-lg shadow-red-900/40"
                                     : "border border-white/5 bg-white/5 text-gray-400 hover:bg-white/10"
-                            }`}
+                                }`}
                         >
                             {tab.icon}
                             <span className="font-medium">{tab.label}</span>
@@ -210,15 +155,7 @@ export default function ProjectWorkspace() {
                         escrow ? (
                             <div className="flex justify-center">
                                 <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-white/10">
-                                    <EscrowPanel
-                                        escrow={escrow}
-                                        role={role}
-                                        onStart={handleStart}
-                                        onFund={handleFund}
-                                        onFinish={handleFinish}
-                                        onRelease={handleRelease}
-                                        onDispute={handleDispute}
-                                    />
+                                    <EscrowCard escrow={escrow} />
                                 </div>
                             </div>
                         ) : (

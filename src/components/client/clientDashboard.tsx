@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
+import Link from "next/link";
 import axios from "axios";
+import { useAuth } from "@/hooks/useAuth";
 import ProfileSidebar from "./CprofileSidebar";
 import Overview from "@/components/client/tabs/overview/overview";
 import Settings from "./settings/Settings";
@@ -16,7 +18,7 @@ import { ClientProfile } from "@/types/client";
 import { Project } from "@/types/project";
 import { mockClients } from "@/mocks/mockClient";
 import CProfileHeader from "./CprofileHeader";
-import Messaging from "../messaging/Dashboard";
+import Messaging from "./messaging/ProjectWorkspace";
 /* -------------------- Skeleton Loader -------------------- */
 function SkeletonLoader() {
   return (
@@ -29,6 +31,7 @@ function SkeletonLoader() {
 }
 
 export default function ClientProfileDashboard() {
+  const { isAuthenticated, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState("overview");
   const [client, setClient] = useState<ClientProfile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -112,6 +115,48 @@ export default function ClientProfileDashboard() {
         return <Overview client={client} consultants={client.consultants || []} />;
     }
   };
+
+  /* -------------------- Auth Gate -------------------- */
+  if (authLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-950">
+        <div className="h-7 w-7 animate-spin rounded-full border-2 border-red-600 border-t-transparent" />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="flex h-screen flex-col items-center justify-center gap-6 bg-gray-950 text-white px-4 text-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-red-600/30 bg-red-600/10">
+          <svg viewBox="0 0 24 24" className="h-8 w-8 text-red-500" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="12" cy="7" r="4" />
+            <path d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8" />
+          </svg>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold">Sign in to access your dashboard</h2>
+          <p className="mt-2 text-sm text-gray-400">
+            Manage your projects, escrow, teams, and consultants — all in one place.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <Link
+            href="/signin"
+            className="rounded-xl bg-red-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 active:scale-95"
+          >
+            Sign In
+          </Link>
+          <Link
+            href="/signup"
+            className="rounded-xl border border-white/10 px-6 py-2.5 text-sm font-semibold text-gray-300 transition hover:border-white/30 hover:text-white"
+          >
+            Create Account
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   /* -------------------- Layout -------------------- */
   return (

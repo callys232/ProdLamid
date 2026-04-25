@@ -70,6 +70,8 @@ export interface Escrow {
   projectDuration?: string;
   milestone?: string;
   documents?: ProjectDocument[];
+  projectName?: string;
+  disputeReason?: string;
 }
 export interface ProjectDocument {
   id: string;
