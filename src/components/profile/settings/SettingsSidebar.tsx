@@ -13,6 +13,7 @@ import {
   FileText,
   Cpu,
   Building2,
+  Briefcase,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -45,8 +46,9 @@ export default function SettingsSidebar({
   const [currentStep, setCurrentStep] = useState(0);
 
   const tabs: TabItem[] = [
-    { key: "profile", label: "Edit Profile", icon: <User size={18} />, guideTarget: "profile-tab" },
-    { key: "security", label: "2FA / Security", icon: <Shield size={18} />, guideTarget: "security-tab" },
+    { key: "profile",    label: "Edit Profile",        icon: <User size={18} />,      guideTarget: "profile-tab" },
+    { key: "employment", label: "Employment History",   icon: <Briefcase size={18} />, guideTarget: "employment-tab" },
+    { key: "security",   label: "2FA / Security",       icon: <Shield size={18} />,    guideTarget: "security-tab" },
     { key: "resume", label: "Upload Resume", icon: <Upload size={18} />, guideTarget: "resume-tab" },
     { key: "business", label: "Business Profile", icon: <Building2 size={18} />, guideTarget: "business-tab" },
     { key: "tiers", label: "Tiers", icon: <Cpu size={18} />, guideTarget: "tiers-tab" },

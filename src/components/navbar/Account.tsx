@@ -97,12 +97,24 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
 
             {/* Nav links */}
             <ul className="py-1">
-              {[
-                { label: "Dashboard",  href: dashboardHref },
-                { label: "Projects",   href: "/jobs" },
-                { label: "Messages",   href: `${dashboardHref}?tab=messaging` },
-                { label: "Settings",   href: `${dashboardHref}?tab=settings` },
-              ].map((item) => (
+              {(user.role === "seller"
+                ? [
+                    { label: "Overview",         href: `${dashboardHref}?tab=overview` },
+                    { label: "My Projects",      href: `${dashboardHref}?tab=projects` },
+                    { label: "Messaging",        href: `${dashboardHref}?tab=messaging` },
+                    { label: "Project Matching", href: `${dashboardHref}?tab=project-matching` },
+                    { label: "Escrow",           href: `${dashboardHref}?tab=escrow` },
+                    { label: "Settings",         href: `${dashboardHref}?tab=settings` },
+                  ]
+                : [
+                    { label: "Overview",     href: `${dashboardHref}?tab=overview` },
+                    { label: "My Projects",  href: `${dashboardHref}?tab=projects` },
+                    { label: "Messaging",    href: `${dashboardHref}?tab=messaging` },
+                    { label: "Escrow",       href: `${dashboardHref}?tab=escrow` },
+                    { label: "Teams",        href: `${dashboardHref}?tab=teams` },
+                    { label: "Settings",     href: `${dashboardHref}?tab=settings` },
+                  ]
+              ).map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getProjectById } from "@/lib/api/projectApi";
 import ProfileHeader from "./ProfileHeader";
 import ProfileSidebar from "./ProfileSideBar";
@@ -21,7 +22,8 @@ export default function ProfileDashboard({
 }: {
   params?: { id?: string };
 }) {
-  const [activeTab, setActiveTab] = useState("overview");
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState(() => searchParams.get("tab") ?? "overview");
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

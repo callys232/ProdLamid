@@ -10,6 +10,7 @@ import PaymentInformation from "./payment";
 import UploadResume from "./UploadResume";
 import DeleteAccount from "./DeleteAccount";
 import Contract from "./contract";
+import EmploymentHistory from "./EmploymentHistory";
 
 // Business + AI features
 import BusinessProfile from "../../premium/BusinessProfile";
@@ -21,14 +22,15 @@ export default function Settings({ user }: { user: any }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const tabs = [
-    { key: "profile", label: "Profile" },
-    { key: "security", label: "Security" },
-    { key: "resume", label: "Upload Resume" },
-    { key: "business", label: "Business Profile" },
-    { key: "tiers", label: "Tiers" },
-    { key: "Contract", label: "Contract and Legal" },
-    { key: "payment", label: "Payment Info" },
-    { key: "delete", label: "Delete Account" },
+    { key: "profile",     label: "Profile" },
+    { key: "employment",  label: "Employment History" },
+    { key: "security",    label: "Security" },
+    { key: "resume",      label: "Upload Resume" },
+    { key: "business",    label: "Business Profile" },
+    { key: "tiers",       label: "Tiers" },
+    { key: "Contract",    label: "Contract and Legal" },
+    { key: "payment",     label: "Payment Info" },
+    { key: "delete",      label: "Delete Account" },
   ];
 
   const renderTab = () => {
@@ -49,6 +51,8 @@ export default function Settings({ user }: { user: any }) {
         return <UploadResume user={user} />;
       case "delete":
         return <DeleteAccount />;
+      case "employment":
+        return <EmploymentHistory user={user} />;
       case "Contract":
         return <Contract />;
       default:

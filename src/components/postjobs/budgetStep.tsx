@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Project } from "@/types/project";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import BudgetEstimatorGate from "./aiBugetEstimator";
+import BudgetEstimatorGate from "./BugdetEstimatorGate";
 import BudgetEstimator from "../BugdetEstimator/estimator";
 import { Modal } from "./estimateModal";
-import BudgetPreviewVideo from "./peekview";
 
 interface BudgetStepProps {
   project: Project;
@@ -69,9 +67,6 @@ export default function BudgetStep({
     []
   );
   const router = useRouter();
-  const goToPremium = () => {
-    router.push("/premium");
-  };
   const estimatedCost = useMemo(() => {
     if (budgetType === "fixed") return sliderValue;
     if (project.hourlyRate && project.hourlyRate > 0) {
@@ -190,22 +185,6 @@ export default function BudgetStep({
     return Math.min(100, Math.max(0, (now / total) * 100));
   }, [startDate, endDate]);
 
-  /* ================= AI TIMELINE ESTIMATION ================= */
-
-  const timelineSuggestion = useMemo(() => {
-    if (!premiumUser) return null;
-
-    const category = project.category?.toLowerCase() ?? "";
-
-    if (category.includes("design"))
-      return { months: 3, label: "Design projects usually run ~3 months." };
-
-    if (category.includes("development"))
-      return { months: 6, label: "Development projects average ~6 months." };
-
-    return { months: 4, label: "Typical project duration ~4 months." };
-
-  }, [project.category, premiumUser]);
 
   const autoEndDate = useMemo(() => {
     if (!premiumUser || !startDate) return null;
@@ -218,21 +197,6 @@ export default function BudgetStep({
   }, [premiumUser, startDate, aiEstimation]);
 
   /* ================= AI BUDGET ADVISOR ================= */
-
-  const aiBudgetSuggestion = useMemo(() => {
-    if (!premiumUser) return null;
-
-    const category = project.category ?? "";
-
-    if (category.toLowerCase().includes("design"))
-      return `${currency}2,000 – ${currency}10,000`;
-
-    if (category.toLowerCase().includes("development"))
-      return `${currency}5,000 – ${currency}25,000`;
-
-    return `${currency}3,000 – ${currency}15,000`;
-
-  }, [project.category, currency, premiumUser]);
 
   /* ================= TASK TYPES ================= */
 
@@ -587,16 +551,23 @@ export default function BudgetStep({
         open={showEstimatorModal}
         onClose={() => setShowEstimatorModal(false)}
         title="AI Budget Estimator"
+        maxWidth="max-w-4xl"
       >
-        {/* Mobile-safe scroll container */}
-        <div className="max-h-[85vh] overflow-y-auto px-3 sm:px-5 pb-6">
+        <div className="max-h-[80vh] overflow-y-auto space-y-6 px-1 pb-4">
 
+          {/* Similar projects + AI estimate panel */}
           <BudgetEstimatorGate
-            premiumUser={premiumUser}
+            isPremiumUser={premiumUser}
             project={project}
-            onUpgrade={goToPremium}
-            mode="modal"
+            onResult={(data) => {
+              if (data.budgetMin && !project.budget) {
+                handleChange("budget", Math.round((data.budgetMin + data.budgetMax) / 2));
+              }
+            }}
           />
+
+          {/* Full detailed estimator */}
+          <BudgetEstimator project={project} onResult={() => {}} />
 
         </div>
       </Modal>

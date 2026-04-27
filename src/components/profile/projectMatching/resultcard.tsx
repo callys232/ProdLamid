@@ -86,7 +86,7 @@ export default function ProjectResultCard({
             <p className="text-xs text-gray-500 mt-2 line-clamp-3">{project.description}</p>
 
             {/* META TAGS */}
-            <div className="flex flex-wrap gap-2 mt-3 text-xs">
+            <div className="flex text-red-500 flex-wrap gap-2 mt-3 text-xs">
                 {project.budget && (
                     <span className="bg-gray-100 px-2 py-1 rounded font-medium">
                         ₦{project.budget.toLocaleString()}

@@ -10,51 +10,30 @@ import JobModal from "./JobModal";
 import { Project } from "@/types/project";
 import { mockJobs } from "@/mocks/mockJobs";
 
-const DEFAULT_CATEGORIES = [
-  "All",
-  "Entertainment",
-  "Food & Beverages",
-  "Art and Culture",
-  "Hybrid",
-  "Web 3.0",
-  "Games",
-  "Graphics",
-  "Consulting",
-  "Video and Animation",
-  "Literature",
-  "Business",
-  "Finance",
-];
-
 interface JobProps {
-  categories?: string[];
   isRegisteredUser?: boolean;
 }
 
-export default function Job({
-  categories = DEFAULT_CATEGORIES,
-  isRegisteredUser = false,
-}: JobProps) {
+export default function Job({ isRegisteredUser = false }: JobProps) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [allEntities, setAllEntities] = useState<Project[]>([]);
   const [selected, setSelected] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch jobs from API or fallback to mock data
   useEffect(() => {
     const fetchEntities = async () => {
       try {
         const res = await axios.get("/api/projects?scope=browse");
-        const data: Project[] = res.data?.data || [];
-        setAllEntities(data.length ? data : mockJobs);
+        const apiData: Project[] = res.data?.data || [];
 
-        // Also check if user is logged in
-        const meRes = await axios.get("/api/auth/me");
-        if (meRes.data?.success) {
-          // You could store the full user object if needed
-        }
-      } catch (err) {
-        console.error("Backend fetch failed, using mock data:", err);
+        // Merge API data with mock jobs — API records take priority on ID clash
+        const apiIds = new Set(apiData.map((p) => p._id ?? p.id));
+        const merged = [
+          ...apiData,
+          ...mockJobs.filter((m) => !apiIds.has(m._id ?? m.id)),
+        ];
+        setAllEntities(merged);
+      } catch {
         setAllEntities(mockJobs);
       } finally {
         setLoading(false);
@@ -63,33 +42,45 @@ export default function Job({
     fetchEntities();
   }, []);
 
-  // ✅ Filter out completed jobs
+  // Filter out completed jobs
   const jobs = useMemo(
     () => allEntities.filter((e) => e.status !== "completed"),
     [allEntities]
   );
 
-  // ✅ Filter by category
+  // Derive categories directly from loaded data so they always match
+  const categories = useMemo(() => {
+    const cats = new Set<string>();
+    jobs.forEach((j) => { if (j.category) cats.add(j.category); });
+    return ["All", ...Array.from(cats).sort()];
+  }, [jobs]);
+
+  // Filter by active category
   const filtered = useMemo(() => {
     if (activeCategory === "All") return jobs;
     return jobs.filter((e) => e.category === activeCategory);
   }, [jobs, activeCategory]);
 
-  // ✅ Count jobs per category
+  // Count per category
   const counts = useMemo(() => {
     const map: Record<string, number> = {};
     categories.forEach((cat) => {
-      map[cat] =
-        cat === "All"
-          ? jobs.length
-          : jobs.filter((e) => e.category === cat).length;
+      map[cat] = cat === "All"
+        ? jobs.length
+        : jobs.filter((e) => e.category === cat).length;
     });
     return map;
   }, [categories, jobs]);
 
+  // Reset to "All" if selected category has no jobs after data loads
+  useEffect(() => {
+    if (!loading && activeCategory !== "All" && (counts[activeCategory] ?? 0) === 0) {
+      setActiveCategory("All");
+    }
+  }, [loading, counts, activeCategory]);
+
   return (
     <div className="p-6 bg-[#0B0F19] text-white font-sans">
-      {/* Filter */}
       <JobFilter
         active={activeCategory}
         options={categories}
@@ -98,11 +89,13 @@ export default function Job({
         label="Filter jobs"
       />
 
-      {/* Loading / Empty State */}
       {loading ? (
-        <p className="text-gray-400 mt-4">Loading jobs...</p>
+        <div className="mt-8 flex items-center gap-3 text-gray-400">
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent" />
+          Loading jobs…
+        </div>
       ) : filtered.length === 0 ? (
-        <p className="text-gray-400 mt-4">
+        <p className="mt-6 text-sm text-gray-500">
           No jobs available in this category.
         </p>
       ) : (
@@ -113,7 +106,6 @@ export default function Job({
         />
       )}
 
-      {/* Modal */}
       {selected && (
         <JobModal
           job={selected}

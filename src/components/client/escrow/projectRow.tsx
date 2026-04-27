@@ -3,8 +3,7 @@
 import React, { useState } from "react";
 import { Project } from "@/types/project";
 import type { EscrowTransaction } from "@/types/escrow";
-
-type ActionType = "release" | "refund" | "dispute";
+import type { ActionType } from "./transactionFeed";
 
 interface ProjectRowProps {
     project: Project;
@@ -31,8 +30,10 @@ export default function ProjectRow({ project, heldAmount, currency, onOpen, onAc
                     <div className="text-sm text-gray-200 font-medium">{heldAmount} {currency}</div>
                     <button onClick={() => { setExpanded(!expanded); onOpen?.(); }} className="px-2 py-1 rounded-md bg-gray-900 text-xs text-gray-200">Details</button>
                     <div className="flex gap-2">
-                        <button onClick={() => onAction("release", undefined)} className="px-2 py-1 rounded-md bg-green-600 text-xs text-white">Release</button>
-                        <button onClick={() => onAction("refund", undefined)} className="px-2 py-1 rounded-md bg-yellow-700 text-xs text-white">Refund</button>
+                        <button onClick={() => onAction("fund",    undefined)} className="px-2 py-1 rounded-md bg-blue-600 text-xs text-white hover:bg-blue-700 transition">Fund</button>
+                        <button onClick={() => onAction("release", undefined)} className="px-2 py-1 rounded-md bg-green-600 text-xs text-white hover:bg-green-700 transition">Release</button>
+                        <button onClick={() => onAction("refund",  undefined)} className="px-2 py-1 rounded-md bg-yellow-700 text-xs text-white hover:bg-yellow-600 transition">Refund</button>
+                        <button onClick={() => onAction("dispute", undefined)} className="px-2 py-1 rounded-md bg-red-700 text-xs text-white hover:bg-red-800 transition">Dispute</button>
                     </div>
                 </div>
             </div>

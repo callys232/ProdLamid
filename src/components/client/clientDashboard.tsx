@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { FaBars } from "react-icons/fa";
 import Link from "next/link";
 import axios from "axios";
@@ -32,7 +33,8 @@ function SkeletonLoader() {
 
 export default function ClientProfileDashboard() {
   const { isAuthenticated, loading: authLoading } = useAuth();
-  const [activeTab, setActiveTab] = useState("overview");
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState(() => searchParams.get("tab") ?? "overview");
   const [client, setClient] = useState<ClientProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
