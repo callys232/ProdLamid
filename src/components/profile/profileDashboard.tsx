@@ -15,7 +15,7 @@ import EscrowDashboard from "@/components/Escrow/Dashboard";
 import { Project } from "@/types/project";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ProjectMatching from "./projectMatching/projectMatch";
-import Messaging from "@/components/messaging/Dashboard";
+import Messaging from "@/components/messaging/ProjectWorkspace";
 
 export default function ProfileDashboard({
   params,
@@ -49,24 +49,24 @@ export default function ProfileDashboard({
     fetchUserData();
   }, []);
 
-    const projects = user?.projects || [];
-    const [selectedProjectId, setSelectedProjectId] = useState<string>("");
+  const projects = user?.projects || [];
+  const [selectedProjectId, setSelectedProjectId] = useState<string>("");
 
-    useEffect(() => {
-        if (projects.length > 0 && !selectedProjectId) {
-            setSelectedProjectId(projects[0]._id || projects[0].id);
-        }
-    }, [projects, selectedProjectId]);
+  useEffect(() => {
+    if (projects.length > 0 && !selectedProjectId) {
+      setSelectedProjectId(projects[0]._id || projects[0].id);
+    }
+  }, [projects, selectedProjectId]);
 
-    const renderTab = () => {
-        if (loading) return <p>Loading...</p>;
-        if (!user) return <p>No profile data available.</p>;
+  const renderTab = () => {
+    if (loading) return <p>Loading...</p>;
+    if (!user) return <p>No profile data available.</p>;
 
-        switch (activeTab) {
-            case "overview":
-                return <Overview projectId={selectedProjectId} />;
-            case "projects":
-                return <ProjectsTab projects={projects} />;
+    switch (activeTab) {
+      case "overview":
+        return <Overview projectId={selectedProjectId} />;
+      case "projects":
+        return <ProjectsTab projects={projects} />;
       case "settings":
         return <Settings user={user} />;
       case "teams":
