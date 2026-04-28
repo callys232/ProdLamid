@@ -1,122 +1,65 @@
+"use client";
+
 import { useState } from "react";
 import Tooltip from "./tooltip";
 import { useFieldRecommendation } from "@/hooks/useField";
 
-interface QAItem {
-    testingHours: number;
-    auditCost: number;
-    bugFixBudget: number;
-}
+type Field = "testingHours" | "auditCost" | "bugFixBudget";
+
+const FIELDS: { key: Field; label: string; color: string; unit: string; hint: string; min: number; max: number }[] = [
+  { key: "testingHours", label: "Testing Hours",   color: "text-green-400",  unit: "hrs",  hint: "Typical QA effort: 100–150 hours",      min: 0, max: 500 },
+  { key: "auditCost",    label: "Audit Cost",       color: "text-teal-400",   unit: "$",    hint: "Code / security audits: $4k–6k",        min: 0, max: 50000 },
+  { key: "bugFixBudget", label: "Bug Fix Budget",   color: "text-emerald-400",unit: "$",    hint: "Bug fixes: ~10–15% of dev cost",        min: 0, max: 50000 },
+];
+
+const cardBase = (active: boolean) =>
+  `relative rounded-xl border p-4 transition ${active ? "border-green-500/50 bg-green-500/5" : "border-gray-800 bg-black/40 hover:border-gray-700"}`;
 
 export default function QAInput() {
-    const [qa, setQA] = useState<QAItem>({
-        testingHours: 120,
-        auditCost: 5000,
-        bugFixBudget: 8000,
-    });
+  const [qa, setQA] = useState({ testingHours: 120, auditCost: 5000, bugFixBudget: 8000 });
+  const [activeField, setActiveField] = useState<Field | null>(null);
 
-    const [activeField, setActiveField] = useState<keyof QAItem | null>(null);
+  const rec = useFieldRecommendation({
+    enabled: activeField !== null,
+    industry: "it", complexity: "medium",
+    field: activeField ?? "",
+    keyword: activeField ? String(qa[activeField]) : "",
+  });
 
-    const update = (field: keyof QAItem, value: number) => {
-        setQA((prev) => ({
-            ...prev,
-            [field]: value,
-        }));
-    };
+  return (
+    <div className="space-y-3">
+      {FIELDS.map((f) => (
+        <div key={f.key} className={cardBase(activeField === f.key)}>
+          <div className="flex items-center justify-between mb-3">
+            <label className={`text-xs font-semibold uppercase tracking-widest ${f.color}`}>{f.label}</label>
+            <span className={`text-sm font-bold ${f.color}`}>
+              {f.unit === "$" ? `$${qa[f.key].toLocaleString()}` : `${qa[f.key]} hrs`}
+            </span>
+          </div>
 
-    const recommendation = useFieldRecommendation(
-        {
-            enabled: activeField !== null,
-            industry: "it",
-            complexity: "medium",
-            field: activeField || "",
-            keyword: activeField ? String(qa[activeField]) : "",
-        }
-    );
+          <input type="range" min={f.min} max={f.max}
+            step={f.unit === "hrs" ? 5 : 500}
+            value={qa[f.key]}
+            onFocus={() => setActiveField(f.key)} onBlur={() => setActiveField(null)}
+            onChange={(e) => setQA((p) => ({ ...p, [f.key]: Number(e.target.value) }))}
+            className={`w-full accent-green-500`}
+          />
 
-    return (
-        <div className="space-y-4">
+          <div className="mt-1 flex items-center justify-between">
+            <p className="text-[10px] text-gray-600">{f.hint}</p>
+            <input type="number" min={f.min} value={qa[f.key]}
+              onFocus={() => setActiveField(f.key)} onBlur={() => setActiveField(null)}
+              onChange={(e) => setQA((p) => ({ ...p, [f.key]: Number(e.target.value) }))}
+              className="w-24 rounded-lg border border-gray-700 bg-black/60 px-2 py-1 text-right text-xs text-white focus:border-green-500/50 focus:outline-none"
+            />
+          </div>
 
-            {/* ================= TESTING HOURS ================= */}
-            <div className="relative p-4 rounded-lg shadow bg-white">
-                <label className="block text-sm font-semibold mb-2">
-                    Testing Hours
-                </label>
-
-                <input
-                    type="number"
-                    value={qa.testingHours}
-                    onFocus={() => setActiveField("testingHours")}
-                    onBlur={() => setActiveField(null)}
-                    onChange={(e) => update("testingHours", Number(e.target.value))}
-                    className="border-b-2 w-40"
-                />
-
-                <Tooltip
-                    visible={activeField === "testingHours"}
-                    recommendation={
-                        recommendation.data?.recommendation ||
-                        "Typical QA effort: 100–150 hours"
-                    }
-                    source={recommendation.data?.source || "Based on similar IT projects"}
-                    confidence={recommendation.data?.confidence || 0.82}
-                    loading={recommendation.loading}
-                />
-            </div>
-
-            {/* ================= AUDIT COST ================= */}
-            <div className="relative p-4 rounded-lg shadow bg-white">
-                <label className="block text-sm font-semibold mb-2">
-                    Audit Cost
-                </label>
-
-                <input
-                    type="number"
-                    value={qa.auditCost}
-                    onFocus={() => setActiveField("auditCost")}
-                    onBlur={() => setActiveField(null)}
-                    onChange={(e) => update("auditCost", Number(e.target.value))}
-                    className="border-b-2 w-40"
-                />
-
-                <Tooltip
-                    visible={activeField === "auditCost"}
-                    recommendation={
-                        recommendation.data?.recommendation ||
-                        "Audits typically cost $4k–6k"
-                    }
-                    source={recommendation.data?.source}
-                    confidence={recommendation.data?.confidence || 0.76}
-                    loading={recommendation.loading}
-                />
-            </div>
-
-            {/* ================= BUG FIX BUDGET ================= */}
-            <div className="relative p-4 rounded-lg shadow bg-white">
-                <label className="block text-sm font-semibold mb-2">
-                    Bug Fix Budget
-                </label>
-
-                <input
-                    type="number"
-                    value={qa.bugFixBudget}
-                    onFocus={() => setActiveField("bugFixBudget")}
-                    onBlur={() => setActiveField(null)}
-                    onChange={(e) => update("bugFixBudget", Number(e.target.value))}
-                    className="border-b-2 w-40"
-                />
-
-                <Tooltip
-                    visible={activeField === "bugFixBudget"}
-                    recommendation={
-                        recommendation.data?.recommendation ||
-                        "Bug fixes usually add 10–15% of dev cost"
-                    }
-                    source={recommendation.data?.source}
-                    confidence={recommendation.data?.confidence || 0.74}
-                    loading={recommendation.loading}
-                />
-            </div>
+          <Tooltip visible={activeField === f.key} loading={rec.loading}
+            recommendation={rec.data?.recommendation || f.hint}
+            source={rec.data?.source} confidence={rec.data?.confidence || 0.8}
+          />
         </div>
-    );
+      ))}
+    </div>
+  );
 }

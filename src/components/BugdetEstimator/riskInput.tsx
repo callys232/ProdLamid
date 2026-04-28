@@ -1,186 +1,92 @@
-import { useEffect, useRef, useState } from "react";
+"use client";
+
+import { useState } from "react";
 import Tooltip from "./tooltip";
-import { fetchRecommendation } from "../../utils/api";
+import { useFieldRecommendation } from "@/hooks/useField";
 
-interface RiskItem {
-    riskLevel: "low" | "medium" | "high" | "";
-    contingencyPercent: number;
-    notes: string;
-}
+type RiskLevel = "low" | "medium" | "high" | "";
 
-interface TooltipData {
-    recommendation: string;
-    source: string;
-    confidence: number;
-}
+const RISK_OPTS: { value: RiskLevel; label: string; color: string }[] = [
+  { value: "low",    label: "Low",    color: "text-green-400" },
+  { value: "medium", label: "Medium", color: "text-yellow-400" },
+  { value: "high",   label: "High",   color: "text-red-400" },
+];
 
-type FieldKey = "riskLevel" | "contingencyPercent" | "notes";
+const inputCls = "w-full rounded-lg border border-gray-700 bg-black/60 px-3 py-2 text-sm text-white transition focus:border-red-500/60 focus:outline-none";
+const cardBase = (active: boolean) => `relative rounded-xl border p-4 transition ${active ? "border-red-500/50 bg-red-500/5 shadow-[0_0_10px_rgba(239,68,68,0.1)]" : "border-gray-800 bg-black/40 hover:border-gray-700"}`;
+const label = (color: string) => `mb-1.5 block text-xs font-semibold uppercase tracking-widest ${color}`;
 
 export default function RiskInput() {
-    const [risk, setRisk] = useState<RiskItem>({
-        riskLevel: "medium",
-        contingencyPercent: 15,
-        notes: "",
-    });
+  const [risk, setRisk] = useState({ riskLevel: "medium" as RiskLevel, contingencyPercent: 15, notes: "" });
+  const [activeField, setActiveField] = useState<string | null>(null);
 
-    const [activeField, setActiveField] = useState<FieldKey | null>(null);
+  const rec = useFieldRecommendation({
+    enabled: activeField !== null,
+    industry: "it", complexity: "medium",
+    field: activeField ?? "",
+    keyword: activeField ? String(risk[activeField as keyof typeof risk] ?? "") : "",
+  });
 
-    const [tooltips, setTooltips] = useState<
-        Partial<Record<FieldKey, TooltipData>>
-    >({});
+  const selected = RISK_OPTS.find((o) => o.value === risk.riskLevel);
 
-    const [loading, setLoading] = useState<
-        Partial<Record<FieldKey, boolean>>
-    >({});
-
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    const getRecommendation = async (field: FieldKey) => {
-        if (tooltips[field]) return;
-
-        setLoading((p) => ({ ...p, [field]: true }));
-
-        const value = String(risk[field] ?? "");
-
-        const data = await fetchRecommendation(
-            "it",
-            "medium",
-            field,
-            value
-        );
-
-        setTooltips((p) => ({ ...p, [field]: data }));
-        setLoading((p) => ({ ...p, [field]: false }));
-    };
-
-    /* ================= OUTSIDE CLICK CLOSE ================= */
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (!containerRef.current?.contains(e.target as Node)) {
-                setActiveField(null);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
-    const baseClass = (field: FieldKey) =>
-        `relative p-4 rounded-lg shadow transition ${activeField === field
-            ? "bg-red-50 border border-[#c12129]"
-            : "bg-white"
-        }`;
-
-    return (
-        <div className="space-y-4" ref={containerRef}>
-
-            {/* ================= RISK LEVEL ================= */}
-            <div className={baseClass("riskLevel")}>
-                <label className="block text-sm font-semibold mb-2">
-                    Risk Level
-                </label>
-
-                <select
-                    value={risk.riskLevel}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] w-40"
-                    onFocus={() => {
-                        setActiveField("riskLevel");
-                        getRecommendation("riskLevel");
-                    }}
-                    onBlur={() => setActiveField(null)}
-                    onChange={(e) =>
-                        setRisk({
-                            ...risk,
-                            riskLevel: e.target.value as RiskItem["riskLevel"],
-                        })
-                    }
-                >
-                    <option value="">Select risk</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-
-                <Tooltip
-                    visible={activeField === "riskLevel"}
-                    recommendation={
-                        loading.riskLevel
-                            ? "Analyzing risk patterns..."
-                            : tooltips.riskLevel?.recommendation ||
-                            "Most projects set risk at medium"
-                    }
-                    source={tooltips.riskLevel?.source || ""}
-                    confidence={tooltips.riskLevel?.confidence || 0.8}
-                />
-            </div>
-
-            {/* ================= CONTINGENCY ================= */}
-            <div className={baseClass("contingencyPercent")}>
-                <label className="block text-sm font-semibold mb-2">
-                    Contingency (%)
-                </label>
-
-                <input
-                    type="number"
-                    value={risk.contingencyPercent}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] w-32"
-                    onFocus={() => {
-                        setActiveField("contingencyPercent");
-                        getRecommendation("contingencyPercent");
-                    }}
-                    onBlur={() => setActiveField(null)}
-                    onChange={(e) =>
-                        setRisk({
-                            ...risk,
-                            contingencyPercent: Number(e.target.value),
-                        })
-                    }
-                />
-
-                <Tooltip
-                    visible={activeField === "contingencyPercent"}
-                    recommendation={
-                        loading.contingencyPercent
-                            ? "Calculating buffer requirements..."
-                            : tooltips.contingencyPercent?.recommendation ||
-                            "Typical contingency: 10–20%"
-                    }
-                    source={tooltips.contingencyPercent?.source || ""}
-                    confidence={tooltips.contingencyPercent?.confidence || 0.75}
-                />
-            </div>
-
-            {/* ================= NOTES ================= */}
-            <div className={baseClass("notes")}>
-                <label className="block text-sm font-semibold mb-2">
-                    Risk Notes
-                </label>
-
-                <textarea
-                    value={risk.notes}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] w-full"
-                    onFocus={() => {
-                        setActiveField("notes");
-                        getRecommendation("notes");
-                    }}
-                    onBlur={() => setActiveField(null)}
-                    onChange={(e) =>
-                        setRisk({ ...risk, notes: e.target.value })
-                    }
-                />
-
-                <Tooltip
-                    visible={activeField === "notes"}
-                    recommendation={
-                        loading.notes
-                            ? "Scanning risk documentation..."
-                            : tooltips.notes?.recommendation ||
-                            "Document risks: delays, compliance, vendors"
-                    }
-                    source={tooltips.notes?.source || ""}
-                    confidence={tooltips.notes?.confidence || 0.7}
-                />
-            </div>
+  return (
+    <div className="space-y-3">
+      {/* Risk Level */}
+      <div className={cardBase(activeField === "riskLevel")}>
+        <label className={label("text-red-400")}>Risk Level</label>
+        <div className="flex gap-2 mt-2">
+          {RISK_OPTS.map((o) => (
+            <button key={o.value} type="button"
+              onFocus={() => setActiveField("riskLevel")} onBlur={() => setActiveField(null)}
+              onClick={() => setRisk((p) => ({ ...p, riskLevel: o.value }))}
+              className={`flex-1 rounded-lg border py-2 text-xs font-semibold transition ${
+                risk.riskLevel === o.value
+                  ? `${o.color} border-current bg-current/10`
+                  : "border-gray-700 text-gray-500 hover:border-gray-500 hover:text-gray-300"
+              }`}
+            >
+              {o.label}
+            </button>
+          ))}
         </div>
-    );
+        {selected && (
+          <p className={`mt-2 text-xs ${selected.color}`}>
+            {selected.value === "low" && "Low risk — minimal contingency needed."}
+            {selected.value === "medium" && "Medium risk — standard 10–20% contingency recommended."}
+            {selected.value === "high" && "High risk — consider 25%+ contingency buffer."}
+          </p>
+        )}
+        <Tooltip visible={activeField === "riskLevel"} loading={rec.loading}
+          recommendation={rec.data?.recommendation || "Most projects: medium risk"} source={rec.data?.source} confidence={rec.data?.confidence} />
+      </div>
+
+      {/* Contingency */}
+      <div className={cardBase(activeField === "contingencyPercent")}>
+        <label className={label("text-orange-400")}>Contingency %</label>
+        <div className="mt-2 flex items-center gap-3">
+          <input type="range" min={0} max={50} value={risk.contingencyPercent}
+            onFocus={() => setActiveField("contingencyPercent")} onBlur={() => setActiveField(null)}
+            onChange={(e) => setRisk((p) => ({ ...p, contingencyPercent: Number(e.target.value) }))}
+            className="flex-1 accent-[#c12129]"
+          />
+          <span className="w-12 text-right text-sm font-bold text-orange-400">{risk.contingencyPercent}%</span>
+        </div>
+        <Tooltip visible={activeField === "contingencyPercent"} loading={rec.loading}
+          recommendation={rec.data?.recommendation || "Typical contingency: 10–20%"} source={rec.data?.source} confidence={rec.data?.confidence} />
+      </div>
+
+      {/* Notes */}
+      <div className={cardBase(activeField === "notes")}>
+        <label className={label("text-gray-400")}>Risk Notes</label>
+        <textarea value={risk.notes} rows={3}
+          onFocus={() => setActiveField("notes")} onBlur={() => setActiveField(null)}
+          onChange={(e) => setRisk((p) => ({ ...p, notes: e.target.value }))}
+          placeholder="Document known risks: delays, compliance gaps, vendor dependencies…"
+          className={`${inputCls} mt-2 resize-none`}
+        />
+        <Tooltip visible={activeField === "notes"} loading={rec.loading}
+          recommendation={rec.data?.recommendation || "Document: delays, compliance, vendors"} source={rec.data?.source} confidence={rec.data?.confidence} />
+      </div>
+    </div>
+  );
 }

@@ -22,9 +22,6 @@ const Header = () => {
           >
             We build and grow world-class organizations
           </motion.h1>
-          <p className="pt-3">
-            Using our AI driven consulting system, that unitess Project Matching and End-to-End delivery in one marketplace.CRM-Project Management platform
-          </p>
         </motion.div>
 
         {/* Image */}
