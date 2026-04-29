@@ -23,6 +23,14 @@ const UserSchema = new mongoose.Schema({
   twoFAEnabled: { type: Boolean, default: false },
   twoFASecret: { type: String },
   twoFAMethod: { type: String, enum: ["email", "google"], default: "email" },
+
+  // Enterprise org membership
+  orgId:   { type: mongoose.Schema.Types.ObjectId, ref: "Organization", default: null },
+  orgRole: { type: String, enum: ["org_admin", "org_manager", "org_member", "org_viewer"], default: null },
+
+  // Password reset
+  resetToken:       { type: String, default: null },
+  resetTokenExpiry: { type: Date,   default: null },
 }, {
   timestamps: true,
   strictPopulate: false

@@ -5,6 +5,7 @@ import { Message } from "@/lib/models/Message";
 import { Notification } from "@/lib/models/Notification";
 import { Users } from "@/lib/models/User";
 import { Project } from "@/lib/models/Project";
+import { notifyProject } from "./stream/route";
 
 // GET /api/messages?projectId=xxx — fetch messages for a project
 export async function GET(request: NextRequest) {
@@ -114,6 +115,9 @@ export async function POST(request: NextRequest) {
         // Notification failure is non-critical — don't block the message save
       }
     }
+
+    // Broadcast to SSE subscribers of this project
+    notifyProject(String(projectId), { type: "new_message", data: saved });
 
     return NextResponse.json({ success: true, data: saved }, { status: 201 });
   } catch (error: any) {

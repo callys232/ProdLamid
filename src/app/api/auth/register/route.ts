@@ -1,17 +1,20 @@
 
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
-import { Users } from "@/lib/models/User"; // Check import name - file looked like "User.ts" but model might be "Users" or "User"
+import { Users } from "@/lib/models/User";
 import { Profile } from "@/lib/models/Profile";
+import { Organization } from "@/lib/models/Organization";
+import { OrgMember, DEFAULT_PERMISSIONS } from "@/lib/models/OrgMember";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { sendVerificationEmail } from "@/lib/mailer";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
 
 export async function POST(request: Request) {
     try {
         await connectDB();
-        const { name, email, password, role } = await request.json();
+        const { name, email, password, role, isEnterprise, companyName } = await request.json();
 
         if (!name || !email || !password || !role) {
             return NextResponse.json(
@@ -40,21 +43,27 @@ export async function POST(request: Request) {
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Generate email verification code
+        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
         // Create User
         const user = await Users.create({
-            username: name.replace(/\s+/g, "").toLowerCase() + Math.floor(Math.random() * 1000), // Simple username gen
+            username: name.replace(/\s+/g, "").toLowerCase() + Math.floor(Math.random() * 1000),
             email,
             password: hashedPassword,
-            role, // "client" or "seller"
-            isVerified: true, // Auto-verify for simplicity
+            role,
+            isVerified: false,
+            verificationCode,
         });
+
+        // Send verification email (non-blocking)
+        sendVerificationEmail(email, verificationCode).catch(console.error);
 
         // Create empty Profile for the user
         await Profile.create({
             user: user._id,
             firstName: name.split(" ")[0],
             lastName: name.split(" ").slice(1).join(" ") || "",
-            // Initialize consultant fields if seller?
             ...(role === "seller" && {
                 title: "New Consultant",
                 rate: 50,
@@ -65,16 +74,51 @@ export async function POST(request: Request) {
             })
         });
 
+        // Enterprise org creation
+        let orgId: string | undefined;
+        let orgRole: string | undefined;
+
+        if (isEnterprise) {
+            const orgName = companyName || name;
+            const slug = orgName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") + "-" + Date.now();
+
+            const org = await Organization.create({
+                name: orgName,
+                slug,
+                tier: "enterprise",
+                maxMembers: 50,
+                ownerId: user._id,
+                status: "trial",
+            });
+
+            await OrgMember.create({
+                orgId: org._id,
+                userId: user._id,
+                role: "org_admin",
+                status: "active",
+                joinedAt: new Date(),
+                permissions: DEFAULT_PERMISSIONS["org_admin"],
+            });
+
+            await Users.findByIdAndUpdate(user._id, {
+                orgId: org._id,
+                orgRole: "org_admin",
+            });
+
+            orgId   = String(org._id);
+            orgRole = "org_admin";
+        }
+
         // Generate Token
         const token = jwt.sign(
-            { userId: user._id, role: user.role },
+            { userId: user._id, role: user.role, ...(orgId && { orgId, orgRole }) },
             JWT_SECRET,
             { expiresIn: "7d" }
         );
 
         // Return success
         const response = NextResponse.json(
-            { success: true, data: { user, token } },
+            { success: true, data: { user, token, isEnterprise: !!isEnterprise } },
             { status: 201 }
         );
 
@@ -82,7 +126,7 @@ export async function POST(request: Request) {
         response.cookies.set("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 7 * 24 * 60 * 60, // 7 days
+            maxAge: 7 * 24 * 60 * 60,
             path: "/",
         });
 
