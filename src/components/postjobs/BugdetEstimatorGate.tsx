@@ -18,6 +18,82 @@ interface Props {
   onResult?: (data: AiEstimate) => void;
 }
 
+const CATEGORY_BUDGET: Record<string, [number, number]> = {
+  "Technology & Software":      [10000, 35000],
+  "Finance & Accounting":       [20000, 60000],
+  "Design & Creative":          [5000,  20000],
+  "Marketing & Growth":         [8000,  25000],
+  "Legal & Compliance":         [6000,  20000],
+  "Operations & Strategy":      [10000, 30000],
+  "Data & Analytics":           [15000, 30000],
+  "Human Resources":            [10000, 20000],
+  "Healthcare & Biotech":       [25000, 50000],
+  "Real Estate & Construction": [15000, 35000],
+  "Education & Training":       [10000, 40000],
+  "Entertainment & Media":      [10000, 35000],
+  "Food & Beverages":           [10000, 20000],
+  "Art & Culture":              [12000, 25000],
+  "Web 3.0 & Blockchain":       [25000, 70000],
+  "Games & Interactive":        [15000, 60000],
+  "Video & Animation":          [4000,  15000],
+  "Literature & Content":       [3000,  8000],
+  "Business Development":       [12000, 25000],
+  "Sustainability & ESG":       [15000, 25000],
+};
+
+const CATEGORY_DURATION: Record<string, number> = {
+  "Technology & Software":      4,
+  "Finance & Accounting":       3,
+  "Design & Creative":          2,
+  "Marketing & Growth":         4,
+  "Legal & Compliance":         2,
+  "Operations & Strategy":      4,
+  "Data & Analytics":           3,
+  "Human Resources":            3,
+  "Healthcare & Biotech":       6,
+  "Real Estate & Construction": 6,
+  "Education & Training":       4,
+  "Entertainment & Media":      3,
+  "Food & Beverages":           3,
+  "Art & Culture":              3,
+  "Web 3.0 & Blockchain":       5,
+  "Games & Interactive":        6,
+  "Video & Animation":          2,
+  "Literature & Content":       2,
+  "Business Development":       3,
+  "Sustainability & ESG":       4,
+};
+
+function buildMockEstimate(
+  project: Partial<Project>,
+  similar: typeof mockJobs,
+  stats: ReturnType<typeof marketStats>
+): AiEstimate | null {
+  const cat = project.category ?? "";
+  const duration = CATEGORY_DURATION[cat] ?? 3;
+
+  if (stats && similar.length > 0) {
+    return {
+      budgetMin: stats.min,
+      budgetMax: stats.max,
+      durationMonths: duration,
+      explanation: `Estimated from ${similar.length} comparable ${cat || "platform"} project${similar.length !== 1 ? "s" : ""}.`,
+    };
+  }
+
+  const range = CATEGORY_BUDGET[cat];
+  if (range) {
+    return {
+      budgetMin: range[0],
+      budgetMax: range[1],
+      durationMonths: duration,
+      explanation: `Market estimate for ${cat || "this type of project"}.`,
+    };
+  }
+
+  return null;
+}
+
 /* ── Score a mock job for similarity to the current project ──── */
 function similarityScore(job: typeof mockJobs[0], project: Partial<Project>): number {
   let score = 0;
@@ -68,49 +144,19 @@ export default function BudgetEstimatorGate({ project, isPremiumUser = true, onR
 
   const hasInput = !!(project.title || project.category);
 
-  /* ── Call /api/projects/estimate whenever key fields change ── */
+  /* ── Derive estimate from mock data whenever key fields change ── */
   useEffect(() => {
     if (!project.title || !project.category) return;
 
-    const timer = setTimeout(async () => {
+    const timer = setTimeout(() => {
       setLoading(true);
-      try {
-        const res = await fetch("/api/projects/estimate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            title:       project.title,
-            category:    project.category,
-            description: project.description,
-            skills:      project.skills ?? [],
-            location:    project.location,
-          }),
-        });
-
-        if (res.ok) {
-          const data: AiEstimate = await res.json();
-          setAiEstimate(data);
-          setSource("ai");
-          onResult?.(data);
-        } else {
-          throw new Error("estimate api failed");
-        }
-      } catch {
-        // Fallback: derive from similar projects
-        if (stats) {
-          const fallback: AiEstimate = {
-            budgetMin:      stats.min,
-            budgetMax:      stats.max,
-            durationMonths: 3,
-            explanation:    `Estimated from ${similar.length} comparable ${project.category ?? ""} project${similar.length !== 1 ? "s" : ""} on the platform.`,
-          };
-          setAiEstimate(fallback);
-          setSource("market");
-          onResult?.(fallback);
-        }
-      } finally {
-        setLoading(false);
+      const estimate = buildMockEstimate(project, similar, stats);
+      if (estimate) {
+        setAiEstimate(estimate);
+        setSource("market");
+        onResult?.(estimate);
       }
+      setLoading(false);
     }, 700);
 
     return () => clearTimeout(timer);

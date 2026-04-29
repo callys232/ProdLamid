@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: "https://openrouter.ai/api/v1",
-});
+export const dynamic = "force-dynamic";
 
 interface SimilarProject {
   title: string;
@@ -30,6 +27,11 @@ interface BenchmarkResponse {
 }
 
 export async function POST(request: Request) {
+  const openai = new OpenAI({
+    apiKey: process.env.OPENROUTER_API_KEY,
+    baseURL: "https://openrouter.ai/api/v1",
+  });
+
   try {
     const body = await request.json();
     const { businessType, complexity, timeline, category, title, skills, description } = body;

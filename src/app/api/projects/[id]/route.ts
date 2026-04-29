@@ -29,8 +29,8 @@ export async function GET(
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
 
-        const isOwner = project.ownerId.toString() === auth.userId;
-        const isConsultant = project.consultants.some((c: any) => 
+        const isOwner = (project as any).ownerId.toString() === auth.userId;
+        const isConsultant = (project as any).consultants.some((c: any) =>
             (c._id || c).toString() === auth.userId
         );
 
@@ -74,7 +74,7 @@ export async function PUT(
             );
         }
 
-        if (project.ownerId.toString() !== auth.userId) {
+        if ((project as any).ownerId.toString() !== auth.userId) {
             return NextResponse.json(
                 { success: false, message: "Only the project owner can update this project" },
                 { status: 403 }
@@ -119,7 +119,7 @@ export async function DELETE(
             );
         }
 
-        if (project.ownerId.toString() !== auth.userId) {
+        if ((project as any).ownerId.toString() !== auth.userId) {
             return NextResponse.json(
                 { success: false, message: "Only the project owner can delete this project" },
                 { status: 403 }

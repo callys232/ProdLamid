@@ -28,7 +28,7 @@ type OnChange = (
 interface Props {
   initialData?: Partial<MultiStepFormValues>;
   user?: any;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 export default function MultiStepForm({
@@ -194,7 +194,7 @@ export default function MultiStepForm({
       localStorage.removeItem("consultantProfileDraft");
 
       toast.success("Profile updated successfully");
-      onClose();
+      onClose?.();
     } catch (err: any) {
       toast.error(err.message || "Failed to update profile");
     } finally {

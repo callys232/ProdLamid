@@ -100,7 +100,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        if (user.role !== "seller") {
+        if ((user as any).role !== "seller") {
             return NextResponse.json({ error: "Forbidden" }, { status: 403 });
         }
 

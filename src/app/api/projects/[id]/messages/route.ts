@@ -20,8 +20,8 @@ export async function GET(
         const project = await Project.findById(id).lean();
         if (!project) return NextResponse.json({ error: "Project not found" }, { status: 404 });
 
-        const isOwner = project.ownerId.toString() === auth.userId;
-        const isConsultant = project.consultants.some((c: any) => c.toString() === auth.userId);
+        const isOwner = (project as any).ownerId.toString() === auth.userId;
+        const isConsultant = (project as any).consultants.some((c: any) => c.toString() === auth.userId);
 
         if (!isOwner && !isConsultant) {
             return NextResponse.json({ error: "Unauthorized access to project messages" }, { status: 403 });
@@ -52,8 +52,8 @@ export async function POST(
         const project = await Project.findById(id).lean();
         if (!project) return NextResponse.json({ error: "Project not found" }, { status: 404 });
 
-        const isOwner = project.ownerId.toString() === auth.userId;
-        const isConsultant = project.consultants.some((c: any) => c.toString() === auth.userId);
+        const isOwner = (project as any).ownerId.toString() === auth.userId;
+        const isConsultant = (project as any).consultants.some((c: any) => c.toString() === auth.userId);
 
         if (!isOwner && !isConsultant) {
             return NextResponse.json({ error: "Unauthorized: You are not part of this project" }, { status: 403 });

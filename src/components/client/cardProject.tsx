@@ -51,7 +51,7 @@ export default function ProjectCard({ project, onClick, compact = false }: Props
             });
     }, []);
 
-    const isOwner = currentUser?._id === (project.ownerId?._id || project.ownerId);
+    const isOwner = currentUser?._id === ((project.ownerId as any)?._id || project.ownerId);
     const isConsultant = project.consultants?.some((c: any) => 
         (c._id || c).toString() === currentUser?._id
     );

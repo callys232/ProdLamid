@@ -1,11 +1,17 @@
 // utils/openai.ts
 import OpenAI from "openai";
 
-// Use OpenRouter's endpoint and API key
-const openai = new OpenAI({
-    apiKey: process.env.OPENROUTER_API_KEY,
-    baseURL: "https://openrouter.ai/api/v1",
-});
+let _openai: OpenAI | null = null;
+
+function getOpenAI(): OpenAI {
+    if (!_openai) {
+        _openai = new OpenAI({
+            apiKey: process.env.OPENROUTER_API_KEY,
+            baseURL: "https://openrouter.ai/api/v1",
+        });
+    }
+    return _openai;
+}
 
 /**
  * Generates fashion recommendations based on user inputs.
@@ -39,7 +45,7 @@ export async function generateFashionRecommendations(params: {
     Format clearly, and suggest products with clickable links in Markdown if possible.
   `;
 
-    const aiResponse = await openai.chat.completions.create({
+    const aiResponse = await getOpenAI().chat.completions.create({
         model: "openai/gpt-4o-mini", // you can swap with any OpenRouter-supported model
         messages: [{ role: "user", content: prompt }],
         temperature: 0.8,
@@ -77,7 +83,7 @@ export async function estimateProjectDetails(params: {
   `;
 
     try {
-        const aiResponse = await openai.chat.completions.create({
+        const aiResponse = await getOpenAI().chat.completions.create({
             model: "openai/gpt-4o-mini",
             messages: [{ role: "user", content: prompt }],
             temperature: 0.5,
