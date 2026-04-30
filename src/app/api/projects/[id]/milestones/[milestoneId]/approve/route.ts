@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
 import * as milestoneController from "@/controllers/milestoneController";
+import { emailMilestoneApproved } from "@/lib/services/transactionalEmailService";
 
 type Params = Promise<{ id: string; milestoneId: string }>;
 
@@ -16,8 +17,19 @@ export async function PATCH(
             return NextResponse.json({ error: "Only clients can approve milestones" }, { status: 403 });
         }
 
-        const { milestoneId } = await params;
+        const { id: projectId, milestoneId } = await params;
         const milestone = await milestoneController.approveMilestone(milestoneId, auth.userId);
+
+        // Fire transactional email (non-blocking)
+        if (milestone?.consultantId) {
+            emailMilestoneApproved({
+                consultantId:   String(milestone.consultantId),
+                milestoneTitle: milestone.title ?? "Milestone",
+                projectTitle:   milestone.projectTitle ?? "",
+                amount:         milestone.amount ?? 0,
+                projectId,
+            }).catch(console.error);
+        }
 
         return NextResponse.json(milestone);
     } catch (error: any) {

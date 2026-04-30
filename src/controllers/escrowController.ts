@@ -1,8 +1,10 @@
 import { Escrow } from "@/lib/models/Escrow";
 import { Milestone } from "@/lib/models/Milestone";
+import { Wallet } from "@/lib/models/Wallet";
 import connectDB from "@/lib/db";
 import * as paystack from "@/utils/paystack";
 import { Users } from "@/lib/models/User";
+import { awardPoints } from "@/lib/services/pointsService";
 
 export const fundEscrow = async (escrowId: string, userId: string) => {
     await connectDB();
@@ -55,17 +57,84 @@ export const handlePaystackWebhook = async (payload: any) => {
     const { event, data } = payload;
 
     if (event === "charge.success") {
-        const reference = data.reference;
-        const escrow = await Escrow.findOne({ paystackRef: reference });
-        
-        if (escrow) {
-            escrow.status = "funded";
-            escrow.transactionId = data.id.toString();
-            escrow.fundedAt = new Date();
-            await escrow.save();
+        const reference  = data.reference;
+        const meta       = data.metadata ?? {};
+        const amountNgn  = Math.floor(data.amount / 100); // Paystack sends kobo
 
-            // Also update milestone status
+        // ── Subscription activation ──────────────────────────────────
+        if (meta.type === "subscription" && meta.userId) {
+            const cycle: "monthly" | "quarterly" | "annual" =
+                meta.cycle ?? (
+                    meta.plan?.includes("annual")    ? "annual"    :
+                    meta.plan?.includes("quarterly") ? "quarterly" : "monthly"
+                );
+            const tier =
+                meta.plan?.startsWith("enterprise") ? "enterprise" : "premium";
+
+            await Users.findByIdAndUpdate(meta.userId, {
+                tier,
+                subscriptionStatus: "active",
+                subscriptionCycle:  cycle,
+            });
+        }
+
+        // ── Points purchase ──────────────────────────────────────────
+        if (meta.type === "points_purchase" && meta.userId && meta.points) {
+            await awardPoints(
+                meta.userId,
+                Number(meta.points),
+                `Purchased ${meta.points} points (${meta.packageId ?? ""})`,
+                reference
+            );
+        }
+
+        // ── Wallet top-up ────────────────────────────────────────────
+        if (meta.type === "wallet_topup" && meta.userId) {
+            let wallet = await Wallet.findOne({ user: meta.userId });
+            if (!wallet) wallet = await Wallet.create({ user: meta.userId });
+            wallet.balance += amountNgn;
+            wallet.transactions.push({
+                type:        "credit",
+                amount:      amountNgn,
+                description: "Wallet top-up via Paystack",
+                reference,
+            });
+            await wallet.save();
+        }
+
+        // ── Escrow funding ───────────────────────────────────────────
+        const escrow = meta.escrowId
+            ? await Escrow.findById(meta.escrowId)
+            : await Escrow.findOne({ paystackRef: reference });
+
+        if (escrow) {
+            escrow.status        = "funded";
+            escrow.transactionId = String(data.id);
+            escrow.fundedAt      = new Date();
+            await escrow.save();
             await Milestone.findByIdAndUpdate(escrow.milestoneId, { status: "funded" });
+        }
+    }
+
+    // ── Subscription disabled / cancelled ────────────────────────────
+    if (event === "subscription.disable" || event === "subscription.not_renew") {
+        const customerCode = data.customer?.customer_code;
+        if (customerCode) {
+            await Users.findOneAndUpdate(
+                { paystackCustomerId: customerCode },
+                { subscriptionStatus: "cancelled", tier: "free" }
+            );
+        }
+    }
+
+    // ── Subscription invoice failed ──────────────────────────────────
+    if (event === "invoice.payment_failed") {
+        const customerCode = data.customer?.customer_code;
+        if (customerCode) {
+            await Users.findOneAndUpdate(
+                { paystackCustomerId: customerCode },
+                { subscriptionStatus: "inactive" }
+            );
         }
     }
 

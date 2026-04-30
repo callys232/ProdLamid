@@ -24,6 +24,12 @@ const UserSchema = new mongoose.Schema({
   twoFASecret: { type: String },
   twoFAMethod: { type: String, enum: ["email", "google"], default: "email" },
 
+  // Subscription / tier
+  tier:               { type: String, enum: ["free", "premium", "enterprise", "enterprise_plus"], default: "free" },
+  subscriptionId:     { type: String, default: null },    // Paystack subscription code
+  subscriptionStatus: { type: String, enum: ["active", "inactive", "cancelled", "non-renewing"], default: "inactive" },
+  subscriptionCycle:  { type: String, enum: ["monthly", "quarterly", "annual"], default: "monthly" },
+
   // Enterprise org membership
   orgId:   { type: mongoose.Schema.Types.ObjectId, ref: "Organization", default: null },
   orgRole: { type: String, enum: ["org_admin", "org_manager", "org_member", "org_viewer"], default: null },
@@ -31,6 +37,10 @@ const UserSchema = new mongoose.Schema({
   // Password reset
   resetToken:       { type: String, default: null },
   resetTokenExpiry: { type: Date,   default: null },
+
+  // KYC
+  kycStatus:    { type: String, enum: ["not_submitted", "pending", "approved", "rejected"], default: "not_submitted" },
+  kycDocuments: [{ type: String }],
 }, {
   timestamps: true,
   strictPopulate: false

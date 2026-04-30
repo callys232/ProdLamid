@@ -40,10 +40,15 @@ const ENTERPRISE_PLUS_FEATURES = [
   "Quarterly strategy reviews",
 ];
 
+type BillingCycle = "monthly" | "quarterly" | "annual";
+
+const ENTERPRISE_PRICES: Record<BillingCycle, number>  = { monthly: 18500, quarterly: 52500, annual: 200000 };
+const ENTERPRISE_SAVINGS: Partial<Record<BillingCycle, string>> = { quarterly: "Save $3,000 vs monthly", annual: "Save $22,000" };
+const PER_LABEL: Record<BillingCycle, string> = { monthly: "/mo", quarterly: "/qtr", annual: "/yr" };
+
 export default function Billing({ tier, orgStatus }: Props) {
-  const [cycle, setCycle] = useState<"monthly" | "annual">("monthly");
-  const price = cycle === "annual" ? 200000 : 18500;
-  const plusPrice = cycle === "annual" ? "Custom" : "Custom";
+  const [cycle, setCycle] = useState<BillingCycle>("monthly");
+  const price = ENTERPRISE_PRICES[cycle];
 
   return (
     <div className="space-y-6 p-6">

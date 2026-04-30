@@ -2,6 +2,7 @@ import { Bid } from "@/lib/models/Bid";
 import { Project } from "@/lib/models/Project";
 import connectDB from "@/lib/db";
 import { createNotification } from "@/lib/notification";
+import { emailBidAccepted } from "@/lib/services/transactionalEmailService";
 
 export const acceptBid = async (projectId: string, bidId: string, clientId: string) => {
     await connectDB();
@@ -32,6 +33,13 @@ export const acceptBid = async (projectId: string, bidId: string, clientId: stri
         `Your bid for project "${project.title}" has been accepted!`,
         bid.bidderId.toString()
     );
+
+    // Transactional email
+    emailBidAccepted({
+        consultantId: bid.bidderId.toString(),
+        projectTitle: project.title,
+        projectId:    projectId,
+    }).catch(console.error);
 
     return { success: true };
 };

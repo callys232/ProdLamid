@@ -5,6 +5,7 @@ import { createNotification } from "@/lib/services/notificationService";
 import { getConsultantById } from "@/lib/services/consultantService";
 import { Project } from "@/lib/models/Project";
 import { Bid } from "@/lib/models/Bid";
+import { emailConsultantHired } from "@/lib/services/transactionalEmailService";
 
 // POST /api/hire-consultant - Formalize hiring
 export async function POST(request: NextRequest) {
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
             await project.save();
         }
 
-        // 4. Create notification for consultant
+        // 4. Create notification + transactional email for consultant
         await createNotification({
             userId: consultantId,
             type: "message",
@@ -66,6 +67,14 @@ export async function POST(request: NextRequest) {
             relatedType: "project",
             severity: "High"
         });
+
+        emailConsultantHired({
+            consultantId,
+            clientId:     auth.userId,
+            projectTitle: project.title,
+            projectId,
+            clientMessage,
+        }).catch(console.error);
 
         return NextResponse.json({
             success: true,

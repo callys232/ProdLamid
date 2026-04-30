@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Project } from "@/lib/models/Project";
 import { requireAuth } from "@/lib/middleware/auth";
+import { deductPoints, POINT_COSTS } from "@/lib/services/pointsService";
 
 export async function GET(request: NextRequest) {
     try {
@@ -68,6 +69,19 @@ export async function POST(request: NextRequest) {
         // Require authentication
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+
+        // Deduct points for posting
+        const pointsResult = await deductPoints(
+            auth.userId,
+            POINT_COSTS.POST_PROJECT,
+            "Project posting fee",
+        );
+        if (!pointsResult.success) {
+            return NextResponse.json(
+                { success: false, message: pointsResult.message, code: "INSUFFICIENT_POINTS", balance: pointsResult.balance },
+                { status: 402 }
+            );
+        }
 
         const body = await request.json();
         const { title, category, milestones: initialMilestones, workPhases, ...rest } = body;

@@ -111,18 +111,18 @@ export async function PATCH(request: Request) {
         const body = await request.json();
 
         // Split body for different models
-        const profileFields = ["profilePicture", "bio", "firstName", "lastName", "industry", "rate", "delivery", "title", "skills"];
-        const businessFields = ["companyName", "companySize", "website", "description", "industry", "location"];
-        const paymentFields = ["walletAddress", "network", "bankAccount", "routingNumber", "bankName"];
+        const profileFields  = ["profilePicture", "bio", "firstName", "lastName", "industry", "rate", "delivery", "title", "skills"];
+        const businessFields = ["companyName", "companySize", "website", "description", "industry", "location", "employmentHistory"];
+        const paymentFields  = ["walletAddress", "network", "bankAccount", "routingNumber", "bankName"];
 
         const profileData: any = {};
         const businessData: any = {};
         const paymentData: any = {};
 
         Object.keys(body).forEach(key => {
-            if (profileFields.includes(key)) profileData[key] = body[key];
+            if (profileFields.includes(key))  profileData[key]  = body[key];
             if (businessFields.includes(key)) businessData[key] = body[key];
-            if (paymentFields.includes(key)) paymentData[key] = body[key];
+            if (paymentFields.includes(key))  paymentData[key]  = body[key];
         });
 
         // Update Profile
@@ -134,12 +134,20 @@ export async function PATCH(request: Request) {
             );
         }
 
-        // Update Business Profile
+        // Update Business Profile (employmentHistory replaces the whole array)
         if (Object.keys(businessData).length > 0) {
             const { BusinessProfile } = await import("@/lib/models/BusinessProfile");
+            const update: any = { $set: {} };
+            Object.keys(businessData).forEach(k => {
+                if (k === "employmentHistory") {
+                    update.$set.employmentHistory = businessData.employmentHistory;
+                } else {
+                    update.$set[k] = businessData[k];
+                }
+            });
             await BusinessProfile.findOneAndUpdate(
                 { user: user._id },
-                { $set: businessData },
+                update,
                 { new: true, upsert: true }
             );
         }

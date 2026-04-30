@@ -31,7 +31,7 @@ export async function PATCH(req: NextRequest) {
     if (auth.orgRole !== "org_admin") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
     const body = await req.json();
-    const allowed = ["name", "logoUrl", "industry", "website", "billingCycle", "settings"];
+    const allowed = ["name", "logoUrl", "industry", "website", "billingCycle", "settings", "orgSize", "description", "employmentHistory"];
     const update: Record<string, unknown> = {};
     for (const key of allowed) {
       if (key in body) update[key] = body[key];

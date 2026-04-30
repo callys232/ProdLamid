@@ -1,14 +1,24 @@
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { rateLimit } from "@/lib/rateLimit";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
+        const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
+        const rl = rateLimit(`login:${ip}`, { windowMs: 15 * 60 * 1000, max: 10 });
+        if (!rl.allowed) {
+            return NextResponse.json(
+                { success: false, message: "Too many login attempts. Try again in 15 minutes." },
+                { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+            );
+        }
+
         await connectDB();
         const { email, password } = await request.json();
 

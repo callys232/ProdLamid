@@ -5,6 +5,7 @@ import { Message } from "@/lib/models/Message";
 import { Notification } from "@/lib/models/Notification";
 import { Users } from "@/lib/models/User";
 import { Project } from "@/lib/models/Project";
+import { Profile } from "@/lib/models/Profile";
 import { notifyProject } from "./stream/route";
 
 // GET /api/messages?projectId=xxx — fetch messages for a project
@@ -26,11 +27,23 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const messages = await Message.find({ projectId })
+    const rawMessages = await Message.find({ projectId })
       .sort({ sentAt: 1 })
       .limit(limit)
-      .populate({ path: "senderId", select: "username email role profile", strictPopulate: false })
-      .lean();
+      .populate({ path: "senderId", select: "username email role", strictPopulate: false })
+      .lean() as any[];
+
+    // Attach profile pictures
+    const senderIds = [...new Set(rawMessages.map((m: any) => m.senderId?._id?.toString()).filter(Boolean))];
+    const profiles  = senderIds.length
+      ? await Profile.find({ user: { $in: senderIds } }).select("user profilePicture").lean() as any[]
+      : [];
+    const picMap = Object.fromEntries(profiles.map(p => [p.user.toString(), p.profilePicture]));
+
+    const messages = rawMessages.map((m: any) => ({
+      ...m,
+      senderId: m.senderId ? { ...m.senderId, profileImage: picMap[m.senderId._id?.toString()] ?? null } : m.senderId,
+    }));
 
     // Mark messages as read by this user
     await Message.updateMany(

@@ -8,6 +8,7 @@ import { OrgMember, DEFAULT_PERMISSIONS } from "@/lib/models/OrgMember";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { sendVerificationEmail } from "@/lib/mailer";
+import { awardPoints, SIGNUP_BONUS } from "@/lib/services/pointsService";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
 
@@ -107,6 +108,18 @@ export async function POST(request: Request) {
 
             orgId   = String(org._id);
             orgRole = "org_admin";
+        }
+
+        // Award signup bonus points (non-blocking)
+        const bonusKey = isEnterprise ? "enterprise" : role;
+        const bonus    = SIGNUP_BONUS[bonusKey] ?? SIGNUP_BONUS[role] ?? 0;
+        if (bonus > 0) {
+            awardPoints(
+                String(user._id),
+                bonus,
+                `Welcome bonus — ${bonusKey} account`,
+                "signup_bonus"
+            ).catch(console.error);
         }
 
         // Generate Token

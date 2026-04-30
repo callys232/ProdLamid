@@ -3,9 +3,14 @@ import crypto from "crypto";
 import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/User";
 import { sendResetEmail } from "@/lib/mailer";
+import { rateLimit } from "@/lib/rateLimit";
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
+    const rl = rateLimit(`forgot:${ip}`, { windowMs: 60 * 60 * 1000, max: 5 });
+    if (!rl.allowed) return NextResponse.json({ success: false, message: "Too many requests. Try again later." }, { status: 429 });
+
     await connectDB();
     const { email } = await req.json();
 

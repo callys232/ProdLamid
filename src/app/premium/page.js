@@ -1,11 +1,11 @@
-import Premium from "@/components/premium/premuim";
+import SaasPricingSection from "@/components/biz/SaasPricingSection";
 
-const PremiumPage = () => {
+export const metadata = { title: "Premium — Lamid Consulting" };
+
+export default function PremiumPage() {
   return (
-    <div>
-      <Premium />
-    </div>
+    <main className="bg-black pt-20">
+      <SaasPricingSection />
+    </main>
   );
-};
-
-export default PremiumPage;
+}
