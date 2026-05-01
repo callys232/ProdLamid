@@ -162,6 +162,10 @@ const CYCLE_DISPLAY: Record<BillingCycle, string> = {
   annual:    "Annual",
 };
 
+// Lazy-import to avoid SSR issues with the client component
+import dynamic from "next/dynamic";
+const SubscribeButton = dynamic(() => import("@/components/subscription/SubscribeButton"), { ssr: false });
+
 export default function SaasPricingSection() {
   const [cycle, setCycle] = useState<BillingCycle>("annual");
 
@@ -254,15 +258,21 @@ export default function SaasPricingSection() {
               <div className="mb-5" />
             )}
 
-            {/* CTA */}
-            <motion.a
-              href={t.ctaHref}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              className={`mb-6 block rounded-xl px-4 py-2.5 text-center text-sm font-bold transition-all ${t.ctaStyle}`}
-            >
-              {t.cta}
-            </motion.a>
+            {/* CTA — Premium uses SubscribeButton; others link */}
+            {t.key === "premium" && t.planKey[cycle] ? (
+              <div className="mb-6">
+                <SubscribeButton plan={t.planKey[cycle]!} label={t.cta} className={`w-full justify-center ${t.ctaStyle}`} />
+              </div>
+            ) : (
+              <motion.a
+                href={t.ctaHref}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className={`mb-6 block rounded-xl px-4 py-2.5 text-center text-sm font-bold transition-all ${t.ctaStyle}`}
+              >
+                {t.cta}
+              </motion.a>
+            )}
 
             {/* Features */}
             <ul className="mt-auto space-y-2.5">

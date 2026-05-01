@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -44,19 +44,32 @@ const MOCK_STATS: EnterpriseDashboardStats = {
 };
 
 export default function EnterpriseDashboard() {
-  const searchParams = useSearchParams();
-  const [activeTab, setActiveTab]   = useState(searchParams.get("tab") ?? "overview");
-  const [org, setOrg]               = useState<Organization | null>(null);
-  const [stats, setStats]           = useState<EnterpriseDashboardStats | null>(null);
-  const [loading, setLoading]       = useState(true);
+  const searchParams  = useSearchParams();
+  const router        = useRouter();
+  const [activeTab, setActiveTab]     = useState(searchParams.get("tab") ?? "overview");
+  const [org, setOrg]                 = useState<Organization | null>(null);
+  const [stats, setStats]             = useState<EnterpriseDashboardStats | null>(null);
+  const [orgRole, setOrgRole]         = useState<OrgRole>("org_member");
+  const [loading, setLoading]         = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  // Org role — in real app comes from auth context / localStorage
-  const orgRole: OrgRole = "org_admin";
 
   useEffect(() => {
     async function fetchDashboard() {
       try {
+        // Verify user is actually an enterprise member
+        const accountRes = await fetch("/api/groupware/get-account");
+        if (accountRes.status === 401) { router.replace("/signin"); return; }
+        if (accountRes.ok) {
+          const { accountType, role: userOrgRole } = await accountRes.json();
+          if (accountType !== "Enterprise") {
+            // Not an enterprise user — redirect to the correct dashboard
+            if (accountType === "Freelancer") router.replace("/profile");
+            else router.replace("/client");
+            return;
+          }
+          if (userOrgRole) setOrgRole(userOrgRole as OrgRole);
+        }
+
         const res = await fetch("/api/enterprise/dashboard");
         if (res.ok) {
           const { data } = await res.json();

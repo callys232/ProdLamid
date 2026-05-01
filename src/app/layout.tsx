@@ -5,7 +5,8 @@ import LayoutWrapper from "./layoutWrapper";
 import { Toaster } from "react-hot-toast";
 import { inter, playfair } from "../fonts";
 import { CartProvider } from "@/components/Cartcontext";
-import ClientGlobals from "./ClientGlobal"; // ✅ import client wrapper
+import ClientGlobals from "./ClientGlobal";
+import CookieConsent from "@/components/CookieConsent";
 
 const BASE = process.env.NEXT_PUBLIC_URL ?? "https://lamid.io";
 
@@ -59,6 +60,7 @@ export default function RootLayout({
 
           {/* ✅ Client-only globals */}
           <ClientGlobals />
+          <CookieConsent />
         </CartProvider>
       </body>
     </html>

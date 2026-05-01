@@ -13,16 +13,30 @@ export async function GET(req: NextRequest) {
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
 
-    const user = await Users.findById(auth.userId).select("role orgId orgRole").lean() as any;
-    if (!user) return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
+    const user = await Users.findById(auth.userId).select("role orgId orgRole accountDeleted").lean() as any;
+    if (!user || user.accountDeleted) return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
+
+    // Validate org exists if claimed
+    let verifiedOrgId: string | null = null;
+    if (user.orgId) {
+      const { Organization } = await import("@/lib/models/Organization");
+      const org = await Organization.findById(user.orgId).select("_id status").lean() as any;
+      if (org && org.status !== "suspended") verifiedOrgId = String(org._id);
+    }
 
     const accountType =
-      user.orgId                   ? "Enterprise"  :
-      user.role === "seller"        ? "Freelancer"  :
-      user.role === "client"        ? "Client"      :
-      user.role === "admin"         ? "Admin"       : "Client";
+      verifiedOrgId               ? "Enterprise"  :
+      user.role === "seller"      ? "Freelancer"  :
+      user.role === "admin"       ? "Admin"        :
+      user.role === "client"      ? "Client"       : "Client";
 
-    return NextResponse.json({ success: true, accountType, role: user.role, orgId: user.orgId ?? null });
+    return NextResponse.json({
+      success:     true,
+      accountType,
+      role:        user.role,
+      orgId:       verifiedOrgId,
+      orgRole:     user.orgRole ?? null,
+    });
   } catch (e: any) {
     return NextResponse.json({ success: false, message: e.message }, { status: 500 });
   }

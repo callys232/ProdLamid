@@ -16,6 +16,7 @@ import Contract from "./contract"
 import BusinessProfile from "@/components/premium/BusinessProfile";
 import Tiers from "../tiers/tier";
 import OnboardingAssistant from "@/components/premium/OnboardingAssistant";
+import ManageSubscription from "@/components/subscription/ManageSubscription";
 
 import { ClientProfile } from "@/types/client";
 
@@ -45,7 +46,7 @@ export default function Settings({ client }: SettingsProps) {
       case "business":
         return <BusinessProfile user={client} />;
       case "tiers":
-        return <Tiers />;
+        return <div className="space-y-6"><Tiers /><ManageSubscription /></div>;
       case "onboarding":
         return <OnboardingAssistant />;
       case "security":

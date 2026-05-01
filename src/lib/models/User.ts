@@ -41,6 +41,14 @@ const UserSchema = new mongoose.Schema({
   // KYC
   kycStatus:    { type: String, enum: ["not_submitted", "pending", "approved", "rejected"], default: "not_submitted" },
   kycDocuments: [{ type: String }],
+
+  // Notification preferences
+  notificationPrefs: {
+    emailNotifications: { type: Boolean, default: true },
+    projectUpdates:     { type: Boolean, default: true },
+    messages:           { type: Boolean, default: true },
+    billing:            { type: Boolean, default: true },
+  },
 }, {
   timestamps: true,
   strictPopulate: false
@@ -76,5 +84,10 @@ UserSchema.virtual("addresses", {
 // Enable virtuals in outputs
 UserSchema.set("toObject", { virtuals: true });
 UserSchema.set("toJSON", { virtuals: true });
+
+// Delete cached model so schema changes (new fields) take effect on hot-reload in dev.
+if (process.env.NODE_ENV !== "production" && mongoose.models.Users) {
+  delete (mongoose.models as any).Users;
+}
 
 export const Users = mongoose.models.Users || mongoose.model("Users", UserSchema);

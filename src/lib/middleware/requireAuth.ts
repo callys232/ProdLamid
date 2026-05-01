@@ -2,7 +2,8 @@ import { verifyAccessToken } from "@/lib/jwt";
 import { NextRequest } from "next/server";
 
 export function requireAuth(req: NextRequest) {
-  const token = req.cookies.get("access-token")?.value;
+  // Login sets "token" — never "access-token"
+  const token = req.cookies.get("token")?.value ?? req.cookies.get("access-token")?.value;
 
   if (!token) {
     throw new Error("No access token provided");

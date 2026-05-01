@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // Routes that require authentication — redirect to /signin if no token
-const PROTECTED = ["/client", "/profile", "/enterprise", "/admin", "/postjobs", "/escrow", "/projects"];
+const PROTECTED = ["/client", "/profile", "/enterprise", "/admin", "/postjobs", "/escrow", "/projects", "/dashboard"];
 
 // Routes that authenticated users should not visit
 const AUTH_ONLY = ["/signin", "/signup", "/account-type", "/forgotpassword"];

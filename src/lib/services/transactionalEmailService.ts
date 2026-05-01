@@ -5,8 +5,10 @@ const BASE = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 const FROM  = `"Lamid" <${process.env.NOTIFICATION_EMAIL_USER}>`;
 
 async function getEmail(userId: string): Promise<string | null> {
-  const user = await Users.findById(userId).select("email username").lean() as any;
-  return user?.email ?? null;
+  const user = await Users.findById(userId).select("email username notificationPrefs").lean() as any;
+  if (!user?.email) return null;
+  if (user?.notificationPrefs?.emailNotifications === false) return null;
+  return user.email;
 }
 
 function card(content: string) {

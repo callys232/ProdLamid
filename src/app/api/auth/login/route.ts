@@ -47,25 +47,41 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Generate Token
-        const token = jwt.sign(
-            { userId: user._id, role: user.role },
-            JWT_SECRET,
-            { expiresIn: "7d" }
-        );
+        // Include orgId/orgRole in token if enterprise user
+        const tokenPayload: Record<string, unknown> = { userId: user._id, role: user.role };
+        if ((user as any).orgId)   tokenPayload.orgId   = String((user as any).orgId);
+        if ((user as any).orgRole) tokenPayload.orgRole = (user as any).orgRole;
 
-        // Return success
+        const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: "7d" });
+
+        // Sanitise user object — never send password to client
+        const safeUser = { ...((user as any).toObject?.() ?? user) };
+        delete safeUser.password;
+        delete safeUser.verificationCode;
+        delete safeUser.resetToken;
+        delete safeUser.twoFASecret;
+
         const response = NextResponse.json(
-            { success: true, data: { user, token } },
+            { success: true, data: { user: safeUser, token } },
             { status: 200 }
         );
 
-        // Set cookie
+        // HttpOnly token cookie (secure, not readable by JS)
         response.cookies.set("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 7 * 24 * 60 * 60, // 7 days
-            path: "/",
+            secure:   process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge:   7 * 24 * 60 * 60,
+            path:     "/",
+        });
+
+        // Readable role cookie (non-httpOnly) so client UI can show correct nav without an extra API call
+        response.cookies.set("user_role", (user as any).role ?? "client", {
+            httpOnly: false,
+            secure:   process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge:   7 * 24 * 60 * 60,
+            path:     "/",
         });
 
         return response;
