@@ -17,6 +17,8 @@ import BusinessProfile from "@/components/premium/BusinessProfile";
 import Tiers from "../tiers/tier";
 import OnboardingAssistant from "@/components/premium/OnboardingAssistant";
 import ManageSubscription from "@/components/subscription/ManageSubscription";
+import ProfileCompletionBar from "@/components/profile/ProfileCompletionBar";
+import NotificationPreferences from "@/components/settings/NotificationPreferences";
 
 import { ClientProfile } from "@/types/client";
 
@@ -29,14 +31,15 @@ export default function Settings({ client }: SettingsProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const tabs = [
-    { key: "profile", label: "Profile" },
-    { key: "security", label: "Security" },
-    { key: "resume", label: "Upload Resume" },
-    { key: "business", label: "Business Profile" },
-    { key: "tiers", label: "Tiers" },
-    { key: "Contract", label: "Contract and Legal" },
-    { key: "payment", label: "Payment Info" },
-    { key: "delete", label: "Delete Account" },
+    { key: "profile",        label: "Profile" },
+    { key: "security",       label: "Security" },
+    { key: "notifications",  label: "Notifications" },
+    { key: "resume",         label: "Upload Resume" },
+    { key: "business",       label: "Business Profile" },
+    { key: "tiers",          label: "Tiers" },
+    { key: "Contract",       label: "Contract and Legal" },
+    { key: "payment",        label: "Payment Info" },
+    { key: "delete",         label: "Delete Account" },
   ];
 
   const renderTab = () => {
@@ -51,6 +54,8 @@ export default function Settings({ client }: SettingsProps) {
         return <OnboardingAssistant />;
       case "security":
         return <SecuritySettings user={client} />;
+      case "notifications":
+        return <NotificationPreferences />;
       case "payment":
         return <PaymentInformation user={client} />;
       case "resume":
@@ -119,17 +124,19 @@ export default function Settings({ client }: SettingsProps) {
         flex justify-center
       "
       >
-        <div
-          className="
-            w-full max-w-3xl 
-            bg-gray-900/40 border border-gray-800 
-            rounded-xl p-5 sm:p-6 md:p-8
-            shadow-[0_0_25px_rgba(193,33,41,0.15)]
-            backdrop-blur-xl transition-all 
-            min-h-[75vh]
-          "
-        >
-          {renderTab()}
+        <div className="w-full max-w-3xl space-y-4">
+          <ProfileCompletionBar profile={client?.profile ?? client} dashboardPath="/client" />
+          <div
+            className="
+              bg-gray-900/40 border border-gray-800
+              rounded-xl p-5 sm:p-6 md:p-8
+              shadow-[0_0_25px_rgba(193,33,41,0.15)]
+              backdrop-blur-xl transition-all
+              min-h-[75vh]
+            "
+          >
+            {renderTab()}
+          </div>
         </div>
       </main>
     </div>

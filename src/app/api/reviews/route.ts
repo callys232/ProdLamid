@@ -50,7 +50,9 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json();
-        const { projectId, consultantId, rating, comment, reviewerName } = body;
+        // Accept both legacy `consultantId` and new `revieweeId` field names
+        const { projectId, rating, comment, reviewerName, role } = body;
+        const consultantId = body.consultantId ?? body.revieweeId;
 
         if (!rating || !comment) {
             return NextResponse.json(
@@ -69,10 +71,11 @@ export async function POST(request: NextRequest) {
         const review = await createReview({
             projectId,
             consultantId,
-            userId: auth.userId,
+            userId:       auth.userId,
             rating,
             comment,
-            reviewerName
+            reviewerName: reviewerName ?? auth.userId,
+            role,
         });
 
         return NextResponse.json(

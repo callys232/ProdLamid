@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FolderPlus, MapPin, Clock, DollarSign } from "lucide-react";
+import { FolderPlus, MapPin, Clock, DollarSign, FolderOpen } from "lucide-react";
 import { mockJobs } from "@/mocks/mockJobs";
+import EmptyState from "@/components/ui/EmptyState";
+import Pagination from "@/components/ui/Pagination";
+
+const ITEMS_PER_PAGE = 9;
 
 const STATUS_FILTERS = ["All", "open", "ongoing", "completed"];
 
@@ -18,12 +22,16 @@ interface Props { tier: string }
 
 export default function Projects({ tier }: Props) {
   const [filter, setFilter] = useState("All");
+  const [page,   setPage]   = useState(1);
   const activeLimit = tier === "enterprise_plus" ? Infinity : 12;
 
-  const projects = filter === "All"
+  const filtered = filter === "All"
     ? mockJobs
     : mockJobs.filter(j => j.status === filter);
 
+  const total      = filtered.length;
+  const pages      = Math.ceil(total / ITEMS_PER_PAGE);
+  const projects   = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
   const activeCount = mockJobs.filter(j => j.status === "open" || j.status === "ongoing").length;
 
   return (
@@ -82,6 +90,15 @@ export default function Projects({ tier }: Props) {
       </div>
 
       {/* Project grid */}
+      {projects.length === 0 ? (
+        <EmptyState
+          icon={FolderOpen}
+          title="No projects found"
+          description={filter === "All" ? "Post your first project to get started." : `No ${filter} projects.`}
+          ctaLabel="Post a Project"
+          ctaHref="/postjobs"
+        />
+      ) : (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {projects.map((p, i) => (
           <motion.div
@@ -126,6 +143,9 @@ export default function Projects({ tier }: Props) {
           </motion.div>
         ))}
       </div>
+      )}
+
+      <Pagination page={page} pages={pages} total={total} limit={ITEMS_PER_PAGE} onChange={p => { setPage(p); }} />
     </div>
   );
 }

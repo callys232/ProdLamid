@@ -1,4 +1,4 @@
-import SaasPricingSection from "@/components/biz/SaasPricingSection";
+import SaasPricingSection from "@/components/subscription/SaasPricingSection";
 
 export const metadata = { title: "Premium — Lamid Consulting" };
 

@@ -10,6 +10,7 @@ import CommunicationAgent from "./aiagents/communicate/communication";
 import FinanceBilling from "./finance/finance";
 import PolicyCompliance from "./policy/policy";
 import ActivityLogs from "./activityLog/activityLog";
+import KycQueue from "./kyc/KycQueue";
 import { FaBars } from "react-icons/fa";
 import AdminHeader from "./Header";
 
@@ -75,6 +76,8 @@ export default function AdminDashboard() {
         return <PolicyCompliance />;
       case "Activity Logs":
         return <ActivityLogs />;
+      case "KYC Review":
+        return <KycQueue />;
       default:
         return <Overview />;
     }

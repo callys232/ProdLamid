@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaPaperPlane, FaUserCircle, FaPaperclip, FaFile } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import EmptyState from "@/components/ui/EmptyState";
+import { MessageSquare } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 interface Message {
@@ -108,7 +110,7 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
                     </div>
                 ))}
                 {messages.length === 0 && !loading && (
-                    <div className="text-center text-gray-500 py-20 italic">No messages yet. Start the conversation!</div>
+                    <EmptyState icon={MessageSquare} title="No messages yet" description="Be the first to send a message." />
                 )}
             </div>
 
