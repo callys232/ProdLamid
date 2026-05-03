@@ -21,18 +21,17 @@ export async function POST(request: NextRequest) {
     if (escrow.status !== "funded") return NextResponse.json({ success: false, message: "Escrow must be funded before release" }, { status: 400 });
 
     // Find the consultant (recipient of funds)
-    const consultantId = escrow.consultantId ?? escrow.userId;
-    const profile = consultantId ? await Profile.findOne({ user: consultantId }).lean() as any : null;
+    const profile = escrow.consultantId ? await Profile.findOne({ user: escrow.consultantId }).lean() as any : null;
 
     let transferData: any = null;
 
     if (profile?.bankAccount && profile?.routingNumber) {
       transferData = await initiatePaystackTransfer({
-        name:           profile.firstName ? `${profile.firstName} ${profile.lastName ?? ""}`.trim() : "Consultant",
+        name: profile.firstName ? `${profile.firstName} ${profile.lastName ?? ""}`.trim() : "Consultant",
         account_number: profile.bankAccount,
-        bank_code:      profile.routingNumber,
-        amount:         escrow.amount,
-        reason:         `Milestone payment — escrow ${escrowId}`,
+        bank_code: profile.routingNumber,
+        amount: escrow.amount,
+        reason: `Milestone payment — escrow ${escrowId}`,
       });
     }
 
@@ -44,9 +43,9 @@ export async function POST(request: NextRequest) {
     if (consultantId) {
       emailPaymentReleased({
         consultantId: String(consultantId),
-        amount:       escrow.amount,
+        amount: escrow.amount,
         projectTitle: `Escrow #${escrowId}`,
-        reference:    transferData?.reference,
+        reference: transferData?.reference,
       }).catch(console.error);
     }
 

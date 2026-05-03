@@ -18,7 +18,15 @@ export async function PATCH(
         }
 
         const { id: projectId, milestoneId } = await params;
-        const milestone = await milestoneController.approveMilestone(milestoneId, auth.userId);
+        const result = await milestoneController.approveMilestone(milestoneId, auth.userId);
+
+        // Escrow not yet funded — ask client to fund first
+        if (!result.success && result.requireFunding) {
+            return NextResponse.json(result, { status: 402 });
+        }
+
+        // Happy path: result.milestone is the approved Mongoose doc
+        const milestone = result.milestone;
 
         // Fire transactional email (non-blocking)
         if (milestone?.consultantId) {
@@ -31,7 +39,7 @@ export async function PATCH(
             }).catch(console.error);
         }
 
-        return NextResponse.json(milestone);
+        return NextResponse.json(result);
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 400 });
     }

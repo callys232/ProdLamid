@@ -5,7 +5,7 @@ import { FaPaperPlane, FaUserCircle, FaPaperclip, FaFile } from "react-icons/fa"
 import { toast } from "react-hot-toast";
 import EmptyState from "@/components/ui/EmptyState";
 import { MessageSquare } from "lucide-react";
-import { toast } from "react-hot-toast";
+
 
 interface Message {
     _id: string;
@@ -24,12 +24,12 @@ interface ChatSystemProps {
 }
 
 export default function ChatSystem({ projectId }: ChatSystemProps) {
-    const [messages,    setMessages]    = useState<Message[]>([]);
-    const [newMessage,  setNewMessage]  = useState("");
-    const [loading,     setLoading]     = useState(true);
-    const [uploading,   setUploading]   = useState(false);
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [newMessage, setNewMessage] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const scrollRef    = useRef<HTMLDivElement>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         fetchMessages();
@@ -77,7 +77,7 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
     return (
         <div className="flex flex-col h-[600px] bg-black/40 rounded-2xl border border-white/5 overflow-hidden">
             {/* Messages Area */}
-            <div 
+            <div
                 ref={scrollRef}
                 className="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar"
             >
@@ -126,7 +126,7 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
                             const fd = new FormData();
                             fd.append("file", file);
                             fd.append("projectId", projectId);
-                            const res  = await fetch("/api/messages/upload", { method: "POST", body: fd });
+                            const res = await fetch("/api/messages/upload", { method: "POST", body: fd });
                             const data = await res.json();
                             if (!res.ok) throw new Error(data.message);
                             // Send as a message with the file URL

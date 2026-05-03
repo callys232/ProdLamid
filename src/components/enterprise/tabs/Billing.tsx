@@ -144,7 +144,7 @@ export default function Billing({ tier, orgStatus }: Props) {
             )}
           </div>
           <p className="mb-4 text-2xl font-black text-white">
-            {plusPrice}
+            Custom
             <span className="ml-1 text-sm font-normal text-gray-500">pricing</span>
           </p>
           <ul className="mb-5 space-y-2">

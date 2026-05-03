@@ -31,15 +31,15 @@ export default function Settings({ client }: SettingsProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const tabs = [
-    { key: "profile",        label: "Profile" },
-    { key: "security",       label: "Security" },
-    { key: "notifications",  label: "Notifications" },
-    { key: "resume",         label: "Upload Resume" },
-    { key: "business",       label: "Business Profile" },
-    { key: "tiers",          label: "Tiers" },
-    { key: "Contract",       label: "Contract and Legal" },
-    { key: "payment",        label: "Payment Info" },
-    { key: "delete",         label: "Delete Account" },
+    { key: "profile", label: "Profile" },
+    { key: "security", label: "Security" },
+    { key: "notifications", label: "Notifications" },
+    { key: "resume", label: "Upload Resume" },
+    { key: "business", label: "Business Profile" },
+    { key: "tiers", label: "Tiers" },
+    { key: "Contract", label: "Contract and Legal" },
+    { key: "payment", label: "Payment Info" },
+    { key: "delete", label: "Delete Account" },
   ];
 
   const renderTab = () => {
@@ -125,7 +125,10 @@ export default function Settings({ client }: SettingsProps) {
       "
       >
         <div className="w-full max-w-3xl space-y-4">
-          <ProfileCompletionBar profile={client?.profile ?? client} dashboardPath="/client" />
+          <ProfileCompletionBar
+            profile={client ? { bio: client.bio, industry: client.industry } : null}
+            dashboardPath="/client"
+          />
           <div
             className="
               bg-gray-900/40 border border-gray-800

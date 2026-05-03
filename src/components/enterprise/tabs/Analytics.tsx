@@ -73,7 +73,7 @@ export default function Analytics() {
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
               <XAxis dataKey="month" tick={{ fill: "#6b7280", fontSize: 11 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: "#6b7280", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} />
-              <Tooltip {...TOOLTIP_STYLE} formatter={(v: number) => [`$${v.toLocaleString()}`, "Spend"]} />
+              <Tooltip {...TOOLTIP_STYLE} formatter={(v) => [`$${(v ?? 0).toLocaleString()}`, "Spend"]} />
               <Line type="monotone" dataKey="spend" stroke="#c12129" strokeWidth={2.5} dot={{ fill: "#c12129", r: 4 }} activeDot={{ r: 6 }} />
             </LineChart>
           </ResponsiveContainer>
