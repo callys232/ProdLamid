@@ -1,8 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { FaPaperPlane, FaUserCircle, FaPaperclip } from "react-icons/fa";
+import { FaPaperPlane, FaUserCircle, FaPaperclip, FaFile } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import EmptyState from "@/components/ui/EmptyState";
+import { MessageSquare } from "lucide-react";
+
 
 interface Message {
     _id: string;
@@ -24,6 +27,8 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState("");
     const [loading, setLoading] = useState(true);
+    const [uploading, setUploading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -72,7 +77,7 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
     return (
         <div className="flex flex-col h-[600px] bg-black/40 rounded-2xl border border-white/5 overflow-hidden">
             {/* Messages Area */}
-            <div 
+            <div
                 ref={scrollRef}
                 className="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar"
             >
@@ -105,14 +110,44 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
                     </div>
                 ))}
                 {messages.length === 0 && !loading && (
-                    <div className="text-center text-gray-500 py-20 italic">No messages yet. Start the conversation!</div>
+                    <EmptyState icon={MessageSquare} title="No messages yet" description="Be the first to send a message." />
                 )}
             </div>
 
             {/* Input Area */}
             <form onSubmit={handleSend} className="p-4 bg-white/5 border-t border-white/10 flex gap-2">
-                <button type="button" className="p-3 text-gray-400 hover:text-white transition-colors">
-                    <FaPaperclip />
+                {/* Hidden file input */}
+                <input ref={fileInputRef} type="file" className="hidden" accept="image/*,application/pdf,.doc,.docx,.xlsx,.zip"
+                    onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        setUploading(true);
+                        try {
+                            const fd = new FormData();
+                            fd.append("file", file);
+                            fd.append("projectId", projectId);
+                            const res = await fetch("/api/messages/upload", { method: "POST", body: fd });
+                            const data = await res.json();
+                            if (!res.ok) throw new Error(data.message);
+                            // Send as a message with the file URL
+                            await fetch(`/api/projects/${projectId}/messages`, {
+                                method: "POST", headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ message: `📎 [${file.name}](${data.url})`, type: "text", fileUrl: data.url }),
+                            });
+                            fetchMessages();
+                            toast.success("File sent");
+                        } catch (err: any) {
+                            toast.error(err.message || "Upload failed");
+                        } finally {
+                            setUploading(false);
+                            e.target.value = "";
+                        }
+                    }}
+                />
+                <button type="button" onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="p-3 text-gray-400 hover:text-white transition-colors disabled:opacity-50">
+                    {uploading ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-400 border-t-transparent inline-block" /> : <FaPaperclip />}
                 </button>
                 <input
                     type="text"
@@ -121,10 +156,8 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
                     placeholder="Type your message..."
                     className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-red-600 transition-all"
                 />
-                <button 
-                    type="submit"
-                    className="p-3 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all shadow-lg shadow-red-900/20"
-                >
+                <button type="submit"
+                    className="p-3 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all shadow-lg shadow-red-900/20">
                     <FaPaperPlane />
                 </button>
             </form>

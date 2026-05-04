@@ -6,13 +6,23 @@ import { motion } from "framer-motion";
 import MilestoneManager from "./MilestoneManager";
 import EscrowManager from "./EscrowManager";
 import ChatSystem from "./ChatSystem";
-import { FaProjectDiagram, FaFileInvoiceDollar, FaComments, FaInfoCircle } from "react-icons/fa";
+import LeaveReview from "@/components/review/LeaveReview";
+import { FaProjectDiagram, FaFileInvoiceDollar, FaComments, FaInfoCircle, FaCheckCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function ProjectWorkspace() {
     const { id: projectId } = useParams();
-    const [activeTab, setActiveTab] = useState("milestones");
-    const [project, setProject] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab]     = useState("milestones");
+    const [project,   setProject]       = useState<any>(null);
+    const [loading,   setLoading]       = useState(true);
+    const [completing, setCompleting]   = useState(false);
+    const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+    useEffect(() => {
+        fetch("/api/auth/me").then(r => r.json()).then(d => {
+            if (d.success) setCurrentUserId(d.data._id ?? d.data.id ?? null);
+        }).catch(() => {});
+    }, []);
 
     useEffect(() => {
         if (projectId) {
@@ -53,11 +63,43 @@ export default function ProjectWorkspace() {
                         <h1 className="text-3xl font-bold text-white">{project.title}</h1>
                         <p className="text-gray-400 mt-1">Status: <span className="text-red-500 font-semibold uppercase">{project.status}</span></p>
                     </div>
-                    <div className="flex items-center gap-4 bg-white/5 p-3 rounded-lg border border-white/10">
-                        <div className="text-right">
-                            <p className="text-xs text-gray-400 uppercase">Budget</p>
-                            <p className="text-xl font-bold text-green-500">${project.budget?.toLocaleString()}</p>
+                    <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-4 bg-white/5 p-3 rounded-lg border border-white/10">
+                            <div className="text-right">
+                                <p className="text-xs text-gray-400 uppercase">Budget</p>
+                                <p className="text-xl font-bold text-green-500">${project.budget?.toLocaleString()}</p>
+                            </div>
                         </div>
+                        {/* Mark Complete — only shown to owner when project is ongoing */}
+                        {project.status === "ongoing" && currentUserId && String(project.ownerId) === currentUserId && (
+                            <motion.button
+                                whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                                disabled={completing}
+                                onClick={async () => {
+                                    setCompleting(true);
+                                    try {
+                                        const res = await fetch(`/api/projects/${projectId}/complete`, { method: "POST" });
+                                        const d   = await res.json();
+                                        if (!res.ok) throw new Error(d.error ?? d.message);
+                                        toast.success("Project marked as complete!");
+                                        setProject((p: any) => ({ ...p, status: "completed" }));
+                                    } catch (e: any) {
+                                        toast.error(e.message || "Failed to complete project");
+                                    } finally {
+                                        setCompleting(false);
+                                    }
+                                }}
+                                className="flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-green-700 disabled:opacity-50"
+                            >
+                                <FaCheckCircle />
+                                {completing ? "Completing…" : "Mark Complete"}
+                            </motion.button>
+                        )}
+                        {project.status === "completed" && (
+                            <span className="flex items-center gap-1.5 rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-2.5 text-sm font-semibold text-green-400">
+                                <FaCheckCircle /> Completed
+                            </span>
+                        )}
                     </div>
                 </div>
 
@@ -115,6 +157,37 @@ export default function ProjectWorkspace() {
                         </div>
                     )}
                 </motion.div>
+
+                {/* Leave review section — shown when project is completed */}
+                {project.status === "completed" && currentUserId && (
+                    <div className="mt-8 space-y-4">
+                        <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-400">
+                            Rate your experience
+                        </h3>
+                        {/* Client rates each consultant */}
+                        {String(project.ownerId) === currentUserId && project.consultants?.map((cId: any) => {
+                            const id = cId?._id ?? cId;
+                            return (
+                                <LeaveReview
+                                    key={String(id)}
+                                    projectId={String(projectId)}
+                                    revieweeId={String(id)}
+                                    revieweeName="Consultant"
+                                    role="consultant"
+                                />
+                            );
+                        })}
+                        {/* Consultant rates the client */}
+                        {project.consultants?.some((c: any) => String(c?._id ?? c) === currentUserId) && (
+                            <LeaveReview
+                                projectId={String(projectId)}
+                                revieweeId={String(project.ownerId?._id ?? project.ownerId)}
+                                revieweeName="Client"
+                                role="client"
+                            />
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );

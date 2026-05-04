@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
 import { Notification } from "@/lib/models/Notification";
+import { sendNotificationEmail } from "@/lib/services/emailNotificationService";
 
 // GET /api/notifications — aggregated count + latest items for the navbar bell
 export async function GET(request: NextRequest) {
@@ -55,8 +56,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const recipientId = targetUserId ?? auth.userId;
+
     const notification = await Notification.create({
-      user: targetUserId ?? auth.userId,
+      user: recipientId,
       userId: auth.userId,
       title,
       message,
@@ -65,6 +68,9 @@ export async function POST(request: NextRequest) {
       relatedId,
       relatedType,
     });
+
+    // Fire-and-forget email delivery
+    sendNotificationEmail({ userId: recipientId, title, message, type }).catch(() => {});
 
     return NextResponse.json({ success: true, data: notification }, { status: 201 });
   } catch (error: any) {

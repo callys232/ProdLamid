@@ -139,14 +139,29 @@ export interface AiPreferences {
   aiAssistantEnabled?: boolean;
 }
 
+/* -------------------- EMPLOYMENT HISTORY -------------------- */
+export interface EmploymentEntry {
+  _id?: string;
+  company:     string;
+  role:        string;
+  startDate?:  string;   // "YYYY-MM"
+  endDate?:    string;   // "YYYY-MM" | "Present"
+  location?:   string;
+  description?: string;
+}
+
+export type OrgSize = "1–10" | "11–50" | "51–200" | "201–500" | "501–1,000" | "1,000+";
+
 /* -------------------- BUSINESS PROFILE -------------------- */
 export interface BusinessProfile {
-  companyName?: string;
   _id?: string;
-  industry?: string;
-  location?: string;
-  size?: "1-10" | "11-50" | "51-200" | "200+";
-  website?: string;
+  companyName?:      string;
+  industry?:         string;
+  location?:         string;
+  companySize?:      OrgSize;
+  website?:          string;
+  description?:      string;
+  employmentHistory?: EmploymentEntry[];
 }
 
 /* -------------------- ALERTS -------------------- */

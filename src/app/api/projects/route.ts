@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Project } from "@/lib/models/Project";
 import { requireAuth } from "@/lib/middleware/auth";
+import { deductPoints, POINT_COSTS } from "@/lib/services/pointsService";
 
 export async function GET(request: NextRequest) {
     try {
@@ -35,8 +36,26 @@ export async function GET(request: NextRequest) {
             }
         }
 
-        const projects = await Project.find(query).sort({ createdAt: -1 });
-        return NextResponse.json({ success: true, data: projects });
+        const page     = Math.max(1, Number(searchParams.get("page")  ?? 1));
+        const limit    = Math.min(50, Math.max(1, Number(searchParams.get("limit") ?? 20)));
+        const category = searchParams.get("category");
+        const status   = searchParams.get("status");
+        const search   = searchParams.get("search");
+
+        if (category) query.category = category;
+        if (status)   query.status   = status;
+        if (search)   query.title    = { $regex: search, $options: "i" };
+
+        const [projects, total] = await Promise.all([
+          Project.find(query).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit).lean(),
+          Project.countDocuments(query),
+        ]);
+
+        return NextResponse.json({
+          success: true,
+          data: projects,
+          pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+        });
     } catch (error: any) {
         console.error("API Error in /api/projects GET:", error);
         return NextResponse.json({ success: false, message: error.message }, { status: 500 });
@@ -50,6 +69,19 @@ export async function POST(request: NextRequest) {
         // Require authentication
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+
+        // Deduct points for posting
+        const pointsResult = await deductPoints(
+            auth.userId,
+            POINT_COSTS.POST_PROJECT,
+            "Project posting fee",
+        );
+        if (!pointsResult.success) {
+            return NextResponse.json(
+                { success: false, message: pointsResult.message, code: "INSUFFICIENT_POINTS", balance: pointsResult.balance },
+                { status: 402 }
+            );
+        }
 
         const body = await request.json();
         const { title, category, milestones: initialMilestones, workPhases, ...rest } = body;

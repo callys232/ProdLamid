@@ -1,73 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+
+const ROLE_DESTINATIONS: Record<string, string> = {
+  Freelancer: "/profile",
+  Client:     "/client",
+  Enterprise: "/enterprise",
+  Admin:      "/admin",
+};
 
 export default function Dashboard() {
-    const router = useRouter();
-    const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-    useEffect(() => {
-        const checkAccount = async () => {
-            try {
-                // ✅ Try DB/API first
-                const res = await fetch("/api/groupware/get-account", {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                });
+  useEffect(() => {
+    async function resolveDestination() {
+      try {
+        const res = await fetch("/api/groupware/get-account");
 
-                if (!res.ok) throw new Error("DB lookup failed");
+        if (res.status === 401) { router.replace("/signin"); return; }
+        if (!res.ok) throw new Error("Account lookup failed");
 
-                const data = await res.json();
+        const { accountType } = await res.json();
+        const dest = ROLE_DESTINATIONS[accountType];
+        router.replace(dest ?? "/signin");
+      } catch {
+        router.replace("/signin");
+      }
+    }
+    resolveDestination();
+  }, [router]);
 
-                if (data?.accountType === "Freelancer") {
-                    toast.success("Loaded account from DB 🎉");
-                    router.push("/profile");
-                } else if (data?.accountType === "Client") {
-                    toast.success("Loaded account from DB 🎉");
-                    router.push("/client");
-                } else {
-                    throw new Error("Invalid account type in DB");
-                }
-            } catch (error) {
-                console.warn("DB failed, using fallback:", error);
-
-                // ✅ Fallback: use localStorage mock data
-                const signupData = localStorage.getItem("signupData");
-                if (!signupData) {
-                    toast.error("No signup data found ❌");
-                    router.push("/signup");
-                    return;
-                }
-
-                const parsedData = JSON.parse(signupData);
-
-                if (parsedData.accountType === "Freelancer") {
-                    toast.success("Using fallback mock data 🎉");
-                    router.push("/profile");
-                } else if (parsedData.accountType === "Client") {
-                    toast.success("Using fallback mock data 🎉");
-                    router.push("/client");
-                } else {
-                    toast.error("Invalid account type ❌");
-                    router.push("/account-type");
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        checkAccount();
-    }, [router]);
-
-    return (
-        <section className="min-h-screen flex items-center justify-center bg-black text-white">
-            {loading ? (
-                <p className="text-gray-400">Checking your account...</p>
-            ) : (
-                <p className="text-gray-400">Redirecting...</p>
-            )}
-        </section>
-    );
+  return (
+    <section className="flex min-h-screen items-center justify-center bg-black">
+      <div className="flex flex-col items-center gap-4">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#c12129] border-t-transparent" />
+        <p className="text-sm text-gray-500">Redirecting to your dashboard…</p>
+      </div>
+    </section>
+  );
 }

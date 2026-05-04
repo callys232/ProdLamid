@@ -3,21 +3,24 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
 
+export interface AuthResult {
+    userId: string;
+    userRole: string;
+    orgId?: string;
+    orgRole?: string;
+}
+
 export interface AuthenticatedRequest extends NextRequest {
     userId?: string;
     userRole?: string;
+    orgId?: string;
+    orgRole?: string;
 }
 
-/**
- * Middleware to verify JWT token from cookies or Authorization header
- * Returns userId and userRole if valid, null if invalid
- */
-export async function verifyAuth(request: NextRequest): Promise<{ userId: string; userRole: string } | null> {
+export async function verifyAuth(request: NextRequest): Promise<AuthResult | null> {
     try {
-        // Try to get token from cookie first
         let token = request.cookies.get("token")?.value;
 
-        // If not in cookie, try Authorization header
         if (!token) {
             const authHeader = request.headers.get("authorization");
             if (authHeader?.startsWith("Bearer ")) {
@@ -25,27 +28,30 @@ export async function verifyAuth(request: NextRequest): Promise<{ userId: string
             }
         }
 
-        if (!token) {
-            return null;
-        }
+        if (!token) return null;
 
-        // Verify token
-        const decoded = jwt.verify(token, JWT_SECRET) as { userId: string; role: string };
+        const decoded = jwt.verify(token, JWT_SECRET) as {
+            userId?: string; sub?: string;
+            role?: string;
+            orgId?: string;
+            orgRole?: string;
+        };
+
+        const userId = decoded.userId || decoded.sub;
+        if (!userId) return null;
 
         return {
-            userId: decoded.userId,
-            userRole: decoded.role
+            userId,
+            userRole: decoded.role ?? "client",
+            ...(decoded.orgId   && { orgId:   decoded.orgId }),
+            ...(decoded.orgRole && { orgRole: decoded.orgRole }),
         };
-    } catch (error) {
+    } catch {
         return null;
     }
 }
 
-/**
- * Middleware wrapper that requires authentication
- * Returns 401 if not authenticated
- */
-export async function requireAuth(request: NextRequest): Promise<{ userId: string; userRole: string } | NextResponse> {
+export async function requireAuth(request: NextRequest): Promise<AuthResult | NextResponse> {
     const auth = await verifyAuth(request);
 
     if (!auth) {

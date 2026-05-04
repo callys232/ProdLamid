@@ -24,7 +24,9 @@ export interface JwtAdminPayload {
 export interface JwtAccessTokenPayload {
   sub: string; // user ID
   email: string;
-  role?: string; // optional if you're doing RBAC
+  role?: string;
+  orgId?: string;
+  orgRole?: string;
   type: "access";
   iat?: number;
   exp?: number;

@@ -5,11 +5,13 @@ import { JwtAccessTokenPayload, JwtRefreshTokenPayload, JwtValidatorTokenPayload
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-export function signAccessToken(user: { id: string; email: string; role?: string }) {
+export function signAccessToken(user: { id: string; email: string; role?: string; orgId?: string; orgRole?: string }) {
   const payload: JwtAccessTokenPayload = {
     sub: user.id,
     email: user.email,
     role: user.role,
+    ...(user.orgId   && { orgId:   user.orgId }),
+    ...(user.orgRole && { orgRole: user.orgRole }),
     type: "access",
   };
 

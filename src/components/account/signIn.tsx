@@ -1,24 +1,27 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
-import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface FormData {
-  email: string;
+  email:    string;
   password: string;
 }
 
+const ACCOUNT_TYPE_ROUTES: Record<string, string> = {
+  Enterprise: "/enterprise",
+  Freelancer: "/profile",
+  Admin:      "/admin",
+  Client:     "/client",
+};
+
 export default function SignInPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState<FormData>({
-    email: "",
-    password: "",
-  });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<FormData>({ email: "", password: "" });
+  const [loading,  setLoading]  = useState(false);
+  const [error,    setError]    = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,40 +33,31 @@ export default function SignInPage() {
     setError(null);
 
     try {
-      console.log("Submitting login form...");
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
+      const res    = await fetch("/api/auth/login", {
+        method:  "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body:    JSON.stringify(formData),
       });
-
       const result = await res.json();
-      console.log("API Result:", result);
 
-      if (res.ok && result.success) {
-        const { user, token } = result.data;
-        const role = user.role;
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-
-        toast.success("Signed in successfully 🎉");
-
-        setTimeout(() => {
-          if (role === "seller") router.push("/profile");
-          else if (role === "client") router.push("/client");
-          else if (role === "admin") router.push("/admin");
-          else router.push("/dashboard");
-        }, 100);
-      } else {
-        const errorMsg = result.message || "Invalid email or password";
-        setError(errorMsg);
-        toast.error(errorMsg);
+      if (!res.ok || !result.success) {
+        const msg = result.message || "Invalid email or password";
+        setError(msg);
+        return;
       }
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("Something went wrong. Please check your connection.");
-      toast.error("Connection error ❌");
+
+      const { user } = result.data;
+      try { localStorage.setItem("user_display", JSON.stringify({ username: user.username, role: user.role })); } catch {}
+
+      const accountRes  = await fetch("/api/groupware/get-account");
+      const accountData = accountRes.ok ? await accountRes.json() : null;
+      const dest        = ACCOUNT_TYPE_ROUTES[accountData?.accountType ?? ""] ?? "/client";
+
+      toast.success(`Welcome back${user.username ? `, ${user.username}` : ""}!`);
+      router.replace(dest);
+
+    } catch {
+      setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -96,8 +90,8 @@ export default function SignInPage() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 
-                       border border-transparent focus:border-[#c12129] focus:ring-2 focus:ring-[#c12129]/60 
+            className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300
+                       border border-transparent focus:border-[#c12129] focus:ring-2 focus:ring-[#c12129]/60
                        focus:shadow-[0_0_10px_#c12129aa] outline-none transition"
           />
           <input
@@ -107,17 +101,14 @@ export default function SignInPage() {
             value={formData.password}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 
-                       border border-transparent focus:border-[#c12129] focus:ring-2 focus:ring-[#c12129]/60 
+            className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300
+                       border border-transparent focus:border-[#c12129] focus:ring-2 focus:ring-[#c12129]/60
                        focus:shadow-[0_0_10px_#c12129aa] outline-none transition"
           />
 
           {/* Forgot password + Sign up */}
           <div className="flex justify-between text-sm text-gray-400 mt-1">
-            <a
-              href="/forgotpassword"
-              className="hover:text-[#c12129] transition"
-            >
+            <a href="/forgotpassword" className="hover:text-[#c12129] transition">
               Forgot Password?
             </a>
             <a href="/signup" className="hover:text-[#c12129] transition">
@@ -140,11 +131,11 @@ export default function SignInPage() {
             whileTap={{ scale: 0.96 }}
             type="submit"
             disabled={loading}
-            className="bg-gradient-to-r from-[#c12129] to-[#8b1118] text-white font-semibold py-3 rounded-xl 
+            className="bg-gradient-to-r from-[#c12129] to-[#8b1118] text-white font-semibold py-3 rounded-xl
                        hover:opacity-90 transition disabled:opacity-60 mt-4 flex items-center justify-center"
           >
             {loading ? (
-              <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
               "Sign In"
             )}
@@ -158,30 +149,17 @@ export default function SignInPage() {
           <div className="flex-grow h-px bg-gray-600" />
         </div>
 
-        {/* Social Sign In */}
-        <div className="flex flex-col gap-3">
-          <motion.button
-            whileTap={{ scale: 0.97 }}
-            aria-label="Sign in with Google"
-            onClick={() => signIn("google")}
-            className="w-full flex items-center justify-center gap-3 bg-white text-black py-3 rounded-xl 
-                       font-medium hover:bg-gray-100 transition focus:ring-2 focus:ring-[#c12129] focus:ring-offset-2"
-          >
-            <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
-            Sign in with Google
-          </motion.button>
-
-          <motion.button
-            whileTap={{ scale: 0.97 }}
-            aria-label="Sign in with Facebook"
-            onClick={() => signIn("facebook")}
-            className="w-full flex items-center justify-center gap-3 bg-[#1877F2] text-white py-3 rounded-xl 
-                       font-medium hover:bg-[#145dbf] transition focus:ring-2 focus:ring-[#c12129] focus:ring-offset-2"
-          >
-            <img src="/facebook-icon.svg" alt="Facebook" className="w-5 h-5" />
-            Sign in with Facebook
-          </motion.button>
-        </div>
+        {/* Google Sign In */}
+        <motion.a
+          href="/api/auth/google"
+          whileTap={{ scale: 0.97 }}
+          aria-label="Sign in with Google"
+          className="w-full flex items-center justify-center gap-3 bg-white text-black py-3 rounded-xl
+                     font-medium hover:bg-gray-100 transition focus:ring-2 focus:ring-[#c12129] focus:ring-offset-2"
+        >
+          <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
+          Sign in with Google
+        </motion.a>
       </motion.div>
     </section>
   );

@@ -37,10 +37,12 @@ export default function AccountTypePage() {
                     ? "seller"
                     : accountType === "Client"
                         ? "client"
-                        : null; // Enterprise not selectable
+                        : accountType === "Enterprise"
+                            ? "client"
+                            : null;
 
             if (!role) {
-                toast.error("Enterprise accounts are coming soon 🚀");
+                toast.error("Please select an account type");
                 setLoading(false);
                 return;
             }
@@ -50,6 +52,10 @@ export default function AccountTypePage() {
                 email: parsedData.email,
                 password: parsedData.password,
                 role,
+                ...(accountType === "Enterprise" && {
+                    isEnterprise: true,
+                    companyName: parsedData.companyName || parsedData.UserName,
+                }),
             };
 
             const res = await fetch("/api/auth/register", {
@@ -73,9 +79,9 @@ export default function AccountTypePage() {
             localStorage.removeItem("signupData");
 
             // Redirect based on role
-            if (role === "seller") router.push("/profile");
-            else if (role === "client") router.push("/client");
-            else router.push("/dashboard");
+            if (accountType === "Enterprise") router.push("/enterprise");
+            else if (role === "seller") router.push("/profile");
+            else router.push("/client");
         } catch (error: any) {
             console.error("Registration error:", error);
             toast.error(error.message || "Signup failed ⚠️");
@@ -138,19 +144,23 @@ export default function AccountTypePage() {
                         </div>
                     </label>
 
-                    {/* Enterprise Option (disabled) */}
-                    <label className="flex items-start gap-3 border border-white/20 rounded-xl p-4 opacity-60 cursor-not-allowed">
+                    {/* Enterprise Option */}
+                    <label className="flex items-start gap-3 border border-white/20 rounded-xl p-4 hover:border-[#c12129] transition cursor-pointer">
                         <input
                             type="radio"
                             name="accountType"
                             value="Enterprise"
-                            disabled
-                            className="mt-1 accent-[#c12129] cursor-not-allowed"
+                            checked={accountType === "Enterprise"}
+                            onChange={(e) => setAccountType(e.target.value)}
+                            className="mt-1 accent-[#c12129]"
                         />
                         <div>
-                            <h3 className="text-xl font-semibold text-[#c12129]">Enterprise</h3>
+                            <div className="flex items-center gap-2">
+                                <h3 className="text-xl font-semibold text-[#c12129]">Enterprise</h3>
+                                <span className="rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-[#c12129]">New</span>
+                            </div>
                             <p className="text-gray-300 text-sm">
-                                Large organizations with advanced needs. Coming soon 🚀
+                                Large organisations with multi-user workspaces. Up to 50 members, dedicated dashboard, escrow management, and analytics.
                             </p>
                         </div>
                     </label>

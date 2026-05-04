@@ -14,6 +14,7 @@ import {
 import { UserGuide } from "@/components/Guides/UserGuide";
 import { profileSidebarGuideSteps } from "@/lib/UserGuide/cleintSideBar";
 import LogoutButton from "@/components/logout";
+import PointsBalance from "@/components/points/PointsBalance";
 
 interface SidebarProps {
   activeTab: string;
@@ -84,8 +85,13 @@ export default function ProfileSidebar({
         ))}
       </ul>
 
+      {/* Points balance chip */}
+      <div className="px-2 mb-3">
+        <PointsBalance compact />
+      </div>
+
       {/* Logout section */}
-      <div className="mt-4 pt-4 border-t border-gray-700">
+      <div className="mt-0 pt-4 border-t border-gray-700">
         <div className="px-2">
           <LogoutButton role={role} className="w-full justify-start" />
         </div>

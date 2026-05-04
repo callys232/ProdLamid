@@ -1,10 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/User";
 import { scoreConsultant } from "@/lib/ai/matcher";
 import type { Consultant, MatchResult, Project } from "@/types/aiMatch";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { userHasFeature } from "@/lib/services/tierService";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
 
@@ -77,15 +78,14 @@ export async function POST(req: Request) {
                 const decoded: any = jwt.verify(token, JWT_SECRET);
                 if (decoded?.userId) {
                     const requester: any = await Users.findById(decoded.userId).lean();
-                    if (
-                        requester &&
-                        requester.role === "client" &&
-                        requester.isPremium === false
-                    ) {
-                        return NextResponse.json(
-                            { error: "Premium required" },
-                            { status: 403 }
-                        );
+                    if (requester) {
+                        const allowed = await userHasFeature(decoded.userId, "ai_matching");
+                        if (!allowed) {
+                            return NextResponse.json(
+                                { error: "Premium required for AI matching", code: "UPGRADE_REQUIRED" },
+                                { status: 403 }
+                            );
+                        }
                     }
                 }
             } catch { }

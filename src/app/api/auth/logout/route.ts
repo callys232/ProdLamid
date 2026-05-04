@@ -58,7 +58,8 @@ export async function POST(request: Request) {
         // Use NextResponse.cookies.set to clear cookies
         res.cookies.set("refresh_token", "", cookieOptions);
         res.cookies.set("access_token", "", cookieOptions);
-        res.cookies.set("token", "", cookieOptions); // keep for backward compatibility
+        res.cookies.set("token",         "", cookieOptions);
+        res.cookies.set("user_role",     "", { ...cookieOptions, httpOnly: false });
         // If you use other cookies, clear them here:
         // res.cookies.set("session", "", cookieOptions);
 

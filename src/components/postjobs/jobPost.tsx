@@ -1,7 +1,11 @@
 "use client";
 
-import React, { useMemo, useCallback, useState } from "react";
+import React, { useMemo, useCallback, useState, useEffect } from "react";
 import useJobForm from "@/hooks/useJobForm";
+import { Zap, ShoppingCart, AlertTriangle } from "lucide-react";
+import Link from "next/link";
+
+const POST_COST = 50;
 
 /* ---------------- STEP COMPONENTS ---------------- */
 import ProgressBar from "./progressBar";
@@ -71,6 +75,19 @@ export default function JobPostingForm({
     validateStep,
     buildPayload,
   } = useJobForm();
+
+  /* ---------------- POINTS BALANCE ---------------- */
+  const [pointsBalance, setPointsBalance] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("/api/points")
+      .then(r => r.json())
+      .then(d => { if (d.success) setPointsBalance(d.data.balance); })
+      .catch(() => {});
+  }, []);
+
+  const canAffordPost  = pointsBalance === null || pointsBalance >= POST_COST;
+  const afterPostBalance = pointsBalance !== null ? pointsBalance - POST_COST : null;
 
   /* ---------------- AI STATE ---------------- */
   const [showMatcher, setShowMatcher] = useState(false);
@@ -255,6 +272,35 @@ export default function JobPostingForm({
       onSubmit={(e) => e.preventDefault()}
       className="bg-white border p-6 space-y-4 rounded-lg shadow-md"
     >
+      {/* POINTS BALANCE BANNER */}
+      <div className={`flex items-center justify-between rounded-lg px-4 py-2.5 text-sm border ${
+        canAffordPost
+          ? "border-gray-200 bg-gray-50 text-gray-700"
+          : "border-red-200 bg-red-50 text-red-700"
+      }`}>
+        <div className="flex items-center gap-2">
+          {canAffordPost
+            ? <Zap className="h-4 w-4 text-[#c12129]" />
+            : <AlertTriangle className="h-4 w-4 text-red-500" />}
+          <span>
+            {pointsBalance === null
+              ? "Loading points…"
+              : canAffordPost
+                ? <>Posting costs <strong>{POST_COST} pts</strong> · You have <strong>{pointsBalance} pts</strong></>
+                : <>Not enough points — you need {POST_COST} pts but have {pointsBalance}</>
+            }
+          </span>
+        </div>
+        {!canAffordPost && (
+          <Link
+            href="/client?tab=settings"
+            className="flex items-center gap-1 text-xs font-semibold text-[#c12129] hover:underline"
+          >
+            <ShoppingCart className="h-3.5 w-3.5" /> Buy points
+          </Link>
+        )}
+      </div>
+
       <ProgressBar steps={steps} currentStep={currentStep} />
 
       {renderStep()}
@@ -285,7 +331,7 @@ export default function JobPostingForm({
               type="button"
               onClick={handleNext}
               disabled={!isStepValid}
-              className="px-4 py-2 bg-[#c12129] text-white rounded"
+              className="px-4 py-2 bg-[#c12129] text-white rounded disabled:opacity-50"
             >
               Next
             </button>
@@ -293,9 +339,15 @@ export default function JobPostingForm({
             <button
               type="button"
               onClick={handleFinalSubmit}
-              className="px-4 py-2 bg-[#c12129] text-white rounded"
+              disabled={!canAffordPost}
+              title={!canAffordPost ? `Need ${POST_COST} points to post` : undefined}
+              className="flex items-center gap-2 px-4 py-2 bg-[#c12129] text-white rounded disabled:opacity-40 disabled:cursor-not-allowed"
             >
+              <Zap className="h-3.5 w-3.5" />
               Post Project
+              {afterPostBalance !== null && canAffordPost && (
+                <span className="ml-1 text-xs opacity-75">({afterPostBalance} pts left)</span>
+              )}
             </button>
           )}
         </div>

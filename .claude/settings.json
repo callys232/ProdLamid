@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep *)",
+      "Bash(grep -v \"^\\\\.$\\\\|api\\\\|^\\\\.\\\\.\")",
+      "Bash(grep -v \"^$\\\\|api\\\\|^\\\\.\")",
+      "Bash(find c:/Users/TechBuddy/Desktop/ProdLamid/src/app/api/escrow* -type f -name \"*.ts\")"
+    ]
+  }
+}
