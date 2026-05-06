@@ -131,13 +131,13 @@ const insights = [
         glow: "rgba(249,115,22,0.3)",
     },
     {
-        title: "Built for Businesses",
+        title: "Built for Organizations",
         bullets: [
             "Find the right expertise quickly",
             "No more WhatsApp or spreadsheet delivery",
             "Bidding, escrow & project tools built-in",
         ],
-        full: "Businesses struggle to find the right services quickly, and when they do, delivery happens across WhatsApp, spreadsheets and multiple disconnected tools. Through instant matching, verified expertise, and predictive feed scoring, Lamid solves this in one integrated marketplace — CRM suite.",
+        full: "Organizations struggle to find the right services quickly, and when they do, delivery happens across WhatsApp, spreadsheets and multiple disconnected tools. Through instant matching, verified expertise, and predictive feed scoring, Lamid solves this in one integrated marketplace — CRM suite.",
         Icon: Building2,
         hex: "#a855f7",
         border: "border-purple-500",
@@ -185,7 +185,7 @@ export default function AISystemSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                 >
-                    AI-Assisted Project Intelligence
+                    Human-AI-Assisted Operating System
                 </motion.h2>
                 <motion.p
                     className="mt-2 text-sm text-gray-400 max-w-2xl"
@@ -193,11 +193,7 @@ export default function AISystemSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.25 }}
                 >
-                    Businesses struggle to find the right services quickly, and when they do,
-                    delivery happens across WhatsApp, spreadsheets and multiple disconnected
-                    tools. Through instant matching, verified expertise, and predictive
-                    feed scoring, Lamid solves this in one intelligent marketplace —
-                    CRM suite, project tools and payment streams in one place.
+                    Your gateway portal to a Human-AI curated operating system for organizational growth.
                 </motion.p>
             </motion.div>
 
