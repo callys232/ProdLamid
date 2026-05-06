@@ -36,7 +36,7 @@ export default function JobFilter({
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search categories…"
+          placeholder="Search projects by title, category, or skill…"
           className="w-52 rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#c21219] focus:outline-none"
         />
         {query && (

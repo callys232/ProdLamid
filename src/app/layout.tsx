@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import LayoutWrapper from "./layoutWrapper";
 import { Toaster } from "react-hot-toast";
-import { inter, playfair } from "../fonts";
+import { inter, playfair, spaceGrotesk } from "../fonts";
 import { CartProvider } from "@/components/Cartcontext";
 import ClientGlobals from "./ClientGlobal";
 import CookieConsent from "@/components/CookieConsent";
@@ -55,7 +55,7 @@ export default function RootLayout({
       lang="en"
       dir="ltr"
       suppressHydrationWarning
-      className={`${inter.variable} ${playfair.variable}`}
+      className={`${inter.variable} ${playfair.variable} ${spaceGrotesk.variable}`}
     >
       <body className="antialiased font-sans bg-[#0c0000] text-white min-h-screen flex flex-col">
         <CartProvider>

@@ -173,13 +173,14 @@ export default function AISystemSection() {
             <WaveBg />
             {/* HEADER */}
             <motion.div
-                className="max-w-7xl mx-auto text-center mb-8"
+                className="max-w-7xl mx-auto text-left mb-8"
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
             >
                 <motion.h2
-                    className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent"
+                    className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#c21219] via-red-400 to-white bg-clip-text text-transparent"
+                    style={{ fontFamily: "var(--font-space-grotesk)" }}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
@@ -187,7 +188,7 @@ export default function AISystemSection() {
                     AI-Assisted Project Intelligence
                 </motion.h2>
                 <motion.p
-                    className="mt-2 text-sm text-gray-400 max-w-2xl mx-auto"
+                    className="mt-2 text-sm text-gray-400 max-w-2xl"
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.25 }}
