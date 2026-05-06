@@ -73,7 +73,7 @@ const SDI = () => {
 
             {/* Bottom message section */}
             <div className="text-center mb-16 max-w-xl mx-auto">
-              <p className="text-base md:text-lg mb-4">
+              <p className="text-base md:text-lg mb-4 text-left">
                 We achieved social inclusion, managed healthcare partnerships,
                 gender equality...
               </p>

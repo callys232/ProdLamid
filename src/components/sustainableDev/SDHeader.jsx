@@ -57,7 +57,7 @@ const SDHeader = () => {
           {/* Main content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center my-8 md:my-auto">
             <div className="order-2 lg:order-1">
-              <p className="text-white text-sm sm:text-base md:text-lg text-center lg:text-left">
+              <p className="text-white text-sm sm:text-base md:text-lg text-left">
                 We achieved social inclusion, managed healthcare partnerships,
                 gender equality, youth and women's empowerment with
                 digitalization, as crucial means to equity, diversity,

@@ -98,13 +98,9 @@ const GetDiagnostics = () => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className={`min-h-screen flex flex-col justify-center items-center ${
-        isFormOpen
-          ? "bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl rounded-lg"
-          : "bg-transparent"
-      }`}
+      className="w-full flex flex-col"
     >
-      <div className="bg-black p-6 rounded-lg shadow-lg w-full max-w-md">
+      <div className="p-6 w-full">
         {error && <p className="text-red-600 text-center mb-4">{error}</p>}
         {step === 1 && <PersonalInfo handleChange={validateInputs} />}
         {step === 2 && (
@@ -142,8 +138,8 @@ const GetDiagnostics = () => {
           )}
         </div>
       </div>
-      {/* Progress Bar BELOW the form */}
-      <div className="w-full max-w-md p-4 mt-6">
+      {/* Progress Bar */}
+      <div className="w-full px-6 pb-6">
         <ProgressBar step={step} totalSteps={6} />
       </div>
     </motion.div>

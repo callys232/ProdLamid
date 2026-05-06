@@ -127,7 +127,7 @@ const Footer = () => {
               href="mailto:hq@lamidconsulting.com"
               className="text-white hover:text-gray-400"
             >
-              hp@lamidconsulting.com
+              hq@lamidconsulting.com
             </a>
           </div>
         </div>

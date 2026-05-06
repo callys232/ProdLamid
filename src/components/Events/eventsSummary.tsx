@@ -47,7 +47,7 @@ const EventSummary: React.FC = () => {
     : undefined;
 
   return (
-    <div className="w-full bg-black text-white py-6 px-4">
+    <div className="w-full bg-black text-white pb-6 px-4">
       <main className="max-w-6xl mx-auto">
         {loading ? (
           <p className="text-center text-gray-400">Loading events...</p>

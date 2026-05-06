@@ -105,7 +105,7 @@ const EventList = () => {
             </div>
 
             {/* Invitation text */}
-            <div className="text-center text-sm mb-6">
+            <div className="text-left text-sm mb-6">
               <p>
                 To obtain an invitation to our much sought-after business clinic
                 and get a chance to win a free diagnostic card,{" "}
@@ -147,7 +147,7 @@ const EventList = () => {
             </div>
 
             {/* Footer tagline */}
-            <div className="text-center text-sm mt-8">
+            <div className="text-left text-sm mt-8">
               <p>
                 Exploring the ideas of shaping tomorrow&apos;s opportunities
               </p>

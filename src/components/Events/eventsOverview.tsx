@@ -35,7 +35,7 @@ export default function EventsOverview() {
   const displayedEvents = events.slice(0, 6);
 
   return (
-    <div className="bg-black text-white py-12 px-6">
+    <div className="bg-black text-white pb-12 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">

@@ -18,7 +18,7 @@ const Section = () => {
                     className="w-16 h-16"
                   />
                 </div>
-                <div className="text-center md:text-left">
+                <div className="text-left">
                   <p className="text-sm leading-relaxed">
                     <span className="font-bold">LAMID's Management comprises a core team of highly experienced and effective professionals.</span> They design, coordinate, manage and lead human capital development and business advisory services to client organizations. Their strong business acumen sets that clients cannot acquire elsewhere, making them a definite rare of LAMID's services.
                   </p>
@@ -36,7 +36,7 @@ const Section = () => {
                     className="w-16 h-16"
                   />
                 </div>
-                <div className="text-center md:text-left">
+                <div className="text-left">
                   <p className="text-sm leading-relaxed">
                     <span className="font-bold">Vision 2025: "To nurture 4,000 more of Africa's best talents to deliver excellence, grow and in-creating profitability and providing sustainable businesses by 2025. With client-focused and customized organizational growth and development models and support, because we commit to a shared outcome."</span> Creating a growth of 25% annually.
                   </p>
@@ -54,7 +54,7 @@ const Section = () => {
                     className="w-16 h-16"
                   />
                 </div>
-                <div className="text-center md:text-left">
+                <div className="text-left">
                   <p className="text-sm leading-relaxed">
                     <span className="font-bold">As business is increasingly transacted with technology on the rise, introducing capabilities and flexibility,</span> technically infused presence and in the face of stiff competition in all markets, making it compelling for timely introduction of products, the use of old web technology is obsolete, our website is developed to conform with the latest technology.
                   </p>

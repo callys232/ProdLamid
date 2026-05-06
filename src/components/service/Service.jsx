@@ -108,7 +108,7 @@ const TextOnlyButton = ({ title, icon }) => {
 
 const ServicesSection = () => {
   return (
-    <div className="bg-black text-white w-full px-4 md:px-8 lg:px-16 py-12">
+    <div className="bg-black text-white w-full px-4 md:px-8 lg:px-16 mt-10 pt-10 pb-12">
       <div className="max-w-6xl mx-auto">
         {/* Services Header */}
         <div className="border border-white inline-block px-6 py-2 mb-8">

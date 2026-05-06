@@ -53,7 +53,7 @@ export default function EcosystemLedger() {
   ];
 
   return (
-    <section className="bg-black text-white border-t border-white/10 px-6 py-12">
+    <section className="bg-black text-white border-t border-white/10 px-6 pb-12">
       <h2 className="text-3xl font-bold text-[#c12129] text-center mb-10">
         Ecosystem Color Ledger
       </h2>
