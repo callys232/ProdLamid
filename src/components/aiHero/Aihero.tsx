@@ -184,7 +184,7 @@ export default function AISystemSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                 >
-                    AI-Powered Project Intelligence
+                    AI-Assisted Project Intelligence
                 </motion.h2>
                 <motion.p
                     className="mt-2 text-sm text-gray-400 max-w-2xl mx-auto"
