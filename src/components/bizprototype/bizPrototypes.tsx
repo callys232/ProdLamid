@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 import PrototypeCard from "./prototypeCard";
 import PrototypeModal from "./prototypeModal";
 import { useCart } from "@/components/Cartcontext";
@@ -37,12 +36,7 @@ const BusinessPrototypes: React.FC<BusinessPrototypesProps> = ({ text }) => {
   const selected = prototypes.find((p) => p.id === activePrototype);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-[#0b0b0b] text-white">
-      <Head>
-        <title>{text}</title>
-        <meta name="description" content="Business prototype examples" />
-      </Head>
-
+    <div className="w-full bg-gradient-to-b from-black to-[#0b0b0b] text-white">
       <main className="container mx-auto px-4 py-10">
         {/* Frosted header frame */}
         <div className="flex justify-center mb-10">

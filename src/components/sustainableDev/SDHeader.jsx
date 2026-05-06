@@ -1,44 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import Head from "next/head";
+import { motion, AnimatePresence } from "framer-motion";
+import Impact from "@/components/Impact";
 
 const SDHeader = () => {
+  const [showImpact, setShowImpact] = useState(false);
+
   return (
     <>
-      <Head>
-        <meta
-          name="description"
-          content="Empowering communities through sustainable development, digital inclusion, gender equality, and peace-building to accelerate the SDGs."
-        />
-        <meta
-          name="keywords"
-          content="Sustainable Development, SDGs, Gender Equality, Digital Inclusion, Social Impact, Global Communities"
-        />
-        <meta name="Lamid" content="Lamid Consulting" />
-        <meta
-          property="og:title"
-          content="Sustainable Development | Empowering Global Communities"
-        />
-        <meta
-          property="og:description"
-          content="Driving equity, inclusion, and peace through sustainable development strategies."
-        />
-        <meta property="og:image" content="/SD-hands-holding-earth.png" />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://lamidconsulting.com/sustainable-development"
-        />
-        <link
-          rel="canonical"
-          href="https://lamidconsulting.com/sustainable-development"
-        />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-
       <div className="relative min-h-screen bg-black text-white pt-12 md:pt-24">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
@@ -94,10 +65,29 @@ const SDHeader = () => {
                 Development Goals.
               </p>
 
-              {/* Learn More Button */}
-              <div className="flex justify-center lg:justify-start">
-                <button className="bg-green-500 text-white py-2 px-6 rounded mt-4 sm:mt-6 uppercase text-sm font-bold hover:bg-green-600 transition duration-300">
-                  Learn More
+              {/* SEE HOW Button */}
+              <div className="flex justify-center lg:justify-start mt-4 sm:mt-6">
+                <button
+                  onClick={() => setShowImpact((prev) => !prev)}
+                  className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-emerald-400 hover:text-white transition-colors duration-200"
+                >
+                  SEE HOW
+                  <motion.svg
+                    animate={{ rotate: showImpact ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </motion.svg>
                 </button>
               </div>
             </div>
@@ -121,6 +111,22 @@ const SDHeader = () => {
           <div className="mb-8 md:mb-16" />
         </div>
       </div>
+
+      {/* Animated Impact dropdown */}
+      <AnimatePresence initial={false}>
+        {showImpact && (
+          <motion.div
+            key="sd-impact"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.45, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
+          >
+            <Impact />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

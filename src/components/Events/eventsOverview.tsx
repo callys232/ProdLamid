@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import type { EventItem } from "@/types/eventTypes";
 import { mockEvents } from "@/mocks/mockEvents";
 import EventModal from "./eventsModal";
+import CategoryLegend from "./CategoryLegend";
 import Link from "next/link";
 
 export default function EventsOverview() {
@@ -36,24 +36,18 @@ export default function EventsOverview() {
 
   return (
     <div className="bg-black text-white py-12 px-6">
-      <Head>
-        <title>Events Overview | HCD Worldwide</title>
-        <meta
-          name="description"
-          content="Discover highlights from HCD Worldwide's leadership, innovation, and transformation events."
-        />
-      </Head>
-
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-3xl font-bold text-orange-600">Event Summary</h2>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold text-orange-500">Event Summary</h2>
           <Link href="/events">
-            <button className="bg-orange-600 text-white px-6 py-2 rounded font-semibold hover:bg-orange-700 transition">
+            <button className="bg-orange-500 text-white px-6 py-2 rounded font-semibold hover:bg-[#c21219] transition">
               View All Events
             </button>
           </Link>
         </div>
+
+        <CategoryLegend />
 
         {/* Event cards */}
         {loading ? (
@@ -63,7 +57,7 @@ export default function EventsOverview() {
             {displayedEvents.map((event) => (
               <div
                 key={event.id}
-                className="bg-white text-black rounded-lg shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer"
+                className="group bg-white/5 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/10 transition cursor-pointer"
                 onClick={() => setSelectedEvent(event)}
               >
                 <div className="relative h-44 w-full">
@@ -71,17 +65,18 @@ export default function EventsOverview() {
                     src={event.image || "/tree-background.jpg"}
                     alt={event.title}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition" />
                 </div>
                 <div className="p-5">
-                  <h3 className="text-lg font-semibold text-orange-600 mb-2">
+                  <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent mb-2">
                     {event.title}
                   </h3>
-                  <p className="text-sm text-gray-700 mb-2 line-clamp-2">
+                  <p className="text-sm text-gray-300 mb-2 line-clamp-2">
                     {event.description}
                   </p>
-                  <p className="text-xs text-gray-500 uppercase tracking-wide">
+                  <p className="text-xs text-gray-400 uppercase tracking-wide">
                     {event.date} {event.time && `— ${event.time}`}
                   </p>
                   <p className="text-xs text-gray-500">{event.location}</p>

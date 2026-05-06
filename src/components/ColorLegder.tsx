@@ -53,42 +53,42 @@ export default function EcosystemLedger() {
   ];
 
   return (
-    <section className="bg-black text-white rounded-2xl shadow-lg border border-gray-200 p-8">
-      <h2 className="text-3xl font-bold text-[#c12129] text-center mb-8">
+    <section className="bg-black text-white border-t border-white/10 px-6 py-12">
+      <h2 className="text-3xl font-bold text-[#c12129] text-center mb-10">
         Ecosystem Color Ledger
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {items.map((item, idx) => (
           <article
             key={idx}
-            className="group relative overflow-hidden rounded-xl border border-gray-100 bg-white"
+            className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-md transition duration-300 hover:border-white/25 hover:bg-white/10"
           >
             {/* Accent strip */}
-            <div
-              className="h-2 w-full"
-              style={{ backgroundColor: item.color }}
-            />
+            <div className="h-1.5 w-full" style={{ backgroundColor: item.color }} />
 
             {/* Card body */}
             <div className="p-6 flex flex-col items-center text-center">
               <div
-                className="w-16 h-16 rounded-full border-2 border-gray-300 mb-4 shadow-sm"
+                className="w-14 h-14 rounded-full mb-4 shadow-lg ring-2 ring-white/10"
                 style={{ backgroundColor: item.color }}
               />
-              <item.Icon className="h-10 w-10 mb-3 text-[#c12129]" />
-              <h3 className="text-lg font-semibold text-black">{item.title}</h3>
-              <p className="text-sm text-gray-600 mt-1">{item.tagline}</p>
+              <item.Icon className="h-9 w-9 mb-3 text-[#c12129]" />
+              <h3 className="text-base font-semibold text-white">{item.title}</h3>
+              <p className="text-sm text-gray-400 mt-1">{item.tagline}</p>
               <div className="mt-4 flex items-center gap-2 text-xs text-gray-500 font-mono">
-                <span className="rounded px-2 py-0.5 border border-gray-200">
+                <span className="rounded px-2 py-0.5 border border-white/15 bg-white/5">
                   {item.color}
                 </span>
-                <span className="uppercase tracking-wide">{item.label}</span>
+                <span className="uppercase tracking-wide text-gray-400">{item.label}</span>
               </div>
             </div>
 
             {/* Hover glow */}
-            <div className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition duration-300 shadow-[0_0_24px_rgba(193,33,41,0.25)]" />
+            <div
+              className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition duration-300"
+              style={{ boxShadow: `0 0 28px ${item.color}30` }}
+            />
           </article>
         ))}
       </div>

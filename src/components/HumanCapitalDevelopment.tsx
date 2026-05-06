@@ -18,7 +18,7 @@ export default function HumanCapitalDevelopment() {
         <link rel="canonical" href="https://lamidconsulting.com/hcd" />
       </Head>
 
-      <div className="bg-gradient-to-br from-black via-gray-900/90 to-black text-white min-h-screen w-full">
+      <div className="bg-gradient-to-br from-black via-gray-900/90 to-black text-white w-full">
         {/* Header */}
         <HeaderSection />
 

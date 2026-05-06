@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Zap } from "lucide-react";
 import { Project } from "@/types/project";
 
 interface Bid {
@@ -78,7 +79,7 @@ export default function BidSection({
           className="px-3 py-2 bg-white/10 border border-white/20 rounded-md text-sm text-white placeholder-gray-400"
         />
         <button
-          className={`px-5 py-2 rounded-md font-semibold transition ${
+          className={`flex items-center gap-2 px-5 py-2 rounded-md font-semibold transition ${
             isRegisteredUser
               ? "bg-white/10 hover:bg-white/20 border border-white/20 text-gray-200"
               : "bg-gray-700 text-gray-300 cursor-not-allowed"
@@ -89,6 +90,7 @@ export default function BidSection({
             !isRegisteredUser ? "Login required to place bids" : "Place bid"
           }
         >
+          <Zap className="h-4 w-4" />
           Place bid
         </button>
       </div>

@@ -5,6 +5,7 @@ import type { EventItem } from "@/types/eventTypes";
 import { mockEvents } from "@/mocks/mockEvents";
 import EventListCard from "./eventListCard";
 import CategoryModal from "./categoryModal";
+import { getCategoryColor } from "@/lib/eventColors";
 
 interface JobCategory {
   title: string;
@@ -52,28 +53,26 @@ const JobCategoryEvents = () => {
 
       {/* Category tiles */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {jobCategories.map((job, idx) => (
-          <div
-            key={idx}
-            className="group relative flex flex-col bg-black border border-transparent rounded-xl shadow-md 
-                       transition-all duration-300 hover:shadow-lg hover:border-orange-500 cursor-pointer"
-            onClick={() => setActiveCategory(job)}
-          >
-            <div className="bg-gray-700 aspect-video rounded-t-xl group-hover:bg-gray-600 transition"></div>
-            <div className="p-4 flex flex-col flex-1">
-              <h3 className="text-md font-semibold text-white mb-2 group-hover:text-orange-500 transition-colors">
-                {job.title}
-              </h3>
-              <span className="text-orange-500 text-sm font-medium">
-                View this →
-              </span>
-            </div>
+        {jobCategories.map((job, idx) => {
+          const { bg, text, border } = getCategoryColor(job.key, idx);
+          return (
             <div
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-1/3 bg-[#c21219] 
-                            group-hover:w-1/2 transition-all rounded-t-md"
-            />
-          </div>
-        ))}
+              key={idx}
+              className={`group relative flex flex-col bg-black border border-transparent rounded-xl shadow-md
+                         transition-all duration-300 hover:shadow-lg hover:${border} cursor-pointer`}
+              onClick={() => setActiveCategory(job)}
+            >
+              <div className="bg-gray-700 aspect-video rounded-t-xl group-hover:bg-gray-600 transition" />
+              <div className="p-4 flex flex-col flex-1">
+                <h3 className={`text-md font-semibold text-white mb-2 group-hover:${text} transition-colors`}>
+                  {job.title}
+                </h3>
+                <span className={`${text} text-sm font-medium`}>View this →</span>
+              </div>
+              <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-1/3 ${bg} group-hover:w-1/2 transition-all rounded-t-md`} />
+            </div>
+          );
+        })}
       </div>
 
       {/* Category modal */}

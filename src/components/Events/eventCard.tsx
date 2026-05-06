@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import type { EventItem } from "@/types/eventTypes";
 
 interface EventCardProps {
@@ -12,11 +13,14 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
   const thumbnail = event.images?.[0]?.path || event.image;
 
   return (
-    <div
+    <motion.div
       onClick={onClick}
-      className="flex flex-col items-center cursor-pointer opacity-0 animate-fadeIn 
-                 transform transition duration-300 hover:scale-105 hover:-translate-y-1 
-                 hover:shadow-xl hover:shadow-orange-500/30 rounded-xl bg-gradient-to-b 
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      whileHover={{ scale: 1.05, y: -4 }}
+      className="flex flex-col items-center cursor-pointer
+                 hover:shadow-xl hover:shadow-orange-500/30 rounded-xl bg-gradient-to-b
                  from-gray-900 to-black p-4"
     >
       <div className="w-36 h-36 rounded-full overflow-hidden mb-3 relative ring-2 ring-transparent hover:ring-orange-500 transition">
@@ -39,7 +43,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
           {event.time}
         </p>
       )}
-    </div>
+    </motion.div>
   );
 };
 

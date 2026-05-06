@@ -42,7 +42,7 @@ const BizPT = () => {
     ];
   
     return (
-      <div className="min-h-screen bg-black text-white p-4">
+      <div className="w-full bg-black text-white p-4">
         <div className="max-w-6xl mx-auto">
           {/* Header with red button */}
           <div className="flex justify-center mb-6">
@@ -55,7 +55,10 @@ const BizPT = () => {
           <div className="bg-[#111] rounded-xl p-4 md:p-6 border border-gray-800">
             {/* Search bar */}
             <div className="flex mb-6 max-w-lg mx-auto">
-              <button className="bg-[#C12129] text-white px-4 py-2 rounded-l-md flex items-center">
+              <button
+                onClick={() => setSearchTerm("")}
+                className="bg-[#C12129] text-white px-4 py-2 rounded-l-md flex items-center"
+              >
                 <span className="mr-2">×</span>
                 <span>Filter</span>
               </button>
@@ -70,7 +73,12 @@ const BizPT = () => {
             
             {/* Business prototypes grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6 relative">
-              {businessPrototypes.map((prototype) => (
+              {businessPrototypes
+              .filter((p) =>
+                p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                p.category.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((prototype) => (
                 <div 
                   key={prototype.id} 
                   className={`${prototype.featured ? 'sm:col-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-1 lg:col-start-3 lg:row-start-1' : ''} 

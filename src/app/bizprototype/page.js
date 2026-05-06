@@ -7,7 +7,7 @@ const Bizprototype = () => {
   return (
     <div>
       <Header />
-      <BusinessPrototypes />
+      <BusinessPrototypes text="Business Prototypes" />
       <BizPT />
       <LastEvent />
     </div>

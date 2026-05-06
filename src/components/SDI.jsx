@@ -1,46 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import Head from "next/head";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SDI = () => {
   const [showImpact, setShowImpact] = useState(false);
 
-  const toggleImpact = (e) => {
-    e.preventDefault();
-    setShowImpact(!showImpact);
-  };
+  const toggleImpact = () => setShowImpact((prev) => !prev);
 
   return (
-    <>
-      <Head>
-        <meta
-          name="description"
-          content="Discover how Lamid Consulting drives sustainable development through social inclusion, healthcare partnerships, gender equality, and climate action in Nigeria and beyond."
-        />
-        <meta
-          name="keywords"
-          content="sustainable development, social inclusion, healthcare partnerships, gender equality, climate change, renewable energy, cooperatives, Nigeria"
-        />
-        <meta name="author" content="Lamid Consulting" />
-        <meta
-          property="og:title"
-          content="Sustainable Development Initiatives | Lamid Consulting"
-        />
-        <meta
-          property="og:description"
-          content="Explore Lamid Consulting's impact in sustainable development, healthcare, and climate resilience."
-        />
-        <meta property="og:image" content="https://yourdomain.com/LD4.jpg" />
-        <meta
-          property="og:url"
-          content="https://yourdomain.com/sustainableDev"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://yourdomain.com/sustainableDev" />
-      </Head>
-      <div>
+    <div>
         <div className="relative w-full bg-black text-white overflow-hidden">
           {/* Background Tree Image */}
           <div className="absolute inset-0 opacity-70">
@@ -108,15 +78,16 @@ const SDI = () => {
                 gender equality...
               </p>
 
-              <Link
-                href="#"
+              <button
                 onClick={toggleImpact}
-                className="inline-flex items-center text-xs font-medium text-gray-300 hover:text-white"
+                className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-emerald-400 hover:text-white transition-colors duration-200 group"
               >
                 SEE HOW
-                <svg
+                <motion.svg
+                  animate={{ rotate: showImpact ? 180 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 ml-2"
+                  className="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -125,17 +96,26 @@ const SDI = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    d="M19 9l-7 7-7-7"
                   />
-                </svg>
-              </Link>
+                </motion.svg>
+              </button>
             </div>
           </div>
         </div>
 
         {/* Impact Section */}
+        <AnimatePresence initial={false}>
         {showImpact && (
-          <div className="min-h-screen bg-black text-white">
+          <motion.div
+            key="impact"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.45, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
+          >
+          <div className="bg-black text-white">
             <main className="container mx-auto px-4 py-12">
               <h1 className="text-5xl md:text-6xl font-bold text-gray-300 mb-16">
                 Impact
@@ -370,9 +350,10 @@ const SDI = () => {
               </div>
             </main>
           </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
-    </>
   );
 };
 

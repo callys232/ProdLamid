@@ -10,6 +10,8 @@ export default function EventModal({
   event,
   isOpen,
   onClose,
+  primaryAction,
+  secondaryAction,
 }: EventModalProps) {
   const [currentImage, setCurrentImage] = useState(0);
   const [showSignup, setShowSignup] = useState(false);
@@ -144,16 +146,28 @@ export default function EventModal({
             <div className="flex gap-4 flex-wrap justify-center">
               <button
                 onClick={() => {
-                  setShowSignup(true);
-                  setShowSuccess(false);
+                  if (primaryAction) {
+                    primaryAction.onClick();
+                  } else {
+                    setShowSignup(true);
+                    setShowSuccess(false);
+                  }
                 }}
                 className="px-6 py-2 rounded-md font-semibold bg-orange-500 hover:bg-[#c21219] text-white transition"
               >
-                Register
+                {primaryAction ? primaryAction.label : "Register"}
               </button>
+              {secondaryAction && (
+                <button
+                  onClick={secondaryAction.onClick}
+                  className="px-6 py-2 rounded-md font-semibold border border-orange-500 text-orange-500 hover:text-white hover:bg-orange-500 transition"
+                >
+                  {secondaryAction.label}
+                </button>
+              )}
               <button
                 onClick={onClose}
-                className="px-6 py-2 rounded-md font-semibold border border-orange-500 text-orange-500 hover:text-white hover:bg-orange-500 transition"
+                className="px-6 py-2 rounded-md font-semibold border border-white/20 text-gray-300 hover:text-white hover:border-white/50 transition"
               >
                 Close
               </button>

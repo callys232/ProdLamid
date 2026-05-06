@@ -10,7 +10,9 @@ import {
   ChevronRight, AlertCircle, CheckCheck, Circle,
 } from "lucide-react";
 
-import ApplyModal from "./applyModal";
+import dynamic from "next/dynamic";
+
+const ApplyModal = dynamic(() => import("./applyModal"), { ssr: false });
 
 interface JobModalProps {
   job: Project;

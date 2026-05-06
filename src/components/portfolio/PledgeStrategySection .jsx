@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const PledgeStrategySection = () => {
   const [pledgeExpanded, setPledgeExpanded] = useState(false);
@@ -36,69 +36,93 @@ const PledgeStrategySection = () => {
                 <div className="bg-blue-700 rounded-md px-2 sm:px-3 py-1 sm:py-1.5">
                   <h2 className="text-xs sm:text-sm font-medium text-white uppercase tracking-wider">Our Pledge and Strategy</h2>
                 </div>
-                <button 
+                <button
                   onClick={() => setPledgeExpanded(!pledgeExpanded)}
-                  className="bg-white rounded-md p-1 hover:bg-gray-200 transition-colors"
+                  className="border border-white/20 bg-white/5 hover:bg-white/10 rounded-md p-1.5 transition-colors"
                   aria-label={pledgeExpanded ? "Collapse" : "Expand"}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
-                    <path d={pledgeExpanded ? "M19 15l-7-7-7 7" : "M5 9l7 7 7-7"} stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  <motion.svg
+                    animate={{ rotate: pledgeExpanded ? 180 : 0 }}
+                    transition={{ duration: 0.25 }}
+                    width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  >
+                    <path d="M5 9l7 7 7-7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </motion.svg>
                 </button>
               </div>
-              
-              <div className={`text-xs sm:text-sm md:text-base leading-relaxed ${pledgeExpanded ? 'block' : 'line-clamp-4 sm:line-clamp-6 md:line-clamp-8'}`}>
-                <p>
-                  We go the extra mile always, that is why our clients come back for more service and create referrals, 
-                  we customize our solutions and deepen relationships with incentives in order to retain and grow our 
-                  core of loyal clients.
-                </p>
-                <p className="mt-2">
-                  We implement robust business and global strategies to keep our costs to the minimum, in 
-                  order to deliver world-class organizations' value, products, and services to our clients. 
-                  We help clients connect with themselves and their 
-                  stakeholders, and work to fix in their world, as we 
-                  use opportunities created by knowledge in the 
-                  21st century
-                </p>
-              </div>
+
+              <p className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-300">
+                We go the extra mile always, that is why our clients come back for more service and create referrals,
+                we customize our solutions and deepen relationships with incentives in order to retain and grow our core of loyal clients.
+              </p>
+
+              <AnimatePresence initial={false}>
+                {pledgeExpanded && (
+                  <motion.div
+                    key="pledge-extra"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                    style={{ overflow: "hidden" }}
+                  >
+                    <p className="mt-3 text-xs sm:text-sm md:text-base leading-relaxed text-gray-300">
+                      We implement robust business and global strategies to keep our costs to the minimum, in
+                      order to deliver world-class organisations' value, products, and services to our clients.
+                      We help clients connect with themselves and their stakeholders, and work to fix in their world,
+                      as we use opportunities created by knowledge in the 21st century.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
           
           {/* Right column - Building Great Economy */}
           <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 sm:p-5">
             <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <div className="bg-green-700 rounded-md px-2 sm:px-3 py-1 sm:py-1.5">
-                <h2 className="text-xs sm:text-sm font-medium text-white uppercase tracking-wider truncate max-w-[200px] sm:max-w-none">Building and Enduring Great Economy</h2>
+              <div className="bg-green-700 rounded-md px-2 sm:px-3 py-1 sm:py-1.5 min-w-0">
+                <h2 className="text-xs sm:text-sm font-medium text-white uppercase tracking-wider truncate">Building and Enduring Great Economy</h2>
               </div>
-              <button 
+              <button
                 onClick={() => setEconomyExpanded(!economyExpanded)}
-                className="bg-white rounded-md p-1 hover:bg-gray-200 transition-colors ml-2 flex-shrink-0"
+                className="border border-white/20 bg-white/5 hover:bg-white/10 rounded-md p-1.5 transition-colors ml-2 flex-shrink-0"
                 aria-label={economyExpanded ? "Collapse" : "Expand"}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
-                  <path d={economyExpanded ? "M19 15l-7-7-7 7" : "M5 9l7 7 7-7"} stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <motion.svg
+                  animate={{ rotate: economyExpanded ? 180 : 0 }}
+                  transition={{ duration: 0.25 }}
+                  width="16" height="16" viewBox="0 0 24 24" fill="none"
+                >
+                  <path d="M5 9l7 7 7-7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </motion.svg>
               </button>
             </div>
-            
-            <div className={`text-xs sm:text-sm md:text-base leading-relaxed ${economyExpanded ? 'block' : 'line-clamp-4 sm:line-clamp-6 md:line-clamp-8'}`}>
-              <p>
-                A great company can be measured by its performance 
-                (generating enough cash flow through highly profitable 
-                operations to invest in future-focused and create 
-                value for its customers through innovation), its impact on 
-                the industry, the reputation it creates for itself with its 
-                stakeholders, and its business model that gives it the 
-                ability to remain healthy for decades. The greatness of a 
-                company has a lot to do with its operation; their functions 
-                are run by people who are experienced, educated, 
-                well prepared, business savvy through common sense and 
-                profitability centered. Such companies take advantage of 
-                opportunities available in the environment and taking 
-                advantage of such.
-              </p>
-            </div>
+
+            <p className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-300">
+              A great company can be measured by its performance — generating enough cash flow through highly
+              profitable operations to invest in the future and create value for its customers through innovation.
+            </p>
+
+            <AnimatePresence initial={false}>
+              {economyExpanded && (
+                <motion.div
+                  key="economy-extra"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <p className="mt-3 text-xs sm:text-sm md:text-base leading-relaxed text-gray-300">
+                    Its greatness is also defined by its impact on the industry, the reputation it builds with stakeholders,
+                    and a business model that keeps it healthy for decades. Such companies are run by people who are
+                    experienced, educated, business-savvy, and profitability-centred — always taking advantage of
+                    opportunities available in the environment.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

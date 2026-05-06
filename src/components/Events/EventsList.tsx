@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import type { EventItem } from "@/types/eventTypes";
 import { getEvents } from "@/lib/api/eventApi";
 import EventListCard from "./eventListCard";
 import EventModal from "./eventsModal";
 import JobCategoryEvents from "./jobCategoryEvents";
+import CategoryLegend from "./CategoryLegend";
 
 const EventList = () => {
   const [events, setEvents] = useState<EventItem[]>([]);
@@ -43,15 +43,7 @@ const EventList = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Head>
-        <title>Human Capital Development Events</title>
-        <meta
-          name="description"
-          content="Human Capital Development events and opportunities"
-        />
-      </Head>
-
+    <div className="w-full bg-black text-white">
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8">
           {/* Logo section */}
@@ -72,6 +64,8 @@ const EventList = () => {
             <h2 className="text-xl font-bold mb-6 text-right">
               Upcoming Events
             </h2>
+
+            <CategoryLegend />
 
             {/* Top image grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">

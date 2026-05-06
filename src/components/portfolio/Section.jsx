@@ -84,9 +84,29 @@ const Section = () => {
                 </div>
               </div>
     
-              {/* Right box - Empty content area */}
-              <div className="border border-gray-600 rounded-lg h-48 md:h-64">
-                {/* This appears to be an empty content area in the original image */}
+              {/* Right box - Why Join Bizphere-Bizclub */}
+              <div className="border border-gray-600 rounded-lg h-48 md:h-64 flex flex-col justify-between p-5">
+                <div className="bg-red-800 text-white inline-block px-3 py-1 rounded self-start">
+                  <h3 className="text-sm font-medium">Why Join Bizphere-Bizclub?</h3>
+                </div>
+                <ul className="text-xs text-gray-300 space-y-2 mt-3">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5 flex-shrink-0">✓</span>
+                    Access to exclusive business clinics
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5 flex-shrink-0">✓</span>
+                    Peer network of 3,000+ SMEs
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5 flex-shrink-0">✓</span>
+                    Free diagnostic care opportunities
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5 flex-shrink-0">✓</span>
+                    Expert mentorship and strategy sessions
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

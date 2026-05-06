@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type { EventItem } from "@/types/eventTypes";
+import { getCategoryColor } from "@/lib/eventColors";
 
 interface EventListCardProps {
   event: EventItem;
@@ -15,27 +16,7 @@ const EventListCard: React.FC<EventListCardProps> = ({
   onClick,
   index,
 }) => {
-  // Map categories to fixed colors
-  const accentColorByCategory: Record<string, string> = {
-    Workshop: "bg-orange-500",
-    Seminar: "bg-[#c21219]",
-    Networking: "bg-blue-500",
-    Conference: "bg-green-500",
-    Training: "bg-purple-500",
-  };
-
-  const accentPalette = [
-    "bg-orange-500",
-    "bg-[#c21219]",
-    "bg-blue-500",
-    "bg-green-500",
-    "bg-purple-500",
-  ];
-
-  const accentColor =
-    event.category && accentColorByCategory[event.category]
-      ? accentColorByCategory[event.category]
-      : accentPalette[index % accentPalette.length];
+  const { bg: accentColor } = getCategoryColor(event.category, index);
 
   return (
     <motion.div
