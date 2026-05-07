@@ -60,11 +60,17 @@ export default function EnterpriseDashboard() {
         const accountRes = await fetch("/api/groupware/get-account");
         if (accountRes.status === 401) { router.replace("/signin"); return; }
         if (accountRes.ok) {
-          const { accountType, role: userOrgRole } = await accountRes.json();
-          if (accountType !== "Enterprise") {
-            // Not an enterprise user — redirect to the correct dashboard
-            if (accountType === "Freelancer") router.replace("/profile");
-            else router.replace("/client");
+          const { accountType, orgRole: userOrgRole } = await accountRes.json();
+          // Also check localStorage in case API lags
+          const stored = typeof window !== "undefined" ? localStorage.getItem("account_type") : null;
+          const resolved = accountType || stored;
+
+          if (resolved !== "Enterprise") {
+            const dest =
+              resolved === "Admin"      ? "/admin"     :
+              resolved === "Freelancer" ? "/profile"   :
+              resolved === "Concierge"  ? "/concierge" : "/client";
+            router.replace(dest);
             return;
           }
           if (userOrgRole) setOrgRole(userOrgRole as OrgRole);

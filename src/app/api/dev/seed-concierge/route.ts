@@ -16,23 +16,8 @@ export async function GET() {
     const password = "Concierge@123";
     const hash     = await bcrypt.hash(password, 10);
 
-    const existing = await Users.findOne({ email });
-    if (existing) {
-      // Re-apply concierge flags in case it already exists
-      await Users.findByIdAndUpdate(existing._id, {
-        accountType: "Concierge",
-        role: "client",
-        "conciergeRequest.status": "approved",
-        "conciergeRequest.organisation": "Test Government Agency",
-        "conciergeRequest.orgType": "Government Agency",
-        "conciergeRequest.submittedAt": new Date(),
-      });
-      return NextResponse.json({
-        message: "Concierge user already exists — flags refreshed.",
-        email,
-        password,
-      });
-    }
+    // Delete any existing user with this email to ensure a clean document
+    await Users.deleteOne({ email });
 
     await Users.create({
       email,
@@ -40,6 +25,7 @@ export async function GET() {
       username: "concierge_test",
       role: "client",
       isVerified: true,
+      status: "active",
       accountType: "Concierge",
       conciergeRequest: {
         status: "approved",

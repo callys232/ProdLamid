@@ -70,6 +70,7 @@ export function useAuth(): UseAuthReturn {
     try {
       await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
     } catch {}
+    try { localStorage.removeItem("account_type"); localStorage.removeItem("user_display"); } catch {}
     setUser(null);
     router.push("/signin");
   }, [router]);

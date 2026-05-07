@@ -52,7 +52,11 @@ export default function SignInPage() {
 
       const accountRes  = await fetch("/api/groupware/get-account");
       const accountData = accountRes.ok ? await accountRes.json() : null;
-      const dest        = ACCOUNT_TYPE_ROUTES[accountData?.accountType ?? ""] ?? "/client";
+      const accountType = accountData?.accountType ?? "";
+      const dest        = ACCOUNT_TYPE_ROUTES[accountType] ?? "/client";
+
+      // Persist accountType so the dashboard can verify without extra API call
+      try { localStorage.setItem("account_type", accountType); } catch {}
 
       toast.success(`Welcome back${user.username ? `, ${user.username}` : ""}!`);
       router.replace(dest);

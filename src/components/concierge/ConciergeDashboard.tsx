@@ -5,9 +5,9 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, LayoutDashboard, FolderKanban, Users, Bell, MessageSquare, BarChart3, HeadphonesIcon, Settings, Star, UserCheck } from "lucide-react";
 
-// Reuse existing tabs from client/enterprise
-import Overview     from "@/components/client/tabs/overview/overview";
-import Teams        from "@/components/client/tabs/Teams";
+// Concierge overview
+import Overview     from "./tabs/ConciergeOverview";
+import Teams        from "./tabs/ConciergeTeams";
 import Notifications from "@/components/client/tabs/Notifications";
 import Settings_    from "@/components/client/settings/Settings";
 

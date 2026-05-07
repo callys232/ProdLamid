@@ -24,12 +24,15 @@ export async function GET(req: NextRequest) {
       if (org && org.status !== "suspended") verifiedOrgId = String(org._id);
     }
 
+    // Enterprise if: org verified, OR has any orgId, OR accountType already set
+    const isEnterprise = !!verifiedOrgId || !!user.orgId || user.accountType === "Enterprise";
+
     const accountType =
-      verifiedOrgId                          ? "Enterprise"  :
+      isEnterprise                           ? "Enterprise"  :
       user.role === "admin"                  ? "Admin"       :
       user.role === "seller"                 ? "Freelancer"  :
       user.accountType === "Concierge"       ? "Concierge"   :
-      user.role === "client"                 ? "Client"      : "Client";
+                                               "Client";
 
     return NextResponse.json({
       success:     true,

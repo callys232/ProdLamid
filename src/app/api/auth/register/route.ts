@@ -104,6 +104,7 @@ export async function POST(request: Request) {
             await Users.findByIdAndUpdate(user._id, {
                 orgId: org._id,
                 orgRole: "org_admin",
+                accountType: "Enterprise",
             });
 
             orgId   = String(org._id);

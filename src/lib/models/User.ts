@@ -49,6 +49,41 @@ const UserSchema = new mongoose.Schema({
     messages:           { type: Boolean, default: true },
     billing:            { type: Boolean, default: true },
   },
+
+  // Account type — resolves to the correct dashboard
+  accountType: {
+    type: String,
+    enum: ["Client", "Freelancer", "Enterprise", "Concierge", "Admin"],
+    default: null,
+  },
+
+  // Account status (active / suspended / deleted)
+  status: {
+    type: String,
+    enum: ["active", "suspended", "deleted"],
+    default: "active",
+  },
+  isDeleted: { type: Boolean, default: false },
+
+  // Concierge tier request
+  conciergeRequest: {
+    status:       { type: String, enum: ["pending", "approved", "rejected"], default: undefined },
+    organisation: { type: String },
+    orgType:      { type: String },
+    description:  { type: String },
+    submittedAt:  { type: Date },
+    reviewedAt:   { type: Date },
+    notes:        { type: String },
+  },
+
+  // Account deletion request
+  deletionRequest: {
+    requested:   { type: Boolean, default: false },
+    reason:      { type: String },
+    requestedAt: { type: Date },
+    resolvedAt:  { type: Date },
+    status:      { type: String, enum: ["pending", "approved", "rejected"] },
+  },
 }, {
   timestamps: true,
   strictPopulate: false
