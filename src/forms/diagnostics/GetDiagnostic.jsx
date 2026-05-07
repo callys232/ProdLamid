@@ -5,8 +5,8 @@ import Portfolio from "./portfolio";
 import TablePage from "./TablePage";
 import CheckboxesPage from "./CheckboxesPage";
 import ReviewPage from "./ReviewPage";
-import SuccessPage from "./SuccessPage";
 import ProgressBar from "./progressBar";
+import DiagnosticReport from "./DiagnosticReport";
 
 const GetDiagnostics = () => {
   const [step, setStep] = useState(1);
@@ -111,7 +111,15 @@ const GetDiagnostics = () => {
         )}
         {step === 4 && <CheckboxesPage handleChange={validateInputs} />}
         {step === 5 && <ReviewPage formData={formData} />}
-        {step === 6 && <SuccessPage closeForm={() => setStep(1)} />}
+        {step === 6 && (
+          <DiagnosticReport
+            formData={formData}
+            onDone={() => {
+              setStep(1);
+              localStorage.removeItem("formData");
+            }}
+          />
+        )}
 
         {/* Navigation Buttons */}
         <div className="flex justify-between mt-4">

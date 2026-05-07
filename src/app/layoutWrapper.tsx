@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/Footer";
 import ModalWrapper from "@/components/ModalWrapper";
+import AIAgent from "@/components/Agent/Onboarding";
 
 export default function LayoutWrapper({
   children,
@@ -38,6 +39,9 @@ export default function LayoutWrapper({
 
       {/* Modal */}
       {!hideLayout && <ModalWrapper />}
+
+      {/* AI Chat Assistant */}
+      {!hideLayout && <AIAgent />}
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe, Brain, Layers, Building2, Users } from "lucide-react";
+import { AlertCircle, Brain, Layers, BarChart2, Zap } from "lucide-react";
 
 /* ── Minimal vector line decoration ─────────────────────────── */
 const Lines = ({ color }: { color: string }) => (
@@ -83,14 +83,30 @@ function WaveBg() {
 /* ── Data ────────────────────────────────────────────────────── */
 const insights = [
     {
-        title: "Unified Ecosystem",
+        title: "The Problem We Solve",
         bullets: [
-            "Expertise discovered, contracted & executed globally",
-            "End-to-end delivery in one marketplace",
-            "CRM + Project Management in one platform",
+            "Client acquisition & retention are hard",
+            "Talent alignment breaks across email & WhatsApp",
+            "Delivery fails when spread across disconnected tools",
         ],
-        full: "We have provided a unified ecosystem infrastructure for how expertise is discovered, contracted and executed globally. Our AI-driven consulting system unites project matching and end-to-end delivery in one marketplace — combining CRM and project management into a single intelligent platform.",
-        Icon: Globe,
+        full: "Client acquisition and retention are hard, talent alignment is harder, and delivery breaks down when work is spread across email, WhatsApp, spreadsheets, and multiple disconnected tools. Even top-notch experts battle to upskill fast enough, secure consistent projects, and manage clients efficiently.",
+        Icon: AlertCircle,
+        hex: "#c21219",
+        border: "border-[#c21219]",
+        bg: "bg-[#c21219]/10",
+        bgStrong: "bg-red-950/50",
+        iconStyle: "text-[#c21219] bg-[#c21219]/15",
+        glow: "rgba(194,18,25,0.3)",
+    },
+    {
+        title: "AI-Powered Matching",
+        bullets: [
+            "Matches organizations with vetted experts",
+            "AI automates scoping, matching & risk detection",
+            "Predictive scoring for the right fit every time",
+        ],
+        full: "Lamid matches organizations with vetted experts through a globally AI-curated system. Our AI automates scoping, matching, and risk detection — so businesses find the right talent faster, and consultants land consistent, well-aligned projects without the guesswork.",
+        Icon: Brain,
         hex: "#3b82f6",
         border: "border-blue-500",
         bg: "bg-blue-500/10",
@@ -99,14 +115,14 @@ const insights = [
         glow: "rgba(59,130,246,0.3)",
     },
     {
-        title: "AI-Curated Matching",
+        title: "Built-in CRM & PM",
         bullets: [
-            "Businesses post projects, consultants get matched",
-            "Instant matching & predictive feed scoring",
-            "Verified expertise at every level",
+            "Built-in CRM & project management tools",
+            "Workrooms, milestones & team messaging",
+            "Contract management & analytics",
         ],
-        full: "Our Global AI-Curated System connects businesses and consultants through intelligent matching. Businesses post projects, consultants get matched, and both parties collaborate using built-in CRM and project management tools — eliminating WhatsApp, spreadsheets and fragmented multi-tool delivery.",
-        Icon: Brain,
+        full: "Lamid provides built-in CRM and project management tools and resources so both parties collaborate on one platform. Workrooms, milestone tracking, messaging, contract management, and analytics are all native — no third-party integrations needed.",
+        Icon: Layers,
         hex: "#10b981",
         border: "border-emerald-500",
         bg: "bg-emerald-500/10",
@@ -115,14 +131,14 @@ const insights = [
         glow: "rgba(16,185,129,0.3)",
     },
     {
-        title: "Vertically Integrated",
+        title: "Full Operations Suite",
         bullets: [
-            "Standardizes trust across the marketplace",
-            "Accelerates execution at every stage",
-            "Reshapes the global consulting economy",
+            "Budgeting, time tracking & resource planning",
+            "Secured payment management",
+            "Transparent, seamless end-to-end delivery",
         ],
-        full: "We have unlocked a data-defensible, vertically integrated platform that standardizes trust, accelerates execution, and reshapes the global consulting economy. One system from project creation to delivery and payment — no fragmentation, no guesswork.",
-        Icon: Layers,
+        full: "From budgeting and time tracking to resource planning and secured payment management, Lamid covers the full operations lifecycle. Every stage of delivery is transparent and seamless — enabling organizations and consultants to execute with confidence from kickoff to completion.",
+        Icon: BarChart2,
         hex: "#f97316",
         border: "border-orange-500",
         bg: "bg-orange-500/10",
@@ -131,36 +147,20 @@ const insights = [
         glow: "rgba(249,115,22,0.3)",
     },
     {
-        title: "Built for Organizations",
+        title: "Premium Growth Platform",
         bullets: [
-            "Find the right expertise quickly",
-            "No more WhatsApp or spreadsheet delivery",
-            "Bidding, escrow & project tools built-in",
+            "Scale systems & streamline operations",
+            "Fuel innovation & drive digital growth",
+            "Build world-class teams through technology",
         ],
-        full: "Organizations struggle to find the right services quickly, and when they do, delivery happens across WhatsApp, spreadsheets and multiple disconnected tools. Through instant matching, verified expertise, and predictive feed scoring, Lamid solves this in one integrated marketplace — CRM suite.",
-        Icon: Building2,
+        full: "Premium offers that scale systems, streamline operations, fuel innovation, drive digital growth, build world-class teams, and empower organizations through technology. Lamid's premium tier gives you the tools to not just deliver — but to dominate.",
+        Icon: Zap,
         hex: "#a855f7",
         border: "border-purple-500",
         bg: "bg-purple-500/10",
         bgStrong: "bg-purple-950/50",
         iconStyle: "text-purple-400 bg-purple-500/15",
         glow: "rgba(168,85,247,0.3)",
-    },
-    {
-        title: "Built for Consultants",
-        bullets: [
-            "Consistent, reliable work stream",
-            "Efficient client collaboration built-in",
-            "Payment that compensates your expertise",
-        ],
-        full: "Consultants seek a consistent, reliable work stream and an efficient way of managing work in collaboration with clients. Lamid provides payment streams that adequately compensate their expertise — through a single intelligent marketplace where trust, delivery and income are in one place.",
-        Icon: Users,
-        hex: "#c21219",
-        border: "border-[#c21219]",
-        bg: "bg-[#c21219]/10",
-        bgStrong: "bg-red-950/50",
-        iconStyle: "text-[#c21219] bg-[#c21219]/15",
-        glow: "rgba(194,18,25,0.3)",
     },
 ];
 
@@ -185,7 +185,7 @@ export default function AISystemSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                 >
-                    Human-AI-Assisted Operating System
+                    Empowering Growth. Digitally.
                 </motion.h2>
                 <motion.p
                     className="mt-2 text-sm text-gray-400 max-w-2xl"
@@ -193,7 +193,7 @@ export default function AISystemSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.25 }}
                 >
-                    Your gateway portal to a Human-AI curated operating system for organizational growth.
+                    All in one ecosystem — matches organizations with vetted experts, provides built-in CRM and project management, and uses AI to automate scoping, matching, and risk detection.
                 </motion.p>
             </motion.div>
 

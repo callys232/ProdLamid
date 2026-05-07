@@ -67,68 +67,52 @@ export default function AIAgent() {
   const getTimestamp = () =>
     new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-  // Handle user message
-  const handleMessage = (msg: string) => {
+  // Handle user message — powered by Lamid AI via OpenRouter
+  const handleMessage = async (msg: string) => {
     const trimmed = msg.trim();
     if (!trimmed) return;
 
-    setChatHistory((prev) => [
-      ...prev,
-      { text: trimmed, sender: "user", timestamp: getTimestamp() },
-    ]);
+    const userEntry = { text: trimmed, sender: "user" as const, timestamp: getTimestamp() };
+    setChatHistory((prev) => [...prev, userEntry]);
     setIsThinking(true);
 
-    setTimeout(() => {
-      // Check referral first
-      const referral = checkReferral(trimmed);
-      if (referral) {
-        setActiveAgent(referral.agent);
-        setChatHistory((prev) => [
-          ...prev,
-          { text: referral.message, sender: "bot", timestamp: getTimestamp() },
-        ]);
-        setIsThinking(false);
-        return;
-      }
-
-      let response = "";
-      switch (activeAgent) {
-        case "onboarding":
-          response =
-            "👋 Welcome! I’m your onboarding agent. Tell me what you’d like to do and I’ll connect you to the right agent.";
-          break;
-        case "learning":
-          response =
-            "📘 I’ll hand you over to our Learning Agent to guide your studies.";
-          break;
-        case "support":
-          response =
-            "🛠️ Redirecting you to our Support Agent for troubleshooting.";
-          break;
-        case "shopping":
-          response =
-            "🛒 Let’s connect you with our prototype Shopping Agent for product discovery.";
-          break;
-        case "creative":
-          response =
-            "🎨 Our Creative Agent will help brainstorm and design ideas.";
-          break;
-        case "productivity":
-          response =
-            "⏰ Our Productivity Agent will assist with scheduling and tasks.";
-          break;
-        case "project":
-          response =
-            "📂 Opening Project & Team Intelligence for milestones and consultant matching.";
-          break;
-      }
-
+    // Check referral routing first
+    const referral = checkReferral(trimmed);
+    if (referral) {
+      setActiveAgent(referral.agent);
       setChatHistory((prev) => [
         ...prev,
-        { text: response, sender: "bot", timestamp: getTimestamp() },
+        { text: referral.message, sender: "bot", timestamp: getTimestamp() },
       ]);
       setIsThinking(false);
-    }, 1000);
+      return;
+    }
+
+    try {
+      const messages = [...chatHistory, userEntry].map((m) => ({
+        role: m.sender === "user" ? "user" : "assistant",
+        content: m.text,
+      }));
+
+      const res = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages }),
+      });
+
+      const data = await res.json();
+      setChatHistory((prev) => [
+        ...prev,
+        { text: data.reply || "I’m having trouble responding right now.", sender: "bot", timestamp: getTimestamp() },
+      ]);
+    } catch {
+      setChatHistory((prev) => [
+        ...prev,
+        { text: "Connection issue — please try again shortly.", sender: "bot", timestamp: getTimestamp() },
+      ]);
+    } finally {
+      setIsThinking(false);
+    }
   };
 
   // Speech recognition setup
