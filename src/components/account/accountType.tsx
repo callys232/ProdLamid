@@ -31,6 +31,27 @@ export default function AccountTypePage() {
 
             const parsedData = JSON.parse(signupData);
 
+            // Concierge requires admin approval — submit request instead of registering
+            if (accountType === "Concierge") {
+                const res = await fetch("/api/concierge/request", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: parsedData.UserName,
+                        email: parsedData.email,
+                        organisation: parsedData.companyName || parsedData.UserName,
+                    }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message);
+                toast.success("Request submitted! Our team will contact you within 24 hours.");
+                sessionStorage.removeItem("signupData");
+                localStorage.removeItem("signupData");
+                router.push("/signup?concierge=pending");
+                setLoading(false);
+                return;
+            }
+
             // Map Account Type to Role
             const role =
                 accountType === "Freelancer"
@@ -161,6 +182,27 @@ export default function AccountTypePage() {
                             </div>
                             <p className="text-gray-300 text-sm">
                                 Large organisations with multi-user workspaces. Up to 50 members, dedicated dashboard, escrow management, and analytics.
+                            </p>
+                        </div>
+                    </label>
+
+                    {/* Concierge Option */}
+                    <label className="flex items-start gap-3 border border-white/20 rounded-xl p-4 hover:border-yellow-500/50 transition cursor-pointer">
+                        <input
+                            type="radio"
+                            name="accountType"
+                            value="Concierge"
+                            checked={accountType === "Concierge"}
+                            onChange={(e) => setAccountType(e.target.value)}
+                            className="mt-1 accent-yellow-500"
+                        />
+                        <div>
+                            <div className="flex items-center gap-2 flex-wrap">
+                                <h3 className="text-xl font-semibold text-yellow-400">Concierge</h3>
+                                <span className="rounded-full border border-yellow-500/40 bg-yellow-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-yellow-400">Admin Approval Required</span>
+                            </div>
+                            <p className="text-gray-300 text-sm mt-1">
+                                For government agencies, UN bodies, large NGOs and corporations. Includes a dedicated project manager, custom dashboards, and 24/7 priority support. Your request will be reviewed by our team within 24 hours — no payment required now.
                             </p>
                         </div>
                     </label>

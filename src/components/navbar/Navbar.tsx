@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import AccountMenu from "./Account";
+import PeekView from "@/components/peekview/PeekView";
 
 interface ServiceItem {
   name: string;
@@ -19,6 +20,7 @@ const serviceItems: ServiceItem[] = [
   { name: "SustainableDev", href: "/sustainableDev" },
   { name: "Values", href: "/portfolio" },
   { name: "Event", href: "/event" },
+  { name: "Proposal Drafter", href: "/premium/proposal-drafter" },
 ];
 
 /* ---------------- Notification Hook ---------------- */
@@ -257,8 +259,13 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          {/* Account + mobile hamburger — always at the far right */}
+          {/* Account + tools + mobile hamburger — always at the far right */}
           <div className="flex items-center gap-2">
+            {/* Tools peek — desktop only */}
+            <div className="hidden md:block">
+              <PeekView />
+            </div>
+
             <div className="relative hidden md:block">
               <AccountMenu />
               {renderNotificationBadge()}
@@ -266,7 +273,7 @@ const Navbar: React.FC = () => {
 
             <button
               type="button"
-              className="md:hidden"
+              className="md:hidden flex items-center justify-center w-8 h-8"
               onClick={() => setIsOpen((v) => !v)}
               aria-label="Toggle menu"
               aria-expanded={isOpen}

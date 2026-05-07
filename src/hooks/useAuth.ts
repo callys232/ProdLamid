@@ -9,6 +9,8 @@ export interface AuthUser {
   username: string;
   email: string;
   role: "client" | "seller" | "admin";
+  accountType?: "Client" | "Freelancer" | "Enterprise" | "Concierge" | "Admin";
+  orgId?: string;
   avatar?: string;
 }
 
@@ -27,18 +29,23 @@ function buildUser(raw: any): AuthUser {
   const fullName  = `${firstName} ${lastName}`.trim();
 
   return {
-    id:       raw._id ?? raw.id ?? "",
-    name:     fullName || raw.username || raw.email,
-    username: raw.username ?? "",
-    email:    raw.email    ?? "",
-    role:     raw.role     ?? "client",
-    avatar:   profile.profilePicture ?? undefined,
+    id:          raw._id ?? raw.id ?? "",
+    name:        fullName || raw.username || raw.email,
+    username:    raw.username    ?? "",
+    email:       raw.email       ?? "",
+    role:        raw.role        ?? "client",
+    accountType: raw.accountType ?? undefined,
+    orgId:       raw.orgId       ?? undefined,
+    avatar:      profile.profilePicture ?? undefined,
   };
 }
 
-function getDashboardHref(role: AuthUser["role"]): string {
-  if (role === "seller") return "/profile";
-  if (role === "admin")  return "/admin";
+function getDashboardHref(user: AuthUser): string {
+  // accountType takes priority (set by groupware after login)
+  if (user.accountType === "Admin"      || user.role === "admin")  return "/admin";
+  if (user.accountType === "Freelancer" || user.role === "seller") return "/profile";
+  if (user.accountType === "Enterprise" || user.orgId)             return "/enterprise";
+  if (user.accountType === "Concierge")                            return "/concierge";
   return "/client";
 }
 
@@ -71,7 +78,7 @@ export function useAuth(): UseAuthReturn {
     user,
     loading,
     isAuthenticated: !!user,
-    dashboardHref: user ? getDashboardHref(user.role) : "/signin",
+    dashboardHref: user ? getDashboardHref(user) : "/signin",
     signOut,
   };
 }

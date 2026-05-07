@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
 
-    const user = await Users.findById(auth.userId).select("role orgId orgRole accountDeleted").lean() as any;
+    const user = await Users.findById(auth.userId).select("role orgId orgRole accountDeleted accountType").lean() as any;
     if (!user || user.accountDeleted) return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
 
     // Validate org exists if claimed
@@ -25,10 +25,11 @@ export async function GET(req: NextRequest) {
     }
 
     const accountType =
-      verifiedOrgId               ? "Enterprise"  :
-      user.role === "seller"      ? "Freelancer"  :
-      user.role === "admin"       ? "Admin"        :
-      user.role === "client"      ? "Client"       : "Client";
+      verifiedOrgId                          ? "Enterprise"  :
+      user.role === "admin"                  ? "Admin"       :
+      user.role === "seller"                 ? "Freelancer"  :
+      user.accountType === "Concierge"       ? "Concierge"   :
+      user.role === "client"                 ? "Client"      : "Client";
 
     return NextResponse.json({
       success:     true,

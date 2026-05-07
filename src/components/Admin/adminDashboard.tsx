@@ -11,6 +11,8 @@ import FinanceBilling from "./finance/finance";
 import PolicyCompliance from "./policy/policy";
 import ActivityLogs from "./activityLog/activityLog";
 import KycQueue from "./kyc/KycQueue";
+import DeletionRequests from "./requests/DeletionRequests";
+import ConciergeRequests from "./requests/ConciergeRequests";
 import { FaBars } from "react-icons/fa";
 import AdminHeader from "./Header";
 
@@ -78,6 +80,10 @@ export default function AdminDashboard() {
         return <ActivityLogs />;
       case "KYC Review":
         return <KycQueue />;
+      case "Deletion Requests":
+        return <DeletionRequests />;
+      case "Concierge Requests":
+        return <ConciergeRequests />;
       default:
         return <Overview />;
     }

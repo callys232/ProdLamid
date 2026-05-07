@@ -1,19 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // Routes that require authentication — redirect to /signin if no token
-const PROTECTED = ["/client", "/profile", "/enterprise", "/admin", "/postjobs", "/escrow", "/projects", "/dashboard"];
+const PROTECTED = [
+  "/client", "/profile", "/enterprise", "/admin",
+  "/postjobs", "/escrow", "/projects", "/dashboard", "/concierge",
+];
+
+// Role → correct dashboard (from user_role cookie set at login)
+const ROLE_DASHBOARD: Record<string, string> = {
+  admin:  "/admin",
+  seller: "/profile",
+  client: "/client",
+};
 
 // Routes that authenticated users should not visit
 const AUTH_ONLY = ["/signin", "/signup", "/account-type", "/forgotpassword"];
 
+// Role-restricted routes — only specific roles may access
+const ROLE_RESTRICTED: Record<string, string[]> = {
+  "/admin":      ["admin"],
+  "/enterprise": ["client", "admin"],
+  "/concierge":  ["client", "admin"],
+  "/profile":    ["seller", "admin"],
+};
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get("token")?.value;
+  const token    = request.cookies.get("token")?.value;
+  const userRole = request.cookies.get("user_role")?.value ?? "client";
 
   // ── Route guards ──────────────────────────────────────────────
   const isProtected = PROTECTED.some(p => pathname.startsWith(p));
   const isAuthOnly  = AUTH_ONLY.some(p => pathname.startsWith(p));
 
+  // 1. Not logged in — redirect to signin with ?next
   if (isProtected && !token) {
     const url = request.nextUrl.clone();
     url.pathname = "/signin";
@@ -21,8 +41,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // 2. Logged in — redirect away from auth-only pages to correct dashboard
   if (isAuthOnly && token) {
-    return NextResponse.redirect(new URL("/client", request.url));
+    const dest = ROLE_DASHBOARD[userRole] ?? "/client";
+    return NextResponse.redirect(new URL(dest, request.url));
+  }
+
+  // 3. Role-restricted route access — redirect wrong roles to their dashboard
+  const restrictedRoles = Object.entries(ROLE_RESTRICTED).find(([route]) => pathname.startsWith(route))?.[1];
+  if (token && restrictedRoles && !restrictedRoles.includes(userRole)) {
+    const dest = ROLE_DASHBOARD[userRole] ?? "/client";
+    return NextResponse.redirect(new URL(dest, request.url));
   }
 
   // ── Security headers ──────────────────────────────────────────

@@ -38,6 +38,20 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Reject deleted or suspended accounts before checking password
+        if ((user as any).isDeleted || (user as any).status === "deleted") {
+            return NextResponse.json(
+                { success: false, message: "This account has been removed. Contact support if this is an error." },
+                { status: 403 }
+            );
+        }
+        if ((user as any).status === "suspended") {
+            return NextResponse.json(
+                { success: false, message: "Your account is suspended. Contact support to appeal." },
+                { status: 403 }
+            );
+        }
+
         // Check Password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {

@@ -3,14 +3,23 @@ import { Points } from "@/lib/models/Points";
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 export const SIGNUP_BONUS: Record<string, number> = {
-  seller:     100,
-  client:     200,
-  enterprise: 500,
+  // Freemium
+  seller:             100,   // consultant freemium
+  client:             200,   // client freemium
+  // Premium
+  seller_premium:     500,   // consultant premium
+  client_premium:     800,   // client premium
+  // Org tiers
+  enterprise:        2000,
+  concierge:         5000,
 };
 
 export const POINT_COSTS = {
-  POST_PROJECT: 50,
-  PLACE_BID:    20,
+  POST_PROJECT:        50,   // client: costs per project posted
+  PLACE_BID:           20,   // consultant: costs per bid placed
+  BOOST_BID:           60,   // consultant premium only: boosted bid visibility
+  AI_MATCH_REQUEST:    30,   // client premium: manual AI match trigger
+  AI_DIAGNOSTIC:       40,   // client: run business diagnostic
 } as const;
 
 export const POINT_PACKAGES = [

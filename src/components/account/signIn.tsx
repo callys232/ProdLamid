@@ -14,6 +14,7 @@ const ACCOUNT_TYPE_ROUTES: Record<string, string> = {
   Enterprise: "/enterprise",
   Freelancer: "/profile",
   Admin:      "/admin",
+  Concierge:  "/concierge",
   Client:     "/client",
 };
 
