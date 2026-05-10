@@ -103,7 +103,7 @@ export function MilestoneItem({
       ref={containerRef}
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
       className="bg-gray-800 rounded-md p-4 shadow-md ring-1 ring-gray-700 hover:ring-2 hover:ring-red-500 transition transform hover:scale-[1.01] cursor-pointer"
       onClick={toggleExpand}
     >
@@ -137,7 +137,7 @@ export function MilestoneItem({
           )}`}
           initial={{ width: 0 }}
           animate={{ width: `${safeProgress}%` }}
-          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] as const }}
           role="progressbar"
           aria-label="Milestone progress"
           aria-valuenow={safeProgress}

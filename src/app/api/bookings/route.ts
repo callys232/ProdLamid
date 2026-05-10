@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
-import Profile from "@/lib/models/Profile";
-import { sendEmail } from "@/lib/mailer";
+import { Profile } from "@/lib/models/Profile";
 
 export async function POST(req: NextRequest) {
   try {

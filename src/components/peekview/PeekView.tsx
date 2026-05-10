@@ -54,7 +54,7 @@ export default function PeekView() {
             initial={{ opacity: 0, y: -8, scale: 0.97 }}
             animate={{ opacity: 1, y: 0,  scale: 1    }}
             exit={{    opacity: 0, y: -8, scale: 0.97 }}
-            transition={{ duration: 0.2, ease: [0.33, 1, 0.68, 1] }}
+            transition={{ duration: 0.2, ease: [0.33, 1, 0.68, 1] as const }}
             className="absolute right-0 top-full mt-2 w-80 bg-[#0d0d0d] border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50"
           >
             <div className="px-4 py-3 border-b border-white/10">

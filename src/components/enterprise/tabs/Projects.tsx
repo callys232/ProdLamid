@@ -109,9 +109,8 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
             key={p._id}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.04 }}
             whileHover={{ y: -4, scale: 1.015, boxShadow: "0 12px 32px rgba(0,0,0,0.45)", borderColor: "rgba(193,33,41,0.3)" }}
-            transition={{ duration: 0.18 }}
+            transition={{ delay: i * 0.04, duration: 0.18 }}
             className="group cursor-pointer rounded-xl border border-white/10 bg-white/5 p-4"
           >
             <div className="mb-3 flex items-start justify-between gap-2">

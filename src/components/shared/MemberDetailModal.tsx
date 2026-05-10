@@ -24,7 +24,6 @@ export interface MemberProfile {
 /* ── Local shape for project + progress (fetched at runtime) ─────── */
 interface ProjectWithProgress extends Project {
   progress?: number;
-  disputeReason?: string;   // on individual milestones only — carried forward
 }
 
 // disputeReason lives on milestones, not on Project — we extend Milestone inline
@@ -55,6 +54,8 @@ const STATUS_DOT: Record<string, string> = {
 const MOCK_PROJECTS: ProjectWithProgress[] = [
   {
     _id: "mock-proj-1",
+    id: "mock-proj-1",
+    category: "Health",
     title: "UNDP Community Health Programme",
     status: "ongoing",
     budget: 85000,
@@ -71,6 +72,8 @@ const MOCK_PROJECTS: ProjectWithProgress[] = [
   },
   {
     _id: "mock-proj-2",
+    id: "mock-proj-2",
+    category: "Human Resources",
     title: "Federal HR Transformation",
     status: "ongoing",
     budget: 120000,
@@ -222,7 +225,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
             initial={{ scale: 0.93, opacity: 0, y: 16 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.93, opacity: 0, y: 16 }}
-            transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] }}
+            transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] as const }}
             onClick={e => e.stopPropagation()}
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#0d1117] shadow-2xl"
           >
@@ -428,7 +431,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
                               <p className="text-[10px] uppercase tracking-widest text-gray-600 mb-2">Milestones</p>
                               <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
                                 {milestones.map((m, mi) => {
-                                  const cfg = M_CFG[m.status] ?? M_CFG.pending;
+                                  const cfg = M_CFG[m.status ?? "pending"] ?? M_CFG.pending;
                                   const mpct = m.progress ?? (m.status === "completed" ? 100 : 0);
                                   const card = (
                                     <motion.div
@@ -442,7 +445,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
                                     >
                                       <div className={`inline-flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded-full border mb-1.5 capitalize ${cfg.badge}`}>
                                         <span className={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${cfg.dot}`} />
-                                        {m.status.replace("_", " ")}
+                                        {(m.status ?? "pending").replace("_", " ")}
                                       </div>
                                       <div className="flex items-start gap-1 mb-1.5">
                                         <span className="text-[9px] text-gray-500 mt-0.5 flex-shrink-0">#{mi + 1}</span>

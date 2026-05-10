@@ -20,7 +20,7 @@ const normMilestone = (raw: string): MilestoneStatus => ({
 const fadeUp = (i = 0) => ({
   initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4, delay: i * 0.07, ease: [0.33, 1, 0.68, 1] },
+  transition: { duration: 0.4, delay: i * 0.07, ease: [0.33, 1, 0.68, 1] as const },
 });
 
 const STATS = [

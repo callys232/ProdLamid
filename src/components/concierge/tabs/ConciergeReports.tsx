@@ -196,7 +196,7 @@ export default function ConciergeReports() {
               initial={{ scale: 0.93, opacity: 0, y: 16 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.93, opacity: 0, y: 16 }}
-              transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] }}
+              transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] as const }}
               onClick={e => e.stopPropagation()}
               className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0d1117] shadow-2xl overflow-hidden"
             >

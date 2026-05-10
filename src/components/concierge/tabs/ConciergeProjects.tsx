@@ -259,7 +259,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
         initial={{ scale: 0.93, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.93, opacity: 0, y: 20 }}
-        transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
+        transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] as const }}
         onClick={e => e.stopPropagation()}
         className="relative w-full max-w-2xl max-h-[92vh] flex flex-col rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl overflow-hidden"
       >
@@ -557,7 +557,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                 </p>
                 <div className="space-y-0 relative">
                   <div className="absolute left-[7px] top-2 bottom-2 w-px bg-white/8" />
-                  {p.activity.map((a, i) => (
+                  {(p.activity ?? []).map((a, i) => (
                     <motion.div key={i}
                       initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}
                       whileHover={{ x: 4 }}

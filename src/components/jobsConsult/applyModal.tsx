@@ -2,14 +2,9 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Project } from "@/types/project";
+import { Project, Bid } from "@/types/project";
 import { Consultant, ClientProfile } from "@/types/client";
 import BidSection from "./bidSection";
-
-interface Bid {
-  amount: number;
-  date: string;
-}
 
 interface ApplyModalProps {
   job: Project;

@@ -264,6 +264,8 @@ export interface Milestone {
 
   acceptanceCriteria?: string;
 
+  disputeReason?: string;
+
   documents?: ProjectDocument[];
 }
 
@@ -379,6 +381,43 @@ export interface Dispute {
   slaDueAt?: string;
 
   outcome?: string | null;
+}
+
+/* =========================================================
+   BID
+========================================================= */
+
+export interface Bid {
+  amount: number;
+  boosted: boolean;
+  date: string;
+}
+
+/* =========================================================
+   CONCIERGE PROJECT
+========================================================= */
+
+export interface ConciergeActivityItem {
+  text: string;
+  time: string;
+  type: "success" | "info" | "warning" | "dispute";
+}
+
+export interface ConciergeProjectMilestone extends Omit<Milestone, "status" | "progress" | "dueDate"> {
+  status: MilestoneStatus;
+  progress: number;
+  dueDate: string;
+}
+
+export interface ConciergeProject extends Omit<Project, "milestones" | "consultants" | "budget" | "skills"> {
+  budget: number;
+  spent: number;
+  progress: number;
+  skills: string[];
+  pm?: string;
+  consultants: { name: string; role: string }[];
+  milestones: ConciergeProjectMilestone[];
+  activity?: ConciergeActivityItem[];
 }
 
 /* =========================================================

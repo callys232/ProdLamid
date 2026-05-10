@@ -136,7 +136,7 @@ export default function ChatSystem({ projectId }: { projectId: string }) {
                       {new Date(msg.sentAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                     </span>
                     {msg.status === "sending" && <Loader2 className="h-2.5 w-2.5 animate-spin text-gray-600" />}
-                    {msg.status === "failed"  && <AlertCircle className="h-2.5 w-2.5 text-red-400" title="Send failed" />}
+                    {msg.status === "failed"  && <AlertCircle className="h-2.5 w-2.5 text-red-400" />}
                   </div>
                   <div className={`rounded-2xl rounded-tl-none p-3 text-sm text-gray-200 border ${
                     msg.status === "failed" ? "bg-red-500/5 border-red-500/20" : "bg-white/5 border-white/5"

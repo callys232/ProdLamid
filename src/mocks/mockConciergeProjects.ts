@@ -1,25 +1,11 @@
 // mocks/mockConciergeProjects.ts
-import type { Project, Milestone } from "@/types/project";
+import type { ConciergeProject } from "@/types/project";
 
-/* Extra fields the concierge view needs beyond the base Project type */
-export interface ConciergeActivityItem {
-  text: string;
-  time: string;
-  type: "success" | "info" | "warning" | "dispute";
-}
-
-export interface ConciergeProjectMilestone extends Milestone {
-  disputeReason?: string;
-}
-
-export interface ConciergeProject extends Omit<Project, "milestones" | "consultants"> {
-  spent?: number;
-  pm?: string;
-  progress?: number;
-  consultants?: { name: string; role: string }[];
-  milestones?: ConciergeProjectMilestone[];
-  activity?: ConciergeActivityItem[];
-}
+export type {
+  ConciergeActivityItem,
+  ConciergeProjectMilestone,
+  ConciergeProject,
+} from "@/types/project";
 
 /* ── DB-compatible status values ────────────────────────────────── */
 // Project:   "open" | "ongoing" | "completed" | "cancelled"

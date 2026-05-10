@@ -96,7 +96,7 @@ export default function ConciergeDashboard() {
       {/* ── Desktop sidebar ─────────────────────────────────── */}
       <motion.aside
         animate={{ width: sidebarWidth }}
-        transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
+        transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] as const }}
         className="hidden md:flex fixed inset-y-0 left-0 z-40 flex-col bg-black border-r border-white/10 overflow-hidden"
       >
         {/* Logo */}
@@ -273,7 +273,7 @@ export default function ConciergeDashboard() {
       {/* ── Main content ─────────────────────────────────────── */}
       <motion.div
         animate={{ marginLeft: sidebarWidth }}
-        transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
+        transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] as const }}
         className="flex flex-1 flex-col md:ml-0 ml-0"
       >
         {/* Top bar */}

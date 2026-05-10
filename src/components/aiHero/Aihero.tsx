@@ -176,7 +176,7 @@ export default function AISystemSection() {
                 className="max-w-7xl mx-auto text-left mb-8"
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+                transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] as const }}
             >
                 {/* <motion.h2
                     className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#c21219] via-red-400 to-white bg-clip-text text-transparent"
@@ -213,7 +213,7 @@ export default function AISystemSection() {
                                     ? `0 0 0 1px ${item.hex}70, 0 20px 50px ${item.glow}`
                                     : "0 4px 20px rgba(0,0,0,0.5)",
                             }}
-                            transition={{ layout: { duration: 0.35, ease: [0.33, 1, 0.68, 1] }, duration: 0.3 }}
+                            transition={{ layout: { duration: 0.35, ease: [0.33, 1, 0.68, 1] as const }, duration: 0.3 }}
                             className={`relative overflow-hidden rounded-xl border cursor-pointer transition-colors duration-300 ${isExpanded
                                 ? `${item.border} ${item.bgStrong}`
                                 : `border-white/10 bg-[#0d0d0d] hover:${item.border} hover:${item.bg}`

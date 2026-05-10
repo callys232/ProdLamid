@@ -55,7 +55,7 @@ function TwoFASetup({ onDone, onSkip }: { onDone: () => void; onSkip: () => void
         initial={{ scale: 0.92, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.92, opacity: 0, y: 20 }}
-        transition={{ duration: 0.24, ease: [0.33, 1, 0.68, 1] }}
+        transition={{ duration: 0.24, ease: [0.33, 1, 0.68, 1] as const }}
         className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0d0d0d] shadow-2xl overflow-hidden"
       >
         {/* Header */}

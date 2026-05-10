@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Project, Milestone, WorkPhase } from "@/types/project";
+import { Project, Milestone, WorkPhase, Bid } from "@/types/project";
 import {
   MapPin, Star, Briefcase, CalendarClock, CheckCircle2,
   X, ArrowRight, Clock, DollarSign, Target, Layers,
@@ -20,7 +20,7 @@ interface JobModalProps {
   onClose: () => void;
   onApply: (job: Project) => void;
   onBid: (job: Project, amount: number) => void;
-  bids?: { amount: number; date: string }[];
+  bids?: Bid[];
 }
 
 const spring = { type: "spring", stiffness: 400, damping: 22 } as const;
@@ -102,7 +102,7 @@ export default function JobModal({
 
   const handleBidSubmit = () => {
     if (!bidAmount || deadlinePassed) return;
-    setBidList((prev) => [{ amount: Number(bidAmount), date: new Date().toISOString() }, ...prev]);
+    setBidList((prev) => [{ amount: Number(bidAmount), boosted: false, date: new Date().toISOString() }, ...prev]);
     onBid(job, Number(bidAmount));
     setBidAmount("");
   };
@@ -558,7 +558,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     <motion.div className="mb-8"
       initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}>
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }}>
       <h3 className="mb-3 text-xl font-semibold tracking-wide text-white">{title}</h3>
       {children}
     </motion.div>

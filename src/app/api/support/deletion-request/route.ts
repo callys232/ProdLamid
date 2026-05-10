@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import { Users } from "@/lib/models/User";
-import { verifyToken } from "@/lib/jwt";
+import { verifyAccessToken } from "@/lib/jwt";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,17 +10,17 @@ export async function POST(req: NextRequest) {
     const token = req.cookies.get("token")?.value;
     if (!token) return NextResponse.json({ message: "Unauthorised." }, { status: 401 });
 
-    const payload = verifyToken(token) as any;
-    if (!payload?.userId) return NextResponse.json({ message: "Invalid token." }, { status: 401 });
+    const payload = verifyAccessToken(token);
+    if (!payload?.sub) return NextResponse.json({ message: "Invalid token." }, { status: 401 });
 
     const { reason } = await req.json();
     if (!reason?.trim()) return NextResponse.json({ message: "Reason is required." }, { status: 400 });
 
-    const user = await Users.findById(payload.userId).select("email username name");
+    const user = await Users.findById(payload.sub).select("email username name");
     if (!user) return NextResponse.json({ message: "User not found." }, { status: 404 });
 
     // Flag the account as deletion-requested (admin can review in dashboard)
-    await Users.findByIdAndUpdate(payload.userId, {
+    await Users.findByIdAndUpdate(payload.sub, {
       "deletionRequest": {
         requested: true,
         reason: reason.trim(),

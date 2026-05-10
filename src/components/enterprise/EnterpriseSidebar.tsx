@@ -43,7 +43,7 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
   return (
     <motion.aside
       animate={{ width: collapsed ? 56 : 224 }}
-      transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
+      transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] as const }}
       className="relative flex h-full flex-shrink-0 flex-col border-r border-white/10 bg-black overflow-hidden"
     >
       {/* ── Collapse toggle ─────────────────────────────────── */}

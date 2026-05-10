@@ -122,7 +122,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
         initial={{ scale: 0.93, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.93, opacity: 0, y: 20 }}
-        transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] }}
+        transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] as const }}
         onClick={e => e.stopPropagation()}
         className="w-full max-w-lg flex flex-col rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl overflow-hidden"
         style={{ height: "min(80vh, 600px)" }}
@@ -198,7 +198,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
                           <Loader2 className="h-2.5 w-2.5 animate-spin text-gray-600" />
                         )}
                         {mine && m.status === "failed" && (
-                          <AlertCircle className="h-2.5 w-2.5 text-red-400" title="Failed to send" />
+                          <AlertCircle className="h-2.5 w-2.5 text-red-400" />
                         )}
                       </div>
                     </div>
@@ -469,7 +469,7 @@ export default function ConciergePM() {
               initial={{ scale: 0.93, opacity: 0, y: 16 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.93, opacity: 0, y: 16 }}
-              transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] }}
+              transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] as const }}
               onClick={e => e.stopPropagation()}
               className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0d1117] shadow-2xl overflow-hidden"
             >

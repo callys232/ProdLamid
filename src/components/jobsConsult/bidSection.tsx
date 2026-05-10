@@ -2,15 +2,9 @@
 
 import { useState } from "react";
 import { Zap, Lock, Star } from "lucide-react";
-import { Project } from "@/types/project";
+import { Project, Bid } from "@/types/project";
 import Link from "next/link";
 import toast from "react-hot-toast";
-
-interface Bid {
-  amount: number;
-  boosted: boolean;
-  date: string;
-}
 
 interface BidSectionProps {
   job: Project;

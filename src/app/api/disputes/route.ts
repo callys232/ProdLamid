@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
-import EscrowTransaction from "@/lib/models/EscrowTransaction";
+import { EscrowTransaction } from "@/lib/models/EscrowTransaction";
 
 export async function POST(req: NextRequest) {
   try {

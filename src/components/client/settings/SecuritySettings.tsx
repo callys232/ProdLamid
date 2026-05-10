@@ -278,9 +278,9 @@ export default function SecuritySettings({ user }: { user: any }) {
 
       {/* ── Password Change Card ──────────────────────────────── */}
       <motion.div
-        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
+        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
         whileHover={{ boxShadow: "0 8px 32px rgba(0,0,0,0.35)" }}
-        transition={{ duration: 0.2 }}
+        transition={{ delay: 0.08, duration: 0.2 }}
         className="rounded-2xl border border-white/10 bg-white/5 p-6"
       >
         <div className="flex items-center gap-3 mb-6">

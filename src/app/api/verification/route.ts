@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
-import Profile from "@/lib/models/Profile";
+import { Profile } from "@/lib/models/Profile";
 
 // GET — fetch verification status for a user
 export async function GET(req: NextRequest) {
