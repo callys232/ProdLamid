@@ -1,35 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
+import {
+  mockSpendData, mockCategoryData, mockConsultantPerf, mockAnalyticsKPIs,
+  type SpendDataPoint, type CategoryDataPoint, type ConsultantPerf,
+} from "@/mocks/mockEnterpriseAnalytics";
 
-const SPEND_DATA = [
-  { month: "Nov", spend: 42000 },
-  { month: "Dec", spend: 67000 },
-  { month: "Jan", spend: 53000 },
-  { month: "Feb", spend: 89000 },
-  { month: "Mar", spend: 74000 },
-  { month: "Apr", spend: 95000 },
-];
-
-const CATEGORY_DATA = [
-  { category: "Tech",      count: 8 },
-  { category: "Finance",   count: 5 },
-  { category: "Design",    count: 4 },
-  { category: "Marketing", count: 6 },
-  { category: "Legal",     count: 3 },
-  { category: "Data",      count: 7 },
-];
-
-const CONSULTANTS = [
-  { name: "Amara Nwosu",    projects: 4, rating: 4.9, paid: 88000 },
-  { name: "James Thornton", projects: 3, rating: 4.8, paid: 54000 },
-  { name: "Priya Sharma",   projects: 2, rating: 5.0, paid: 42000 },
-  { name: "Dele Okafor",    projects: 5, rating: 4.7, paid: 110000 },
-];
+interface AnalyticsData {
+  kpis:        { totalSpend: number; avgProject: number; completionRate: number; avgDuration: number };
+  spendData:   SpendDataPoint[];
+  categoryData: CategoryDataPoint[];
+  consultants: ConsultantPerf[];
+}
 
 const card = "rounded-xl border border-white/10 bg-white/5 p-5";
 
@@ -39,23 +26,51 @@ const TOOLTIP_STYLE = {
 };
 
 export default function Analytics() {
+  const [data, setData] = useState<AnalyticsData>({
+    kpis:         mockAnalyticsKPIs,
+    spendData:    mockSpendData,
+    categoryData: mockCategoryData,
+    consultants:  mockConsultantPerf,
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/enterprise/analytics")
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d?.data) setData(d.data);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const { kpis, spendData, categoryData, consultants } = data;
+
+  const KPI_CARDS = [
+    { label: "Total Spend",     value: `$${(kpis.totalSpend / 1000).toFixed(0)}K`,  sub: "last 6 months"  },
+    { label: "Avg Project",     value: `$${(kpis.avgProject / 1000).toFixed(0)}K`,  sub: "per engagement" },
+    { label: "Completion Rate", value: `${kpis.completionRate}%`,                   sub: "milestones hit" },
+    { label: "Avg Duration",    value: `${kpis.avgDuration} mo`,                    sub: "per project"    },
+  ];
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-12">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#c12129] border-t-transparent" />
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 p-4">
       {/* KPI row */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {[
-          { label: "Total Spend",     value: "$420K",  sub: "last 6 months" },
-          { label: "Avg Project",     value: "$28K",   sub: "per engagement" },
-          { label: "Completion Rate", value: "94%",    sub: "milestones hit" },
-          { label: "Avg Duration",    value: "3.4 mo", sub: "per project" },
-        ].map(({ label, value, sub }, i) => (
+        {KPI_CARDS.map(({ label, value, sub }, i) => (
           <motion.div
             key={label}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.07 }}
-            whileHover={{ y: -2 }}
-            className="rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-[#c12129]/20"
+            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
+            whileHover={{ y: -3, scale: 1.04, boxShadow: "0 10px 28px rgba(0,0,0,0.35)" }}
+            className="rounded-xl border border-white/10 bg-white/5 p-4 transition"
           >
             <p className="text-xs text-gray-500">{label}</p>
             <p className="mt-1 text-xl font-bold text-white">{value}</p>
@@ -64,16 +79,16 @@ export default function Analytics() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {/* Spend line chart */}
         <div className={card}>
           <h3 className="mb-5 text-sm font-semibold uppercase tracking-widest text-gray-400">Monthly Spend</h3>
           <ResponsiveContainer width="100%" height={200}>
-            <LineChart data={SPEND_DATA}>
+            <LineChart data={spendData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
               <XAxis dataKey="month" tick={{ fill: "#6b7280", fontSize: 11 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: "#6b7280", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} />
-              <Tooltip {...TOOLTIP_STYLE} formatter={(v) => [`$${(v ?? 0).toLocaleString()}`, "Spend"]} />
+              <Tooltip {...TOOLTIP_STYLE} formatter={(v) => [`$${(Number(v)).toLocaleString()}`, "Spend"]} />
               <Line type="monotone" dataKey="spend" stroke="#c12129" strokeWidth={2.5} dot={{ fill: "#c12129", r: 4 }} activeDot={{ r: 6 }} />
             </LineChart>
           </ResponsiveContainer>
@@ -83,7 +98,7 @@ export default function Analytics() {
         <div className={card}>
           <h3 className="mb-5 text-sm font-semibold uppercase tracking-widest text-gray-400">Projects by Category</h3>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={CATEGORY_DATA}>
+            <BarChart data={categoryData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
               <XAxis dataKey="category" tick={{ fill: "#6b7280", fontSize: 11 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: "#6b7280", fontSize: 11 }} axisLine={false} tickLine={false} />
@@ -108,13 +123,12 @@ export default function Analytics() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
-              {CONSULTANTS.map((c, i) => (
+              {consultants.map((c, i) => (
                 <motion.tr
                   key={c.name}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: i * 0.06 }}
-                  className="transition hover:bg-white/5"
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.06 }}
+                  whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
+                  className="transition"
                 >
                   <td className="py-3">
                     <div className="flex items-center gap-2.5">

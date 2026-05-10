@@ -61,8 +61,22 @@ function useNotifications() {
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
   const notificationCount = useNotifications();
+
+  /* ── Scroll-aware hide / show ─────────────────────────────── */
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 10) { setNavVisible(true); lastScrollY.current = y; return; }
+      setNavVisible(y < lastScrollY.current);
+      lastScrollY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const servicesRef = useRef<HTMLDivElement>(null);
   const mobileServicesRef = useRef<HTMLDivElement>(null);
@@ -175,9 +189,13 @@ const Navbar: React.FC = () => {
     }`;
 
   return (
-    <header>
+    <motion.header
+      animate={{ y: navVisible ? 0 : "-100%" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}
+    >
       <nav
-        className="bg-black text-white fixed top-0 w-full z-50"
+        className="bg-black text-white w-full"
         role="navigation"
         aria-label="Main navigation"
       >
@@ -375,7 +393,7 @@ const Navbar: React.FC = () => {
 
         <div className="h-0.5 bg-red-700" />
       </nav>
-    </header>
+    </motion.header>
   );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Building2, Users, DollarSign, FolderOpen, Bell, ChevronDown } from "lucide-react";
+import { Building2, Users, DollarSign, FolderOpen, Bell, ShieldCheck } from "lucide-react";
 import type { EnterpriseDashboardStats, OrgTier } from "@/types/enterprise";
 
 interface Props {
@@ -129,7 +129,20 @@ export default function EnterpriseHeader({ org, stats, onTabChange, alertCount =
           icon={<Users className="h-3.5 w-3.5" />}
           label="Members"
           value={stats ? `${stats.memberCount} / ${stats.maxMembers}` : "— / 50"}
-          sub={stats && stats.memberCount / stats.maxMembers > 0.8 ? "⚠ Near limit" : undefined}
+          sub={
+            stats
+              ? stats.memberCount / stats.maxMembers > 0.8
+                ? "⚠ Near limit"
+                : `${stats.nonConsultantMembers ?? stats.memberCount} internal · ${stats.pendingInvites} pending`
+              : undefined
+          }
+          onClick={() => onTabChange("members")}
+        />
+        <StatCard
+          icon={<ShieldCheck className="h-3.5 w-3.5" />}
+          label="Admins"
+          value={stats?.adminCount ?? 0}
+          sub="org admin · manager"
           onClick={() => onTabChange("members")}
         />
       </div>

@@ -7,24 +7,18 @@ import {
   RotateCcw, Trash2, Search, SendHorizonal, ChevronDown,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import type { Invitation as BaseInvitation } from "@/types/client";
 
-interface Invitation {
-  id: string;
-  email?: string;
-  consultantId?: string;
-  consultantName?: string;
-  method: "email" | "consultant" | "ai";
-  status: "pending" | "accepted" | "rejected" | "cancelled";
-  createdAt: string;
-}
+type Invitation = BaseInvitation & { consultantName?: string };
 
-interface Consultant {
+interface ConsultantListItem {
   id: string;
   _id?: string;
-  name?: string;
-  username?: string;
+  name: string;
+  role: string;
+  industry: string;
   email?: string;
-  industry?: string;
+  username?: string;
 }
 
 interface Props {
@@ -32,27 +26,25 @@ interface Props {
 }
 
 const STATUS_STYLE: Record<string, string> = {
-  pending:   "text-yellow-400 bg-yellow-500/10 border-yellow-500/30",
-  accepted:  "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
-  rejected:  "text-red-400 bg-red-500/10 border-red-500/30",
-  cancelled: "text-gray-400 bg-gray-500/10 border-gray-500/30",
+  pending:  "text-yellow-400 bg-yellow-500/10 border-yellow-500/30",
+  accepted: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
+  declined: "text-red-400 bg-red-500/10 border-red-500/30",
 };
 
 const STATUS_ICON: Record<string, React.ReactNode> = {
-  pending:   <Clock className="h-3 w-3" />,
-  accepted:  <CheckCircle2 className="h-3 w-3" />,
-  rejected:  <XCircle className="h-3 w-3" />,
-  cancelled: <XCircle className="h-3 w-3" />,
+  pending:  <Clock        className="h-3 w-3" />,
+  accepted: <CheckCircle2 className="h-3 w-3" />,
+  declined: <XCircle      className="h-3 w-3" />,
 };
 
 export default function EnterpriseInvitations({ orgId }: Props) {
   const [userId, setUserId]           = useState("");
-  const [consultants, setConsultants] = useState<Consultant[]>([]);
+  const [consultants, setConsultants] = useState<ConsultantListItem[]>([]);
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [loading, setLoading]         = useState(true);
   const [sending, setSending]         = useState(false);
   const [aiLoading, setAiLoading]     = useState(false);
-  const [aiResults, setAiResults]     = useState<Consultant[]>([]);
+  const [aiResults, setAiResults]     = useState<ConsultantListItem[]>([]);
   const [filter, setFilter]           = useState("");
   const [email, setEmail]             = useState("");
   const [selectedId, setSelectedId]   = useState("");
@@ -120,7 +112,7 @@ export default function EnterpriseInvitations({ orgId }: Props) {
 
   const selectedConsultant = consultants.find(c => (c._id ?? c.id) === selectedId);
 
-  const handleConsultantInvite = (c: Consultant) => {
+  const handleConsultantInvite = (c: ConsultantListItem) => {
     sendInvite({
       consultantId: c._id ?? c.id,
       consultantName: c.name ?? c.username ?? "Consultant",
@@ -181,7 +173,7 @@ export default function EnterpriseInvitations({ orgId }: Props) {
   }
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 p-4">
       {/* Header */}
       <div>
         <h1 className="text-xl font-bold text-white flex items-center gap-2">

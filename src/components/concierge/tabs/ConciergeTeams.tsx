@@ -131,7 +131,7 @@ export default function ConciergeTeams() {
 
   return (
     <>
-      <div className="space-y-6 max-w-3xl">
+      <div className="space-y-4 max-w-3xl">
         <motion.div {...fadeUp(0)}>
           <h2 className="text-lg font-bold text-white mb-1">Programme Team</h2>
           <p className="text-xs text-gray-400">
@@ -182,7 +182,7 @@ export default function ConciergeTeams() {
         {/* Invite CTA */}
         <motion.div
           {...fadeUp(MEMBERS.length + 1)}
-          className="rounded-xl border border-dashed border-white/15 bg-white/5 px-5 py-6 text-center"
+          className="rounded-xl border border-dashed border-white/15 bg-white/5 px-5 py-4 text-center"
         >
           <UserPlus className="h-6 w-6 text-gray-500 mx-auto mb-2" />
           <p className="text-sm text-gray-400 mb-1">Need to add a team member?</p>
@@ -228,7 +228,7 @@ export default function ConciergeTeams() {
               className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0d1117] shadow-2xl overflow-hidden"
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
                 <div className="flex items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#c21219]/15 border border-[#c21219]/25">
                     <UserPlus className="h-4 w-4 text-[#c21219]" />
@@ -249,13 +249,13 @@ export default function ConciergeTeams() {
               </div>
 
               {/* Body */}
-              <div className="px-6 py-5">
+              <div className="px-5 py-4">
                 {sent ? (
                   /* ── Success state ─────────────────────────────── */
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center gap-4 py-6 text-center"
+                    className="flex flex-col items-center gap-3 py-4 text-center"
                   >
                     <motion.div
                       initial={{ scale: 0 }}

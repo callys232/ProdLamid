@@ -8,6 +8,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import type { EnterpriseDashboardStats, OrgTier } from "@/types/enterprise";
+import type { MilestoneStatus } from "@/types/project";
+
+const normMilestone = (raw: string): MilestoneStatus => ({
+  started: "in_progress", dispute: "disputed",
+  stopped: "cancelled",   approved: "completed",
+} as Record<string, MilestoneStatus>)[raw] ?? (raw as MilestoneStatus);
 
 interface Props {
   stats: EnterpriseDashboardStats | null;
@@ -115,7 +121,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
     setExpandedId(prev => (prev === id ? null : id));
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 p-4">
       {/* Welcome */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -337,7 +343,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {/* Activity feed */}
         <div className={card}>
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">Recent Activity</h3>

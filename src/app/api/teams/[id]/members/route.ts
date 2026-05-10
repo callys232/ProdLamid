@@ -1,85 +1,65 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/middleware/auth";
 import { Team } from "@/lib/models/Team";
 import { Users } from "@/lib/models/User";
 
+export const dynamic = "force-dynamic";
 type Params = Promise<{ id: string }>;
 
-// POST /api/teams/[id]/members - Add a member to a team
-export async function POST(
-    request: NextRequest,
-    { params }: { params: Params }
-) {
-    try {
-        await connectDB();
-        const { id } = await params;
-        const { email, role } = await request.json();
+// POST /api/teams/[id]/members — add member by email
+export async function POST(req: NextRequest, { params }: { params: Params }) {
+  try {
+    await connectDB();
+    const auth = await requireAuth(req);
+    if (auth instanceof NextResponse) return auth;
+    const { id } = await params;
+    const { email, role } = await req.json();
 
-        if (!email) {
-            return NextResponse.json({ success: false, message: "Email is required" }, { status: 400 });
-        }
+    if (!email) return NextResponse.json({ success: false, message: "Email is required" }, { status: 400 });
 
-        // Find user by email
-        const userToAdd = await Users.findOne({ email });
-        if (!userToAdd) {
-            return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
-        }
+    const team = await Team.findById(id);
+    if (!team) return NextResponse.json({ success: false, message: "Team not found" }, { status: 404 });
 
-        // Check if user is already a member
-        const team = await Team.findById(id);
-        if (!team) {
-            return NextResponse.json({ success: false, message: "Team not found" }, { status: 404 });
-        }
+    const user = await Users.findOne({ email }).select("_id username email role");
+    if (!user) return NextResponse.json({ success: false, message: "No user found with that email" }, { status: 404 });
 
-        const isMember = team.members.some((m: any) => m.user.toString() === userToAdd._id.toString());
-        if (isMember) {
-            return NextResponse.json({ success: false, message: "User is already a member" }, { status: 400 });
-        }
+    const already = team.members.some((m: any) => String(m.user) === String(user._id));
+    if (already) return NextResponse.json({ success: false, message: "User is already in this team" }, { status: 409 });
 
-        // Add member
-        team.members.push({
-            user: userToAdd._id,
-            role: role || "member",
-            addedAt: new Date()
-        });
+    team.members.push({ user: user._id, role: role ?? "member", addedAt: new Date() });
+    await team.save();
 
-        await team.save();
+    const updated = await Team.findById(id)
+      .populate({ path: "members.user", select: "username email role", strictPopulate: false })
+      .lean();
 
-        const updatedTeam = await Team.findById(id).populate("members.user", "username email profile");
-
-        return NextResponse.json({ success: true, data: updatedTeam });
-    } catch (error: any) {
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
-    }
+    return NextResponse.json({ success: true, data: updated }, { status: 201 });
+  } catch (e: any) {
+    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
+  }
 }
 
-// DELETE /api/teams/[id]/members - Remove a member from a team
-export async function DELETE(
-    request: NextRequest,
-    { params }: { params: Params }
-) {
-    try {
-        await connectDB();
-        const { id } = await params;
-        const { userId } = await request.json();
+// DELETE /api/teams/[id]/members — remove member by userId
+export async function DELETE(req: NextRequest, { params }: { params: Params }) {
+  try {
+    await connectDB();
+    const auth = await requireAuth(req);
+    if (auth instanceof NextResponse) return auth;
+    const { id } = await params;
+    const { userId } = await req.json();
 
-        if (!userId) {
-            return NextResponse.json({ success: false, message: "User ID is required" }, { status: 400 });
-        }
+    if (!userId) return NextResponse.json({ success: false, message: "userId is required" }, { status: 400 });
 
-        const team = await Team.findById(id);
-        if (!team) {
-            return NextResponse.json({ success: false, message: "Team not found" }, { status: 404 });
-        }
+    const team = await Team.findByIdAndUpdate(
+      id,
+      { $pull: { members: { user: userId } } },
+      { new: true }
+    ).populate({ path: "members.user", select: "username email role", strictPopulate: false });
 
-        // Remove member
-        team.members = team.members.filter((m: any) => m.user.toString() !== userId);
-        await team.save();
-
-        const updatedTeam = await Team.findById(id).populate("members.user", "username email profile");
-
-        return NextResponse.json({ success: true, data: updatedTeam });
-    } catch (error: any) {
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
-    }
+    if (!team) return NextResponse.json({ success: false, message: "Team not found" }, { status: 404 });
+    return NextResponse.json({ success: true, data: team });
+  } catch (e: any) {
+    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
+  }
 }

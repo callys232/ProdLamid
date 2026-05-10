@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { UserPlus, Mail, MoreVertical, ShieldCheck, Trash2, RefreshCw, Crown } from "lucide-react";
 import toast from "react-hot-toast";
 import type { OrgMember, OrgRole } from "@/types/enterprise";
 import MemberDetailModal, { type MemberProfile } from "@/components/shared/MemberDetailModal";
+import { mockEnterpriseMembers } from "@/mocks/mockEnterpriseMembers";
 
 interface Props {
   orgId: string;
@@ -32,20 +33,22 @@ const STATUS_DOT: Record<string, string> = {
   suspended: "bg-red-500",
 };
 
-const MOCK_MEMBERS: OrgMember[] = [
-  { _id: "m1", orgId: "", userId: "u1", role: "org_admin",   status: "active",  joinedAt: "2026-01-10", permissions: {} as any, createdAt: "", updatedAt: "", user: { _id: "u1", username: "alex_ceo",    email: "alex@acme.com",    role: "client" } },
-  { _id: "m2", orgId: "", userId: "u2", role: "org_manager", status: "active",  joinedAt: "2026-02-01", permissions: {} as any, createdAt: "", updatedAt: "", user: { _id: "u2", username: "sarah_ops",   email: "sarah@acme.com",   role: "client" } },
-  { _id: "m3", orgId: "", userId: "u3", role: "org_member",  status: "active",  joinedAt: "2026-02-15", permissions: {} as any, createdAt: "", updatedAt: "", user: { _id: "u3", username: "james_fin",   email: "james@acme.com",   role: "client" } },
-  { _id: "m4", orgId: "", userId: undefined, role: "org_member",  status: "pending", joinedAt: undefined,    permissions: {} as any, createdAt: "", updatedAt: "", inviteEmail: "priya@acme.com" },
-];
-
 export default function Members({ orgId, orgRole, memberCount, maxMembers, tier }: Props) {
-  const [members, setMembers]   = useState<OrgMember[]>(MOCK_MEMBERS);
+  const [members, setMembers]   = useState<OrgMember[]>(mockEnterpriseMembers);
   const [email, setEmail]       = useState("");
   const [role, setRole]         = useState<OrgRole>("org_member");
   const [inviting, setInviting] = useState(false);
   const [menuOpen, setMenuOpen] = useState<string | null>(null);
   const [selected, setSelected] = useState<MemberProfile | null>(null);
+
+  /* ── Fetch real members, keep mock as fallback ──────────────── */
+  useEffect(() => {
+    if (!orgId) return;
+    fetch(`/api/enterprise/members?orgId=${orgId}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (Array.isArray(d?.data) && d.data.length) setMembers(d.data); })
+      .catch(() => {});
+  }, [orgId]);
 
   function openModal(m: OrgMember) {
     setSelected({
@@ -96,7 +99,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
   }
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 p-4">
       {/* Capacity bar */}
       <div className="rounded-xl border border-white/10 bg-white/5 p-4">
         <div className="mb-2 flex items-center justify-between text-sm">

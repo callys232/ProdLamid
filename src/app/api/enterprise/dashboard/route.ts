@@ -19,9 +19,10 @@ export async function GET(req: NextRequest) {
     const orgMembers = await OrgMember.find({ orgId: auth.orgId, status: "active" }).select("userId").lean();
     const memberUserIds = orgMembers.map((m: any) => m.userId).filter(Boolean);
 
-    const [org, memberCount, pendingInvites, activeProjects, releasedEscrows] = await Promise.all([
+    const [org, memberCount, adminCount, pendingInvites, activeProjects, releasedEscrows] = await Promise.all([
       Organization.findById(auth.orgId).lean() as any,
       OrgMember.countDocuments({ orgId: auth.orgId, status: "active" }),
+      OrgMember.countDocuments({ orgId: auth.orgId, status: "active", role: { $in: ["org_admin", "org_manager"] } }),
       OrgMember.countDocuments({ orgId: auth.orgId, status: "pending" }),
       Project.countDocuments({ ownerId: { $in: memberUserIds }, status: { $in: ["open", "ongoing"] } }),
       Escrow.aggregate([
@@ -35,18 +36,23 @@ export async function GET(req: NextRequest) {
       .select("consultants").lean() as any[];
     const consultantIds = new Set(orgProjects.flatMap((p: any) => (p.consultants ?? []).map(String)));
 
+    // Members whose userId does NOT appear in any project's consultant list
+    const nonConsultantMembers = memberUserIds.filter(id => !consultantIds.has(String(id))).length;
+
     const totalSpend = releasedEscrows[0]?.total ?? 0;
 
     const stats = {
       activeProjects,
       totalSpend,
-      activeConsultants: consultantIds.size,
+      activeConsultants:   consultantIds.size,
       memberCount,
-      maxMembers:        org?.maxMembers ?? 50,
+      maxMembers:          org?.maxMembers ?? 50,
       pendingInvites,
-      tier:              org?.tier    ?? "enterprise",
-      orgName:           org?.name    ?? "",
-      orgStatus:         org?.status  ?? "trial",
+      nonConsultantMembers,
+      adminCount,
+      tier:                org?.tier    ?? "enterprise",
+      orgName:             org?.name    ?? "",
+      orgStatus:           org?.status  ?? "trial",
     };
 
     return NextResponse.json({ success: true, data: stats });

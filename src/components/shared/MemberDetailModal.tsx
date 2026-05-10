@@ -7,6 +7,7 @@ import {
   CheckCircle2, Clock, FolderOpen, ShieldAlert, ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
+import type { Project, Milestone } from "@/types/project";
 
 /* ── Types ──────────────────────────────────────────────────────── */
 export interface MemberProfile {
@@ -20,28 +21,13 @@ export interface MemberProfile {
   skills?: string[];
 }
 
-interface Milestone {
-  id?: string;
-  _id?: string;
-  title: string;
-  status: string;
+/* ── Local shape for project + progress (fetched at runtime) ─────── */
+interface ProjectWithProgress extends Project {
   progress?: number;
-  dueDate?: string;
-  description?: string;
-  disputeReason?: string;
+  disputeReason?: string;   // on individual milestones only — carried forward
 }
 
-interface Project {
-  _id?: string;
-  id?: string;
-  title: string;
-  status: string;
-  budget?: number;
-  deadline?: string;
-  description?: string;
-  milestones?: Milestone[];
-  progress?: number;
-}
+// disputeReason lives on milestones, not on Project — we extend Milestone inline
 
 interface Props {
   member: MemberProfile | null;
@@ -66,7 +52,7 @@ const STATUS_DOT: Record<string, string> = {
 };
 
 /* ── Mock fallback data (shown when API returns nothing) ─────────── */
-const MOCK_PROJECTS: Project[] = [
+const MOCK_PROJECTS: ProjectWithProgress[] = [
   {
     _id: "mock-proj-1",
     title: "UNDP Community Health Programme",
@@ -113,7 +99,7 @@ function overallProgress(milestones: Milestone[]) {
 
 /* ── ProjectCardHeader (internal sub-component) ─────────────────── */
 function ProjectCardHeader({ p, pct, completedMs, milestones, hasDispute, accent }: {
-  p: Project; pct: number; completedMs: number;
+  p: ProjectWithProgress; pct: number; completedMs: number;
   milestones: Milestone[]; hasDispute: boolean; accent: string;
 }) {
   return (
@@ -165,7 +151,7 @@ function ProjectCardHeader({ p, pct, completedMs, milestones, hasDispute, accent
 
 /* ── Component ───────────────────────────────────────────────────── */
 export default function MemberDetailModal({ member, onClose, accent = "#c12129" }: Props) {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<ProjectWithProgress[]>([]);
   const [loading, setLoading]   = useState(false);
 
   useEffect(() => {
@@ -242,7 +228,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
           >
             {/* ── Header ─────────────────────────────────────────── */}
             <div
-              className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-white/10 bg-[#0d1117]/95 backdrop-blur-md px-6 py-5"
+              className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-white/10 bg-[#0d1117]/95 backdrop-blur-md px-5 py-4"
               style={{ borderTopColor: `${accent}30` }}
             >
               <div className="flex items-center gap-4">
@@ -295,7 +281,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
             </div>
 
             {/* ── Body ──────────────────────────────────────────── */}
-            <div className="px-6 py-5 space-y-6">
+            <div className="px-5 py-4 space-y-4">
 
               {/* ── Dispute banner ─────────────────────────────── */}
               {disputeCount > 0 && (

@@ -1,56 +1,46 @@
 // mocks/mockConciergeProjects.ts
+import type { Project, Milestone } from "@/types/project";
 
-export interface ConciergeMilestone {
-  id: string;
-  title: string;
-  status: "completed" | "in_progress" | "disputed" | "funded" | "pending" | "cancelled";
-  progress: number;
-  dueDate: string;
-  description?: string;
-  disputeReason?: string;
-}
-
-export interface ConciergeConsultant {
-  name: string;
-  role: string;
-}
-
+/* Extra fields the concierge view needs beyond the base Project type */
 export interface ConciergeActivityItem {
   text: string;
   time: string;
   type: "success" | "info" | "warning" | "dispute";
 }
 
-export interface ConciergeProject {
-  id: string;
-  title: string;
-  status: "active" | "completed" | "review" | "paused";
-  budget: number;
-  spent: number;
-  progress: number;
-  pm: string;
-  deadline: string;
-  category: string;
-  description: string;
-  skills: string[];
-  consultants: ConciergeConsultant[];
-  milestones: ConciergeMilestone[];
-  activity: ConciergeActivityItem[];
+export interface ConciergeProjectMilestone extends Milestone {
+  disputeReason?: string;
 }
+
+export interface ConciergeProject extends Omit<Project, "milestones" | "consultants"> {
+  spent?: number;
+  pm?: string;
+  progress?: number;
+  consultants?: { name: string; role: string }[];
+  milestones?: ConciergeProjectMilestone[];
+  activity?: ConciergeActivityItem[];
+}
+
+/* ── DB-compatible status values ────────────────────────────────── */
+// Project:   "open" | "ongoing" | "completed" | "cancelled"
+// Milestone: "pending" | "in_progress" | "funded" | "released"
+//            "completed" | "cancelled" | "disputed"
+//            (DB raw: "started"→"in_progress", "dispute"→"disputed",
+//             "stopped"→"cancelled", "approved"→"completed")
 
 export const mockConciergeProjects: ConciergeProject[] = [
   {
     id: "concierge-proj-001",
     title: "UNDP Community Health Programme",
-    status: "active",
+    status: "ongoing",
+    category: "Public Health",
     budget: 85000,
     spent: 52000,
     progress: 68,
     pm: "Dr. A. Okafor",
     deadline: "Aug 2026",
-    category: "Public Health",
     description:
-      "Strengthening community health systems across 6 states through capacity building, infrastructure support, and digital health monitoring. The programme targets 1.2 million beneficiaries and partners with state ministries of health.",
+      "Strengthening community health systems across 6 states through capacity building, infrastructure support, and digital health monitoring. The programme targets 1.2 million beneficiaries.",
     skills: ["Public Health", "Programme Management", "M&E", "Digital Health", "Stakeholder Engagement"],
     consultants: [
       { name: "Dr. Amaka Okafor",  role: "Lead Consultant"          },
@@ -70,21 +60,20 @@ export const mockConciergeProjects: ConciergeProject[] = [
       { text: "PM weekly check-in completed — progress on track",                         time: "5 days ago",  type: "info"    },
       { text: "Milestone 3 funding confirmed — $18,000 released to escrow",               time: "1 week ago",  type: "success" },
       { text: "Vendor contract for digital monitoring system signed",                     time: "2 weeks ago", type: "info"    },
-      { text: "Milestone 2 approved and marked complete",                                 time: "3 weeks ago", type: "success" },
     ],
   },
   {
     id: "concierge-proj-002",
     title: "Federal Ministry HR Transformation",
-    status: "active",
+    status: "ongoing",
+    category: "Human Resources",
     budget: 120000,
     spent: 38000,
     progress: 35,
     pm: "Ms. T. Williams",
     deadline: "Dec 2026",
-    category: "Human Resources",
     description:
-      "End-to-end HR modernisation for the Federal Ministry of Labour and Employment, covering policy reform, HRIS procurement and deployment, and capacity building for 2,000+ civil servants across 12 departments.",
+      "End-to-end HR modernisation for the Federal Ministry of Labour and Employment, covering policy reform, HRIS procurement and deployment, and capacity building for 2,000+ civil servants.",
     skills: ["HR Strategy", "Change Management", "HRIS Implementation", "Policy Reform", "Training & Development"],
     consultants: [
       { name: "Temi Williams",  role: "Lead HR Consultant" },
@@ -101,7 +90,6 @@ export const mockConciergeProjects: ConciergeProject[] = [
     activity: [
       { text: "Dispute raised on Milestone 3 — mediation team notified",  time: "3 days ago",  type: "dispute" },
       { text: "Policy Framework draft submitted for Ministry review",      time: "1 week ago",  type: "info"    },
-      { text: "PM escalation call held with Ministry stakeholders",        time: "10 days ago", type: "warning" },
       { text: "HR Audit approved — Milestone 1 marked complete",          time: "3 weeks ago", type: "success" },
     ],
   },
@@ -109,14 +97,14 @@ export const mockConciergeProjects: ConciergeProject[] = [
     id: "concierge-proj-003",
     title: "NGO Digital Capacity Building",
     status: "completed",
+    category: "Digital Transformation",
     budget: 45000,
     spent: 44200,
     progress: 100,
     pm: "Mr. B. Adeyemi",
     deadline: "Apr 2026",
-    category: "Digital Transformation",
     description:
-      "Digital skills programme delivered to 15 NGO partners across Lagos and Abuja, covering data management, programme reporting tools, and cybersecurity fundamentals. All objectives achieved ahead of schedule.",
+      "Digital skills programme delivered to 15 NGO partners across Lagos and Abuja, covering data management, programme reporting tools, and cybersecurity fundamentals.",
     skills: ["Digital Training", "Data Management", "Reporting Tools", "Cybersecurity Basics"],
     consultants: [
       { name: "Biodun Adeyemi", role: "Lead Trainer"        },
@@ -130,22 +118,21 @@ export const mockConciergeProjects: ConciergeProject[] = [
     ],
     activity: [
       { text: "Project closed — all milestones completed and approved", time: "2 weeks ago", type: "success" },
-      { text: "Final impact report submitted to client",                time: "3 weeks ago", type: "success" },
       { text: "Post-training assessment: 94% satisfaction rate",        time: "1 month ago", type: "success" },
     ],
   },
   {
     id: "concierge-proj-004",
     title: "Gender Equality Initiative — Lagos",
-    status: "review",
+    status: "open",
+    category: "Social Impact",
     budget: 62000,
     spent: 54000,
     progress: 90,
     pm: "Dr. A. Okafor",
     deadline: "Jun 2026",
-    category: "Social Impact",
     description:
-      "Gender mainstreaming programme targeting economic inclusion and advocacy across Lagos State agencies. Focus areas include policy integration, capacity building, and measurable impact reporting for international funders.",
+      "Gender mainstreaming programme targeting economic inclusion and advocacy across Lagos State agencies, with measurable impact reporting for international funders.",
     skills: ["Gender Policy", "Advocacy", "Research & Analysis", "Impact Measurement"],
     consultants: [
       { name: "Dr. Amaka Okafor", role: "Lead Consultant"  },
@@ -160,8 +147,6 @@ export const mockConciergeProjects: ConciergeProject[] = [
     activity: [
       { text: "Final impact report draft submitted — awaiting PM review", time: "1 day ago",   type: "info"    },
       { text: "Advocacy campaign concluded — 8 agencies engaged",         time: "1 week ago",  type: "success" },
-      { text: "International funder mid-term review: all KPIs on track",  time: "2 weeks ago", type: "success" },
-      { text: "Milestone 3 approved — funds released",                    time: "1 month ago", type: "success" },
     ],
   },
 ];

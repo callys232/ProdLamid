@@ -1,43 +1,52 @@
-
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/middleware/auth";
 import { Team } from "@/lib/models/Team";
 
-export async function GET(request: Request) {
-    try {
-        await connectDB();
-        const { searchParams } = new URL(request.url);
-        const ownerId = searchParams.get("ownerId");
+export const dynamic = "force-dynamic";
 
-        const query: any = {};
-        if (ownerId) query.ownerId = ownerId;
+// GET /api/teams?ownerId=xxx — list teams for a user
+export async function GET(req: NextRequest) {
+  try {
+    await connectDB();
+    const auth = await requireAuth(req);
+    if (auth instanceof NextResponse) return auth;
 
-        // Populate members with user details
-        const teams = await Team.find(query)
-            .populate("members.user", "firstName lastName email profile") // basic user info
-            .sort({ createdAt: -1 });
+    const { searchParams } = new URL(req.url);
+    const ownerId = searchParams.get("ownerId") ?? auth.userId;
 
-        return NextResponse.json({ success: true, data: teams });
-    } catch (error: any) {
-        return NextResponse.json(
-            { success: false, message: error.message },
-            { status: 500 }
-        );
-    }
+    const teams = await Team.find({ ownerId })
+      .populate({ path: "members.user", select: "username email role", strictPopulate: false })
+      .sort({ createdAt: -1 })
+      .lean();
+
+    return NextResponse.json({ success: true, data: teams });
+  } catch (e: any) {
+    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
+  }
 }
 
-export async function POST(request: Request) {
-    try {
-        await connectDB();
-        const body = await request.json();
+// POST /api/teams — create a team
+export async function POST(req: NextRequest) {
+  try {
+    await connectDB();
+    const auth = await requireAuth(req);
+    if (auth instanceof NextResponse) return auth;
 
-        const team = await Team.create(body);
-
-        return NextResponse.json({ success: true, data: team }, { status: 201 });
-    } catch (error: any) {
-        return NextResponse.json(
-            { success: false, message: error.message },
-            { status: 500 }
-        );
+    const { name, description, ownerId } = await req.json();
+    if (!name?.trim()) {
+      return NextResponse.json({ success: false, message: "Team name is required" }, { status: 400 });
     }
+
+    const team = await Team.create({
+      name:        name.trim(),
+      description: description?.trim(),
+      ownerId:     ownerId ?? auth.userId,
+      members:     [],
+    });
+
+    return NextResponse.json({ success: true, data: team }, { status: 201 });
+  } catch (e: any) {
+    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
+  }
 }

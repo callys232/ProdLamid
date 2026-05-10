@@ -53,7 +53,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
   }
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 p-4">
       {/* Org profile */}
       <div className="rounded-xl border border-white/10 bg-white/5 p-5">
         <h3 className="mb-5 text-sm font-semibold uppercase tracking-widest text-gray-400">Organisation Profile</h3>

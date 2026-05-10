@@ -7,22 +7,10 @@ import {
 } from "lucide-react";
 import MemberDetailModal, { type MemberProfile } from "@/components/shared/MemberDetailModal";
 import toast from "react-hot-toast";
+import type { Team } from "@/types/client";
 import {
   getClientTeams, createTeam, addTeamMember, removeTeamMember, deleteTeam,
 } from "@/lib/api/teamsApi";
-
-interface Member {
-  user: { _id?: string; id?: string; username?: string; email?: string };
-  role?: string;
-  addedAt?: string;
-}
-
-interface Team {
-  _id?: string;
-  id?: string;
-  name: string;
-  members?: Member[];
-}
 
 interface Props {
   orgId?: string;
@@ -69,7 +57,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
       const list: Team[] = Array.isArray(data) ? data : [];
       setTeams(list);
       if (activeTeam) {
-        const updated = list.find(t => (t._id ?? t.id) === (activeTeam._id ?? activeTeam.id));
+        const updated = list.find(t => (t._id ?? t.id ?? "") === (activeTeam._id ?? activeTeam.id));
         setActiveTeam(updated ?? list[0] ?? null);
       } else {
         setActiveTeam(list[0] ?? null);
@@ -161,7 +149,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-5 p-6 min-h-[600px]">
+    <div className="flex flex-col lg:flex-row gap-4 p-4 min-h-[500px]">
 
       {/* ── Team sidebar ────────────────────────────────────── */}
       <aside className="w-full lg:w-56 flex-shrink-0 flex flex-col gap-3">
@@ -235,7 +223,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
             </motion.button>
           </div>
         ) : (
-          <div className="p-6 space-y-6">
+          <div className="p-4 space-y-4">
             {/* Team header */}
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -355,7 +343,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={e => e.stopPropagation()}
-              className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0d1117] p-6 shadow-2xl"
+              className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0d1117] p-5 shadow-2xl"
             >
               <div className="flex items-center justify-between mb-5">
                 <h3 className="text-base font-bold text-white">Create New Team</h3>
@@ -403,7 +391,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={e => e.stopPropagation()}
-              className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0d1117] p-6 shadow-2xl"
+              className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0d1117] p-5 shadow-2xl"
             >
               <div className="flex items-center justify-between mb-5">
                 <h3 className="text-base font-bold text-white">Add Team Member</h3>

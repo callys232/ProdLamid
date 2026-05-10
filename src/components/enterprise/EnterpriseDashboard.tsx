@@ -39,12 +39,14 @@ const MOCK_ORG: Organization = {
 };
 
 const MOCK_STATS: EnterpriseDashboardStats = {
-  activeProjects: 7,
-  totalSpend: 95000,
-  activeConsultants: 12,
-  memberCount: 9,
-  maxMembers: 50,
-  pendingInvites: 2,
+  activeProjects:      7,
+  totalSpend:          95000,
+  activeConsultants:   12,
+  memberCount:         9,
+  maxMembers:          50,
+  pendingInvites:      2,
+  nonConsultantMembers: 6,   // 9 members − 3 who are also on active projects as consultants
+  adminCount:           2,   // org_admin + org_manager roles
 };
 
 export default function EnterpriseDashboard() {

@@ -39,7 +39,7 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
   const activeCount = mockJobs.filter(j => j.status === "open" || j.status === "ongoing").length;
 
   return (
-    <div className="space-y-5 p-6">
+    <div className="space-y-4 p-4">
       {/* Header row */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>

@@ -7,19 +7,22 @@ import {
   CreditCard, Settings, Bell, LogOut, Lock, MessageSquare,
   UsersRound, Mail, ChevronLeft, ChevronRight,
 } from "lucide-react";
+import PointsBalance from "@/components/points/PointsBalance";
+import { UserGuide } from "@/components/Guides/UserGuide";
+import { enterpriseSidebarGuide } from "@/lib/UserGuide/enterpriseGuide";
 
 const TABS = [
-  { key: "overview",      label: "Overview",      icon: LayoutDashboard },
-  { key: "members",       label: "Members",        icon: Users           },
-  { key: "teams",         label: "Teams",          icon: UsersRound      },
-  { key: "projects",      label: "Projects",       icon: FolderOpen      },
-  { key: "escrow",        label: "Escrow",         icon: Lock            },
-  { key: "messaging",     label: "Messaging",      icon: MessageSquare   },
-  { key: "invitations",   label: "Invitations",    icon: Mail            },
-  { key: "analytics",     label: "Analytics",      icon: BarChart2       },
-  { key: "billing",       label: "Billing",        icon: CreditCard      },
-  { key: "settings",      label: "Settings",       icon: Settings        },
-  { key: "notifications", label: "Notifications",  icon: Bell            },
+  { key: "overview",      label: "Overview",      icon: LayoutDashboard, guide: "guide-ent-overview"    },
+  { key: "members",       label: "Members",        icon: Users,           guide: "guide-ent-members"     },
+  { key: "teams",         label: "Teams",          icon: UsersRound,      guide: "guide-ent-teams"       },
+  { key: "projects",      label: "Projects",       icon: FolderOpen,      guide: "guide-ent-projects"    },
+  { key: "escrow",        label: "Escrow",         icon: Lock,            guide: "guide-ent-escrow"      },
+  { key: "messaging",     label: "Messaging",      icon: MessageSquare,   guide: "guide-ent-messaging"   },
+  { key: "invitations",   label: "Invitations",    icon: Mail,            guide: "guide-ent-invitations" },
+  { key: "analytics",     label: "Analytics",      icon: BarChart2,       guide: "guide-ent-analytics"   },
+  { key: "billing",       label: "Billing",        icon: CreditCard,      guide: "guide-ent-billing"     },
+  { key: "settings",      label: "Settings",       icon: Settings,        guide: "guide-ent-settings"    },
+  { key: "notifications", label: "Notifications",  icon: Bell,            guide: undefined               },
 ];
 
 interface Props {
@@ -30,7 +33,11 @@ interface Props {
 }
 
 export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount = 0, maxMembers = 50 }: Props) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed,  setCollapsed]  = useState(false);
+  const [showGuide,  setShowGuide]  = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem("lamid-enterprise-guide-v1");
+  });
   const pct = Math.min((memberCount / maxMembers) * 100, 100);
 
   return (
@@ -54,11 +61,12 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
 
       {/* ── Nav ─────────────────────────────────────────────── */}
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-2 py-4">
-        {TABS.map(({ key, label, icon: Icon }) => {
+        {TABS.map(({ key, label, icon: Icon, guide }) => {
           const active = activeTab === key;
           return (
             <motion.button
               key={key}
+              data-guide={guide}
               whileHover={{ backgroundColor: active ? undefined : "rgba(255,255,255,0.04)" }}
               whileTap={{ scale: 0.97 }}
               animate={active ? { boxShadow: "0 0 14px rgba(193,33,41,0.18)" } : { boxShadow: "none" }}
@@ -132,6 +140,28 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
         )}
       </AnimatePresence>
 
+      {/* ── Points balance chip ──────────────────────────────── */}
+      <div className={`border-t border-white/10 px-3 py-2 ${collapsed ? "flex justify-center" : ""}`}>
+        <AnimatePresence initial={false}>
+          {!collapsed ? (
+            <motion.div
+              key="pts-full"
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: "auto" }}
+              exit={{ opacity: 0, width: 0 }}
+              transition={{ duration: 0.18 }}
+              className="overflow-hidden"
+            >
+              <PointsBalance compact />
+            </motion.div>
+          ) : (
+            <motion.div key="pts-icon" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <PointsBalance compact />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       {/* ── Sign out ─────────────────────────────────────────── */}
       <div className="border-t border-white/10 px-2 py-3">
         <motion.a
@@ -157,6 +187,33 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
           </AnimatePresence>
         </motion.a>
       </div>
+      {/* ── Workspace Guide trigger ───────────────────────────── */}
+      <AnimatePresence initial={false}>
+        {!collapsed && (
+          <motion.div
+            key="guide-btn"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-t border-white/10 px-3 py-2"
+          >
+            <motion.button
+              whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+              onClick={() => setShowGuide(true)}
+              className="w-full rounded-lg border border-white/10 bg-white/5 py-1.5 text-[11px] font-medium text-gray-500 transition hover:border-[#c12129]/30 hover:text-[#c12129]"
+            >
+              Workspace Guide
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <UserGuide
+        storageKey="lamid-enterprise-guide-v1"
+        steps={enterpriseSidebarGuide}
+        isOpen={showGuide}
+        onClose={() => setShowGuide(false)}
+      />
     </motion.aside>
   );
 }

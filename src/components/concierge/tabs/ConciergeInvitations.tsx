@@ -7,49 +7,43 @@ import {
   RotateCcw, Trash2, Search, SendHorizonal, ChevronDown,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import type { Invitation as BaseInvitation, Consultant as BaseConsultant } from "@/types/client";
 
-interface Invitation {
-  id: string;
-  email?: string;
-  consultantId?: string;
-  consultantName?: string;
-  method: "email" | "consultant" | "ai";
-  status: "pending" | "accepted" | "rejected" | "cancelled";
-  createdAt: string;
-}
+// Extend with UI-only field the API may populate
+type Invitation = BaseInvitation & { consultantName?: string };
 
-interface Consultant {
+// Only the fields we actually receive — BaseConsultant has many required fields
+// we can't guarantee from a list endpoint
+interface ConsultantListItem {
   id: string;
   _id?: string;
-  name?: string;
-  username?: string;
+  name: string;         // BaseConsultant requires name
+  role: string;         // BaseConsultant requires role
+  industry: string;     // BaseConsultant requires industry
   email?: string;
-  industry?: string;
-  skills?: string[];
+  username?: string;
 }
 
 const STATUS_STYLE: Record<string, string> = {
   pending:   "text-yellow-400 bg-yellow-500/10 border-yellow-500/30",
   accepted:  "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
-  rejected:  "text-red-400 bg-red-500/10 border-red-500/30",
-  cancelled: "text-gray-400 bg-gray-500/10 border-gray-500/30",
+  declined:  "text-red-400 bg-red-500/10 border-red-500/30",    // canonical value from @/types/client
 };
 
 const STATUS_ICON: Record<string, React.ReactNode> = {
-  pending:   <Clock className="h-3 w-3" />,
-  accepted:  <CheckCircle2 className="h-3 w-3" />,
-  rejected:  <XCircle className="h-3 w-3" />,
-  cancelled: <XCircle className="h-3 w-3" />,
+  pending:  <Clock       className="h-3 w-3" />,
+  accepted: <CheckCircle2 className="h-3 w-3" />,
+  declined: <XCircle     className="h-3 w-3" />,
 };
 
 export default function ConciergeInvitations() {
   const [userId, setUserId]               = useState<string>("");
-  const [consultants, setConsultants]     = useState<Consultant[]>([]);
+  const [consultants, setConsultants]     = useState<ConsultantListItem[]>([]);
   const [invitations, setInvitations]     = useState<Invitation[]>([]);
   const [loading, setLoading]             = useState(true);
   const [sending, setSending]             = useState(false);
   const [aiLoading, setAiLoading]         = useState(false);
-  const [aiResults, setAiResults]         = useState<Consultant[]>([]);
+  const [aiResults, setAiResults]         = useState<ConsultantListItem[]>([]);
   const [filter, setFilter]               = useState("");
   const [email, setEmail]                 = useState("");
   const [selectedId, setSelectedId]       = useState("");
@@ -121,7 +115,7 @@ export default function ConciergeInvitations() {
     setEmail("");
   };
 
-  const handleConsultantInvite = (c: Consultant) => {
+  const handleConsultantInvite = (c: ConsultantListItem) => {
     const id = c._id ?? c.id;
     sendInvite({
       consultantId: id,
@@ -190,7 +184,7 @@ export default function ConciergeInvitations() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Header */}
       <div>
         <h1 className="text-xl font-bold text-white flex items-center gap-2">

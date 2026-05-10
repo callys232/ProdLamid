@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FolderKanban, Clock, CheckCircle2, AlertCircle, TrendingUp,
@@ -9,27 +9,41 @@ import {
   ChevronRight, AlertTriangle, Tag,
 } from "lucide-react";
 import Link from "next/link";
+import type { Milestone, MilestoneStatus } from "@/types/project";
 import {
-  mockConciergeProjects as PROJECTS,
-  type ConciergeProject as Project,
-  type ConciergeMilestone as Milestone,
+  mockConciergeProjects,
+  type ConciergeProject,
+  type ConciergeProjectMilestone,
 } from "@/mocks/mockConciergeProjects";
 
-/* ── Milestone colour config ─────────────────────────────────────── */
+/* ── DB milestone status → MilestoneStatus (frontend canonical) ───── */
+const normaliseMilestoneStatus = (raw: string): MilestoneStatus => {
+  const map: Record<string, MilestoneStatus> = {
+    started:  "in_progress",
+    dispute:  "disputed",
+    stopped:  "cancelled",
+    approved: "completed",
+  };
+  return (map[raw] ?? raw) as MilestoneStatus;
+};
+
+/* ── Milestone colour config (keyed by MilestoneStatus values) ───── */
 const M_CFG: Record<string, { card: string; badge: string; dot: string; bar: string; pct: string; shadow: string }> = {
   completed:   { card: "border-green-500/30  bg-green-500/8",   badge: "text-green-400  border-green-500/30  bg-green-500/10",   dot: "bg-green-400",   bar: "bg-green-500",   pct: "text-green-400",   shadow: "0 6px 20px rgba(34,197,94,0.2)"  },
   in_progress: { card: "border-yellow-500/30 bg-yellow-500/8",  badge: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",  dot: "bg-yellow-400",  bar: "bg-yellow-500",  pct: "text-yellow-400",  shadow: "0 6px 20px rgba(234,179,8,0.2)"  },
   disputed:    { card: "border-red-500/40    bg-red-500/10",    badge: "text-red-400    border-red-500/30    bg-red-500/10",     dot: "bg-red-400",     bar: "bg-red-500",     pct: "text-red-400",     shadow: "0 6px 20px rgba(239,68,68,0.2)"  },
   funded:      { card: "border-purple-500/30 bg-purple-500/8",  badge: "text-purple-400 border-purple-500/30 bg-purple-500/10",  dot: "bg-purple-400",  bar: "bg-purple-500",  pct: "text-purple-400",  shadow: "0 6px 20px rgba(168,85,247,0.2)" },
+  released:    { card: "border-blue-500/30   bg-blue-500/8",    badge: "text-blue-400   border-blue-500/30   bg-blue-500/10",   dot: "bg-blue-400",    bar: "bg-blue-500",    pct: "text-blue-400",    shadow: "0 6px 20px rgba(59,130,246,0.2)"  },
   pending:     { card: "border-white/10      bg-white/5",        badge: "text-gray-400   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",    bar: "bg-gray-600",    pct: "text-gray-400",    shadow: "0 6px 20px rgba(0,0,0,0.3)"      },
   cancelled:   { card: "border-white/8       bg-white/3",        badge: "text-gray-500   border-gray-600/20   bg-gray-600/10",   dot: "bg-gray-600",    bar: "bg-gray-700",    pct: "text-gray-500",    shadow: "0 6px 20px rgba(0,0,0,0.2)"      },
 };
 
+/* ── Project status config — keyed by real DB values ─────────────── */
 const STATUS_CONFIG: Record<string, { label: string; color: string; icon: any }> = {
-  active:    { label: "Active",    color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30", icon: TrendingUp  },
-  completed: { label: "Completed", color: "text-blue-400 bg-blue-500/10 border-blue-500/30",         icon: CheckCircle2 },
-  review:    { label: "In Review", color: "text-yellow-400 bg-yellow-500/10 border-yellow-500/30",   icon: Clock        },
-  paused:    { label: "Paused",    color: "text-gray-400 bg-white/5 border-white/10",                icon: AlertCircle  },
+  open:      { label: "Open",      color: "text-blue-400   bg-blue-500/10   border-blue-500/30",    icon: TrendingUp  },
+  ongoing:   { label: "Ongoing",   color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30", icon: TrendingUp  },
+  completed: { label: "Completed", color: "text-blue-400   bg-blue-500/10   border-blue-500/30",    icon: CheckCircle2 },
+  cancelled: { label: "Cancelled", color: "text-gray-400   bg-white/5       border-white/10",        icon: AlertCircle  },
 };
 
 const ACTIVITY_DOT: Record<string, string> = {
@@ -46,14 +60,54 @@ interface Props {
 
 /* ── Main component ──────────────────────────────────────────────── */
 export default function ConciergeProjects({ onOpenMessaging, onOpenEscrow }: Props) {
-  const [selected, setSelected] = useState<Project | null>(null);
+  const [selected, setSelected] = useState<ConciergeProject | null>(null);
+  const [PROJECTS, setProjects] = useState<ConciergeProject[]>(mockConciergeProjects);
+
+  // Fetch real projects; fall back to mock if API unavailable or returns empty
+  useEffect(() => {
+    fetch("/api/projects?role=owner&limit=20")
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        const list: ConciergeProject[] = Array.isArray(d?.data) ? d.data.map((p: any) => ({
+          id:          p._id ?? p.id,
+          _id:         p._id,
+          title:       p.title,
+          status:      p.status,          // keep real DB values: "open" | "ongoing" | "completed" | "cancelled"
+          category:    p.category ?? "General",
+          budget:      p.budget ?? 0,
+          spent:       p.spent ?? 0,
+          progress:    p.milestoneProgress ?? 0,
+          pm:          p.pm ?? "Your PM",
+          deadline:    p.deadline ?? "",
+          description: p.description ?? "",
+          skills:      p.skills ?? [],
+          consultants: (p.consultants ?? []).map((c: any) => ({
+            name: c.username ?? c.name ?? "Consultant",
+            role: "Consultant",
+          })),
+          milestones: (p.milestones ?? []).map((m: any) => ({
+            _id:           m._id,
+            id:            m._id ?? m.id,
+            title:         m.title,
+            description:   m.description,
+            progress:      m.progress ?? 0,
+            dueDate:       m.dueDate,
+            status:        normaliseMilestoneStatus(m.status ?? "pending"),
+            disputeReason: m.notes,      // DB stores dispute detail in notes field
+          })),
+          activity: [],
+        })) : [];
+        if (list.length) setProjects(list);
+      })
+      .catch(() => {}); // keep mock on error
+  }, []);
 
   const totalBudget = PROJECTS.reduce((s, p) => s + p.budget, 0);
   const active = PROJECTS.filter(p => p.status === "active").length;
 
   return (
     <>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Summary */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
@@ -95,7 +149,7 @@ export default function ConciergeProjects({ onOpenMessaging, onOpenEscrow }: Pro
         {/* Project cards */}
         <div className="space-y-3">
           {PROJECTS.map((proj, i) => {
-            const cfg = STATUS_CONFIG[proj.status] || STATUS_CONFIG.paused;
+            const cfg = STATUS_CONFIG[proj.status] || STATUS_CONFIG.open;
             const Icon = cfg.icon;
             const hasDispute = proj.milestones.some(m => m.status === "disputed");
             return (
@@ -171,14 +225,14 @@ export default function ConciergeProjects({ onOpenMessaging, onOpenEscrow }: Pro
 
 /* ── Modal ───────────────────────────────────────────────────────── */
 function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow }: {
-  project: Project;
+  project: ConciergeProject;
   onClose: () => void;
   onOpenMessaging?: (id: string) => void;
   onOpenEscrow?: () => void;
 }) {
   const [tab, setTab] = useState<"overview" | "milestones" | "report">("overview");
 
-  const cfg        = STATUS_CONFIG[p.status] ?? STATUS_CONFIG.paused;
+  const cfg        = STATUS_CONFIG[p.status] ?? STATUS_CONFIG.open;
   const StatusIcon = cfg.icon;
   const completedM = p.milestones.filter(m => m.status === "completed").length;
   const disputes   = p.milestones.filter(m => m.status === "disputed");
@@ -210,7 +264,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
         className="relative w-full max-w-2xl max-h-[92vh] flex flex-col rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl overflow-hidden"
       >
         {/* ── Sticky header ──────────────────────────────────────── */}
-        <div className="flex-shrink-0 border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur-md px-6 pt-5 pb-0">
+        <div className="flex-shrink-0 border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur-md px-4 pt-4 pb-0">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2.5 flex-wrap mb-1">
@@ -260,7 +314,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
         </div>
 
         {/* ── Scrollable body ─────────────────────────────────────── */}
-        <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
+        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
 
           {/* ───────────── OVERVIEW TAB ───────────── */}
           {tab === "overview" && (
@@ -522,7 +576,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
         </div>
 
         {/* ── Sticky footer actions ────────────────────────────────── */}
-        <div className="flex-shrink-0 border-t border-white/10 bg-[#0a0a0a] px-6 py-4 flex flex-wrap items-center gap-3">
+        <div className="flex-shrink-0 border-t border-white/10 bg-[#0a0a0a] px-4 py-3 flex flex-wrap items-center gap-3">
           <motion.div whileHover={{ scale: 1.05, y: -1, boxShadow: "0 6px 20px rgba(194,18,25,0.3)" }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
             <Link
               href={`/projects/${p.id}/workspace`}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { UserGuide } from "@/components/Guides/UserGuide";
-import { profileSidebarGuide } from "@/lib/UserGuide/sideBar";
+import { consultantSidebarGuide } from "@/lib/UserGuide/consultantSidebarGuide";
 import LogoutButton from "@/components/logout";
 import PointsBalance from "@/components/points/PointsBalance";
 import { Role } from "@/lib/auth";
@@ -22,17 +22,18 @@ export default function ProfileSidebar({
   // ✅ Auto-open on first visit
   const [showGuide, setShowGuide] = useState(() => {
     if (typeof window === "undefined") return false;
-    return !localStorage.getItem("lamid-profile-sidebar-guide");
+    return !localStorage.getItem("lamid-freelancer-sidebar-guide-v1");
   });
 
   const tabs = [
-    { key: "overview", label: "Overview" },
-    { key: "projects", label: "Projects" },
-    { key: "settings", label: "Settings" },
-    { key: "teams", label: "Teams" },
-    { key: "notifications", label: "Notifications" },
-    { key: "messaging", label: "Messaging" },
-    { key: "project-matching", label: "Project Matching" }
+    { key: "overview",         label: "Overview",         guide: "guide-freelancer-overview"  },
+    { key: "projects",         label: "Projects",         guide: "guide-freelancer-projects"  },
+    { key: "settings",         label: "Settings",         guide: "guide-freelancer-settings"  },
+    { key: "teams",            label: "Teams",            guide: "guide-freelancer-teams"     },
+    { key: "notifications",    label: "Notifications",    guide: undefined                    },
+    { key: "messaging",        label: "Messaging",        guide: "guide-freelancer-messaging" },
+    { key: "project-matching", label: "Project Matching", guide: "guide-freelancer-matching"  },
+    { key: "escrow",           label: "Escrow",           guide: "guide-freelancer-escrow"    },
   ];
 
   return (
@@ -48,15 +49,17 @@ export default function ProfileSidebar({
 
       <ul>
         {tabs.map((tab) => (
-          <li
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-3 cursor-pointer transition-colors rounded-md ${activeTab === tab.key
-              ? "bg-red-600 text-white"
-              : "hover:bg-gray-700 text-gray-300"
+          <li key={tab.key}>
+            <button
+              type="button"
+              data-guide={tab.guide}
+              onClick={() => setActiveTab(tab.key)}
+              className={`w-full text-left px-4 py-3 cursor-pointer transition-colors rounded-md ${
+                activeTab === tab.key ? "bg-red-600 text-white" : "hover:bg-gray-700 text-gray-300"
               }`}
-          >
-            {tab.label}
+            >
+              {tab.label}
+            </button>
           </li>
         ))}
       </ul>
@@ -75,8 +78,8 @@ export default function ProfileSidebar({
 
       {/* User Guide */}
       <UserGuide
-        storageKey="lamid-profile-sidebar-guide"
-        steps={profileSidebarGuide}
+        storageKey="lamid-freelancer-sidebar-guide-v1"
+        steps={consultantSidebarGuide}
         isOpen={showGuide}
         onClose={() => setShowGuide(false)}
       />

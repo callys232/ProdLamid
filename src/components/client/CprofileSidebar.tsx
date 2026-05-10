@@ -102,13 +102,7 @@ export default function ProfileSidebar({
         storageKey="lamid-profile-sidebar-guide-v1"
         steps={profileSidebarGuideSteps}
         isOpen={showGuide}
-        onClose={() => {
-          localStorage.setItem(
-            "lamid-profile-sidebar-guide-v1",
-            "true"
-          );
-          setShowGuide(false);
-        }}
+        onClose={() => setShowGuide(false)}
       />
     </nav>
   );

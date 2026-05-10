@@ -7,7 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import { UserGuide } from "@/components/Guides/UserGuide";
-import { profileHeaderGuide } from "@/lib/UserGuide/profileHeaderGuide";
+import { consultantHeaderGuide } from "@/lib/UserGuide/consultantHeaderGuide";
 import { calculateCompletion } from "@/lib/profileCompletion";
 
 import ReviewPopupContainer from "./popContainer";
@@ -181,7 +181,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
       {/* Profile Identity + Completion */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         {/* Profile Identity */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5" data-guide="consultant-identity">
           <img
             src={user?.profile?.photoUrl || "/freelancer-placeholder.png"}
             alt="Freelancer Photo"
@@ -198,7 +198,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
         </div>
 
         {/* Profile Completion */}
-        <div className="w-full md:w-1/3">
+        <div className="w-full md:w-1/3" data-guide="consultant-completion">
           <p className="text-sm text-gray-400 mb-2">Profile Completion</p>
           <div className="flex items-center gap-2">
             <div className="flex-1">
@@ -223,7 +223,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
       </div>
 
       {/* Stats */}
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4" data-guide="consultant-stats">
         {stats.map((stat, idx) => (
           <StatDropdown
             key={idx}
@@ -237,7 +237,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
       </div>
 
       {/* Alerts */}
-      <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
+      <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start" data-guide="consultant-alerts">
         <button
           onClick={() => setShowPopup(true)}
           className="relative px-6 py-2 border border-gray-600 hover:border-red-500
@@ -252,8 +252,8 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
         </button>
       </div>
 
-      {/* Social Links - AFTER View Alerts */}
-      <div className="mt-4 flex gap-6 justify-center md:justify-start text-gray-400">
+      {/* Social Links */}
+      <div className="mt-4 flex gap-6 justify-center md:justify-start text-gray-400" data-guide="consultant-socials">
         {socialLinks.map((link, idx) => (
           <a
             key={idx}
@@ -276,7 +276,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
       {/* Guide */}
       <UserGuide
         storageKey="lamid-consultant-profile-header-guide"
-        steps={profileHeaderGuide}
+        steps={consultantHeaderGuide}
         isOpen={showGuide}
         onClose={() => setShowGuide(false)}
       />

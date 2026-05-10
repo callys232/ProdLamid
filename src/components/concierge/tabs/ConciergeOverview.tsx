@@ -8,6 +8,14 @@ import {
   ArrowRight, Lock, MessageSquare, AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
+import type { MilestoneStatus } from "@/types/project";
+import { mockConciergeProjects, type ConciergeProject } from "@/mocks/mockConciergeProjects";
+
+// Map DB raw milestone statuses to the canonical MilestoneStatus values
+const normMilestone = (raw: string): MilestoneStatus => ({
+  started: "in_progress", dispute: "disputed",
+  stopped: "cancelled",   approved: "completed",
+} as Record<string, MilestoneStatus>)[raw] ?? (raw as MilestoneStatus);
 
 const fadeUp = (i = 0) => ({
   initial: { opacity: 0, y: 12 },
@@ -124,7 +132,7 @@ export default function ConciergeOverview() {
     setExpandedId(prev => (prev === id ? null : id));
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {/* Welcome */}
       <motion.div {...fadeUp(0)}>
         <div className="flex items-center gap-2 mb-1">

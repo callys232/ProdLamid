@@ -20,20 +20,22 @@ import ConciergeSupport    from "./tabs/ConciergeSupport";
 import EscrowTab           from "@/components/client/escrow/Escrow";
 import WorkspaceTab        from "@/components/client/messaging/ProjectWorkspace";
 import ConciergeInvitations from "./tabs/ConciergeInvitations";
+import { UserGuide } from "@/components/Guides/UserGuide";
+import { conciergeGuide } from "@/lib/UserGuide/conciergeGuide";
 
 /* ── Nav items ─────────────────────────────────────────────────── */
 const NAV = [
-  { key: "overview",      label: "Overview",         icon: LayoutDashboard },
-  { key: "projects",      label: "Projects",         icon: FolderKanban    },
-  { key: "dedicated-pm",  label: "Dedicated PM",     icon: UserCheck       },
-  { key: "teams",         label: "Teams",            icon: Users           },
-  { key: "escrow",        label: "Escrow",           icon: Lock            },
-  { key: "messaging",     label: "Messaging",        icon: MessageSquare   },
-  { key: "invitations",   label: "Invitations",      icon: Mail            },
-  { key: "reports",       label: "Reports",          icon: BarChart3       },
-  { key: "notifications", label: "Notifications",    icon: Bell            },
-  { key: "support",       label: "Priority Support", icon: HeadphonesIcon  },
-  { key: "settings",      label: "Settings",         icon: Settings        },
+  { key: "overview",      label: "Overview",         icon: LayoutDashboard, guide: "guide-con-overview"    },
+  { key: "projects",      label: "Projects",         icon: FolderKanban,    guide: "guide-con-projects"    },
+  { key: "dedicated-pm",  label: "Dedicated PM",     icon: UserCheck,       guide: "guide-con-pm"          },
+  { key: "teams",         label: "Teams",            icon: Users,           guide: "guide-con-teams"       },
+  { key: "escrow",        label: "Escrow",           icon: Lock,            guide: "guide-con-escrow"      },
+  { key: "messaging",     label: "Messaging",        icon: MessageSquare,   guide: "guide-con-messaging"   },
+  { key: "invitations",   label: "Invitations",      icon: Mail,            guide: "guide-con-invitations" },
+  { key: "reports",       label: "Reports",          icon: BarChart3,       guide: "guide-con-reports"     },
+  { key: "notifications", label: "Notifications",    icon: Bell,            guide: undefined               },
+  { key: "support",       label: "Priority Support", icon: HeadphonesIcon,  guide: "guide-con-support"     },
+  { key: "settings",      label: "Settings",         icon: Settings,        guide: undefined               },
 ];
 
 const SIDEBAR_FULL = 256;  // w-64
@@ -46,6 +48,10 @@ export default function ConciergeDashboard() {
   const [sidebarOpen, setSidebarOpen]   = useState(false);
   const [collapsed, setCollapsed]       = useState(false);
   const [userId, setUserId]             = useState("");
+  const [showGuide, setShowGuide]       = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem("lamid-concierge-guide-v1");
+  });
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -76,7 +82,7 @@ export default function ConciergeDashboard() {
       case "escrow":        return <EscrowTab />;
       case "messaging":     return <WorkspaceTab />;
       case "invitations":   return <ConciergeInvitations />;
-      case "support":       return <ConciergeSupport />;
+      case "support":       return <ConciergeSupport onStartChat={() => switchTab("messaging")} />;
       case "settings":      return <Settings_ client={null} />;
       default:              return <Overview />;
     }
@@ -117,11 +123,12 @@ export default function ConciergeDashboard() {
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto px-2 py-4 space-y-0.5">
-          {NAV.map(({ key, label, icon: Icon }) => {
+          {NAV.map(({ key, label, icon: Icon, guide }) => {
             const active = activeTab === key;
             return (
               <motion.button
                 key={key}
+                data-guide={guide}
                 onClick={() => switchTab(key)}
                 whileHover={{ backgroundColor: active ? undefined : "rgba(255,255,255,0.04)" }}
                 whileTap={{ scale: 0.97 }}
@@ -176,6 +183,27 @@ export default function ConciergeDashboard() {
                 <p className="text-[10px] text-[#c21219] font-semibold uppercase tracking-widest">Concierge Tier</p>
                 <p className="text-[10px] text-gray-500 mt-0.5">Dedicated PM · Priority Support</p>
               </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Portal Guide trigger — visible only when expanded */}
+        <AnimatePresence initial={false}>
+          {!collapsed && (
+            <motion.div
+              key="guide-btn"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden border-t border-white/10 px-3 py-2"
+            >
+              <motion.button
+                whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                onClick={() => setShowGuide(true)}
+                className="w-full rounded-lg border border-[#c21219]/20 bg-[#c21219]/5 py-1.5 text-[11px] font-medium text-[#c21219]/70 transition hover:bg-[#c21219]/15 hover:text-[#c21219]"
+              >
+                Portal Guide
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
@@ -284,6 +312,14 @@ export default function ConciergeDashboard() {
           </AnimatePresence>
         </main>
       </motion.div>
+
+      {/* Concierge Portal Guide */}
+      <UserGuide
+        storageKey="lamid-concierge-guide-v1"
+        steps={conciergeGuide}
+        isOpen={showGuide}
+        onClose={() => setShowGuide(false)}
+      />
     </div>
   );
 }

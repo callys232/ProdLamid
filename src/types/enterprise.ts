@@ -74,12 +74,14 @@ export interface OrgMember {
 }
 
 export interface EnterpriseDashboardStats {
-  activeProjects: number;
-  totalSpend: number;
-  activeConsultants: number;
-  memberCount: number;
-  maxMembers: number;
-  pendingInvites: number;
+  activeProjects:      number;
+  totalSpend:          number;
+  activeConsultants:   number;
+  memberCount:         number;
+  maxMembers:          number;
+  pendingInvites:      number;
+  nonConsultantMembers?: number;
+  adminCount?:           number;
 }
 
 export interface OrgInvoice {

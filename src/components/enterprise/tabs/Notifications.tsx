@@ -37,7 +37,7 @@ export default function Notifications() {
   const unreadCount = notifs.filter(n => !n.read).length;
 
   return (
-    <div className="space-y-5 p-6">
+    <div className="space-y-4 p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h2 className="text-base font-semibold text-white">Notifications</h2>

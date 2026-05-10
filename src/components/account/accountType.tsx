@@ -1,227 +1,338 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import {
+  Shield, ShieldCheck, Mail, ArrowRight,
+  Loader2, CheckCircle2, X,
+} from "lucide-react";
 
+/* ─── 2FA Setup Modal ───────────────────────────────────────────── */
+function TwoFASetup({ onDone, onSkip }: { onDone: () => void; onSkip: () => void }) {
+  const [step, setStep]       = useState<"prompt" | "code" | "success">("prompt");
+  const [code, setCode]       = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function sendCode() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/2fa/enable", { method: "POST" });
+      const d   = await res.json();
+      if (!res.ok) throw new Error(d.message);
+      toast.success("Code sent to your email");
+      setStep("code");
+    } catch (e: any) {
+      toast.error(e.message ?? "Failed to send code");
+    } finally { setLoading(false); }
+  }
+
+  async function verifyCode() {
+    if (code.length !== 6) return;
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/2fa/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.message);
+      setStep("success");
+      setTimeout(onDone, 1800);
+    } catch (e: any) {
+      toast.error(e.message ?? "Invalid code — try again");
+    } finally { setLoading(false); }
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+    >
+      <motion.div
+        initial={{ scale: 0.92, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.92, opacity: 0, y: 20 }}
+        transition={{ duration: 0.24, ease: [0.33, 1, 0.68, 1] }}
+        className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0d0d0d] shadow-2xl overflow-hidden"
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#c12129]/15 border border-[#c12129]/25">
+              <Shield className="h-5 w-5 text-[#c12129]" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white">Secure Your Account</h3>
+              <p className="text-[11px] text-gray-500">Two-factor authentication</p>
+            </div>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
+            onClick={onSkip}
+            className="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-400 hover:text-white transition"
+          >
+            <X className="h-4 w-4" />
+          </motion.button>
+        </div>
+
+        {/* Body */}
+        <div className="px-6 py-6">
+          <AnimatePresence mode="wait" initial={false}>
+
+            {step === "prompt" && (
+              <motion.div key="prompt"
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                className="space-y-5"
+              >
+                <div className="rounded-xl border border-[#c12129]/20 bg-[#c12129]/5 px-4 py-4">
+                  <p className="text-sm font-semibold text-white mb-1">We strongly recommend enabling 2FA</p>
+                  <p className="text-xs text-gray-400 leading-relaxed">
+                    A one-time code is sent to your email each time you sign in — an extra layer of protection at no cost.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <motion.button
+                    whileHover={{ scale: 1.02, boxShadow: "0 6px 20px rgba(193,33,41,0.35)" }}
+                    whileTap={{ scale: 0.97 }}
+                    disabled={loading}
+                    onClick={sendCode}
+                    className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#c12129] py-3 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
+                  >
+                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                    {loading ? "Sending code…" : "Enable 2FA — Send Code"}
+                  </motion.button>
+                  <button onClick={onSkip} className="text-sm text-gray-500 hover:text-gray-300 transition py-2 text-center">
+                    Skip for now — I'll enable it in Settings
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {step === "code" && (
+              <motion.div key="code"
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                className="space-y-5"
+              >
+                <div className="text-center">
+                  <div className="flex h-14 w-14 mx-auto items-center justify-center rounded-2xl bg-[#c12129]/15 border border-[#c12129]/25 mb-3">
+                    <Mail className="h-6 w-6 text-[#c12129]" />
+                  </div>
+                  <p className="text-sm font-semibold text-white">Check your email</p>
+                  <p className="text-xs text-gray-500 mt-1">Enter the 6-digit code we sent you</p>
+                </div>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={6}
+                  value={code}
+                  onChange={e => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                  placeholder="000000"
+                  className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-center text-2xl font-mono tracking-[0.4em] text-white placeholder-gray-700 focus:outline-none focus:border-[#c12129]/60 transition"
+                />
+                <motion.button
+                  whileHover={{ scale: 1.02, boxShadow: "0 6px 20px rgba(193,33,41,0.35)" }}
+                  whileTap={{ scale: 0.97 }}
+                  disabled={loading || code.length !== 6}
+                  onClick={verifyCode}
+                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#c12129] py-3 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
+                >
+                  {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
+                  {loading ? "Verifying…" : "Verify & Enable 2FA"}
+                </motion.button>
+                <div className="flex items-center justify-between">
+                  <button onClick={() => setStep("prompt")} className="text-xs text-gray-500 hover:text-gray-300 transition">← Back</button>
+                  <button onClick={sendCode} disabled={loading} className="text-xs text-gray-500 hover:text-gray-300 transition disabled:opacity-50">Resend code</button>
+                </div>
+              </motion.div>
+            )}
+
+            {step === "success" && (
+              <motion.div key="success"
+                initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center gap-4 py-4 text-center"
+              >
+                <motion.div
+                  initial={{ scale: 0 }} animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
+                  className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/30"
+                >
+                  <CheckCircle2 className="h-8 w-8 text-emerald-400" />
+                </motion.div>
+                <div>
+                  <p className="text-base font-bold text-white">2FA Enabled!</p>
+                  <p className="text-sm text-gray-400 mt-1">Your account is now protected. Taking you to your dashboard…</p>
+                </div>
+              </motion.div>
+            )}
+
+          </AnimatePresence>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ─── Account type cards ────────────────────────────────────────── */
+const TYPES = [
+  { value: "Freelancer", label: "Freelancer", accent: "#c12129", badge: null as string | null,
+    desc: "Consultants seeking projects. Create invoices, track payments, and showcase your services to potential clients." },
+  { value: "Client",     label: "Client",     accent: "#c12129", badge: null,
+    desc: "Organisations hiring consultants. Post jobs, manage contracts, and securely pay for completed work." },
+  { value: "Enterprise", label: "Enterprise", accent: "#c12129", badge: "New",
+    desc: "Large organisations with multi-user workspaces. Up to 50 members, dedicated dashboard, escrow management, and analytics." },
+  { value: "Concierge",  label: "Concierge",  accent: "#eab308", badge: "Admin Approval Required",
+    desc: "For government agencies, large NGOs and corporations. Dedicated PM, custom dashboards, and 24/7 priority support. Reviewed within 24 hours — no payment required now." },
+];
+
+/* ─── Main component ─────────────────────────────────────────────── */
 export default function AccountTypePage() {
-    const [accountType, setAccountType] = useState<string>("");
-    const [loading, setLoading] = useState(false);
-    const router = useRouter();
+  const [accountType, setAccountType] = useState("");
+  const [loading, setLoading]         = useState(false);
+  const [show2FA, setShow2FA]         = useState(false);
+  const [redirectTo, setRedirectTo]   = useState("");
+  const router = useRouter();
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!accountType) { toast.error("Please select an account type ❌"); return; }
 
-        if (!accountType) {
-            toast.error("Please select an account type ❌");
-            return;
-        }
+    setLoading(true);
+    try {
+      const raw = sessionStorage.getItem("signupData") ?? localStorage.getItem("signupData");
+      if (!raw) { toast.error("No signup data found. Please start over."); router.push("/signup"); return; }
+      const parsed = JSON.parse(raw);
 
-        setLoading(true);
-        try {
-            const signupData =
-                sessionStorage.getItem("signupData") ||
-                localStorage.getItem("signupData");
-            if (!signupData) {
-                toast.error("No signup data found. Please start over.");
-                router.push("/signup");
-                return;
-            }
+      /* Concierge — request flow, no account created yet */
+      if (accountType === "Concierge") {
+        const res = await fetch("/api/concierge/request", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name:         parsed.UserName,
+            email:        parsed.email,
+            organisation: parsed.companyName ?? parsed.UserName,
+          }),
+        });
+        const d = await res.json();
+        if (!res.ok) throw new Error(d.message);
+        toast.success("Request submitted! Our team will contact you within 24 hours.");
+        sessionStorage.removeItem("signupData");
+        localStorage.removeItem("signupData");
+        router.push("/signup?concierge=pending");
+        return;
+      }
 
-            const parsedData = JSON.parse(signupData);
+      const role =
+        accountType === "Freelancer" ? "seller" :
+        accountType === "Enterprise" ? "client" : "client";
 
-            // Concierge requires admin approval — submit request instead of registering
-            if (accountType === "Concierge") {
-                const res = await fetch("/api/concierge/request", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        name: parsedData.UserName,
-                        email: parsedData.email,
-                        organisation: parsedData.companyName || parsedData.UserName,
-                    }),
-                });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.message);
-                toast.success("Request submitted! Our team will contact you within 24 hours.");
-                sessionStorage.removeItem("signupData");
-                localStorage.removeItem("signupData");
-                router.push("/signup?concierge=pending");
-                setLoading(false);
-                return;
-            }
+      const res = await fetch("/api/auth/register", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({
+          name:     parsed.UserName,
+          email:    parsed.email,
+          password: parsed.password,
+          role,
+          ...(accountType === "Enterprise" && {
+            isEnterprise: true,
+            companyName:  parsed.companyName ?? parsed.UserName,
+          }),
+        }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) throw new Error(result.message ?? "Signup failed");
 
-            // Map Account Type to Role
-            const role =
-                accountType === "Freelancer"
-                    ? "seller"
-                    : accountType === "Client"
-                        ? "client"
-                        : accountType === "Enterprise"
-                            ? "client"
-                            : null;
+      toast.success("Account created successfully 🎉");
+      // Token is set as HttpOnly cookie by the server — do not store in localStorage.
+      // account_type cached for fast UI routing before the next /api/auth/me resolves.
+      localStorage.setItem("account_type", accountType);
+      sessionStorage.removeItem("signupData");
+      localStorage.removeItem("signupData");
 
-            if (!role) {
-                toast.error("Please select an account type");
-                setLoading(false);
-                return;
-            }
+      const dest =
+        accountType === "Enterprise" ? "/enterprise" :
+        role === "seller"            ? "/profile"    : "/client";
 
-            const payload = {
-                name: parsedData.UserName,
-                email: parsedData.email,
-                password: parsedData.password,
-                role,
-                ...(accountType === "Enterprise" && {
-                    isEnterprise: true,
-                    companyName: parsedData.companyName || parsedData.UserName,
-                }),
-            };
+      setRedirectTo(dest);
+      setShow2FA(true); // Offer 2FA before final redirect
+    } catch (err: any) {
+      toast.error(err.message ?? "Signup failed ⚠️");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            const res = await fetch("/api/auth/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            });
+  return (
+    <>
+      <section className="min-h-screen flex items-center justify-center bg-black px-6 py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+          className="max-w-3xl w-full bg-black border border-white/15 p-10 rounded-2xl shadow-2xl"
+        >
+          <h2 className="text-3xl font-bold text-white mb-2 text-center">Choose Your Account Type</h2>
+          <p className="text-gray-400 mb-10 text-center text-sm">
+            Select the option that best describes how you'll use Lamid.
+          </p>
 
-            const result = await res.json();
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {TYPES.map(t => (
+              <motion.label
+                key={t.value}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                style={accountType === t.value ? { borderColor: `${t.accent}55`, backgroundColor: `${t.accent}10` } : {}}
+                className={`flex items-start gap-4 border rounded-xl p-5 cursor-pointer transition ${
+                  accountType === t.value ? "border-current" : "border-white/15 hover:border-white/30"
+                }`}
+              >
+                <input
+                  type="radio" name="accountType" value={t.value}
+                  checked={accountType === t.value}
+                  onChange={e => setAccountType(e.target.value)}
+                  className="mt-1" style={{ accentColor: t.accent }}
+                />
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <h3 className="text-base font-semibold" style={{ color: t.accent }}>{t.label}</h3>
+                    {t.badge && (
+                      <span className="rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+                        style={{ borderColor: `${t.accent}50`, color: t.accent, backgroundColor: `${t.accent}15` }}>
+                        {t.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t.desc}</p>
+                </div>
+              </motion.label>
+            ))}
 
-            if (!res.ok || !result.success) {
-                throw new Error(result.message || "Signup failed");
-            }
-
-            toast.success("Account created successfully 🎉");
-
-            localStorage.setItem("token", result.data.token);
-            localStorage.setItem("user", JSON.stringify(result.data.user));
-
-            sessionStorage.removeItem("signupData");
-            localStorage.removeItem("signupData");
-
-            // Redirect based on role
-            if (accountType === "Enterprise") router.push("/enterprise");
-            else if (role === "seller") router.push("/profile");
-            else router.push("/client");
-        } catch (error: any) {
-            console.error("Registration error:", error);
-            toast.error(error.message || "Signup failed ⚠️");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <section className="min-h-screen flex items-center justify-center bg-black px-6">
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="max-w-3xl w-full bg-black border border-white/20 p-10 rounded-2xl shadow-2xl"
+            <motion.button
+              whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(193,33,41,0.4)" }}
+              whileTap={{ scale: 0.97 }}
+              type="submit" disabled={loading || !accountType}
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#c12129] to-[#8b1118] text-white font-semibold py-3.5 rounded-xl hover:opacity-90 transition disabled:opacity-50 mt-4 shadow-lg"
             >
-                <h2 className="text-3xl font-bold text-white mb-4 text-center">
-                    Choose Your Account Type
-                </h2>
-                <p className="text-gray-300 mb-10 text-center">
-                    Lamid offers two account types. Pick the one that best suits your needs.
-                </p>
+              {loading
+                ? <Loader2 className="h-5 w-5 animate-spin" />
+                : <><span>Continue</span><ArrowRight className="h-4 w-4" /></>}
+            </motion.button>
+          </form>
+        </motion.div>
+      </section>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Freelancer Option */}
-                    <label className="flex items-start gap-3 border border-white/20 rounded-xl p-4 hover:border-[#c12129] transition cursor-pointer">
-                        <input
-                            type="radio"
-                            name="accountType"
-                            value="Freelancer"
-                            checked={accountType === "Freelancer"}
-                            onChange={(e) => setAccountType(e.target.value)}
-                            className="mt-1 accent-[#c12129]"
-                        />
-                        <div>
-                            <h3 className="text-xl font-semibold text-[#c12129]">Freelancer</h3>
-                            <p className="text-gray-300 text-sm">
-                                Consultants seeking projects. Create invoices, track payments,
-                                and showcase your services to potential clients.
-                            </p>
-                        </div>
-                    </label>
-
-                    {/* Client Option */}
-                    <label className="flex items-start gap-3 border border-white/20 rounded-xl p-4 hover:border-[#c12129] transition cursor-pointer">
-                        <input
-                            type="radio"
-                            name="accountType"
-                            value="Client"
-                            checked={accountType === "Client"}
-                            onChange={(e) => setAccountType(e.target.value)}
-                            className="mt-1 accent-[#c12129]"
-                        />
-                        <div>
-                            <h3 className="text-xl font-semibold text-[#c12129]">Client</h3>
-                            <p className="text-gray-300 text-sm">
-                                Organizations hiring consultants. Post jobs, manage contracts,
-                                and securely pay for completed work.
-                            </p>
-                        </div>
-                    </label>
-
-                    {/* Enterprise Option */}
-                    <label className="flex items-start gap-3 border border-white/20 rounded-xl p-4 hover:border-[#c12129] transition cursor-pointer">
-                        <input
-                            type="radio"
-                            name="accountType"
-                            value="Enterprise"
-                            checked={accountType === "Enterprise"}
-                            onChange={(e) => setAccountType(e.target.value)}
-                            className="mt-1 accent-[#c12129]"
-                        />
-                        <div>
-                            <div className="flex items-center gap-2">
-                                <h3 className="text-xl font-semibold text-[#c12129]">Enterprise</h3>
-                                <span className="rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-[#c12129]">New</span>
-                            </div>
-                            <p className="text-gray-300 text-sm">
-                                Large organisations with multi-user workspaces. Up to 50 members, dedicated dashboard, escrow management, and analytics.
-                            </p>
-                        </div>
-                    </label>
-
-                    {/* Concierge Option */}
-                    <label className="flex items-start gap-3 border border-white/20 rounded-xl p-4 hover:border-yellow-500/50 transition cursor-pointer">
-                        <input
-                            type="radio"
-                            name="accountType"
-                            value="Concierge"
-                            checked={accountType === "Concierge"}
-                            onChange={(e) => setAccountType(e.target.value)}
-                            className="mt-1 accent-yellow-500"
-                        />
-                        <div>
-                            <div className="flex items-center gap-2 flex-wrap">
-                                <h3 className="text-xl font-semibold text-yellow-400">Concierge</h3>
-                                <span className="rounded-full border border-yellow-500/40 bg-yellow-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-yellow-400">Admin Approval Required</span>
-                            </div>
-                            <p className="text-gray-300 text-sm mt-1">
-                                For government agencies, large NGOs and corporations. Includes a dedicated project manager, custom dashboards, and 24/7 priority support. Your request will be reviewed by our team within 24 hours — no payment required now.
-                            </p>
-                        </div>
-                    </label>
-
-                    {/* Continue Button */}
-                    <motion.button
-                        whileTap={{ scale: 0.96 }}
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-gradient-to-r from-[#c12129] to-[#8b1118] text-white font-semibold py-3 rounded-xl hover:opacity-90 hover:scale-105 transition disabled:opacity-60 mt-4 flex items-center justify-center shadow-lg"
-                    >
-                        {loading ? (
-                            <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                        ) : (
-                            "Continue"
-                        )}
-                    </motion.button>
-                </form>
-            </motion.div>
-        </section>
-    );
+      {/* 2FA setup shown immediately after successful registration */}
+      <AnimatePresence>
+        {show2FA && (
+          <TwoFASetup
+            onDone={() => { setShow2FA(false); router.push(redirectTo); }}
+            onSkip={() => { setShow2FA(false); router.push(redirectTo); }}
+          />
+        )}
+      </AnimatePresence>
+    </>
+  );
 }
