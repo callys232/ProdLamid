@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, LayoutDashboard, FolderKanban, Users, Bell, MessageSquare,
-  BarChart3, HeadphonesIcon, Settings, Star, UserCheck, Lock, Mail,
+  BarChart3, TrendingUp, HeadphonesIcon, Settings, Star, UserCheck, Lock, Mail,
   ChevronLeft, ChevronRight,
 } from "lucide-react";
 
@@ -20,6 +20,7 @@ import ConciergeSupport    from "./tabs/ConciergeSupport";
 import EscrowTab           from "@/components/client/escrow/Escrow";
 import WorkspaceTab        from "@/components/client/messaging/ProjectWorkspace";
 import ConciergeInvitations from "./tabs/ConciergeInvitations";
+import ConciergeAnalytics   from "./tabs/ConciergeAnalytics";
 import { UserGuide } from "@/components/Guides/UserGuide";
 import { conciergeGuide } from "@/lib/UserGuide/conciergeGuide";
 
@@ -32,6 +33,7 @@ const NAV = [
   { key: "escrow",        label: "Escrow",           icon: Lock,            guide: "guide-con-escrow"      },
   { key: "messaging",     label: "Messaging",        icon: MessageSquare,   guide: "guide-con-messaging"   },
   { key: "invitations",   label: "Invitations",      icon: Mail,            guide: "guide-con-invitations" },
+  { key: "analytics",     label: "Analytics",        icon: TrendingUp,      guide: undefined               },
   { key: "reports",       label: "Reports",          icon: BarChart3,       guide: "guide-con-reports"     },
   { key: "notifications", label: "Notifications",    icon: Bell,            guide: undefined               },
   { key: "support",       label: "Priority Support", icon: HeadphonesIcon,  guide: "guide-con-support"     },
@@ -77,6 +79,7 @@ export default function ConciergeDashboard() {
       );
       case "dedicated-pm":  return <ConciergePM />;
       case "teams":         return <Teams />;
+      case "analytics":     return <ConciergeAnalytics />;
       case "reports":       return <ConciergeReports />;
       case "notifications": return <Notifications clientId={userId} />;
       case "escrow":        return <EscrowTab />;
@@ -122,7 +125,7 @@ export default function ConciergeDashboard() {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 overflow-y-auto px-2 py-4 space-y-0.5">
+        <nav className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] px-2 py-4 space-y-0.5">
           {NAV.map(({ key, label, icon: Icon, guide }) => {
             const active = activeTab === key;
             return (
@@ -246,7 +249,7 @@ export default function ConciergeDashboard() {
                   <p className="text-[10px] text-gray-500">White-glove service portal</p>
                 </div>
               </div>
-              <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
+              <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
                 {NAV.map(({ key, label, icon: Icon }) => {
                   const active = activeTab === key;
                   return (

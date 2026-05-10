@@ -92,19 +92,80 @@ export interface OrgInvoice {
   cycle: "monthly" | "annual";
 }
 
+/* ── Analytics types ─────────────────────────────────── */
+
+export interface EnterpriseAnalyticsKPI {
+  totalBudget:          number;
+  totalSpent:           number;
+  totalRemaining:       number;
+  activeProjects:       number;
+  completedProjects:    number;
+  avgCompletionRate:    number;
+  avgProjectDuration:   number;
+  totalConsultants:     number;
+  activeConsultants:    number;
+  openDisputes:         number;
+  resolvedDisputes:     number;
+  totalMilestones:      number;
+  completedMilestones:  number;
+  memberCount:          number;
+  pendingInvites:       number;
+}
+
 export interface SpendDataPoint {
-  month: string;
-  spend: number;
+  month:  string;
+  spend:  number;
+  budget: number;
 }
 
 export interface CategoryDataPoint {
   category: string;
-  count: number;
+  count:    number;
+  spend:    number;
+}
+
+export interface ProjectStatusDataPoint {
+  status: string;
+  count:  number;
+  color:  string;
+}
+
+export interface MilestoneTrendPoint {
+  month:     string;
+  completed: number;
+  total:     number;
+}
+
+export interface HiringActivityPoint {
+  month:    string;
+  bids:     number;
+  accepted: number;
+}
+
+export interface EscrowActivityPoint {
+  month:    string;
+  funded:   number;
+  released: number;
+  disputed: number;
 }
 
 export interface ConsultantPerformance {
-  name: string;
-  projects: number;
-  avgRating: number;
-  totalPaid: number;
+  name:       string;
+  avatar:     string;
+  projects:   number;
+  avgRating:  number;
+  totalPaid:  number;
+  onTime:     number;
+  specialty:  string;
+}
+
+export interface EnterpriseAnalytics {
+  kpi:             EnterpriseAnalyticsKPI;
+  monthlySpend:    SpendDataPoint[];
+  categoryData:    CategoryDataPoint[];
+  statusBreakdown: ProjectStatusDataPoint[];
+  milestoneTrend:  MilestoneTrendPoint[];
+  hiringActivity:  HiringActivityPoint[];
+  escrowActivity:  EscrowActivityPoint[];
+  topConsultants:  ConsultantPerformance[];
 }

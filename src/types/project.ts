@@ -421,6 +421,60 @@ export interface ConciergeProject extends Omit<Project, "milestones" | "consulta
 }
 
 /* =========================================================
+   CONCIERGE ANALYTICS
+========================================================= */
+
+export interface ConciergeAnalyticsKPI {
+  totalBudget: number;
+  totalSpent: number;
+  totalRemaining: number;
+  activeProjects: number;
+  completedProjects: number;
+  avgProgress: number;
+  totalMilestones: number;
+  completedMilestones: number;
+  openDisputes: number;
+  resolvedDisputes: number;
+  teamSize: number;
+}
+
+export interface ConciergeMonthlySpend {
+  month: string;
+  budget: number;
+  spent: number;
+}
+
+export interface ConciergeProjectStatusBreakdown {
+  status: string;
+  count: number;
+  color: string;
+}
+
+export interface ConciergeMilestoneTrend {
+  month: string;
+  completed: number;
+  total: number;
+}
+
+export interface ConciergeTopProject {
+  id: string;
+  title: string;
+  progress: number;
+  budget: number;
+  spent: number;
+  status: string;
+  pm: string;
+}
+
+export interface ConciergeAnalytics {
+  kpi: ConciergeAnalyticsKPI;
+  monthlySpend: ConciergeMonthlySpend[];
+  statusBreakdown: ConciergeProjectStatusBreakdown[];
+  milestoneTrend: ConciergeMilestoneTrend[];
+  topProjects: ConciergeTopProject[];
+}
+
+/* =========================================================
    ESCROW DASHBOARD
 ========================================================= */
 
