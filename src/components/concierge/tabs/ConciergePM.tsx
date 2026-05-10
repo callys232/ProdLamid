@@ -58,10 +58,13 @@ export default function ConciergePM() {
             { icon: Phone,    label: PM.phone },
             { icon: Clock,    label: PM.availability },
           ].map(({ icon: Icon, label }, i) => (
-            <div key={i} className="flex items-center gap-2 rounded-xl bg-black/30 border border-white/10 px-3 py-2.5">
+            <motion.div key={i}
+              whileHover={{ scale: 1.03, boxShadow: "0 4px 16px rgba(0,0,0,0.3)" }}
+              transition={{ duration: 0.15 }}
+              className="flex items-center gap-2 rounded-xl bg-black/30 border border-white/10 px-3 py-2.5 cursor-default">
               <Icon className="h-3.5 w-3.5 text-[#c21219] flex-shrink-0" />
               <p className="text-xs text-gray-300 truncate">{label}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
 

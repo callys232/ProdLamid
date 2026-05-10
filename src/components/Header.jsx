@@ -52,7 +52,7 @@ export default function Header() {
         <div className="w-full md:w-2/3 z-10 pt-20 md:pt-0 text-center md:text-left">
           <h1 className="whitespace-pre-line text-2xl sm:text-3xl md:text-5xl font-extrabold leading-snug max-w-2xl mx-auto md:mx-0 px-2 font-display text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-white">
             <Typewriter
-              words={["We build and grow\nworld-class organizations"]}
+              words={["Empowering Growth. Digitally."]}
               loop={Infinity}
               typeSpeed={60}
               deleteSpeed={30}

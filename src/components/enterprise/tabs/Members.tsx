@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { UserPlus, Mail, MoreVertical, ShieldCheck, Trash2, RefreshCw, Crown } from "lucide-react";
 import toast from "react-hot-toast";
 import type { OrgMember, OrgRole } from "@/types/enterprise";
+import MemberDetailModal, { type MemberProfile } from "@/components/shared/MemberDetailModal";
 
 interface Props {
   orgId: string;
@@ -44,6 +45,22 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
   const [role, setRole]         = useState<OrgRole>("org_member");
   const [inviting, setInviting] = useState(false);
   const [menuOpen, setMenuOpen] = useState<string | null>(null);
+  const [selected, setSelected] = useState<MemberProfile | null>(null);
+
+  function openModal(m: OrgMember) {
+    setSelected({
+      id:       m.user?._id ?? m.userId ?? m._id,
+      name:     m.user?.username ?? m.inviteEmail ?? "Pending",
+      email:    m.user?.email ?? m.inviteEmail ?? "",
+      role:     ROLE_LABEL[m.role] ?? m.role,
+      status:   m.status as MemberProfile["status"],
+      joinedAt: m.joinedAt,
+      badge: {
+        label: ROLE_LABEL[m.role] ?? m.role,
+        color: ROLE_BADGE[m.role] ?? "border-white/10 bg-white/5 text-gray-400",
+      },
+    });
+  }
 
   const pct = Math.min((memberCount / maxMembers) * 100, 100);
   const canManage = ["org_admin", "org_manager"].includes(orgRole);
@@ -151,7 +168,9 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ delay: i * 0.04 }}
-                className="flex items-center gap-4 px-5 py-3.5"
+                whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
+                onClick={() => openModal(m)}
+                className="flex items-center gap-4 px-5 py-3.5 cursor-pointer"
               >
                 {/* Avatar */}
                 <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#c12129]/10 text-sm font-bold text-[#c12129]">
@@ -216,6 +235,12 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
           </AnimatePresence>
         </ul>
       </div>
+
+      <MemberDetailModal
+        member={selected}
+        onClose={() => setSelected(null)}
+        accent="#c12129"
+      />
     </div>
   );
 }

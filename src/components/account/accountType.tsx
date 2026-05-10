@@ -202,7 +202,7 @@ export default function AccountTypePage() {
                                 <span className="rounded-full border border-yellow-500/40 bg-yellow-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-yellow-400">Admin Approval Required</span>
                             </div>
                             <p className="text-gray-300 text-sm mt-1">
-                                For government agencies, UN bodies, large NGOs and corporations. Includes a dedicated project manager, custom dashboards, and 24/7 priority support. Your request will be reviewed by our team within 24 hours — no payment required now.
+                                For government agencies, large NGOs and corporations. Includes a dedicated project manager, custom dashboards, and 24/7 priority support. Your request will be reviewed by our team within 24 hours — no payment required now.
                             </p>
                         </div>
                     </label>

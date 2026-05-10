@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FolderPlus, MapPin, Clock, DollarSign, FolderOpen } from "lucide-react";
+import { FolderPlus, MapPin, Clock, DollarSign, FolderOpen, MessageSquare, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { mockJobs } from "@/mocks/mockJobs";
 import EmptyState from "@/components/ui/EmptyState";
 import Pagination from "@/components/ui/Pagination";
@@ -18,9 +19,12 @@ const STATUS_STYLE: Record<string, string> = {
   cancelled: "border-red-500/30 bg-red-500/10 text-red-400",
 };
 
-interface Props { tier: string }
+interface Props {
+  tier: string;
+  onOpenMessaging?: () => void;
+}
 
-export default function Projects({ tier }: Props) {
+export default function Projects({ tier, onOpenMessaging }: Props) {
   const [filter, setFilter] = useState("All");
   const [page,   setPage]   = useState(1);
   const activeLimit = tier === "enterprise_plus" ? Infinity : 12;
@@ -106,8 +110,9 @@ export default function Projects({ tier }: Props) {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.04 }}
-            whileHover={{ y: -3, scale: 1.01 }}
-            className="group cursor-pointer rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-[#c12129]/30 hover:bg-[#c12129]/5"
+            whileHover={{ y: -4, scale: 1.015, boxShadow: "0 12px 32px rgba(0,0,0,0.45)", borderColor: "rgba(193,33,41,0.3)" }}
+            transition={{ duration: 0.18 }}
+            className="group cursor-pointer rounded-xl border border-white/10 bg-white/5 p-4"
           >
             <div className="mb-3 flex items-start justify-between gap-2">
               <h3 className="text-sm font-semibold text-white leading-snug">{p.title}</h3>
@@ -139,6 +144,26 @@ export default function Projects({ tier }: Props) {
                   {s}
                 </span>
               ))}
+            </div>
+
+            {/* Actions */}
+            <div className="mt-3 flex items-center justify-end gap-2 border-t border-white/5 pt-3">
+              <motion.button
+                whileHover={{ scale: 1.05, y: -1, boxShadow: "0 4px 14px rgba(0,0,0,0.3)" }} whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+                onClick={onOpenMessaging}
+                className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-gray-400 transition hover:text-white hover:bg-white/10"
+              >
+                <MessageSquare className="h-3 w-3" /> Messages
+              </motion.button>
+              <motion.div whileHover={{ scale: 1.06, y: -1, boxShadow: "0 4px 14px rgba(193,33,41,0.3)" }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.15 }}>
+                <Link
+                  href={`/projects/${p._id}/workspace`}
+                  className="flex items-center gap-1.5 rounded-lg border border-[#c12129]/30 bg-[#c12129]/10 px-3 py-1.5 text-[11px] font-medium text-[#c12129] transition hover:bg-[#c12129]/20"
+                >
+                  Workspace <ArrowRight className="h-3 w-3" />
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         ))}

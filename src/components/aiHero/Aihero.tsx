@@ -178,7 +178,7 @@ export default function AISystemSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
             >
-                <motion.h2
+                {/* <motion.h2
                     className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#c21219] via-red-400 to-white bg-clip-text text-transparent"
                     style={{ fontFamily: "var(--font-space-grotesk)" }}
                     initial={{ opacity: 0, y: 10 }}
@@ -186,14 +186,14 @@ export default function AISystemSection() {
                     transition={{ duration: 0.5, delay: 0.1 }}
                 >
                     Empowering Growth. Digitally.
-                </motion.h2>
+                </motion.h2> */}
                 <motion.p
                     className="mt-2 text-sm text-gray-400 max-w-2xl"
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.25 }}
                 >
-                    All in one ecosystem — matches organizations with vetted experts, provides built-in CRM and project management, and uses AI to automate scoping, matching, and risk detection.
+                    All in one ecosystem — matches organizations with vetted experts, provides built-in CRM and project management, and uses AI to automate the process
                 </motion.p>
             </motion.div>
 

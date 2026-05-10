@@ -14,6 +14,10 @@ import Analytics          from "./tabs/Analytics";
 import Billing            from "./tabs/Billing";
 import OrgSettings        from "./tabs/OrgSettings";
 import Notifications      from "./tabs/Notifications";
+import EscrowTab          from "@/components/client/escrow/Escrow";
+import WorkspaceTab       from "@/components/client/messaging/ProjectWorkspace";
+import EnterpriseTeams    from "./tabs/Teams";
+import EnterpriseInvitations from "./tabs/Invitations";
 
 import type { Organization, EnterpriseDashboardStats, OrgTier, OrgRole } from "@/types/enterprise";
 
@@ -124,7 +128,11 @@ export default function EnterpriseDashboard() {
     switch (activeTab) {
       case "overview":      return <Overview       stats={stats} tier={tier} orgName={org?.name ?? ""} onTabChange={handleTabChange} />;
       case "members":       return <Members        orgId={org?._id ?? ""} orgRole={orgRole} memberCount={count} maxMembers={max} tier={tier} />;
-      case "projects":      return <Projects       tier={tier} />;
+      case "teams":         return <EnterpriseTeams orgId={org?._id ?? ""} />;
+      case "invitations":   return <EnterpriseInvitations orgId={org?._id ?? ""} />;
+      case "projects":      return <Projects       tier={tier} onOpenMessaging={() => handleTabChange("messaging")} />;
+      case "escrow":        return <EscrowTab />;
+      case "messaging":     return <WorkspaceTab />;
       case "analytics":     return <Analytics />;
       case "billing":       return <Billing        tier={tier} orgStatus={org?.status ?? "trial"} />;
       case "settings":      return <OrgSettings    org={org} orgRole={orgRole} />;
