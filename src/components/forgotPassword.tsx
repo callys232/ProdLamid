@@ -40,7 +40,6 @@ export default function ForgotPassword() {
                 setStatus("error");
             }
         } catch (err) {
-            console.error(err);
             setStatus("error");
         }
     };

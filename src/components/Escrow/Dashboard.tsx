@@ -64,7 +64,6 @@ export default function EscrowDashboard({
         setBalance(meRes.data.data.wallet.balance);
       }
     } catch (err) {
-      console.error("Failed to fetch escrow data:", err);
       toast.error("Failed to load financial data");
     } finally {
       setLoading(false);

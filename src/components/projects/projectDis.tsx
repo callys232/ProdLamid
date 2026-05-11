@@ -57,7 +57,6 @@ export default function ProjectsSection({
 
         setProjects(normalizedProjects);
       } catch (err: any) {
-        console.error("Error fetching projects:", err);
         setError("Failed to load projects. Please try again later.");
       } finally {
         setLoading(false);

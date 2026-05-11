@@ -35,7 +35,6 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
                 setEscrows(combined);
             }
         } catch (error) {
-            console.error("Error fetching escrow status:", error);
         } finally {
             setLoading(false);
         }

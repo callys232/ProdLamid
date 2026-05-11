@@ -1,77 +1,52 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { revokeToken } from "@/lib/tokenBlocklist";
+import jwt from "jsonwebtoken";
 
-type Body = {
-    role?: string;
-    sessionId?: string;
-    ssoLogoutUrl?: string;
+const JWT_SECRET = process.env.JWT_SECRET!;
+
+const COOKIE_CLEAR = {
+  httpOnly: true,
+  secure:   process.env.NODE_ENV === "production",
+  sameSite: "lax" as const,
+  path:     "/",
+  expires:  new Date(0),
 };
 
-async function revokeRefreshToken(refreshToken: string | null) {
-    // TODO: implement token revocation in DB or call identity provider
-    // Example: mark token revoked in DB, call OAuth provider revoke endpoint, etc.
-    if (!refreshToken) return;
-    // await db.revokeToken(refreshToken);
-    return;
-}
+export async function POST(request: NextRequest) {
+  try {
+    // Extract and revoke the current token from the cookie
+    const token = request.cookies.get("token")?.value;
 
-export async function POST(request: Request) {
-    try {
-        const body: Body = await request.json().catch(() => ({}));
-        const role = body.role ?? "client";
-        const sessionId = body.sessionId ?? null;
-        const ssoLogoutUrl = body.ssoLogoutUrl ?? null;
-
-        // Read refresh token from cookie (server-side)
-        const cookieHeader = request.headers.get("cookie") ?? "";
-        const cookies = Object.fromEntries(cookieHeader.split(";").map(c => {
-            const [k, ...v] = c.trim().split("=");
-            return [k, decodeURIComponent(v.join("="))];
-        }));
-        const refreshToken = cookies["refresh_token"] ?? null;
-
-        // Attempt server-side revocation (best-effort)
-        try {
-            await revokeRefreshToken(refreshToken);
-            // Optionally revoke role/session specific entries:
-            if (sessionId) {
-                // await revokeSessionById(sessionId);
-            }
-            // Optionally revoke all sessions for role:
-            // if (role) await revokeRoleSessions(role);
-        } catch (revErr) {
-            console.error("Failed to revoke refresh token:", revErr);
-            // continue to clear cookies and return success to client (best-effort)
-        }
-
-        // Build response and clear cookies
-        const res = NextResponse.json({ success: true, message: "Logged out successfully", role });
-
-        // Clear common auth cookies (HttpOnly, Secure, SameSite)
-        const cookieOptions = {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            path: "/",
-            sameSite: "lax" as const,
-            expires: new Date(0),
-        };
-
-        // Use NextResponse.cookies.set to clear cookies
-        res.cookies.set("refresh_token", "", cookieOptions);
-        res.cookies.set("access_token", "", cookieOptions);
-        res.cookies.set("token",         "", cookieOptions);
-        res.cookies.set("user_role",     "", { ...cookieOptions, httpOnly: false });
-        // If you use other cookies, clear them here:
-        // res.cookies.set("session", "", cookieOptions);
-
-        // If SSO logout URL is provided, include it in the response so client can redirect
-        if (ssoLogoutUrl) {
-            return NextResponse.json({ success: true, ssoLogoutUrl }, { status: 200 });
-        }
-
-        return res;
-    } catch (error: any) {
-        console.error("Logout handler error:", error);
-        // Return 200 with ok:false if you prefer best-effort; here we return 500 with message
-        return NextResponse.json({ success: false, message: error?.message ?? "Logout failed" }, { status: 500 });
+    if (token) {
+      try {
+        // Decode without verifying (we still want to revoke even if nearly expired)
+        const decoded = jwt.decode(token) as { exp?: number } | null;
+        const expSeconds = decoded?.exp ?? Math.floor(Date.now() / 1000) + 7 * 86400;
+        await revokeToken(token, expSeconds);
+      } catch {
+        // Malformed token — safe to ignore, just clear the cookie
+      }
     }
+
+    // Also handle any SSO logout redirect
+    const body = await request.json().catch(() => ({}));
+    const ssoLogoutUrl = body?.ssoLogoutUrl ?? null;
+
+    const res = NextResponse.json({ success: true, message: "Logged out successfully" });
+
+    // Clear all auth cookies
+    res.cookies.set("token",         "", COOKIE_CLEAR);
+    res.cookies.set("access_token",  "", COOKIE_CLEAR);
+    res.cookies.set("refresh_token", "", COOKIE_CLEAR);
+    res.cookies.set("user_role",     "", { ...COOKIE_CLEAR, httpOnly: false });
+
+    if (ssoLogoutUrl) {
+      return NextResponse.json({ success: true, ssoLogoutUrl });
+    }
+
+    return res;
+  } catch (error: any) {
+    console.error("[logout]", error);
+    return NextResponse.json({ success: false, message: "Logout failed" }, { status: 500 });
+  }
 }

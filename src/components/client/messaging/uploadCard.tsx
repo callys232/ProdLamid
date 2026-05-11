@@ -32,7 +32,6 @@ export default function UploadCard() {
         setFiles(null);
       })
       .catch((err) => {
-        console.error(err);
         alert("Error submitting files");
       });
   }

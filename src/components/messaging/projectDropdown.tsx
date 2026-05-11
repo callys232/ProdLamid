@@ -30,14 +30,12 @@ export default function ProjectDocumentsDropdown({
       try {
         const res = await fetch(`/api/projects/${escrow.id}/documents`);
         if (!res.ok) {
-          console.warn("Documents API returned non-OK, using mock fallback");
           setDocuments(mockEscrow.documents ?? []); // ✅ fallback
           return;
         }
         const data: ProjectDocument[] = await res.json();
         setDocuments(data);
       } catch (err) {
-        console.error("Error fetching documents, using mock fallback:", err);
         setDocuments(mockEscrow.documents ?? []); // ✅ fallback
       } finally {
         setLoading(false);

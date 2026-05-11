@@ -9,7 +9,10 @@
       "Bash(awk -F: '{print $1\":\"$2}')",
       "Bash(awk -F: '{print $1}')",
       "Bash(python3 -)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "Bash(npx vitest *)",
+      "Bash(xargs -I {} basename {})"
     ]
   }
 }

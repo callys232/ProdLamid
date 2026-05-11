@@ -94,7 +94,6 @@ export default function PaymentInformation({ user }: { user: any }) {
     }
 
     setErrors({});
-    console.log("✅ Payment Details Submitted:", formData);
   };
 
   return (

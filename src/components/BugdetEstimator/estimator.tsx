@@ -77,7 +77,6 @@ export default function EstimatorPage({
                 const data = await res.json();
                 setSuggestions(data);
             } catch (err) {
-                console.error("Failed to load suggestions", err);
             }
         };
 

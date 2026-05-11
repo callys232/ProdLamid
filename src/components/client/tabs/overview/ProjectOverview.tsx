@@ -21,7 +21,6 @@ export default function ProjectOverview() {
                 if (!res.ok) throw new Error(result.message || "Fetch failed");
                 setProjects(result.data || []);
             } catch (error: any) {
-                console.error("Failed to fetch owner projects:", error.message);
             } finally {
                 setLoading(false);
             }

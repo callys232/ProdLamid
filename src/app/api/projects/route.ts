@@ -44,7 +44,11 @@ export async function GET(request: NextRequest) {
 
         if (category) query.category = category;
         if (status)   query.status   = status;
-        if (search)   query.title    = { $regex: search, $options: "i" };
+        if (search) {
+            // Escape user input to prevent ReDoS attacks, then limit length
+            const safeSearch = search.slice(0, 100).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            query.title = { $regex: safeSearch, $options: "i" };
+        }
 
         const [projects, total] = await Promise.all([
           Project.find(query).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit).lean(),

@@ -119,7 +119,6 @@ export default function JobPostingForm({
       const payload = buildPayload();
       if (onDraftSave) await onDraftSave(payload);
     } catch (err) {
-      console.error("Draft save failed:", err);
     }
   }
 
@@ -131,7 +130,6 @@ export default function JobPostingForm({
       const payload = buildPayload();
       if (onSubmit) await onSubmit(payload);
     } catch (err) {
-      console.error("Submit failed:", err);
     }
   }
 

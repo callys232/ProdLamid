@@ -100,7 +100,6 @@ export default function Teams({ user }: { user: any }) {
         if (data.length > 0) setSelectedTeam(data[0]);
       }
     } catch (err) {
-      console.error("Failed to load teams:", err);
     } finally {
       setLoading(false);
     }
@@ -146,7 +145,6 @@ export default function Teams({ user }: { user: any }) {
 
         throw new Error("Backend not ok");
       } catch (err) {
-        console.warn("⚠ Team projects fetch failed.");
         setError("Unable to fetch team projects.");
         setProjects([]);
         setTeamMembers([]);

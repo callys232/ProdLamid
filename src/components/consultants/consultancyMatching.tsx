@@ -47,7 +47,6 @@ export default function ConsultantsSection({
         const data = await getConsultants();
         setConsultants(data);
       } catch (err: any) {
-        console.error("Error fetching consultants:", err);
         setError("Failed to load consultants. Please try again later.");
       } finally {
         setLoading(false);

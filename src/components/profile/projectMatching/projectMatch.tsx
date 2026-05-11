@@ -129,7 +129,6 @@ export default function ProjectsSection({
                 }
             } catch (err: any) {
                 if (err?.name === "AbortError") return;
-                console.error("Error fetching projects:", err);
                 setError("Failed to load projects. Projects list may be incomplete.");
             } finally {
                 setLoading(false);

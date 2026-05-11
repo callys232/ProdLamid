@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { LucideIcon, Inbox } from "lucide-react";
+import { LucideIcon, Inbox, FolderOpen, Users, MessageSquare, Bell, Search, DollarSign, Star } from "lucide-react";
 
 interface Props {
   icon?:        LucideIcon;
@@ -42,3 +42,14 @@ export default function EmptyState({ icon: Icon = Inbox, title, description, cta
     </motion.div>
   );
 }
+
+/* ── Pre-configured domain variants ──────────────────────────── */
+export const Empty = {
+  Projects:      (p?: Partial<Props>) => <EmptyState icon={FolderOpen}    title="No projects yet"       description="Projects you post or bid on will appear here."        {...p} />,
+  Consultants:   (p?: Partial<Props>) => <EmptyState icon={Users}         title="No consultants found"  description="Try adjusting your filters or search terms."           {...p} />,
+  Messages:      (p?: Partial<Props>) => <EmptyState icon={MessageSquare} title="No messages yet"       description="Messages from your projects will appear here."         {...p} />,
+  Notifications: (p?: Partial<Props>) => <EmptyState icon={Bell}          title="All caught up"         description="You have no new notifications."                        {...p} />,
+  Escrow:        (p?: Partial<Props>) => <EmptyState icon={DollarSign}    title="No escrow transactions"description="Funded milestones will appear here."                   {...p} />,
+  Reviews:       (p?: Partial<Props>) => <EmptyState icon={Star}          title="No reviews yet"        description="Reviews from completed projects will appear here."     {...p} />,
+  Search:        (q: string)          => <EmptyState icon={Search}        title={`No results for "${q}"`} description="Try a different search term or browse categories."    />,
+};

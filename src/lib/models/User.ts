@@ -120,6 +120,15 @@ UserSchema.virtual("addresses", {
 UserSchema.set("toObject", { virtuals: true });
 UserSchema.set("toJSON", { virtuals: true });
 
+// ── Indexes ────────────────────────────────────────────────────
+UserSchema.index({ role: 1, status: 1 });
+UserSchema.index({ createdAt: -1 });
+UserSchema.index({ tier: 1 });
+UserSchema.index({ kycStatus: 1 });
+UserSchema.index({ orgId: 1 });
+// text index for admin search
+UserSchema.index({ username: "text", email: "text" });
+
 // Delete cached model so schema changes (new fields) take effect on hot-reload in dev.
 if (process.env.NODE_ENV !== "production" && mongoose.models.Users) {
   delete (mongoose.models as any).Users;

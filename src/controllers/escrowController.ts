@@ -102,16 +102,19 @@ export const handlePaystackWebhook = async (payload: any) => {
             await wallet.save();
         }
 
-        // ── Escrow funding ───────────────────────────────────────────
-        const escrow = meta.escrowId
-            ? await Escrow.findById(meta.escrowId)
-            : await Escrow.findOne({ paystackRef: reference });
+        // ── Escrow funding (atomic — prevents duplicate webhook processing) ──
+        const escrowFilter = meta.escrowId
+            ? { _id: meta.escrowId, status: { $in: ["initializing", "pending"] } }
+            : { paystackRef: reference,   status: { $in: ["initializing", "pending"] } };
+
+        const escrow = await Escrow.findOneAndUpdate(
+            escrowFilter,
+            { $set: { status: "funded", transactionId: String(data.id), fundedAt: new Date() } },
+            { new: true }
+        );
 
         if (escrow) {
-            escrow.status        = "funded";
-            escrow.transactionId = String(data.id);
-            escrow.fundedAt      = new Date();
-            await escrow.save();
+            // Only update milestone if escrow was successfully transitioned (not a replay)
             await Milestone.findByIdAndUpdate(escrow.milestoneId, { status: "funded" });
         }
     }

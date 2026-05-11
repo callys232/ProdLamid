@@ -25,5 +25,9 @@ const ReviewSchema = new Schema<IReview>(
   { timestamps: true }
 );
 
+ReviewSchema.index({ product: 1 });
+ReviewSchema.index({ user: 1 });
+ReviewSchema.index({ rating: -1 });
+
 export const Review =
   mongoose.models.Review || mongoose.model<IReview>("Review", ReviewSchema);

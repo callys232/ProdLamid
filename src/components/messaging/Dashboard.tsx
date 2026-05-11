@@ -18,7 +18,6 @@ export default function Dashboard() {
       try {
         const res = await fetch("/api/escrow");
         if (!res.ok) {
-          console.warn("Escrow API returned non-OK, using mockEscrow");
           setEscrow(mockEscrow);
           setMessages(mockEscrow.messages ?? []);
           return;
@@ -27,7 +26,6 @@ export default function Dashboard() {
         setEscrow(data);
         setMessages(data.messages ?? []);
       } catch (err) {
-        console.error("Escrow API failed, using mockEscrow:", err);
         setEscrow(mockEscrow);
         setMessages(mockEscrow.messages ?? []);
       }

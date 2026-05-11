@@ -50,7 +50,6 @@ export default function Notifications() {
         setMessages(msgData);
         setAlerts(alertData);
       } catch (err: any) {
-        console.error("Failed to load notifications", err);
         setError("Failed to load notifications. Please try again.");
       } finally {
         setLoading(false);

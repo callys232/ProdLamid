@@ -25,7 +25,6 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
             const data = await res.json();
             if (res.ok) setEscrows(data.data.filter((m: any) => m.amount > 0));
         } catch (error) {
-            console.error("Error fetching escrow status:", error);
         } finally {
             setLoading(false);
         }

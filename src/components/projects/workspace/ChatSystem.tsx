@@ -44,7 +44,6 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
             const data = await res.json();
             if (res.ok) setMessages(data.data);
         } catch (error) {
-            console.error("Error fetching messages:", error);
         } finally {
             setLoading(false);
         }

@@ -52,7 +52,6 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                 disputeReason: proj.disputeReason,
             });
         } catch (error) {
-            console.error("Error fetching project:", error);
         } finally {
             setLoading(false);
         }

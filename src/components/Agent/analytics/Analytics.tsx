@@ -41,7 +41,6 @@ export default function AnalyticsAgent({ projectId }: { projectId: string }) {
         setAnalytics(data);
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : String(err);
-        console.error("Error fetching analytics, using mock data", message);
         setError(message);
         setAnalytics({
           progressTrend: [20, 40, 60, 80],
@@ -81,7 +80,6 @@ export default function AnalyticsAgent({ projectId }: { projectId: string }) {
       setStatusMessage("✅ Settings updated successfully");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
-      console.error("Failed to update settings", message);
       setStatusMessage("❌ Failed to update settings");
     }
     setTimeout(() => setStatusMessage(null), 3000); // auto-clear after 3s

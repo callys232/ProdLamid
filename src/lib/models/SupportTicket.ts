@@ -11,5 +11,8 @@ const SupportTicketSchema = new mongoose.Schema({
   notes:    { type: String }, // internal admin notes
 }, { timestamps: true });
 
+SupportTicketSchema.index({ userId: 1, status: 1 });
+SupportTicketSchema.index({ status: 1, createdAt: -1 });
+
 export const SupportTicket =
   mongoose.models.SupportTicket || mongoose.model("SupportTicket", SupportTicketSchema);

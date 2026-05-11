@@ -51,7 +51,6 @@ export default function ProjectMatchEntry({
 
             window.location.href = "/projects/match";
         } catch (err: any) {
-            console.error("AI Match Error:", err);
             setError(err.message || "Something went wrong while matching projects.");
         } finally {
             setLoading(false);

@@ -24,7 +24,6 @@ const BusinessPrototypes: React.FC<BusinessPrototypesProps> = ({ text }) => {
         const data = await res.json();
         setPrototypes(data);
       } catch (err) {
-        console.warn("Using mock prototypes due to fetch error:", err);
         setPrototypes(mockPrototypes); // ✅ fallback
       } finally {
         setLoading(false);

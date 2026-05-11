@@ -33,7 +33,6 @@ export default function Invitations({
         setInvitations(data);
       }
     } catch (err) {
-      console.error("Failed to refresh invitations:", err);
     }
   };
 

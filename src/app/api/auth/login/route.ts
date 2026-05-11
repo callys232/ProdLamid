@@ -6,12 +6,13 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { rateLimit } from "@/lib/rateLimit";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
+const JWT_SECRET = process.env.JWT_SECRET!;
+if (!JWT_SECRET) throw new Error("JWT_SECRET environment variable is required");
 
 export async function POST(request: NextRequest) {
     try {
-        const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
-        const rl = rateLimit(`login:${ip}`, { windowMs: 15 * 60 * 1000, max: 10 });
+        const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+        const rl = await rateLimit(`login:${ip}`, { windowMs: 15 * 60 * 1000, max: 10 });
         if (!rl.allowed) {
             return NextResponse.json(
                 { success: false, message: "Too many login attempts. Try again in 15 minutes." },

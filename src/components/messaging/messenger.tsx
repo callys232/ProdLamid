@@ -50,7 +50,6 @@ export default function MessageBar({ escrow, setMessages }: MessageBarProps) {
       setMessage("");
       alert("Message sent to client and consultant!");
     } catch (err) {
-      console.error(err);
       alert("Error sending message");
     }
   }

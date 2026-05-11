@@ -182,7 +182,6 @@ export default function EscrowTab({
           onCurrencyChange={setCurrency}
           onExport={() => {
             if (!safeClient?.isPremium) return;
-            console.log("Export requested", currency);
           }}
           isPremium={safeClient?.isPremium ?? false}
         />

@@ -50,7 +50,6 @@ export default function ConsultantCard({
       setFeedback({ message: "Hire request sent successfully!", type: "success" });
       setTimeout(() => setFeedback(null), 2500);
     } catch (err) {
-      console.error(err);
       setFeedback({ message: "Error sending hire request. Please try again.", type: "error" });
       setTimeout(() => setFeedback(null), 2500);
     }

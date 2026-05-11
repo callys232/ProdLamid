@@ -16,19 +16,22 @@ export function logError(error: unknown, context: ErrorContext = {}) {
     ...context,
   };
 
-  // Console fallback (always)
-  console.error("[Lamid Error]", JSON.stringify(payload, null, 2));
+  // Structured JSON log (picked up by any log aggregator / Datadog / CloudWatch)
+  console.error(JSON.stringify({ level: "error", ...payload }));
 
-  // Sentry integration — uncomment when @sentry/nextjs is installed
-  // if (process.env.SENTRY_DSN) {
-  //   const Sentry = require("@sentry/nextjs");
-  //   Sentry.withScope((scope: any) => {
-  //     if (context.userId)  scope.setUser({ id: context.userId });
-  //     if (context.route)   scope.setTag("route", context.route);
-  //     if (context.extra)   scope.setExtras(context.extra);
-  //     Sentry.captureException(err);
-  //   });
-  // }
+  // Sentry capture when DSN is configured
+  if (process.env.SENTRY_DSN) {
+    import("@sentry/nextjs")
+      .then(Sentry => {
+        Sentry.withScope((scope: any) => {
+          if (context.userId) scope.setUser({ id: context.userId });
+          if (context.route)  scope.setTag("route", context.route);
+          if (context.extra)  scope.setExtras(context.extra);
+          Sentry.captureException(err);
+        });
+      })
+      .catch(() => { /* Sentry unavailable */ });
+  }
 }
 
 // API route error wrapper

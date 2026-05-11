@@ -15,11 +15,11 @@ const sustainableDevPage = () => {
   return (
     <div>
       <SDHeader />
-      <SDImpactDashboard />
-      <SDImapactandSocial />
-      <SDQA />
-      <SDBusinessPrototype />
-      <SDTestimonialandRest />
+      {/* <SDImpactDashboard /> */}
+      {/* <SDImapactandSocial />
+      <SDQA /> */}
+      {/* <SDBusinessPrototype />
+      <SDTestimonialandRest /> */}
       <Testimonial />
     </div>
   );

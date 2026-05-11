@@ -38,7 +38,6 @@ export default function ProfileDashboard({
         const userData = await getMe();
         setUser(userData);
       } catch (err: any) {
-        console.error("Failed to fetch user:", err);
         setError("Unable to fetch profile data. Please login again.");
         setUser(null);
       } finally {

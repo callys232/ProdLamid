@@ -34,7 +34,6 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
             const data = await res.json();
             if (res.ok) setMilestones(data.data);
         } catch (error) {
-            console.error("Error fetching milestones:", error);
         } finally {
             setLoading(false);
         }

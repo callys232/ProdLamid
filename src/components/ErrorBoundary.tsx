@@ -17,7 +17,6 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren<{ fal
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
     // Log to console (swap for Sentry when configured)
-    console.error("[ErrorBoundary]", error.message, info.componentStack);
   }
 
   render() {

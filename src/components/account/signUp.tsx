@@ -98,7 +98,6 @@ export default function SignUpPage() {
       sessionStorage.setItem("signupData", JSON.stringify(formData));
       router.push("/account-type");
     } catch (error) {
-      console.error("Error saving signup data:", error);
       toast.error("Something went wrong");
     } finally {
       setLoading(false);

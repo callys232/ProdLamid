@@ -35,7 +35,6 @@ export default function ClientNotificationPage({
         const data = await res.json();
         setNotifications(data.data || []);
       } catch (err) {
-        console.error("Failed to load notifications", err);
       } finally {
         setLoading(false);
       }

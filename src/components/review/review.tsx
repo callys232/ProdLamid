@@ -20,7 +20,6 @@ export default function ReviewSection() {
         const { reviews: data } = await getReviews({ limit: 20 });
         setReviews(data);
       } catch (err: any) {
-        console.error("Error fetching reviews:", err);
         setFetchError("Failed to load reviews");
       } finally {
         setLoading(false);
@@ -53,7 +52,6 @@ export default function ReviewSection() {
       setComment("");
       setRating(5);
     } catch (err: any) {
-      console.error("Error submitting review:", err);
       setError("Failed to submit review. Please try again.");
     }
   };

@@ -5,7 +5,7 @@ import { Plus, Trash2, ChevronDown } from "lucide-react";
 import Tooltip from "./tooltip";
 import { useFieldRecommendation } from "@/hooks/useField";
 
-interface MaterialItem { item: string; unitCost: number; quantity: number; category: string; }
+interface MaterialItem { _id: string; item: string; unitCost: number; quantity: number; category: string; }
 
 const MATERIAL_CATEGORIES: { label: string; color: string; items: string[] }[] = [
   { label: "Software",  color: "text-cyan-400",   items: ["SaaS Licence","API Credits","SDK / Library","Cloud Credits","Domain & SSL","Analytics Subscription"] },
@@ -57,7 +57,7 @@ function ItemPicker({ value, onChange }: { value: string; onChange: (v: string) 
 
 export default function MaterialsInput() {
   const [items, setItems] = useState<MaterialItem[]>([
-    { item: "SaaS Licence", unitCost: 100, quantity: 10, category: "Software" },
+    { _id: crypto.randomUUID(), item: "SaaS Licence", unitCost: 100, quantity: 10, category: "Software" },
   ]);
   const [active, setActive] = useState<number | null>(null);
 
@@ -84,7 +84,7 @@ export default function MaterialsInput() {
         const isActive = active === i;
         const cat = MATERIAL_CATEGORIES.find((c) => c.items.includes(m.item));
         return (
-          <div key={i} className={`relative grid grid-cols-[1fr_100px_80px_32px] items-center gap-3 rounded-xl border p-3 transition ${
+          <div key={m._id} className={`relative grid grid-cols-[1fr_100px_80px_32px] items-center gap-3 rounded-xl border p-3 transition ${
             isActive ? "border-amber-500/40 bg-amber-500/5" : "border-gray-800 bg-black/40 hover:border-gray-700"
           }`}>
             <ItemPicker value={m.item} onChange={(v) => update(i, "item", v)} />
@@ -128,7 +128,7 @@ export default function MaterialsInput() {
       })}
 
       <div className="flex items-center justify-between pt-1">
-        <button type="button" onClick={() => setItems((p) => [...p, { item: "", unitCost: 0, quantity: 1, category: "" }])}
+        <button type="button" onClick={() => setItems((p) => [...p, { _id: crypto.randomUUID(), item: "", unitCost: 0, quantity: 1, category: "" }])}
           className="flex items-center gap-1.5 rounded-lg border border-dashed border-gray-700 px-3 py-2 text-xs text-gray-500 transition hover:border-amber-500/50 hover:text-amber-400"
         >
           <Plus className="h-3.5 w-3.5" /> Add Item

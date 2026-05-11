@@ -25,4 +25,10 @@ const BidSchema = new mongoose.Schema({
     email: { type: String }, // redundant but useful snapshot
 }, { timestamps: true });
 
+// ── Indexes ────────────────────────────────────────────────────
+BidSchema.index({ projectId: 1, createdAt: -1 });
+BidSchema.index({ bidderId: 1 });
+BidSchema.index({ projectId: 1, bidderId: 1 }, { unique: true }); // one bid per consultant per project
+BidSchema.index({ status: 1 });
+
 export const Bid = mongoose.models.Bid || mongoose.model("Bid", BidSchema);

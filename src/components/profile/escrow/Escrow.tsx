@@ -70,7 +70,6 @@ export default function EscrowTab({ client }: { client?: any }) {
           onCurrencyChange={setCurrency}
           onExport={() => {
             if (!safeClient?.isPremium) return;
-            console.log("Export requested", currency);
           }}
           isPremium={safeClient?.isPremium ?? false}
         />
@@ -135,7 +134,6 @@ export default function EscrowTab({ client }: { client?: any }) {
           tx={actionModal.tx ?? undefined}
           onClose={() => setActionModal({ type: null })}
           onConfirm={(payload: { notes?: string; approver?: string }) => {
-            console.log("Action confirmed", actionModal.type, payload);
             setActionModal({ type: null });
           }}
           isPremium={safeClient?.isPremium ?? false}

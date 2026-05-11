@@ -35,7 +35,6 @@ export default function KycModal({ open, onClose }: KycModalProps) {
                 setCameraOpen(true);
             }
         } catch (err) {
-            console.error("Camera access denied:", err);
         }
     };
 
@@ -72,7 +71,6 @@ export default function KycModal({ open, onClose }: KycModalProps) {
                 alert("Failed to submit KYC");
             }
         } catch (err) {
-            console.error("Error submitting KYC:", err);
         }
     };
 

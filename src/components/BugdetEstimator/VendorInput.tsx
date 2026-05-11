@@ -5,7 +5,7 @@ import { Plus, Trash2, ChevronDown } from "lucide-react";
 import Tooltip from "./tooltip";
 import { useFieldRecommendation } from "@/hooks/useField";
 
-interface VendorItem { vendorName: string; serviceType: string; contractCost: number; }
+interface VendorItem { _id: string; vendorName: string; serviceType: string; contractCost: number; }
 
 const SERVICE_TYPES: { label: string; color: string; types: string[] }[] = [
   { label: "Engineering",  color: "text-blue-400",   types: ["Software Development","Hardware Supply","Infrastructure","Network Setup","IT Support"] },
@@ -53,7 +53,7 @@ function TypePicker({ value, onChange }: { value: string; onChange: (v: string) 
 
 export default function VendorInput() {
   const [vendors, setVendors] = useState<VendorItem[]>([
-    { vendorName: "Subcontractor A", serviceType: "Software Development", contractCost: 15000 },
+    { _id: crypto.randomUUID(), vendorName: "Subcontractor A", serviceType: "Software Development", contractCost: 15000 },
   ]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -82,7 +82,7 @@ export default function VendorInput() {
       {vendors.map((v, i) => {
         const isActive = activeIndex === i;
         return (
-          <div key={i} className={`relative grid grid-cols-[1fr_140px_100px_32px] items-center gap-3 rounded-xl border p-3 transition ${
+          <div key={v._id} className={`relative grid grid-cols-[1fr_140px_100px_32px] items-center gap-3 rounded-xl border p-3 transition ${
             isActive ? "border-yellow-500/40 bg-yellow-500/5" : "border-gray-800 bg-black/40 hover:border-gray-700"
           }`}>
             <input type="text" value={v.vendorName} placeholder="Vendor name"
@@ -115,7 +115,7 @@ export default function VendorInput() {
       })}
 
       <div className="flex items-center justify-between pt-1">
-        <button type="button" onClick={() => setVendors((p) => [...p, { vendorName: "", serviceType: "", contractCost: 0 }])}
+        <button type="button" onClick={() => setVendors((p) => [...p, { _id: crypto.randomUUID(), vendorName: "", serviceType: "", contractCost: 0 }])}
           className="flex items-center gap-1.5 rounded-lg border border-dashed border-gray-700 px-3 py-2 text-xs text-gray-500 transition hover:border-yellow-500/50 hover:text-yellow-400"
         >
           <Plus className="h-3.5 w-3.5" /> Add Vendor

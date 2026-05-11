@@ -48,7 +48,6 @@ export default function AIMatchEntry({
             window.location.href = "/postjobs/match";
 
         } catch (err: any) {
-            console.error(err);
             setError(err.message || "Something went wrong");
         } finally {
             setLoading(false);

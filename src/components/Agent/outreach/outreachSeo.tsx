@@ -35,7 +35,6 @@ export default function OutreachSEOAgent({ projectId }: { projectId: string }) {
         setData(backendData);
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : String(err);
-        console.error("Error fetching outreach, using mock data", message);
         setError(message);
         // Fallback mock
         setData({

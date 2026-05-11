@@ -33,7 +33,6 @@ const EventList = () => {
           category: e.category || ""
         })) as EventItem[]);
       } catch (err: any) {
-        console.error("Error fetching events:", err);
         setError("Failed to load events. Please try again later.");
       } finally {
         setLoading(false);

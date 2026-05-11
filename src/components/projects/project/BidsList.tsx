@@ -40,7 +40,6 @@ export default function BidsList({ projectId }: BidsListProps) {
                 setBids(data.data);
             }
         } catch (error) {
-            console.error("Error fetching bids:", error);
         } finally {
             setLoading(false);
         }

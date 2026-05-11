@@ -56,5 +56,13 @@ const ProjectSchema = new mongoose.Schema({
     activities: { type: [ActivityItemSchema], default: [] }
 }, { timestamps: true });
 
+// ── Indexes ────────────────────────────────────────────────────
+ProjectSchema.index({ status: 1, createdAt: -1 });
+ProjectSchema.index({ ownerId: 1 });
+ProjectSchema.index({ teamId: 1 });
+ProjectSchema.index({ category: 1, status: 1 });
+ProjectSchema.index({ consultants: 1 });
+ProjectSchema.index({ title: "text", description: "text" }); // replaces $regex search
+
 delete mongoose.models.Project;
 export const Project = mongoose.models.Project || mongoose.model("Project", ProjectSchema);

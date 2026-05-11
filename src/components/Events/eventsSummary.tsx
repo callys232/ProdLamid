@@ -23,7 +23,6 @@ const EventSummary: React.FC = () => {
         const data = await res.json();
         setEvents(Array.isArray(data) ? data : mockEvents);
       } catch (error) {
-        console.error("Error fetching events, using mock data:", error);
         setEvents(mockEvents);
       } finally {
         setLoading(false);

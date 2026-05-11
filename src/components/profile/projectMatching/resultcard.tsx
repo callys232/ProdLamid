@@ -34,7 +34,6 @@ export default function ProjectResultCard({
             await onApply();
             setApplied(true);
         } catch (err) {
-            console.error("Apply failed:", err);
         } finally {
             setApplying(false);
         }

@@ -24,8 +24,21 @@ const ProfileSchema = new mongoose.Schema({
   title: { type: String }, // e.g. "Full Stack Developer"
   skills: { type: [String], default: [] },
 
-  // skills: { type: [String], default: [] },
+  // ── Availability ────────────────────────────────────────────
+  openToWork:          { type: Boolean, default: false },
+  availabilityStatus:  {
+    type: String,
+    enum: ["available", "partially_available", "unavailable"],
+    default: "available",
+  },
+  availableFrom:       { type: Date },
+  hoursPerWeek:        { type: Number, min: 0, max: 80 },
 });
+
+ProfileSchema.index({ user: 1 }, { unique: true });
+ProfileSchema.index({ industry: 1 });
+ProfileSchema.index({ rating: -1 });
+ProfileSchema.index({ 'availability': 1 });
 
 export const Profile =
   mongoose.models.Profile || mongoose.model("Profile", ProfileSchema);

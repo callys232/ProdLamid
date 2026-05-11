@@ -49,7 +49,6 @@ export default function ClientProfileDashboard() {
         const userData = await getClientDashboardProfile();
         setClient(userData);
       } catch (err) {
-        console.error("Failed to fetch client profile:", err);
         setUsingMock(true);
         setClient(mockClients[0]); // fallback to mock
       } finally {

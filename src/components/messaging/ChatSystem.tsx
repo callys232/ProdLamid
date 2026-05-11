@@ -24,6 +24,7 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState("");
     const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -41,10 +42,12 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
     const fetchMessages = async () => {
         try {
             const res = await fetch(`/api/projects/${projectId}/messages`);
+            if (!res.ok) throw new Error("Failed to load messages");
             const data = await res.json();
-            if (res.ok) setMessages(data.data);
-        } catch (error) {
-            console.error("Error fetching messages:", error);
+            setMessages(data.data ?? []);
+            setFetchError(false);
+        } catch {
+            setFetchError(true);
         } finally {
             setLoading(false);
         }
@@ -72,11 +75,22 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
     return (
         <div className="flex flex-col h-[600px] bg-black/40 rounded-2xl border border-white/5 overflow-hidden">
             {/* Messages Area */}
-            <div 
+            <div
                 ref={scrollRef}
                 className="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar"
             >
-                {messages.map((msg) => (
+                {fetchError && (
+                    <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
+                        <p className="text-sm text-red-400">Failed to load messages.</p>
+                        <button onClick={fetchMessages} className="text-xs text-gray-400 underline hover:text-white">Retry</button>
+                    </div>
+                )}
+                {loading && !fetchError && (
+                    <div className="flex items-center justify-center h-full">
+                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                    </div>
+                )}
+                {!loading && !fetchError && messages.map((msg) => (
                     <div key={msg._id} className={`flex gap-3 ${msg.type !== 'text' ? 'justify-center' : ''}`}>
                         {msg.type === 'text' ? (
                             <>

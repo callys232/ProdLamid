@@ -62,8 +62,6 @@ export function useTeamsData(freelancerId?: string) {
           setConsultants(normalized.consultants ?? []);
         }
       } catch (err) {
-        console.error("Client API failed → using fallback mockClient");
-
         const fallback = mockClients[0];
         setClient(fallback);
 

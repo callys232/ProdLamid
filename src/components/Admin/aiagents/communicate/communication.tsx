@@ -53,7 +53,6 @@ export default function CommunicationAgent({ clientId }: { clientId: string }) {
 
         setNotifications(mapped);
       } catch (err) {
-        console.error("Error fetching client, using mock data", err);
         // Fallback mock
         setNotifications([
           { id: 1, type: "Email", message: "Reminder: Team sync at 3 PM" },

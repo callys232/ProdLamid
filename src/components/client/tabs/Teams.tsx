@@ -34,7 +34,6 @@ export default function ClientTeamSettings({
         if (updated) setActiveTeam(updated);
       }
     } catch (err) {
-      console.error("Failed to refresh teams:", err);
     }
   };
 

@@ -5,7 +5,7 @@ import { Plus, Trash2, ChevronDown, Search } from "lucide-react";
 import Tooltip from "./tooltip";
 import { fetchRecommendation } from "../../utils/api";
 
-interface TechnologyItem {
+interface TechnologyItem { _id: string;
   tool: string;
   monthlyCost: number;
   durationMonths: number;
@@ -134,7 +134,7 @@ function ToolPicker({ value, onChange }: { value: string; onChange: (v: string) 
 
 export default function TechnologyInput() {
   const [tools, setTools] = useState<TechnologyItem[]>([
-    { tool: "AWS EC2", monthlyCost: 200, durationMonths: 12 },
+    { _id: crypto.randomUUID(), tool: "AWS EC2", monthlyCost: 200, durationMonths: 12 },
   ]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [tooltips, setTooltips] = useState<Record<number, TooltipData>>({});
@@ -178,7 +178,7 @@ export default function TechnologyInput() {
         const isActive = activeIndex === i;
         const cat = TOOL_CATEGORIES.find((c) => c.tools.includes(t.tool));
         return (
-          <div key={i} className={`relative grid grid-cols-[1fr_100px_100px_32px] items-center gap-3 rounded-xl border p-3 transition ${
+          <div key={t._id} className={`relative grid grid-cols-[1fr_100px_100px_32px] items-center gap-3 rounded-xl border p-3 transition ${
             isActive ? "border-cyan-500/50 bg-cyan-500/5 shadow-[0_0_10px_rgba(6,182,212,0.1)]" : "border-gray-800 bg-black/40 hover:border-gray-700"
           }`}>
             <ToolPicker value={t.tool} onChange={(v) => { update(i, "tool", v); activate(i, v); }} />
@@ -222,7 +222,7 @@ export default function TechnologyInput() {
       })}
 
       <div className="flex items-center justify-between pt-1">
-        <button type="button" onClick={() => setTools((p) => [...p, { tool: "", monthlyCost: 0, durationMonths: 12 }])}
+        <button type="button" onClick={() => setTools((p) => [...p, { _id: crypto.randomUUID(), tool: "", monthlyCost: 0, durationMonths: 12 }])}
           className="flex items-center gap-1.5 rounded-lg border border-dashed border-gray-700 px-3 py-2 text-xs text-gray-500 transition hover:border-cyan-500/50 hover:text-cyan-400"
         >
           <Plus className="h-3.5 w-3.5" /> Add Tool

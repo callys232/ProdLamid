@@ -100,7 +100,6 @@ export default function BudgetStep({
           setAiEstimation(data);
         }
       } catch (error) {
-        console.error("Error fetching AI estimation:", error);
       } finally {
         setAiLoading(false);
       }

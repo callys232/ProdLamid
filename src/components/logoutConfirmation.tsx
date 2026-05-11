@@ -54,7 +54,6 @@ export default function LogoutConfirmModal({
 
             onClose();
         } catch (err: any) {
-            console.error("Logout failed", err);
             setError(err?.message ?? "Logout failed. Please try again.");
             setLoading(false);
         }

@@ -216,6 +216,7 @@ function RolePicker({
 
 /* ── LaborInput ─────────────────────────────────────────────── */
 interface LaborRow {
+  _id: string;
   role: string;
   hourlyRate: number;
   hours: number;
@@ -223,8 +224,8 @@ interface LaborRow {
 
 export default function LaborInput() {
   const [roles, setRoles] = useState<LaborRow[]>([
-    { role: "Frontend Developer", hourlyRate: 75, hours: 80 },
-    { role: "Project Manager",    hourlyRate: 90, hours: 40 },
+    { _id: crypto.randomUUID(), role: "Frontend Developer", hourlyRate: 75, hours: 80 },
+    { _id: crypto.randomUUID(), role: "Project Manager",    hourlyRate: 90, hours: 40 },
   ]);
 
   const [active, setActive] = useState<number | null>(null);
@@ -238,7 +239,7 @@ export default function LaborInput() {
   });
 
   function addRow() {
-    setRoles((p) => [...p, { role: "", hourlyRate: 50, hours: 40 }]);
+    setRoles((p) => [...p, { _id: crypto.randomUUID(), role: "", hourlyRate: 50, hours: 40 }]);
   }
 
   function removeRow(i: number) {
@@ -272,7 +273,7 @@ export default function LaborInput() {
 
         return (
           <div
-            key={i}
+            key={r._id}
             className={`relative grid grid-cols-[1fr_100px_100px_32px] items-center gap-3 rounded-xl border p-3 transition ${
               isActive
                 ? "border-[#c12129]/60 bg-[#c12129]/5 shadow-[0_0_12px_rgba(193,33,41,0.15)]"

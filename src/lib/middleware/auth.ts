@@ -1,20 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { isRevoked } from "@/lib/tokenBlocklist";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
+const JWT_SECRET = process.env.JWT_SECRET!;
+if (!JWT_SECRET) throw new Error("JWT_SECRET environment variable is required");
 
 export interface AuthResult {
-    userId: string;
+    userId:   string;
     userRole: string;
-    orgId?: string;
+    token:    string;   // raw token (needed for revocation on logout)
+    exp:      number;   // expiry seconds (needed for blocklist TTL)
+    orgId?:   string;
     orgRole?: string;
 }
 
 export interface AuthenticatedRequest extends NextRequest {
-    userId?: string;
+    userId?:   string;
     userRole?: string;
-    orgId?: string;
-    orgRole?: string;
+    orgId?:    string;
+    orgRole?:  string;
 }
 
 export async function verifyAuth(request: NextRequest): Promise<AuthResult | null> {
@@ -30,11 +34,16 @@ export async function verifyAuth(request: NextRequest): Promise<AuthResult | nul
 
         if (!token) return null;
 
+        // Check blocklist before verifying signature (fast path for logged-out tokens)
+        if (await isRevoked(token)) return null;
+
         const decoded = jwt.verify(token, JWT_SECRET) as {
-            userId?: string; sub?: string;
-            role?: string;
-            orgId?: string;
+            userId?: string;
+            sub?:    string;
+            role?:   string;
+            orgId?:  string;
             orgRole?: string;
+            exp?:    number;
         };
 
         const userId = decoded.userId || decoded.sub;
@@ -43,6 +52,8 @@ export async function verifyAuth(request: NextRequest): Promise<AuthResult | nul
         return {
             userId,
             userRole: decoded.role ?? "client",
+            token,
+            exp:      decoded.exp ?? Math.floor(Date.now() / 1000) + 7 * 86400,
             ...(decoded.orgId   && { orgId:   decoded.orgId }),
             ...(decoded.orgRole && { orgRole: decoded.orgRole }),
         };
@@ -64,9 +75,6 @@ export async function requireAuth(request: NextRequest): Promise<AuthResult | Ne
     return auth;
 }
 
-/**
- * Check if user has specific role
- */
 export function hasRole(userRole: string, allowedRoles: string[]): boolean {
     return allowedRoles.includes(userRole);
 }

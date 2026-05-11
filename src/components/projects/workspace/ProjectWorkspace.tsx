@@ -28,7 +28,6 @@ export default function ProjectWorkspace() {
                 setProject(data.data);
             }
         } catch (error) {
-            console.error("Error fetching project:", error);
         } finally {
             setLoading(false);
         }

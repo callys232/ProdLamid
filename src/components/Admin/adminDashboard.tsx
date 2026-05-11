@@ -43,7 +43,6 @@ export default function AdminDashboard() {
         setProjectId(data.projectId);
         setClientId(data.clientId);
       } catch (err) {
-        console.warn("Admin bootstrap failed:", err);
       } finally {
         setLoading(false);
       }

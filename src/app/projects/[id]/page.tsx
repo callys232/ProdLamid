@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }> };
 
 async function getProject(id: string) {
-  const base = process.env.NEXT_PUBLIC_URL ?? "http://localhost:3000";
+  const base = process.env.NEXT_PUBLIC_URL ?? (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "");
   const res  = await fetch(`${base}/api/projects/${id}`, { cache: "no-store" });
   if (!res.ok) return null;
   const { data } = await res.json();
