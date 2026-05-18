@@ -3,7 +3,7 @@
 import jwt from "jsonwebtoken";
 import { JwtAccessTokenPayload, JwtRefreshTokenPayload, JwtValidatorTokenPayload } from "./types/auth";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 export function signAccessToken(user: { id: string; email: string; role?: string; orgId?: string; orgRole?: string }) {
   const payload: JwtAccessTokenPayload = {

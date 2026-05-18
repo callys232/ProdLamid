@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { revokeToken } from "@/lib/tokenBlocklist";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 const COOKIE_CLEAR = {
   httpOnly: true,

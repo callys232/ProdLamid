@@ -12,8 +12,7 @@ import { rateLimit } from "@/lib/rateLimit";
 import { RegisterSchema, validate } from "@/lib/validation/schemas";
 import { verifyTurnstile } from "@/lib/turnstile";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
-if (!JWT_SECRET) throw new Error("JWT_SECRET environment variable is required");
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 export async function POST(request: NextRequest) {
     try {

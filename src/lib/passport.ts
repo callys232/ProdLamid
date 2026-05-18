@@ -4,11 +4,8 @@ import { Users } from './models/User';
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL } = process.env;
 
-if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GOOGLE_CALLBACK_URL) {
-    throw new Error('Missing Google OAuth environment variables');
-}
 
-passport.use(
+if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET && GOOGLE_CALLBACK_URL) passport.use(
     new GoogleStrategy(
         {
             clientID: GOOGLE_CLIENT_ID,
@@ -46,4 +43,3 @@ passport.use(
     )
 );
 
-// Optional: passport.serializeUser / deserializeUser if using sessions

@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGO_URI = process.env.MONGO_URI;
-if (!MONGO_URI) throw new Error("MONGO_URI environment variable is required");
+const MONGO_URI = process.env.MONGO_URI ?? "";
 
 declare global {
   // Persist connection across hot-reloads in dev
