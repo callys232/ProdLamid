@@ -17,10 +17,10 @@ const SECTIONS = [
     tag: "Flagship",
     desc: "Our four pillars of enterprise transformation.",
     services: [
-      { name: "Business Innovation Zone", desc: "AI-powered strategies and digital systems that accelerate enterprise growth.", href: "/biz",            logo: "/bizLogo.png",    premium: false },
-      { name: "Human Capital Development", desc: "Talent sourcing, leadership training, and HR solutions for world-class teams.", href: "/hcd",          logo: "/hcdLogo.png",   premium: false },
-      { name: "Sustainable Development",   desc: "Community frameworks and management solutions for long-term responsible impact.", href: "/sustainableDev", logo: "/sdLogo.png",   premium: false },
-      { name: "LAMID Portal",              desc: "One unified workspace — marketplace, CRM, collaboration and project management.", href: "/portal",      logo: "/portalLogo.png", premium: false },
+      { name: "Business Innovation Zone", desc: "AI-powered strategies and digital systems that accelerate enterprise growth.", href: "/biz", logo: "/bizLogo.png", premium: false },
+      { name: "Human Capital Development", desc: "Talent sourcing, leadership training, and HR solutions for world-class teams.", href: "/hcd", logo: "/hcdLogo.png", premium: false },
+      { name: "Sustainable Development", desc: "Community frameworks and management solutions for long-term responsible impact.", href: "/sustainableDev", logo: "/sdLogo.png", premium: false },
+      { name: "LAMID Portal", desc: "One unified workspace — marketplace, CRM, collaboration and project management.", href: "/portal", logo: "/portalLogo.png", premium: false },
     ],
   },
   {
@@ -28,12 +28,12 @@ const SECTIONS = [
     tag: "Platform",
     desc: "Intelligent tools powering every workflow.",
     services: [
-      { name: "Proposal Drafter",     desc: "AI-generated proposals with auto-drafted scopes, timelines and investment breakdowns.",  href: "/premium/proposal-drafter",               icon: "📄", premium: true  },
-      { name: "Diagnostic Tool",      desc: "Assess your business health, identify gaps and get actionable recommendations.",          href: "/biz",                                     icon: "🔬", premium: false },
-      { name: "CRM & Client Hub",     desc: "Track leads, manage relationships and close deals with full pipeline visibility.",        href: "/portal",                                  icon: "🤝", premium: false },
-      { name: "File System",          desc: "Secure cloud storage for documents, contracts and project assets in one place.",          href: "/portal",                                  icon: "📁", premium: false },
-      { name: "AI Preferences",       desc: "Configure and personalise your AI assistant behaviour across the entire platform.",        href: "/profile/settings/premium/AIPreferences",  icon: "🤖", premium: true  },
-      { name: "Analytics Dashboard",  desc: "Enterprise-grade performance dashboards with real-time insights and reporting.",           href: "/services/analytics",                      icon: "📊", premium: true  },
+      { name: "Proposal Drafter", desc: "AI-generated proposals with auto-drafted scopes, timelines and investment breakdowns.", href: "/premium/proposal-drafter", icon: "📄", premium: true },
+      { name: "Diagnostic Tool", desc: "Assess your business health, identify gaps and get actionable recommendations.", href: "/biz", icon: "🔬", premium: false },
+      { name: "CRM Hub", desc: "Track leads, manage relationships and close deals with full pipeline visibility.", href: "/portal", icon: "🤝", premium: false },
+      { name: "File System", desc: "Secure cloud storage for documents, contracts and project assets in one place.", href: "/portal", icon: "📁", premium: false },
+      { name: "AI Preferences", desc: "Configure and personalise your AI assistant behaviour across the entire platform.", href: "/profile/settings/premium/AIPreferences", icon: "🤖", premium: true },
+      { name: "Analytics Dashboard", desc: "Enterprise-grade performance dashboards with real-time insights and reporting.", href: "/services/analytics", icon: "📊", premium: true },
     ],
   },
   {
@@ -41,10 +41,10 @@ const SECTIONS = [
     tag: "Talent",
     desc: "Connect with the right people and projects.",
     services: [
-      { name: "Projects Marketplace", desc: "Browse and post consulting projects across 20+ categories with AI-powered matching.", href: "/jobs",      icon: "💼", premium: false },
-      { name: "Talent Finder",        desc: "Access 5,000+ vetted consultants and experts matched precisely to your needs.",       href: "/talent",    icon: "🔍", premium: false },
-      { name: "Concierge Service",    desc: "White-glove consulting for governments, NGOs, UN bodies and global corporations.",    href: "/concierge", icon: "⭐", premium: true  },
-      { name: "Escrow Management",    desc: "Secure, transparent financial transaction management for every engagement.",           href: "/escrow",    icon: "🔒", premium: false },
+      { name: "Projects Marketplace", desc: "Browse and post consulting projects across 20+ categories with AI-powered matching.", href: "/jobs", icon: "💼", premium: false },
+      { name: "Talent Finder", desc: "Access 5,000+ vetted consultants and experts matched precisely to your needs.", href: "/talent", icon: "🔍", premium: false },
+      { name: "Concierge Service", desc: "White-glove consulting for governments, NGOs, UN bodies and global corporations.", href: "/concierge", icon: "⭐", premium: true },
+      { name: "Escrow Management", desc: "Secure, transparent financial transaction management for every engagement.", href: "/escrow", icon: "🔒", premium: false },
     ],
   },
   {
@@ -52,10 +52,10 @@ const SECTIONS = [
     tag: "Scale",
     desc: "Built for organisations operating at scale.",
     services: [
-      { name: "Enterprise Dashboard",    desc: "Centralised command centre for enterprise-wide performance, teams and operations.", href: "/enterprise",            icon: "🏢", premium: true,  tier: "enterprise" },
-      { name: "Priority Support",        desc: "Dedicated 24/7 success management and on-demand expert guidance.",                 href: "/services/integrations", icon: "🎯", premium: true,  tier: "enterprise" },
-      { name: "SLA & Reliability",       desc: "Predictive analytics, uptime guarantees and AI-enhanced delivery performance.",    href: "/services/sla",          icon: "⚡", premium: true,  tier: "enterprise" },
-      { name: "Portfolio & Case Studies", desc: "Our track record — 40+ partners, 10,000+ workers impacted, 500+ leaders trained.", href: "/portfolio",            icon: "📋", premium: false },
+      { name: "Enterprise Dashboard", desc: "Centralised command centre for enterprise-wide performance, teams and operations.", href: "/enterprise", icon: "🏢", premium: true, tier: "enterprise" },
+      { name: "Priority Support", desc: "Dedicated 24/7 success management and on-demand expert guidance.", href: "/services/integrations", icon: "🎯", premium: true, tier: "enterprise" },
+      { name: "SLA & Reliability", desc: "Predictive analytics, uptime guarantees and AI-enhanced delivery performance.", href: "/services/sla", icon: "⚡", premium: true, tier: "enterprise" },
+      { name: "Portfolio & Case Studies", desc: "Our track record — 40+ partners, 10,000+ workers impacted, 500+ leaders trained.", href: "/portfolio", icon: "📋", premium: false },
     ],
   },
   {
@@ -324,8 +324,8 @@ export default function HowWeServeModal({ open, onClose }: HowWeServeModalProps)
                       {(section as any).benefits
                         ? <BenefitsPanel />
                         : section.services.map((s, i) => (
-                            <ServiceRow key={s.name} s={s} index={i} onGo={() => navigate(s.href, s.premium, onClose)} />
-                          ))
+                          <ServiceRow key={s.name} s={s} index={i} onGo={() => navigate(s.href, s.premium, onClose)} />
+                        ))
                       }
                     </motion.div>
                   </AnimatePresence>
