@@ -24,7 +24,7 @@ const ROLE_RESTRICTED: Record<string, string[]> = {
   "/profile":    ["seller", "admin"],
 };
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token    = request.cookies.get("token")?.value;
   const userRole = request.cookies.get("user_role")?.value ?? "client";
