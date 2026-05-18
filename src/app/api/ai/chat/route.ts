@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: "https://openrouter.ai/api/v1",
-});
+function getClient() {
+  return new OpenAI({
+    apiKey: process.env.OPENROUTER_API_KEY ?? "",
+    baseURL: "https://openrouter.ai/api/v1",
+  });
+}
 
 const SYSTEM_PROMPT = `You are Lamid AI — a smart assistant for Lamid Consulting's platform. You help users navigate services, answer questions, and recommend the right path.
 
@@ -56,7 +58,7 @@ export async function POST(req: NextRequest) {
       const readable = new ReadableStream({
         async start(controller) {
           try {
-            const completion = await openai.chat.completions.create({
+            const completion = await getClient().chat.completions.create({
               ...payload,
               stream: true,
             });
@@ -86,7 +88,7 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Non-streaming fallback ──────────────────────────────────
-    const response = await openai.chat.completions.create(payload);
+    const response = await getClient().chat.completions.create(payload);
     const reply    = response.choices[0]?.message?.content
       ?? "I'm sorry, I couldn't process that. Please try again.";
 
