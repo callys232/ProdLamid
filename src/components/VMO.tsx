@@ -10,9 +10,8 @@ function ExpandableText({ text }: { text: string }) {
   return (
     <div className="text-sm leading-relaxed text-white">
       <p
-        className={`${
-          expanded ? "" : "line-clamp-3"
-        } transition-all duration-300 ease-in-out`}
+        className={`${expanded ? "" : "line-clamp-3"
+          } transition-all duration-300 ease-in-out`}
       >
         {text}
       </p>
@@ -42,10 +41,10 @@ const VMO = () => {
             <div className="flex flex-col bg-black border border-gray-800 rounded-lg p-6 transition-all duration-300 hover:border-green-500 hover:scale-105 hover:shadow-lg cursor-pointer space-y-4">
               <div className="text-center">
                 <div className="bg-green-600 text-white font-bold py-2 px-4 rounded-md inline-block hover:bg-green-500 transition duration-300">
-                  VALUES
+                  VISION
                 </div>
               </div>
-              <ExpandableText text="LAMID has identified its core values, shaping our approach to proffering solutions. Our ideals, culture, products, and services are embedded in these values." />
+              <ExpandableText text="To build Africa’s most trusted digital ecosystem for enterprise performance, talent acceleration, and seamless work." />
             </div>
           </Link>
 
@@ -57,7 +56,7 @@ const VMO = () => {
                   MISSION
                 </div>
               </div>
-              <ExpandableText text="We improve your performance and achieve massive results by providing a million-dollar value with an A+ effort, so you pay less for more!" />
+              <ExpandableText text="To empower businesses and experts with the systems, tools, and intelligence they need to grow sustainably and transform meaningfully." />
             </div>
           </Link>
 

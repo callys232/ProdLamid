@@ -52,27 +52,27 @@ function WaveBg() {
 
 /* ── Data ────────────────────────────────────────────────────── */
 const PROBLEM = {
-    title: "The Solution we Provide ",
-    subtitle: "Why fragmented work kills growth",
+    title: "The Solution we Provide",
+    subtitle: "The hidden cost of fragmented work",
     bullets: [
         {
-            text: "Client acquisition & retention are hard",
-            detail: "Without a unified platform, businesses lose prospects to slow response times and disjointed follow-ups. LAMID's AI-powered CRM keeps every lead, client, and opportunity in one place — so nothing falls through the cracks.",
+            text: "Leads die in inbox chaos — before they become clients",
+            detail: "Every unanswered message and delayed follow-up is a deal lost to a competitor who moved faster. Without a unified CRM, your pipeline leaks silently and expensively. LAMID closes the gap — keeping every lead warm, every client engaged, and every opportunity visible in one intelligent workspace.",
         },
         {
-            text: "Talent alignment breaks across email & WhatsApp",
-            detail: "Critical decisions buried in chat threads and scattered inboxes cause costly delays. LAMID's workrooms centralize all communication, task assignments, and file sharing — giving your team clarity and momentum.",
+            text: "Teams drift when communication lives across five apps",
+            detail: "When decisions are buried in WhatsApp threads, emails, and Slack channels, accountability blurs and momentum dies. LAMID's Workrooms consolidate every conversation, task, and file in one place — so your team moves with clarity, not confusion.",
         },
         {
-            text: "Delivery fails when spread across disconnected tools",
-            detail: "Juggling five tools means five failure points. LAMID unifies project milestones, timelines, budgets, and deliverables in one dashboard — so every engagement ships on time and on spec.",
+            text: "Projects stall when accountability has no single home",
+            detail: "One missed update across Google Docs, Trello, and email chains is all it takes to derail a delivery. LAMID replaces the patchwork with a single source of truth — milestones, budgets, timelines, and sign-offs all in sync, so every engagement ships on time.",
         },
         {
-            text: "Experts struggle to upskill fast enough and secure consistent projects",
-            detail: "Top talent deserves a platform that matches them with the right opportunities and helps them grow. LAMID's marketplace connects verified experts to enterprise-grade projects while its learning pathways keep skills sharp.",
+            text: "Experts can't grow what they can't track or monetize",
+            detail: "Top consultants chasing clients manually, managing admin across spreadsheets, and upskilling in isolation can't build a sustainable practice. LAMID's marketplace connects verified talent to enterprise-grade projects, automates the operational layer, and keeps skills sharp — so experts focus on impact, not overhead.",
         },
     ],
-    full: "We help businesses scale with intelligence, agility, and measurable impact — across every layer of the enterprise. LAMID unifies strategy, performance, systems, and seamless work into one AIenabled, marketplacedriven, enterprisegrade ecosystem.",
+    full: "Most businesses don't fail from lack of ambition — they fail from friction. Fragmented tools, misaligned teams, and disconnected workflows quietly erode performance at every layer. LAMID eliminates that friction, unifying strategy, talent, delivery, and growth into one AI-enabled ecosystem built for scale.",
     hex: "#c21219",
     glow: "rgba(194,18,25,0.25)",
 };

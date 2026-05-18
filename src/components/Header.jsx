@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
-import Link from "next/link";
+import { AnimatePresence } from "framer-motion";
 import Serv from "./Serv";
 import AISystemSection from "./aiHero/Aihero";
+import HowWeServeModal from "./navbar/HowWeServeModal";
 
 // Deterministic positions — avoids SSR/client hydration mismatch
 const PARTICLES = Array.from({ length: 34 }, (_, i) => {
@@ -21,6 +23,8 @@ const PARTICLES = Array.from({ length: 34 }, (_, i) => {
 });
 
 export default function Header() {
+  const [howWeServeOpen, setHowWeServeOpen] = useState(false);
+
   return (
     <>
       <header className="relative w-full bg-black text-white overflow-hidden px-6 md:px-12 flex flex-col md:flex-row items-center justify-between">
@@ -79,20 +83,19 @@ export default function Header() {
           <div className="flex flex-wrap gap-4 justify-center md:justify-start px-2 mt-12 pb-8 md:pb-0">
 
             {/* Primary — filled gradient + glow */}
-            <Link
-              href="/biz"
+            <button
+              onClick={() => setHowWeServeOpen(true)}
               className="group relative inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-black text-sm overflow-hidden
-                transition-all duration-300 ease-out
+                transition-all duration-300 ease-out cursor-pointer
                 bg-gradient-to-br from-zinc-100 via-rose-400 to-[#C12129]
                 shadow-[0_0_18px_rgba(193,33,41,0.55)]
                 hover:shadow-[0_0_32px_rgba(193,33,41,0.9)]
                 hover:scale-105 active:scale-95"
             >
-              {/* Shine sweep on hover */}
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
               <span className="relative z-10">Get Started</span>
               <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
-            </Link>
+            </button>
 
             {/* Secondary — gradient border, fills on hover, smooth scrolls to services */}
             <button
@@ -124,6 +127,10 @@ export default function Header() {
 
       </header>
       <AISystemSection />
+
+      <AnimatePresence>
+        <HowWeServeModal open={howWeServeOpen} onClose={() => setHowWeServeOpen(false)} />
+      </AnimatePresence>
     </>
   );
 }
