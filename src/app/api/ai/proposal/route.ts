@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: "https://openrouter.ai/api/v1",
-});
+const getClient = () => new OpenAI({ apiKey: process.env.OPENROUTER_API_KEY ?? "", baseURL: "https://openrouter.ai/api/v1" });
 
 export async function POST(req: NextRequest) {
   try {
@@ -52,7 +49,7 @@ Generate a JSON response with this structure:
 
 Be professional, specific, and persuasive. Return ONLY valid JSON.`;
 
-    const response = await openai.chat.completions.create({
+    const response = await getClient().chat.completions.create({
       model: "openai/gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.6,
