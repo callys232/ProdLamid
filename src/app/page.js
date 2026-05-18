@@ -12,7 +12,9 @@ export default function Home() {
   return (
     <main className="bg-black space-y-12 md:space-y-20">
       <Header />
-      <ServicesSection />
+      <div id="services">
+        <ServicesSection />
+      </div>
       <BusinessInnovationZone />
       <HumanCapitalDevelopment />
       <SDI />

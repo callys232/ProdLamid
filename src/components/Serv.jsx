@@ -40,7 +40,7 @@ const Serv = () => {
             transition={{ duration: 0.3 }}
           >
             <Link href="/biz">
-              <div className="relative w-30 h-22 rounded-tr-3xl rounded-bl-3xl overflow-hidden border-2 hover:border-blue-400">
+              <div className="relative w-30 h-20 rounded-tr-3xl rounded-bl-3xl overflow-hidden border-2 hover:border-blue-400">
                 <Image
                   src="/bizLogo.png"
                   alt="Business"
@@ -64,12 +64,12 @@ const Serv = () => {
             transition={{ duration: 0.3 }}
           >
             <Link href="/hcd">
-              <div className="relative w-30 h-46 rounded-tl-3xl rounded-br-3xl overflow-hidden border-2 border-orange-500 hover:border-orange-400">
+              <div className="relative w-20 h-44 rounded-tl-3xl rounded-br-3xl overflow-hidden border-2 border-orange-500 hover:border-orange-400">
                 <Image
                   src="/hcdLogo.png"
                   alt="Human Capital Development"
                   width={80}
-                  height={100}
+                  height={80}
                   className="object-cover w-full h-full"
                 />
               </div>
@@ -88,7 +88,7 @@ const Serv = () => {
             transition={{ duration: 0.3 }}
           >
             <Link href="/sustainableDev">
-              <div className="relative w-30 h-22 rounded-tr-3xl rounded-bl-3xl overflow-hidden border-2 border-black-500 hover:border-green-500">
+              <div className="relative w-20 h-44 rounded-tl-3xl rounded-br-3xl overflow-hidden border-2 border-black-500 hover:border-green-500">
                 <Image
                   src="/sdLogo.png"
                   alt="Social Development"
@@ -98,6 +98,33 @@ const Serv = () => {
                 />
               </div>
             </Link>
+
+          </motion.div>
+
+
+          {/* Portal Section */}
+          <motion.div
+            className="group cursor-pointer"
+            animate={{
+              scale: expanded === "portal" ? 1.2 : 1,
+              rotate: expanded === "portal" ? 10 : 0,
+            }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Link href="/portal">
+              <div className="relative w-30 h-20 rounded-tr-3xl rounded-bl-3xl overflow-hidden border-2 border-black-500 hover:border-green-500">
+                <Image
+                  src="/portalLogo.png"
+                  alt="Portal"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </Link>
+
           </motion.div>
         </div>
       </motion.div>
