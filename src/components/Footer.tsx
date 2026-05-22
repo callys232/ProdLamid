@@ -32,10 +32,10 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#181818] text-white py-8 px-4 md:px-12">
+    <footer className="bg-[#181818] text-white py-12 px-4 md:px-12">
       <div className="container mx-auto">
         {/* Top section with logo and social icons */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
           {/* Logo */}
           <div className="mb-6 md:mb-0">
             <Link href="/">
@@ -67,8 +67,8 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div className="w-full md:w-1/2 lg:w-1/3">
-            <h3 className="text-red-600 text-lg font-bold mb-2">Newsletter</h3>
-            <p className="text-sm mb-4">
+            <h3 className="text-red-600 text-xl font-bold mb-3">Newsletter</h3>
+            <p className="text-[15px] mb-5">
               Sign up for our newsletter to stay up to date on the latest from
               Lamid Consulting.
             </p>
@@ -100,7 +100,7 @@ const Footer = () => {
         </div>
 
         {/* Quick links */}
-        <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-8">
+        <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-10">
           <Link href="/bizphere" className="bg-red-900 hover:bg-red-800 px-4 py-2 rounded text-white">
             Bizphere
           </Link>
@@ -120,7 +120,7 @@ const Footer = () => {
 
         {/* Contact */}
         <div className="mt-8">
-          <h3 className="text-red-600 text-lg font-bold mb-4">Contact Us</h3>
+          <h3 className="text-red-600 text-xl font-bold mb-4">Contact Us</h3>
           <div className="flex items-center">
             <FaEnvelope className="mr-2" />
             <a

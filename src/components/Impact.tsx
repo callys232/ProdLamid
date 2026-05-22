@@ -17,8 +17,8 @@ const arrowClasses =
 const Impact: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white">
-      <main className="container mx-auto px-4 py-12">
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-300 mb-16">
+      <main className="container mx-auto px-4 py-16">
+        <h1 className="text-5xl md:text-6xl font-bold text-gray-300 mb-20">
           Impact
         </h1>
 
@@ -57,7 +57,7 @@ const Impact: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-gray-400 mb-4 pl-12">
+              <p className="text-[15px] text-gray-400 leading-relaxed mb-6 pl-12">
                 We re-positioned cooperatives to re-set globalization; starting
                 from few groups to communities and nations. By experience, we
                 see job and wealth creation with cooperatives as ...
@@ -103,7 +103,7 @@ const Impact: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-gray-400 pl-12">
+              <p className="text-[15px] text-gray-400 leading-relaxed pl-12">
                 We improved maternal care, child survival and primary healthcare
                 delivery and achieved organizational and financial
                 sustainability among five communities partnerships-for-health,
@@ -134,7 +134,7 @@ const Impact: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-gray-400 mb-4">
+              <p className="text-[15px] text-gray-400 leading-relaxed mb-6">
                 By building women and youth-led entrepreneurial services
                 clusters around Shells renewable energy assets, we achieved
                 equalization, mediation and peace making in the volatile,
@@ -180,7 +180,7 @@ const Impact: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-gray-400 mb-6">
+              <p className="text-[15px] text-gray-400 leading-relaxed mb-8">
                 We addressed youth unemployment and bridged the wealth creation
                 gap by: supporting startups, addressing youth unemployability,
                 generating high-growth jobs, and retained local talents through

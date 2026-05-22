@@ -75,7 +75,7 @@ const stages: PipelineStage[] = [
 
 const InnovazionZone: FC = () => {
   return (
-    <section className="bg-black py-10 px-4 text-white">
+    <section className="bg-black py-14 px-4 text-white">
       <div className="flex flex-wrap justify-center gap-8">
         {stages.map((stage) => (
           <Link key={stage.description} href={stage.href} className="group">
@@ -119,7 +119,7 @@ const InnovazionZone: FC = () => {
 
               {/* Description */}
               <p
-                className={`text-xs leading-snug ${
+                className={`text-xs leading-relaxed ${
                   stage.text ?? "text-gray-200"
                 }`}
               >
@@ -131,7 +131,7 @@ const InnovazionZone: FC = () => {
       </div>
 
       {/* Caption */}
-      <p className="mt-10 text-center text-sm text-gray-300">
+      <p className="mt-12 text-center text-[15px] text-gray-300">
         Over <span className="text-yellow-400 font-bold">3000</span> start-ups
         created and accelerated.{" "}
         <span className="text-red-500 font-semibold">

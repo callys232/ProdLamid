@@ -3,16 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertCircle, Brain, Layers, BarChart2, Zap, ArrowRight, ArrowLeft, X } from "lucide-react";
+import { AlertCircle, Brain, Layers, BarChart2, Zap, Shield, ArrowRight, ArrowLeft, X } from "lucide-react";
 import HowItWorksModal from "./HowItWorksModal";
 
 /* ── Line decoration ─────────────────────────────────────────── */
 const Lines = ({ color }: { color: string }) => (
-    <svg viewBox="0 0 200 120" fill="none" className="absolute inset-0 w-full h-full"
-        style={{ color, opacity: 0.05 }} preserveAspectRatio="none">
-        <line x1="0" y1="30" x2="200" y2="90" stroke="currentColor" strokeWidth="1" />
-        <line x1="0" y1="90" x2="200" y2="30" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="100" y1="0" x2="100" y2="120" stroke="currentColor" strokeWidth="0.6" />
+    <svg viewBox="0 0 200 120" fill="none" className="absolute inset-0 w-full h-full opacity-[0.05]" preserveAspectRatio="none">
+        <line x1="0" y1="30" x2="200" y2="90" stroke={color} strokeWidth="1" />
+        <line x1="0" y1="90" x2="200" y2="30" stroke={color} strokeWidth="0.6" />
+        <line x1="100" y1="0" x2="100" y2="120" stroke={color} strokeWidth="0.6" />
     </svg>
 );
 
@@ -40,10 +39,10 @@ function WaveBg() {
     const left = makeDots(false), right = makeDots(true);
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-            <svg className="absolute left-0 top-0 h-full" style={{ width: 220 }} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMinYMid slice">
+            <svg className="absolute left-0 top-0 h-full w-[220px]" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMinYMid slice">
                 {left.map((d, i) => <circle key={i} cx={d.x} cy={d.y} r={d.r} fill={COLOR} opacity={d.a} />)}
             </svg>
-            <svg className="absolute right-0 top-0 h-full" style={{ width: 220 }} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMaxYMid slice">
+            <svg className="absolute right-0 top-0 h-full w-[220px]" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMaxYMid slice">
                 {right.map((d, i) => <circle key={i} cx={d.x} cy={d.y} r={d.r} fill={COLOR} opacity={d.a} />)}
             </svg>
         </div>
@@ -97,59 +96,81 @@ const SOLUTIONS = [
         border: "border-orange-500/40", bg: "bg-orange-500/10", iconStyle: "text-orange-400 bg-orange-500/15", glow: "rgba(249,115,22,0.25)",
     },
     {
-        title: "Premium Growth Platform - From operational excellence to strategic execution, we help businesses scale with clarity, resilience, and measurable results.",
-        bullets: ["Scale across industries and globally", "AIenabled intelligence and smarter decisions", "Marketplacedriven flexibility for dynamic teams", "Enterprisegrade reliability for complex operations", "Multipillar transformation across performance, systems, and work", "Impact that compounds over time", "One secure workspace for everything", "Zero fragmentation"],
+        title: "Premium Growth Platform — Scale with clarity and measurable results",
+        bullets: ["Scale across industries and globally", "AI-enabled intelligence and smarter decisions", "Enterprise-grade reliability for complex operations", "Impact that compounds over time"],
         Icon: Zap, hex: "#a855f7",
         border: "border-purple-500/40", bg: "bg-purple-500/10", iconStyle: "text-purple-400 bg-purple-500/15", glow: "rgba(168,85,247,0.25)",
     },
 ];
 
-/* ── Modal service cards data — mirrors SOLUTIONS, keeps images ── */
-const MODAL_SERVICES = [
+/* ── Three-layer platform data (used in FragmentedModal) ── */
+const PLATFORM_LAYERS = [
     {
-        title: "AI Powered Matching – Where talent accelerates and leaders rise",
-        image: "/bizLogo.png",
-        bullets: ["Verified expertise at every level", "All-in-one intelligent talent engine", "AI automates scoping, matching & risk detection", "Predictive scoring for the right fit every time"],
+        num: "01",
+        label: "Service Pillars",
+        title: "Four Pillars. One Mission.",
+        desc: "LAMID's four proprietary service pillars — digitised, AI-assisted, and delivered through one connected platform.",
+        bullets: [
+            "BIZ — SME & startup empowerment tools",
+            "HCD — Training, recruitment & leadership",
+            "SDC — Sustainable development consulting",
+            "Portal — Freelancers, Clients, Enterprise & Concierge in one marketplace",
+        ],
+        Icon: Layers,
+        hex: "#c21219",
+        glow: "rgba(194,18,25,0.35)",
+    },
+    {
+        num: "02",
+        label: "Marketplace & Workspace",
+        title: "Where Work Gets Done",
+        desc: "A connected layer where projects are posted, experts matched, and delivery tracked end to end.",
+        bullets: [
+            "Post projects — match verified experts via AI",
+            "Built-in CRM, task boards & document sharing",
+            "Contracting, milestones & secure payments",
+            "Freelancer, Enterprise & Concierge tiers",
+        ],
+        Icon: BarChart2,
         hex: "#3b82f6",
         glow: "rgba(59,130,246,0.35)",
+    },
+    {
+        num: "03",
+        label: "AI Operating System",
+        title: "Intelligence Built In",
+        desc: "The brain of the platform — automating, matching, and optimising at every layer.",
+        bullets: [
+            "Smart consultant-to-project matching engine",
+            "Automated scoping & proposal generation",
+            "AI diagnostics for businesses & organisations",
+            "Quality assurance, reports & insights",
+        ],
         Icon: Brain,
-        iconStyle: "text-blue-400",
-        bg: "bg-blue-500/8",
-        border: "border-blue-500/30",
-    },
-    {
-        title: "Marketplace + CRM & PM",
-        image: "/portalLogo.png",
-        bullets: ["Workrooms, milestones & messaging", "Contract management & analytics", "Secure file sharing & collaboration", "Workflow automation built-in"],
-        hex: "#10b981",
-        glow: "rgba(16,185,129,0.35)",
-        Icon: Layers,
-        iconStyle: "text-emerald-400",
-        bg: "bg-emerald-500/8",
-        border: "border-emerald-500/30",
-    },
-    {
-        title: "Enterprise-Grade Operations Suite – One workspace. Infinite possibilities",
-        image: "/sdLogo.png",
-        bullets: ["Businesses post projects, vetted experts get matched", "Budgeting, resource planning, & time tracking", "Secured payment management", "Transparent, seamless end-to-end delivery"],
-        hex: "#f97316",
-        glow: "rgba(249,115,22,0.35)",
-        Icon: BarChart2,
-        iconStyle: "text-orange-400",
-        bg: "bg-orange-500/8",
-        border: "border-orange-500/30",
-    },
-    {
-        title: "Premium Growth Platform",
-        image: "/hcdLogo.png",
-        bullets: ["Scale across industries and globally", "AI-enabled intelligence and smarter decisions", "Marketplace-driven flexibility for dynamic teams", "Enterprise-grade reliability for complex operations", "Multi-pillar transformation across performance, systems, and work", "Impact that compounds over time", "One secure workspace for everything", "Zero fragmentation"],
         hex: "#a855f7",
         glow: "rgba(168,85,247,0.35)",
-        Icon: Zap,
-        iconStyle: "text-purple-400",
-        bg: "bg-purple-500/8",
-        border: "border-purple-500/30",
     },
+    {
+        num: "04",
+        label: "Governance & Trust",
+        title: "Secure. Compliant. Transparent.",
+        desc: "Enterprise-grade oversight — keeping every user, transaction, and delivery accountable.",
+        bullets: [
+            "KYC verification & dispute resolution",
+            "Secure escrow & payment management",
+            "Analytics dashboards & performance tracking",
+            "Admin controls, compliance & audit trails",
+        ],
+        Icon: Shield,
+        hex: "#10b981",
+        glow: "rgba(16,185,129,0.35)",
+    },
+];
+
+const USER_TYPES = [
+    { label: "Freelancers", desc: "Match, deliver & earn on every project", hex: "#10b981" },
+    { label: "Enterprise Clients", desc: "Post projects, manage teams, scale outcomes", hex: "#3b82f6" },
+    { label: "Concierge", desc: "Dedicated PM, custom dashboards & multi-project oversight", hex: "#c21219" },
 ];
 
 /* ── Slide variants ──────────────────────────────────────────── */
@@ -162,134 +183,148 @@ const slideTx = { duration: 0.48, ease: [0.33, 1, 0.68, 1] as const };
 
 /* ── Fragmented Work Modal ───────────────────────────────────── */
 function FragmentedModal({ onClose }: { onClose: () => void }) {
-    const [hoveredModal, setHoveredModal] = useState<number | null>(null);
     return (
         <AnimatePresence>
             <motion.div
-                key="backdrop"
+                key="fm-backdrop"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={onClose}
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 py-8"
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md px-4 py-8"
             >
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.92, y: 24 }}
+                    initial={{ opacity: 0, scale: 0.93, y: 28 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.92, y: 24 }}
-                    transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                    exit={{ opacity: 0, scale: 0.93, y: 28 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 28 }}
                     onClick={(e) => e.stopPropagation()}
-                    className="relative w-full max-w-4xl bg-[#0d0d0d] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(194,18,25,0.15)]"
+                    className="relative w-full max-w-5xl bg-[#080808] border border-white/8 rounded-3xl overflow-hidden shadow-[0_0_120px_rgba(194,18,25,0.18)]"
                 >
-                    {/* Header */}
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-white/8">
-                        <div>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-[#c21219]">The Root Problem</p>
-                            <h2 className="text-lg font-extrabold text-white leading-tight">Why Fragmented Work Kills Growth</h2>
+                    {/* Dot grid bg */}
+                    <div className="absolute inset-0 pointer-events-none [background-image:radial-gradient(circle,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:28px_28px]" />
+                    <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-40 rounded-full bg-[#c21219]/10 blur-3xl pointer-events-none" />
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#c21219]/40 to-transparent" />
+
+                    {/* ── Header ── */}
+                    <div className="relative sticky top-0 z-10 bg-[#080808]/95 backdrop-blur-md border-b border-white/6 px-8 py-5">
+                        <div className="flex items-start justify-between gap-4">
+                            <div>
+                                <div className="flex items-center gap-2.5 mb-2">
+                                    <motion.span
+                                        animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
+                                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                                        className="h-1.5 w-1.5 rounded-full bg-[#c21219]"
+                                    />
+                                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#c21219]">Platform Overview</span>
+                                </div>
+                                <h2 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] via-rose-400 to-white leading-tight">
+                                    A Four-Layer Ecosystem Built to End Fragmented Work
+                                </h2>
+                                <p className="text-xs text-gray-500 mt-2 max-w-xl leading-relaxed">
+                                    LAMID unifies four proprietary service pillars, an AI-powered marketplace, a delivery workspace, and an intelligent operating system — one connected platform that replaces the patchwork.
+                                </p>
+                            </div>
+                            <div className="flex items-center gap-2 shrink-0">
+                                <span className="hidden sm:block text-[10px] text-gray-600 font-medium tracking-wide">click outside to close</span>
+                                <motion.button
+                                    whileHover={{ scale: 1.12, rotate: 90, boxShadow: "0 0 16px rgba(194,18,25,0.45)" }}
+                                    whileTap={{ scale: 0.9 }}
+                                    transition={{ type: "spring", stiffness: 400, damping: 18 }}
+                                    onClick={onClose}
+                                    className="flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#c21219]/40 transition-colors"
+                                >
+                                    <X className="h-3.5 w-3.5" />
+                                </motion.button>
+                            </div>
                         </div>
-                        <motion.button
-                            whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.1)" }}
-                            whileTap={{ scale: 0.92 }}
-                            onClick={onClose}
-                            className="flex items-center justify-center w-8 h-8 rounded-lg border border-white/10 text-gray-400 hover:text-white transition-colors"
-                        >
-                            <X className="h-4 w-4" />
-                        </motion.button>
                     </div>
 
-                    {/* Service cards grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6 max-h-[70vh] overflow-y-auto">
-                        {MODAL_SERVICES.map((s, i) => {
-                            const { Icon } = s;
-                            const isHov = hoveredModal === i;
-                            return (
+                    {/* ── Body ── */}
+                    <div className="overflow-y-auto max-h-[70vh] px-8 py-8 space-y-6 [scrollbar-width:none] [-ms-overflow-style:none]">
+                        {/* Three layer cards */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                            {PLATFORM_LAYERS.map((layer, i) => (
                                 <motion.div
-                                    key={s.title}
-                                    initial={{ opacity: 0, y: 20 }}
+                                    key={layer.label}
+                                    initial={{ opacity: 0, y: 18 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.08, type: "spring", stiffness: 300, damping: 24 }}
-                                    whileHover={{ y: -4, boxShadow: `0 16px 48px ${s.glow}` }}
-                                    whileTap={{ scale: 0.97, y: 0 }}
-                                    onHoverStart={() => setHoveredModal(i)}
-                                    onHoverEnd={() => setHoveredModal(null)}
-                                    className={`relative rounded-xl border ${s.border} ${s.bg} overflow-hidden flex flex-col cursor-default`}
-                                    style={{ borderColor: isHov ? s.hex + "70" : s.hex + "40", transition: "border-color 0.2s" }}
+                                    transition={{ delay: i * 0.1, type: "spring", stiffness: 280, damping: 22 }}
+                                    whileHover={{ y: -4, boxShadow: `0 14px 40px ${layer.glow}` }}
+                                    className="relative rounded-2xl p-6 flex flex-col gap-4 overflow-hidden group cursor-default"
+                                    style={{ border: `1px solid ${layer.hex}25`, backgroundColor: `${layer.hex}06` }}
                                 >
-                                    {/* Image — zooms on hover */}
-                                    <div className="relative w-full h-36 overflow-hidden" style={{ backgroundColor: s.hex + "12" }}>
-                                        <motion.div
-                                            animate={{ scale: isHov ? 1.06 : 1 }}
-                                            transition={{ duration: 0.4, ease: "easeOut" }}
-                                            className="absolute inset-0"
+                                    {/* Hover gradient */}
+                                    <div
+                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                                        style={{ background: `linear-gradient(135deg, ${layer.hex}0a, transparent)` }}
+                                    />
+
+                                    {/* Number + icon */}
+                                    <div className="flex items-center justify-between relative z-10">
+                                        <span className="text-4xl font-black select-none" style={{ color: `${layer.hex}18` }}>{layer.num}</span>
+                                        <div
+                                            className="w-9 h-9 rounded-xl flex items-center justify-center"
+                                            style={{ backgroundColor: `${layer.hex}18`, border: `1px solid ${layer.hex}35` }}
                                         >
-                                            <Image
-                                                src={s.image}
-                                                alt={s.title}
-                                                fill
-                                                className="object-cover opacity-80"
-                                            />
-                                        </motion.div>
-                                        {/* Color wash overlay — intensifies on hover */}
-                                        <motion.div
-                                            animate={{ opacity: isHov ? 1 : 0.6 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="absolute inset-0"
-                                            style={{ background: `linear-gradient(to bottom, ${s.hex}10, ${s.hex}50)` }}
-                                        />
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="flex flex-col gap-2 p-4">
-                                        {/* Icon + title */}
-                                        <div className="flex items-center gap-2.5">
-                                            <motion.div
-                                                animate={isHov
-                                                    ? { scale: 1.15, rotate: 8, boxShadow: `0 0 14px ${s.glow}` }
-                                                    : { scale: 1, rotate: 0, boxShadow: "none" }}
-                                                transition={{ type: "spring", stiffness: 400, damping: 16 }}
-                                                className={`flex h-8 w-8 items-center justify-center rounded-lg ${s.iconStyle}`}
-                                                style={{ backgroundColor: s.hex + "20", border: `1px solid ${s.hex}40` }}
-                                            >
-                                                <Icon className="h-4 w-4" />
-                                            </motion.div>
-                                            <h3 className="text-sm font-bold text-white">{s.title}</h3>
+                                            <layer.Icon className="h-4 w-4" style={{ color: layer.hex }} />
                                         </div>
-
-                                        {/* Bullets — staggered nudge on hover */}
-                                        <ul className="flex flex-col gap-1 mt-0.5">
-                                            {s.bullets.map((b, bi) => (
-                                                <motion.li
-                                                    key={bi}
-                                                    animate={isHov ? { x: 3, opacity: 1 } : { x: 0, opacity: 0.75 }}
-                                                    transition={{ duration: 0.2, delay: bi * 0.04 }}
-                                                    className="flex items-start gap-1.5 text-[11px] text-gray-400 leading-snug"
-                                                >
-                                                    <motion.span
-                                                        animate={isHov ? { scale: 1.4, opacity: 1 } : { scale: 1, opacity: 0.7 }}
-                                                        transition={{ duration: 0.2, delay: bi * 0.04 }}
-                                                        className="mt-0.5 flex-shrink-0 text-[8px]"
-                                                        style={{ color: s.hex }}
-                                                    >▸</motion.span>
-                                                    {b}
-                                                </motion.li>
-                                            ))}
-                                        </ul>
-
-                                        {/* Accent bar — expands on hover */}
-                                        <motion.div
-                                            animate={{ width: isHov ? "60%" : "3rem" }}
-                                            transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
-                                            className="mt-1 h-0.5 rounded-full"
-                                            style={{ backgroundColor: s.hex }}
-                                        />
                                     </div>
+
+                                    {/* Labels + copy */}
+                                    <div className="relative z-10 space-y-1">
+                                        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: layer.hex }}>{layer.label}</p>
+                                        <h3 className="text-base font-bold text-white">{layer.title}</h3>
+                                        <p className="text-xs text-gray-500 leading-relaxed">{layer.desc}</p>
+                                    </div>
+
+                                    {/* Bullets */}
+                                    <div className="flex flex-col gap-2 relative z-10">
+                                        {layer.bullets.map((b, bi) => (
+                                            <div key={bi} className="flex items-start gap-2 text-xs text-gray-400 leading-relaxed">
+                                                <span className="mt-1.5 h-1 w-1 rounded-full shrink-0" style={{ backgroundColor: layer.hex }} />
+                                                {b}
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Accent line */}
+                                    <div className="h-0.5 w-8 rounded-full mt-auto relative z-10" style={{ backgroundColor: layer.hex }} />
                                 </motion.div>
-                            );
-                        })}
+                            ))}
+                        </div>
+
+                        {/* User types strip */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.38, type: "spring", stiffness: 260, damping: 24 }}
+                            className="rounded-2xl border border-white/6 bg-white/[0.02] p-6"
+                        >
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Built For Every User</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                {USER_TYPES.map((u, i) => (
+                                    <motion.div
+                                        key={u.label}
+                                        initial={{ opacity: 0, scale: 0.92 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.44 + i * 0.08 }}
+                                        whileHover={{ scale: 1.02 }}
+                                        className="flex items-center gap-3 rounded-xl px-4 py-3 cursor-default"
+                                        style={{ backgroundColor: `${u.hex}08`, border: `1px solid ${u.hex}20` }}
+                                    >
+                                        <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: u.hex }} />
+                                        <div>
+                                            <p className="text-[13px] font-semibold text-white">{u.label}</p>
+                                            <p className="text-xs text-gray-500 leading-snug">{u.desc}</p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </motion.div>
                     </div>
                 </motion.div>
             </motion.div>
-
         </AnimatePresence>
     );
 }
@@ -350,7 +385,7 @@ export default function AISystemSection() {
                                         </p>
                                     </motion.div>
 
-                                    <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8 items-start">
+                                    <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 p-7 md:p-10 items-stretch">
 
                                         <div className="flex flex-col gap-3">
                                             <motion.div
@@ -384,7 +419,7 @@ export default function AISystemSection() {
                                                 {PROBLEM.subtitle} →
                                             </motion.p>
 
-                                            <p className="text-xs text-gray-300 leading-relaxed">{PROBLEM.full}</p>
+                                            <p className="text-[13px] text-gray-300 leading-relaxed">{PROBLEM.full}</p>
 
                                             <motion.button
                                                 whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${PROBLEM.glow}` }}
@@ -402,12 +437,13 @@ export default function AISystemSection() {
                                             </motion.button>
                                         </div>
 
-                                        <div className="flex flex-col gap-2">
+                                        <div className="flex flex-col h-full">
                                             {/* Section title */}
-                                            <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] via-rose-400 to-white w-fit">
+                                            <p className="text-[10px] font-bold uppercase tracking-widest mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] via-rose-400 to-white w-fit">
                                                 Delivering Value — Why it Matters
                                             </p>
 
+                                            <div className="flex flex-col flex-1 justify-between gap-2">
                                             {PROBLEM.bullets.map((b, i) => {
                                                 const isOpen = expandedBullet === i;
                                                 return (
@@ -434,7 +470,7 @@ export default function AISystemSection() {
                                                                 transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
                                                                 className="text-[#c21219] flex-shrink-0 text-[9px]"
                                                             >▸</motion.span>
-                                                            <p className={`text-xs leading-snug transition-colors duration-200 ${isOpen ? "text-white font-medium" : "text-gray-300"}`}>
+                                                            <p className={`text-[13px] leading-snug transition-colors duration-200 ${isOpen ? "text-white font-medium" : "text-gray-300"}`}>
                                                                 {b.text}
                                                             </p>
                                                             {/* Active indicator dot */}
@@ -454,13 +490,14 @@ export default function AISystemSection() {
                                                             transition={{ duration: 0.32, ease: [0.33, 1, 0.68, 1] }}
                                                             style={{ overflow: "hidden" }}
                                                         >
-                                                            <p className="text-[11px] text-gray-400 leading-relaxed px-3.5 pb-3 pt-0.5 border-t border-[#c21219]/15">
+                                                            <p className="text-xs text-gray-400 leading-relaxed px-3.5 pb-4 pt-1.5 border-t border-[#c21219]/15">
                                                                 {b.detail}
                                                             </p>
                                                         </motion.div>
                                                     </motion.div>
                                                 );
                                             })}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -481,8 +518,8 @@ export default function AISystemSection() {
                                             className="h-1.5 w-1.5 rounded-full bg-[#c21219] animate-pulse"
                                         />
                                         <div>
-                                            <p className="text-[10px] font-bold uppercase tracking-widest text-red-500">Our Solution</p>
-                                            <h3 className="text-base font-bold text-white leading-tight">One Integrated Ecosystem - Every Layer of Impact</h3>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-red-500 mb-1">Our Solution</p>
+                                            <h3 className="text-xl font-bold text-white leading-tight">One Integrated Ecosystem — Every Layer of Impact</h3>
                                         </div>
                                     </div>
 
@@ -504,7 +541,7 @@ export default function AISystemSection() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                     {SOLUTIONS.map((s, i) => {
                                         const { Icon } = s;
                                         const isHov = hovered === i;
@@ -518,7 +555,7 @@ export default function AISystemSection() {
                                                 whileTap={{ scale: 0.97, y: 0 }}
                                                 onHoverStart={() => setHovered(i)}
                                                 onHoverEnd={() => setHovered(null)}
-                                                className={`relative rounded-xl border ${s.border} ${s.bg} p-4 flex flex-col gap-3 overflow-hidden cursor-default transition-colors`}
+                                                className={`relative rounded-xl border ${s.border} ${s.bg} p-5 flex flex-col gap-4 overflow-hidden cursor-default transition-colors`}
                                             >
                                                 <Lines color={s.hex} />
 
@@ -533,16 +570,16 @@ export default function AISystemSection() {
                                                         <Icon className="h-4 w-4" />
                                                     </motion.div>
 
-                                                    <h4 className="text-xs font-bold text-white leading-snug">{s.title}</h4>
+                                                    <h4 className="text-[13px] font-bold text-white leading-snug">{s.title}</h4>
 
-                                                    <ul className="space-y-1.5">
+                                                    <div className="space-y-2">
                                                         {s.bullets.map((b, bi) => (
-                                                            <motion.li
+                                                            <motion.div
                                                                 key={bi}
                                                                 initial={{ opacity: 0, x: -6 }}
                                                                 animate={{ opacity: 1, x: 0 }}
                                                                 transition={{ delay: i * 0.08 + bi * 0.07 + 0.15, duration: 0.3 }}
-                                                                className="flex items-start gap-1.5 text-[11px] text-gray-400"
+                                                                className="flex items-start gap-2 text-xs text-gray-400 leading-relaxed"
                                                             >
                                                                 <motion.span
                                                                     animate={isHov ? { x: 2, opacity: 1 } : { x: 0, opacity: 0.7 }}
@@ -551,9 +588,9 @@ export default function AISystemSection() {
                                                                     style={{ color: s.hex }}
                                                                 >▸</motion.span>
                                                                 {b}
-                                                            </motion.li>
+                                                            </motion.div>
                                                         ))}
-                                                    </ul>
+                                                    </div>
                                                 </div>
 
                                                 <motion.span

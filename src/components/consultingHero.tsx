@@ -106,7 +106,7 @@ export default function HybridConsultingHero() {
 
 
         {/* Tabs + Search */}
-        <div className="mt-6 mx-auto max-w-xl w-full" role="search">
+        <div className="mt-8 mx-auto max-w-xl w-full" role="search">
           <div className="flex justify-center items-center bg-black/30 rounded-xl border border-gray-700 backdrop-blur-sm overflow-hidden">
             <button
               onClick={() => setActiveTab("consultants")}
@@ -142,7 +142,7 @@ export default function HybridConsultingHero() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-          className="mt-8 flex justify-center gap-6 flex-wrap"
+          className="mt-10 flex justify-center gap-8 flex-wrap"
         >
           <Link
             href="/jobs"

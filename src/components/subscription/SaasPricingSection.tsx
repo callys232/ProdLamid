@@ -444,7 +444,7 @@ export default function SaasPricingSection() {
           </div>
           <h3 className="text-xl font-bold text-white mb-1">Concierge</h3>
           <p className="text-xs text-gray-500 mb-5 leading-relaxed">
-            White-glove for governments, UN bodies, large NGOs and corporations. Reviewed and activated by our team.
+            Dedicated delivery management for organisations running complex, high-value engagements. Reviewed and activated by our team.
           </p>
           <div className="mb-1">
             <span className="text-4xl font-black text-white">Custom</span>

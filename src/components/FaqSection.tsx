@@ -35,24 +35,24 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-white rounded-xl shadow-lg p-8 mb-12">
-      <h2 className="text-3xl font-bold text-[#c12129] mb-6">
+    <section className="bg-white rounded-xl shadow-lg p-10 mb-12">
+      <h2 className="text-3xl font-bold text-[#c12129] mb-8">
         Hybrid Consulting – Frequently Asked Questions
       </h2>
-      <ul className="space-y-4">
+      <ul className="space-y-6">
         {faqs.map((faq, idx) => (
-          <li key={idx} className="border-b border-gray-200 pb-4">
+          <li key={idx} className="border-b border-gray-200 pb-6">
             <button
               onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-              className="w-full text-left flex justify-between items-center"
+              className="w-full text-left flex justify-between items-center gap-4"
             >
-              <span className="font-semibold text-black">{faq.question}</span>
+              <span className="text-base font-semibold text-black">{faq.question}</span>
               <span className="text-[#c12129]">
                 {openIndex === idx ? "-" : "+"}
               </span>
             </button>
             {openIndex === idx && (
-              <p className="mt-2 text-gray-700">{faq.answer}</p>
+              <p className="mt-4 text-[15px] text-gray-700 leading-relaxed">{faq.answer}</p>
             )}
           </li>
         ))}

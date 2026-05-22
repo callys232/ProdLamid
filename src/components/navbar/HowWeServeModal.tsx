@@ -43,7 +43,7 @@ const SECTIONS = [
     services: [
       { name: "Projects Marketplace", desc: "Browse and post consulting projects across 20+ categories with AI-powered matching.", href: "/jobs", icon: "💼", premium: false },
       { name: "Talent Finder", desc: "Access 5,000+ vetted consultants and experts matched precisely to your needs.", href: "/talent", icon: "🔍", premium: false },
-      { name: "Concierge Service", desc: "White-glove consulting for governments, NGOs, UN bodies and global corporations.", href: "/concierge", icon: "⭐", premium: true },
+      { name: "Concierge Service", desc: "Managed delivery for high-value, complex engagements — dedicated PM, custom dashboards and multi-project oversight.", href: "/concierge", icon: "⭐", premium: true },
       { name: "Escrow Management", desc: "Secure, transparent financial transaction management for every engagement.", href: "/escrow", icon: "🔒", premium: false },
     ],
   },
@@ -100,7 +100,7 @@ function useServiceRouter() {
 /* ── Benefits panel ─────────────────────────────────────────── */
 function BenefitsPanel() {
   return (
-    <div className="px-4 pb-4 space-y-5">
+    <div className="px-4 pb-4 space-y-6">
       {BENEFIT_GROUPS.map((group, gi) => (
         <motion.div
           key={group.label}
@@ -120,18 +120,18 @@ function BenefitsPanel() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: gi * 0.07 + i * 0.03 }}
                 whileHover={{ scale: 1.04, borderColor: `${group.color}50` }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border bg-white/[0.03] cursor-default"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border bg-white/[0.03] cursor-default"
                 style={{ borderColor: `${group.color}20` }}
               >
                 <CheckCircle2 className="h-3 w-3 shrink-0" style={{ color: group.color }} />
-                <span className="text-[11px] font-medium text-gray-300">{item}</span>
+                <span className="text-xs font-medium text-gray-300">{item}</span>
               </motion.div>
             ))}
           </div>
         </motion.div>
       ))}
 
-      <p className="text-[11px] text-gray-600 pt-2 border-t border-white/6">
+      <p className="text-xs text-gray-600 pt-3 border-t border-white/6">
         These services are automatically included with every LAMID account — free, premium, and enterprise.
       </p>
     </div>
@@ -148,7 +148,7 @@ function ServiceRow({ s, onGo, index }: { s: any; onGo: () => void; index: numbe
       transition={{ delay: index * 0.04, type: "spring", stiffness: 300, damping: 26 }}
       whileHover={{ x: 4 }}
       whileTap={{ scale: 0.98 }}
-      className="group w-full text-left flex items-center gap-4 py-3.5 px-4 rounded-xl hover:bg-white/[0.04] transition-colors duration-150 border border-transparent hover:border-white/8"
+      className="group w-full text-left flex items-center gap-4 py-4 px-5 rounded-xl hover:bg-white/[0.04] transition-colors duration-150 border border-transparent hover:border-white/8"
     >
       {/* Icon */}
       <div className="shrink-0 w-10 h-10 rounded-xl bg-white/5 border border-white/8 flex items-center justify-center overflow-hidden group-hover:border-[#c21219]/30 transition-colors duration-200">
@@ -169,7 +169,7 @@ function ServiceRow({ s, onGo, index }: { s: any; onGo: () => void; index: numbe
             </span>
           )}
         </div>
-        <p className="text-[12px] text-gray-500 leading-snug truncate group-hover:text-gray-400 transition-colors duration-150">{s.desc}</p>
+        <p className="text-[13px] text-gray-500 leading-relaxed truncate group-hover:text-gray-400 transition-colors duration-150">{s.desc}</p>
       </div>
 
       <ChevronRight className="h-3.5 w-3.5 text-white/15 group-hover:text-[#c21219] transition-colors duration-200 shrink-0" />
@@ -268,7 +268,7 @@ export default function HowWeServeModal({ open, onClose }: HowWeServeModalProps)
                         transition={{ type: "spring", stiffness: 400, damping: 28 }}
                       />
                     )}
-                    <p className={`text-xs font-semibold leading-tight transition-colors duration-150 ${active === i ? "text-white" : "text-gray-300 group-hover:text-white"}`}>
+                    <p className={`text-[13px] font-semibold leading-tight transition-colors duration-150 ${active === i ? "text-white" : "text-gray-300 group-hover:text-white"}`}>
                       {sec.label}
                     </p>
                     <p className={`text-[10px] mt-0.5 transition-colors duration-150 ${active === i ? "text-[#c21219]" : "text-gray-500 group-hover:text-gray-400"}`}>
@@ -281,7 +281,7 @@ export default function HowWeServeModal({ open, onClose }: HowWeServeModalProps)
 
                 {/* Bottom note */}
                 <div className="mt-auto pt-4 border-t border-white/6">
-                  <p className="text-[11px] font-bold leading-snug px-3 text-transparent bg-clip-text bg-gradient-to-b from-[#c21219] to-white">
+                  <p className="text-xs font-bold leading-snug px-3 text-transparent bg-clip-text bg-gradient-to-b from-[#c21219] to-white">
                     Built for Africa.<br />Designed for the World.
                   </p>
                 </div>
@@ -300,8 +300,8 @@ export default function HowWeServeModal({ open, onClose }: HowWeServeModalProps)
                     transition={{ duration: 0.18 }}
                     className="px-4 pt-5 pb-3"
                   >
-                    <h3 className="text-base font-bold text-white leading-tight">{section.label}</h3>
-                    <p className="text-[11px] text-gray-500 mt-0.5">{section.desc}</p>
+                    <h3 className="text-lg font-bold text-white leading-tight">{section.label}</h3>
+                    <p className="text-xs text-gray-500 mt-1">{section.desc}</p>
                   </motion.div>
                 </AnimatePresence>
 
@@ -335,13 +335,13 @@ export default function HowWeServeModal({ open, onClose }: HowWeServeModalProps)
 
             {/* ── Footer ── */}
             <div className="relative z-10 flex items-center justify-between px-6 py-3 border-t border-white/6 bg-white/[0.01]">
-              <p className="text-[11px] text-gray-600 flex items-center gap-1.5">
+              <p className="text-xs text-gray-600 flex items-center gap-1.5">
                 <Lock className="h-3 w-3 text-[#c21219]" />
                 Premium &amp; Enterprise+ services require an upgraded plan.{" "}
                 <Link href="/upgrade" onClick={onClose} className="text-[#c21219] font-semibold hover:underline underline-offset-2">Upgrade →</Link>
               </p>
               <Link href="/portfolio" onClick={onClose}
-                className="flex items-center gap-1 text-[11px] font-semibold text-gray-500 hover:text-[#c21219] transition-colors">
+                className="flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-[#c21219] transition-colors">
                 View Portfolio <ArrowRight className="h-3 w-3" />
               </Link>
             </div>

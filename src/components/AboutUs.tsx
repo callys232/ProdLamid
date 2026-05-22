@@ -38,7 +38,7 @@ const AboutUs = () => {
 
       {/* Vision 2030 Section */}
       <section id="vision-2030">
-        <div className="relative container mx-auto px-4 sm:px-6 py-6 sm:py-8 z-10">
+        <div className="relative container mx-auto px-4 sm:px-6 py-12 sm:py-16 z-10">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -63,10 +63,10 @@ const AboutUs = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto mb-6 sm:mb-10 text-center p-5 rounded-lg transition-all duration-300 
+            className="max-w-4xl mx-auto mb-8 sm:mb-12 text-center p-5 rounded-lg transition-all duration-300
             hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-lg"
           >
-            <p className="text-sm sm:text-base leading-relaxed">
+            <p className="text-base sm:text-lg leading-relaxed">
               Since 1988, LAMID Consulting has accelerated clients performance
               with transformational results by fostering partnerships that
               customize innovative and sustainable solutions. Our{" "}
@@ -89,7 +89,7 @@ const AboutUs = () => {
                   },
                 },
               }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-10"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 mb-8 sm:mb-12"
             >
               {/* Column 1 */}
               <motion.div
@@ -100,8 +100,8 @@ const AboutUs = () => {
               >
                 <Link href="/portfolio">
                   <div
-                    className="flex flex-col bg-blue-950/40 p-6 rounded-lg shadow-lg transition-all duration-300 
-                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-3"
+                    className="flex flex-col bg-blue-950/40 p-8 rounded-lg shadow-lg transition-all duration-300
+                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-4"
                   >
                     <div className="flex items-start">
                       <Image
@@ -112,7 +112,7 @@ const AboutUs = () => {
                         className="w-12 h-12 md:w-14 md:h-14 mr-4"
                       />
                       <div>
-                        <h2 className="text-lg font-semibold text-blue-400 mb-1">
+                        <h2 className="text-xl font-semibold text-blue-400 mb-2">
                           Our Values & Approach
                         </h2>
                         <ExpandableText text="Our principles define how we solve challenges and innovate sustainable solutions. We stand for:" />
@@ -131,8 +131,8 @@ const AboutUs = () => {
               >
                 <Link href="/portfolio">
                   <div
-                    className="flex flex-col bg-blue-950/40 p-6 rounded-lg shadow-lg transition-all duration-300 
-                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-3"
+                    className="flex flex-col bg-blue-950/40 p-8 rounded-lg shadow-lg transition-all duration-300
+                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-4"
                   >
                     <div className="flex items-start">
                       <Image
@@ -143,7 +143,7 @@ const AboutUs = () => {
                         className="w-12 h-12 md:w-14 md:h-14 mr-4"
                       />
                       <div>
-                        <h2 className="text-lg font-semibold text-blue-400 mb-1">
+                        <h2 className="text-xl font-semibold text-blue-400 mb-2">
                           Our Pledge
                         </h2>
                         <ExpandableText text="We go the extra mile to build long-term relationships, ensuring lasting value for our clients through exceptional customer service and continued referrals." />
@@ -162,8 +162,8 @@ const AboutUs = () => {
               >
                 <Link href="/portfolio">
                   <div
-                    className="flex flex-col bg-blue-950/40 p-6 rounded-lg shadow-lg transition-all duration-300 
-                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-3"
+                    className="flex flex-col bg-blue-950/40 p-8 rounded-lg shadow-lg transition-all duration-300
+                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-4"
                   >
                     <div className="flex items-start">
                       <Image
@@ -174,7 +174,7 @@ const AboutUs = () => {
                         className="w-12 h-12 md:w-14 md:h-14 mr-4"
                       />
                       <div>
-                        <h2 className="text-lg font-semibold text-blue-400 mb-1">
+                        <h2 className="text-xl font-semibold text-blue-400 mb-2">
                           Our Approach
                         </h2>
                         <ExpandableText text="Sustainable success relies on performance and leadership. We prioritize highly profitable operations, strategic management, and visionary leadership to achieve lasting impact." />

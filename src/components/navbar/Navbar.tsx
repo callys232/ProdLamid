@@ -17,10 +17,9 @@ interface ServiceItem {
 const serviceItems: ServiceItem[] = [
   { name: "Business Innovation Zone", href: "/biz" },
   { name: "Human Capital Development", href: "/hcd" },
-  { name: "Sustainable Development",  href: "/sustainableDev" },
-  { name: "Portal",                   href: "/portal" },
-  { name: "Portfolio",                href: "/portfolio" },
-  { name: "Proposal Drafter",         href: "/premium/proposal-drafter" },
+  { name: "Sustainable Development", href: "/sustainableDev" },
+  { name: "Portal", href: "/portal" },
+  { name: "Portfolio", href: "/portfolio" },
 ];
 
 /* ---------------- Notification Hook ---------------- */
@@ -41,7 +40,7 @@ function useNotifications() {
         if (mounted) {
           setCount(data.notifications?.length ?? 0);
         }
-      } catch { }
+      } catch {}
     };
 
     fetchNotifications();
@@ -71,7 +70,11 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
-      if (y < 10) { setNavVisible(true); lastScrollY.current = y; return; }
+      if (y < 10) {
+        setNavVisible(true);
+        lastScrollY.current = y;
+        return;
+      }
       setNavVisible(y < lastScrollY.current);
       lastScrollY.current = y;
     };
@@ -121,15 +124,13 @@ const Navbar: React.FC = () => {
 
   /* Keyboard nav desktop */
   const onDesktopServicesKeyDown = (
-    e: React.KeyboardEvent<HTMLButtonElement>
+    e: React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     if (!servicesOpen) return;
     const items = desktopServiceRefs.current.filter(
-      Boolean
+      Boolean,
     ) as HTMLAnchorElement[];
-    const currentIndex = items.findIndex(
-      (el) => el === document.activeElement
-    );
+    const currentIndex = items.findIndex((el) => el === document.activeElement);
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -148,15 +149,13 @@ const Navbar: React.FC = () => {
 
   /* Keyboard nav mobile */
   const onMobileServicesKeyDown = (
-    e: React.KeyboardEvent<HTMLButtonElement>
+    e: React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     if (!servicesOpen) return;
     const items = mobileServiceRefs.current.filter(
-      Boolean
+      Boolean,
     ) as HTMLAnchorElement[];
-    const currentIndex = items.findIndex(
-      (el) => el === document.activeElement
-    );
+    const currentIndex = items.findIndex((el) => el === document.activeElement);
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -175,10 +174,9 @@ const Navbar: React.FC = () => {
 
   const renderNotificationBadge = (size = "desktop") => (
     <span
-      className={`absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full flex items-center justify-center ${size === "mobile"
-          ? "h-4 min-w-[16px] px-1"
-          : "h-5 min-w-[20px] px-1.5"
-        }`}
+      className={`absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full flex items-center justify-center ${
+        size === "mobile" ? "h-4 min-w-[16px] px-1" : "h-5 min-w-[20px] px-1.5"
+      }`}
       aria-label={`${notificationCount} unread notifications`}
     >
       {notificationCount > 99 ? "99+" : notificationCount}
@@ -186,8 +184,7 @@ const Navbar: React.FC = () => {
   );
 
   const linkClass = (href: string) =>
-    `hover:text-red-500 ${pathname === href ? "text-red-500" : "text-white"
-    }`;
+    `hover:text-red-500 ${pathname === href ? "text-red-500" : "text-white"}`;
 
   return (
     <motion.header
@@ -227,9 +224,7 @@ const Navbar: React.FC = () => {
             >
               <button
                 type="button"
-                aria-haspopup="true"
-                aria-expanded={servicesOpen}
-                aria-controls="services-dropdown"
+                aria-haspopup="menu"
                 className="flex items-center hover:text-red-500"
                 onClick={() => setServicesOpen((v) => !v)}
                 onKeyDown={onDesktopServicesKeyDown}
@@ -254,8 +249,7 @@ const Navbar: React.FC = () => {
                             href={item.href}
                             ref={(el) => {
                               desktopServiceRefs.current[idx] = el;
-                            }
-                            }
+                            }}
                             className="block px-4 py-2 hover:text-red-500 focus:bg-gray-800"
                             onClick={() => setServicesOpen(false)}
                           >
@@ -279,7 +273,10 @@ const Navbar: React.FC = () => {
 
             <motion.button
               type="button"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 22px rgba(194,18,25,0.7)" }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 22px rgba(194,18,25,0.7)",
+              }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setHowWeServeOpen(true)}
               className="group relative inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white overflow-hidden
@@ -288,7 +285,9 @@ const Navbar: React.FC = () => {
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
               <span className="relative z-10">How We Serve</span>
-              <span className="relative z-10 transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              <span className="relative z-10 transition-transform duration-200 group-hover:translate-x-0.5">
+                →
+              </span>
             </motion.button>
           </div>
 
@@ -308,9 +307,7 @@ const Navbar: React.FC = () => {
               type="button"
               className="md:hidden flex items-center justify-center w-8 h-8"
               onClick={() => setIsOpen((v) => !v)}
-              aria-label="Toggle menu"
-              aria-expanded={isOpen}
-              aria-controls="mobile-nav"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
             >
               {!isOpen ? "☰" : "✕"}
             </button>
@@ -339,9 +336,7 @@ const Navbar: React.FC = () => {
               <div ref={mobileServicesRef}>
                 <button
                   type="button"
-                  aria-haspopup="true"
-                  aria-expanded={servicesOpen}
-                  aria-controls="mobile-services-dropdown"
+                  aria-haspopup="menu"
                   className="flex justify-between w-full py-2"
                   onClick={() => setServicesOpen((v) => !v)}
                   onKeyDown={onMobileServicesKeyDown}
@@ -382,10 +377,7 @@ const Navbar: React.FC = () => {
                 </AnimatePresence>
               </div>
 
-              <Link
-                href="/jobs"
-                className="block py-2 hover:text-red-500"
-              >
+              <Link href="/jobs" className="block py-2 hover:text-red-500">
                 PROJECTS
               </Link>
 
@@ -399,7 +391,10 @@ const Navbar: React.FC = () => {
 
               <button
                 type="button"
-                onClick={() => { setHowWeServeOpen(true); setIsOpen(false); }}
+                onClick={() => {
+                  setHowWeServeOpen(true);
+                  setIsOpen(false);
+                }}
                 className="group relative flex items-center justify-between w-full mt-1 px-4 py-2.5 rounded-xl text-xs font-bold text-white overflow-hidden
                   bg-gradient-to-r from-[#c21219] via-rose-600 to-rose-500
                   shadow-[0_0_12px_rgba(194,18,25,0.35)]"
@@ -421,7 +416,10 @@ const Navbar: React.FC = () => {
         <div className="h-0.5 bg-red-700" />
       </nav>
 
-      <HowWeServeModal open={howWeServeOpen} onClose={() => setHowWeServeOpen(false)} />
+      <HowWeServeModal
+        open={howWeServeOpen}
+        onClose={() => setHowWeServeOpen(false)}
+      />
     </motion.header>
   );
 };
@@ -430,8 +428,7 @@ const Navbar: React.FC = () => {
 const Chevron: React.FC<{ open: boolean }> = ({ open }) => (
   <svg
     aria-hidden="true"
-    className={`ml-1 h-4 w-4 transition-transform ${open ? "rotate-180" : ""
-      }`}
+    className={`ml-1 h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"

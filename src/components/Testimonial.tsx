@@ -16,10 +16,10 @@ const Testimonial: React.FC = () => {
       </Head>
 
       {/* Testimonials section */}
-      <div className="bg-black py-12">
+      <div className="bg-black py-16">
         <div className="container mx-auto px-4">
           <motion.div
-            className="flex flex-col md:flex-row gap-8"
+            className="flex flex-col md:flex-row gap-10"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
@@ -50,20 +50,20 @@ const Testimonial: React.FC = () => {
 
             {/* Testimonials Text */}
             <motion.div className="w-full md:w-3/5" variants={fadeInUp}>
-              <h2 className="text-blue-600 text-2xl mb-6 hover:text-blue-400 transition duration-300">
+              <h2 className="text-blue-600 text-2xl mb-8 hover:text-blue-400 transition duration-300">
                 Testimonials
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gray-900 p-4 rounded hover:bg-gray-800 transition duration-300">
-                  <p className="text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+                <div className="bg-gray-900 p-6 rounded hover:bg-gray-800 transition duration-300">
+                  <p className="text-[15px] leading-relaxed">
                     “The programs helped in the effective management and
                     motivation of staff to enable them leverage their
                     intellectual capability, to transform business challenges
                     into opportunities.”
                   </p>
                 </div>
-                <div className="bg-gray-900 p-4 rounded hover:bg-gray-800 transition duration-300">
-                  <p className="text-sm">
+                <div className="bg-gray-900 p-6 rounded hover:bg-gray-800 transition duration-300">
+                  <p className="text-[15px] leading-relaxed">
                     “LAMID’s training program enhanced the quality of the
                     negotiation processes with respective Trade Unions, and led
                     to significant improvements in industrial relations, between
