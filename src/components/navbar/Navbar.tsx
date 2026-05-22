@@ -11,15 +11,21 @@ import HowWeServeModal from "./HowWeServeModal";
 
 interface ServiceItem {
   name: string;
+  short: string;
   href: string;
+  logo?: string;
+  text: string;
+  bg: string;
+  border: string;
+  dot: string;
 }
 
 const serviceItems: ServiceItem[] = [
-  { name: "Business Innovation Zone", href: "/biz" },
-  { name: "Human Capital Development", href: "/hcd" },
-  { name: "Sustainable Development", href: "/sustainableDev" },
-  { name: "Portal", href: "/portal" },
-  { name: "Portfolio", href: "/portfolio" },
+  { name: "Business Innovation Zone", short: "BIZ",       href: "/biz",            logo: "/bizLogo.png",    text: "text-blue-400",    bg: "bg-blue-500/10",    border: "border-blue-500/25",   dot: "bg-blue-400"    },
+  { name: "Human Capital Development", short: "HCD",       href: "/hcd",            logo: "/hcdLogo.png",    text: "text-orange-400",  bg: "bg-orange-500/10",  border: "border-orange-500/25", dot: "bg-orange-400"  },
+  { name: "Sustainable Development",   short: "SD",        href: "/sustainableDev", logo: "/sdLogo.png",     text: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/25",dot: "bg-emerald-400" },
+  { name: "Portal",                    short: "Portal",    href: "/portal",         logo: "/portalLogo.png", text: "text-red-500",     bg: "bg-red-500/10",     border: "border-red-500/25",    dot: "bg-red-500"     },
+  { name: "Portfolio",                 short: "Portfolio", href: "/portfolio",      logo: undefined,         text: "text-gray-400",    bg: "bg-white/5",        border: "border-white/10",      dot: "bg-gray-400"    },
 ];
 
 /* ---------------- Notification Hook ---------------- */
@@ -236,28 +242,42 @@ const Navbar: React.FC = () => {
                 {servicesOpen && (
                   <motion.div
                     id="services-dropdown"
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-0 mt-2 w-48 bg-black rounded shadow-lg"
+                    initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: [0.33, 1, 0.68, 1] }}
+                    className="absolute left-0 mt-3 w-64 bg-[#0a0a0a] border border-white/8 rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden"
                   >
-                    <ul className="py-1">
+                    {/* Top accent line */}
+                    <div className="h-px w-full bg-gradient-to-r from-[#c21219]/40 via-white/10 to-transparent" />
+                    <div className="py-2">
                       {serviceItems.map((item, idx) => (
-                        <li key={item.name}>
-                          <Link
-                            href={item.href}
-                            ref={(el) => {
-                              desktopServiceRefs.current[idx] = el;
-                            }}
-                            className="block px-4 py-2 hover:text-red-500 focus:bg-gray-800"
-                            onClick={() => setServicesOpen(false)}
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          ref={(el) => { desktopServiceRefs.current[idx] = el; }}
+                          onClick={() => setServicesOpen(false)}
+                          className="group flex items-center gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-white/[0.04]"
+                        >
+                          {/* Logo or fallback dot */}
+                          <div className={`shrink-0 w-7 h-7 rounded-lg flex items-center justify-center overflow-hidden ${item.bg} ${item.border} border`}>
+                            {item.logo
+                              ? <Image src={item.logo} alt={item.short} width={20} height={20} className="object-contain" />
+                              : <span className={`h-1.5 w-1.5 rounded-full ${item.dot}`} />
+                            }
+                          </div>
+                          {/* Name */}
+                          <div className="min-w-0">
+                            <p className={`text-[13px] font-semibold leading-tight truncate transition-colors duration-150 ${item.text}`}>
+                              {item.short}
+                            </p>
+                            <p className="text-[10px] text-gray-500 leading-tight truncate group-hover:text-gray-400 transition-colors duration-150">
+                              {item.name}
+                            </p>
+                          </div>
+                        </Link>
                       ))}
-                    </ul>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -348,30 +368,28 @@ const Navbar: React.FC = () => {
                   {servicesOpen && (
                     <motion.div
                       id="mobile-services-dropdown"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="pl-4"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-1 space-y-0.5 overflow-hidden"
                     >
-                      <ul className="space-y-1">
-                        {serviceItems.map((item, idx) => (
-                          <li key={item.name}>
-                            <Link
-                              href={item.href}
-                              ref={(el) => {
-                                mobileServiceRefs.current[idx] = el;
-                              }}
-                              className="block py-1 hover:text-red-500"
-                              onClick={() => {
-                                setServicesOpen(false);
-                                setIsOpen(false);
-                              }}
-                            >
-                              {item.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                      {serviceItems.map((item, idx) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          ref={(el) => { mobileServiceRefs.current[idx] = el; }}
+                          onClick={() => { setServicesOpen(false); setIsOpen(false); }}
+                          className="flex items-center gap-2.5 py-2 px-2 rounded-lg hover:bg-white/[0.04] transition-colors"
+                        >
+                          <div className={`shrink-0 w-6 h-6 rounded-md flex items-center justify-center ${item.bg} ${item.border} border`}>
+                            {item.logo
+                              ? <Image src={item.logo} alt={item.short} width={16} height={16} className="object-contain" />
+                              : <span className={`h-1.5 w-1.5 rounded-full ${item.dot}`} />
+                            }
+                          </div>
+                          <span className={`text-sm font-semibold ${item.text}`}>{item.short}</span>
+                        </Link>
+                      ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
