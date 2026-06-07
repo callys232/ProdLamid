@@ -4,7 +4,7 @@ import ServicesSection from "@/components/service/Service";
 import BusinessInnovationZone from "@/components/BusinessInnovationZone ";
 import HumanCapitalDevelopment from "@/components/HumanCapitalDevelopment";
 import AboutUs from "@/components/AboutUs";
-import VMO from "@/components/VMO";
+// import VMO from "@/components/VMO";
 import SDI from "@/components/SDI";
 import "animate.css";
 
@@ -19,7 +19,7 @@ export default function Home() {
       <HumanCapitalDevelopment />
       <SDI />
       <AboutUs />
-      <VMO />
+      {/* <VMO /> */}
     </main>
   );
 }

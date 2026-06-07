@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="relative w-full bg-black text-white overflow-hidden px-6 md:px-12 flex flex-col md:flex-row items-center justify-between">
+      <header className="relative w-full bg-black text-white overflow-hidden px-6 md:px-12 flex flex-col md:flex-row items-center justify-between min-h-[85vh] md:min-h-0">
         {/* ── Particle keyframes injected once, zero bundle weight ── */}
         <style>{`
           @keyframes fp-a{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,-6px)}}
@@ -81,7 +81,7 @@ export default function Header() {
         </svg>
 
         {/* ── Left content ── */}
-        <div className="w-full md:w-2/3 z-10 pt-20 md:pt-0 text-center md:text-left space-y-5 ">
+        <div className="w-full md:w-2/3 z-10 pt-24 md:pt-0 text-center md:text-left space-y-4 md:space-y-5">
           {/* Typewriter headline — remounts on each cycle via key */}
           <h1 className="whitespace-normal text-lg sm:text-xl md:text-3xl font-extrabold leading-snug max-w-2xl mx-auto md:mx-0 px-2 font-display text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-white pb-1">
             <Typewriter
@@ -101,9 +101,9 @@ export default function Header() {
             <AnimatePresence>
               {showH2 && (
                 <motion.h2
-                  initial={{ opacity: 0, x: -64, scale: 0.84, skewX: -6 }}
+                  initial={{ opacity: 0, x: -32, scale: 0.88, skewX: -4 }}
                   animate={{ opacity: 1, x: 0, scale: 1, skewX: 0 }}
-                  exit={{ opacity: 0, x: -32, scale: 0.94 }}
+                  exit={{ opacity: 0, x: -16, scale: 0.94 }}
                   transition={{ type: "spring", stiffness: 90, damping: 11 }}
                   className="whitespace-normal text-xl sm:text-2xl md:text-4xl font-extrabold leading-snug max-w-2xl mx-auto md:mx-0 px-2 font-display text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-red-500 to-red-900 tracking-wide pb-1"
                   style={{ animation: "dg-glow 2.6s ease-in-out infinite" }}
@@ -115,13 +115,13 @@ export default function Header() {
           </div>
 
           {/* Paragraph */}
-          <p className="mt-12 text-slate-300 text-base sm:text-lg font-light tracking-wide max-w-lg mx-auto md:mx-0 px-2 leading-8">
+          <p className="mt-6 md:mt-10 text-slate-300 text-sm sm:text-base md:text-lg font-light tracking-wide max-w-lg mx-auto md:mx-0 px-2 leading-7 md:leading-8">
             LAMID unifies strategy, performance, systems, and seamless work into
             one AIenabled, marketplacedriven, enterprisegrade ecosystem.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 justify-center md:justify-start px-2 mt-12 pb-8 md:pb-0">
+          <div className="flex flex-wrap gap-3 md:gap-4 justify-center md:justify-start px-2 mt-6 md:mt-10 pb-10 md:pb-0">
             {/* Primary — filled gradient + glow */}
             <button
               onClick={() => setHowWeServeOpen(true)}
@@ -168,8 +168,8 @@ export default function Header() {
           </div>
         </div>
 
-        {/* ── Right — Serv cards ── */}
-        <div className="w-full md:w-1/3 flex justify-end items-center mt-10 md:mt-0 z-10">
+        {/* ── Right — Serv cards (desktop only) ── */}
+        <div className="hidden md:flex md:w-1/3 justify-end items-center z-10">
           <Serv />
         </div>
       </header>

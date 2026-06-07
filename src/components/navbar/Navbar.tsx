@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import AccountMenu from "./Account";
 import PeekView from "@/components/peekview/PeekView";
-import HowWeServeModal from "./HowWeServeModal";
 
 interface ServiceItem {
   name: string;
@@ -66,7 +65,6 @@ function useNotifications() {
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [howWeServeOpen, setHowWeServeOpen] = useState(false);
   const [navVisible, setNavVisible] = useState(true);
   const lastScrollY = useRef(0);
   const pathname = usePathname();
@@ -291,24 +289,6 @@ const Navbar: React.FC = () => {
               CONTACT US
             </Link>
 
-            <motion.button
-              type="button"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 22px rgba(194,18,25,0.7)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setHowWeServeOpen(true)}
-              className="group relative inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white overflow-hidden
-                bg-gradient-to-r from-[#c21219] via-rose-600 to-rose-500
-                shadow-[0_0_14px_rgba(194,18,25,0.4)]"
-            >
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
-              <span className="relative z-10">How We Serve</span>
-              <span className="relative z-10 transition-transform duration-200 group-hover:translate-x-0.5">
-                →
-              </span>
-            </motion.button>
           </div>
 
           {/* Account + tools + mobile hamburger — always at the far right */}
@@ -407,21 +387,6 @@ const Navbar: React.FC = () => {
                 CONTACT US
               </Link>
 
-              <button
-                type="button"
-                onClick={() => {
-                  setHowWeServeOpen(true);
-                  setIsOpen(false);
-                }}
-                className="group relative flex items-center justify-between w-full mt-1 px-4 py-2.5 rounded-xl text-xs font-bold text-white overflow-hidden
-                  bg-gradient-to-r from-[#c21219] via-rose-600 to-rose-500
-                  shadow-[0_0_12px_rgba(194,18,25,0.35)]"
-              >
-                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
-                <span className="relative z-10">How We Serve</span>
-                <span className="relative z-10">→</span>
-              </button>
-
               {/* Account Mobile */}
               <div className="pt-2 relative inline-block">
                 <AccountMenu align="left" />
@@ -434,10 +399,6 @@ const Navbar: React.FC = () => {
         <div className="h-0.5 bg-red-700" />
       </nav>
 
-      <HowWeServeModal
-        open={howWeServeOpen}
-        onClose={() => setHowWeServeOpen(false)}
-      />
     </motion.header>
   );
 };
