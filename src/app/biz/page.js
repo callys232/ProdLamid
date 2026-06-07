@@ -1,5 +1,6 @@
 import BizHeader from "@/components/biz/BizHeader";
 import BizBestSection from "@/components/biz/BizBestSection";
+import BizAccessCards from "@/components/biz/BizAccessCards";
 import BizToolbox from "@/components/biz/BizToolbox";
 import BusinessServicesGrid from "@/components/biz/BusinessServicesGrid";
 import BusinessPrototypes from "@/components/bizprototype/bizPrototypes";
@@ -13,6 +14,7 @@ const BizPage = () => {
     <div>
       <BizHeader />
       <BizBestSection />
+      <BizAccessCards />
       <BizToolbox />
       {/* <BusinessServicesGrid /> */}
       <BusinessPrototypes />

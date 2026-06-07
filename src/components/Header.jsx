@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Serv from "./Serv";
 import AISystemSection from "./aiHero/Aihero";
 import HowWeServeModal from "./navbar/HowWeServeModal";
+import EcosystemTag from "./EcosystemTag";
 
 // Deterministic positions — avoids SSR/client hydration mismatch
 const PARTICLES = Array.from({ length: 34 }, (_, i) => {
@@ -166,6 +167,7 @@ export default function Header() {
               </span>
             </button>
           </div>
+          <EcosystemTag className="md:justify-start" />
         </div>
 
         {/* ── Right — Serv cards (desktop only) ── */}

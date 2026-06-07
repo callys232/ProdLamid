@@ -179,8 +179,8 @@ const ValuesSection: React.FC = () => {
 
                 {/* Content */}
                 <div className="relative z-10 flex flex-col gap-2">
-                  <h3 className="text-base font-bold text-white tracking-tight">{v.title}</h3>
-                  <p className="text-[12px] text-gray-400 leading-relaxed">{v.desc}</p>
+                  <h3 className="text-xl font-bold text-white tracking-tight">{v.title}</h3>
+                  <p className="text-sm text-gray-200 leading-relaxed">{v.desc}</p>
                 </div>
 
                 {/* Accent bar — expands on hover */}

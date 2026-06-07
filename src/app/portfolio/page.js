@@ -12,7 +12,7 @@ const PortfolioPage = () => {
   return (
     <div>
       <Header />
-      <AboutUs />
+      <AboutUs showArrow={false} />
       <Values />
       <Slider />
       <StatsBar />

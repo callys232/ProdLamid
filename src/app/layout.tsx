@@ -7,6 +7,7 @@ import { inter, playfair, spaceGrotesk } from "../fonts";
 import { CartProvider } from "@/components/Cartcontext";
 import ClientGlobals from "./ClientGlobal";
 import CookieConsent from "@/components/CookieConsent";
+import StickmanBg from "@/components/StickmanBg";
 
 const BASE = process.env.NEXT_PUBLIC_URL ?? "https://lamid.io";
 
@@ -59,6 +60,9 @@ export default function RootLayout({
     >
       <body className="antialiased font-sans bg-[#0c0000] text-white min-h-screen flex flex-col">
         <CartProvider>
+          {/* Running stickman background — fixed, behind all content */}
+          <StickmanBg />
+
           {/* Layout wrapper for navbar, footer, main content */}
           <LayoutWrapper>{children}</LayoutWrapper>
 

@@ -1,27 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight, Eye, Target, Layers, Handshake } from "lucide-react";
+import EcosystemTag from "./EcosystemTag";
 
-function ExpandableText({ text }: { text: string }) {
-  const [expanded, setExpanded] = useState(false);
-
-  return (
-    <div className="text-sm leading-relaxed text-white">
-      <p className={expanded ? "" : "line-clamp-3"}>{text}</p>
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="text-yellow-400 hover:underline mt-2 font-medium"
-      >
-        {expanded ? "Show less" : "Read more"}
-      </button>
-    </div>
-  );
-}
-
-const AboutUs = () => {
+const AboutUs = ({ showArrow = true }: { showArrow?: boolean }) => {
   return (
     <div className="relative bg-gradient-to-b from-blue-950 to-blue-900 text-white overflow-hidden">
       {/* Background elements */}
@@ -89,9 +75,9 @@ const AboutUs = () => {
                   },
                 },
               }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 mb-8 sm:mb-12"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-12"
             >
-              {/* Column 1 */}
+              {/* Column 1 — Vision */}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 40 },
@@ -101,28 +87,29 @@ const AboutUs = () => {
                 <Link href="/portfolio">
                   <div
                     className="flex flex-col bg-blue-950/40 p-8 rounded-lg shadow-lg transition-all duration-300
-                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-4"
+                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 cursor-pointer space-y-4"
                   >
                     <div className="flex items-start">
-                      <Image
-                        src="/people-icon.png"
-                        alt="Team collaboration icon"
-                        width={50}
-                        height={50}
-                        className="w-12 h-12 md:w-14 md:h-14 mr-4"
-                      />
+                      <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center mr-4 bg-blue-500/15 border border-blue-500/25">
+                        <Eye className="h-6 w-6 text-blue-400" />
+                      </div>
                       <div>
                         <h2 className="text-xl font-semibold text-blue-400 mb-2">
-                          Our Values & Approach
+                          Our Vision
                         </h2>
-                        <ExpandableText text="Our principles define how we solve challenges and innovate sustainable solutions. We stand for:" />
+                        <p className="text-sm leading-relaxed text-white">Our principles define how we solve challenges and innovate sustainable solutions. We stand for:</p>
+                        {showArrow && (
+                          <motion.div whileHover={{ x: 6 }} transition={{ type: "spring", stiffness: 400, damping: 18 }} className="mt-3 inline-flex">
+                            <ArrowRight className="h-5 w-5 text-blue-400" />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
                   </div>
                 </Link>
               </motion.div>
 
-              {/* Column 2 */}
+              {/* Column 2 — Mission */}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 40 },
@@ -132,28 +119,29 @@ const AboutUs = () => {
                 <Link href="/portfolio">
                   <div
                     className="flex flex-col bg-blue-950/40 p-8 rounded-lg shadow-lg transition-all duration-300
-                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-4"
+                    hover:border hover:border-rose-500 hover:text-rose-300 hover:scale-105 hover:shadow-xl hover:shadow-rose-500/20 cursor-pointer space-y-4"
                   >
                     <div className="flex items-start">
-                      <Image
-                        src="/target-icon.png"
-                        alt="Target icon for commitment"
-                        width={50}
-                        height={50}
-                        className="w-12 h-12 md:w-14 md:h-14 mr-4"
-                      />
+                      <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center mr-4 bg-rose-500/15 border border-rose-500/25">
+                        <Target className="h-6 w-6 text-rose-400" />
+                      </div>
                       <div>
-                        <h2 className="text-xl font-semibold text-blue-400 mb-2">
-                          Our Pledge
+                        <h2 className="text-xl font-semibold text-rose-400 mb-2">
+                          Our Mission
                         </h2>
-                        <ExpandableText text="We go the extra mile to build long-term relationships, ensuring lasting value for our clients through exceptional customer service and continued referrals." />
+                        <p className="text-sm leading-relaxed text-white">To empower businesses and experts with the systems, tools, and intelligence they need to grow sustainably and transform meaningfully.</p>
+                        {showArrow && (
+                          <motion.div whileHover={{ x: 6 }} transition={{ type: "spring", stiffness: 400, damping: 18 }} className="mt-3 inline-flex">
+                            <ArrowRight className="h-5 w-5 text-rose-400" />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
                   </div>
                 </Link>
               </motion.div>
 
-              {/* Column 3 */}
+              {/* Column 3 — Approach */}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 40 },
@@ -163,27 +151,61 @@ const AboutUs = () => {
                 <Link href="/portfolio">
                   <div
                     className="flex flex-col bg-blue-950/40 p-8 rounded-lg shadow-lg transition-all duration-300
-                    hover:border hover:border-blue-500 hover:text-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer space-y-4"
+                    hover:border hover:border-emerald-500 hover:text-emerald-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/20 cursor-pointer space-y-4"
                   >
                     <div className="flex items-start">
-                      <Image
-                        src="/growth-icon.png"
-                        alt="Growth strategy icon"
-                        width={50}
-                        height={50}
-                        className="w-12 h-12 md:w-14 md:h-14 mr-4"
-                      />
+                      <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center mr-4 bg-emerald-500/15 border border-emerald-500/25">
+                        <Layers className="h-6 w-6 text-emerald-400" />
+                      </div>
                       <div>
-                        <h2 className="text-xl font-semibold text-blue-400 mb-2">
+                        <h2 className="text-xl font-semibold text-emerald-400 mb-2">
                           Our Approach
                         </h2>
-                        <ExpandableText text="Sustainable success relies on performance and leadership. We prioritize highly profitable operations, strategic management, and visionary leadership to achieve lasting impact." />
+                        <p className="text-sm leading-relaxed text-white">Sustainable success relies on performance and leadership. We prioritize highly profitable operations, strategic management, and visionary leadership to achieve lasting impact.</p>
+                        {showArrow && (
+                          <motion.div whileHover={{ x: 6 }} transition={{ type: "spring", stiffness: 400, damping: 18 }} className="mt-3 inline-flex">
+                            <ArrowRight className="h-5 w-5 text-emerald-400" />
+                          </motion.div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* Column 4 — Pledge */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+              >
+                <Link href="/portfolio">
+                  <div
+                    className="flex flex-col bg-blue-950/40 p-8 rounded-lg shadow-lg transition-all duration-300
+                    hover:border hover:border-orange-500 hover:text-orange-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/20 cursor-pointer space-y-4"
+                  >
+                    <div className="flex items-start">
+                      <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center mr-4 bg-orange-500/15 border border-orange-500/25">
+                        <Handshake className="h-6 w-6 text-orange-400" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-semibold text-orange-400 mb-2">
+                          Our Pledge
+                        </h2>
+                        <p className="text-sm leading-relaxed text-white">We go the extra mile to build long-term relationships, ensuring lasting value for our clients through exceptional customer service and continued referrals.</p>
+                        {showArrow && (
+                          <motion.div whileHover={{ x: 6 }} transition={{ type: "spring", stiffness: 400, damping: 18 }} className="mt-3 inline-flex">
+                            <ArrowRight className="h-5 w-5 text-orange-400" />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
                   </div>
                 </Link>
               </motion.div>
             </motion.div>
+            <EcosystemTag />
           </section>
         </div>
       </section>
