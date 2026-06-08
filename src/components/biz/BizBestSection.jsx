@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./BizBestSection.module.css";
 
 const services = [
   {
@@ -22,7 +23,7 @@ const services = [
     text: "Become globally accessible & Dominate the market.",
   },
   {
-    image: "/biz-builds.png",
+    image: "/biz-builds.svg",
     text: "Build capacity & trust with ventured capitalist.",
   },
   {
@@ -33,31 +34,38 @@ const services = [
     image: "/biz-running-figure.png",
     text: "Avert crisis & Distress.",
   },
-  {
-    image: "/biz-funnel.png",
-    text: "Focus on continous innovation.",
-  },
+];
+
+const PATTERNS = [
+  styles.patternGrid,
+  styles.patternDiag,
+  styles.patternDots,
+  styles.patternHLines,
+  styles.patternVLines,
+  styles.patternCounterDiag,
+  styles.patternCrosshatch,
+  styles.patternLargeDots,
 ];
 
 const BusinessServicesGlareGrid = () => (
   <section className="bg-black py-12 px-4">
     <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
       {services.map((service, index) => (
-        <div
-          key={index}
-          className="relative h-60 rounded-xl overflow-hidden cursor-pointer transform transition duration-300 hover:scale-105 border border-white/20"
-          style={{
-            backgroundImage: `url(${service.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute inset-0 bg-black/30 z-0"></div>{" "}
-          {/* Black dim layer */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/20 to-white/5 opacity-0 hover:opacity-100 backdrop-blur-sm z-10 flex items-center justify-center transition-opacity duration-500">
-            <p className="text-white text-sm md:text-base font-medium text-center bg-black/60 px-4 py-3 rounded-lg shadow-md z-20">
-              {service.text}
-            </p>
+        <div key={index} className={styles.card}>
+          {/* Background image — independently blurred and darkened on hover */}
+          <div
+            className={styles.cardBg}
+            style={{ backgroundImage: `url(${service.image})` }}
+          />
+          {/* Progressive dark tint layer */}
+          <div className={styles.tint} />
+          {/* Unique vector pattern per card — appears on hover */}
+          <div className={`${styles.vectorOverlay} ${PATTERNS[index % PATTERNS.length]}`} />
+          {/* Radial highlight behind text */}
+          <div className={styles.radialHighlight} />
+          {/* Text — always visible at bottom, brightens and sharpens on hover */}
+          <div className={styles.textWrap}>
+            <p className={styles.text}>{service.text}</p>
           </div>
         </div>
       ))}

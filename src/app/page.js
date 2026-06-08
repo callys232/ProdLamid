@@ -1,6 +1,7 @@
 "use client";
 import Header from "@/components/Header";
 import ServicesSection from "@/components/service/Service";
+import ServiceCTA from "@/components/ServiceCTA";
 import BusinessInnovationZone from "@/components/BusinessInnovationZone ";
 import HumanCapitalDevelopment from "@/components/HumanCapitalDevelopment";
 import AboutUs from "@/components/AboutUs";
@@ -10,11 +11,12 @@ import "animate.css";
 
 export default function Home() {
   return (
-    <main className="bg-black space-y-12 md:space-y-20">
+    <main className="bg-black space-y-6 md:space-y-10">
       <Header />
       <div id="services">
         <ServicesSection />
       </div>
+      <ServiceCTA />
       <BusinessInnovationZone />
       <HumanCapitalDevelopment />
       <SDI />

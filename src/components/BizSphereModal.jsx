@@ -17,14 +17,28 @@ const PANEL = {
   exit: { opacity: 0, scale: 0.94, y: 20, transition: { duration: 0.18 } },
 };
 
+const INPUT_STYLE = {
+  background: "rgba(255,255,255,0.05)",
+  border: "1px solid rgba(255,255,255,0.08)",
+};
+const onInputFocus = (e) => (e.target.style.borderColor = "rgba(194,18,25,0.5)");
+const onInputBlur  = (e) => (e.target.style.borderColor = "rgba(255,255,255,0.08)");
+
 export default function BizSphereModal({ isOpen, onClose }) {
   const [form, setForm] = useState({ name: "", email: "", whatsapp: "" });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  /* reset state each time the modal opens */
+  /* reset state each time the modal opens + lock body scroll */
   useEffect(() => {
-    if (isOpen) { setForm({ name: "", email: "", whatsapp: "" }); setSuccess(false); }
+    if (isOpen) {
+      setForm({ name: "", email: "", whatsapp: "" });
+      setSuccess(false);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
   /* trap ESC */
@@ -79,6 +93,9 @@ export default function BizSphereModal({ isOpen, onClose }) {
             initial="hidden"
             animate="visible"
             exit="exit"
+            role="dialog"
+            aria-modal="true"
+            aria-label="BIZPHERE waitlist"
             className="relative w-full max-w-md rounded-2xl overflow-hidden"
             style={{
               background: "radial-gradient(ellipse at 20% 0%, #1a0404 0%, #0a0a0a 55%, #080808 100%)",
@@ -181,13 +198,10 @@ export default function BizSphereModal({ isOpen, onClose }) {
                           value={form.name}
                           onChange={handleChange}
                           placeholder="Your name"
-                          className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none transition-all duration-200 focus:ring-1"
-                          style={{
-                            background: "rgba(255,255,255,0.05)",
-                            border: "1px solid rgba(255,255,255,0.08)",
-                          }}
-                          onFocus={(e) => (e.target.style.borderColor = "rgba(194,18,25,0.5)")}
-                          onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.08)")}
+                          className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none transition-all duration-200"
+                          style={INPUT_STYLE}
+                          onFocus={onInputFocus}
+                          onBlur={onInputBlur}
                         />
                       </div>
 
@@ -206,12 +220,9 @@ export default function BizSphereModal({ isOpen, onClose }) {
                             placeholder="you@example.com"
                             required
                             className="w-full rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-600 outline-none transition-all duration-200"
-                            style={{
-                              background: "rgba(255,255,255,0.05)",
-                              border: "1px solid rgba(255,255,255,0.08)",
-                            }}
-                            onFocus={(e) => (e.target.style.borderColor = "rgba(194,18,25,0.5)")}
-                            onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.08)")}
+                            style={INPUT_STYLE}
+                            onFocus={onInputFocus}
+                            onBlur={onInputBlur}
                           />
                         </div>
                       </div>
@@ -231,12 +242,9 @@ export default function BizSphereModal({ isOpen, onClose }) {
                             placeholder="+234 800 000 0000"
                             required
                             className="w-full rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-600 outline-none transition-all duration-200"
-                            style={{
-                              background: "rgba(255,255,255,0.05)",
-                              border: "1px solid rgba(255,255,255,0.08)",
-                            }}
-                            onFocus={(e) => (e.target.style.borderColor = "rgba(194,18,25,0.5)")}
-                            onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.08)")}
+                            style={INPUT_STYLE}
+                            onFocus={onInputFocus}
+                            onBlur={onInputBlur}
                           />
                         </div>
                       </div>

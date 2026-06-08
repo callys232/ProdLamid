@@ -1,41 +1,22 @@
 "use client";
-import Head from "next/head";
+import Link from "next/link";
 import HeaderSection from "./Humancapital/header";
-import RecruitmentCard from "./Humancapital/recriutmCard";
-import TrainingCard from "./Humancapital/trainingCard";
-import SkillsTags from "./Humancapital/skillsTag";
+import HcdTrainer from "./hcd/hcdTrainer";
 import EventsSection from "./Humancapital/hcdEvents";
 
 export default function HumanCapitalDevelopment() {
   return (
-    <>
-      <Head>
-        <title>Human Capital Development | Lamid Consulting</title>
-        <meta
-          name="description"
-          content="Lamid Consulting empowers organizations through strategic recruitment, leadership training, and skill development to build world-class teams."
-        />
-        <link rel="canonical" href="https://lamidconsulting.com/hcd" />
-      </Head>
-
-      <div className="bg-gradient-to-br from-black via-gray-900/90 to-black text-white w-full">
-        {/* Header */}
+    <div className="bg-black text-white w-full">
+      {/* Clicking the header card navigates to the full HCD page */}
+      <Link href="/hcd" className="block hover:opacity-90 transition-opacity duration-200 cursor-pointer">
         <HeaderSection />
+      </Link>
 
-        {/* Recruitment + Training */}
-        <div className="container mx-auto px-4 py-10 space-y-10">
-          <RecruitmentCard />
-          <TrainingCard />
-        </div>
+      {/* Training & Recruitment — homepage mode hides talent club + learn more */}
+      <HcdTrainer homepage />
 
-        {/* Skills */}
-        <div className="container mx-auto px-4 py-10">
-          <SkillsTags />
-        </div>
-
-        {/* Events */}
-        <EventsSection />
-      </div>
-    </>
+      {/* Events */}
+      <EventsSection />
+    </div>
   );
 }

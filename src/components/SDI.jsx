@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -26,47 +27,49 @@ const SDI = () => {
 
           {/* Main content container */}
           <div className="relative z-10 flex flex-col px-4">
-            {/* Header section with content and images */}
-            <div className="flex items-center justify-between w-full pt-20 pb-8">
-              <div className="flex items-center">
-                {/* Left globe image - smaller size */}
-                <div className="w-1/4 max-w-[140px]">
+            {/* Header section — clicking navigates to the full SD page */}
+            <Link href="/sustainableDev" className="block group cursor-pointer">
+              <div className="flex items-center justify-between w-full pt-20 pb-8 group-hover:opacity-90 transition-opacity duration-200">
+                <div className="flex items-center">
+                  {/* Left globe image - smaller size */}
+                  <div className="w-1/4 max-w-[140px]">
+                    <Image
+                      src="/sustainable-icon.png"
+                      alt="Hands holding small globe"
+                      width={140}
+                      height={140}
+                      className="rounded-md"
+                    />
+                  </div>
+
+                  {/* Center text content */}
+                  <div className="text-center mx-4">
+                    <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                      <span className="text-emerald-400">S</span>ustainable
+                      <span className="text-emerald-400"> D</span>evelopment
+                    </h1>
+
+                    <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm">
+                      <p className="text-xs md:text-sm">
+                        Growing groups to world-class communities with sustainable
+                        development
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right globe image - larger size */}
+                <div className="w-1/3 max-w-[340px]">
                   <Image
                     src="/sustainable-icon.png"
-                    alt="Hands holding small globe"
-                    width={140}
-                    height={140}
+                    alt="Multiple hands holding globe"
+                    width={340}
+                    height={340}
                     className="rounded-md"
                   />
                 </div>
-
-                {/* Center text content */}
-                <div className="text-center mx-4">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                    <span className="text-emerald-400">S</span>ustainable
-                    <span className="text-emerald-400"> D</span>evelopment
-                  </h1>
-
-                  <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm">
-                    <p className="text-xs md:text-sm">
-                      Growing groups to world-class communities with sustainable
-                      development
-                    </p>
-                  </div>
-                </div>
               </div>
-
-              {/* Right globe image - larger size */}
-              <div className="w-1/3 max-w-[340px]">
-                <Image
-                  src="/sustainable-icon.png"
-                  alt="Multiple hands holding globe"
-                  width={340}
-                  height={340}
-                  className="rounded-md"
-                />
-              </div>
-            </div>
+            </Link>
 
             {/* Empty space for the middle area */}
             <div className="flex-grow"></div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import GetDignostics from "../forms/diagnostics/GetDiagnostic";
@@ -32,34 +33,36 @@ const BusinessInnovationZone = () => {
           </span>
         </motion.div>
 
-        {/* BIZ Header */}
-        <motion.div
-          {...fadeUp(0.1)}
-          className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm"
-        >
-          {/* BIZ Logo */}
-          <div className="border border-blue-500/60 rounded-xl p-4 flex-shrink-0 hover:border-blue-400 hover:bg-blue-500/10 transition duration-300">
-            <Image
-              src="/biz-icon.png"
-              alt="BIZ Logo"
-              width={120}
-              height={120}
-              className="object-contain"
-            />
-          </div>
+        {/* BIZ Header — clicking navigates to the full BIZ page */}
+        <Link href="/bizphere" className="block group mb-8">
+          <motion.div
+            {...fadeUp(0.1)}
+            className="flex flex-col md:flex-row items-center md:items-start gap-6 p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm cursor-pointer group-hover:border-white/25 group-hover:bg-white/[0.08] transition-all duration-300"
+          >
+            {/* BIZ Logo */}
+            <div className="border border-blue-500/60 rounded-xl p-4 flex-shrink-0 group-hover:border-blue-400 group-hover:bg-blue-500/10 transition duration-300">
+              <Image
+                src="/biz-icon.png"
+                alt="BIZ Logo"
+                width={120}
+                height={120}
+                className="object-contain"
+              />
+            </div>
 
-          {/* BIZ Text */}
-          <div className="flex flex-col justify-center w-full">
-            <h2 className="text-3xl md:text-4xl font-bold text-left animate-rainbowPulse drop-shadow-md mb-3">
-              Business Innovation Zone
-            </h2>
-            <p className="text-sm md:text-base text-gray-300 leading-relaxed text-left">
-              The one-stop place that rapidly nurtures and expands startups to
-              deliver exceptional value — through digitalized, client-centered
-              systems and processes.
-            </p>
-          </div>
-        </motion.div>
+            {/* BIZ Text */}
+            <div className="flex flex-col justify-center w-full">
+              <h2 className="text-3xl md:text-4xl font-bold text-left animate-rainbowPulse drop-shadow-md mb-3">
+                Business Innovation Zone
+              </h2>
+              <p className="text-sm md:text-base text-gray-300 leading-relaxed text-left">
+                The one-stop place that rapidly nurtures and expands startups to
+                deliver exceptional value — through digitalized, client-centered
+                systems and processes.
+              </p>
+            </div>
+          </motion.div>
+        </Link>
 
         {/* BEST Section */}
         <motion.div {...fadeUp(0.2)} className="mb-6">

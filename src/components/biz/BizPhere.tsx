@@ -109,9 +109,9 @@ const BizPhere: React.FC = () => {
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 220, damping: 24, delay: 0.14 }}
             onClick={() => setAdvisorOpen(true)}
-            className={`w-full text-center rounded-2xl p-6 space-y-4 transition-all duration-300 hover:scale-[1.02] hover:border-orange-400 cursor-pointer ${styles.advisorSection}`}
+            className={`group w-full text-center rounded-2xl p-6 space-y-4 transition-all duration-300 hover:scale-[1.02] cursor-pointer ${styles.advisorSection}`}
           >
-            <h3 className="text-lg font-semibold text-white hover:text-orange-400 transition">
+            <h3 className="text-lg font-semibold text-white group-hover:text-orange-400 transition">
               ASK AN ADVISOR FOR DIAGNOSTICS
             </h3>
             <div className="flex justify-center">

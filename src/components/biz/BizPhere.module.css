@@ -41,3 +41,7 @@
     rgba(0, 0, 0, 0.4) 100%
   );
 }
+
+.advisorSection:hover {
+  border-color: rgba(251, 146, 60, 0.45);
+}
