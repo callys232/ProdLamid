@@ -7,21 +7,7 @@ import Serv from "./Serv";
 import AISystemSection from "./aiHero/Aihero";
 import HowWeServeModal from "./navbar/HowWeServeModal";
 import EcosystemTag from "./EcosystemTag";
-
-// Deterministic positions — avoids SSR/client hydration mismatch
-const PARTICLES = Array.from({ length: 34 }, (_, i) => {
-  const a = (i * 7 + 3) % 97;
-  return {
-    id: i,
-    cx: ((a * 13 + i * 31) % 100).toFixed(1),
-    cy: ((a * 17 + i * 23) % 100).toFixed(1),
-    r: ((a % 12) / 10 + 0.6).toFixed(1),
-    opacity: ((a % 4) / 10 + 0.18).toFixed(2),
-    anim: ["fp-a", "fp-b", "fp-c", "fp-d"][i % 4],
-    dur: ((a % 8) + 7).toFixed(1),
-    del: ((i % 8) * 0.65).toFixed(1),
-  };
-});
+import HeroStickmen from "./HeroStickmen";
 
 // "Empowering Growth," = 18 chars × 60 ms/char + 200 ms buffer
 const H1_TYPE_MS = 18 * 60 + 200;
@@ -50,36 +36,13 @@ export default function Header() {
   return (
     <>
       <header className="relative w-full bg-black text-white overflow-hidden px-6 md:px-12 flex flex-col md:flex-row items-center justify-between min-h-[85vh] md:min-h-0">
-        {/* ── Particle keyframes injected once, zero bundle weight ── */}
+        {/* dg-glow used by h2 */}
         <style>{`
-          @keyframes fp-a{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,-6px)}}
-          @keyframes fp-b{0%,100%{transform:translate(0,0)}50%{transform:translate(-3px,-4px)}}
-          @keyframes fp-c{0%,100%{transform:translate(0,0)}50%{transform:translate(1px,-7px)}}
-          @keyframes fp-d{0%,100%{transform:translate(0,0)}50%{transform:translate(-2px,-5px)}}
           @keyframes dg-glow{0%,100%{filter:drop-shadow(0 0 8px rgba(220,38,38,0.55))}50%{filter:drop-shadow(0 0 22px rgba(251,113,133,0.9))}}
         `}</style>
 
-        {/* Red dotted SVG particle layer */}
-        <svg
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          {PARTICLES.map((p) => (
-            <circle
-              key={p.id}
-              cx={`${p.cx}%`}
-              cy={`${p.cy}%`}
-              r={p.r}
-              fill="#C12129"
-              fillOpacity={p.opacity}
-              style={{
-                animation: `${p.anim} ${p.dur}s ${p.del}s ease-in-out infinite`,
-              }}
-            />
-          ))}
-        </svg>
+        {/* Interactive service stickmen */}
+        <HeroStickmen />
 
         {/* ── Left content ── */}
         <div className="w-full md:w-2/3 z-10 pt-24 md:pt-0 text-center md:text-left space-y-4 md:space-y-5">

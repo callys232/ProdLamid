@@ -84,7 +84,11 @@ export default function SearchBar({ placeholder = "Search projects or consultant
           className="flex-1 bg-transparent text-sm text-white placeholder-gray-600 focus:outline-none"
         />
         {query && (
-          <button onClick={() => { setQuery(""); setResults([]); setOpen(false); }}>
+          <button
+            type="button"
+            aria-label="Clear search"
+            onClick={() => { setQuery(""); setResults([]); setOpen(false); }}
+          >
             <X className="h-3.5 w-3.5 text-gray-500 hover:text-white" />
           </button>
         )}

@@ -7,12 +7,12 @@ import {
   Layers,
   BarChart2,
   Zap,
-  Shield,
   ArrowRight,
   ArrowLeft,
   X,
 } from "lucide-react";
 import HowItWorksModal from "./HowItWorksModal";
+import bg from "./Aihero.module.css";
 
 /* ── Line decoration ─────────────────────────────────────────── */
 const Lines = ({ color }: { color: string }) => (
@@ -28,74 +28,86 @@ const Lines = ({ color }: { color: string }) => (
   </svg>
 );
 
-/* ── Seeded random ───────────────────────────────────────────── */
-function sr(seed: number) {
-  const x = Math.sin(seed + 1) * 10000;
-  return x - Math.floor(x);
-}
-
-/* ── Wave background ─────────────────────────────────────────── */
-function WaveBg() {
-  const W = 320,
-    H = 520,
-    COLOR = "#c21219";
-  const makeDots = (flip: boolean) => {
-    const dots: { x: number; y: number; r: number; a: number }[] = [];
-    for (let w = 0; w < 7; w++) {
-      const amp = 18 + w * 11,
-        freq = 0.013 + w * 0.005,
-        phase = w * 1.2;
-      const yBase = H * (0.08 + w * 0.13);
-      for (let s = 0; s < W; s += 3) {
-        const x = flip ? W - s : s;
-        const y = yBase + amp * Math.sin(freq * s + phase);
-        if (y < 0 || y > H) continue;
-        const proximity = flip ? s / W : 1 - s / W;
-        dots.push({
-          x,
-          y,
-          r: 0.5 + sr(w * 1000 + s) * 1.3,
-          a: 0.04 + 0.3 * proximity,
-        });
-      }
-    }
-    return dots;
-  };
-  const left = makeDots(false),
-    right = makeDots(true);
+/* ── Section background ──────────────────────────────────────── */
+function SectionBg() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div className={bg.sectionBg}>
+      {/* Faint red grid */}
+      <div className={bg.grid} />
+
+      {/* Animated glow orbs */}
+      <div className={bg.orb1} />
+      <div className={bg.orb2} />
+      <div className={bg.orb3} />
+
+      {/* SVG vector layer — LAMID-theme geometric shapes */}
       <svg
-        className="absolute left-0 top-0 h-full w-[220px]"
-        viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="xMinYMid slice"
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 1280 560"
+        preserveAspectRatio="xMidYMid slice"
+        fill="none"
+        aria-hidden="true"
       >
-        {left.map((d, i) => (
-          <circle
-            key={i}
-            cx={d.x}
-            cy={d.y}
-            r={d.r}
-            fill={COLOR}
-            opacity={d.a}
-          />
-        ))}
-      </svg>
-      <svg
-        className="absolute right-0 top-0 h-full w-[220px]"
-        viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="xMaxYMid slice"
-      >
-        {right.map((d, i) => (
-          <circle
-            key={i}
-            cx={d.x}
-            cy={d.y}
-            r={d.r}
-            fill={COLOR}
-            opacity={d.a}
-          />
-        ))}
+        {/* ── Hexagon cluster — top right ── */}
+        <polygon points="1020,14 1100,14 1140,83 1100,152 1020,152 980,83"
+          stroke="rgba(193,33,41,0.12)" strokeWidth="1" />
+        <polygon points="1035,40 1085,40 1110,83 1085,126 1035,126 1010,83"
+          stroke="rgba(193,33,41,0.07)" strokeWidth="0.8" />
+        <circle cx="1060" cy="83" r="3" fill="rgba(193,33,41,0.20)" />
+        <circle cx="1060" cy="83" r="7" stroke="rgba(193,33,41,0.10)" strokeWidth="0.8" />
+
+        {/* ── Hexagon — bottom left ── */}
+        <polygon points="60,390 120,390 150,442 120,494 60,494 30,442"
+          stroke="rgba(255,255,255,0.06)" strokeWidth="0.9" />
+        <circle cx="90" cy="442" r="2.5" fill="rgba(255,255,255,0.10)" />
+
+        {/* ── Diamond accent — upper left ── */}
+        <polygon points="110,60 158,105 110,150 62,105"
+          stroke="rgba(193,33,41,0.10)" strokeWidth="0.9" />
+        <polygon points="110,82 136,105 110,128 84,105"
+          stroke="rgba(193,33,41,0.06)" strokeWidth="0.7" />
+
+        {/* ── Large sweeping arc — right edge ── */}
+        <path d="M 1250 50 A 260 260 0 0 1 1250 510"
+          stroke="rgba(193,33,41,0.09)" strokeWidth="0.9" strokeDasharray="8 16" />
+        <path d="M 1230 100 A 200 200 0 0 1 1230 460"
+          stroke="rgba(193,33,41,0.05)" strokeWidth="0.7" strokeDasharray="5 18" />
+
+        {/* ── Circuit path — bottom left ── */}
+        <path d="M 0 500 L 60 500 L 60 440 L 160 440 L 160 480 L 280 480 L 280 510 L 380 510"
+          stroke="rgba(193,33,41,0.13)" strokeWidth="1" />
+        <circle cx="60"  cy="500" r="2" fill="rgba(193,33,41,0.22)" />
+        <circle cx="160" cy="440" r="2" fill="rgba(193,33,41,0.18)" />
+        <circle cx="280" cy="480" r="2" fill="rgba(193,33,41,0.18)" />
+
+        {/* ── Circuit path — top centre ── */}
+        <path d="M 420 0 L 420 40 L 520 40 L 520 18 L 680 18 L 680 40 L 760 40"
+          stroke="rgba(255,255,255,0.05)" strokeWidth="0.8" />
+        <circle cx="520" cy="40" r="1.8" fill="rgba(255,255,255,0.10)" />
+        <circle cx="680" cy="18" r="1.8" fill="rgba(255,255,255,0.10)" />
+
+        {/* ── Diagonal dashed lines ── */}
+        <line x1="0"    y1="200" x2="320" y2="560"
+          stroke="rgba(193,33,41,0.06)" strokeWidth="0.8" strokeDasharray="6 18" />
+        <line x1="900"  y1="0"   x2="640" y2="560"
+          stroke="rgba(193,33,41,0.05)" strokeWidth="0.7" strokeDasharray="5 20" />
+
+        {/* ── Corner brackets ── */}
+        <path d="M 24 28 L 24 6 L 46 6"
+          stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+        <path d="M 1256 532 L 1256 554 L 1234 554"
+          stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+        <path d="M 1256 6 L 1256 28 L 1234 28"
+          stroke="rgba(193,33,41,0.12)" strokeWidth="1" />
+        <path d="M 24 532 L 24 554 L 46 554"
+          stroke="rgba(193,33,41,0.10)" strokeWidth="1" />
+
+        {/* ── Scattered node dots ── */}
+        <circle cx="340" cy="90"  r="1.5" fill="rgba(193,33,41,0.18)" />
+        <circle cx="560" cy="300" r="1.5" fill="rgba(255,255,255,0.09)" />
+        <circle cx="780" cy="180" r="1.5" fill="rgba(193,33,41,0.14)" />
+        <circle cx="920" cy="400" r="1.5" fill="rgba(255,255,255,0.08)" />
+        <circle cx="200" cy="260" r="1.5" fill="rgba(193,33,41,0.12)" />
       </svg>
     </div>
   );
@@ -131,6 +143,70 @@ const PROBLEM = {
   hex: "#c21219",
   glow: "rgba(194,18,25,0.25)",
 };
+
+/* ── 4 core service cards — one capability per service ─────── */
+const SERVICE_CARDS = [
+  {
+    service: "Human Capital Dev",
+    area:    "Recruitment",
+    href:    "/hcd",
+    tools: [
+      "AI-matched talent for every role",
+      "Skills verification before engagement",
+      "End-to-end onboarding workflows",
+    ],
+    borderCls: "border-l-2 border-blue-500/35 hover:border-blue-500/70",
+    serviceCls: "text-blue-400/70",
+    areaCls:    "text-blue-300",
+    dotCls:     "bg-blue-400",
+    hoverBg:    "hover:bg-blue-500/[0.05]",
+  },
+  {
+    service: "Business Innovation Zone",
+    area:    "Strategy & Digital Growth",
+    href:    "/bizphere",
+    tools: [
+      "AI diagnostics for enterprise gaps",
+      "Digital transformation roadmaps",
+      "Market strategy & growth planning",
+    ],
+    borderCls: "border-l-2 border-orange-500/35 hover:border-orange-500/70",
+    serviceCls: "text-orange-400/70",
+    areaCls:    "text-orange-300",
+    dotCls:     "bg-orange-400",
+    hoverBg:    "hover:bg-orange-500/[0.05]",
+  },
+  {
+    service: "Sustainable Development",
+    area:    "Impact & ESG",
+    href:    "/sustainableDev",
+    tools: [
+      "ESG & impact framework design",
+      "Community development planning",
+      "Sustainability reporting tools",
+    ],
+    borderCls: "border-l-2 border-emerald-500/35 hover:border-emerald-500/70",
+    serviceCls: "text-emerald-400/70",
+    areaCls:    "text-emerald-300",
+    dotCls:     "bg-emerald-400",
+    hoverBg:    "hover:bg-emerald-500/[0.05]",
+  },
+  {
+    service: "LAMID Portal",
+    area:    "Project Delivery",
+    href:    "/dashboard",
+    tools: [
+      "Milestone-tracked engagements",
+      "CRM, contracts & secure escrow",
+      "Real-time team workrooms",
+    ],
+    borderCls: "border-l-2 border-violet-500/35 hover:border-violet-500/70",
+    serviceCls: "text-violet-400/70",
+    areaCls:    "text-violet-300",
+    dotCls:     "bg-violet-400",
+    hoverBg:    "hover:bg-violet-500/[0.05]",
+  },
+];
 
 const SOLUTIONS = [
   {
@@ -197,90 +273,36 @@ const SOLUTIONS = [
   },
 ];
 
-/* ── Three-layer platform data (used in FragmentedModal) ── */
-const PLATFORM_LAYERS = [
-  {
-    num: "01",
-    label: "Service Pillars",
-    title: "Four Pillars. One Mission.",
-    desc: "LAMID's four proprietary service pillars — digitised, AI-assisted, and delivered through one connected platform.",
-    bullets: [
-      "BIZ — SME & startup empowerment tools",
-      "HCD — Training, recruitment & leadership",
-      "SDC — Sustainable development consulting",
-      "Portal — Freelancers, Clients, Enterprise & Concierge in one marketplace",
-    ],
-    Icon: Layers,
-    hex: "#c21219",
-    glow: "rgba(194,18,25,0.35)",
-  },
-  {
-    num: "02",
-    label: "Marketplace & Workspace",
-    title: "Where Work Gets Done",
-    desc: "A connected layer where projects are posted, experts matched, and delivery tracked end to end.",
-    bullets: [
-      "Post projects — match verified experts via AI",
-      "Built-in CRM, task boards & document sharing",
-      "Contracting, milestones & secure payments",
-      "Freelancer, Enterprise & Concierge tiers",
-    ],
-    Icon: BarChart2,
-    hex: "#3b82f6",
-    glow: "rgba(59,130,246,0.35)",
-  },
-  {
-    num: "03",
-    label: "AI Operating System",
-    title: "Intelligence Built In",
-    desc: "The brain of the platform — automating, matching, and optimising at every layer.",
-    bullets: [
-      "Smart consultant-to-project matching engine",
-      "Automated scoping & proposal generation",
-      "AI diagnostics for businesses & organisations",
-      "Quality assurance, reports & insights",
-    ],
-    Icon: Brain,
-    hex: "#a855f7",
-    glow: "rgba(168,85,247,0.35)",
-  },
-  {
-    num: "04",
-    label: "Governance & Trust",
-    title: "Secure. Compliant. Transparent.",
-    desc: "Enterprise-grade oversight — keeping every user, transaction, and delivery accountable.",
-    bullets: [
-      "KYC verification & dispute resolution",
-      "Secure escrow & payment management",
-      "Analytics dashboards & performance tracking",
-      "Admin controls, compliance & audit trails",
-    ],
-    Icon: Shield,
-    hex: "#10b981",
-    glow: "rgba(16,185,129,0.35)",
-  },
-];
 
-const USER_TYPES = [
-  {
-    label: "Freelancers",
-    desc: "Match, deliver & earn on every project",
-    hex: "#10b981",
-  },
-  {
-    label: "Enterprise Clients",
-    desc: "Post projects, manage teams, scale outcomes",
-    hex: "#3b82f6",
-  },
-  {
-    label: "Concierge",
-    desc: "Dedicated PM, custom dashboards & multi-project oversight",
-    hex: "#c21219",
-  },
-];
+/* ── Problem modal — 4 pain points → solution CTA ────────────── */
+function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal: () => void }) {
+  const PAIN = [
+    {
+      label: "Pipeline",
+      text: "Leads die in inbox chaos — before they become clients",
+      detail: "Without a unified CRM, every unanswered message is a deal lost to a faster competitor.",
+      icon: "📉",
+    },
+    {
+      label: "Collaboration",
+      text: "Teams drift when work lives across five apps",
+      detail: "Decisions buried in WhatsApp, email, and Slack blur accountability and kill momentum.",
+      icon: "🔀",
+    },
+    {
+      label: "Delivery",
+      text: "Projects stall when accountability has no single home",
+      detail: "One missed update across Trello and Google Docs is all it takes to derail a client engagement.",
+      icon: "⏳",
+    },
+    {
+      label: "Growth",
+      text: "Experts can't scale what they can't track or monetise",
+      detail: "Top consultants chasing clients manually and upskilling in isolation can't build a sustainable practice.",
+      icon: "📊",
+    },
+  ];
 
-/* ── Fragmented Work Modal ───────────────────────────────────── */
-function FragmentedModal({ onClose }: { onClose: () => void }) {
   return (
     <AnimatePresence>
       <motion.div
@@ -289,199 +311,90 @@ function FragmentedModal({ onClose }: { onClose: () => void }) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md px-4 py-8"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/88 backdrop-blur-md px-4 py-8"
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.93, y: 28 }}
+          initial={{ opacity: 0, scale: 0.94, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.93, y: 28 }}
-          transition={{ type: "spring", stiffness: 300, damping: 28 }}
+          exit={{ opacity: 0, scale: 0.94, y: 24 }}
+          transition={{ type: "spring", stiffness: 320, damping: 28 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-full max-w-5xl bg-[#080808] border border-white/8 rounded-3xl overflow-hidden shadow-[0_0_120px_rgba(194,18,25,0.18)]"
+          className="relative w-full max-w-2xl bg-[#080808] border border-white/8 rounded-2xl overflow-hidden shadow-[0_0_100px_rgba(194,18,25,0.16)]"
         >
-          {/* Dot grid bg */}
-          <div className="absolute inset-0 pointer-events-none [background-image:radial-gradient(circle,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:28px_28px]" />
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-40 rounded-full bg-[#c21219]/10 blur-3xl pointer-events-none" />
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#c21219]/40 to-transparent" />
+          {/* Top glow line */}
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#c21219]/50 to-transparent" />
+          {/* Dot bg */}
+          <div className="absolute inset-0 pointer-events-none [background-image:radial-gradient(circle,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:26px_26px]" />
 
-          {/* ── Header ── */}
-          <div className="relative sticky top-0 z-10 bg-[#080808]/95 backdrop-blur-md border-b border-white/6 px-8 py-5">
+          {/* Header */}
+          <div className="relative px-6 pt-6 pb-4 border-b border-white/6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2.5 mb-2">
+                <span className="inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-[0.18em] px-2.5 py-1 rounded-full border border-[#c21219]/30 bg-[#c21219]/8 text-[#c21219] mb-3">
                   <motion.span
-                    animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 2,
-                      ease: "easeInOut",
-                    }}
-                    className="h-1.5 w-1.5 rounded-full bg-[#c21219]"
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                    transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                    className="h-1 w-1 rounded-full bg-[#c21219]"
                   />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#c21219]">
-                    Platform Overview
-                  </span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] via-rose-400 to-white leading-tight">
-                  A Four-Layer Ecosystem Built to End Fragmented Work
+                  Why Businesses Stall
+                </span>
+                <h2 className="text-lg sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-[#c21219] leading-tight">
+                  The silent drain of fragmented work
                 </h2>
-                <p className="text-xs text-gray-500 mt-2 max-w-xl leading-relaxed">
-                  LAMID unifies four proprietary service pillars, an AI-powered
-                  marketplace, a delivery workspace, and an intelligent
-                  operating system — one connected platform that replaces the
-                  patchwork.
+                <p className="text-xs text-gray-500 mt-1.5 leading-relaxed max-w-md">
+                  Four compounding problems that stall growth — and the one platform that eliminates all of them.
                 </p>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="hidden sm:block text-[10px] text-gray-600 font-medium tracking-wide">
-                  click outside to close
-                </span>
-                <motion.button
-                  whileHover={{
-                    scale: 1.12,
-                    rotate: 90,
-                    boxShadow: "0 0 16px rgba(194,18,25,0.45)",
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  onClick={onClose}
-                  className="flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#c21219]/40 transition-colors"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </motion.button>
-              </div>
+              <motion.button
+                whileHover={{ scale: 1.12, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 18 }}
+                onClick={onClose}
+                className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#c21219]/40 transition-colors"
+              >
+                <X className="h-3.5 w-3.5" />
+              </motion.button>
             </div>
           </div>
 
-          {/* ── Body ── */}
-          <div className="overflow-y-auto max-h-[70vh] px-8 py-8 space-y-6 [scrollbar-width:none] [-ms-overflow-style:none]">
-            {/* Three layer cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {PLATFORM_LAYERS.map((layer, i) => (
-                <motion.div
-                  key={layer.label}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: i * 0.1,
-                    type: "spring",
-                    stiffness: 280,
-                    damping: 22,
-                  }}
-                  whileHover={{ y: -4, boxShadow: `0 14px 40px ${layer.glow}` }}
-                  className="relative rounded-2xl p-6 flex flex-col gap-4 overflow-hidden group cursor-default"
-                  style={{
-                    border: `1px solid ${layer.hex}25`,
-                    backgroundColor: `${layer.hex}06`,
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{
-                      background: `linear-gradient(135deg, ${layer.hex}0a, transparent)`,
-                    }}
-                  />
-                  <div className="flex items-center justify-between relative z-10">
-                    <span
-                      className="text-4xl font-black select-none"
-                      style={{ color: `${layer.hex}18` }}
-                    >
-                      {layer.num}
-                    </span>
-                    <div
-                      className="w-9 h-9 rounded-xl flex items-center justify-center"
-                      style={{
-                        backgroundColor: `${layer.hex}18`,
-                        border: `1px solid ${layer.hex}35`,
-                      }}
-                    >
-                      <layer.Icon
-                        className="h-4 w-4"
-                        style={{ color: layer.hex }}
-                      />
-                    </div>
-                  </div>
-                  <div className="relative z-10 space-y-1">
-                    <p
-                      className="text-[10px] font-bold uppercase tracking-widest"
-                      style={{ color: layer.hex }}
-                    >
-                      {layer.label}
-                    </p>
-                    <h3 className="text-base font-bold text-white">
-                      {layer.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">
-                      {layer.desc}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2 relative z-10">
-                    {layer.bullets.map((b, bi) => (
-                      <div
-                        key={bi}
-                        className="flex items-start gap-2 text-xs text-gray-400 leading-relaxed"
-                      >
-                        <span
-                          className="mt-1.5 h-1 w-1 rounded-full shrink-0"
-                          style={{ backgroundColor: layer.hex }}
-                        />
-                        {b}
-                      </div>
-                    ))}
-                  </div>
-                  <div
-                    className="h-0.5 w-8 rounded-full mt-auto relative z-10"
-                    style={{ backgroundColor: layer.hex }}
-                  />
-                </motion.div>
-              ))}
-            </div>
+          {/* Pain point cards */}
+          <div className="relative px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {PAIN.map((p, i) => (
+              <motion.div
+                key={p.label}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.07, type: "spring", stiffness: 300, damping: 24 }}
+                className="group flex flex-col gap-2 rounded-xl border border-[#c21219]/12 bg-[#c21219]/[0.04] hover:border-[#c21219]/28 hover:bg-[#c21219]/[0.07] p-4 transition-all duration-200"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-base leading-none">{p.icon}</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-[#c21219]/80">{p.label}</span>
+                </div>
+                <p className="text-[12.5px] font-semibold text-white leading-snug">{p.text}</p>
+                <p className="text-[11px] text-gray-500 leading-relaxed">{p.detail}</p>
+              </motion.div>
+            ))}
+          </div>
 
-            {/* User types strip */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.38,
-                type: "spring",
-                stiffness: 260,
-                damping: 24,
-              }}
-              className="rounded-2xl border border-white/6 bg-white/[0.02] p-6"
+          {/* Solution CTA */}
+          <div className="relative px-6 pb-6">
+            <motion.button
+              whileHover={{ scale: 1.02, boxShadow: "0 0 28px rgba(194,18,25,0.55)" }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => { onClose(); onReveal(); }}
+              className="group relative w-full inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#c21219] via-red-700 to-rose-800 px-5 py-3 text-sm font-bold text-white overflow-hidden shadow-[0_0_18px_rgba(194,18,25,0.35)]"
             >
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">
-                Built For Every User
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {USER_TYPES.map((u, i) => (
-                  <motion.div
-                    key={u.label}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.44 + i * 0.08 }}
-                    whileHover={{ scale: 1.02 }}
-                    className="flex items-center gap-3 rounded-xl px-4 py-3 cursor-default"
-                    style={{
-                      backgroundColor: `${u.hex}08`,
-                      border: `1px solid ${u.hex}20`,
-                    }}
-                  >
-                    <span
-                      className="h-2 w-2 rounded-full shrink-0"
-                      style={{ backgroundColor: u.hex }}
-                    />
-                    <div>
-                      <p className="text-[13px] font-semibold text-white">
-                        {u.label}
-                      </p>
-                      <p className="text-xs text-gray-500 leading-snug">
-                        {u.desc}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none" />
+              <span className="relative z-10">See How LAMID Solves This</span>
+              <motion.span
+                animate={{ x: [0, 4, 0] }}
+                transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+                className="relative z-10"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </motion.span>
+            </motion.button>
           </div>
         </motion.div>
       </motion.div>
@@ -502,31 +415,16 @@ export default function AISystemSection() {
   const [revealed, setRevealed] = useState(false);
   const [hovered, setHovered] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [expandedBullet, setExpandedBullet] = useState<number | null>(null);
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
   const dir = revealed ? 1 : -1;
 
   return (
     <>
       <section className="relative w-full bg-black text-white px-4 md:px-10 py-6 overflow-hidden">
-        <WaveBg />
-
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="relative rounded-2xl border border-[#c21219]/30 bg-[#0d0d0d] overflow-hidden">
-            {/* Ambient glow */}
-            <div className="absolute -top-16 -left-16 w-56 h-56 rounded-full bg-[#c21219]/8 blur-3xl pointer-events-none" />
-
-            {/* SVG line decoration */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-              <line x1="0" y1="0" x2="100%" y2="100%" stroke="#c21219" strokeWidth="0.5" opacity="0.07" />
-              <line x1="100%" y1="0" x2="0" y2="100%" stroke="#c21219" strokeWidth="0.4" opacity="0.05" />
-              <line x1="0" y1="30%" x2="100%" y2="30%" stroke="#c21219" strokeWidth="0.4" opacity="0.04" />
-              <line x1="0" y1="70%" x2="100%" y2="70%" stroke="#c21219" strokeWidth="0.3" opacity="0.03" />
-              <line x1="40%" y1="0" x2="40%" y2="100%" stroke="#ffffff" strokeWidth="0.3" opacity="0.03" />
-              <line x1="0" y1="0" x2="18%" y2="55%" stroke="#c21219" strokeWidth="0.5" opacity="0.06" />
-              <line x1="100%" y1="100%" x2="72%" y2="40%" stroke="#c21219" strokeWidth="0.5" opacity="0.06" />
-              <line x1="65%" y1="0" x2="35%" y2="100%" stroke="#ffffff" strokeWidth="0.3" opacity="0.025" />
-            </svg>
+            {/* Creative theme background */}
+            <SectionBg />
 
             {/* Top bar — always visible */}
             <motion.div
@@ -578,15 +476,33 @@ export default function AISystemSection() {
                           {PROBLEM.title}
                         </h2>
 
-                        <motion.p
-                          whileHover={{ color: "#c21219", x: 2 }}
-                          whileTap={{ scale: 0.96 }}
-                          transition={{ duration: 0.2 }}
+                        <motion.button
+                          type="button"
+                          whileHover="hover"
+                          whileTap={{ scale: 0.97 }}
                           onClick={() => setModalOpen(true)}
-                          className="text-xs text-gray-500 italic cursor-pointer underline underline-offset-2 decoration-dotted w-fit"
+                          className="group flex items-center gap-2 w-fit cursor-pointer bg-transparent border-0 p-0"
                         >
-                          {PROBLEM.subtitle} →
-                        </motion.p>
+                          <motion.span
+                            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                            className="h-1 w-1 rounded-full bg-[#c21219] shrink-0"
+                          />
+                          <motion.span
+                            variants={{ hover: { x: 3 } }}
+                            transition={{ type: "spring", stiffness: 380, damping: 22 }}
+                            className="text-[11px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 group-hover:from-[#c21219] group-hover:via-rose-300 group-hover:to-white"
+                          >
+                            {PROBLEM.subtitle}
+                          </motion.span>
+                          <motion.span
+                            variants={{ hover: { x: 5, opacity: 1 } }}
+                            initial={{ opacity: 0.45 }}
+                            className="text-[11px] text-[#c21219] font-bold"
+                          >
+                            →
+                          </motion.span>
+                        </motion.button>
 
                         <p className="text-[13px] text-gray-300 leading-relaxed">{PROBLEM.full}</p>
 
@@ -618,61 +534,52 @@ export default function AISystemSection() {
                         </div>
                       </div>
 
-                      {/* Right: expandable bullets */}
-                      <div className="flex flex-col gap-3">
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] via-rose-400 to-white w-fit">
-                          Delivering Value — Why it Matters
+                      {/* Right: 4-core-service capability cards */}
+                      <div className="flex flex-col gap-2 h-full">
+                        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-gray-600 mb-0.5">
+                          How our tools help
                         </p>
-                        <div className="flex flex-col flex-1 justify-between gap-2">
-                          {PROBLEM.bullets.map((b, i) => {
-                            const isOpen = expandedBullet === i;
-                            return (
-                              <motion.div
-                                key={i}
-                                initial={{ opacity: 0, x: 14 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.12 + i * 0.09, duration: 0.35, ease: [0.33, 1, 0.68, 1] as const }}
-                                className="rounded-lg border overflow-hidden transition-colors duration-200"
-                                style={{
-                                  borderColor: isOpen ? "rgba(194,18,25,0.45)" : "rgba(194,18,25,0.15)",
-                                  backgroundColor: isOpen ? "rgba(194,18,25,0.1)" : "rgba(194,18,25,0.04)",
-                                }}
-                              >
-                                <motion.button
-                                  whileHover={{ backgroundColor: "rgba(194,18,25,0.08)" }}
-                                  whileTap={{ scale: 0.98 }}
-                                  onClick={() => setExpandedBullet(isOpen ? null : i)}
-                                  className="w-full flex items-center gap-2.5 px-3.5 py-2.5 cursor-pointer text-left"
-                                >
-                                  <motion.span
-                                    animate={{ rotate: isOpen ? 90 : 0 }}
-                                    transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
-                                    className="text-[#c21219] flex-shrink-0 text-[9px]"
-                                  >▸</motion.span>
-                                  <p className={`text-[13px] leading-snug transition-colors duration-200 ${isOpen ? "text-white font-medium" : "text-gray-300"}`}>
-                                    {b.text}
-                                  </p>
-                                  {isOpen && (
-                                    <motion.span
-                                      initial={{ scale: 0, opacity: 0 }}
-                                      animate={{ scale: 1, opacity: 1 }}
-                                      className="ml-auto h-1.5 w-1.5 rounded-full bg-[#c21219] flex-shrink-0"
-                                    />
-                                  )}
-                                </motion.button>
-                                <motion.div
-                                  initial={false}
-                                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-                                  transition={{ duration: 0.32, ease: [0.33, 1, 0.68, 1] }}
-                                  style={{ overflow: "hidden" }}
-                                >
-                                  <p className="text-xs text-gray-400 leading-relaxed px-3.5 pb-4 pt-1.5 border-t border-[#c21219]/15">
-                                    {b.detail}
-                                  </p>
-                                </motion.div>
-                              </motion.div>
-                            );
-                          })}
+
+                        <div className="grid grid-cols-2 gap-2 flex-1">
+                          {SERVICE_CARDS.map((card, i) => (
+                            <motion.a
+                              key={card.area}
+                              href={card.href}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.1 + i * 0.07, type: "spring", stiffness: 300, damping: 24 }}
+                              whileHover={{ x: 2 }}
+                              whileTap={{ scale: 0.98 }}
+                              className={`group flex flex-col gap-2 rounded-lg p-3 no-underline
+                                          bg-white/[0.02] transition-all duration-200
+                                          ${card.borderCls} ${card.hoverBg}`}
+                            >
+                              {/* Service label */}
+                              <span className={`text-[9px] font-bold uppercase tracking-widest leading-none ${card.serviceCls}`}>
+                                {card.service}
+                              </span>
+
+                              {/* Area name */}
+                              <p className={`text-[12px] font-extrabold leading-tight ${card.areaCls}`}>
+                                {card.area}
+                              </p>
+
+                              {/* Tool bullets */}
+                              <ul className="flex flex-col gap-1 mt-auto">
+                                {card.tools.map((t) => (
+                                  <li key={t} className="flex items-start gap-1.5 text-[10.5px] text-gray-400 leading-snug">
+                                    <span className={`mt-[4px] h-1 w-1 rounded-full flex-shrink-0 ${card.dotCls}`} />
+                                    {t}
+                                  </li>
+                                ))}
+                              </ul>
+
+                              {/* Arrow */}
+                              <span className={`text-[11px] font-bold self-end opacity-0 group-hover:opacity-100 transition-opacity duration-150 ${card.areaCls}`}>
+                                →
+                              </span>
+                            </motion.a>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -800,7 +707,7 @@ export default function AISystemSection() {
       </section>
 
       {/* ── Modal portals ────────────────────────────────────── */}
-      {modalOpen && <FragmentedModal onClose={() => setModalOpen(false)} />}
+      {modalOpen && <FragmentedModal onClose={() => setModalOpen(false)} onReveal={() => setRevealed(true)} />}
       <AnimatePresence>
         {howItWorksOpen && <HowItWorksModal onClose={() => setHowItWorksOpen(false)} />}
       </AnimatePresence>
