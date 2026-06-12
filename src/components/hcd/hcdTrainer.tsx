@@ -5,10 +5,11 @@ import Image from "next/image";
 import Head from "next/head";
 import { motion, AnimatePresence } from "framer-motion";
 
+import Link from "next/link";
 import TrainingForm from "@/forms/trainingForm";
 import RecruitmentForm from "@/forms/RecruitmentForm";
 import TalentClub from "@/forms/talentClub";
-import HcdStickman from "@/components/hcd/HcdStickman";
+import LearningCTA from "@/components/learningCTA/LearningCTA";
 
 type FormType = "training" | "recruitment" | "talent" | null;
 
@@ -220,6 +221,15 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                         >
                           JOIN THE TALENTS CLUB
                         </button>
+
+                        <Link
+                          href="/hcd/recruitment"
+                          className="px-5 py-2.5 text-sm rounded-full font-semibold
+                          border border-orange-500/60 text-orange-400
+                          hover:bg-orange-500/10 hover:border-orange-400 transition"
+                        >
+                          View Open Roles →
+                        </Link>
                       </>
                     )}
                   </div>
@@ -240,68 +250,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
             </section>
 
             {/* ================= LEARNING PLATFORM CTA ================= */}
-            <motion.a
-              href="https://lamid-learning.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200, damping: 26 }}
-              whileHover="hover"
-              className="group relative mb-8 flex flex-col sm:flex-row items-center justify-between
-                         gap-4 rounded-2xl px-7 py-5 overflow-hidden cursor-pointer"
-              style={{
-                background: "radial-gradient(ellipse at 20% 50%, rgba(234,88,12,0.55) 0%, rgba(120,40,5,0.3) 40%, rgba(4,2,0,0.98) 72%)",
-                border: "1px solid rgba(249,115,22,0.55)",
-                boxShadow: "0 0 48px rgba(234,88,12,0.18), inset 0 1px 0 rgba(255,255,255,0.06)",
-              }}
-            >
-              {/* Learning stickman canvas bg */}
-              <HcdStickman />
-
-              {/* Shine sweep */}
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full
-                               transition-transform duration-700 ease-in-out
-                               bg-gradient-to-r from-transparent via-white/8 to-transparent
-                               skew-x-12 pointer-events-none z-10" />
-
-              {/* Left glow burst */}
-              <div className="absolute -left-12 top-1/2 -translate-y-1/2 w-48 h-48 rounded-full
-                              bg-orange-500/25 blur-3xl pointer-events-none z-0" />
-
-              {/* Text */}
-              <div className="relative z-20 text-center sm:text-left">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-300 mb-1">
-                  🎓 Lamid Learning Platform
-                </p>
-                <h3 className="text-lg sm:text-xl font-extrabold text-white leading-snug">
-                  Build smarter teams.{" "}
-                  <span className="text-amber-400">Grow stronger businesses.</span>
-                </h3>
-                <p className="mt-1 text-xs text-orange-200/70 leading-relaxed max-w-sm">
-                  Practical HCD-backed courses in Leadership, Sales, Strategy & more —
-                  designed to sharpen the people who drive your business forward.
-                </p>
-              </div>
-
-              {/* Button */}
-              <div className="relative z-20 flex-shrink-0">
-                <motion.span
-                  variants={{ hover: { scale: 1.06, boxShadow: "0 0 36px rgba(249,115,22,0.75)" } }}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full
-                             text-sm font-extrabold text-white whitespace-nowrap
-                             bg-gradient-to-r from-amber-500 via-orange-500 to-orange-700
-                             shadow-[0_6px_28px_rgba(249,115,22,0.5)]
-                             transition-shadow duration-300"
-                >
-                  Start Learning Free
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </motion.span>
-              </div>
-            </motion.a>
+            <LearningCTA className="mb-8" />
 
           </main>
         </div>

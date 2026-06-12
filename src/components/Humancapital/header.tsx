@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function HeaderSection() {
@@ -37,6 +38,12 @@ export default function HeaderSection() {
           <p className="mt-3 text-sm md:text-base text-gray-300 leading-relaxed">
             Attracting and Growing World-class Talent
           </p>
+          <Link
+            href="/hcd/recruitment"
+            className="inline-block mt-3 text-sm font-semibold text-orange-400 hover:text-orange-300 transition"
+          >
+            Explore Recruitment →
+          </Link>
         </motion.div>
       </div>
     </div>

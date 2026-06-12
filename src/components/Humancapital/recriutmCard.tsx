@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp } from "@/utils/motionVaraints";
 
@@ -34,18 +35,20 @@ export default function RecruitmentCard() {
           and retaining skilled, qualified, fit-for-role talent.
         </p>
         <div className="flex gap-3">
-          <button
-            className="px-4 py-2 text-sm rounded-md border border-orange-500 text-orange-400 
+          <Link
+            href="/hcd/recruitment"
+            className="px-4 py-2 text-sm rounded-md border border-orange-500 text-orange-400
                              hover:bg-orange-500 hover:text-black transition-all duration-500 hover:scale-[0.97] hover:shadow-sm"
           >
             Read More
-          </button>
-          <button
-            className="px-4 py-2 text-sm rounded-md border border-orange-500 text-orange-400 
+          </Link>
+          <Link
+            href="/hcd/recruitment"
+            className="px-4 py-2 text-sm rounded-md border border-orange-500 text-orange-400
                              hover:bg-orange-500 hover:text-black transition-all duration-500 hover:scale-[0.97] hover:shadow-sm"
           >
             Learn How
-          </button>
+          </Link>
         </div>
       </div>
     </motion.div>

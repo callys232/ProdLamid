@@ -5,12 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Layers } from "lucide-react";
 import ToolCard, { TOOLS } from "./ToolCard";
+import { useAuth } from "@/hooks/useAuth";
+
+const ENTERPRISE_TYPES = ["Enterprise", "Concierge", "Admin"];
 
 /* ── PeekView navbar dropdown ────────────────────────────────── */
 export default function PeekView() {
   const [open, setOpen] = useState(false);
   const ref             = useRef<HTMLDivElement>(null);
   const router          = useRouter();
+  const { user }        = useAuth();
 
   useEffect(() => {
     const onMouse = (e: MouseEvent) => {
@@ -84,7 +88,22 @@ export default function PeekView() {
                 >
                   <ToolCard
                     tool={tool}
-                    onClick={() => { setOpen(false); router.push(tool.href); }}
+                    onClick={() => {
+                      setOpen(false);
+                      if (tool.enterprise) {
+                        if (ENTERPRISE_TYPES.includes(user?.accountType ?? "")) {
+                          window.open(tool.href, "_blank", "noopener,noreferrer");
+                        } else {
+                          router.push("/pricing?plan=enterprise");
+                        }
+                        return;
+                      }
+                      if (tool.external) {
+                        window.open(tool.href, "_blank", "noopener,noreferrer");
+                      } else {
+                        router.push(tool.href);
+                      }
+                    }}
                   />
                 </motion.div>
               ))}

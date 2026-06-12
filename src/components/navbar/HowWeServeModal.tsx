@@ -31,7 +31,7 @@ const SECTIONS = [
       { name: "Proposal Drafter", desc: "AI-generated proposals with auto-drafted scopes, timelines and investment breakdowns.", href: "/premium/proposal-drafter", icon: "📄", premium: true },
       { name: "Diagnostic Tool", desc: "Assess your business health, identify gaps and get actionable recommendations.", href: "/biz", icon: "🔬", premium: false },
       { name: "CRM Hub", desc: "Track leads, manage relationships and close deals with full pipeline visibility.", href: "/portal", icon: "🤝", premium: false },
-      { name: "File System", desc: "Secure cloud storage for documents, contracts and project assets in one place.", href: "/portal", icon: "📁", premium: false },
+      { name: "Lamid FileShare", desc: "Bank-level encrypted transfers, per-client access controls and a full audit trail — purpose-built for critical data.", href: "https://fileshare-six-phi.vercel.app/", icon: "📁", premium: true, tier: "enterprise" },
       { name: "AI Preferences", desc: "Configure and personalise your AI assistant behaviour across the entire platform.", href: "/profile/settings/premium/AIPreferences", icon: "🤖", premium: true },
       { name: "Analytics Dashboard", desc: "Enterprise-grade performance dashboards with real-time insights and reporting.", href: "/services/analytics", icon: "📊", premium: true },
     ],
@@ -85,14 +85,39 @@ const BENEFIT_GROUPS = [
   },
 ];
 
+const ENTERPRISE_ONLY_TYPES = ["Enterprise", "Concierge", "Admin"];
+
 /* ── Auth-aware click handler ────────────────────────────────── */
 function useServiceRouter() {
   const { isAuthenticated, user } = useAuth();
   const router = useRouter();
-  return (href: string, premium: boolean, onClose: () => void) => {
-    if (!isAuthenticated) { router.push(`/auth/signup?redirect=${encodeURIComponent(href)}`); onClose(); return; }
-    if (premium && !PREMIUM_ACCOUNT_TYPES.includes(user?.accountType ?? "")) { router.push("/upgrade"); onClose(); return; }
-    router.push(href);
+  return (href: string, premium: boolean, tier: string | undefined, onClose: () => void) => {
+    if (!isAuthenticated) {
+      const redirect = href.startsWith("http") ? "/portal" : href;
+      router.push(`/auth/signup?redirect=${encodeURIComponent(redirect)}`);
+      onClose();
+      return;
+    }
+    if (tier === "enterprise") {
+      if (!ENTERPRISE_ONLY_TYPES.includes(user?.accountType ?? "")) {
+        router.push("/pricing?plan=enterprise");
+        onClose();
+        return;
+      }
+      window.open(href, "_blank", "noopener,noreferrer");
+      onClose();
+      return;
+    }
+    if (premium && !PREMIUM_ACCOUNT_TYPES.includes(user?.accountType ?? "")) {
+      router.push("/upgrade");
+      onClose();
+      return;
+    }
+    if (href.startsWith("http")) {
+      window.open(href, "_blank", "noopener,noreferrer");
+    } else {
+      router.push(href);
+    }
     onClose();
   };
 }
@@ -324,7 +349,7 @@ export default function HowWeServeModal({ open, onClose }: HowWeServeModalProps)
                       {(section as any).benefits
                         ? <BenefitsPanel />
                         : section.services.map((s, i) => (
-                          <ServiceRow key={s.name} s={s} index={i} onGo={() => navigate(s.href, s.premium, onClose)} />
+                          <ServiceRow key={s.name} s={s} index={i} onGo={() => navigate(s.href, s.premium, (s as any).tier, onClose)} />
                         ))
                       }
                     </motion.div>

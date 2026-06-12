@@ -3,6 +3,7 @@
 import React from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp, fadeInDown, staggerContainer } from "@/utils/motionVaraints";
 import CardGrid from "./cardGrid";
@@ -112,11 +113,32 @@ const HcdHeader: React.FC = () => {
                   </h2>
                 </div>
 
-                <p className="text-white text-xs sm:text-sm md:text-base max-w-2xl mb-6 md:mb-10">
+                <p className="text-white text-xs sm:text-sm md:text-base max-w-2xl mb-4">
                   We recruit and build visionary leaders and talents with a
                   singular purpose — to create continuous innovation and
                   disruption for client advantage.
                 </p>
+
+                <div className="flex flex-wrap gap-3 mb-6 md:mb-10">
+                  <Link
+                    href="/hcd/recruitment"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold
+                               bg-gradient-to-r from-orange-500 to-orange-700
+                               hover:from-orange-600 hover:to-orange-800 text-white transition
+                               focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  >
+                    Browse Open Roles →
+                  </Link>
+                  <Link
+                    href="/hcd/recruitment"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold
+                               border border-orange-500/60 text-orange-400
+                               hover:bg-orange-500/10 hover:border-orange-400 transition
+                               focus:outline-none focus:ring-2 focus:ring-orange-400/30"
+                  >
+                    Post a Role →
+                  </Link>
+                </div>
               </motion.div>
 
               <motion.div

@@ -13,6 +13,8 @@ export interface Tool {
   accentHex:     string;        // raw hex for glow/border
   badge:         string;
   badgeColor:    string;
+  external?:     boolean;       // open in new tab
+  enterprise?:   boolean;       // requires Enterprise account type
 }
 
 interface ToolCardProps {
@@ -87,11 +89,12 @@ export const TOOLS: Tool[] = [
     description:   "Training, workshops & certifications",
     icon:          "/hcdLogo.png",
     fallbackEmoji: "📘",
-    href:          "/hcd",
+    href:          "https://learn-by-lamid.vercel.app/",
     accent:        "orange",
     accentHex:     "#f97316",
     badge:         "HCD",
     badgeColor:    "bg-orange-500/20 text-orange-400",
+    external:      true,
   },
   {
     id:            "matcher",
@@ -119,15 +122,17 @@ export const TOOLS: Tool[] = [
   },
   {
     id:            "files",
-    name:          "File System",
+    name:          "Lamid FileShare",
     description:   "Secure document sharing & storage",
     icon:          "/pt-calendar-icon.png",
     fallbackEmoji: "📁",
-    href:          "/profile?tab=files",
+    href:          "https://fileshare-six-phi.vercel.app/",
     accent:        "purple",
     accentHex:     "#a855f7",
-    badge:         "Workspace",
+    badge:         "Enterprise",
     badgeColor:    "bg-purple-500/20 text-purple-400",
+    external:      true,
+    enterprise:    true,
   },
   {
     id:            "diagnostics",
