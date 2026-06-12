@@ -22,7 +22,7 @@ export default function TermsPage() {
         </Section>
 
         <Section title="2. Description of Service">
-          <p>Lamid is an AI-powered consulting marketplace that connects Clients (organisations seeking expertise) with Consultants (independent professionals). The Platform provides project posting, bidding, messaging, milestone tracking, and escrow payment services.</p>
+          <p>Lamid is a Human and AI-assisted consulting marketplace that connects Clients (organisations seeking expertise) with Consultants (independent professionals). The Platform provides project posting, bidding, messaging, milestone tracking, and escrow payment services.</p>
         </Section>
 
         <Section title="3. User Accounts">

@@ -81,7 +81,7 @@ export default function Header() {
           {/* Paragraph */}
           <p className="mt-6 md:mt-10 text-slate-300 text-sm sm:text-base md:text-lg font-light tracking-wide max-w-lg mx-auto md:mx-0 px-2 leading-7 md:leading-8">
             LAMID unifies strategy, performance, systems, and seamless work into
-            one AIenabled, marketplacedriven, enterprisegrade ecosystem.
+            one Human and AI-assisted, marketplace-driven, enterprise grade ecosystem.
           </p>
 
           {/* CTA Buttons */}

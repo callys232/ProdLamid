@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
               </p>
               <div style="border-top:1px solid #222;padding-top:20px;margin-top:4px;">
                 <p style="color:#555;font-size:12px;margin:0;">
-                  One ecosystem, Every layer of impact · <a href="https://lamid.io" style="color:#c21219;text-decoration:none;">lamid.io</a>
+                  One Ecosystem. Every Layer of Impact ·<a href="https://lamid.io" style="color:#c21219;text-decoration:none;">lamid.io</a>
                 </p>
               </div>
             </div>

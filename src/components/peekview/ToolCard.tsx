@@ -74,7 +74,7 @@ export const TOOLS: Tool[] = [
   {
     id:            "estimator",
     name:          "Budget Estimator",
-    description:   "AI-powered project cost & timeline",
+    description:   "AI-assisted project cost & timeline",
     icon:          "/pt-dollar-icon.png",
     fallbackEmoji: "💰",
     href:          "/postjobs?tool=estimator",
@@ -137,13 +137,13 @@ export const TOOLS: Tool[] = [
   {
     id:            "diagnostics",
     name:          "Business Diagnostic",
-    description:   "AI health check for your organisation",
+    description:   "AI health check across 7 dimensions",
     icon:          "/biz-icon.png",
     fallbackEmoji: "🔬",
-    href:          "/biz",
+    href:          "/premium/business-diagnostic",
     accent:        "emerald",
     accentHex:     "#10b981",
-    badge:         "BIZ",
+    badge:         "Premium",
     badgeColor:    "bg-emerald-500/20 text-emerald-400",
   },
 ];

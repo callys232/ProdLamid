@@ -1,63 +1,115 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const getClient = () => new OpenAI({ apiKey: process.env.OPENROUTER_API_KEY ?? "", baseURL: "https://openrouter.ai/api/v1" });
+const client = () =>
+  new OpenAI({
+    apiKey:  process.env.OPENROUTER_API_KEY ?? "",
+    baseURL: "https://openrouter.ai/api/v1",
+    defaultHeaders: {
+      "HTTP-Referer": "https://lamidconsulting.com",
+      "X-Title":      "Lamid Consulting – Proposal Drafter",
+    },
+  });
+
+const SYSTEM_PROMPT = `You are a Principal Consultant and award-winning proposal writer at Lamid Consulting — an elite pan-African management consulting firm. You have 20+ years of experience crafting winning proposals for Fortune 500s, governments, NGOs, and high-growth companies across Africa and globally.
+
+Your proposals are known for:
+- Precise diagnosis of client pain points backed by industry data
+- Concrete, phased delivery methodologies
+- Measurable KPIs and success metrics in every section
+- Commercial language that builds urgency and confidence
+- Impeccable structure that mirrors top-tier McKinsey/Bain style
+
+You MUST return ONLY valid JSON — no markdown, no code fences, no commentary outside the JSON object.`;
 
 export async function POST(req: NextRequest) {
   try {
-    const { projectTitle, clientName, description, budget, timeline, category, skills, deliverables, companyName } = await req.json();
+    const {
+      projectTitle, clientName, companyName, category,
+      description, budget, timeline, skills, deliverables,
+    } = await req.json();
 
-    if (!projectTitle) return NextResponse.json({ message: "Project title required." }, { status: 400 });
+    if (!projectTitle)
+      return NextResponse.json({ message: "Project title required." }, { status: 400 });
 
-    const prompt = `You are a senior consultant at Lamid Consulting writing a professional project proposal. Generate a comprehensive, client-ready proposal document.
+    const prompt = `Generate an exceptionally detailed, client-ready consulting proposal for the following engagement. Use specific, persuasive language tailored to the category and context. Include measurable KPIs, industry benchmarks where relevant, and a tone that inspires confidence and urgency.
 
-Project Details:
-- Project Title: ${projectTitle}
-- Client Name: ${clientName || "Valued Client"}
-- Company: ${companyName || "Not specified"}
-- Category: ${category || "Consulting"}
-- Description: ${description || "General consulting engagement"}
-- Skills Required: ${(skills || []).join(", ") || "To be determined"}
-- Requested Deliverables: ${(deliverables || []).join(", ") || "To be scoped"}
-- Budget: ${budget ? `$${budget}` : "To be discussed"}
-- Timeline: ${timeline || "To be agreed"}
+ENGAGEMENT BRIEF:
+• Title: ${projectTitle}
+• Client: ${clientName || "Valued Client"} at ${companyName || "the client organisation"}
+• Category: ${category || "Management Consulting"}
+• Context: ${description || "A strategic consulting engagement to drive measurable business improvement"}
+• Core Skills: ${Array.isArray(skills) ? skills.join(", ") : skills || "consulting, analysis, strategy"}
+• Key Deliverables requested: ${Array.isArray(deliverables) ? deliverables.join(", ") : deliverables || "to be scoped during discovery"}
+• Investment envelope: ${budget ? `$${budget.toLocaleString()}` : "to be confirmed"}
+• Desired timeline: ${timeline || "to be agreed"}
 
-Generate a JSON response with this structure:
+Return this JSON structure — every field is REQUIRED, every array must have at least 3 items:
+
 {
-  "executiveSummary": "2-3 paragraph professional summary",
-  "problemStatement": "What problem or opportunity this project addresses (1 paragraph)",
-  "proposedApproach": "How Lamid will approach the project (2 paragraphs)",
+  "executiveSummary": "3 rich paragraphs. Open with a compelling hook about the client's opportunity/challenge. Middle paragraph: how Lamid's unique approach addresses it. Close: the tangible business outcome the client will achieve. Use specific numbers and outcomes where possible.",
+
+  "problemStatement": "1–2 paragraphs. Name the specific pain, risk, or missed opportunity facing the client. Reference industry trends, data points, or common benchmarks to validate the urgency. Show empathy and deep sector knowledge.",
+
+  "proposedApproach": "3 paragraphs. Paragraph 1: Lamid's overall methodology (discovery, design, delivery). Paragraph 2: How we tailor this framework specifically to the client's context. Paragraph 3: What makes our approach different from generic consultants — proprietary tools, practitioner-led delivery, embedded transfer of capability.",
+
   "scope": {
-    "included": ["list of what is included"],
-    "excluded": ["list of what is explicitly excluded"]
+    "included": ["5–7 specific, actionable items that are explicitly in scope — be precise, not generic"],
+    "excluded": ["3–5 items explicitly out of scope with brief reason — sets professional expectations"]
   },
-  "deliverables": ["list of specific deliverables"],
+
+  "deliverables": ["6–8 specific, named deliverables — e.g. 'Capability Assessment Report with gap analysis and scoring matrix' not just 'assessment report'"],
+
+  "kpis": ["4–6 measurable success metrics with targets — e.g. '20% improvement in team productivity measured via OKR scorecard within 90 days'"],
+
   "timeline": [
-    { "phase": "Phase name", "duration": "e.g. 2 weeks", "activities": "Key activities" }
+    {
+      "phase": "Phase name (e.g. Discovery & Diagnosis)",
+      "duration": "e.g. Weeks 1–2",
+      "activities": "Specific activities in this phase — at least 3 activities listed",
+      "milestone": "The key deliverable or decision gate at the end of this phase"
+    }
   ],
+
   "investment": {
-    "total": "${budget || "To be agreed"}",
+    "total": "${budget ? `$${Number(budget).toLocaleString()}` : "Subject to final scoping"}",
     "breakdown": [
-      { "item": "Service item", "cost": "Amount or percentage" }
+      { "item": "Specific service line or cost category", "cost": "Amount or % of total", "note": "Brief justification" }
     ],
-    "paymentTerms": "Payment schedule description"
+    "paymentTerms": "Specific payment schedule — e.g. 30% on signing, 40% at mid-point milestone, 30% on final delivery",
+    "roi": "1–2 sentences on the expected ROI or value created relative to the investment"
   },
-  "whyLamid": ["3-4 reasons why Lamid is the right partner"],
-  "terms": ["3-4 standard terms and conditions"],
-  "callToAction": "Closing statement and next steps"
-}
 
-Be professional, specific, and persuasive. Return ONLY valid JSON.`;
+  "whyLamid": [
+    {
+      "point": "Short title of differentiator",
+      "detail": "2–3 sentences expanding on why this matters specifically for this client and engagement"
+    }
+  ],
 
-    const response = await getClient().chat.completions.create({
-      model: "openai/gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.6,
-      response_format: { type: "json_object" },
+  "risksMitigations": [
+    { "risk": "Specific implementation risk", "mitigation": "How Lamid proactively manages or eliminates it" }
+  ],
+
+  "terms": ["4–5 clear, professional terms and conditions — IP ownership, confidentiality, change management, cancellation"],
+
+  "callToAction": "A compelling 2–3 sentence closing paragraph that creates momentum. Reference a specific next step (e.g. 'We recommend a 60-minute scoping call this week to align on priorities and confirm the engagement structure.') End with a statement of confidence and partnership."
+}`;
+
+    const response = await client().chat.completions.create({
+      model:       "anthropic/claude-sonnet-4-6",
+      temperature: 0.65,
+      max_tokens:  4000,
+      messages: [
+        { role: "system",  content: SYSTEM_PROMPT },
+        { role: "user",    content: prompt },
+      ],
     });
 
-    const content = response.choices[0]?.message?.content || "{}";
-    const proposal = JSON.parse(content);
+    const raw     = response.choices[0]?.message?.content ?? "{}";
+    const cleaned = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+    const proposal = JSON.parse(cleaned);
+
     return NextResponse.json({ proposal });
   } catch (error) {
     console.error("Proposal AI error:", error);

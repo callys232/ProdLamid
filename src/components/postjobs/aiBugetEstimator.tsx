@@ -50,7 +50,7 @@ export default function BudgetEstimatorGate({
 
             {mode === "modal" && (
                 <div className="text-sm text-gray-500">
-                    AI-powered estimation based on your project scope
+                    AI-assisted estimation based on your project scope
                 </div>
             )}
 

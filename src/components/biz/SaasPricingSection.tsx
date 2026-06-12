@@ -66,7 +66,7 @@ const TIERS: Tier[] = [
     features: [
       "Everything in Starter",
       "Unlimited project postings",
-      "AI-powered project & consultant matching",
+      "AI-assisted project & consultant matching",
       "Advanced analytics dashboard",
       "AI preferences & tone settings",
       "Priority 48hr consultant deployment",
@@ -138,7 +138,7 @@ const STATS = [
 // ─── Enterprise feature highlights ──────────────────────────────────────────
 
 const FEATURES = [
-  { icon: <FaRobot />,     title: "AI-Powered Matching",     desc: "Proprietary AI matches your project with the top 1% of 5,000+ vetted consultants in under 60 seconds." },
+  { icon: <FaRobot />,     title: "AI-Assisted Matching",     desc: "Proprietary AI matches your project with the top 1% of 5,000+ vetted consultants in under 60 seconds." },
   { icon: <FaShieldAlt />, title: "Milestone Escrow",        desc: "Every payment is held in escrow and released only when you approve the deliverable." },
   { icon: <FaUsers />,     title: "Dedicated Account Team",  desc: "A senior account director and two project coordinators assigned exclusively to your organisation." },
   { icon: <FaCode />,      title: "White-Label Platform",    desc: "Deploy a fully branded version of our platform for your internal teams (Enterprise+)." },
@@ -194,7 +194,7 @@ export default function SaasPricingSection() {
           Simple pricing for every stage
         </h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Start free, scale to Premium for AI-powered tools, or deploy a full enterprise workspace with dedicated account management.
+          Start free, scale to Premium for AI-assisted tools, or deploy a full enterprise workspace with dedicated account management.
         </p>
       </div>
 

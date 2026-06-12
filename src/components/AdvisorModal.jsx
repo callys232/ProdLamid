@@ -143,7 +143,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
                     >
                       Done
                     </button>
-                    <p className="text-[10px] text-gray-600 tracking-wide">One ecosystem, Every layer of impact</p>
+                    <p className="text-[10px] text-gray-600 tracking-wide">One Ecosystem. Every Layer of Impact</p>
                   </motion.div>
                 ) : (
                   /* ── Form ── */

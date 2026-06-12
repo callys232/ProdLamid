@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
               ${service ? `<p style="color:#ccc;line-height:1.7;margin:0 0 20px;">Service area: <strong style="color:#60a5fa;">${service}</strong></p>` : ""}
               <div style="border-top:1px solid #222;padding-top:20px;margin-top:8px;">
                 <p style="color:#555;font-size:12px;margin:0;">
-                  One ecosystem, Every layer of impact · <a href="https://lamid.io" style="color:#3b82f6;text-decoration:none;">lamid.io</a>
+                  One Ecosystem. Every Layer of Impact ·<a href="https://lamid.io" style="color:#3b82f6;text-decoration:none;">lamid.io</a>
                 </p>
               </div>
             </div>

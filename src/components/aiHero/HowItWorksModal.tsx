@@ -33,7 +33,7 @@ const HIW_STEPS = [
   {
     num: "03",
     label: "Scale",
-    desc: "Grow sustainably with AI-enabled insights and marketplace flexibility.",
+    desc: "Grow sustainably with AI-assisted insights and marketplace flexibility.",
     Icon: TrendingUp,
     hex: "#10b981",
   },
@@ -292,7 +292,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                 The Process
               </p>
               <h3 className="text-xl font-bold text-white">
-                One Integrated Ecosystem. Every Layer of Impact.
+                One Ecosystem. Every Layer of Impact.
               </h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">

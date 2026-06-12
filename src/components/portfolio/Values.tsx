@@ -115,7 +115,7 @@ const ValuesSection: React.FC = () => {
               </h2>
               <span className="h-8 w-px bg-white/15 shrink-0" />
               <p className="text-gray-400 text-sm font-light leading-snug flex-1 min-w-0">
-                Six principles that govern every decision, every product, and every partnership — from concept to delivery. One Ecosystem - Every Layer of Impact.
+                Six principles that govern every decision, every product, and every partnership — from concept to delivery. One Ecosystem. Every Layer of Impact.
               </p>
               <span className="h-8 w-px bg-white/10 shrink-0" />
               {["6 Principles", "One Standard", "Zero Compromise"].map((t, i) => (

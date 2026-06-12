@@ -139,7 +139,7 @@ const PROBLEM = {
         "Top consultants chasing clients manually, managing admin across spreadsheets, and upskilling in isolation can't build a sustainable practice. LAMID's marketplace connects specialist consultants to high-impact projects, automates the operational layer, and keeps skills sharp — so experts focus on impact, not overhead.",
     },
   ],
-  full: "LAMID eliminates friction, unifying strategy, talent, delivery, and growth into one AI-enabled ecosystem built for scale.",
+  full: "LAMID eliminates friction, unifying strategy, talent, delivery, and growth into one Human and AI-assisted ecosystem built for scale.",
   hex: "#c21219",
   glow: "rgba(194,18,25,0.25)",
 };
