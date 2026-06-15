@@ -51,7 +51,7 @@ export default function RecruitmentDashboard() {
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
             Find Your Next{" "}
-            <span className="text-orange-500">Great Hire</span>
+            <span className="text-orange-500">Great Expert</span>
           </h1>
           <p className="mt-2 text-sm text-gray-400 max-w-xl">
             Explore open roles across leadership, strategy, sales and more — or manage your full

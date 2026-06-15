@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import ResponsiveServiceGrid from "./ResponsiveServiceGrid";
+import { Typewriter } from "react-simple-typewriter";
 
 const ServiceCard = ({ title, icon, coloredLetters, href }) => {
   const colorizedTitle = () =>
@@ -58,7 +58,7 @@ const ServiceCard = ({ title, icon, coloredLetters, href }) => {
 
 const ServicesSection = () => {
   return (
-    <div className="relative bg-black text-white w-full px-4 md:px-8 lg:px-16 mt-10 pt-10 pb-12 overflow-hidden">
+    <div className="relative bg-black text-white w-full px-4 md:px-8 lg:px-16 pt-6 pb-8 overflow-hidden">
       {/* ── Full-section vector background ── */}
       <svg
         aria-hidden="true"
@@ -218,27 +218,37 @@ const ServicesSection = () => {
       </svg>
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="border border-white inline-block px-6 py-2 mb-8">
+        <div className="border border-white inline-block px-6 py-2 mb-4">
           <h2 className="text-xl">SERVICES</h2>
         </div>
 
-        <div className="w-full h-px bg-gray-700 mb-6" />
+        <div className="w-full h-px bg-gray-700 mb-4" />
 
-        <div className="mb-12">
+        <div className="mb-6">
           <p className="mb-2 md:text-lg">
             We help you scale with intelligence, agility, and measurable impact
             — across every layer.
           </p>
           <p className="md:text-lg ">
-            We unify strategy, talent, performance, systems, and seamless work
-            into one Human-AI assisted ecosystem.
+            We unify strategy, performance, systems, and seamless work into one
+            Human-AI assisted,
           </p>
-          <p className="md:text-lg ">
-            Marketplace, CRM, Document and Project Manager.
+          <p className="md:text-lg font-extrabold bg-gradient-to-r from-red-600 to-white bg-clip-text text-transparent">
+            <Typewriter
+              words={[
+                "Enterprise-grade Ecosystem: Talent, Marketplace, CRM, Document and Project Manager.",
+              ]}
+              loop={0}
+              typeSpeed={55}
+              deleteSpeed={0}
+              delaySpeed={3000}
+              cursor
+              cursorStyle="|"
+            />
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-4">
           <ServiceCard
             title="Business Innovation Zone"
             icon="/biz-icon.png"
@@ -265,7 +275,6 @@ const ServicesSection = () => {
           />
         </div>
 
-        <ResponsiveServiceGrid />
       </div>
     </div>
   );

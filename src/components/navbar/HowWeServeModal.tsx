@@ -19,10 +19,16 @@ import EcosystemTag from "@/components/EcosystemTag";
 /* ── Data ────────────────────────────────────────────────────── */
 const PREMIUM_ACCOUNT_TYPES = ["Enterprise", "Concierge", "Admin"];
 
+const TIER_BADGE: Record<string, { label: string; cls: string }> = {
+  free:       { label: "Free",       cls: "text-emerald-400 bg-emerald-500/10 border border-emerald-500/25" },
+  premium:    { label: "Premium",    cls: "text-[#c21219] bg-[#c21219]/10 border border-[#c21219]/25" },
+  enterprise: { label: "Enterprise", cls: "text-violet-400 bg-violet-500/10 border border-violet-500/25" },
+};
+
 const SECTIONS = [
   {
     label: "Core Services",
-
+    tier: "free",
     desc: "Our four pillars of enterprise transformation are Human-AI powered.",
     services: [
       {
@@ -57,7 +63,7 @@ const SECTIONS = [
   },
   {
     label: "Digital Tools",
-
+    tier: "premium",
     desc: "Intelligent tools powering every workflow.",
     services: [
       {
@@ -107,7 +113,7 @@ const SECTIONS = [
   },
   {
     label: "Marketplace",
-
+    tier: "free",
     desc: "Connect with the right people and projects, automate workflows with secure Cloud Workspace",
     services: [
       {
@@ -150,7 +156,7 @@ const SECTIONS = [
   },
   {
     label: "Enterprise",
-
+    tier: "enterprise",
     desc: "Built for organisations operating at scale.",
     services: [
       {
@@ -188,7 +194,7 @@ const SECTIONS = [
   },
   {
     label: "FREE",
-
+    tier: "free",
     desc: "Every account comes with these built-in ecosystem services.",
     benefits: true,
     services: [],
@@ -514,17 +520,27 @@ export default function HowWeServeModal({
                         }}
                       />
                     )}
-                    <p
-                      className={`text-[13px] font-semibold leading-tight transition-colors duration-150 ${active === i ? "text-white" : "text-gray-300 group-hover:text-white"}`}
-                    >
-                      {sec.label}
-                    </p>
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <p
+                        className={`text-[13px] font-semibold leading-tight transition-colors duration-150 ${active === i ? "text-white" : "text-gray-300 group-hover:text-white"}`}
+                      >
+                        {sec.label}
+                      </p>
+                      {(sec as any).tier && (() => {
+                        const badge = TIER_BADGE[(sec as any).tier];
+                        return (
+                          <span className={`text-[8px] font-black uppercase tracking-widest px-1.5 py-0.5 rounded-full ${badge.cls}`}>
+                            {badge.label}
+                          </span>
+                        );
+                      })()}
+                    </div>
                     <p
                       className={`text-[10px] mt-0.5 transition-colors duration-150 ${active === i ? "text-[#c21219]" : "text-gray-500 group-hover:text-gray-400"}`}
                     >
                       {(sec as any).benefits
                         ? `${BENEFIT_GROUPS.reduce((a, g) => a + g.items.length, 0)} benefits included`
-                        : `${sec.tag} · ${sec.services.length} services`}
+                        : `${sec.services.length} services`}
                     </p>
                   </motion.button>
                 ))}
@@ -555,9 +571,11 @@ export default function HowWeServeModal({
                       <h3 className="text-lg font-bold text-white leading-tight">
                         {section.label}
                       </h3>
-                      <span className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#c21219]/10 text-[#c21219] border border-[#c21219]/25">
-                        {section.tag}
-                      </span>
+                      {(section as any).benefits && (
+                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
+                          FREE
+                        </span>
+                      )}
                     </div>
                     <p className="text-xs text-gray-500 mt-1">{section.desc}</p>
                   </motion.div>

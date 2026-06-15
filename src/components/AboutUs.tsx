@@ -24,7 +24,7 @@ const AboutUs = ({ showArrow = true }: { showArrow?: boolean }) => {
 
       {/* Vision 2030 Section */}
       <section id="vision-2030">
-        <div className="relative container mx-auto px-4 sm:px-6 py-12 sm:py-16 z-10">
+        <div className="relative container mx-auto px-4 sm:px-6 py-8 z-10">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import GetDignostics from "../forms/diagnostics/GetDiagnostic";
+import EcosystemTag from "@/components/EcosystemTag";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -23,22 +24,17 @@ const BusinessInnovationZone = () => {
   }, []);
 
   return (
-    <div className="bg-black text-white pt-14 md:pt-20 pb-6 sm:pb-8 md:pb-10 px-3 sm:px-4 md:px-8">
+    <div className="bg-black text-white pt-6 pb-6 px-3 sm:px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
-
-        {/* Section label */}
-        <motion.div {...fadeUp(0)} className="mb-6">
-          <span className="text-xs font-semibold tracking-widest text-blue-400 uppercase border border-blue-500/40 bg-blue-500/10 px-3 py-1 rounded-full">
-            Business Innovation Zone
-          </span>
-        </motion.div>
-
         {/* BIZ Header — clicking navigates to the full BIZ page */}
-        <Link href="/bizphere" className="block group mb-8">
+        <Link href="/bizphere" className="block group mb-4">
           <motion.div
             {...fadeUp(0.1)}
-            className="flex flex-col md:flex-row items-center md:items-start gap-6 p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm cursor-pointer group-hover:border-white/25 group-hover:bg-white/[0.08] transition-all duration-300"
+            className="relative flex flex-col md:flex-row items-center md:items-start gap-6 p-5 pt-12 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm cursor-pointer group-hover:border-white/25 group-hover:bg-white/[0.08] transition-all duration-300"
           >
+            <div className="absolute top-3 right-5">
+              <EcosystemTag className="!mt-0 scale-90 origin-right" />
+            </div>
             {/* BIZ Logo */}
             <div className="border border-blue-500/60 rounded-xl p-4 flex-shrink-0 group-hover:border-blue-400 group-hover:bg-blue-500/10 transition duration-300">
               <Image
@@ -65,22 +61,39 @@ const BusinessInnovationZone = () => {
         </Link>
 
         {/* BEST Section */}
-        <motion.div {...fadeUp(0.2)} className="mb-6">
+        <motion.div {...fadeUp(0.2)} className="mb-4">
           <div className="rounded-2xl border border-amber-500/50 bg-amber-900/10 p-5 flex flex-col md:flex-row justify-between items-center gap-4 hover:bg-amber-900/20 transition duration-300">
             <div className="flex-1">
               <h3 className="text-lg md:text-xl font-semibold text-left leading-snug">
-                <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">B</span>usiness{" "}
-                <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">E</span>xpansion{" "}
-                <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">S</span>trategy &{" "}
-                <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">T</span>echnology
+                <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">
+                  B
+                </span>
+                usiness{" "}
+                <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">
+                  E
+                </span>
+                xpansion{" "}
+                <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">
+                  S
+                </span>
+                trategy &{" "}
+                <span className="animate-rainbowPulse drop-shadow-[0_0_2px_cyan]">
+                  T
+                </span>
+                echnology
                 {" — "}
-                <span className="animate-glitchPulse [animation-delay:0.6s] text-amber-400 font-bold">BEST</span>
-                {" "}— our all-in-one growth toolbox
+                <span className="animate-glitchPulse [animation-delay:0.6s] text-amber-400 font-bold">
+                  BEST
+                </span>{" "}
+                — our all-in-one growth toolbox
               </h3>
               <p className="text-sm md:text-base text-gray-300 leading-relaxed text-left mt-3">
-                Our portfolio of simple, easy-to-use entrepreneurial management
-                know-how delivers sustainable growth by executing a lean plan on
-                digitalized, client-centered systems and processes.
+                A portfolio of simple, easy-to-use Human-AI assisted management
+                know-how that delivers sustainable growth
+              </p>
+              <p>
+                by executing a lean plan on digitalized, client-centered systems
+                and processes.
               </p>
             </div>
             <div className="flex-shrink-0 hover:scale-110 transition duration-300">
@@ -96,7 +109,10 @@ const BusinessInnovationZone = () => {
         </motion.div>
 
         {/* Image */}
-        <motion.div {...fadeUp(0.3)} className="rounded-2xl overflow-hidden border border-white/10 mb-6">
+        <motion.div
+          {...fadeUp(0.3)}
+          className="rounded-2xl overflow-hidden border border-white/10 mb-4"
+        >
           <Image
             src="/BIT-picture.png"
             alt="Innovation Zone"

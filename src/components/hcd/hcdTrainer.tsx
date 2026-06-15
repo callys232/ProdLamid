@@ -70,21 +70,27 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="relative min-h-screen bg-black text-white">
-        {/* Background circular gradients */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[800px] h-[800px] border border-gray-800 rounded-full opacity-50" />
-            <div className="absolute w-[600px] h-[600px] border border-gray-800 rounded-full opacity-30" />
-            <div className="absolute w-[400px] h-[400px] border border-gray-800 rounded-full opacity-20" />
+      <div className="relative bg-black text-white">
+        {/* Background rings — subtle, don't force height */}
+        {!homepage && (
+          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-[800px] h-[800px] border border-gray-800 rounded-full opacity-50" />
+              <div className="absolute w-[600px] h-[600px] border border-gray-800 rounded-full opacity-30" />
+              <div className="absolute w-[400px] h-[400px] border border-gray-800 rounded-full opacity-20" />
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="relative z-10 container mx-auto px-8 py-12">
+        <div className="relative z-10 container mx-auto px-8 py-2">
           <main className="max-w-6xl mx-auto">
+
+            {/* ── Unified slide panel ── */}
+            <div>
+
             {/* ================= TRAINING ================= */}
-            <section className="mb-16">
-              <div className="flex flex-col md:flex-row gap-10 items-center">
+            <section className={homepage ? "p-6" : "mb-16"}>
+              <div className="flex flex-col md:flex-row gap-6 items-center">
                 <div className="w-full md:w-2/5 flex-shrink-0">
                   <div className="rounded-xl overflow-hidden shadow-lg">
                     <Image
@@ -97,17 +103,17 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                   </div>
                 </div>
 
-                <div className="w-full md:w-3/5 flex flex-col gap-5">
-                  <h2 className="text-4xl font-extrabold text-orange-500">
+                <div className="w-full md:w-3/5 flex flex-col gap-3">
+                  <h2 className="text-3xl font-extrabold text-orange-500">
                     Training
                   </h2>
 
-                  <p className="text-base text-gray-300 leading-relaxed">
+                  <p className="text-sm text-gray-300 leading-relaxed">
                     We are leaders in providing far-reaching range of programs
                     suited to meet the challenges of todays rapid changes.
                   </p>
 
-                  <p className="text-sm text-gray-400 leading-relaxed">
+                  <p className="text-xs text-gray-400 leading-relaxed">
                     We match clients unique circumstances with customized
                     solutions that help them adapt to global best practices.
                   </p>
@@ -118,7 +124,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                       setFormType("training");
                       setShowPopup(true);
                     }}
-                    className="self-start inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold
+                    className="self-start inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold
                     bg-gradient-to-r from-orange-500 to-orange-700
                     hover:from-orange-600 hover:to-orange-800
                     transition focus:outline-none focus:ring-2 focus:ring-orange-400"
@@ -128,8 +134,8 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                 </div>
               </div>
 
-              {/* Training tracks — hover to reveal description */}
-              <div className="flex flex-wrap justify-center gap-3 mt-8 max-w-3xl mx-auto">
+              {/* Training tracks */}
+              <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-3xl mx-auto">
                 {[
                   { label: "BUSINESS",        desc: "Corporate strategy, finance & operations",     bg: "bg-gray-700",   hover: "bg-gray-600"   },
                   { label: "SOFT SKILLS",     desc: "Communication, teamwork & adaptability",       bg: "bg-orange-700", hover: "bg-orange-600" },
@@ -170,33 +176,31 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
 
             </section>
 
+
+            {homepage && <div className="border-t border-gray-800 mx-6" />}
+
             {/* ================= RECRUITMENT ================= */}
-            <section className="mb-16">
-              <div className="flex flex-col md:flex-row gap-10 items-center">
-                <div className="w-full md:w-3/5 flex flex-col gap-5">
+            <section className={homepage ? "p-6" : "mb-16"}>
+              <div className="flex flex-col md:flex-row gap-6 items-center">
+                <div className="w-full md:w-3/5 flex flex-col gap-3">
                   <h2 className="text-3xl font-bold text-orange-500">
                     Recruitment
                   </h2>
 
                   <p className="text-base text-gray-300 leading-relaxed">
-                    We conduct executive searches and headhunts to secure
-                    top-tier talent for organizations globally.
+                    Explore open roles across leadership, strategy, sales and more — or manage your full hiring pipeline from one place.
                   </p>
 
                   <div className="flex flex-wrap gap-3">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFormType("recruitment");
-                        setShowPopup(true);
-                      }}
+                    <Link
+                      href="/hcd/recruitment"
                       className="self-start inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold
                       bg-gradient-to-r from-orange-500 to-orange-700
                       hover:from-orange-600 hover:to-orange-800
                       transition focus:outline-none focus:ring-2 focus:ring-orange-400"
                     >
-                      SIGN UP HERE
-                    </button>
+                      Find Your Next Great Expert →
+                    </Link>
 
                     {!homepage && (
                       <>
@@ -247,10 +251,13 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                   </div>
                 </div>
               </div>
+
             </section>
 
+            </div>{/* end unified panel */}
+
             {/* ================= LEARNING PLATFORM CTA ================= */}
-            <LearningCTA className="mb-8" />
+            {!homepage && <LearningCTA className="mb-8" />}
 
           </main>
         </div>
