@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import GetDignostics from "../forms/diagnostics/GetDiagnostic";
 import EcosystemTag from "@/components/EcosystemTag";
+import StartupEcosystemBoard from "@/components/biz/StartupEcosystemBoard";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -108,19 +109,9 @@ const BusinessInnovationZone = () => {
           </div>
         </motion.div>
 
-        {/* Image */}
-        <motion.div
-          {...fadeUp(0.3)}
-          className="rounded-2xl overflow-hidden border border-white/10 mb-4"
-        >
-          <Image
-            src="/BIT-picture.png"
-            alt="Innovation Zone"
-            width={1920}
-            height={1080}
-            priority
-            className="w-full h-auto object-contain"
-          />
+        {/* Startup Ecosystem Board */}
+        <motion.div {...fadeUp(0.3)} className="mb-4 rounded-2xl overflow-hidden border border-white/10">
+          <StartupEcosystemBoard />
         </motion.div>
 
         {/* Action Buttons */}

@@ -13,10 +13,30 @@ import LearningCTA from "@/components/learningCTA/LearningCTA";
 
 type FormType = "training" | "recruitment" | "talent" | null;
 
+const RECRUIT_BADGES = [
+  { label: "Instant Matching",      color: "#f97316", delay: 0    },
+  { label: "Verified Experts",       color: "#10b981", delay: 0.07 },
+  { label: "Predictive Fit Scoring", color: "#6366f1", delay: 0.14 },
+  { label: "Top 1% Talent",          color: "#f59e0b", delay: 0.21 },
+  { label: "Hire Pipeline",          color: "#c21219", delay: 0.28 },
+  { label: "Vetted Consultants",     color: "#3b82f6", delay: 0.35 },
+  { label: "Capacity Building",      color: "#8b5cf6", delay: 0.42 },
+  { label: "Executive Headhunt",     color: "#14b8a6", delay: 0.49 },
+];
+
 const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [formType, setFormType] = useState<FormType>(null);
   const [user, setUser] = useState<unknown>(null);
+  const [activeBadge, setActiveBadge] = useState<number>(0);
+
+  /* Cycle active badge every 1.8 s */
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveBadge((prev) => (prev + 1) % RECRUIT_BADGES.length);
+    }, 1800);
+    return () => clearInterval(id);
+  }, []);
 
   /* ESC key closes modal */
   useEffect(() => {
@@ -34,7 +54,9 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [showPopup]);
 
   return (
@@ -71,7 +93,213 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
       </Head>
 
       <div className="relative bg-black text-white">
-        {/* Background rings — subtle, don't force height */}
+        {/* ── Animated vector background ── */}
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 w-full h-full z-0"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          {/* Static diagonal lines */}
+          <line
+            x1="0"
+            y1="0"
+            x2="100%"
+            y2="100%"
+            stroke="#f97316"
+            strokeWidth="0.8"
+            opacity="0.1"
+          />
+          <line
+            x1="100%"
+            y1="0"
+            x2="0"
+            y2="100%"
+            stroke="#ffffff"
+            strokeWidth="0.6"
+            opacity="0.05"
+          />
+          <line
+            x1="30%"
+            y1="0"
+            x2="70%"
+            y2="100%"
+            stroke="#f97316"
+            strokeWidth="0.7"
+            opacity="0.08"
+          />
+          <line
+            x1="0"
+            y1="40%"
+            x2="100%"
+            y2="40%"
+            stroke="#ffffff"
+            strokeWidth="0.5"
+            opacity="0.05"
+          />
+          <line
+            x1="0"
+            y1="70%"
+            x2="100%"
+            y2="70%"
+            stroke="#f97316"
+            strokeWidth="0.5"
+            opacity="0.06"
+          />
+          <line
+            x1="20%"
+            y1="0"
+            x2="20%"
+            y2="100%"
+            stroke="#f97316"
+            strokeWidth="0.6"
+            opacity="0.07"
+          />
+          <line
+            x1="80%"
+            y1="0"
+            x2="80%"
+            y2="100%"
+            stroke="#ffffff"
+            strokeWidth="0.5"
+            opacity="0.05"
+          />
+
+          {/* Slowly rotating large ring */}
+          <g>
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 50% 50%"
+              to="360 50% 50%"
+              dur="40s"
+              repeatCount="indefinite"
+            />
+            <ellipse
+              cx="50%"
+              cy="50%"
+              rx="38%"
+              ry="22%"
+              fill="none"
+              stroke="#f97316"
+              strokeWidth="0.8"
+              opacity="0.1"
+            />
+          </g>
+
+          {/* Second ring counter-rotating */}
+          <g>
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 50% 50%"
+              to="-360 50% 50%"
+              dur="55s"
+              repeatCount="indefinite"
+            />
+            <ellipse
+              cx="50%"
+              cy="50%"
+              rx="48%"
+              ry="28%"
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth="0.6"
+              opacity="0.06"
+            />
+          </g>
+
+          {/* Drifting dots */}
+          <circle cx="15%" cy="25%" r="2.5" fill="#f97316" opacity="0.2">
+            <animate
+              attributeName="cy"
+              values="25%;22%;25%"
+              dur="6s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="opacity"
+              values="0.2;0.4;0.2"
+              dur="6s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="85%" cy="60%" r="3" fill="#f97316" opacity="0.18">
+            <animate
+              attributeName="cy"
+              values="60%;57%;60%"
+              dur="8s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="opacity"
+              values="0.18;0.35;0.18"
+              dur="8s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="50%" cy="85%" r="2" fill="#ffffff" opacity="0.1">
+            <animate
+              attributeName="cy"
+              values="85%;82%;85%"
+              dur="7s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="70%" cy="15%" r="2" fill="#f97316" opacity="0.15">
+            <animate
+              attributeName="cy"
+              values="15%;12%;15%"
+              dur="5s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="opacity"
+              values="0.15;0.3;0.15"
+              dur="5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="25%" cy="75%" r="1.5" fill="#ffffff" opacity="0.1">
+            <animate
+              attributeName="cy"
+              values="75%;72%;75%"
+              dur="9s"
+              repeatCount="indefinite"
+            />
+          </circle>
+
+          {/* Corner arc */}
+          <path
+            d="M 0 0 Q 120 0 120 120"
+            fill="none"
+            stroke="#f97316"
+            strokeWidth="0.9"
+            opacity="0.12"
+          />
+
+          {/* Static rings */}
+          <circle
+            cx="10%"
+            cy="20%"
+            r="60"
+            fill="none"
+            stroke="#f97316"
+            strokeWidth="0.8"
+            opacity="0.1"
+          />
+          <circle
+            cx="90%"
+            cy="80%"
+            r="80"
+            fill="none"
+            stroke="#f97316"
+            strokeWidth="0.7"
+            opacity="0.09"
+          />
+        </svg>
+
+        {/* Background rings — non-homepage only */}
         {!homepage && (
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <div className="absolute inset-0 flex items-center justify-center">
@@ -84,181 +312,274 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
 
         <div className="relative z-10 container mx-auto px-8 py-2">
           <main className="max-w-6xl mx-auto">
-
             {/* ── Unified slide panel ── */}
             <div>
-
-            {/* ================= TRAINING ================= */}
-            <section className={homepage ? "p-6" : "mb-16"}>
-              <div className="flex flex-col md:flex-row gap-6 items-center">
-                <div className="w-full md:w-2/5 flex-shrink-0">
-                  <div className="rounded-xl overflow-hidden shadow-lg">
-                    <Image
-                      src="/hcd-training-meeting.png"
-                      alt="Training Session"
-                      width={400}
-                      height={300}
-                      className="w-full h-auto"
-                    />
+              {/* ================= TRAINING ================= */}
+              <section className={homepage ? "p-6" : "mb-16"}>
+                <div className="flex flex-col md:flex-row gap-6 items-center">
+                  <div className="w-full md:w-2/5 flex-shrink-0">
+                    <div className="rounded-xl overflow-hidden shadow-lg">
+                      <Image
+                        src="/hcd-training-meeting.png"
+                        alt="Training Session"
+                        width={400}
+                        height={300}
+                        className="w-full h-auto"
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <div className="w-full md:w-3/5 flex flex-col gap-3">
-                  <h2 className="text-3xl font-extrabold text-orange-500">
-                    Training
-                  </h2>
+                  <div className="w-full md:w-3/5 flex flex-col gap-3">
+                    <h2 className="text-3xl font-extrabold text-orange-500">
+                      Training
+                    </h2>
 
-                  <p className="text-sm text-gray-300 leading-relaxed">
-                    We are leaders in providing far-reaching range of programs
-                    suited to meet the challenges of todays rapid changes.
-                  </p>
+                    <p className="text-sm text-gray-300 leading-relaxed">
+                      We are leaders in providing far-reaching range of programs
+                      suited to meet the challenges of todays rapid changes.
+                    </p>
 
-                  <p className="text-xs text-gray-400 leading-relaxed">
-                    We match clients unique circumstances with customized
-                    solutions that help them adapt to global best practices.
-                  </p>
+                    <p className="text-xs text-gray-400 leading-relaxed">
+                      We match clients unique circumstances with customized
+                      solutions that help them adapt to global best practices.
+                    </p>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setFormType("training");
-                      setShowPopup(true);
-                    }}
-                    className="self-start inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFormType("training");
+                        setShowPopup(true);
+                      }}
+                      className="self-start inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold
                     bg-gradient-to-r from-orange-500 to-orange-700
                     hover:from-orange-600 hover:to-orange-800
                     transition focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  >
-                    RESERVE A SLOT NOW!!
-                  </button>
-                </div>
-              </div>
-
-              {/* Training tracks */}
-              <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-3xl mx-auto">
-                {[
-                  { label: "BUSINESS",        desc: "Corporate strategy, finance & operations",     bg: "bg-gray-700",   hover: "bg-gray-600"   },
-                  { label: "SOFT SKILLS",     desc: "Communication, teamwork & adaptability",       bg: "bg-orange-700", hover: "bg-orange-600" },
-                  { label: "CLIENTS",         desc: "Client-centred engagement & retention",        bg: "bg-blue-900",   hover: "bg-blue-800"   },
-                  { label: "PRODUCT",         desc: "Product innovation & development",             bg: "bg-blue-600",   hover: "bg-blue-500"   },
-                  { label: "MANAGEMENT",      desc: "Performance management & supervision",         bg: "bg-red-800",    hover: "bg-red-700"    },
-                  { label: "ENTREPRENEURSHIP",desc: "Startup growth & venture building",            bg: "bg-purple-700", hover: "bg-purple-600" },
-                  { label: "LEADERSHIP",      desc: "Vision, influence & team direction",           bg: "bg-green-700",  hover: "bg-green-600"  },
-                  { label: "SALES",           desc: "Negotiation, conversion & closing deals",      bg: "bg-gray-600",   hover: "bg-gray-500"   },
-                ].map(({ label, desc, bg, hover }, index) => (
-                  <motion.div
-                    key={label}
-                    className="relative group"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.08 }}
-                  >
-                    <div
-                      className={`${bg} px-4 py-1.5 text-xs font-semibold rounded-full cursor-default
-                                  hover:shadow-lg hover:border hover:border-white/25 transition-all duration-300`}
                     >
-                      {label}
-                    </div>
-                    {/* Tooltip */}
-                    <div
-                      className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5
+                      RESERVE A SLOT NOW!!
+                    </button>
+                  </div>
+                </div>
+
+                {/* Training tracks */}
+                <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-3xl mx-auto">
+                  {[
+                    {
+                      label: "BUSINESS",
+                      desc: "Corporate strategy, finance & operations",
+                      bg: "bg-gray-700",
+                      hover: "bg-gray-600",
+                    },
+                    {
+                      label: "SOFT SKILLS",
+                      desc: "Communication, teamwork & adaptability",
+                      bg: "bg-orange-700",
+                      hover: "bg-orange-600",
+                    },
+                    {
+                      label: "CLIENTS",
+                      desc: "Client-centred engagement & retention",
+                      bg: "bg-blue-900",
+                      hover: "bg-blue-800",
+                    },
+                    {
+                      label: "PRODUCT",
+                      desc: "Product innovation & development",
+                      bg: "bg-blue-600",
+                      hover: "bg-blue-500",
+                    },
+                    {
+                      label: "MANAGEMENT",
+                      desc: "Performance management & supervision",
+                      bg: "bg-red-800",
+                      hover: "bg-red-700",
+                    },
+                    {
+                      label: "ENTREPRENEURSHIP",
+                      desc: "Startup growth & venture building",
+                      bg: "bg-purple-700",
+                      hover: "bg-purple-600",
+                    },
+                    {
+                      label: "LEADERSHIP",
+                      desc: "Vision, influence & team direction",
+                      bg: "bg-green-700",
+                      hover: "bg-green-600",
+                    },
+                    {
+                      label: "SALES",
+                      desc: "Negotiation, conversion & closing deals",
+                      bg: "bg-gray-600",
+                      hover: "bg-gray-500",
+                    },
+                  ].map(({ label, desc, bg, hover }, index) => (
+                    <motion.div
+                      key={label}
+                      className="relative group"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.08 }}
+                    >
+                      <div
+                        className={`${bg} px-4 py-1.5 text-xs font-semibold rounded-full cursor-default
+                                  hover:shadow-lg hover:border hover:border-white/25 transition-all duration-300`}
+                      >
+                        {label}
+                      </div>
+                      {/* Tooltip */}
+                      <div
+                        className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5
                                   text-xs text-white rounded-lg shadow-lg whitespace-nowrap z-20
                                   opacity-0 group-hover:opacity-100 pointer-events-none
                                   transition-opacity duration-300 ${hover}`}
-                    >
-                      {desc}
-                      {/* Arrow */}
-                      <span className={`absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent ${hover.replace("bg-", "border-t-")}`} />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                      >
+                        {desc}
+                        {/* Arrow */}
+                        <span
+                          className={`absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent ${hover.replace("bg-", "border-t-")}`}
+                        />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
 
-            </section>
+              {homepage && <div className="border-t border-gray-800 mx-6" />}
 
+              {/* ================= RECRUITMENT ================= */}
+              <section className={homepage ? "p-6" : "mb-16"}>
+                <div className="flex flex-col md:flex-row gap-6 items-center">
+                  <div className="w-full md:w-3/5 flex flex-col gap-3">
+                    <h2 className="text-3xl font-bold text-orange-500">
+                      Recruitment
+                    </h2>
 
-            {homepage && <div className="border-t border-gray-800 mx-6" />}
+                    <p className="text-base text-gray-300 leading-relaxed">
+                      Explore open roles across leadership, strategy, sales and
+                      more — or manage your full hiring pipeline from one place.
+                    </p>
 
-            {/* ================= RECRUITMENT ================= */}
-            <section className={homepage ? "p-6" : "mb-16"}>
-              <div className="flex flex-col md:flex-row gap-6 items-center">
-                <div className="w-full md:w-3/5 flex flex-col gap-3">
-                  <h2 className="text-3xl font-bold text-orange-500">
-                    Recruitment
-                  </h2>
-
-                  <p className="text-base text-gray-300 leading-relaxed">
-                    Explore open roles across leadership, strategy, sales and more — or manage your full hiring pipeline from one place.
-                  </p>
-
-                  <div className="flex flex-wrap gap-3">
-                    <Link
-                      href="/hcd/recruitment"
-                      className="self-start inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold
+                    <div className="flex flex-wrap gap-3">
+                      <Link
+                        href="/hcd/recruitment"
+                        className="self-start inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold
                       bg-gradient-to-r from-orange-500 to-orange-700
                       hover:from-orange-600 hover:to-orange-800
                       transition focus:outline-none focus:ring-2 focus:ring-orange-400"
-                    >
-                      Find Your Next Great Expert →
-                    </Link>
+                      >
+                        Find Your Next Great Expert →
+                      </Link>
 
-                    {!homepage && (
-                      <>
-                        <a
-                          href="https://lamidcareers.com"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-4 py-2.5 text-sm bg-orange-600 rounded-full hover:bg-orange-700 transition"
-                        >
-                          LEARN MORE
-                        </a>
+                      {!homepage && (
+                        <>
+                          <a
+                            href="https://lamidcareers.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-4 py-2.5 text-sm bg-orange-600 rounded-full hover:bg-orange-700 transition"
+                          >
+                            LEARN MORE
+                          </a>
 
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFormType("talent");
-                            setShowPopup(true);
-                          }}
-                          className="px-6 py-2.5 text-sm rounded-full font-semibold
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFormType("talent");
+                              setShowPopup(true);
+                            }}
+                            className="px-6 py-2.5 text-sm rounded-full font-semibold
                           bg-gradient-to-r from-orange-500 to-orange-700
                           hover:from-orange-600 hover:to-orange-800 transition"
-                        >
-                          JOIN THE TALENTS CLUB
-                        </button>
+                          >
+                            Get Notified About TALENTS CLUB
+                          </button>
 
-                        <Link
-                          href="/hcd/recruitment"
-                          className="px-5 py-2.5 text-sm rounded-full font-semibold
+                          <Link
+                            href="/hcd/recruitment"
+                            className="px-5 py-2.5 text-sm rounded-full font-semibold
                           border border-orange-500/60 text-orange-400
                           hover:bg-orange-500/10 hover:border-orange-400 transition"
+                          >
+                            View Open Roles →
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="w-full md:w-2/5 flex-shrink-0">
+                    <div className="grid grid-cols-2 gap-2">
+                      {RECRUIT_BADGES.map(({ label, color, delay }, idx) => {
+                        const isActive = activeBadge === idx;
+                        return (
+                        <motion.div
+                          key={label}
+                          initial={{ opacity: 0, scale: 0.88, y: 10 }}
+                          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          animate={isActive ? { scale: 1.04 } : { scale: 1 }}
+                          transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                          className="relative flex items-center gap-2.5 px-3 py-2.5 rounded-2xl overflow-hidden cursor-default"
+                          style={{
+                            background: isActive
+                              ? `linear-gradient(135deg, ${color}28 0%, ${color}0e 100%)`
+                              : `linear-gradient(135deg, ${color}14 0%, #060606 85%)`,
+                            border: isActive ? `1px solid ${color}70` : `1px solid ${color}2e`,
+                            boxShadow: isActive ? `0 0 12px 0 ${color}30` : "none",
+                          }}
                         >
-                          View Open Roles →
-                        </Link>
-                      </>
-                    )}
+                          {/* Shimmer sweep */}
+                          <motion.div
+                            className="absolute inset-0 w-[55%] pointer-events-none"
+                            animate={{ x: ["-100%", "220%"] }}
+                            transition={{
+                              duration: 1.6,
+                              repeat: Infinity,
+                              repeatDelay: 3.5 + delay * 2,
+                              delay: delay + 1.2,
+                              ease: "easeInOut",
+                            }}
+                            style={{ background: `linear-gradient(90deg, transparent 0%, ${color}22 50%, transparent 100%)` }}
+                          />
+
+                          {/* Sonar dot */}
+                          <div className="relative flex-shrink-0 w-5 h-5 flex items-center justify-center">
+                            <motion.div
+                              className="absolute rounded-full"
+                              animate={{ scale: [1, 2.2, 1], opacity: [0.45, 0, 0.45] }}
+                              transition={{
+                                duration: 2.4 + delay * 0.35,
+                                repeat: Infinity,
+                                ease: "easeOut",
+                                delay,
+                              }}
+                              style={{ width: 10, height: 10, backgroundColor: color }}
+                            />
+                            <div
+                              className="relative w-2.5 h-2.5 rounded-full"
+                              style={{ backgroundColor: color, boxShadow: `0 0 6px 1px ${color}88` }}
+                            />
+                          </div>
+
+                          {/* Label */}
+                          <span className="flex-1 text-[11px] font-bold text-white/85 leading-tight tracking-wide">
+                            {label}
+                          </span>
+
+                          {/* Check mark */}
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="flex-shrink-0 opacity-55">
+                            <path d="M1.5 5L4 7.5L8.5 2.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </motion.div>
+                      ); })}
+                    </div>
                   </div>
                 </div>
-
-                <div className="w-full md:w-2/5 flex-shrink-0">
-                  <div className="rounded-xl overflow-hidden shadow-lg">
-                    <Image
-                      src="/hcd-recruitment-meeting.png"
-                      alt="Recruitment Meeting"
-                      width={400}
-                      height={300}
-                      className="w-full h-auto"
-                    />
-                  </div>
-                </div>
-              </div>
-
-            </section>
-
-            </div>{/* end unified panel */}
+              </section>
+            </div>
+            {/* end unified panel */}
 
             {/* ================= LEARNING PLATFORM CTA ================= */}
             {!homepage && <LearningCTA className="mb-8" />}
-
           </main>
         </div>
 
@@ -267,7 +588,10 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
           {showPopup && (
             <motion.div
               className="fixed inset-0 z-[999999] flex items-end sm:items-center justify-center"
-              style={{ backgroundColor: "rgba(0,0,0,0.78)", backdropFilter: "blur(6px)" }}
+              style={{
+                backgroundColor: "rgba(0,0,0,0.78)",
+                backdropFilter: "blur(6px)",
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -306,13 +630,22 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                 </button>
 
                 {formType === "training" && (
-                  <TrainingForm closeModal={() => setShowPopup(false)} user={user} />
+                  <TrainingForm
+                    closeModal={() => setShowPopup(false)}
+                    user={user}
+                  />
                 )}
                 {formType === "recruitment" && (
-                  <RecruitmentForm closeModal={() => setShowPopup(false)} user={user} />
+                  <RecruitmentForm
+                    closeModal={() => setShowPopup(false)}
+                    user={user}
+                  />
                 )}
                 {formType === "talent" && (
-                  <TalentClub closeModal={() => setShowPopup(false)} user={user} />
+                  <TalentClub
+                    closeModal={() => setShowPopup(false)}
+                    user={user}
+                  />
                 )}
               </motion.div>
             </motion.div>

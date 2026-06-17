@@ -8,12 +8,15 @@ import EcosystemTag from "@/components/EcosystemTag";
 export default function HumanCapitalDevelopment() {
   return (
     <div className="bg-black text-white w-full">
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-8 pt-0">
+      <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8 pt-0">
         <EcosystemTag className="!mt-0" />
       </div>
 
       {/* Clicking the header card navigates to the full HCD page */}
-      <Link href="/hcd" className="block hover:opacity-90 transition-opacity duration-200 cursor-pointer">
+      <Link
+        href="/hcd"
+        className="block hover:opacity-90 transition-opacity duration-200 cursor-pointer"
+      >
         <HeaderSection />
       </Link>
 
