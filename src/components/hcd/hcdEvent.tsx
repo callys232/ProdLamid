@@ -102,12 +102,16 @@ const HcdEvent: React.FC = () => {
                 className="w-full md:w-2/3 space-y-6"
               >
                 <h2 className="text-4xl font-bold text-orange-500">
-                  Faculty Profile
+                  Expert Matching
                 </h2>
                 <p className="text-white/80 leading-relaxed text-lg">
-                  Using highly experienced consultant facilitators, we match
-                  expertise to clients’ needs. Each expert models the principles
-                  and techniques they teach.
+                  Using the most intellectually experienced consultant
+                  facilitators, we match their expertise to clients needs. As
+                  specialists in their own fields, each bring expertise in a
+                  professional specialty and commit to model the theories they
+                  teach. They are selected from suitable and best qualified
+                  people, chosen for their ability to convey knowledge, and
+                  share their skills and experience.
                 </p>
                 <p className="text-white/60 italic text-lg">
                   “LAMID trainings improved negotiation and industrial

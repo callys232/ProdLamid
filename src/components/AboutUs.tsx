@@ -95,11 +95,22 @@ const AboutUs = ({ showArrow = true }: { showArrow?: boolean }) => {
                       </div>
                       <div>
                         <h2 className="text-xl font-semibold text-blue-400 mb-2">
-                          Our Vision
+                          Vision 2030
                         </h2>
-                        <p className="text-sm leading-relaxed text-white">Our principles define how we solve challenges and innovate sustainable solutions. We stand for:</p>
+                        <p className="text-sm leading-relaxed text-white">
+                          To produce 5000+ startups to deliver exceptional value
+                          and dominate the global market.
+                        </p>
                         {showArrow && (
-                          <motion.div whileHover={{ x: 6 }} transition={{ type: "spring", stiffness: 400, damping: 18 }} className="mt-3 inline-flex">
+                          <motion.div
+                            whileHover={{ x: 6 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 18,
+                            }}
+                            className="mt-3 inline-flex"
+                          >
                             <ArrowRight className="h-5 w-5 text-blue-400" />
                           </motion.div>
                         )}
@@ -129,9 +140,21 @@ const AboutUs = ({ showArrow = true }: { showArrow?: boolean }) => {
                         <h2 className="text-xl font-semibold text-rose-400 mb-2">
                           Our Mission
                         </h2>
-                        <p className="text-sm leading-relaxed text-white">To empower businesses and experts with the systems, tools, and intelligence they need to grow sustainably and transform meaningfully.</p>
+                        <p className="text-sm leading-relaxed text-white">
+                          To empower businesses and experts with the systems,
+                          tools, and intelligence they need to grow sustainably
+                          and transform meaningfully.
+                        </p>
                         {showArrow && (
-                          <motion.div whileHover={{ x: 6 }} transition={{ type: "spring", stiffness: 400, damping: 18 }} className="mt-3 inline-flex">
+                          <motion.div
+                            whileHover={{ x: 6 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 18,
+                            }}
+                            className="mt-3 inline-flex"
+                          >
                             <ArrowRight className="h-5 w-5 text-rose-400" />
                           </motion.div>
                         )}
@@ -159,11 +182,31 @@ const AboutUs = ({ showArrow = true }: { showArrow?: boolean }) => {
                       </div>
                       <div>
                         <h2 className="text-xl font-semibold text-emerald-400 mb-2">
-                          Our Approach
+                          Our Values and Approach
                         </h2>
-                        <p className="text-sm leading-relaxed text-white">Sustainable success relies on performance and leadership. We prioritize highly profitable operations, strategic management, and visionary leadership to achieve lasting impact.</p>
+                        <p className="text-sm leading-relaxed text-white">
+                          What we stand for, have defined and shaped our
+                          approach to proffering solutions, and what sums up our
+                          business ideas, culture, products and services are
+                          embedded in our values. They are represented in
+                        </p>
+                        <p className="text-sm leading-relaxed text-white">
+                          Authenticity and simplicity, guided by integrity.
+                          Making decisions based on evidence and objective
+                          feedback. Consistently solving engaging difficult
+                          issues to unravel variable solutions.
+                        </p>
+
                         {showArrow && (
-                          <motion.div whileHover={{ x: 6 }} transition={{ type: "spring", stiffness: 400, damping: 18 }} className="mt-3 inline-flex">
+                          <motion.div
+                            whileHover={{ x: 6 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 18,
+                            }}
+                            className="mt-3 inline-flex"
+                          >
                             <ArrowRight className="h-5 w-5 text-emerald-400" />
                           </motion.div>
                         )}
@@ -193,9 +236,21 @@ const AboutUs = ({ showArrow = true }: { showArrow?: boolean }) => {
                         <h2 className="text-xl font-semibold text-orange-400 mb-2">
                           Our Pledge
                         </h2>
-                        <p className="text-sm leading-relaxed text-white">We go the extra mile to build long-term relationships, ensuring lasting value for our clients through exceptional customer service and continued referrals.</p>
+                        <p className="text-sm leading-relaxed text-white">
+                          We go the extra mile to build long-term relationships,
+                          ensuring lasting value for our clients through
+                          exceptional customer service and continued referrals.
+                        </p>
                         {showArrow && (
-                          <motion.div whileHover={{ x: 6 }} transition={{ type: "spring", stiffness: 400, damping: 18 }} className="mt-3 inline-flex">
+                          <motion.div
+                            whileHover={{ x: 6 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 18,
+                            }}
+                            className="mt-3 inline-flex"
+                          >
                             <ArrowRight className="h-5 w-5 text-orange-400" />
                           </motion.div>
                         )}

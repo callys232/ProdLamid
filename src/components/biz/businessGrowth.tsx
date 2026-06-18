@@ -142,11 +142,11 @@ const BusinessGrowthSection: React.FC = () => {
 
           <motion.div className="w-full md:w-2/3" variants={fadeInUp}>
             <p className="text-lg mb-6 hover:text-gray-300 transition duration-300">
-              Network as you get the{" "}
+              Network{" "}
               <span className="font-bold underline hover:text-orange-500 text-blue-500">
-                expertise
+                to ignite
               </span>{" "}
-              to ignite growth and massive results.
+              growth and massive results.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link

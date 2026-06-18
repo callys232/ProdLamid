@@ -4,18 +4,17 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Zap } from "lucide-react";
-import BizSphereModal   from "../BizSphereModal";
-import AdvisorModal     from "../AdvisorModal";
+import BizSphereModal from "../BizSphereModal";
+import AdvisorModal from "../AdvisorModal";
 import BizPhereStickman from "./BizPhereStickman";
-import styles           from "./BizPhere.module.css";
+import styles from "./BizPhere.module.css";
 
 const BizPhere: React.FC = () => {
-  const [notifyOpen,  setNotifyOpen]  = useState(false);
+  const [notifyOpen, setNotifyOpen] = useState(false);
   const [advisorOpen, setAdvisorOpen] = useState(false);
 
   return (
     <section className="relative bg-black text-white py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
-
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-orange-900/10 blur-[100px]" />
@@ -23,7 +22,6 @@ const BizPhere: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
-
         {/* ══ LEFT — BIZPHERE showcase ══ */}
         <motion.div
           initial={{ opacity: 0, x: -24 }}
@@ -49,9 +47,9 @@ const BizPhere: React.FC = () => {
             </div>
 
             <h2 className="text-xl hover:text-orange-400 transition">
-              The exclusive small business online networking{" "}
+              The exclusive business online networking{" "}
               <span className="text-orange-500">marketplace</span> where sellers
-              meet buyers.
+              meet buyers, and announce and exchange services and products.
             </h2>
 
             {/* Image */}
@@ -64,13 +62,11 @@ const BizPhere: React.FC = () => {
                 className="rounded hover:scale-105 transition-transform"
               />
             </div>
-
           </div>
         </motion.div>
 
         {/* ══ RIGHT — Info + actions ══ */}
         <div className="flex flex-col gap-6">
-
           {/* Description */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
@@ -80,8 +76,9 @@ const BizPhere: React.FC = () => {
             className={`relative rounded-2xl p-6 sm:p-8 overflow-hidden space-y-4 ${styles.descCard}`}
           >
             <p className="hover:text-gray-300 transition">
-              The platform to secure cutting edge access to finance, suppliers,
-              assets, land and more resources.
+              The platform to secure cutting edge information on finance,
+              suppliers, assets, land and more resources. It sorts buyers and
+              sellers and protects merchants as they advertise and interact!
             </p>
             <p className="hover:text-gray-300 transition">
               Our secured filters offer a clean online gateway that provides
@@ -89,17 +86,22 @@ const BizPhere: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* GET NOTIFIED — reverted to button */}
+          {/* coming soon — reverted to button */}
           <motion.button
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 220, damping: 24, delay: 0.08 }}
+            transition={{
+              type: "spring",
+              stiffness: 220,
+              damping: 24,
+              delay: 0.08,
+            }}
             onClick={() => setNotifyOpen(true)}
             className={`group relative self-start inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white overflow-hidden transition-all duration-300 hover:scale-105 ${styles.notifyBtn}`}
           >
             <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none" />
-            <span className="relative">🔔 Get Notified</span>
+            <span className="relative">Join the Community - coming soon!</span>
           </motion.button>
 
           {/* ASK AN ADVISOR — original layout, bigger image, opens modal */}
@@ -107,7 +109,12 @@ const BizPhere: React.FC = () => {
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 220, damping: 24, delay: 0.14 }}
+            transition={{
+              type: "spring",
+              stiffness: 220,
+              damping: 24,
+              delay: 0.14,
+            }}
             onClick={() => setAdvisorOpen(true)}
             className={`group w-full text-center rounded-2xl p-6 space-y-4 transition-all duration-300 hover:scale-[1.02] cursor-pointer ${styles.advisorSection}`}
           >
@@ -124,13 +131,18 @@ const BizPhere: React.FC = () => {
               />
             </div>
           </motion.button>
-
         </div>
       </div>
 
       {/* ── Modals — separate reusable external components ── */}
-      <BizSphereModal isOpen={notifyOpen}  onClose={() => setNotifyOpen(false)}  />
-      <AdvisorModal   isOpen={advisorOpen} onClose={() => setAdvisorOpen(false)} />
+      <BizSphereModal
+        isOpen={notifyOpen}
+        onClose={() => setNotifyOpen(false)}
+      />
+      <AdvisorModal
+        isOpen={advisorOpen}
+        onClose={() => setAdvisorOpen(false)}
+      />
     </section>
   );
 };

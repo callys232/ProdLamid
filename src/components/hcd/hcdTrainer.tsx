@@ -1,34 +1,52 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import Head from "next/head";
 import { motion, AnimatePresence } from "framer-motion";
 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import TrainingForm from "@/forms/trainingForm";
 import RecruitmentForm from "@/forms/RecruitmentForm";
 import TalentClub from "@/forms/talentClub";
 import LearningCTA from "@/components/learningCTA/LearningCTA";
+import { useAuth } from "@/hooks/useAuth";
 
 type FormType = "training" | "recruitment" | "talent" | null;
 
 const RECRUIT_BADGES = [
-  { label: "Instant Matching",      color: "#f97316", delay: 0    },
-  { label: "Verified Experts",       color: "#10b981", delay: 0.07 },
+  { label: "Instant Matching", color: "#f97316", delay: 0 },
+  { label: "Verified Experts", color: "#10b981", delay: 0.07 },
   { label: "Predictive Fit Scoring", color: "#6366f1", delay: 0.14 },
-  { label: "Top 1% Talent",          color: "#f59e0b", delay: 0.21 },
-  { label: "Hire Pipeline",          color: "#c21219", delay: 0.28 },
-  { label: "Vetted Consultants",     color: "#3b82f6", delay: 0.35 },
-  { label: "Capacity Building",      color: "#8b5cf6", delay: 0.42 },
-  { label: "Executive Headhunt",     color: "#14b8a6", delay: 0.49 },
+  { label: "Top 1% Talent", color: "#f59e0b", delay: 0.21 },
+  { label: "Hire Pipeline", color: "#c21219", delay: 0.28 },
+  { label: "Vetted Consultants", color: "#3b82f6", delay: 0.35 },
+  { label: "Capacity Building", color: "#8b5cf6", delay: 0.42 },
+  { label: "Executive Headhunt", color: "#14b8a6", delay: 0.49 },
 ];
 
 const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [formType, setFormType] = useState<FormType>(null);
-  const [user, setUser] = useState<unknown>(null);
   const [activeBadge, setActiveBadge] = useState<number>(0);
+  const [expandedP1, setExpandedP1] = useState<boolean>(false);
+  const [expandedP3, setExpandedP3] = useState<boolean>(false);
+
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handlePostJob = () => {
+    if (!user) {
+      router.push("/signup");
+      return;
+    }
+    if (user.accountType === "Freelancer" || user.role === "seller") {
+      router.push("/upgrade");
+      return;
+    }
+    router.push("/postjobs");
+  };
 
   /* Cycle active badge every 1.8 s */
   useEffect(() => {
@@ -310,26 +328,35 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
           </div>
         )}
 
-        <div className="relative z-10 container mx-auto px-8 py-2">
+        <div className="relative z-10 container mx-auto px-6 py-6">
           <main className="max-w-6xl mx-auto">
             {/* ── Unified slide panel ── */}
             <div>
               {/* ================= TRAINING ================= */}
-              <section className={homepage ? "p-6" : "mb-16"}>
-                <div className="flex flex-col md:flex-row gap-6 items-center">
+              <section className={homepage ? "p-6" : "mb-20"}>
+                {/* Top row: image + text */}
+                <div className="flex flex-col md:flex-row gap-8 items-start mb-8">
+                  {/* ── Training illustration ── */}
                   <div className="w-full md:w-2/5 flex-shrink-0">
-                    <div className="rounded-xl overflow-hidden shadow-lg">
-                      <Image
-                        src="/hcd-training-meeting.png"
-                        alt="Training Session"
-                        width={400}
-                        height={300}
-                        className="w-full h-auto"
-                      />
+                    <div className="relative">
+                      {/* Ambient glow */}
+                      <div className="absolute -inset-3 rounded-2xl bg-gradient-to-br from-orange-500/20 via-blue-900/10 to-transparent blur-2xl pointer-events-none" />
+
+                      {/* Image */}
+                      <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                        <Image
+                          src="/hcd-training-illustration.png"
+                          alt="International new-age training session"
+                          width={860}
+                          height={460}
+                          className="w-full h-auto"
+                          priority
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="w-full md:w-3/5 flex flex-col gap-3">
+                  <div className="w-full md:w-3/5 flex flex-col gap-4">
                     <h2 className="text-3xl font-extrabold text-orange-500">
                       Training
                     </h2>
@@ -339,29 +366,46 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                       suited to meet the challenges of todays rapid changes.
                     </p>
 
-                    <p className="text-xs text-gray-400 leading-relaxed">
+                    <p className="text-sm text-gray-400 leading-relaxed">
                       We match clients unique circumstances with customized
                       solutions that help them adapt to global best practices.
+                      You achieve knowledge transfer and behavioral
+                      transformation in ways that seamlessly integrate your team
+                      back to the workplace, using hands-on methodologies.
                     </p>
 
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFormType("training");
-                        setShowPopup(true);
-                      }}
-                      className="self-start inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold
-                    bg-gradient-to-r from-orange-500 to-orange-700
-                    hover:from-orange-600 hover:to-orange-800
-                    transition focus:outline-none focus:ring-2 focus:ring-orange-400"
-                    >
-                      RESERVE A SLOT NOW!!
-                    </button>
+                    <div className="flex flex-wrap gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormType("training");
+                          setShowPopup(true);
+                        }}
+                        className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold
+                      bg-gradient-to-r from-orange-500 to-orange-700
+                      hover:from-orange-600 hover:to-orange-800
+                      transition focus:outline-none focus:ring-2 focus:ring-orange-400"
+                      >
+                        RESERVE A SLOT NOW!!
+                      </button>
+
+                      <a
+                        href="https://learn-by-lamid.vercel.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold
+                      border border-orange-500/60 text-orange-400
+                      hover:bg-orange-500/10 hover:border-orange-400
+                      transition focus:outline-none focus:ring-2 focus:ring-orange-400"
+                      >
+                        Post a Training
+                      </a>
+                    </div>
                   </div>
                 </div>
 
-                {/* Training tracks */}
-                <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-3xl mx-auto">
+                {/* Training tracks — full width below */}
+                <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
                   {[
                     {
                       label: "BUSINESS",
@@ -382,7 +426,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                       hover: "bg-blue-800",
                     },
                     {
-                      label: "PRODUCT",
+                      label: "PERFORMANCE",
                       desc: "Product innovation & development",
                       bg: "bg-blue-600",
                       hover: "bg-blue-500",
@@ -404,12 +448,6 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                       desc: "Vision, influence & team direction",
                       bg: "bg-green-700",
                       hover: "bg-green-600",
-                    },
-                    {
-                      label: "SALES",
-                      desc: "Negotiation, conversion & closing deals",
-                      bg: "bg-gray-600",
-                      hover: "bg-gray-500",
                     },
                   ].map(({ label, desc, bg, hover }, index) => (
                     <motion.div
@@ -447,21 +485,81 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
 
               {/* ================= RECRUITMENT ================= */}
               <section className={homepage ? "p-6" : "mb-16"}>
-                <div className="flex flex-col md:flex-row gap-6 items-center">
-                  <div className="w-full md:w-3/5 flex flex-col gap-3">
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+                  {/* Left: all text content */}
+                  <div className="w-full md:w-3/5 flex flex-col gap-4">
                     <h2 className="text-3xl font-bold text-orange-500">
                       Recruitment
                     </h2>
 
-                    <p className="text-base text-gray-300 leading-relaxed">
+                    {/* P1 — two sentences; show first, dropdown reveals second */}
+                    <div>
+                      <p className="text-sm text-gray-300 leading-relaxed">
+                        Leveraging cutting-edge tools, conduct executive
+                        searches and headhunts to identify and secure top-tier
+                        talent for permanent, temporary, and contract positions.
+                        {expandedP1 && (
+                          <span>
+                            {" "}
+                            Our approaches ensure organizations attract the
+                            brightest and most dedicated professionals,
+                            empowering them to succeed and thrive.
+                          </span>
+                        )}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setExpandedP1((v) => !v)}
+                        className="mt-1 flex items-center gap-1 text-xs text-orange-400 hover:text-orange-300 transition"
+                      >
+                        {expandedP1 ? "Show less" : "Read more"}
+                        <span
+                          className={`inline-block transition-transform duration-200 ${expandedP1 ? "rotate-180" : ""}`}
+                        >
+                          ▾
+                        </span>
+                      </button>
+                    </div>
+
+                    <p className="text-sm text-gray-300 leading-relaxed">
                       Explore open roles across leadership, strategy, sales and
                       more — or manage your full hiring pipeline from one place.
                     </p>
 
-                    <div className="flex flex-wrap gap-3">
+                    {/* P3 — one long sentence; show as collapsed, dropdown reveals full */}
+                    <div>
+                      <p className="text-sm text-gray-400 leading-relaxed">
+                        We support the effective pairing, management and
+                        retention of cutting-edge expertise as a pool of
+                        accessible peer mentors and leaders
+                        {expandedP3 && (
+                          <span>
+                            , harnessing their intellectual capacity and
+                            experience to transform everyday challenges into
+                            opportunities that birth and launch organizations as
+                            raving global successes
+                          </span>
+                        )}
+                        .
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setExpandedP3((v) => !v)}
+                        className="mt-1 flex items-center gap-1 text-xs text-orange-400 hover:text-orange-300 transition"
+                      >
+                        {expandedP3 ? "Show less" : "Read more"}
+                        <span
+                          className={`inline-block transition-transform duration-200 ${expandedP3 ? "rotate-180" : ""}`}
+                        >
+                          ▾
+                        </span>
+                      </button>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3 pt-1">
                       <Link
                         href="/hcd/recruitment"
-                        className="self-start inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold
                       bg-gradient-to-r from-orange-500 to-orange-700
                       hover:from-orange-600 hover:to-orange-800
                       transition focus:outline-none focus:ring-2 focus:ring-orange-400"
@@ -471,14 +569,13 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
 
                       {!homepage && (
                         <>
-                          <a
-                            href="https://lamidcareers.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-4 py-2.5 text-sm bg-orange-600 rounded-full hover:bg-orange-700 transition"
+                          <button
+                            type="button"
+                            onClick={handlePostJob}
+                            className="px-4 py-2.5 text-sm bg-orange-600 rounded-full hover:bg-orange-700 transition font-semibold"
                           >
-                            LEARN MORE
-                          </a>
+                            Post a Job
+                          </button>
 
                           <button
                             type="button"
@@ -506,71 +603,105 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                     </div>
                   </div>
 
+                  {/* Right: animated badges */}
                   <div className="w-full md:w-2/5 flex-shrink-0">
                     <div className="grid grid-cols-2 gap-2">
                       {RECRUIT_BADGES.map(({ label, color, delay }, idx) => {
                         const isActive = activeBadge === idx;
                         return (
-                        <motion.div
-                          key={label}
-                          initial={{ opacity: 0, scale: 0.88, y: 10 }}
-                          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          animate={isActive ? { scale: 1.04 } : { scale: 1 }}
-                          transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                          className="relative flex items-center gap-2.5 px-3 py-2.5 rounded-2xl overflow-hidden cursor-default"
-                          style={{
-                            background: isActive
-                              ? `linear-gradient(135deg, ${color}28 0%, ${color}0e 100%)`
-                              : `linear-gradient(135deg, ${color}14 0%, #060606 85%)`,
-                            border: isActive ? `1px solid ${color}70` : `1px solid ${color}2e`,
-                            boxShadow: isActive ? `0 0 12px 0 ${color}30` : "none",
-                          }}
-                        >
-                          {/* Shimmer sweep */}
                           <motion.div
-                            className="absolute inset-0 w-[55%] pointer-events-none"
-                            animate={{ x: ["-100%", "220%"] }}
+                            key={label}
+                            initial={{ opacity: 0, scale: 0.88, y: 10 }}
+                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            animate={isActive ? { scale: 1.04 } : { scale: 1 }}
                             transition={{
-                              duration: 1.6,
-                              repeat: Infinity,
-                              repeatDelay: 3.5 + delay * 2,
-                              delay: delay + 1.2,
-                              ease: "easeInOut",
+                              delay,
+                              duration: 0.5,
+                              ease: [0.22, 1, 0.36, 1],
                             }}
-                            style={{ background: `linear-gradient(90deg, transparent 0%, ${color}22 50%, transparent 100%)` }}
-                          />
-
-                          {/* Sonar dot */}
-                          <div className="relative flex-shrink-0 w-5 h-5 flex items-center justify-center">
+                            className="relative flex items-center gap-2.5 px-3 py-2.5 rounded-2xl overflow-hidden cursor-default"
+                            style={{
+                              background: isActive
+                                ? `linear-gradient(135deg, ${color}28 0%, ${color}0e 100%)`
+                                : `linear-gradient(135deg, ${color}14 0%, #060606 85%)`,
+                              border: isActive
+                                ? `1px solid ${color}70`
+                                : `1px solid ${color}2e`,
+                              boxShadow: isActive
+                                ? `0 0 12px 0 ${color}30`
+                                : "none",
+                            }}
+                          >
+                            {/* Shimmer sweep */}
                             <motion.div
-                              className="absolute rounded-full"
-                              animate={{ scale: [1, 2.2, 1], opacity: [0.45, 0, 0.45] }}
+                              className="absolute inset-0 w-[55%] pointer-events-none"
+                              animate={{ x: ["-100%", "220%"] }}
                               transition={{
-                                duration: 2.4 + delay * 0.35,
+                                duration: 1.6,
                                 repeat: Infinity,
-                                ease: "easeOut",
-                                delay,
+                                repeatDelay: 3.5 + delay * 2,
+                                delay: delay + 1.2,
+                                ease: "easeInOut",
                               }}
-                              style={{ width: 10, height: 10, backgroundColor: color }}
+                              style={{
+                                background: `linear-gradient(90deg, transparent 0%, ${color}22 50%, transparent 100%)`,
+                              }}
                             />
-                            <div
-                              className="relative w-2.5 h-2.5 rounded-full"
-                              style={{ backgroundColor: color, boxShadow: `0 0 6px 1px ${color}88` }}
-                            />
-                          </div>
 
-                          {/* Label */}
-                          <span className="flex-1 text-[11px] font-bold text-white/85 leading-tight tracking-wide">
-                            {label}
-                          </span>
+                            {/* Sonar dot */}
+                            <div className="relative flex-shrink-0 w-5 h-5 flex items-center justify-center">
+                              <motion.div
+                                className="absolute rounded-full"
+                                animate={{
+                                  scale: [1, 2.2, 1],
+                                  opacity: [0.45, 0, 0.45],
+                                }}
+                                transition={{
+                                  duration: 2.4 + delay * 0.35,
+                                  repeat: Infinity,
+                                  ease: "easeOut",
+                                  delay,
+                                }}
+                                style={{
+                                  width: 10,
+                                  height: 10,
+                                  backgroundColor: color,
+                                }}
+                              />
+                              <div
+                                className="relative w-2.5 h-2.5 rounded-full"
+                                style={{
+                                  backgroundColor: color,
+                                  boxShadow: `0 0 6px 1px ${color}88`,
+                                }}
+                              />
+                            </div>
 
-                          {/* Check mark */}
-                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="flex-shrink-0 opacity-55">
-                            <path d="M1.5 5L4 7.5L8.5 2.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </motion.div>
-                      ); })}
+                            {/* Label */}
+                            <span className="flex-1 text-[11px] font-bold text-white/85 leading-tight tracking-wide">
+                              {label}
+                            </span>
+
+                            {/* Check mark */}
+                            <svg
+                              width="10"
+                              height="10"
+                              viewBox="0 0 10 10"
+                              fill="none"
+                              className="flex-shrink-0 opacity-55"
+                            >
+                              <path
+                                d="M1.5 5L4 7.5L8.5 2.5"
+                                stroke={color}
+                                strokeWidth="1.6"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </motion.div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

@@ -32,10 +32,11 @@ const BizToolbox = () => {
               {/* Tooltip wrapper */}
               <div className="relative group inline-block ml-2">
                 <span className="text-gray-400 group-hover:text-white transition">
-                  - TheBiz Tool Box
+                  - The-All-in-One-BIZ ToolBox
                 </span>
                 <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1 w-max px-3 py-1 text-xs bg-black/80 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  this here should be a hover text
+                  Here, we accelerate your business growth with a comprehensive
+                  suite of services.
                 </div>
               </div>
             </h2>
@@ -45,8 +46,8 @@ const BizToolbox = () => {
               entrepreneur and business.
             </p>
             <p className="text-base text-gray-300 hover:text-white transition duration-300 mt-4">
-              BEST is part of our BIZ suite which constructs the bridge that
-              connects your idea and dream to the global market...
+              BEST constructs the bridge that connects your idea and dream to
+              the global market.
             </p>
           </div>
         </div>
@@ -67,15 +68,15 @@ const BizToolbox = () => {
             <div className="absolute -left-4 top-1/2 -translate-y-1/2 h-8 w-8 bg-gray-900 border-2 border-green-500 rotate-45 z-10"></div>
             <ul className="space-y-2 text-sm md:text-base relative z-10">
               <li className="font-semibold hover:text-green-600 transition duration-300">
-                Diagnostics and Health Check
+                Business Health Assessment
               </li>
-              <li>Client Raving</li>
-              <li>Business Model Canvas</li>
-              <li>Continuous Innovation</li>
-              <li>Entrepreneurship & Training</li>
+              <li> Growth Readiness Diagnosis </li>
+              <li>Business Model Design</li>
+              <li>Entrepreneurial Leadership Development</li>
+              <li>HR Services</li>
+              <li>Marketing Development</li>
+              <li>Demand Acceleration</li>
               <li>Strategy</li>
-              <li>Hr Services</li>
-              <li>E-accounting</li>
             </ul>
           </div>
 
@@ -84,12 +85,12 @@ const BizToolbox = () => {
             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-orange-400/30 to-transparent opacity-0 group-hover:opacity-20 transition duration-700 blur-lg pointer-events-none z-0"></div>
             <div className="absolute -left-4 top-1/2 -translate-y-1/2 h-8 w-8 bg-gray-900 border-2 border-orange-500 rotate-45 z-10"></div>
             <ul className="space-y-2 text-sm md:text-base relative z-10">
-              <li>Credit sourcing</li>
-              <li>Digitalization</li>
-              <li>Export</li>
-              <li>Executive Attachment</li>
-              <li>Brand Building</li>
-              <li>Export Syndication</li>
+              <li>E-Accounting</li>
+              <li>Growth Financing and Credit Access</li>
+              <li>Digital Integration</li>
+              <li>Executive Immersion & Momentorship </li>
+              <li>E-commerce</li>
+              <li>Export Acceleration</li>
             </ul>
           </div>
 
@@ -98,12 +99,13 @@ const BizToolbox = () => {
             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-400/30 to-transparent opacity-0 group-hover:opacity-20 transition duration-700 blur-lg pointer-events-none z-0"></div>
             <div className="absolute -left-4 top-1/2 -translate-y-1/2 h-8 w-8 bg-gray-900 border-2 border-blue-500 rotate-45 z-10"></div>
             <ul className="space-y-2 text-sm md:text-base relative z-10">
-              <li>Digitalize for competitiveness</li>
-              <li>Finance Syndication</li>
-              <li>E-client relations</li>
-              <li>Scaling</li>
-              <li>Ecommerce</li>
+              <li>Opportunities' Discovery</li>
+              <li>Develop state-of-the-art services</li>
+              <li>Set up robust financial, operational and control systems</li>
+              <li>Innovate and re-position for sustainable margins</li>
+              <li>Connect to, and harness diverse talents</li>
               <li>Scale and make the solution globally accessible</li>
+              <li>Discover new opportunities</li>
             </ul>
           </div>
         </div>

@@ -91,9 +91,15 @@ const BizHeader = () => {
             </p>
 
             <p className="text-base md:text-lg text-center md:text-left max-w-2xl hover:text-gray-400 transition duration-300">
-              The BIZ suite of services empowers organizations to attract a
+              The BIZ suite empowers organizations to attract and manage a
               continuous stream of clients and excel as best practices, thriving
               on a culture of innovation, management, and sustainability.
+            </p>
+            <p>
+              We reveal uncommon opportunities and grow you to dominate the
+              competition. We adopt technology to transform organizations using
+              customized Management Solutions, Innovation Consulting, Strategy,
+              Process Improvement and Talent Development.
             </p>
 
             {/* Read More Section
