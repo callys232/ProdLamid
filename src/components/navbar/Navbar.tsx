@@ -25,6 +25,7 @@ const serviceItems: ServiceItem[] = [
   { name: "Sustainable Development",   short: "SD",        href: "/sustainableDev", logo: "/sdLogo.png",     text: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/25",dot: "bg-emerald-400" },
   { name: "Portal",                    short: "Portal",    href: "/portal",         logo: "/portalLogo.png", text: "text-red-500",     bg: "bg-red-500/10",     border: "border-red-500/25",    dot: "bg-red-500"     },
   { name: "Portfolio",                 short: "Portfolio", href: "/portfolio",      logo: undefined,         text: "text-gray-400",    bg: "bg-white/5",        border: "border-white/10",      dot: "bg-gray-400"    },
+  { name: "Events",                    short: "Events",    href: "/events",         logo: undefined,         text: "text-yellow-400",  bg: "bg-yellow-500/10",  border: "border-yellow-500/25", dot: "bg-yellow-400"  },
 ];
 
 /* ---------------- Notification Hook ---------------- */
@@ -248,31 +249,24 @@ const Navbar: React.FC = () => {
                   >
                     {/* Top accent line */}
                     <div className="h-px w-full bg-gradient-to-r from-[#c21219]/40 via-white/10 to-transparent" />
-                    <div className="py-2">
+                    <div className="grid grid-cols-3 gap-1 p-3">
                       {serviceItems.map((item, idx) => (
                         <Link
                           key={item.name}
                           href={item.href}
                           ref={(el) => { desktopServiceRefs.current[idx] = el; }}
                           onClick={() => setServicesOpen(false)}
-                          className="group flex items-center gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-white/[0.04]"
+                          className="group flex flex-col items-center gap-1.5 p-2.5 rounded-xl transition-colors duration-150 hover:bg-white/[0.06] text-center"
                         >
-                          {/* Logo or fallback dot */}
-                          <div className={`shrink-0 w-7 h-7 rounded-lg flex items-center justify-center overflow-hidden ${item.bg} ${item.border} border`}>
+                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden ${item.bg} ${item.border} border`}>
                             {item.logo
-                              ? <Image src={item.logo} alt={item.short} width={20} height={20} className="object-contain" />
-                              : <span className={`h-1.5 w-1.5 rounded-full ${item.dot}`} />
+                              ? <Image src={item.logo} alt={item.short} width={22} height={22} className="object-contain" />
+                              : <span className={`h-2 w-2 rounded-full ${item.dot}`} />
                             }
                           </div>
-                          {/* Name */}
-                          <div className="min-w-0">
-                            <p className={`text-[13px] font-semibold leading-tight truncate transition-colors duration-150 ${item.text}`}>
-                              {item.short}
-                            </p>
-                            <p className="text-[10px] text-gray-500 leading-tight truncate group-hover:text-gray-400 transition-colors duration-150">
-                              {item.name}
-                            </p>
-                          </div>
+                          <p className={`text-[10px] font-semibold leading-tight ${item.text}`}>
+                            {item.short}
+                          </p>
                         </Link>
                       ))}
                     </div>
@@ -353,23 +347,25 @@ const Navbar: React.FC = () => {
                       exit={{ opacity: 0, height: 0 }}
                       className="mt-1 space-y-0.5 overflow-hidden"
                     >
-                      {serviceItems.map((item, idx) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          ref={(el) => { mobileServiceRefs.current[idx] = el; }}
-                          onClick={() => { setServicesOpen(false); setIsOpen(false); }}
-                          className="flex items-center gap-2.5 py-2 px-2 rounded-lg hover:bg-white/[0.04] transition-colors"
-                        >
-                          <div className={`shrink-0 w-6 h-6 rounded-md flex items-center justify-center ${item.bg} ${item.border} border`}>
-                            {item.logo
-                              ? <Image src={item.logo} alt={item.short} width={16} height={16} className="object-contain" />
-                              : <span className={`h-1.5 w-1.5 rounded-full ${item.dot}`} />
-                            }
-                          </div>
-                          <span className={`text-sm font-semibold ${item.text}`}>{item.short}</span>
-                        </Link>
-                      ))}
+                      <div className="grid grid-cols-3 gap-1 pt-1">
+                        {serviceItems.map((item, idx) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            ref={(el) => { mobileServiceRefs.current[idx] = el; }}
+                            onClick={() => { setServicesOpen(false); setIsOpen(false); }}
+                            className="group flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-white/[0.06] transition-colors text-center"
+                          >
+                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${item.bg} ${item.border} border`}>
+                              {item.logo
+                                ? <Image src={item.logo} alt={item.short} width={18} height={18} className="object-contain" />
+                                : <span className={`h-1.5 w-1.5 rounded-full ${item.dot}`} />
+                              }
+                            </div>
+                            <span className={`text-[10px] font-semibold leading-tight ${item.text}`}>{item.short}</span>
+                          </Link>
+                        ))}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -386,6 +382,11 @@ const Navbar: React.FC = () => {
               >
                 CONTACT US
               </Link>
+
+              {/* Tools peek */}
+              <div className="pt-1">
+                <PeekView />
+              </div>
 
               {/* Account Mobile */}
               <div className="pt-2 relative inline-block">

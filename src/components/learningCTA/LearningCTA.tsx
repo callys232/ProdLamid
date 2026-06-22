@@ -7,25 +7,25 @@ const LEARNING_URL = "https://learn-by-lamid.vercel.app/";
 
 export interface LearningCTAProps {
   /** Small eyebrow label above the headline */
-  eyebrow?:   string;
+  eyebrow?: string;
   /** Primary headline — plain text part */
-  headline?:  string;
+  headline?: string;
   /** Amber-highlighted continuation of the headline */
   highlight?: string;
   /** Supporting body copy */
-  body?:      string;
+  body?: string;
   /** CTA button label */
-  btnLabel?:  string;
+  btnLabel?: string;
   /** Extra class(es) on the outer element, e.g. "mb-8" */
   className?: string;
 }
 
 export default function LearningCTA({
-  eyebrow   = "🎓 Lamid Learning Platform",
-  headline  = "Build smarter teams.",
-  highlight = "Grow stronger businesses.",
-  body      = "Practical HCD-backed courses in Leadership, Sales, Strategy & more — designed to sharpen the people who drive your business forward.",
-  btnLabel  = "Start Learning Free",
+  eyebrow = "🎓 Lamid Learning Platform",
+  headline = "Build smarter teams.",
+  highlight = "Grow stronger Organization.",
+  body = "Practical HCD-backed courses in Leadership, Sales, Strategy & more — designed to sharpen the people who drive your business forward.",
+  btnLabel = "Start Learning Free",
   className = "",
 }: LearningCTAProps) {
   return (
@@ -47,7 +47,7 @@ export default function LearningCTA({
           "radial-gradient(ellipse at 88% 40%, rgba(109,40,217,0.22) 0%, transparent 52%)",
           "rgb(5, 2, 1)",
         ].join(", "),
-        border:    "1px solid rgba(249,115,22,0.48)",
+        border: "1px solid rgba(249,115,22,0.48)",
         boxShadow: [
           "0 0 56px rgba(234,88,12,0.14)",
           "0 0 56px rgba(109,40,217,0.07)",
@@ -87,10 +87,7 @@ export default function LearningCTA({
           {eyebrow}
         </p>
         <h3 className="text-lg sm:text-xl font-extrabold text-white leading-snug">
-          {headline}{" "}
-          {highlight && (
-            <span className="text-amber-400">{highlight}</span>
-          )}
+          {headline}{" "}<span className="text-amber-400 whitespace-nowrap">{highlight}</span>
         </h3>
         <p className="mt-1.5 text-xs text-orange-200/65 leading-relaxed">
           {body}
@@ -100,7 +97,9 @@ export default function LearningCTA({
       {/* ── CTA button ── */}
       <div className="relative z-20 flex-shrink-0">
         <motion.span
-          variants={{ hover: { scale: 1.06, boxShadow: "0 0 38px rgba(249,115,22,0.8)" } }}
+          variants={{
+            hover: { scale: 1.06, boxShadow: "0 0 38px rgba(249,115,22,0.8)" },
+          }}
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full
                      text-sm font-extrabold text-white whitespace-nowrap
                      bg-gradient-to-r from-amber-500 via-orange-500 to-orange-700
@@ -116,7 +115,11 @@ export default function LearningCTA({
             stroke="currentColor"
             strokeWidth={2.5}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
           </svg>
         </motion.span>
 

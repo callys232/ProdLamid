@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SignupModal from "@/forms/signUp";
+import AdvisorModal from "@/components/AdvisorModal";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   fadeInUp,
-  fadeInDown,
   fadeIn,
   staggerContainer,
 } from "@/utils/motionVaraints";
@@ -28,6 +28,7 @@ interface NetworkEvent {
 const BusinessGrowthSection: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<NetworkEvent | null>(null);
   const [showSignupModal, setShowSignupModal] = useState<boolean>(false);
+  const [advisorOpen, setAdvisorOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
@@ -118,54 +119,29 @@ const BusinessGrowthSection: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Top section */}
-        <motion.div
-          className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6"
+        {/* ASK AN ADVISOR */}
+        <motion.button
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={staggerContainer}
+          variants={fadeInUp}
+          onClick={() => setAdvisorOpen(true)}
+          className="group w-full text-center rounded-2xl p-6 mb-12 space-y-4 bg-white/5 border border-white/10 hover:border-orange-500/40 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
         >
-          <motion.div
-            className="w-full md:w-1/3 transform hover:scale-105 transition duration-300"
-            variants={fadeInDown}
-          >
-            <div className="relative h-44 w-full">
-              <Image
-                src="/biz-business-growth-chart.png"
-                alt="Business Growth Chart"
-                fill
-                className="object-contain rounded"
-              />
-            </div>
-          </motion.div>
-
-          <motion.div className="w-full md:w-2/3" variants={fadeInUp}>
-            <p className="text-lg mb-6 hover:text-gray-300 transition duration-300">
-              Network{" "}
-              <span className="font-bold underline hover:text-orange-500 text-blue-500">
-                to ignite
-              </span>{" "}
-              growth and massive results.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/event"
-                className="inline-block bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition duration-300"
-              >
-                {" "}
-                Learn More{" "}
-              </Link>{" "}
-              <Link
-                href="/contact"
-                className="inline-block bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition duration-300"
-              >
-                {" "}
-                Get Started{" "}
-              </Link>
-            </div>
-          </motion.div>
-        </motion.div>
+          <h3 className="text-lg font-semibold text-white group-hover:text-orange-400 transition">
+            ASK AN ADVISOR FOR DIAGNOSTICS
+          </h3>
+          <div className="flex justify-center">
+            <Image
+              src="/help-note.png"
+              alt="We can help you"
+              width={200}
+              height={150}
+              className="rounded hover:scale-105 transition-transform"
+            />
+          </div>
+          <p className="text-sm text-gray-400 group-hover:text-gray-300 transition">We can help you</p>
+        </motion.button>
 
         {/* EVENTS heading */}
         <motion.div
@@ -308,6 +284,11 @@ const BusinessGrowthSection: React.FC = () => {
         isOpen={showSignupModal}
         onClose={() => setShowSignupModal(false)}
         event={selectedEvent}
+      />
+
+      <AdvisorModal
+        isOpen={advisorOpen}
+        onClose={() => setAdvisorOpen(false)}
       />
     </div>
   );

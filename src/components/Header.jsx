@@ -79,9 +79,8 @@ export default function Header() {
           </div>
 
           {/* Paragraph */}
-          <p className="mt-6 md:mt-10 text-slate-300 text-sm sm:text-base md:text-lg font-light tracking-wide max-w-lg mx-auto md:mx-0 px-2 leading-7 md:leading-8">
-            LAMID unifies strategy, performance, systems, and seamless work into
-            one Human and AI-assisted, marketplace-driven, enterprise grade ecosystem.
+          <p className="mt-6 md:mt-10 text-slate-300 text-sm sm:text-base md:text-lg font-light tracking-wide max-w-lg md:max-w-3xl mx-auto md:mx-0 px-2 leading-7 md:leading-8" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+            LAMID unifies strategy, systems, seamless work, and performance into one Human and AI-assisted, marketplace-driven, enterprise grade ecosystem.
           </p>
 
           {/* CTA Buttons */}
@@ -133,8 +132,8 @@ export default function Header() {
           <EcosystemTag className="md:justify-start" />
         </div>
 
-        {/* ── Right — Serv cards (desktop only) ── */}
-        <div className="hidden md:flex md:w-1/3 justify-end items-center z-10">
+        {/* ── Right — Serv cards ── */}
+        <div className="flex w-full md:w-1/3 justify-center md:justify-end items-center z-10 pb-10 md:pb-0">
           <Serv />
         </div>
       </header>

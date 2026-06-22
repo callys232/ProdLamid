@@ -7,7 +7,6 @@ import { Typewriter } from "react-simple-typewriter";
 
 const BizHeader = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -65,9 +64,9 @@ const BizHeader = () => {
               >
                 <h1
                   className="
-    text-3xl md:text-4xl 
-    font-bold text-blue-500 
-    border-r-2 border-white 
+    text-3xl md:text-4xl
+    font-bold text-blue-500
+    border-r-2 border-white
     whitespace-normal md:whitespace-nowrap   /* ✅ allow wrapping on small, prevent on md+ */
     overflow-hidden max-w-full
   "

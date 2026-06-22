@@ -13,9 +13,10 @@ const BizPage = () => {
   return (
     <div>
       <BizHeader />
+      <BizToolbox />
       <BizBestSection />
       <BizAccessCards />
-      <BizToolbox />
+
       {/* <BusinessServicesGrid /> */}
       <BusinessPrototypes />
       <BizPhere />

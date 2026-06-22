@@ -333,31 +333,23 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
             {/* ── Unified slide panel ── */}
             <div>
               {/* ================= TRAINING ================= */}
-              <section className={homepage ? "p-6" : "mb-20"}>
-                {/* Top row: image + text */}
-                <div className="flex flex-col md:flex-row gap-8 items-start mb-8">
-                  {/* ── Training illustration ── */}
-                  <div className="w-full md:w-2/5 flex-shrink-0">
-                    <div className="relative">
-                      {/* Ambient glow */}
-                      <div className="absolute -inset-3 rounded-2xl bg-gradient-to-br from-orange-500/20 via-blue-900/10 to-transparent blur-2xl pointer-events-none" />
-
-                      {/* Image */}
-                      <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                        <Image
-                          src="/hcd-training-illustration.png"
-                          alt="International new-age training session"
-                          width={860}
-                          height={460}
-                          className="w-full h-auto"
-                          priority
-                        />
-                      </div>
-                    </div>
+              <section className={homepage ? "p-4" : "mb-12"}>
+                <div className="flex flex-col md:flex-row gap-8 items-center mb-6">
+                  {/* Illustration */}
+                  <div className="w-full md:w-44 flex-shrink-0 rounded-xl overflow-hidden shadow-lg">
+                    <Image
+                      src="/hcd-training-illustration.png"
+                      alt="International new-age training session"
+                      width={860}
+                      height={460}
+                      className="w-full h-auto"
+                      priority
+                    />
                   </div>
 
-                  <div className="w-full md:w-3/5 flex flex-col gap-4">
-                    <h2 className="text-3xl font-extrabold text-orange-500">
+                  {/* Text & CTAs */}
+                  <div className="flex-1 flex flex-col gap-4">
+                    <h2 className="text-2xl font-extrabold text-orange-500">
                       Training
                     </h2>
 
@@ -374,7 +366,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                       back to the workplace, using hands-on methodologies.
                     </p>
 
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
                       <button
                         type="button"
                         onClick={() => {

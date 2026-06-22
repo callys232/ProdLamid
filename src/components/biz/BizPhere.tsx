@@ -1,18 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Zap } from "lucide-react";
-import BizSphereModal from "../BizSphereModal";
-import AdvisorModal from "../AdvisorModal";
 import BizPhereStickman from "./BizPhereStickman";
 import styles from "./BizPhere.module.css";
 
 const BizPhere: React.FC = () => {
-  const [notifyOpen, setNotifyOpen] = useState(false);
-  const [advisorOpen, setAdvisorOpen] = useState(false);
-
   return (
     <section className="relative bg-black text-white py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
       {/* Ambient glow */}
@@ -86,63 +81,46 @@ const BizPhere: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* coming soon — reverted to button */}
-          <motion.button
+          {/* Network growth — moved from BusinessGrowthSection */}
+          <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              stiffness: 220,
-              damping: 24,
-              delay: 0.08,
-            }}
-            onClick={() => setNotifyOpen(true)}
-            className={`group relative self-start inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white overflow-hidden transition-all duration-300 hover:scale-105 ${styles.notifyBtn}`}
+            transition={{ type: "spring", stiffness: 220, damping: 24, delay: 0.08 }}
+            className={`relative rounded-2xl p-6 sm:p-8 overflow-hidden space-y-5 ${styles.descCard}`}
           >
-            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none" />
-            <span className="relative">Join the Community - coming soon!</span>
-          </motion.button>
-
-          {/* ASK AN ADVISOR — original layout, bigger image, opens modal */}
-          <motion.button
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              stiffness: 220,
-              damping: 24,
-              delay: 0.14,
-            }}
-            onClick={() => setAdvisorOpen(true)}
-            className={`group w-full text-center rounded-2xl p-6 space-y-4 transition-all duration-300 hover:scale-[1.02] cursor-pointer ${styles.advisorSection}`}
-          >
-            <h3 className="text-lg font-semibold text-white group-hover:text-orange-400 transition">
-              ASK AN ADVISOR FOR DIAGNOSTICS
-            </h3>
-            <div className="flex justify-center">
+            <div className="relative h-44 w-full">
               <Image
-                src="/help-note.png"
-                alt="We can help you"
-                width={200}
-                height={150}
-                className="rounded hover:scale-105 transition-transform"
+                src="/biz-business-growth-chart.png"
+                alt="Business Growth Chart"
+                fill
+                className="object-contain rounded"
               />
             </div>
-          </motion.button>
+            <p className="text-lg hover:text-gray-300 transition">
+              Network{" "}
+              <span className="font-bold underline hover:text-orange-500 text-blue-400">
+                to ignite
+              </span>{" "}
+              growth and massive results.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="/event"
+                className="inline-block bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition text-sm font-semibold"
+              >
+                Learn More
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-block bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition text-sm font-semibold"
+              >
+                Get Started
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      {/* ── Modals — separate reusable external components ── */}
-      <BizSphereModal
-        isOpen={notifyOpen}
-        onClose={() => setNotifyOpen(false)}
-      />
-      <AdvisorModal
-        isOpen={advisorOpen}
-        onClose={() => setAdvisorOpen(false)}
-      />
     </section>
   );
 };

@@ -43,15 +43,15 @@ function Bullet({ Icon, text, delay, accent }) {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ delay, type: "spring", stiffness: 260, damping: 22 }}
-      className="flex items-start gap-3 group"
+      className="flex items-start gap-2 group"
     >
       <span
-        className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center mt-0.5"
+        className="shrink-0 w-5 h-5 rounded-md flex items-center justify-center mt-0.5"
         style={{ backgroundColor: `${accent}25`, border: `1px solid ${accent}50` }}
       >
-        <Icon className="h-3.5 w-3.5" style={{ color: accent }} />
+        <Icon className="h-3 w-3" style={{ color: accent }} />
       </span>
-      <p className="text-sm sm:text-base leading-relaxed text-white/85 group-hover:text-white transition-colors duration-200">
+      <p className="text-xs leading-relaxed text-white/80 group-hover:text-white transition-colors duration-200">
         {text}
       </p>
     </motion.li>
@@ -60,7 +60,7 @@ function Bullet({ Icon, text, delay, accent }) {
 
 const BizAccessCards = () => {
   return (
-    <section className="relative bg-black py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
+    <section className="relative bg-black py-8 px-4 md:px-8 lg:px-16 overflow-hidden">
 
       {/* Global ambient glow */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -108,22 +108,36 @@ const BizAccessCards = () => {
             <div className="absolute -bottom-8 -left-8 w-36 h-36 rounded-full bg-red-900/40 blur-2xl" />
           </div>
 
+          {/* Live sweep glow */}
+          <motion.div
+            className="absolute top-0 left-0 h-px z-10 pointer-events-none"
+            style={{ background: "linear-gradient(90deg, transparent, #fca5a5, transparent)" }}
+            animate={{ width: ["0%", "100%", "0%"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* Pulsing ambient orb */}
+          <motion.div
+            className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-rose-500/20 blur-2xl pointer-events-none"
+            animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.45, 0.2] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+
           {/* Card content */}
-          <div className="relative z-10 p-8 sm:p-10 flex flex-col gap-7">
+          <div className="relative z-10 p-5 sm:p-6 flex flex-col gap-4">
             {/* Header */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <motion.div
                 whileHover={{ rotate: 8, scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 16 }}
-                className="w-11 h-11 rounded-xl flex items-center justify-center bg-white/15 border border-white/25"
+                className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/15 border border-white/25 shrink-0"
               >
-                <TrendingUp className="h-5 w-5 text-white" />
+                <TrendingUp className="h-4 w-4 text-white" />
               </motion.div>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-rose-300">
+                <span className="text-[9px] font-bold uppercase tracking-widest text-rose-300">
                   Business Innovation Zone
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                <h2 className="text-base sm:text-lg font-black text-white leading-tight">
                   BIZ for Market Access
                 </h2>
               </div>
@@ -133,14 +147,14 @@ const BizAccessCards = () => {
             <div className="h-px bg-gradient-to-r from-white/30 via-white/10 to-transparent" />
 
             {/* Bullets */}
-            <ul className="space-y-5">
+            <ul className="space-y-3">
               {MARKET_BULLETS.map((b, i) => (
                 <Bullet key={i} {...b} delay={0.08 + i * 0.1} accent="#fca5a5" />
               ))}
             </ul>
 
             {/* Bottom accent bar */}
-            <div className="h-0.5 w-20 rounded-full bg-gradient-to-r from-white/50 to-transparent mt-2" />
+            <div className="h-0.5 w-14 rounded-full bg-gradient-to-r from-white/50 to-transparent" />
           </div>
         </motion.div>
 
@@ -192,22 +206,36 @@ const BizAccessCards = () => {
             />
           </div>
 
+          {/* Live sweep glow */}
+          <motion.div
+            className="absolute top-0 left-0 h-px z-10 pointer-events-none"
+            style={{ background: "linear-gradient(90deg, transparent, #93c5fd, transparent)" }}
+            animate={{ width: ["0%", "100%", "0%"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          />
+          {/* Pulsing ambient orb */}
+          <motion.div
+            className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-blue-500/15 blur-2xl pointer-events-none"
+            animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.4, 0.15] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+          />
+
           {/* Card content */}
-          <div className="relative z-10 p-8 sm:p-10 flex flex-col gap-7">
+          <div className="relative z-10 p-5 sm:p-6 flex flex-col gap-4">
             {/* Header */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <motion.div
                 whileHover={{ rotate: 8, scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 16 }}
-                className="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-500/20 border border-blue-400/35"
+                className="w-8 h-8 rounded-lg flex items-center justify-center bg-blue-500/20 border border-blue-400/35 shrink-0"
               >
-                <Landmark className="h-5 w-5 text-blue-300" />
+                <Landmark className="h-4 w-4 text-blue-300" />
               </motion.div>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-blue-300">
+                <span className="text-[9px] font-bold uppercase tracking-widest text-blue-300">
                   Business Innovation Zone
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                <h2 className="text-base sm:text-lg font-black text-white leading-tight">
                   BIZ for Finance Access
                 </h2>
               </div>
@@ -217,14 +245,14 @@ const BizAccessCards = () => {
             <div className="h-px bg-gradient-to-r from-blue-400/30 via-blue-400/10 to-transparent" />
 
             {/* Bullets */}
-            <ul className="space-y-5">
+            <ul className="space-y-3">
               {FINANCE_BULLETS.map((b, i) => (
                 <Bullet key={i} {...b} delay={0.1 + i * 0.12} accent="#93c5fd" />
               ))}
             </ul>
 
             {/* Bottom accent bar */}
-            <div className="h-0.5 w-20 rounded-full bg-gradient-to-r from-blue-400/50 to-transparent mt-2" />
+            <div className="h-0.5 w-14 rounded-full bg-gradient-to-r from-blue-400/50 to-transparent" />
           </div>
         </motion.div>
 
