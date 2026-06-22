@@ -60,7 +60,15 @@ const BusinessInnovationZone = () => {
             </div>
           </motion.div>
         </Link>
-
+        <motion.p
+          className="text-sm md:text-base italic text-center mt-2 mb-6 cursor-default select-none"
+          animate={{ color: ["#ffffff", "#9ca3af", "#ffffff"] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          whileHover={{ scale: 1.02, color: "#ffffff" }}
+        >
+          We help Organizations continously innovate around the client and adapt
+          to the digital age for efficiency and competitiveness.
+        </motion.p>
         {/* BEST Section */}
         <motion.div {...fadeUp(0.2)} className="mb-4">
           <div className="rounded-2xl border border-amber-500/50 bg-amber-900/10 p-5 flex flex-col md:flex-row justify-between items-center gap-4 hover:bg-amber-900/20 transition duration-300">
@@ -110,7 +118,10 @@ const BusinessInnovationZone = () => {
         </motion.div>
 
         {/* Startup Ecosystem Board */}
-        <motion.div {...fadeUp(0.3)} className="mb-4 rounded-2xl overflow-hidden border border-white/10">
+        <motion.div
+          {...fadeUp(0.3)}
+          className="mb-4 rounded-2xl overflow-hidden border border-white/10"
+        >
           <StartupEcosystemBoard />
         </motion.div>
 
