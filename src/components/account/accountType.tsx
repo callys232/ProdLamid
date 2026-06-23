@@ -5,27 +5,40 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import {
-  Shield, ShieldCheck, Mail, ArrowRight,
-  Loader2, CheckCircle2, X,
+  Shield,
+  ShieldCheck,
+  Mail,
+  ArrowRight,
+  Loader2,
+  CheckCircle2,
+  X,
 } from "lucide-react";
 
 /* ─── 2FA Setup Modal ───────────────────────────────────────────── */
-function TwoFASetup({ onDone, onSkip }: { onDone: () => void; onSkip: () => void }) {
-  const [step, setStep]       = useState<"prompt" | "code" | "success">("prompt");
-  const [code, setCode]       = useState("");
+function TwoFASetup({
+  onDone,
+  onSkip,
+}: {
+  onDone: () => void;
+  onSkip: () => void;
+}) {
+  const [step, setStep] = useState<"prompt" | "code" | "success">("prompt");
+  const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function sendCode() {
     setLoading(true);
     try {
       const res = await fetch("/api/auth/2fa/enable", { method: "POST" });
-      const d   = await res.json();
+      const d = await res.json();
       if (!res.ok) throw new Error(d.message);
       toast.success("Code sent to your email");
       setStep("code");
     } catch (e: any) {
       toast.error(e.message ?? "Failed to send code");
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function verifyCode() {
@@ -43,12 +56,16 @@ function TwoFASetup({ onDone, onSkip }: { onDone: () => void; onSkip: () => void
       setTimeout(onDone, 1800);
     } catch (e: any) {
       toast.error(e.message ?? "Invalid code — try again");
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
     >
       <motion.div
@@ -65,12 +82,17 @@ function TwoFASetup({ onDone, onSkip }: { onDone: () => void; onSkip: () => void
               <Shield className="h-5 w-5 text-[#c12129]" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white">Secure Your Account</h3>
-              <p className="text-[11px] text-gray-500">Two-factor authentication</p>
+              <h3 className="text-sm font-bold text-white">
+                Secure Your Account
+              </h3>
+              <p className="text-[11px] text-gray-500">
+                Two-factor authentication
+              </p>
             </div>
           </div>
           <motion.button
-            whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1, rotate: 90 }}
+            whileTap={{ scale: 0.9 }}
             onClick={onSkip}
             className="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-400 hover:text-white transition"
           >
@@ -81,93 +103,144 @@ function TwoFASetup({ onDone, onSkip }: { onDone: () => void; onSkip: () => void
         {/* Body */}
         <div className="px-6 py-6">
           <AnimatePresence mode="wait" initial={false}>
-
             {step === "prompt" && (
-              <motion.div key="prompt"
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+              <motion.div
+                key="prompt"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 className="space-y-5"
               >
                 <div className="rounded-xl border border-[#c12129]/20 bg-[#c12129]/5 px-4 py-4">
-                  <p className="text-sm font-semibold text-white mb-1">We strongly recommend enabling 2FA</p>
+                  <p className="text-sm font-semibold text-white mb-1">
+                    We strongly recommend enabling 2FA
+                  </p>
                   <p className="text-xs text-gray-400 leading-relaxed">
-                    A one-time code is sent to your email each time you sign in — an extra layer of protection at no cost.
+                    A one-time code is sent to your email each time you sign in
+                    — an extra layer of protection at no cost.
                   </p>
                 </div>
                 <div className="flex flex-col gap-3">
                   <motion.button
-                    whileHover={{ scale: 1.02, boxShadow: "0 6px 20px rgba(193,33,41,0.35)" }}
+                    whileHover={{
+                      scale: 1.02,
+                      boxShadow: "0 6px 20px rgba(193,33,41,0.35)",
+                    }}
                     whileTap={{ scale: 0.97 }}
                     disabled={loading}
                     onClick={sendCode}
                     className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#c12129] py-3 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
                   >
-                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                    {loading ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Mail className="h-4 w-4" />
+                    )}
                     {loading ? "Sending code…" : "Enable 2FA — Send Code"}
                   </motion.button>
-                  <button onClick={onSkip} className="text-sm text-gray-500 hover:text-gray-300 transition py-2 text-center">
-                    Skip for now — I'll enable it in Settings
+                  <button
+                    onClick={onSkip}
+                    className="text-sm text-gray-500 hover:text-gray-300 transition py-2 text-center"
+                  >
+                    Skip for now — I&apos;ll enable it in Settings
                   </button>
                 </div>
               </motion.div>
             )}
 
             {step === "code" && (
-              <motion.div key="code"
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+              <motion.div
+                key="code"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 className="space-y-5"
               >
                 <div className="text-center">
                   <div className="flex h-14 w-14 mx-auto items-center justify-center rounded-2xl bg-[#c12129]/15 border border-[#c12129]/25 mb-3">
                     <Mail className="h-6 w-6 text-[#c12129]" />
                   </div>
-                  <p className="text-sm font-semibold text-white">Check your email</p>
-                  <p className="text-xs text-gray-500 mt-1">Enter the 6-digit code we sent you</p>
+                  <p className="text-sm font-semibold text-white">
+                    Check your email
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Enter the 6-digit code we sent you
+                  </p>
                 </div>
                 <input
                   type="text"
                   inputMode="numeric"
                   maxLength={6}
                   value={code}
-                  onChange={e => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                  onChange={(e) =>
+                    setCode(e.target.value.replace(/\D/g, "").slice(0, 6))
+                  }
                   placeholder="000000"
                   className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-center text-2xl font-mono tracking-[0.4em] text-white placeholder-gray-700 focus:outline-none focus:border-[#c12129]/60 transition"
                 />
                 <motion.button
-                  whileHover={{ scale: 1.02, boxShadow: "0 6px 20px rgba(193,33,41,0.35)" }}
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 6px 20px rgba(193,33,41,0.35)",
+                  }}
                   whileTap={{ scale: 0.97 }}
                   disabled={loading || code.length !== 6}
                   onClick={verifyCode}
                   className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#c12129] py-3 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
                 >
-                  {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
+                  {loading ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <ShieldCheck className="h-4 w-4" />
+                  )}
                   {loading ? "Verifying…" : "Verify & Enable 2FA"}
                 </motion.button>
                 <div className="flex items-center justify-between">
-                  <button onClick={() => setStep("prompt")} className="text-xs text-gray-500 hover:text-gray-300 transition">← Back</button>
-                  <button onClick={sendCode} disabled={loading} className="text-xs text-gray-500 hover:text-gray-300 transition disabled:opacity-50">Resend code</button>
+                  <button
+                    onClick={() => setStep("prompt")}
+                    className="text-xs text-gray-500 hover:text-gray-300 transition"
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={sendCode}
+                    disabled={loading}
+                    className="text-xs text-gray-500 hover:text-gray-300 transition disabled:opacity-50"
+                  >
+                    Resend code
+                  </button>
                 </div>
               </motion.div>
             )}
 
             {step === "success" && (
-              <motion.div key="success"
-                initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center gap-4 py-4 text-center"
               >
                 <motion.div
-                  initial={{ scale: 0 }} animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 18,
+                    delay: 0.1,
+                  }}
                   className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/30"
                 >
                   <CheckCircle2 className="h-8 w-8 text-emerald-400" />
                 </motion.div>
                 <div>
                   <p className="text-base font-bold text-white">2FA Enabled!</p>
-                  <p className="text-sm text-gray-400 mt-1">Your account is now protected. Taking you to your dashboard…</p>
+                  <p className="text-sm text-gray-400 mt-1">
+                    Your account is now protected. Taking you to your dashboard…
+                  </p>
                 </div>
               </motion.div>
             )}
-
           </AnimatePresence>
         </div>
       </motion.div>
@@ -177,32 +250,61 @@ function TwoFASetup({ onDone, onSkip }: { onDone: () => void; onSkip: () => void
 
 /* ─── Account type cards ────────────────────────────────────────── */
 const TYPES = [
-  { value: "Freelancer", label: "Freelancer", accent: "#c12129", badge: null as string | null,
-    desc: "Consultants seeking projects. Create invoices, track payments, and showcase your services to potential clients." },
-  { value: "Client",     label: "Client",     accent: "#c12129", badge: null,
-    desc: "Organisations hiring consultants. Post jobs, manage contracts, and securely pay for completed work." },
-  { value: "Enterprise", label: "Enterprise", accent: "#c12129", badge: "New",
-    desc: "Large organisations with multi-user workspaces. Up to 50 members, dedicated dashboard, escrow management, and analytics." },
-  { value: "Concierge",  label: "Concierge",  accent: "#eab308", badge: "Admin Approval Required",
-    desc: "For government agencies, large NGOs and corporations. Dedicated PM, custom dashboards, and 24/7 priority support. Reviewed within 24 hours — no payment required now." },
+  {
+    value: "Freelancer",
+    label: "Freelancer",
+    accent: "#c12129",
+    badge: null as string | null,
+    desc: "Consultants seeking projects. Create invoices, track payments, and showcase your services to potential clients.",
+  },
+  {
+    value: "Client",
+    label: "Client",
+    accent: "#c12129",
+    badge: null,
+    desc: "Organisations hiring consultants. Post jobs, manage contracts, and securely pay for completed work.",
+  },
+  {
+    value: "Enterprise",
+    label: "Enterprise",
+    accent: "#c12129",
+    badge: "New",
+    desc: "Large organisations with multi-user workspaces. Up to 50 members, dedicated dashboard, escrow management, and analytics.",
+  },
+  {
+    value: "Concierge",
+    label: "Concierge",
+    accent: "#eab308",
+    badge: "Admin Approval Required",
+    desc: "For government agencies, large NGOs and corporations. Dedicated PM, custom dashboards, and 24/7 priority support. Reviewed within 24 hours — no payment required now.",
+  },
 ];
 
 /* ─── Main component ─────────────────────────────────────────────── */
 export default function AccountTypePage() {
   const [accountType, setAccountType] = useState("");
-  const [loading, setLoading]         = useState(false);
-  const [show2FA, setShow2FA]         = useState(false);
-  const [redirectTo, setRedirectTo]   = useState("");
+  const [loading, setLoading] = useState(false);
+  const [show2FA, setShow2FA] = useState(false);
+  const [redirectTo, setRedirectTo] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!accountType) { toast.error("Please select an account type ❌"); return; }
+    if (!accountType) {
+      toast.error("Please select an account type ❌");
+      return;
+    }
 
     setLoading(true);
     try {
-      const raw = sessionStorage.getItem("signupData") ?? localStorage.getItem("signupData");
-      if (!raw) { toast.error("No signup data found. Please start over."); router.push("/signup"); return; }
+      const raw =
+        sessionStorage.getItem("signupData") ??
+        localStorage.getItem("signupData");
+      if (!raw) {
+        toast.error("No signup data found. Please start over.");
+        router.push("/signup");
+        return;
+      }
       const parsed = JSON.parse(raw);
 
       /* Concierge — request flow, no account created yet */
@@ -211,14 +313,16 @@ export default function AccountTypePage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name:         parsed.UserName,
-            email:        parsed.email,
+            name: parsed.UserName,
+            email: parsed.email,
             organisation: parsed.companyName ?? parsed.UserName,
           }),
         });
         const d = await res.json();
         if (!res.ok) throw new Error(d.message);
-        toast.success("Request submitted! Our team will contact you within 24 hours.");
+        toast.success(
+          "Request submitted! Our team will contact you within 24 hours.",
+        );
         sessionStorage.removeItem("signupData");
         localStorage.removeItem("signupData");
         router.push("/signup?concierge=pending");
@@ -226,25 +330,29 @@ export default function AccountTypePage() {
       }
 
       const role =
-        accountType === "Freelancer" ? "seller" :
-        accountType === "Enterprise" ? "client" : "client";
+        accountType === "Freelancer"
+          ? "seller"
+          : accountType === "Enterprise"
+            ? "client"
+            : "client";
 
       const res = await fetch("/api/auth/register", {
-        method:  "POST",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify({
-          name:     parsed.UserName,
-          email:    parsed.email,
+        body: JSON.stringify({
+          name: parsed.UserName,
+          email: parsed.email,
           password: parsed.password,
           role,
           ...(accountType === "Enterprise" && {
             isEnterprise: true,
-            companyName:  parsed.companyName ?? parsed.UserName,
+            companyName: parsed.companyName ?? parsed.UserName,
           }),
         }),
       });
       const result = await res.json();
-      if (!res.ok || !result.success) throw new Error(result.message ?? "Signup failed");
+      if (!res.ok || !result.success)
+        throw new Error(result.message ?? "Signup failed");
 
       toast.success("Account created successfully 🎉");
       // Token is set as HttpOnly cookie by the server — do not store in localStorage.
@@ -254,8 +362,11 @@ export default function AccountTypePage() {
       localStorage.removeItem("signupData");
 
       const dest =
-        accountType === "Enterprise" ? "/enterprise" :
-        role === "seller"            ? "/profile"    : "/client";
+        accountType === "Enterprise"
+          ? "/enterprise"
+          : role === "seller"
+            ? "/profile"
+            : "/client";
 
       setRedirectTo(dest);
       setShow2FA(true); // Offer 2FA before final redirect
@@ -270,55 +381,78 @@ export default function AccountTypePage() {
     <>
       <section className="min-h-screen flex items-center justify-center bg-black px-6 py-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
           className="max-w-3xl w-full bg-black border border-white/15 p-10 rounded-2xl shadow-2xl"
         >
-          <h2 className="text-3xl font-bold text-white mb-2 text-center">Choose Your Account Type</h2>
+          <h2 className="text-3xl font-bold text-white mb-2 text-center">
+            Choose Your Account Type
+          </h2>
           <p className="text-gray-400 mb-10 text-center text-sm">
-            Select the option that best describes how you'll use Lamid.
+            Select the option that best describes how you&apos;ll use Lamid.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {TYPES.map(t => (
-              <motion.label
-                key={t.value}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-                style={accountType === t.value ? { borderColor: `${t.accent}55`, backgroundColor: `${t.accent}10` } : {}}
-                className={`flex items-start gap-4 border rounded-xl p-5 cursor-pointer transition ${
-                  accountType === t.value ? "border-current" : "border-white/15 hover:border-white/30"
-                }`}
-              >
-                <input
-                  type="radio" name="accountType" value={t.value}
-                  checked={accountType === t.value}
-                  onChange={e => setAccountType(e.target.value)}
-                  className="mt-1" style={{ accentColor: t.accent }}
-                />
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <h3 className="text-base font-semibold" style={{ color: t.accent }}>{t.label}</h3>
-                    {t.badge && (
-                      <span className="rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-                        style={{ borderColor: `${t.accent}50`, color: t.accent, backgroundColor: `${t.accent}15` }}>
-                        {t.badge}
-                      </span>
-                    )}
+            {TYPES.map((t) => {
+              const accentClass =
+                t.value === "Concierge" ? "accent-yellow" : "accent-red";
+              return (
+                <motion.label
+                  key={t.value}
+                  htmlFor={`accountType-${t.value}`}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  className={`account-type-card flex items-start gap-4 border rounded-xl p-5 cursor-pointer transition ${accentClass} ${accountType === t.value ? "selected" : "border-white/15 hover:border-white/30"}`}
+                >
+                  <input
+                    id={`accountType-${t.value}`}
+                    type="radio"
+                    name="accountType"
+                    value={t.value}
+                    checked={accountType === t.value}
+                    onChange={(e) => setAccountType(e.target.value)}
+                    title={t.label}
+                    aria-label={t.label}
+                    className="mt-1"
+                  />
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <h3 className="text-base font-semibold account-type-title">
+                        {t.label}
+                      </h3>
+                      {t.badge && (
+                        <span className="account-type-badge rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
+                          {t.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {t.desc}
+                    </p>
                   </div>
-                  <p className="text-gray-400 text-sm leading-relaxed">{t.desc}</p>
-                </div>
-              </motion.label>
-            ))}
+                </motion.label>
+              );
+            })}
 
             <motion.button
-              whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(193,33,41,0.4)" }}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 8px 24px rgba(193,33,41,0.4)",
+              }}
               whileTap={{ scale: 0.97 }}
-              type="submit" disabled={loading || !accountType}
+              type="submit"
+              disabled={loading || !accountType}
               className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#c12129] to-[#8b1118] text-white font-semibold py-3.5 rounded-xl hover:opacity-90 transition disabled:opacity-50 mt-4 shadow-lg"
             >
-              {loading
-                ? <Loader2 className="h-5 w-5 animate-spin" />
-                : <><span>Continue</span><ArrowRight className="h-4 w-4" /></>}
+              {loading ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <>
+                  <span>Continue</span>
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
             </motion.button>
           </form>
         </motion.div>
@@ -328,11 +462,57 @@ export default function AccountTypePage() {
       <AnimatePresence>
         {show2FA && (
           <TwoFASetup
-            onDone={() => { setShow2FA(false); router.push(redirectTo); }}
-            onSkip={() => { setShow2FA(false); router.push(redirectTo); }}
+            onDone={() => {
+              setShow2FA(false);
+              router.push(redirectTo);
+            }}
+            onSkip={() => {
+              setShow2FA(false);
+              router.push(redirectTo);
+            }}
           />
         )}
       </AnimatePresence>
+      <style jsx>{`
+        .account-type-card {
+          --accent: #c12129;
+          --accent-bg: rgba(193, 33, 41, 0.06);
+          --badge-border: rgba(193, 33, 41, 0.31);
+          --badge-color: #c12129;
+          --badge-bg: rgba(193, 33, 41, 0.09);
+        }
+
+        .account-type-card.accent-yellow {
+          --accent: #eab308;
+          --accent-bg: rgba(234, 179, 8, 0.06);
+          --badge-border: rgba(234, 179, 8, 0.31);
+          --badge-color: #eab308;
+          --badge-bg: rgba(234, 179, 8, 0.09);
+        }
+
+        .account-type-card input[type="radio"] {
+          accent-color: var(--accent);
+        }
+
+        .account-type-card.selected {
+          border-color: var(--accent);
+          background-color: var(--accent-bg);
+        }
+
+        .account-type-card:not(.selected):hover {
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .account-type-title {
+          color: var(--accent);
+        }
+
+        .account-type-badge {
+          border-color: var(--badge-border);
+          color: var(--badge-color);
+          background-color: var(--badge-bg);
+        }
+      `}</style>
     </>
   );
 }
