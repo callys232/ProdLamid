@@ -239,6 +239,9 @@ const BENEFIT_GROUPS = [
 
 const ENTERPRISE_ONLY_TYPES = ["Enterprise", "Concierge", "Admin"];
 
+// Pages anyone can visit without an account
+const PUBLIC_HREFS = ["/biz", "/hcd", "/talent", "/jobs", "/sustainableDev", "/concierge", "/pricing", "/contact"];
+
 /* ── Auth-aware click handler ────────────────────────────────── */
 function useServiceRouter() {
   const { isAuthenticated, user } = useAuth();
@@ -249,7 +252,8 @@ function useServiceRouter() {
     tier: string | undefined,
     onClose: () => void,
   ) => {
-    if (!isAuthenticated) {
+    const isPublic = PUBLIC_HREFS.some((p) => href === p || href.startsWith(p + "/"));
+    if (!isAuthenticated && !isPublic) {
       const redirect = href.startsWith("http") ? "/portal" : href;
       router.push(`/auth/signup?redirect=${encodeURIComponent(redirect)}`);
       onClose();

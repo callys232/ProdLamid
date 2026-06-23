@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 const PORTALS = [
   {
@@ -60,10 +59,7 @@ const dots = [
 
 export default function EcosystemOverview() {
   const [hovered, setHovered] = useState<string | null>(null);
-  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
-
-  const dest = (href: string) => (!loading && isAuthenticated ? href : "/signup");
 
   return (
     <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
@@ -123,7 +119,7 @@ export default function EcosystemOverview() {
                 animate={{ y: isHov ? -6 : 0 }}
                 onHoverStart={() => setHovered(portal.id)}
                 onHoverEnd={() => setHovered(null)}
-                onClick={() => router.push(dest(portal.href))}
+                onClick={() => router.push(portal.href)}
                 className="group relative flex flex-col bg-white/[0.025] border rounded-2xl p-7 overflow-hidden transition-colors duration-300 cursor-pointer"
                 style={{ borderColor: isHov ? `${portal.accentColor}55` : "rgba(255,255,255,0.08)" }}
               >
@@ -173,7 +169,7 @@ export default function EcosystemOverview() {
                 </p>
 
                 <Link
-                  href={dest(portal.href)}
+                  href={portal.href}
                   onClick={(e) => e.stopPropagation()}
                   className={`inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all w-fit ${portal.ctaCls}`}
                 >

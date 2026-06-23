@@ -101,9 +101,31 @@ export default function HowItWorks() {
           <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
             How It Works
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
-            Human Insight +{" "}
-            <span className="text-[#C12129]">Advanced AI.</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug overflow-hidden">
+            {["Human", "Insight", "+"].map((word, i) => (
+              <motion.span
+                key={word}
+                className="inline-block mr-[0.3em]"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {word}
+              </motion.span>
+            ))}
+            {["Advanced", "AI."].map((word, i) => (
+              <motion.span
+                key={word}
+                className="inline-block mr-[0.3em] text-[#C12129]"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: 0.4 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {word}
+              </motion.span>
+            ))}
           </h2>
           <p className="mt-3 text-white/75 text-sm max-w-lg mx-auto">
             AIVORA combines the depth of human expertise with the speed and precision of advanced AI — across every stage.
