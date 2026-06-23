@@ -40,7 +40,7 @@ export default function HumanCapitalDevelopment() {
         >
           <span className="relative z-10 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-            Upcoming HCD Events
+            Upcoming Events
           </span>
         </motion.button>
       </div>

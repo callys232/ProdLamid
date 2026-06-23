@@ -121,9 +121,18 @@ const SDI = () => {
 
           {/* Main content container */}
           <div className="relative z-10 flex flex-col px-4">
+
+            {/* Coming Soon ribbon */}
+            <div className="flex justify-center pt-6 pb-2">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-900/20 text-emerald-400 text-xs font-bold tracking-widest uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Coming Soon — Sustainability Consulting Portal
+              </span>
+            </div>
+
             {/* Header section — clicking navigates to the full SD page */}
             <Link href="/sustainableDev" className="block group cursor-pointer">
-              <div className="flex items-center justify-between w-full pt-8 pb-6 group-hover:opacity-90 transition-opacity duration-200">
+              <div className="flex items-center justify-between w-full pt-4 pb-6 group-hover:opacity-90 transition-opacity duration-200">
                 <div className="flex items-center">
                   {/* Left globe */}
                   <div className="w-1/4 max-w-[140px] flex items-center justify-center">
@@ -133,8 +142,8 @@ const SDI = () => {
                   {/* Center text content */}
                   <div className="text-center mx-4">
                     <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                      <span className="text-emerald-400">S</span>ustainable
-                      <span className="text-emerald-400"> D</span>evelopment
+                      <span className="text-emerald-400">S</span>ustainability
+                      <span className="text-emerald-400"> C</span>onsulting
                     </h1>
 
                     <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm">

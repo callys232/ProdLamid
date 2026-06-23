@@ -207,10 +207,10 @@ export default function SaasPricingSection() {
           Pricing
         </span>
         <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-5">
-          One platform, every role
+          Flexible Plans for Every Stage of Growth.
         </h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Points drive every action. Start free, buy more as you grow, or unlock Premium for monthly refills and full AI access.
+          Whether you're a growing SME or a global enterprise, AIVORA scales with you. No contracts. No surprises. Cancel anytime.
         </p>
       </div>
 

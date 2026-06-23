@@ -118,7 +118,7 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
       className="space-y-4 text-white max-w-2xl mx-auto p-6 bg-black bg-opacity-80 rounded-xl backdrop-blur-md"
     >
       <h2 className="text-3xl font-bold text-orange-500 mb-6">
-        HCD Training Registration
+        Talent Development Training Registration
       </h2>
 
       {user && (

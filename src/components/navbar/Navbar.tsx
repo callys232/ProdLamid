@@ -21,7 +21,7 @@ interface ServiceItem {
 
 const serviceItems: ServiceItem[] = [
   { name: "Business Innovation Zone", short: "BIZ",       href: "/biz",            logo: "/bizLogo.png",    text: "text-blue-400",    bg: "bg-blue-500/10",    border: "border-blue-500/25",   dot: "bg-blue-400"    },
-  { name: "Human Capital Development", short: "HCD",       href: "/hcd",            logo: "/hcdLogo.png",    text: "text-orange-400",  bg: "bg-orange-500/10",  border: "border-orange-500/25", dot: "bg-orange-400"  },
+  { name: "Talent Development",         short: "TD",        href: "/hcd",            logo: "/hcdLogo.png",    text: "text-orange-400",  bg: "bg-orange-500/10",  border: "border-orange-500/25", dot: "bg-orange-400"  },
   { name: "Sustainable Development",   short: "SD",        href: "/sustainableDev", logo: "/sdLogo.png",     text: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/25",dot: "bg-emerald-400" },
   { name: "Portal",                    short: "Portal",    href: "/portal",         logo: "/portalLogo.png", text: "text-red-500",     bg: "bg-red-500/10",     border: "border-red-500/25",    dot: "bg-red-500"     },
   { name: "Portfolio",                 short: "Portfolio", href: "/portfolio",      logo: undefined,         text: "text-gray-400",    bg: "bg-white/5",        border: "border-white/10",      dot: "bg-gray-400"    },

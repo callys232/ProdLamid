@@ -23,7 +23,7 @@ export default function EcosystemLedger() {
     {
       color: "#F97316",
       label: "Orange",
-      title: "Human Capital Development (HCD)",
+      title: "Talent Development (TD)",
       tagline: "Empowering people and skills",
       Icon: (props: { className?: string }) => (
         <svg

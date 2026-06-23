@@ -226,16 +226,16 @@ const RecruitmentForm: React.FC<RecruitmentFormProps> = ({
   return (
     <>
       <Head>
-        <title>HCD Recruitment Registration</title>
+        <title>Talent Development Recruitment</title>
       </Head>
 
       <form
         onSubmit={handleSubmit}
         className="space-y-4 text-white max-w-2xl mx-auto p-6 bg-black bg-opacity-80 rounded-xl backdrop-blur-md"
-        aria-label="HCD Recruitment Registration Form"
+        aria-label="Talent Development Recruitment Form"
       >
         <h2 className="text-3xl font-bold text-orange-500 mb-6">
-          HCD Recruitment Registration
+          Talent Development Recruitment
         </h2>
 
         <ProgressBar progress={progress} />

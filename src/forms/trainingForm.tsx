@@ -151,7 +151,7 @@ const TrainingForm: React.FC<TrainingFormProps> = ({ closeModal }) => {
           <GraduationCap className="w-5 h-5 text-orange-400" />
         </div>
         <div>
-          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-orange-400/80">Lamid HCD</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-orange-400/80">AIVORA TD</p>
           <h2 className="text-lg font-extrabold text-white leading-tight">Training Registration</h2>
           <p className="text-xs text-gray-500 mt-0.5">Reserve your slot in our next cohort</p>
         </div>

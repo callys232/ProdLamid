@@ -33,10 +33,10 @@ export default function HeaderSection() {
             transition={{ duration: 0.6 }}
             className="text-3xl md:text-4xl font-extrabold tracking-wide bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 bg-clip-text text-transparent animate-gradientMove drop-shadow-lg"
           >
-            Human Capital Development
+            Talent Development
           </motion.h1>
           <p className="mt-3 text-sm md:text-base text-gray-300 leading-relaxed">
-            Attracting and Growing World-class Talent
+            Build the Organization That Builds the Future.
           </p>
           <Link
             href="/hcd/recruitment"

@@ -15,7 +15,7 @@ Lamid is a Human and AI-assisted consulting marketplace with three layers:
 
 LAYER 1 — Legacy Service Portals:
 - BIZ / BEST Portal (/biz): SME & startup empowerment — business launch, growth strategy, innovation, sustainability.
-- HCD Portal (/hcd): Human Capital Development — leadership training, recruitment, capacity building.
+- TD Portal (/hcd): Talent Development — AI-personalized learning, leadership training, recruitment, capability building.
 - SDC Portal (/sustainableDev): Sustainable Development Consulting — community transformation, NGO consulting.
 
 LAYER 2 — Public Consulting Marketplace (/jobs):

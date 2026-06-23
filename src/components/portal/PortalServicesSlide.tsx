@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { useAuth } from "@/hooks/useAuth";
 
 interface PortalService {
   id: string;
@@ -161,6 +162,10 @@ const cardAnim: Variants = {
 const PortalServicesSlide: React.FC = () => {
   const [active, setActive] = useState<PortalService | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [showAccountTypes, setShowAccountTypes] = useState(false);
+  const [hoveredAccountType, setHoveredAccountType] = useState<string | null>(null);
+  const { isAuthenticated, loading } = useAuth();
+  const dest = (href: string) => (!loading && isAuthenticated ? href : "/signup");
 
   return (
     <section className="relative bg-black text-white overflow-hidden py-16 px-4">
@@ -259,15 +264,14 @@ const PortalServicesSlide: React.FC = () => {
           className="mb-10"
         >
           <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
-            The LAMID Portal
+            The AIVORA Portal
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug mb-3">
-            One Platform.{" "}
+            One Ecosystem.{" "}
             <span className="text-[#C12129]">Every Way to Work.</span>
           </h2>
           <p className="text-white/55 text-sm sm:text-base leading-relaxed max-w-lg">
-            From finding the right consultant to securing payment and scaling
-            your team — the LAMID Portal is where work gets done.
+            Find experts, manage projects, and deliver results — with trusted expertise and advanced AI, all in one place.
           </p>
 
           {/* Divider */}
@@ -286,19 +290,20 @@ const PortalServicesSlide: React.FC = () => {
             href="/pricing"
             className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors"
           >
-            View Tier Pricing
+            Flexible Plans →
           </Link>
-          <Link
-            href="/account-type"
+          <button
+            type="button"
+            onClick={() => setShowAccountTypes(true)}
             className="px-5 py-2.5 rounded-full text-xs font-semibold border border-white/20 text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
           >
             Account Types
-          </Link>
+          </button>
           <Link
             href="/talent"
             className="px-5 py-2.5 rounded-full text-xs font-semibold border border-white/20 text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
           >
-            Find Consultants →
+            Browse Consultants →
           </Link>
         </motion.div>
 
@@ -478,7 +483,7 @@ const PortalServicesSlide: React.FC = () => {
 
                 <div className="flex gap-2.5">
                   <Link
-                    href={active.href}
+                    href={dest(active.href)}
                     onClick={() => setActive(null)}
                     className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition hover:opacity-90"
                     style={{ background: active.accent }}
@@ -488,6 +493,153 @@ const PortalServicesSlide: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActive(null)}
+                    className="px-4 py-2.5 rounded-lg text-sm font-semibold border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Account Types Modal ── */}
+      <AnimatePresence>
+        {showAccountTypes && (
+          <motion.div
+            key="at-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm px-4"
+            onClick={() => setShowAccountTypes(false)}
+          >
+            <motion.div
+              key="at-panel"
+              initial={{ scale: 0.88, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 10 }}
+              transition={{ type: "spring", stiffness: 180, damping: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative bg-[#0d0d0d] border border-white/10 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden"
+            >
+              <div className="h-[3px] w-full bg-gradient-to-r from-[#C12129] to-transparent" />
+
+              <div className="p-7">
+                <button
+                  type="button"
+                  onClick={() => setShowAccountTypes(false)}
+                  className="absolute top-5 right-5 text-white/30 hover:text-white transition text-lg leading-none"
+                >
+                  ✕
+                </button>
+
+                <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-1">
+                  Choose Your Path
+                </p>
+                <h3 className="text-lg font-bold text-white mb-1">Account Types</h3>
+                <p className="text-white/50 text-xs mb-6">
+                  Each account type unlocks a different set of tools, dashboards, and capabilities.
+                </p>
+
+                <div className="h-px bg-white/8 mb-5" />
+
+                <div className="space-y-3 mb-6">
+                  {[
+                    { type: "Client",     icon: "▣", iconCls: "text-[#C12129]",  barCls: "bg-[#C12129]",  glowCls: "bg-[#C12129]",  sweepCls: "from-[#C12129]",  hoverBorderCls: "border-[#C12129]/50",  badge: "",               badgeCls: "",                                desc: "Post projects, browse vetted consultants, manage delivery, and track milestones with escrow-backed payments." },
+                    { type: "Freelancer", icon: "◈", iconCls: "text-blue-400",   barCls: "bg-blue-500",   glowCls: "bg-blue-500",   sweepCls: "from-blue-500",   hoverBorderCls: "border-blue-500/50",   badge: "",               badgeCls: "",                                desc: "Build your consultant profile, get AI-matched to projects, deliver work inside the platform, and build your reputation." },
+                    { type: "Enterprise", icon: "⬡", iconCls: "text-violet-400", barCls: "bg-violet-500", glowCls: "bg-violet-500", sweepCls: "from-violet-500", hoverBorderCls: "border-violet-500/50", badge: "New",            badgeCls: "bg-violet-500/20 text-violet-400", desc: "Manage multiple projects, build internal teams, access advanced dashboards, and integrate with your existing systems." },
+                    { type: "Concierge",  icon: "✦", iconCls: "text-amber-400",  barCls: "bg-amber-500",  glowCls: "bg-amber-500",  sweepCls: "from-amber-500",  hoverBorderCls: "border-amber-500/50",  badge: "Admin Approval", badgeCls: "bg-amber-500/20 text-amber-400",   desc: "High-touch, white-glove service for government agencies, UN bodies, large NGOs, and corporations. Dedicated project managers included." },
+                  ].map((item, i) => {
+                    const isAtHov = hoveredAccountType === item.type;
+                    return (
+                      <motion.div
+                        key={item.type}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0, y: isAtHov ? -3 : 0 }}
+                        transition={{ delay: 0.06 + i * 0.07, y: { type: "spring", stiffness: 280, damping: 20 } }}
+                        onHoverStart={() => setHoveredAccountType(item.type)}
+                        onHoverEnd={() => setHoveredAccountType(null)}
+                        className={`relative flex items-start gap-3 bg-white/[0.025] border rounded-xl px-4 py-4 overflow-hidden cursor-pointer transition-colors duration-200 hover:bg-white/[0.05] ${isAtHov ? item.hoverBorderCls : "border-white/8"}`}
+                      >
+                        {/* Left accent bar */}
+                        <motion.div
+                          className={`absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl ${item.barCls}`}
+                          initial={{ scaleY: 0, originY: 0 }}
+                          animate={{ scaleY: isAtHov ? 1 : 0 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                        />
+
+                        {/* Glow blob */}
+                        <motion.div
+                          className={`absolute -top-6 -right-6 w-20 h-20 rounded-full blur-2xl pointer-events-none ${item.glowCls}`}
+                          animate={{ opacity: isAtHov ? 0.12 : 0 }}
+                          transition={{ duration: 0.28 }}
+                        />
+
+                        {/* Bottom sweep */}
+                        <motion.div
+                          className={`absolute bottom-0 left-0 h-[2px] rounded-b-xl bg-gradient-to-r ${item.sweepCls} to-transparent`}
+                          animate={{ width: isAtHov ? "100%" : "0%" }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                        />
+
+                        {/* Icon */}
+                        <motion.span
+                          className={`text-xl shrink-0 mt-0.5 ${item.iconCls}`}
+                          animate={{ scale: isAtHov ? 1.22 : 1, rotate: isAtHov ? 8 : 0 }}
+                          transition={{ type: "spring", stiffness: 280, damping: 18 }}
+                        >
+                          {item.icon}
+                        </motion.span>
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-sm font-bold text-white">{item.type}</span>
+                            {item.badge && (
+                              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${item.badgeCls}`}>
+                                {item.badge}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-white/70 text-xs leading-relaxed">{item.desc}</p>
+
+                          {/* Hover hint */}
+                          <motion.span
+                            className={`text-[10px] font-semibold mt-1.5 block ${item.iconCls}`}
+                            animate={{ opacity: isAtHov ? 1 : 0, y: isAtHov ? 0 : 4 }}
+                            transition={{ duration: 0.15 }}
+                          >
+                            {!loading && isAuthenticated ? `Continue as ${item.type} →` : `Sign up as ${item.type} →`}
+                          </motion.span>
+                        </div>
+
+                        {/* Arrow */}
+                        <motion.span
+                          className={`shrink-0 self-center text-xs ${item.iconCls}`}
+                          animate={{ opacity: isAtHov ? 1 : 0, x: isAtHov ? 0 : -5 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          →
+                        </motion.span>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                <div className="flex gap-2.5">
+                  <Link
+                    href={dest("/account-type")}
+                    onClick={() => setShowAccountTypes(false)}
+                    className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition"
+                  >
+                    {!loading && isAuthenticated ? "Manage Account" : "Get Started Free"}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setShowAccountTypes(false)}
                     className="px-4 py-2.5 rounded-lg text-sm font-semibold border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition"
                   >
                     Close

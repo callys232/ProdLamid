@@ -133,7 +133,7 @@ const HcdEvent: React.FC<HcdEventProps> = ({ isOpen, onClose }) => {
               {/* Events Grid */}
               <section>
                 <h3 className="text-center text-2xl font-bold text-orange-500 mb-10">
-                  Upcoming HCD Events
+                  Upcoming Talent Development Events
                 </h3>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">

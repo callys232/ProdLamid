@@ -58,16 +58,16 @@ const HcdHeader: React.FC = () => {
       <Head>
         <meta
           name="description"
-          content="Discover how our Human Capital Development strategy attracts and grows visionary leaders to drive innovation and client success."
+          content="AIVORA Talent Development — AI-personalized learning, expert coaching, and globally recognized certifications for professionals and organizations."
         />
         <meta
           name="keywords"
-          content="Human Capital, Talent Development, Leadership, Innovation, Recruitment, Workforce"
+          content="Talent Development, Leadership, AI Coaching, Recruitment, Workforce, Capability Building, LMS"
         />
-        <meta name="lamid" content="Lamid Consulting" />
+        <meta name="aivora" content="AIVORA — Smarter. Faster. Accessible." />
         <meta
           property="og:title"
-          content="Human Capital Development | Attracting World-Class Talent"
+          content="Talent Development | Build the Organization That Builds the Future"
         />
         <meta
           property="og:description"
@@ -104,19 +104,17 @@ const HcdHeader: React.FC = () => {
             >
               <motion.div className="w-full lg:w-3/5" variants={fadeInDown}>
                 <h1 className="animate-pulse text-orange-500 drop-shadow-md text-2xl sm:text-3xl md:text-4xl mb-2">
-                  Human Capital Development
+                  Talent Development
                 </h1>
 
                 <div className="bg-black border border-gray-800 py-2 px-4 inline-block mb-2 md:mb-4">
                   <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-white animate-glitchPulse [animation-delay:0.6s]">
-                    Attracting and Growing World-Class Talent
+                    Build the Organization That Builds the Future.
                   </h2>
                 </div>
 
                 <p className="text-white text-xs sm:text-sm md:text-base max-w-2xl mb-4">
-                  We recruit and build visionary leaders and talents with a
-                  singular purpose — to create continuous innovation and
-                  disruption for client advantage.
+                  AI-personalized learning, expert coaching, and globally recognized certifications — designed for professionals who move fast and organizations that think ahead.
                 </p>
 
                 <div className="flex flex-wrap gap-3 mb-6 md:mb-10">
@@ -127,7 +125,7 @@ const HcdHeader: React.FC = () => {
                                hover:from-orange-600 hover:to-orange-800 text-white transition
                                focus:outline-none focus:ring-2 focus:ring-orange-400"
                   >
-                    Browse Open Roles →
+                    Start Your Assessment →
                   </Link>
                   <Link
                     href="/hcd/recruitment"
@@ -136,7 +134,7 @@ const HcdHeader: React.FC = () => {
                                hover:bg-orange-500/10 hover:border-orange-400 transition
                                focus:outline-none focus:ring-2 focus:ring-orange-400/30"
                   >
-                    Post a Role →
+                    Explore Programs →
                   </Link>
                 </div>
               </motion.div>
@@ -158,7 +156,7 @@ const HcdHeader: React.FC = () => {
                   />
                 </motion.div>
                 <h2 className="text-3xl md:text-4xl font-bold text-orange-500">
-                  HCD
+                  TD
                 </h2>
               </motion.div>
             </motion.div>

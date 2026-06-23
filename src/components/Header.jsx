@@ -80,7 +80,7 @@ export default function Header() {
 
           {/* Paragraph */}
           <p className="mt-6 md:mt-10 text-slate-300 text-sm sm:text-base md:text-lg font-light tracking-wide max-w-lg md:max-w-3xl mx-auto md:mx-0 px-2 leading-7 md:leading-8" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-            LAMID unifies strategy, systems, seamless work, and performance into one Human and AI-assisted, marketplace-driven, enterprise grade ecosystem.
+            AIVORA blends trusted expertise with advanced AI to deliver smarter, faster, accessible solutions for organizations seeking clarity and growth.
           </p>
 
           {/* CTA Buttons */}
@@ -123,7 +123,7 @@ export default function Header() {
             >
               {/* Fill overlay on hover */}
               <span className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-red-800 via-red-600 to-rose-500 pointer-events-none" />
-              <span className="relative z-10">Explore Services</span>
+              <span className="relative z-10">Explore the Platform</span>
               <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>

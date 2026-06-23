@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 
 const CAPABILITIES = [
   { title: "Process Transformation",  desc: "Redesign workflows to eliminate friction and unlock speed.",        label: "BEST",       icon: "/rocket-icon.png",       href: "/biz",                       hex: "#3b82f6" },
-  { title: "Talent Sourcing",         desc: "Connect with vetted experts matched precisely to your needs.",      label: "HCD",        icon: "/people-icon.png",       href: "/hcd/recruitment",           hex: "#f59e0b" },
+  { title: "Talent Sourcing",         desc: "Connect with vetted experts matched precisely to your needs.",      label: "TD",        icon: "/people-icon.png",       href: "/hcd/recruitment",           hex: "#f59e0b" },
   { title: "Sustainable Development", desc: "Build long-term impact through responsible growth frameworks.",     label: "SD",         icon: "/sustainable-icon.png",  href: "/sustainableDev",            hex: "#10b981" },
-  { title: "HR, Training & Support",  desc: "Develop people, build capability, and future-proof your teams.",   label: "HCD",        icon: "/human-capital-icon.png",href: "/hcd",                       hex: "#f97316" },
+  { title: "HR, Training & Support",  desc: "Develop people, build capability, and future-proof your teams.",   label: "TD",        icon: "/human-capital-icon.png",href: "/hcd",                       hex: "#f97316" },
   { title: "Digital Transformation",  desc: "Modernize systems and operations with intelligent technology.",     label: "BEST",       icon: "/chart-icon.png",        href: "/biz",                       hex: "#6366f1" },
   { title: "Innovation Consulting",   desc: "Turn ideas into market-ready solutions with guided strategy.",      label: "Enterprise", icon: "/rocket-icon.png",       href: "/enterprise",                hex: "#8b5cf6" },
   { title: "Management Solutions",    desc: "Strengthen leadership, governance, and operational performance.",   label: "SD",         icon: "/rocket-icon.png",       href: "/sustainableDev",            hex: "#059669" },

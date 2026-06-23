@@ -13,7 +13,7 @@ const Header = () => {
           {/* Right side - Content */}
           <div className="w-full md:w-2/3 flex items-center">
             <p className="text-sm md:text-base lg:text-lg leading-relaxed">
-              For over three decades, we’ve worked globally across industries, factories, communities, and boardrooms. We’ve seen the gaps. We’ve seen the potential and we’ve built an ecosystem that bridges both.Today, LAMID stands as a unified platform where technology, talent, and enterprise impact converge.
+              For over three decades, we have worked globally across industries, communities, and boardrooms. We have seen the gaps. We have seen the potential — and we built AIVORA to bridge both. A unified ecosystem where trusted expertise and advanced AI work together to deliver consulting, training, and business growth in one seamless digital environment.
             </p>
           </div>
         </div>

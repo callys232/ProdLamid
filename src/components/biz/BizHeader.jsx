@@ -84,21 +84,15 @@ const BizHeader = () => {
               </div>
             </div>
 
-            <p className="text-lg md:text-xl text-center md:text-left max-w-2xl hover:text-gray-300 transition duration-300">
-              The one-stop place that rapidly nurtures and expands startups to
-              deliver exceptional value and become world-class organizations
+            <p className="text-lg md:text-xl text-center md:text-left max-w-2xl hover:text-gray-300 transition duration-300 font-semibold">
+              Clarity at the Speed of Decision.
             </p>
 
             <p className="text-base md:text-lg text-center md:text-left max-w-2xl hover:text-gray-400 transition duration-300">
-              The BIZ suite empowers organizations to attract and manage a
-              continuous stream of clients and excel as best practices, thriving
-              on a culture of innovation, management, and sustainability.
+              Tools, diagnostics, and guidance powered by trusted expertise and advanced AI. Designed for SMEs, startups, and entrepreneurs who need clarity, structure, and momentum.
             </p>
-            <p>
-              We reveal uncommon opportunities and grow you to dominate the
-              competition. We adopt technology to transform organizations using
-              customized Management Solutions, Innovation Consulting, Strategy,
-              Process Improvement and Talent Development.
+            <p className="text-sm md:text-base text-center md:text-left max-w-2xl text-gray-400">
+              We reveal uncommon opportunities and grow organizations to dominate their competition — through Management Solutions, Innovation Consulting, Strategy, Process Improvement, and digital transformation.
             </p>
 
             {/* Read More Section

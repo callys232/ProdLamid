@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import RecruitmentDashboard from "@/components/recruitment/RecruitmentDashboard";
 
 export const metadata = {
-  title:       "Recruitment Hub | Lamid HCD",
-  description: "Explore open roles and manage your hiring pipeline — powered by Lamid Human Capital Development.",
+  title:       "Recruitment Hub | AIVORA Talent Development",
+  description: "Explore open roles and manage your hiring pipeline — powered by AIVORA Talent Development.",
 };
 
 export default function RecruitmentPage() {

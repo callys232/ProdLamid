@@ -17,7 +17,7 @@ const FREE_TOOLS = [
     icon: "⚡",
     accent: "#b45309",
     title: "Business Diagnostic",
-    desc: "AI-powered health check for your business — free, instant results.",
+    desc: "AI-powered health check across 7 business dimensions — free, instant results.",
     href: "/premium/business-diagnostic",
   },
   {
@@ -33,7 +33,7 @@ const FREE_TOOLS = [
     icon: "◈",
     accent: "#C12129",
     title: "Browse Consultants",
-    desc: "Search LAMID's verified talent marketplace across every industry.",
+    desc: "Search AIVORA's verified talent marketplace across every industry.",
     href: "/talent",
   },
   {
@@ -49,7 +49,7 @@ const FREE_TOOLS = [
     icon: "✦",
     accent: "#7c3aed",
     title: "Events & Training",
-    desc: "Browse upcoming HCD events, workshops, and training programs.",
+    desc: "Browse upcoming Talent Development events, workshops, and training programs.",
     href: "/events",
   },
   {
@@ -57,8 +57,41 @@ const FREE_TOOLS = [
     icon: "⬟",
     accent: "#16a34a",
     title: "Sustainability Hub",
-    desc: "Community advancement tools and development resources.",
+    desc: "Community advancement tools and sustainable development resources.",
     href: "/sustainableDev",
+  },
+  {
+    id: "estimator",
+    icon: "▣",
+    accent: "#eab308",
+    title: "Budget Estimator",
+    desc: "AI-assisted project cost & timeline estimator — plan before you post.",
+    href: "/postjobs?tool=estimator",
+  },
+  {
+    id: "learning",
+    icon: "⬡",
+    accent: "#ea580c",
+    title: "Learning Platform",
+    desc: "Training, workshops, and certifications via the AIVORA Learning hub.",
+    href: "https://learn-by-lamid.vercel.app/",
+    external: true,
+  },
+  {
+    id: "biz",
+    icon: "◈",
+    accent: "#4f46e5",
+    title: "BIZ Portal",
+    desc: "Startup toolkits, growth diagnostics, and innovation coaching resources.",
+    href: "/biz",
+  },
+  {
+    id: "hcd",
+    icon: "⬟",
+    accent: "#f97316",
+    title: "Talent Development",
+    desc: "Recruitment, capability building, and leadership development programs.",
+    href: "/hcd",
   },
 ];
 
@@ -236,7 +269,7 @@ const BusinessInnovationZone = () => {
               exit={{ scale: 0.92, opacity: 0, y: 10 }}
               transition={{ type: "spring", stiffness: 200, damping: 22 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden"
+              className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden"
             >
               {/* Red top accent */}
               <div className="h-[3px] bg-gradient-to-r from-[#C12129] to-transparent" />
@@ -281,6 +314,8 @@ const BusinessInnovationZone = () => {
                       <motion.div key={tool.id} variants={toolCard}>
                         <Link
                           href={dest}
+                          target={tool.external && isAuthenticated ? "_blank" : undefined}
+                          rel={tool.external && isAuthenticated ? "noopener noreferrer" : undefined}
                           onClick={() => setShowFreeTools(false)}
                           onMouseEnter={() => setHoveredTool(tool.id)}
                           onMouseLeave={() => setHoveredTool(null)}
@@ -327,10 +362,17 @@ const BusinessInnovationZone = () => {
 
                           {/* Text */}
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-white leading-tight">
-                              {tool.title}
-                            </p>
-                            <p className="text-white/45 text-xs mt-0.5 leading-snug">
+                            <div className="flex items-center gap-1.5">
+                              <p className="text-sm font-semibold text-white leading-tight">
+                                {tool.title}
+                              </p>
+                              {tool.external && (
+                                <span className="text-[8px] font-bold px-1 py-0.5 rounded bg-white/10 text-white/40 tracking-wide">
+                                  ↗ EXT
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-white/75 text-xs mt-0.5 leading-snug">
                               {tool.desc}
                             </p>
                             {!isAuthenticated && !loading && (

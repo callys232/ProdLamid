@@ -24,7 +24,7 @@ export default function LearningCTA({
   eyebrow = "🎓 Lamid Learning Platform",
   headline = "Build smarter teams.",
   highlight = "Grow stronger Organization.",
-  body = "Practical HCD-backed courses in Leadership, Sales, Strategy & more — designed to sharpen the people who drive your business forward.",
+  body = "Practical Talent Development courses in Leadership, Sales, Strategy & more — designed to sharpen the people who drive your business forward.",
   btnLabel = "Start Learning Free",
   className = "",
 }: LearningCTAProps) {

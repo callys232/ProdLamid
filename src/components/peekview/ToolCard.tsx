@@ -92,7 +92,7 @@ export const TOOLS: Tool[] = [
     href:          "https://learn-by-lamid.vercel.app/",
     accent:        "orange",
     accentHex:     "#f97316",
-    badge:         "HCD",
+    badge:         "TD",
     badgeColor:    "bg-orange-500/20 text-orange-400",
     external:      true,
   },

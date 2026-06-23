@@ -53,7 +53,7 @@ export default function EcosystemTag({ className = "" }: { className?: string })
             style={{ backgroundColor: "#c21219" }}
           />
           <span className="eco-text text-xs sm:text-sm font-semibold tracking-wide">
-            One Ecosystem. Every Layer of Impact
+            AIVORA — Smarter. Faster. Accessible.
           </span>
         </span>
       </motion.div>
