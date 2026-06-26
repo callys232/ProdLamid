@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 const TILES = [
   { icon: "◈", iconCls: "text-[#C12129]",  accentColor: "#C12129", authHref: "/talent",   title: "Integrated by Design",             body: "Consulting, intelligence, and talent development don't exist in silos on AIVORA — they're connected, reinforcing each other at every stage of your growth journey." },
@@ -29,9 +28,7 @@ const dots = [
 
 export default function WhyAivora() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
-  const dest = (href: string) => (!loading && isAuthenticated ? href : "/signup");
 
   return (
     <section className="relative aivora-section py-16 px-4 overflow-hidden">
@@ -91,7 +88,7 @@ export default function WhyAivora() {
                 onHoverEnd={() => setHovered(null)}
                 className="relative aivora-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
                 style={{ borderColor: isHov ? `${tile.accentColor}55` : undefined }}
-                onClick={() => router.push(dest(tile.authHref))}
+                onClick={() => router.push(tile.authHref)}
               >
                 {/* Glow */}
                 <motion.div
@@ -123,7 +120,7 @@ export default function WhyAivora() {
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >
-                  {!loading && isAuthenticated ? "Open →" : "Sign up →"}
+                  Open →
                 </motion.span>
               </motion.div>
             );

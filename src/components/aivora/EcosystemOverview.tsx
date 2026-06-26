@@ -101,8 +101,11 @@ export default function EcosystemOverview() {
             One Platform.{" "}
             <span className="text-[#C12129]">Three Powerful Portals.</span>
           </h2>
-          <p className="mt-3 text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+          <h3 className="mt-2 text-lg sm:text-xl font-semibold text-gray-900 dark:text-white leading-snug">
             Everything your organization needs to grow — in one place.
+          </h3>
+          <p className="mt-3 text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            AIVORA integrates expert consulting, AI-powered intelligence, and talent development into a single, living ecosystem that evolves with you.
           </p>
         </motion.div>
 

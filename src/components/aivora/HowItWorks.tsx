@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 const STEPS = [
   {
@@ -52,7 +51,6 @@ const dots = [
 
 export default function HowItWorks() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
 
   return (
@@ -121,7 +119,7 @@ export default function HowItWorks() {
             <button
               key={tool.label}
               type="button"
-              onClick={() => router.push(!loading && isAuthenticated ? tool.href : "/signup")}
+              onClick={() => router.push(tool.href)}
               className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium border border-white/10 dark:border-white/10 border-gray-200 text-gray-600 dark:text-white/60 hover:border-[#C12129]/50 hover:text-[#C12129] transition-colors duration-200"
             >
               <span>{tool.icon}</span>
@@ -144,7 +142,7 @@ export default function HowItWorks() {
                 onHoverStart={() => setHovered(i)}
                 onHoverEnd={() => setHovered(null)}
                 animate={{ y: isHov ? -6 : 0 }}
-                onClick={() => router.push(!loading && isAuthenticated ? step.authHref : "/signup")}
+                onClick={() => router.push(step.authHref)}
                 className="relative flex flex-col items-center text-center cursor-pointer group rounded-2xl p-5 overflow-hidden border transition-colors duration-300"
                 style={{
                   borderColor: isHov ? `${step.accentHex}55` : "rgba(255,255,255,0.08)",
@@ -208,7 +206,7 @@ export default function HowItWorks() {
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >
-                  {!loading && isAuthenticated ? "Open →" : "Sign up →"}
+                  Open →
                 </motion.span>
               </motion.button>
             );
@@ -225,7 +223,7 @@ export default function HowItWorks() {
           <p className="text-gray-600 dark:text-white/60 text-sm">Ready to begin?</p>
           <button
             type="button"
-            onClick={() => router.push(!loading && isAuthenticated ? "/premium/business-diagnostic" : "/signup")}
+            onClick={() => router.push("/premium/business-diagnostic")}
             className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white overflow-hidden
               bg-[#C12129] hover:bg-[#a01a20] transition-colors duration-300
               shadow-[0_0_18px_rgba(193,33,41,0.4)] hover:shadow-[0_0_28px_rgba(193,33,41,0.7)]"

@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import ProofStrip from "@/components/aivora/ProofStrip";
 import AivoraGap from "@/components/aivora/AivoraGap";
 import EcosystemOverview from "@/components/aivora/EcosystemOverview";
+import HomepageQuickActions from "@/components/aivora/HomepageQuickActions";
 import HowItWorks from "@/components/aivora/HowItWorks";
 import WhyAivora from "@/components/aivora/WhyAivora";
 import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
@@ -12,7 +13,7 @@ import "animate.css";
 
 export default function Home() {
   return (
-    <main className="bg-black">
+    <main className="aivora-section">
       {/* Hero */}
       <Header />
 
@@ -24,6 +25,9 @@ export default function Home() {
 
       {/* One platform, three portals */}
       <EcosystemOverview />
+
+      {/* Quick-access actions — free tools, diagnostics, build right */}
+      <HomepageQuickActions />
 
       {/* How it works — 5 steps */}
       <HowItWorks />

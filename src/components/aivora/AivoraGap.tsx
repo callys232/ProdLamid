@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 const STATS = [
   { value: "73%", label: "of SMEs report difficulty accessing affordable, high-quality consulting expertise", authHref: "/postjobs" },
@@ -27,9 +26,7 @@ const dots = [
 
 export default function AivoraGap() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
-  const dest = (href: string) => (!loading && isAuthenticated ? href : "/signup");
 
   return (
     <section className="relative aivora-section py-16 px-4 overflow-hidden">
@@ -94,7 +91,7 @@ export default function AivoraGap() {
                   onHoverStart={() => setHovered(i)}
                   onHoverEnd={() => setHovered(null)}
                   animate={{ y: isHov ? -3 : 0 }}
-                  onClick={() => router.push(dest(stat.authHref))}
+                  onClick={() => router.push(stat.authHref)}
                   className="relative flex items-start gap-5 aivora-card border rounded-xl p-5 overflow-hidden cursor-pointer"
                   style={{ borderColor: isHov ? "#C1212955" : undefined }}
                 >
@@ -119,7 +116,7 @@ export default function AivoraGap() {
                       animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                       transition={{ duration: 0.16 }}
                     >
-                      {!loading && isAuthenticated ? "Explore solution →" : "Sign up →"}
+                      Explore solution →
                     </motion.span>
                   </div>
                 </motion.div>

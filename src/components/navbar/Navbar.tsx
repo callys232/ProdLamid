@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import AccountMenu from "./Account";
 import PeekView from "@/components/peekview/PeekView";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
 
 
 interface ServiceItem {
@@ -72,6 +73,7 @@ const Navbar: React.FC = () => {
   const lastScrollY = useRef(0);
   const pathname = usePathname();
   const notificationCount = useNotifications();
+  const { isAuthenticated, loading } = useAuth();
 
   /* ── Scroll-aware hide / show ─────────────────────────────── */
   useEffect(() => {
@@ -299,6 +301,24 @@ const Navbar: React.FC = () => {
               <PeekView />
             </div>
 
+            {/* Sign In + Get Started — desktop, guests only */}
+            {!loading && !isAuthenticated && (
+              <div className="hidden md:flex items-center gap-2">
+                <Link
+                  href="/signin"
+                  className="px-4 py-2 rounded-xl text-sm font-semibold border border-white/20 text-white/80 hover:border-[#C12129] hover:text-[#C12129] transition-colors duration-200"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/signup"
+                  className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors duration-200 shadow-[0_0_12px_rgba(193,33,41,0.4)]"
+                >
+                  Get Started
+                </Link>
+              </div>
+            )}
+
             <div className="relative hidden md:block">
               <AccountMenu />
               {renderNotificationBadge()}
@@ -395,6 +415,26 @@ const Navbar: React.FC = () => {
                 <ThemeToggle />
                 <span className="text-xs aivora-text-muted">Day / Night</span>
               </div>
+
+              {/* Sign In + Get Started — mobile, guests only */}
+              {!loading && !isAuthenticated && (
+                <div className="flex flex-col gap-2 pt-2">
+                  <Link
+                    href="/signin"
+                    onClick={() => setIsOpen(false)}
+                    className="text-center py-2.5 rounded-xl text-sm font-semibold border border-white/20 text-white/80 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={() => setIsOpen(false)}
+                    className="text-center py-2.5 rounded-xl text-sm font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              )}
 
               {/* Tools peek */}
               <div className="pt-1">
