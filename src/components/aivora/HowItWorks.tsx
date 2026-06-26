@@ -7,38 +7,38 @@ import { useAuth } from "@/hooks/useAuth";
 
 const STEPS = [
   {
-    num: "01", icon: "◈", iconCls: "text-[#C12129]",  ringCls: "border-[#C12129]/40",  glowCls: "bg-[#C12129]",
+    num: "01", icon: "◈", iconCls: "text-[#C12129]",  ringCls: "border-[#C12129]/40",  glowCls: "bg-[#C12129]",  accentHex: "#C12129",
     title: "Onboard",
-    body: "Tell us about your organization, your challenge, and your goals. The more context you give, the smarter your experience will be.",
-    authHref: "/account-type",   // registered → choose account type / dashboard
+    body: "Join AIVORA and complete an AI-powered diagnostic that maps your organization's unique growth profile, capability gaps, and strategic priorities.",
+    authHref: "/premium/business-diagnostic",
   },
   {
-    num: "02", icon: "⬡", iconCls: "text-blue-400",    ringCls: "border-blue-500/40",   glowCls: "bg-blue-500",
+    num: "02", icon: "⬡", iconCls: "text-blue-400",   ringCls: "border-blue-500/40",   glowCls: "bg-blue-500",   accentHex: "#3b82f6",
     title: "Match",
-    body: "Our AI analyzes 47 data points to surface the consultants, tools, or programs most aligned with your specific needs.",
-    authHref: "/talent",          // registered → browse & get matched
+    body: "The platform instantly connects you with the right consultants, intelligence tools, and learning pathways — calibrated to your specific context.",
+    authHref: "/talent",
   },
   {
-    num: "03", icon: "⬟", iconCls: "text-violet-400",  ringCls: "border-violet-500/40", glowCls: "bg-violet-500",
+    num: "03", icon: "⬟", iconCls: "text-violet-400", ringCls: "border-violet-500/40", glowCls: "bg-violet-500", accentHex: "#7c3aed",
     title: "Engage",
-    body: "Work inside a secure, AI-assisted workspace — task boards, milestones, messaging, document sharing, and contracts in one place.",
-    authHref: "/postjobs",        // registered → post a project / workspace
+    body: "Projects, workshops, AI analyses, and learning cohorts run through a unified, managed digital environment. Everything in one place.",
+    authHref: "/premium/proposal-drafter",
   },
   {
-    num: "04", icon: "▣", iconCls: "text-amber-400",   ringCls: "border-amber-500/40",  glowCls: "bg-amber-500",
+    num: "04", icon: "▣", iconCls: "text-amber-400",  ringCls: "border-amber-500/40",  glowCls: "bg-amber-500",  accentHex: "#f59e0b",
     title: "Measure",
-    body: "Real-time dashboards track engagement progress, milestones, and ROI from kickoff to completion.",
-    authHref: "/client",          // registered → client dashboard with analytics
+    body: "Real-time dashboards track outcomes, ROI, and organizational progress at every stage. Nothing is a black box.",
+    authHref: "/client",
   },
   {
-    num: "05", icon: "⚡", iconCls: "text-emerald-400", ringCls: "border-emerald-500/40", glowCls: "bg-emerald-500",
+    num: "05", icon: "⚡", iconCls: "text-emerald-400",ringCls: "border-emerald-500/40",glowCls: "bg-emerald-500",accentHex: "#10b981",
     title: "Evolve",
-    body: "Every engagement makes AIVORA smarter. Capabilities build, talent deepens, and your organization keeps growing.",
-    authHref: "/hcd",             // registered → talent development
+    body: "AIVORA's AI continuously refines its recommendations as your organization grows, learns, and changes. The platform grows with you.",
+    authHref: "/hcd",
   },
 ];
 
-/* Flowing wave path that mimics the 5-step journey */
+/* Flowing wave path */
 const paths = [
   { d: "M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150", delay: 0,   dur: 20 },
   { d: "M-60 260 C200 140 400 380 700 220 C950 100 1200 340 1450 210", delay: 4, dur: 24 },
@@ -56,7 +56,7 @@ export default function HowItWorks() {
   const router = useRouter();
 
   return (
-    <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
+    <section id="how-it-works" className="relative aivora-section py-16 px-4 overflow-hidden">
 
       {/* Wave path bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -71,7 +71,6 @@ export default function HowItWorks() {
             }}
           />
         ))}
-        {/* Animated connector line — draws left to right on viewport entry */}
         <motion.line
           x1="10%" y1="50%" x2="90%" y2="50%"
           stroke="#C12129" strokeWidth="0.5" strokeOpacity="0.12"
@@ -99,40 +98,39 @@ export default function HowItWorks() {
           className="text-center mb-14"
         >
           <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
-            How It Works
+            The AIVORA Experience
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug overflow-hidden">
-            {["Human", "Insight", "+"].map((word, i) => (
-              <motion.span
-                key={word}
-                className="inline-block mr-[0.3em]"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {word}
-              </motion.span>
-            ))}
-            {["Advanced", "AI."].map((word, i) => (
-              <motion.span
-                key={word}
-                className="inline-block mr-[0.3em] text-[#C12129]"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: 0.4 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {word}
-              </motion.span>
-            ))}
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-snug">
+            From challenge to clarity —{" "}
+            <span className="text-[#C12129]">in five steps.</span>
           </h2>
-          <p className="mt-3 text-white/75 text-sm max-w-lg mx-auto">
+          <p className="mt-3 text-gray-600 dark:text-white/75 text-sm max-w-lg mx-auto">
             AIVORA combines the depth of human expertise with the speed and precision of advanced AI — across every stage.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        {/* Quick-access tool strip */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
+          <span className="text-xs aivora-text-muted tracking-wider uppercase">Quick access:</span>
+          {[
+            { label: "Business Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
+            { label: "Proposal Drafter",    href: "/premium/proposal-drafter",    icon: "◈" },
+            { label: "Budget Estimator",    href: "/postjobs?tool=estimator",     icon: "▣" },
+            { label: "Expert Advisor",      href: "/concierge",                   icon: "✦" },
+          ].map((tool) => (
+            <button
+              key={tool.label}
+              type="button"
+              onClick={() => router.push(!loading && isAuthenticated ? tool.href : "/signup")}
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium border border-white/10 dark:border-white/10 border-gray-200 text-gray-600 dark:text-white/60 hover:border-[#C12129]/50 hover:text-[#C12129] transition-colors duration-200"
+            >
+              <span>{tool.icon}</span>
+              {tool.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {STEPS.map((step, i) => {
             const isHov = hovered === i;
             return (
@@ -145,58 +143,69 @@ export default function HowItWorks() {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 onHoverStart={() => setHovered(i)}
                 onHoverEnd={() => setHovered(null)}
+                animate={{ y: isHov ? -6 : 0 }}
                 onClick={() => router.push(!loading && isAuthenticated ? step.authHref : "/signup")}
-                className="flex flex-col items-center text-center cursor-pointer group"
+                className="relative flex flex-col items-center text-center cursor-pointer group rounded-2xl p-5 overflow-hidden border transition-colors duration-300"
+                style={{
+                  borderColor: isHov ? `${step.accentHex}55` : "rgba(255,255,255,0.08)",
+                  background: isHov ? `${step.accentHex}12` : "rgba(255,255,255,0.025)",
+                }}
               >
-                {/* Circle with pulse ring */}
-                <div className="relative mb-5">
-                  {/* Pulse ring on hover */}
+                {/* Background glow on hover */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl pointer-events-none"
+                  animate={{ opacity: isHov ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ background: `radial-gradient(circle at 50% 30%, ${step.accentHex}18, transparent 70%)` }}
+                />
+
+                {/* Top accent bar — slides in on hover */}
+                <motion.div
+                  className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
+                  style={{ background: `linear-gradient(to right, ${step.accentHex}, transparent)` }}
+                  animate={{ scaleX: isHov ? 1 : 0, originX: 0 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                />
+
+                {/* Circle icon */}
+                <div className="relative mb-4 mt-1">
                   <motion.div
                     className={`absolute -inset-2 rounded-full border ${step.ringCls}`}
                     animate={{ scale: isHov ? 1 : 0.7, opacity: isHov ? 1 : 0 }}
                     transition={{ duration: 0.22 }}
                   />
-                  {/* Glow */}
                   <motion.div
                     className={`absolute inset-0 rounded-full blur-md pointer-events-none ${step.glowCls}`}
-                    animate={{ opacity: isHov ? 0.25 : 0 }}
+                    animate={{ opacity: isHov ? 0.3 : 0 }}
                     transition={{ duration: 0.25 }}
                   />
-                  <motion.div
-                    className="relative w-14 h-14 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center"
-                    animate={{ borderColor: isHov ? `${step.ringCls}` : "rgba(255,255,255,0.1)" }}
-                  >
+                  <div className="relative w-12 h-12 rounded-full bg-gray-100 dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 flex items-center justify-center">
                     <motion.span
-                      className={`text-xl ${step.iconCls}`}
+                      className={`text-lg ${step.iconCls}`}
                       animate={{ scale: isHov ? 1.22 : 1, rotate: isHov ? 8 : 0 }}
                       transition={{ type: "spring", stiffness: 280, damping: 16 }}
                     >
                       {step.icon}
                     </motion.span>
-                  </motion.div>
+                  </div>
                   <motion.span
-                    className="absolute -top-1 -right-1 text-[9px] font-bold bg-black px-1"
-                    style={{ color: isHov ? "#C12129" : "rgba(255,255,255,0.25)" }}
-                    animate={{ color: isHov ? "#C12129" : "rgba(255,255,255,0.25)" }}
+                    className="absolute -top-1 -right-1 text-[9px] font-bold bg-white dark:bg-black px-1"
+                    animate={{ color: isHov ? step.accentHex : "rgba(255,255,255,0.25)" }}
                     transition={{ duration: 0.18 }}
                   >
                     {step.num}
                   </motion.span>
                 </div>
 
-                <motion.h3
-                  className="text-sm font-bold mb-2"
-                  animate={{ color: isHov ? "#ffffff" : "#ffffff" }}
-                  transition={{ duration: 0.18 }}
-                >
+                <h3 className="text-sm font-bold mb-2 text-gray-900 dark:text-white">
                   {step.title}
-                </motion.h3>
-                <p className="text-white/80 text-xs leading-relaxed">{step.body}</p>
+                </h3>
+                <p className="text-gray-600 dark:text-white/75 text-xs leading-relaxed">{step.body}</p>
 
-                {/* "Click to begin" hint — appears on hover */}
                 <motion.span
-                  className="text-[10px] font-semibold mt-2 text-white/30"
-                  animate={{ opacity: hovered === i ? 1 : 0, y: hovered === i ? 0 : 4 }}
+                  className="text-[10px] font-semibold mt-3"
+                  style={{ color: step.accentHex }}
+                  animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >
                   {!loading && isAuthenticated ? "Open →" : "Sign up →"}
@@ -205,6 +214,28 @@ export default function HowItWorks() {
             );
           })}
         </div>
+        {/* Copy doc: "Ready to begin? Get Started Free" below the steps */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay: 0.5 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-12"
+        >
+          <p className="text-gray-600 dark:text-white/60 text-sm">Ready to begin?</p>
+          <button
+            type="button"
+            onClick={() => router.push(!loading && isAuthenticated ? "/premium/business-diagnostic" : "/signup")}
+            className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white overflow-hidden
+              bg-[#C12129] hover:bg-[#a01a20] transition-colors duration-300
+              shadow-[0_0_18px_rgba(193,33,41,0.4)] hover:shadow-[0_0_28px_rgba(193,33,41,0.7)]"
+          >
+            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none" />
+            <span className="relative z-10">Get Started Free</span>
+            <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </button>
+        </motion.div>
+
       </div>
     </section>
   );

@@ -11,10 +11,10 @@ const PORTALS = [
     icon: "◈",
     iconCls: "text-[#C12129]",
     accentColor: "#C12129",
-    label: "Marketplace & Delivery",
+    label: "AIVORA Marketplace",
     headline: "Find the Right Expert. Start Today.",
-    body: "Find experts, manage projects, and deliver results with trusted expertise and advanced AI. Post projects, match with specialists, and manage delivery from start to finish.",
-    cta: "Browse Consultants",
+    body: "AI-matched access to vetted consultants across every sector and challenge type. Faster delivery, measurable outcomes, global reach.",
+    cta: "Explore the Marketplace",
     href: "/talent",
     ctaCls: "bg-[#C12129] hover:bg-[#a01a20] text-white",
   },
@@ -23,10 +23,10 @@ const PORTALS = [
     icon: "⬡",
     iconCls: "text-blue-400",
     accentColor: "#3b82f6",
-    label: "BIZ Portal",
+    label: "AIVORA BIZ Portal",
     headline: "Clarity at the Speed of Decision.",
-    body: "Tools, diagnostics, and guidance that make growth digital and accessible. Designed for SMEs, startups, and entrepreneurs who need clarity, structure, and momentum.",
-    cta: "Explore BIZ",
+    body: "Real-time AI-powered business intelligence that gives your leadership team the insights, diagnostics, and scenario modelling to act with confidence.",
+    cta: "Explore the BIZ Portal",
     href: "/biz",
     ctaCls: "border border-blue-500/50 text-blue-400 hover:bg-blue-500/10",
   },
@@ -35,10 +35,10 @@ const PORTALS = [
     icon: "⬟",
     iconCls: "text-orange-400",
     accentColor: "#f97316",
-    label: "Talent Development",
+    label: "AIVORA Talent Portal",
     headline: "Build the Organization That Builds the Future.",
-    body: "Training, assessments, and learning pathways enhanced by trusted expertise and advanced AI. Upskill teams, develop leaders, and build talent for the digital economy.",
-    cta: "Explore Programs",
+    body: "AI-personalized learning pathways, expert coaching, and globally recognized certifications — designed for professionals who move fast.",
+    cta: "Explore the Talent Portal",
     href: "/hcd",
     ctaCls: "border border-orange-500/50 text-orange-400 hover:bg-orange-500/10",
   },
@@ -62,7 +62,7 @@ export default function EcosystemOverview() {
   const router = useRouter();
 
   return (
-    <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
+    <section className="relative aivora-section py-16 px-4 overflow-hidden">
 
       {/* Diagonal lines bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -97,12 +97,12 @@ export default function EcosystemOverview() {
           <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
             The AIVORA Ecosystem
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug">
-            One Ecosystem.{" "}
-            <span className="text-[#C12129]">Three Portals.</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug">
+            One Platform.{" "}
+            <span className="text-[#C12129]">Three Powerful Portals.</span>
           </h2>
-          <p className="mt-3 text-white/50 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            All connected. All intelligent. All built for growth.
+          <p className="mt-3 text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            Everything your organization needs to grow — in one place.
           </p>
         </motion.div>
 
@@ -120,8 +120,8 @@ export default function EcosystemOverview() {
                 onHoverStart={() => setHovered(portal.id)}
                 onHoverEnd={() => setHovered(null)}
                 onClick={() => router.push(portal.href)}
-                className="group relative flex flex-col bg-white/[0.025] border rounded-2xl p-7 overflow-hidden transition-colors duration-300 cursor-pointer"
-                style={{ borderColor: isHov ? `${portal.accentColor}55` : "rgba(255,255,255,0.08)" }}
+                className="group relative flex flex-col aivora-card border rounded-2xl p-7 overflow-hidden transition-colors duration-300 cursor-pointer"
+                style={{ borderColor: isHov ? `${portal.accentColor}55` : undefined }}
               >
                 {/* Left accent bar */}
                 <motion.div
@@ -160,11 +160,11 @@ export default function EcosystemOverview() {
                   {portal.icon}
                 </motion.span>
 
-                <h3 className="text-lg font-bold text-white leading-snug mb-3">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-snug mb-3">
                   {portal.headline}
                 </h3>
 
-                <p className="text-white/55 text-sm leading-relaxed flex-1 mb-6">
+                <p className="text-gray-600 dark:text-white/55 text-sm leading-relaxed flex-1 mb-6">
                   {portal.body}
                 </p>
 
