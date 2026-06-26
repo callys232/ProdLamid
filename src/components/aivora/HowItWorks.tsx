@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 const STEPS = [
   {
@@ -49,11 +51,44 @@ const dots = [
   { cx: "80%", cy: 70, r: 1,   delay: 3,   dur: 9,  floatPct: 4 },
 ];
 
+const QUICK_TOOLS = [
+  { label: "Business Diagnostic", href: "/premium/business-diagnostic", icon: "⚡", accent: "#b45309" },
+  { label: "Proposal Drafter",    href: "/premium/proposal-drafter",    icon: "◈", accent: "#C12129" },
+  { label: "Budget Estimator",    href: "/postjobs?tool=estimator",     icon: "▣", accent: "#eab308" },
+  { label: "Expert Advisor",      href: "/concierge",                   icon: "✦", accent: "#7c3aed" },
+];
+
+const ALL_FREE_TOOLS = [
+  { id: "diagnostic",   icon: "⚡", accent: "#b45309", title: "Business Diagnostic",  desc: "AI-powered health check across 7 business dimensions.", href: "/premium/business-diagnostic" },
+  { id: "proposal",     icon: "◈", accent: "#C12129", title: "Proposal Drafter",      desc: "Generate a client-ready consulting proposal in seconds.", href: "/premium/proposal-drafter" },
+  { id: "estimator",    icon: "▣", accent: "#eab308", title: "Budget Estimator",      desc: "AI-assisted project cost & timeline estimator.",          href: "/postjobs?tool=estimator" },
+  { id: "advisor",      icon: "✦", accent: "#7c3aed", title: "Expert Advisor",        desc: "Managed, high-touch delivery for complex engagements.",   href: "/concierge" },
+  { id: "talent",       icon: "◈", accent: "#C12129", title: "Browse Consultants",    desc: "Search AIVORA's verified marketplace across every sector.", href: "/talent" },
+  { id: "bizprototype", icon: "⬡", accent: "#2563eb", title: "Biz Prototypes",        desc: "Explore startup methodology and rapid build tools.",         href: "/bizprototype" },
+  { id: "jobs",         icon: "▣", accent: "#d97706", title: "Job Board",             desc: "Explore open roles — contract, permanent, short-term.",     href: "/jobs" },
+  { id: "events",       icon: "✦", accent: "#7c3aed", title: "Events & Training",     desc: "Upcoming Talent Development events and workshops.",          href: "/events" },
+  { id: "biz",          icon: "⬡", accent: "#4f46e5", title: "BIZ Portal",            desc: "Startup toolkits, growth diagnostics, coaching resources.", href: "/biz" },
+  { id: "hcd",          icon: "⬟", accent: "#f97316", title: "Talent Development",    desc: "Recruitment, capability building, leadership development.",  href: "/hcd" },
+];
+
+const toolStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
+};
+const toolCard = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
+};
+
 export default function HowItWorks() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [hovered,       setHovered]       = useState<number | null>(null);
+  const [showFreeTools, setShowFreeTools] = useState(false);
+  const [hoveredTool,   setHoveredTool]   = useState<string | null>(null);
+  const { isAuthenticated, loading: authLoading } = useAuth();
   const router = useRouter();
 
   return (
+    <>
     <section id="how-it-works" className="relative aivora-section py-16 px-4 overflow-hidden">
 
       {/* Wave path bg */}
@@ -109,23 +144,51 @@ export default function HowItWorks() {
 
         {/* Quick-access tool strip */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
-          <span className="text-xs aivora-text-muted tracking-wider uppercase">Quick access:</span>
-          {[
-            { label: "Business Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
-            { label: "Proposal Drafter",    href: "/premium/proposal-drafter",    icon: "◈" },
-            { label: "Budget Estimator",    href: "/postjobs?tool=estimator",     icon: "▣" },
-            { label: "Expert Advisor",      href: "/concierge",                   icon: "✦" },
-          ].map((tool) => (
-            <button
+          <span className="text-xs aivora-text-muted tracking-wider uppercase shrink-0">Quick access:</span>
+
+          {QUICK_TOOLS.map((tool) => (
+            <motion.button
               key={tool.label}
               type="button"
               onClick={() => router.push(tool.href)}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium border border-white/10 dark:border-white/10 border-gray-200 text-gray-600 dark:text-white/60 hover:border-[#C12129]/50 hover:text-[#C12129] transition-colors duration-200"
+              whileHover={{
+                scale: 1.05,
+                borderColor: tool.accent,
+                color: tool.accent,
+                boxShadow: `0 0 14px ${tool.accent}55, inset 0 0 8px ${tool.accent}18`,
+              }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.18 }}
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 dark:border-white/15 text-gray-600 dark:text-white/60 cursor-pointer"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
-              <span>{tool.icon}</span>
+              <motion.span
+                whileHover={{ scale: 1.25, rotate: 8 }}
+                transition={{ type: "spring", stiffness: 400, damping: 16 }}
+              >
+                {tool.icon}
+              </motion.span>
               {tool.label}
-            </button>
+            </motion.button>
           ))}
+
+          {/* View All — opens full tools modal */}
+          <motion.button
+            type="button"
+            onClick={() => setShowFreeTools(true)}
+            whileHover={{
+              scale: 1.05,
+              borderColor: "#C12129",
+              color: "#ffffff",
+              backgroundColor: "rgba(193,33,41,0.15)",
+              boxShadow: "0 0 14px rgba(193,33,41,0.45)",
+            }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.18 }}
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold border border-[#C12129]/40 text-[#C12129] cursor-pointer"
+          >
+            View All →
+          </motion.button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -236,5 +299,122 @@ export default function HowItWorks() {
 
       </div>
     </section>
+
+    {/* ── All Free Tools Modal ── */}
+    <AnimatePresence>
+      {showFreeTools && (
+        <motion.div
+          key="hw-ft-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+          className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/85 backdrop-blur-sm px-4"
+          onClick={() => setShowFreeTools(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.92, opacity: 0, y: 10 }}
+            transition={{ type: "spring", stiffness: 200, damping: 22 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden"
+          >
+            <div className="h-[3px] bg-gradient-to-r from-[#C12129] to-transparent" />
+            <div className="px-6 pt-6 pb-7">
+              <button
+                type="button"
+                onClick={() => setShowFreeTools(false)}
+                className="absolute top-5 right-5 text-white/30 hover:text-white transition text-xl leading-none cursor-pointer"
+              >
+                ✕
+              </button>
+              <p className="text-[#C12129] text-[10px] tracking-[0.3em] uppercase font-bold mb-1">
+                No credit card needed
+              </p>
+              <h2 className="text-xl font-bold text-white mb-1">All Free Tools</h2>
+              <p className="text-white/45 text-xs mb-6 leading-snug">
+                Use any tool instantly. Sign up to save your results.
+              </p>
+              <div className="h-px bg-white/8 mb-5" />
+              <motion.div
+                variants={toolStagger}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-2.5"
+              >
+                {ALL_FREE_TOOLS.map((tool) => {
+                  const isHov = hoveredTool === tool.id;
+                  return (
+                    <motion.div key={tool.id} variants={toolCard}>
+                      <motion.div
+                        onHoverStart={() => setHoveredTool(tool.id)}
+                        onHoverEnd={() => setHoveredTool(null)}
+                        animate={{
+                          borderColor: isHov ? `${tool.accent}55` : "rgba(255,255,255,0.07)",
+                          boxShadow:   isHov ? `0 0 16px ${tool.accent}30` : "0 0 0px transparent",
+                        }}
+                        transition={{ duration: 0.2 }}
+                        className="group relative flex items-start gap-3 p-4 rounded-xl border border-white/[0.07] bg-white/[0.025] hover:bg-white/[0.06] overflow-hidden cursor-pointer"
+                      >
+                        <Link
+                          href={tool.href}
+                          onClick={() => setShowFreeTools(false)}
+                          className="absolute inset-0 z-10"
+                          aria-label={tool.title}
+                        />
+
+                        {/* Left accent bar */}
+                        <motion.div
+                          className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl origin-top"
+                          animate={{
+                            scaleY:          isHov ? 1 : 0,
+                            backgroundColor: tool.accent,
+                          }}
+                          transition={{ duration: 0.2 }}
+                        />
+
+                        {/* Glow */}
+                        <motion.div
+                          className="absolute -top-6 -right-6 w-20 h-20 rounded-full blur-2xl pointer-events-none"
+                          animate={{
+                            opacity:         isHov ? 0.12 : 0,
+                            backgroundColor: tool.accent,
+                          }}
+                          transition={{ duration: 0.25 }}
+                        />
+
+                        {/* Icon */}
+                        <motion.span
+                          className="text-lg shrink-0 mt-0.5 relative z-20"
+                          animate={{ color: tool.accent, scale: isHov ? 1.2 : 1 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                        >
+                          {tool.icon}
+                        </motion.span>
+
+                        <div className="flex-1 min-w-0 relative z-20">
+                          <p className="text-sm font-semibold text-white leading-tight">{tool.title}</p>
+                          <p className="text-white/75 text-xs mt-0.5 leading-snug">{tool.desc}</p>
+                        </div>
+
+                        <motion.span
+                          className="shrink-0 self-center text-xs relative z-20"
+                          animate={{ color: tool.accent, opacity: isHov ? 1 : 0, x: isHov ? 0 : -4 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          →
+                        </motion.span>
+                      </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </>
   );
 }
