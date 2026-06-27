@@ -107,7 +107,7 @@ export default function AivoraGap() {
                 />
 
                 <motion.p
-                  className="text-4xl sm:text-5xl font-extrabold mb-3 text-[#C12129]"
+                  className="text-4xl sm:text-5xl font-extrabold mb-3 text-transparent bg-clip-text bg-gradient-to-br from-[#C12129] via-red-400 to-red-300 dark:to-white"
                   animate={{ scale: isHov ? 1.06 : 1 }}
                   transition={{ type: "spring", stiffness: 280, damping: 18 }}
                 >
@@ -118,7 +118,7 @@ export default function AivoraGap() {
                 </p>
 
                 <motion.span
-                  className="text-[10px] font-semibold mt-3 block text-[#C12129]"
+                  className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >

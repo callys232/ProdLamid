@@ -129,14 +129,14 @@ export default function EcosystemOverview() {
 
                 {/* Icon — always red */}
                 <motion.span
-                  className="text-4xl mb-5 block text-[#C12129]"
+                  className="text-4xl mb-5 block aivora-gradient-text"
                   animate={{ scale: isHov ? 1.2 : 1, rotate: isHov ? 6 : 0 }}
                   transition={{ type: "spring", stiffness: 260, damping: 18 }}
                 >
                   {portal.icon}
                 </motion.span>
 
-                <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-3 text-[#C12129]">
+                <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-3 aivora-gradient-text">
                   {portal.label}
                 </p>
 
@@ -151,7 +151,7 @@ export default function EcosystemOverview() {
                 <Link
                   href={portal.href}
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#C12129] hover:text-red-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold aivora-gradient-text hover:opacity-80 transition-opacity"
                 >
                   {portal.cta}
                   <motion.span animate={{ x: isHov ? 4 : 0 }} transition={{ duration: 0.15 }}>

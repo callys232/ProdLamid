@@ -96,14 +96,14 @@ export default function WhyAivora() {
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 >
-                  <span className="text-lg text-[#C12129]">{tile.icon}</span>
+                  <span className="text-lg aivora-gradient-text">{tile.icon}</span>
                 </motion.div>
 
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{tile.title}</h3>
                 <p className="text-gray-600 dark:text-white/65 text-xs leading-relaxed">{tile.body}</p>
 
                 <motion.span
-                  className="text-[10px] font-semibold mt-3 block text-[#C12129]"
+                  className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >

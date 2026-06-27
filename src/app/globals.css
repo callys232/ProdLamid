@@ -41,8 +41,15 @@ body {
 .aivora-nav        { background: var(--navbar-bg); border-bottom: 1px solid var(--navbar-border); transition: background 0.25s ease; }
 .aivora-text-muted { color: var(--text-muted); }
 
+/* Red-to-white gradient for all prominent red text */
 .aivora-gradient-text {
-  background: linear-gradient(135deg, #C12129 0%, #ff6060 60%, #ff9090 100%);
+  background: linear-gradient(135deg, #C12129 0%, #ff4444 45%, #ff8080 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .aivora-gradient-text {
+  background: linear-gradient(135deg, #C12129 0%, #ff5555 40%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

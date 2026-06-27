@@ -173,7 +173,7 @@ export default function BizPage() {
                   animate={{ scale: isHov ? 1.1 : 1, boxShadow: isHov ? "0 0 14px rgba(193,33,41,0.35)" : "none" }}
                   transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 >
-                  <span className="text-lg text-[#C12129]">{f.icon}</span>
+                  <span className="text-lg aivora-gradient-text">{f.icon}</span>
                 </motion.div>
 
                 <div className="flex-1 min-w-0">
@@ -222,7 +222,7 @@ export default function BizPage() {
                     animate={{ scale: isHov ? 1.12 : 1 }}
                     transition={{ type: "spring", stiffness: 280, damping: 18 }}
                   >
-                    <span className="text-xl text-[#C12129]">{p.icon}</span>
+                    <span className="text-xl aivora-gradient-text">{p.icon}</span>
                   </motion.div>
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{p.title}</h3>
                   <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{p.body}</p>
@@ -349,7 +349,7 @@ export default function BizPage() {
                           <span className="text-sm text-[#C12129]">{portal.icon}</span>
                         </motion.div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-[9px] font-bold uppercase tracking-wider text-[#C12129] mb-0.5">{portal.area}</p>
+                          <p className="text-[9px] font-bold uppercase tracking-wider aivora-gradient-text mb-0.5">{portal.area}</p>
                           <p className="text-xs font-bold text-white mb-2">{portal.title}</p>
                           <ul className="space-y-1">
                             {portal.bullets.map((b) => (

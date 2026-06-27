@@ -102,7 +102,7 @@ export default function ManifestoExcerpt() {
         >
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#C12129] hover:text-red-400 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm font-semibold aivora-gradient-text hover:opacity-80 transition-opacity group"
           >
             Read the full AIVORA manifesto
             <motion.span

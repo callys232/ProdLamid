@@ -509,7 +509,7 @@ export default function ProposalDrafter() {
                     transition={{ duration: 0.4, delay: 0.3 }}
                     className="rounded-2xl border border-[#C12129]/40 bg-gradient-to-br from-[#C12129]/10 via-black to-black px-6 py-6 text-center"
                   >
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[#C12129] mb-2">Save your proposal</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest aivora-gradient-text mb-2">Save your proposal</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to copy, share, and use this proposal.</h3>
                     <p className="text-xs text-gray-400 mb-4 leading-relaxed">
                       Sign up to unlock the full copy, submit the proposal through AIVORA, and connect with the right consultants to deliver on it.

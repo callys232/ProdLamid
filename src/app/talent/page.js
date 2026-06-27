@@ -12,7 +12,7 @@ const TalentPage = () => {
     <div>
       <div className="bg-black px-4 pt-24 pb-8">
         <div className="mx-auto max-w-5xl text-center">
-          <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
+          <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
             AIVORA Marketplace
           </p>
           <h1 className="mb-3 text-3xl sm:text-4xl font-bold text-white">

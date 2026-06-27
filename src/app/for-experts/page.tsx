@@ -124,12 +124,12 @@ export default function ForExpertsPage() {
                     animate={{ scale: isHov ? 1.1 : 1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 18 }}
                   >
-                    <span className="text-base text-[#C12129]">{b.icon}</span>
+                    <span className="text-base aivora-gradient-text">{b.icon}</span>
                   </motion.div>
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{b.title}</h3>
                   <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{b.body}</p>
                   <motion.span
-                    className="text-[10px] font-semibold mt-3 block text-[#C12129]"
+                    className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
                     animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                     transition={{ duration: 0.15 }}
                   >

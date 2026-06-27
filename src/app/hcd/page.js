@@ -190,11 +190,11 @@ export default function HCDPage() {
                 style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}>
                 <motion.div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25"
                   animate={{ scale: isHov ? 1.1 : 1 }} transition={{ type: "spring", stiffness: 300, damping: 18 }}>
-                  <span className="text-base text-[#C12129]">{f.icon}</span>
+                  <span className="text-base aivora-gradient-text">{f.icon}</span>
                 </motion.div>
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{f.title}</h3>
                 <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{f.body}</p>
-                <motion.span className="text-[10px] font-semibold mt-3 block text-[#C12129]"
+                <motion.span className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }} transition={{ duration: 0.15 }}>
                   Open →
                 </motion.span>
@@ -325,7 +325,7 @@ export default function HCDPage() {
                         <div className="flex-1 min-w-0">
                           <h3 className="text-sm font-bold text-white leading-snug mb-1.5">{prog.title}</h3>
                           <p className="text-white/50 text-[11px] leading-relaxed italic">{prog.outcome}</p>
-                          <motion.span className="text-[10px] font-semibold mt-2 block text-[#C12129]"
+                          <motion.span className="text-[10px] font-semibold mt-2 block aivora-gradient-text"
                             animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }} transition={{ duration: 0.15 }}>
                             Explore this program →
                           </motion.span>

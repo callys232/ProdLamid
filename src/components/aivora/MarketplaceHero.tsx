@@ -49,7 +49,7 @@ export default function MarketplaceHero() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
+            className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
           >
             AIVORA Marketplace
           </motion.p>
@@ -60,7 +60,7 @@ export default function MarketplaceHero() {
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-snug mb-4"
           >
             Find the Right Expert.{" "}
-            <span className="text-[#C12129]">Start Today.</span>
+            <span className="aivora-gradient-text">Start Today.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -108,7 +108,7 @@ export default function MarketplaceHero() {
                 transition={{ delay: i * 0.1 }}
                 className="text-center"
               >
-                <span className="text-2xl font-bold text-[#C12129] block">{item.value}</span>
+                <span className="text-2xl font-bold aivora-gradient-text block">{item.value}</span>
                 <span className="text-white/50 text-xs mt-1 block">{item.label}</span>
               </motion.div>
             ))}
@@ -141,7 +141,7 @@ export default function MarketplaceHero() {
       {/* Use cases */}
       <section className="bg-black text-white py-10 px-4">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-6 text-center">
+          <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-6 text-center">
             Sectors We Cover
           </p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -153,7 +153,7 @@ export default function MarketplaceHero() {
                 {uc.label}
               </span>
             ))}
-            <span className="px-4 py-2 rounded-full border border-[#C12129]/30 text-[#C12129] text-xs font-medium">
+            <span className="px-4 py-2 rounded-full border border-[#C12129]/30 aivora-gradient-text text-xs font-medium">
               + Open Brief — any challenge
             </span>
           </div>

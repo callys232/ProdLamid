@@ -263,12 +263,12 @@ const PortalServicesSlide: React.FC = () => {
           transition={{ duration: 0.55 }}
           className="mb-10"
         >
-          <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
+          <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
             The AIVORA Portal
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug mb-3">
             One Ecosystem.{" "}
-            <span className="text-[#C12129]">Every Way to Work.</span>
+            <span className="aivora-gradient-text">Every Way to Work.</span>
           </h2>
           <p className="text-white/55 text-sm sm:text-base leading-relaxed max-w-lg">
             Find experts, manage projects, and deliver results — with trusted expertise and advanced AI, all in one place.
@@ -536,7 +536,7 @@ const PortalServicesSlide: React.FC = () => {
                   ✕
                 </button>
 
-                <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-1">
+                <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-1">
                   Choose Your Path
                 </p>
                 <h3 className="text-lg font-bold text-white mb-1">Account Types</h3>

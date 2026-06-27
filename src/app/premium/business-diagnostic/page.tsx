@@ -681,7 +681,7 @@ export default function BusinessDiagnostic() {
                     transition={{ duration: 0.4, delay: 0.3 }}
                     className="rounded-2xl border border-[#C12129]/40 bg-gradient-to-br from-[#C12129]/10 via-black to-black px-6 py-6 text-center"
                   >
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[#C12129] mb-2">Save your results</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest aivora-gradient-text mb-2">Save your results</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to save, share, and act on this report.</h3>
                     <p className="text-xs text-gray-400 mb-4 leading-relaxed">
                       Sign up to copy your full report, track your progress over time, and connect with the right consultants to close your gaps.

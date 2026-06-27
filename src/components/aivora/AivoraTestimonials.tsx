@@ -153,7 +153,7 @@ export default function AivoraTestimonials() {
                     {[...Array(5)].map((_, s) => (
                       <motion.span
                         key={s}
-                        className="text-[#C12129] text-sm"
+                        className="aivora-gradient-text text-sm"
                         initial={{ opacity: 0, scale: 0.5 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
