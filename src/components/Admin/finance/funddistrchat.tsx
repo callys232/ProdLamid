@@ -1,4 +1,10 @@
+"use client";
+
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+
+// Register the elements needed for a Pie chart
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function FundDistributionChart({
   completed,
@@ -17,18 +23,24 @@ export default function FundDistributionChart({
       {
         data: [completed, pending, available, held],
         backgroundColor: [
-          "#c21229",
-          "rgba(194,18,41,0.6)",
-          "#ffffff40",
-          "#808080",
+          "#c21229", // Completed
+          "rgba(194,18,41,0.6)", // Pending
+          "#ffffff40", // Available
+          "#808080", // Held
         ],
       },
     ],
   };
-  return (
-    <Pie
-      data={data}
-      options={{ plugins: { legend: { labels: { color: "#fff" } } } }}
-    />
-  );
+
+  const options = {
+    plugins: {
+      legend: {
+        labels: {
+          color: "#fff", // white legend text
+        },
+      },
+    },
+  };
+
+  return <Pie data={data} options={options} />;
 }

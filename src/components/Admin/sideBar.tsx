@@ -9,7 +9,10 @@ export type TabName =
   | "Communication Agent"
   | "Finance & Billing"
   | "Policy & Compliance"
-  | "Activity Logs";
+  | "Activity Logs"
+  | "KYC Review"
+  | "Deletion Requests"
+  | "Concierge Requests";
 
 interface SidebarProps {
   activeTab: TabName;
@@ -25,6 +28,9 @@ const tabs: TabName[] = [
   "Finance & Billing",
   "Policy & Compliance",
   "Activity Logs",
+  "KYC Review",
+  "Deletion Requests",
+  "Concierge Requests",
 ];
 
 export default function AdminSidebar({

@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Block admin and auth routes
+Disallow: /admin
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /signin
+Disallow: /signup
+Disallow: /profile
+Disallow: /client
+Disallow: /account-type
+Disallow: /editConsultant
+Disallow: /editclient
+Disallow: /forgotpassword
+Disallow: /escrow
+Disallow: /subscription
+
+Sitemap: https://lamid.io/sitemap.xml

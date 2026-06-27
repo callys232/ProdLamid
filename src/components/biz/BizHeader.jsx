@@ -7,7 +7,6 @@ import { Typewriter } from "react-simple-typewriter";
 
 const BizHeader = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -63,7 +62,15 @@ const BizHeader = () => {
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <h1 className="text-3xl md:text-4xl font-bold text-blue-500 border-r-2 border-white whitespace-nowrap overflow-hidden max-w-full">
+                <h1
+                  className="
+    text-3xl md:text-4xl
+    font-bold text-blue-500
+    border-r-2 border-white
+    whitespace-normal md:whitespace-nowrap   /* ✅ allow wrapping on small, prevent on md+ */
+    overflow-hidden max-w-full
+  "
+                >
                   <Typewriter
                     words={["Business Innovation Zone"]}
                     loop={Infinity}
@@ -77,15 +84,15 @@ const BizHeader = () => {
               </div>
             </div>
 
-            <p className="text-lg md:text-xl text-center md:text-left max-w-2xl hover:text-gray-300 transition duration-300">
-              The one-stop place that rapidly nurtures and expands startups to
-              deliver exceptional value and become world-class organizations
+            <p className="text-lg md:text-xl text-center md:text-left max-w-2xl hover:text-gray-300 transition duration-300 font-semibold">
+              Clarity at the Speed of Decision.
             </p>
 
             <p className="text-base md:text-lg text-center md:text-left max-w-2xl hover:text-gray-400 transition duration-300">
-              The BIZ suite of services empowers organizations to attract a
-              continuous stream of clients and excel as best practices, thriving
-              on a culture of innovation, management, and sustainability.
+              Tools, diagnostics, and guidance powered by trusted expertise and advanced AI. Designed for SMEs, startups, and entrepreneurs who need clarity, structure, and momentum.
+            </p>
+            <p className="text-sm md:text-base text-center md:text-left max-w-2xl text-gray-400">
+              We reveal uncommon opportunities and grow organizations to dominate their competition — through Management Solutions, Innovation Consulting, Strategy, Process Improvement, and digital transformation.
             </p>
 
             {/* Read More Section

@@ -1,46 +1,111 @@
-import React from "react";
-import Image from "next/image";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import Head from "next/head";
-import { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+
+const SpinningGlobe = ({ size = 160 }) => {
+  const cx = 100, cy = 72, r = 54;
+  const globeBottom = cy + r; // 126
+
+  // 5 hand configs: rotation angle around pivot below globe, skin tone
+  const hands = [
+    { color: "#3B1A08", rot: -36 },
+    { color: "#7B4A2D", rot: -18 },
+    { color: "#B07040", rot:   0 },
+    { color: "#D4956A", rot:  18 },
+    { color: "#FDDBB4", rot:  36 },
+  ];
+
+  // pivot point where all hands rotate from (centre-bottom of globe)
+  const pivotY = globeBottom + 30;
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 200 195" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="gc2">
+          <circle cx={cx} cy={cy} r={r} />
+        </clipPath>
+        <radialGradient id="ocean2" cx="38%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#1e78c8" />
+          <stop offset="100%" stopColor="#08234e" />
+        </radialGradient>
+        <radialGradient id="shine2" cx="32%" cy="26%" r="52%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* ── Hands beneath globe (drawn first so globe overlaps them) ── */}
+      {hands.map(({ color, rot }, i) => (
+        <g key={i} transform={`rotate(${rot} ${cx} ${pivotY})`}>
+          {/* Wrist / arm stub */}
+          <rect x={cx - 7} y={pivotY - 4} width="14" height="20" rx="4" fill={color} />
+          {/* Palm (cupped upward, wider) */}
+          <rect x={cx - 10} y={globeBottom + 6} width="20" height="14" rx="5" fill={color} />
+          {/* 4 fingers pointing UP toward globe */}
+          <rect x={cx - 9}  y={globeBottom - 8}  width="4.5" height="16" rx="2.2" fill={color} />
+          <rect x={cx - 3.5} y={globeBottom - 11} width="4.5" height="19" rx="2.2" fill={color} />
+          <rect x={cx + 2}  y={globeBottom - 11} width="4.5" height="19" rx="2.2" fill={color} />
+          <rect x={cx + 7.5} y={globeBottom - 8}  width="4.5" height="16" rx="2.2" fill={color} />
+          {/* Thumb angled outward */}
+          <rect
+            x={cx - 16} y={globeBottom + 8}
+            width="4" height="10" rx="2"
+            fill={color}
+            transform={`rotate(-35 ${cx - 14} ${globeBottom + 13})`}
+          />
+        </g>
+      ))}
+
+      {/* ── Glow rings ── */}
+      <circle cx={cx} cy={cy} r={r + 6} fill="none" stroke="#10b981" strokeWidth="1.2" opacity="0.22" />
+      <circle cx={cx} cy={cy} r={r + 11} fill="none" stroke="#10b981" strokeWidth="0.7" opacity="0.1" />
+
+      {/* ── Globe ── */}
+      <circle cx={cx} cy={cy} r={r} fill="url(#ocean2)" />
+      <g clipPath="url(#gc2)">
+        {/* Continents */}
+        <path d="M98 38 Q114 35 119 54 Q124 74 116 93 Q108 108 98 105 Q86 100 82 83 Q76 62 98 38z" fill="#2e7d32" opacity="0.9" />
+        <path d="M76 29 Q89 25 92 38 Q87 47 77 44 Q68 41 76 29z" fill="#388e3c" opacity="0.85" />
+        <path d="M116 30 Q142 27 146 46 Q144 61 131 63 Q116 62 113 49z" fill="#2e7d32" opacity="0.85" />
+        <path d="M50 52 Q63 46 68 62 Q70 80 63 98 Q53 107 45 92 Q38 73 50 52z" fill="#388e3c" opacity="0.8" />
+        <path d="M34 30 Q54 26 58 41 Q56 52 45 54 Q32 51 34 30z" fill="#2e7d32" opacity="0.75" />
+        <path d="M138 90 Q152 86 154 97 Q153 107 143 109 Q134 108 133 97z" fill="#388e3c" opacity="0.8" />
+
+        {/* Latitude lines */}
+        <line x1={cx-r} y1={cy-26} x2={cx+r} y2={cy-26} stroke="rgba(255,255,255,0.07)" strokeWidth="0.7" />
+        <line x1={cx-r} y1={cy}    x2={cx+r} y2={cy}    stroke="rgba(255,255,255,0.09)" strokeWidth="0.9" />
+        <line x1={cx-r} y1={cy+26} x2={cx+r} y2={cy+26} stroke="rgba(255,255,255,0.07)" strokeWidth="0.7" />
+
+        {/* Spinning longitudes */}
+        <g>
+          <animateTransform attributeName="transform" type="rotate"
+            from={`0 ${cx} ${cy}`} to={`360 ${cx} ${cy}`} dur="9s" repeatCount="indefinite" />
+          <ellipse cx={cx} cy={cy} rx="18" ry={r} stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+          <ellipse cx={cx} cy={cy} rx="36" ry={r} stroke="rgba(255,255,255,0.06)" strokeWidth="0.7" />
+          <ellipse cx={cx} cy={cy} rx="50" ry={r} stroke="rgba(255,255,255,0.05)" strokeWidth="0.6" />
+        </g>
+      </g>
+
+      {/* Shine + border */}
+      <circle cx={cx} cy={cy} r={r} fill="url(#shine2)" />
+      <circle cx={cx} cy={cy} r={r} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+
+      {/* Ground glow */}
+      <ellipse cx={cx} cy={pivotY + 12} rx="38" ry="4" fill="#10b981" opacity="0.15" />
+    </svg>
+  );
+};
 
 const SDI = () => {
   const [showImpact, setShowImpact] = useState(false);
 
-  const toggleImpact = (e) => {
-    e.preventDefault();
-    setShowImpact(!showImpact);
-  };
+  const toggleImpact = () => setShowImpact((prev) => !prev);
 
   return (
-    <>
-      <Head>
-        <meta
-          name="description"
-          content="Discover how Lamid Consulting drives sustainable development through social inclusion, healthcare partnerships, gender equality, and climate action in Nigeria and beyond."
-        />
-        <meta
-          name="keywords"
-          content="sustainable development, social inclusion, healthcare partnerships, gender equality, climate change, renewable energy, cooperatives, Nigeria"
-        />
-        <meta name="author" content="Lamid Consulting" />
-        <meta
-          property="og:title"
-          content="Sustainable Development Initiatives | Lamid Consulting"
-        />
-        <meta
-          property="og:description"
-          content="Explore Lamid Consulting's impact in sustainable development, healthcare, and climate resilience."
-        />
-        <meta property="og:image" content="https://yourdomain.com/LD4.jpg" />
-        <meta
-          property="og:url"
-          content="https://yourdomain.com/sustainableDev"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://yourdomain.com/sustainableDev" />
-      </Head>
-      <div>
+    <div>
         <div className="relative w-full bg-black text-white overflow-hidden">
           {/* Background Tree Image */}
           <div className="absolute inset-0 opacity-70">
@@ -56,67 +121,73 @@ const SDI = () => {
 
           {/* Main content container */}
           <div className="relative z-10 flex flex-col px-4">
-            {/* Header section with content and images */}
-            <div className="flex items-center justify-between w-full pt-20 pb-8">
-              <div className="flex items-center">
-                {/* Left globe image - smaller size */}
-                <div className="w-1/4 max-w-[140px]">
+
+            {/* Coming Soon ribbon */}
+            <div className="flex justify-center pt-6 pb-2">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-900/20 text-emerald-400 text-xs font-bold tracking-widest uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Coming Soon — Sustainability Consulting Portal
+              </span>
+            </div>
+
+            {/* Header section — clicking navigates to the full SD page */}
+            <Link href="/sustainableDev" className="block group cursor-pointer">
+              <div className="flex items-center justify-between w-full pt-4 pb-6 group-hover:opacity-90 transition-opacity duration-200">
+                <div className="flex items-center">
+                  {/* Left globe */}
+                  <div className="w-1/4 max-w-[140px] flex items-center justify-center">
+                    <SpinningGlobe size={120} />
+                  </div>
+
+                  {/* Center text content */}
+                  <div className="text-center mx-4">
+                    <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                      <span className="text-emerald-400">S</span>ustainability
+                      <span className="text-emerald-400"> C</span>onsulting
+                    </h1>
+
+                    <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm">
+                      <p className="text-xs md:text-sm">
+                        Growing groups to world-class communities with sustainable
+                        development
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right globe image - larger size */}
+                <div className="w-1/3 max-w-[340px]">
                   <Image
                     src="/sustainable-icon.png"
-                    alt="Hands holding small globe"
-                    width={140}
-                    height={140}
+                    alt="Multiple hands holding globe"
+                    width={340}
+                    height={340}
                     className="rounded-md"
                   />
                 </div>
-
-                {/* Center text content */}
-                <div className="text-center mx-4">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                    <span className="text-emerald-400">S</span>ustainable
-                    <span className="text-emerald-400"> D</span>evelopment
-                  </h1>
-
-                  <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm">
-                    <p className="text-xs md:text-sm">
-                      Growing groups to world-class communities with sustainable
-                      development
-                    </p>
-                  </div>
-                </div>
               </div>
-
-              {/* Right globe image - larger size */}
-              <div className="w-1/3 max-w-[340px]">
-                <Image
-                  src="/sustainable-icon.png"
-                  alt="Multiple hands holding globe"
-                  width={340}
-                  height={340}
-                  className="rounded-md"
-                />
-              </div>
-            </div>
+            </Link>
 
             {/* Empty space for the middle area */}
             <div className="flex-grow"></div>
 
             {/* Bottom message section */}
             <div className="text-center mb-16 max-w-xl mx-auto">
-              <p className="text-base md:text-lg mb-4">
+              <p className="text-base md:text-lg mb-4 text-left">
                 We achieved social inclusion, managed healthcare partnerships,
                 gender equality...
               </p>
 
-              <Link
-                href="#"
+              <button
                 onClick={toggleImpact}
-                className="inline-flex items-center text-xs font-medium text-gray-300 hover:text-white"
+                className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-emerald-400 hover:text-white transition-colors duration-200 group"
               >
                 SEE HOW
-                <svg
+                <motion.svg
+                  animate={{ rotate: showImpact ? 180 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 ml-2"
+                  className="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -125,17 +196,26 @@ const SDI = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    d="M19 9l-7 7-7-7"
                   />
-                </svg>
-              </Link>
+                </motion.svg>
+              </button>
             </div>
           </div>
         </div>
 
         {/* Impact Section */}
+        <AnimatePresence initial={false}>
         {showImpact && (
-          <div className="min-h-screen bg-black text-white">
+          <motion.div
+            key="impact"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.45, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
+          >
+          <div className="bg-black text-white">
             <main className="container mx-auto px-4 py-12">
               <h1 className="text-5xl md:text-6xl font-bold text-gray-300 mb-16">
                 Impact
@@ -370,9 +450,10 @@ const SDI = () => {
               </div>
             </main>
           </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
-    </>
   );
 };
 

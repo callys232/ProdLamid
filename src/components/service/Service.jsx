@@ -1,298 +1,280 @@
-// components/ServicesSection.jsx
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
 
-const ServiceCard = ({ title, icon, coloredLetters }) => {
-  // Function to apply color to specific letters in the title
-  const colorizedTitle = () => {
-    const letters = title.split("");
-
-    return letters.map((letter, index) => {
-      if (coloredLetters.includes(index)) {
-        return (
-          <span key={index} className="text-blue-500">
-            {letter}
-          </span>
-        );
-      }
-      return <span key={index}>{letter}</span>;
-    });
-  };
+const ServiceCard = ({ title, icon, coloredLetters, href }) => {
+  const colorizedTitle = () =>
+    title.split("").map((letter, index) =>
+      coloredLetters.includes(index) ? (
+        <span key={index} className="text-blue-500">
+          {letter}
+        </span>
+      ) : (
+        <span key={index}>{letter}</span>
+      ),
+    );
 
   return (
-    <div className="flex flex-col items-center mb-8">
-      {/* <div className="border border-blue-500 rounded-md p-3 mb-4"> */}
-      <Image
-        src={icon}
-        alt={title}
-        width={80}
-        height={80}
-        className="w-28 h-24 object-contain"
-      />
-      {/* </div> */}
-      <h3 className="text-xl font-semibold">{colorizedTitle()}</h3>
-    </div>
-  );
-};
-
-// const ServiceButton = ({ title, icon, bgColor }) => {
-//   return (
-//     <div
-//       className={`${bgColor} rounded-md p-4 flex flex-col items-center justify-center h-28 w-full max-w-xs mx-auto relative`}
-//     >
-//       <Image
-//         src={icon}
-//         alt={title}
-//         width={24}
-//         height={24}
-//         className="w-6 h-6 object-contain mb-2"
-//       />
-//       <p className="text-white text-sm md:text-base text-center">{title}</p>
-//     </div>
-//   );
-// };
-
-const ServiceButton = ({ title, icon, bgColor }) => {
-  // Determine the link based on the background color
-  const getLink = () => {
-    switch (bgColor) {
-      case 'bg-green-800':
-        return '/sustainableDev';
-      case 'bg-blue-600':
-        return '/biz';
-      case 'bg-amber-900':
-        return '/hcd';
-      default:
-        return '#'; // Default link if no match
-    }
-  };
-
-  // Get the appropriate link for this button
-  const link = getLink();
-
-  return (
-    <Link href={link}>
-      <div
-        className={`${bgColor} rounded-md p-4 flex flex-col items-center justify-center h-28 w-full max-w-xs mx-auto relative cursor-pointer transition-transform hover:scale-105`}
+    <Link href={href}>
+      <motion.div
+        whileHover={{ y: -6 }}
+        whileTap={{ scale: 0.96, y: 0 }}
+        transition={{ type: "spring", stiffness: 340, damping: 22 }}
+        className="group flex flex-col items-center mb-8 px-4 py-6 cursor-pointer"
       >
-        <Image
-          src={icon}
-          alt={title}
-          width={24}
-          height={24}
-          className="w-6 h-6 object-contain mb-2"
-        />
-        <p className="text-white text-sm md:text-base text-center">{title}</p>
-      </div>
-    </Link>
-  );
-};
+        <motion.div
+          animate={{ scale: 1 }}
+          whileHover={{ scale: 1.1, rotate: 3 }}
+          transition={{ type: "spring", stiffness: 380, damping: 18 }}
+          className="mb-4"
+        >
+          <Image
+            src={icon}
+            alt={title}
+            width={80}
+            height={80}
+            className="w-28 h-24 object-contain drop-shadow-[0_0_12px_rgba(193,33,41,0.3)] group-hover:drop-shadow-[0_0_20px_rgba(193,33,41,0.55)] transition-all duration-300"
+          />
+        </motion.div>
 
-// Custom component for items without background
-const TextOnlyButton = ({ title, icon }) => {
-  return (
-    <div className="flex flex-col items-center justify-center h-24 sm:h-28 md:h-32 w-full">
-      <Image
-        src={icon}
-        alt={title}
-        width={24}
-        height={24}
-        className="w-5 h-5 sm:w-6 sm:h-6 object-contain mb-1 sm:mb-2"
-      />
-      <p className="text-white text-xs sm:text-sm md:text-base text-center line-clamp-2">
-        {title}
-      </p>
-    </div>
+        <h3 className="text-xl font-semibold text-center leading-snug group-hover:text-white transition-colors duration-200">
+          {colorizedTitle()}
+        </h3>
+
+        {/* Animated underline */}
+        <motion.div
+          initial={{ width: 0 }}
+          whileHover={{ width: "50%" }}
+          transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+          className="mt-3 h-0.5 rounded-full bg-gradient-to-r from-[#c21219] to-rose-400"
+        />
+      </motion.div>
+    </Link>
   );
 };
 
 const ServicesSection = () => {
   return (
-    <div className="bg-black text-white min-h-screen px-4 md:px-8 lg:px-16 py-12">
-      <div className="max-w-6xl mx-auto">
-        {/* Services Header */}
-        <div className="border border-white inline-block px-6 py-2 mb-8">
+    <div className="relative bg-black text-white w-full px-4 md:px-8 lg:px-16 pt-6 pb-8 overflow-hidden">
+      {/* ── Full-section vector background ── */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 w-full h-full z-0"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <line
+          x1="0"
+          y1="0"
+          x2="100%"
+          y2="100%"
+          stroke="#c21219"
+          strokeWidth="1"
+          opacity="0.18"
+        />
+        <line
+          x1="100%"
+          y1="0"
+          x2="0"
+          y2="100%"
+          stroke="#ffffff"
+          strokeWidth="0.8"
+          opacity="0.08"
+        />
+        <line
+          x1="30%"
+          y1="0"
+          x2="70%"
+          y2="100%"
+          stroke="#c21219"
+          strokeWidth="0.8"
+          opacity="0.12"
+        />
+        <line
+          x1="0"
+          y1="33%"
+          x2="100%"
+          y2="33%"
+          stroke="#ffffff"
+          strokeWidth="0.7"
+          opacity="0.07"
+        />
+        <line
+          x1="0"
+          y1="66%"
+          x2="100%"
+          y2="66%"
+          stroke="#ffffff"
+          strokeWidth="0.6"
+          opacity="0.06"
+        />
+        <line
+          x1="25%"
+          y1="0"
+          x2="25%"
+          y2="100%"
+          stroke="#c21219"
+          strokeWidth="0.7"
+          opacity="0.1"
+        />
+        <line
+          x1="75%"
+          y1="0"
+          x2="75%"
+          y2="100%"
+          stroke="#c21219"
+          strokeWidth="0.6"
+          opacity="0.08"
+        />
+        <circle
+          cx="10%"
+          cy="20%"
+          r="80"
+          fill="none"
+          stroke="#c21219"
+          strokeWidth="1.2"
+          opacity="0.15"
+        />
+        <circle
+          cx="90%"
+          cy="75%"
+          r="110"
+          fill="none"
+          stroke="#c21219"
+          strokeWidth="1"
+          opacity="0.14"
+        />
+        <circle
+          cx="55%"
+          cy="50%"
+          r="160"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="0.7"
+          opacity="0.07"
+        />
+        <circle
+          cx="10%"
+          cy="20%"
+          r="40"
+          fill="none"
+          stroke="#c21219"
+          strokeWidth="1"
+          opacity="0.18"
+        />
+        <circle
+          cx="90%"
+          cy="75%"
+          r="55"
+          fill="none"
+          stroke="#c21219"
+          strokeWidth="1"
+          opacity="0.18"
+        />
+        <circle cx="18%" cy="58%" r="3" fill="#c21219" opacity="0.25" />
+        <circle cx="38%" cy="12%" r="2.5" fill="#ffffff" opacity="0.15" />
+        <circle cx="62%" cy="88%" r="3" fill="#c21219" opacity="0.22" />
+        <circle cx="83%" cy="30%" r="4" fill="#c21219" opacity="0.2" />
+        <circle cx="47%" cy="70%" r="2" fill="#ffffff" opacity="0.12" />
+        <circle cx="72%" cy="18%" r="3" fill="#c21219" opacity="0.18" />
+        <circle cx="6%" cy="82%" r="2.5" fill="#ffffff" opacity="0.12" />
+        <path
+          d="M 0 0 Q 140 0 140 140"
+          fill="none"
+          stroke="#c21219"
+          strokeWidth="1"
+          opacity="0.15"
+        />
+        <line
+          x1="78%"
+          y1="0"
+          x2="100%"
+          y2="22%"
+          stroke="#ffffff"
+          strokeWidth="0.7"
+          opacity="0.08"
+        />
+        <line
+          x1="86%"
+          y1="0"
+          x2="100%"
+          y2="14%"
+          stroke="#ffffff"
+          strokeWidth="0.7"
+          opacity="0.07"
+        />
+        <line
+          x1="93%"
+          y1="0"
+          x2="100%"
+          y2="7%"
+          stroke="#c21219"
+          strokeWidth="0.8"
+          opacity="0.12"
+        />
+      </svg>
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="border border-white inline-block px-6 py-2 mb-4">
           <h2 className="text-xl">SERVICES</h2>
         </div>
 
-        <div className="w-full h-px bg-gray-700 mb-6"></div>
+        <div className="w-full h-px bg-gray-700 mb-4" />
 
-        {/* Main Description */}
-        <div className="mb-12">
-          <p className="mb-4 md:text-lg">
-            We reveal uncommon opportunities from everyday ideas and grow you to
-            dominate the competition. We are known for transforming
-            organizations using customized Management Solutions, Innovation
-            Consulting, Strategy, Process Improvement and Talent Development.
+        <div className="mb-6">
+          <p className="mb-2 md:text-lg">
+            We help you scale with intelligence, agility, and measurable impact
+            — across every layer.
+          </p>
+          <p className="md:text-lg ">
+            We unify strategy, performance, systems, and seamless work into one
+            Human-AI assisted,
+          </p>
+          <p className="md:text-lg font-extrabold bg-gradient-to-r from-red-600 to-white bg-clip-text text-transparent">
+            <Typewriter
+              words={[
+                "Enterprise-grade Ecosystem: Talent, Marketplace, CRM, Document and Project Manager.",
+              ]}
+              loop={0}
+              typeSpeed={55}
+              deleteSpeed={0}
+              delaySpeed={3000}
+              cursor
+              cursorStyle="|"
+            />
           </p>
         </div>
 
-        {/* Main Service Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-4">
           <ServiceCard
             title="Business Innovation Zone"
             icon="/biz-icon.png"
             coloredLetters={[0, 9, 20]}
+            href="/biz"
           />
           <ServiceCard
             title="Human Capital Development"
             icon="/human-capital-icon.png"
             coloredLetters={[0, 6, 14]}
+            href="/hcd"
           />
           <ServiceCard
             title="Sustainable Development"
             icon="/sustainable-icon.png"
             coloredLetters={[0, 12]}
+            href="/sustainableDev"
+          />
+          <ServiceCard
+            title="Portal"
+            icon="/portalLogo.png"
+            coloredLetters={[0]}
+            href="/portal"
           />
         </div>
 
-        {/* Responsive Service Grid */}
-        <div className="w-full mx-auto">
-          {/* Desktop Layout (md screens and up) */}
-          <div className="hidden md:block">
-            {/* Top Row (3 items) */}
-            <div className="grid grid-cols-3 gap-4 mb-4 max-w-4xl mx-auto">
-              <ServiceButton
-                title="Process Transformation"
-                icon="/rocket-icon.png"
-                bgColor="bg-blue-600"
-              />
-              <TextOnlyButton
-                title="Innovation Consulting"
-                icon="/rocket-icon.png"
-              />
-              <ServiceButton
-                title="Sustainable Development"
-                icon="/rocket-icon.png"
-                bgColor="bg-green-800"
-              />
-            </div>
-
-            {/* Bottom Row (5 items) */}
-            <div className="grid grid-cols-5 gap-4 max-w-6xl mx-auto">
-              <ServiceButton
-                title="Digital Transformation"
-                icon="/chart-icon.png"
-                bgColor="bg-blue-600"
-              />
-              <TextOnlyButton
-                title="Strategy Development"
-                icon="/rocket-icon.png"
-              />
-              <ServiceButton
-                title="Talent Sourcing"
-                icon="/people-icon.png"
-                bgColor="bg-amber-900"
-              />
-              <ServiceButton
-                title="Management Solutions"
-                icon="/rocket-icon.png"
-                bgColor="bg-black"
-              />
-              <ServiceButton
-                title="HR, Training & Support"
-                icon="/rocket-icon.png"
-                bgColor="bg-amber-900"
-              />
-            </div>
-          </div>
-
-          {/* Tablet Layout (sm screens) */}
-          <div className="hidden sm:block md:hidden">
-            {/* Top Row (3 items) */}
-            <div className="grid grid-cols-3 gap-3 mb-3 mx-auto">
-              <ServiceButton
-                title="Process Transformation"
-                icon="/rocket-icon.png"
-                bgColor="bg-blue-700"
-              />
-              <TextOnlyButton
-                title="Innovation Consulting"
-                icon="/rocket-icon.png"
-              />
-              <ServiceButton
-                title="Sustainable Development"
-                icon="/rocket-icon.png"
-                bgColor="bg-green-800"
-              />
-            </div>
-
-            {/* Bottom Rows (3+2 items) */}
-            <div className="grid grid-cols-3 gap-3 mb-3 mx-auto">
-              <ServiceButton
-                title="Digital Transformation"
-                icon="/chart-icon.png"
-                bgColor="bg-blue-600"
-              />
-              <TextOnlyButton
-                title="Strategy Development"
-                icon="/rocket-icon.png"
-              />
-              <ServiceButton
-                title="Talent Sourcing"
-                icon="/people-icon.png"
-                bgColor="bg-amber-900"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3 mx-auto">
-              <ServiceButton
-                title="Management Solutions"
-                icon="/rocket-icon.png"
-                bgColor="bg-black"
-              />
-              <ServiceButton
-                title="HR, Training & Support"
-                icon="/rocket-icon.png"
-                bgColor="bg-amber-900"
-              />
-            </div>
-          </div>
-
-          {/* Mobile Layout (xs screens) */}
-          <div className="block sm:hidden">
-            {/* Stack all items in 2 columns */}
-            <div className="grid grid-cols-2 gap-2 mx-auto">
-              <ServiceButton
-                title="Process Transformation"
-                icon="/rocket-icon.png"
-                bgColor="bg-blue-700"
-              />
-              <TextOnlyButton
-                title="Innovation Consulting"
-                icon="/rocket-icon.png"
-              />
-              <ServiceButton
-                title="Sustainable Development"
-                icon="/rocket-icon.png"
-                bgColor="bg-green-800"
-              />
-              <ServiceButton
-                title="Digital Transformation"
-                icon="/chart-icon.png"
-                bgColor="bg-blue-600"
-              />
-              <TextOnlyButton
-                title="Strategy Development"
-                icon="/rocket-icon.png"
-              />
-              <ServiceButton
-                title="Talent Sourcing"
-                icon="/people-icon.png"
-                bgColor="bg-amber-900"
-              />
-              <ServiceButton
-                title="Management Solutions"
-                icon="/rocket-icon.png"
-                bgColor="bg-black"
-              />
-              <ServiceButton
-                title="HR, Training & Support"
-                icon="/rocket-icon.png"
-                bgColor="bg-amber-900"
-              />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

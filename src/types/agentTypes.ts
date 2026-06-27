@@ -1,4 +1,3 @@
-// components/AgentTypes.ts
 export type AgentType =
   | "onboarding"
   | "learning"
@@ -6,4 +5,10 @@ export type AgentType =
   | "shopping"
   | "creative"
   | "productivity"
-  | "project";
+  | "project"
+  | "analytics"
+  | "communication"
+  | "outreach";
+
+export const LOCKED_AGENTS: AgentType[] = ["learning", "support", "shopping", "productivity"];
+export const ADMIN_AGENTS:  AgentType[] = ["outreach"];

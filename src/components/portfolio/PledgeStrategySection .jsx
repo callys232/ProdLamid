@@ -1,107 +1,212 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React from "react";
+import { motion } from "framer-motion";
+import { Handshake, TrendingUp } from "lucide-react";
+import EcosystemTag from "@/components/EcosystemTag";
+
+const PLEDGE_LINES = [
+  "We don't just build tools.",
+  "We build systems that build people.",
+  "We build ecosystems that build nations.",
+];
 
 const PledgeStrategySection = () => {
-  const [pledgeExpanded, setPledgeExpanded] = useState(false);
-  const [economyExpanded, setEconomyExpanded] = useState(false);
-  
   return (
-    <section className="relative bg-black text-white overflow-hidden">
-      {/* Diagonal background element - improved responsiveness */}
-      <div className="absolute inset-0">
-        <div className="absolute bottom-0 right-0 w-full md:w-3/4 lg:w-2/3 h-full bg-red-900/30 transform -skew-x-12 origin-bottom-right"></div>
+    <section className="relative bg-black py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
+
+      {/* Global ambient glow */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-[#c21219]/10 blur-[100px]" />
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-emerald-900/15 blur-[100px]" />
       </div>
-      
-      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
-          {/* Left column - Image and Pledge */}
-          <div className="space-y-4 sm:space-y-6">
-            {/* Image - commented out but improved for responsiveness */}
-            {/* <div className="rounded-lg overflow-hidden w-full aspect-video sm:aspect-auto md:aspect-square">
-              <Image
-                src="/tree-background.jpg"
-                alt="Company image"
-                width={600}
-                height={400}
-                className="w-full h-full object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div> */}
-            
-            {/* Pledge and Strategy section */}
-            <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 sm:p-5">
-              <div className="flex items-center justify-between mb-3 sm:mb-4">
-                <div className="bg-blue-700 rounded-md px-2 sm:px-3 py-1 sm:py-1.5">
-                  <h2 className="text-xs sm:text-sm font-medium text-white uppercase tracking-wider">Our Pledge and Strategy</h2>
-                </div>
-                <button 
-                  onClick={() => setPledgeExpanded(!pledgeExpanded)}
-                  className="bg-white rounded-md p-1 hover:bg-gray-200 transition-colors"
-                  aria-label={pledgeExpanded ? "Collapse" : "Expand"}
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
-                    <path d={pledgeExpanded ? "M19 15l-7-7-7 7" : "M5 9l7 7 7-7"} stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-              </div>
-              
-              <div className={`text-xs sm:text-sm md:text-base leading-relaxed ${pledgeExpanded ? 'block' : 'line-clamp-4 sm:line-clamp-6 md:line-clamp-8'}`}>
-                <p>
-                  We go the extra mile always, that is why our clients come back for more service and create referrals, 
-                  we customize our solutions and deepen relationships with incentives in order to retain and grow our 
-                  core of loyal clients.
-                </p>
-                <p className="mt-2">
-                  We implement robust business and global strategies to keep our costs to the minimum, in 
-                  order to deliver world-class organizations' value, products, and services to our clients. 
-                  We help clients connect with themselves and their 
-                  stakeholders, and work to fix in their world, as we 
-                  use opportunities created by knowledge in the 
-                  21st century
-                </p>
-              </div>
-            </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        {/* ══ LEFT — Our Pledge ══ */}
+        <motion.div
+          initial={{ opacity: 0, x: -32 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", stiffness: 220, damping: 24 }}
+          whileHover={{ y: -4 }}
+          className="relative rounded-2xl overflow-hidden"
+        >
+          {/* Gradient pattern background */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 20% 30%, #c21219 0%, #8b0f14 35%, #3a0608 65%, #0d0202 100%)",
+              }}
+            />
+            <div className="absolute inset-0 opacity-[0.07]"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(135deg, #fff 0px, #fff 1px, transparent 1px, transparent 28px)",
+              }}
+            />
+            <div className="absolute inset-0 opacity-[0.06]"
+              style={{
+                backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+                backgroundSize: "24px 24px",
+              }}
+            />
+            <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-rose-400/20 blur-3xl" />
+            <div className="absolute -bottom-8 -left-8 w-36 h-36 rounded-full bg-red-900/40 blur-2xl" />
           </div>
-          
-          {/* Right column - Building Great Economy */}
-          <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 sm:p-5">
-            <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <div className="bg-green-700 rounded-md px-2 sm:px-3 py-1 sm:py-1.5">
-                <h2 className="text-xs sm:text-sm font-medium text-white uppercase tracking-wider truncate max-w-[200px] sm:max-w-none">Building and Enduring Great Economy</h2>
-              </div>
-              <button 
-                onClick={() => setEconomyExpanded(!economyExpanded)}
-                className="bg-white rounded-md p-1 hover:bg-gray-200 transition-colors ml-2 flex-shrink-0"
-                aria-label={economyExpanded ? "Collapse" : "Expand"}
+
+          {/* Content */}
+          <div className="relative z-10 p-8 sm:p-10 flex flex-col gap-7">
+            {/* Header */}
+            <div className="flex items-center gap-3">
+              <motion.div
+                whileHover={{ rotate: 8, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 16 }}
+                className="w-11 h-11 rounded-xl flex items-center justify-center bg-white/15 border border-white/25"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
-                  <path d={economyExpanded ? "M19 15l-7-7-7 7" : "M5 9l7 7 7-7"} stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
+                <Handshake className="h-5 w-5 text-white" />
+              </motion.div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-rose-300">
+                  Commitment
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                  Our Pledge
+                </h2>
+              </div>
             </div>
-            
-            <div className={`text-xs sm:text-sm md:text-base leading-relaxed ${economyExpanded ? 'block' : 'line-clamp-4 sm:line-clamp-6 md:line-clamp-8'}`}>
-              <p>
-                A great company can be measured by its performance 
-                (generating enough cash flow through highly profitable 
-                operations to invest in future-focused and create 
-                value for its customers through innovation), its impact on 
-                the industry, the reputation it creates for itself with its 
-                stakeholders, and its business model that gives it the 
-                ability to remain healthy for decades. The greatness of a 
-                company has a lot to do with its operation; their functions 
-                are run by people who are experienced, educated, 
-                well prepared, business savvy through common sense and 
-                profitability centered. Such companies take advantage of 
-                opportunities available in the environment and taking 
-                advantage of such.
-              </p>
+
+            {/* Divider */}
+            <div className="h-px bg-gradient-to-r from-white/30 via-white/10 to-transparent" />
+
+            {/* CSS keyframe guarantees the pulse loops forever */}
+            <style>{`
+              @keyframes pledge-radar {
+                0%   { transform: scale(1);   opacity: 0.55; }
+                60%  { transform: scale(2.4); opacity: 0;    }
+                100% { transform: scale(1);   opacity: 0;    }
+              }
+              .pulse-0 { animation: pledge-radar 2.2s ease-out infinite 0s;     }
+              .pulse-1 { animation: pledge-radar 2.2s ease-out infinite 0.73s;  }
+              .pulse-2 { animation: pledge-radar 2.2s ease-out infinite 1.46s;  }
+            `}</style>
+
+            {/* Pledge lines — animated bullets + Playfair font */}
+            <div className="space-y-5">
+              {PLEDGE_LINES.map((line, i) => (
+                <motion.div
+                  key={line}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 + i * 0.14, type: "spring", stiffness: 260, damping: 22 }}
+                  className="flex items-start gap-4"
+                >
+                  {/* Radar-pulse bullet — pure CSS, loops indefinitely */}
+                  <div className="relative flex-shrink-0 mt-2 w-2.5 h-2.5">
+                    <span className={`pulse-${i} absolute inset-0 rounded-full bg-white/55`} />
+                    <span className="relative block w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.85)]" />
+                  </div>
+
+                  <p
+                    className="text-lg sm:text-xl md:text-2xl font-semibold leading-snug text-white"
+                    style={{ fontFamily: "var(--font-playfair)" }}
+                  >
+                    {line}
+                  </p>
+                </motion.div>
+              ))}
             </div>
+
+            <div className="h-0.5 w-20 rounded-full bg-gradient-to-r from-white/50 to-transparent mt-2" />
           </div>
-        </div>
+        </motion.div>
+
+        {/* ══ RIGHT — Building and Enduring Great Economy ══ */}
+        <motion.div
+          initial={{ opacity: 0, x: 32 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", stiffness: 220, damping: 24, delay: 0.1 }}
+          whileHover={{ y: -4 }}
+          className="relative rounded-2xl overflow-hidden"
+        >
+          {/* Gradient pattern background */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 80% 20%, #064e3b 0%, #052e20 30%, #071a10 60%, #020805 100%)",
+              }}
+            />
+            <div className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 10% 90%, rgba(6,78,59,0.6) 0%, transparent 55%)",
+              }}
+            />
+            <div className="absolute inset-0 opacity-[0.05]"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(45deg, #fff 0px, #fff 1px, transparent 1px, transparent 32px)",
+              }}
+            />
+            <div className="absolute inset-0 opacity-[0.05]"
+              style={{
+                backgroundImage: "radial-gradient(circle, #6ee7b7 1px, transparent 1px)",
+                backgroundSize: "28px 28px",
+              }}
+            />
+            <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-emerald-500/15 blur-3xl" />
+            <div className="absolute -bottom-8 -left-8 w-36 h-36 rounded-full bg-emerald-900/30 blur-2xl" />
+            <div className="absolute inset-0 rounded-2xl"
+              style={{ boxShadow: "inset 0 0 0 1px rgba(52,211,153,0.15)" }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10 p-8 sm:p-10 flex flex-col gap-7">
+            {/* Header */}
+            <div className="flex items-center gap-3">
+              <motion.div
+                whileHover={{ rotate: 8, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 16 }}
+                className="w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-500/20 border border-emerald-400/35"
+              >
+                <TrendingUp className="h-5 w-5 text-emerald-300" />
+              </motion.div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-300">
+                  Strategy
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                  Building and Enduring Great Economy
+                </h2>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px bg-gradient-to-r from-emerald-400/30 via-emerald-400/10 to-transparent" />
+
+            {/* Body */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.18, type: "spring", stiffness: 260, damping: 22 }}
+              className="text-base sm:text-lg leading-relaxed text-white/85"
+            >
+              A great company can be measured by its performance — generating enough cash flow through highly
+              profitable operations to invest in the future and create value for its customers through innovation.
+            </motion.p>
+
+            <div className="h-0.5 w-20 rounded-full bg-gradient-to-r from-emerald-400/50 to-transparent mt-2" />
+          </div>
+        </motion.div>
+
       </div>
+      <EcosystemTag />
     </section>
   );
 };

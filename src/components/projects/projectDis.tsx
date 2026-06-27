@@ -4,7 +4,7 @@ import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import FilterSidebar, { FilterOption } from "../consultants/FilterSidebar";
 import ProjectCard from "./projectCard";
-import { teamProjects, individualProjects } from "@/mocks/mockClient";
+import { getProjects } from "@/lib/api/projectApi";
 import type { Project } from "@/types/project";
 
 /* -------------------- FILTER TYPE -------------------- */
@@ -33,41 +33,31 @@ export default function ProjectsSection({
   const [filters, setFilters] = useState<ProjectFilters>(defaultFilters);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   /* -------------------- FETCH PROJECTS -------------------- */
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const res = await fetch("/api/projects");
-        const data = await res.json();
+        setLoading(true);
+        setError(null);
+        const data = await getProjects({ scope: "browse" } as any);
 
-        if (!data.success) throw new Error(data.message);
-
-        const normalizedProjects: Project[] = (data.data as Project[]).map(
-          (p) => ({
-            ...p,
-            _id: p._id || p.id,
-            id: p.id || p._id || "", // ✅ always string
-            budget:
-              typeof p.budget === "number"
-                ? p.budget
-                : p.budget !== undefined
-                ? Number(p.budget)
-                : undefined, // ✅ keep numeric
-          })
-        );
-
-        setProjects(normalizedProjects);
-      } catch {
-        const mockProjects: Project[] = [
-          ...teamProjects,
-          ...individualProjects,
-        ].map((p) => ({
+        const normalizedProjects: Project[] = data.map((p) => ({
           ...p,
           _id: p._id || p.id,
-          id: p.id || p._id || "",
+          id: p.id || p._id || "", // ✅ always string
+          budget:
+            typeof p.budget === "number"
+              ? p.budget
+              : p.budget !== undefined
+                ? Number(p.budget)
+                : undefined, // ✅ keep numeric
         }));
-        setProjects(mockProjects);
+
+        setProjects(normalizedProjects);
+      } catch (err: any) {
+        setError("Failed to load projects. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -156,6 +146,20 @@ export default function ProjectsSection({
       <p className="text-center text-gray-400 py-20 text-lg">
         Loading projects...
       </p>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-red-400 text-lg mb-4">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="bg-red-600 px-6 py-2 rounded-md font-semibold hover:bg-red-700"
+        >
+          Retry
+        </button>
+      </div>
     );
   }
 

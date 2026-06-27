@@ -1,0 +1,195 @@
+.card {
+  position: relative;
+  height: 15rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.35s ease, border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Background image layer — independently blurs and darkens on hover */
+.cardBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.55s ease, filter 0.55s ease;
+  will-change: filter, transform;
+}
+
+.card:hover .cardBg {
+  filter: blur(3px) brightness(0.42);
+  transform: scale(1.1);
+}
+
+/* Progressive dark tint */
+.tint {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  transition: background 0.45s ease;
+}
+
+.card:hover .tint {
+  background: rgba(0, 0, 0, 0.62);
+}
+
+/* Vector pattern — fades in on hover (pattern variant set per card) */
+.vectorOverlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.card:hover .vectorOverlay {
+  opacity: 1;
+}
+
+/* ── Per-card pattern variants ── */
+
+/* 0 — fine grid */
+.patternGrid {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.055) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* 1 — 45° diagonal stripes */
+.patternDiag {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px,
+    transparent 16px
+  );
+}
+
+/* 2 — small dots */
+.patternDots {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.18) 1px,
+    transparent 1px
+  );
+  background-size: 16px 16px;
+}
+
+/* 3 — horizontal lines */
+.patternHLines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px,
+    transparent 18px
+  );
+}
+
+/* 4 — vertical lines */
+.patternVLines {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px,
+    transparent 18px
+  );
+}
+
+/* 5 — counter-diagonal (-45°) */
+.patternCounterDiag {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px,
+    transparent 16px
+  );
+}
+
+/* 6 — crosshatch (45° + -45°) */
+.patternCrosshatch {
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 16px
+    );
+}
+
+/* 7 — large dots */
+.patternLargeDots {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.14) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 24px 24px;
+}
+
+/* Radial highlight — centered glow behind text on hover */
+.radialHighlight {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(255, 255, 255, 0.09) 0%,
+    transparent 65%
+  );
+}
+
+.card:hover .radialHighlight {
+  opacity: 1;
+}
+
+/* Text container — vertically and horizontally centered within the card */
+.textWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 10;
+}
+
+.text {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  transition: color 0.4s ease, text-shadow 0.4s ease, letter-spacing 0.3s ease,
+    transform 0.4s ease;
+}
+
+.card:hover .text {
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  transform: translateY(-2px);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.95), 0 0 48px rgba(0, 0, 0, 0.7);
+}

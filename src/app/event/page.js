@@ -1,24 +1,21 @@
-import React from "react";
-import Image from "next/image";
-import EventHeader from "@/components/event/EventHeader";
-import EventSummary from "@/components/event/EventSummary";
-import HCDEvent from "@/components/event/HCDEvent";
-import BusinessPrototypes from "@/components/event/BusinessPrototypes ";
-import LastEvent from "@/components/event/LastEvent";
+import EventsHeader from "@/components/Events/eventsHeader";
+import BusinessPrototypes from "@/components/bizprototype/bizPrototypes";
+import Testimonial from "@/components/Testimonial";
+import Slider from "../../components/slider";
+import EventList from "@/components/Events/EventsList";
+import Allevents from "@/components/Events/allEvents";
+import Color from "@/components/ColorLegder";
 
-const Eventpage = () => {
+export default async function EventsPage() {
   return (
-    <div>
-      <EventHeader />
-      <EventSummary />
-      <div className="w-full h-px bg-gray-700"></div>
-      <HCDEvent />
-      <div className="w-full h-px bg-gray-700"></div>
+    <main>
+      <EventsHeader />
+      <EventList />
+      <Allevents />
       <BusinessPrototypes />
-      <div className="w-full h-px bg-gray-700"></div>
-      <LastEvent />
-    </div>
+      <Color />
+      <Testimonial />
+      <Slider />
+    </main>
   );
-};
-
-export default Eventpage;
+}

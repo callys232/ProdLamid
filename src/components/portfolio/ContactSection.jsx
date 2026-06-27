@@ -54,9 +54,9 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="bg-black text-white min-h-screen w-full flex flex-col items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
+    <section className="bg-black text-white w-full flex flex-col items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-6xl">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold inline-block border border-red-600 px-6 py-3 mb-12 animate-glitch">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold inline-block border border-red-600 rounded-xl px-6 py-3 mb-12 animate-glitch">
           CONTACT US
         </h2>
 
@@ -83,7 +83,7 @@ const ContactSection = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-300 text-gray-800 placeholder-gray-600 rounded-none focus:outline-none focus:ring-2 focus:ring-red-600 hover:ring hover:ring-red-400 hover:ring-offset-2 transition duration-300"
+                className="w-full px-4 py-3 bg-gray-300 text-gray-800 placeholder-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-600 hover:ring hover:ring-red-400 hover:ring-offset-2 transition duration-300"
               />
 
               <input
@@ -93,7 +93,7 @@ const ContactSection = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-300 text-gray-800 placeholder-gray-600 rounded-none focus:outline-none focus:ring-2 focus:ring-red-600 hover:ring hover:ring-red-400 hover:ring-offset-2 transition duration-300"
+                className="w-full px-4 py-3 bg-gray-300 text-gray-800 placeholder-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-600 hover:ring hover:ring-red-400 hover:ring-offset-2 transition duration-300"
               />
 
               <textarea
@@ -103,20 +103,20 @@ const ContactSection = () => {
                 onChange={handleChange}
                 required
                 rows="6"
-                className="w-full px-4 py-3 bg-gray-300 text-gray-800 placeholder-gray-600 rounded-none focus:outline-none focus:ring-2 focus:ring-red-600 hover:ring hover:ring-red-400 hover:ring-offset-2 transition duration-300 resize-none"
+                className="w-full px-4 py-3 bg-gray-300 text-gray-800 placeholder-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-600 hover:ring hover:ring-red-400 hover:ring-offset-2 transition duration-300 resize-none"
               />
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-red-600 text-white py-2 px-12 rounded-none hover:bg-red-700 transition-colors disabled:opacity-70"
+                className="bg-red-600 text-white py-2 px-12 rounded-xl hover:bg-red-700 transition-colors disabled:opacity-70"
               >
                 {isSubmitting ? "SENDING..." : "SEND"}
               </button>
 
               {submitStatus && (
                 <div
-                  className={`mt-4 p-3 ${
+                  className={`mt-4 p-3 rounded-xl ${
                     submitStatus.success ? "bg-green-700" : "bg-red-700"
                   } text-white`}
                 >

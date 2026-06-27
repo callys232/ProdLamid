@@ -25,6 +25,7 @@ export default function ModalWrapper() {
       setHasShownModal(true); // Prevent showing the modal multiple times
     }
   };
+  
 
   useEffect(() => {
     // Check if we've already shown the modal in this session

@@ -9,15 +9,11 @@ const Header = () => {
           <div className="w-full md:w-1/3 bg-gradient-to-br from-red-900 to-red-700 rounded-3xl p-8 flex items-center justify-center">
             <h2 className="text-3xl font-bold uppercase tracking-wider">OUR STRENGTH</h2>
           </div>
-          
+
           {/* Right side - Content */}
           <div className="w-full md:w-2/3 flex items-center">
             <p className="text-sm md:text-base lg:text-lg leading-relaxed">
-              For over three decades, through in-depth research, we have successfully proffered 
-              solutions to a wide array of clients in the private sector especially SMEs, as well as 
-              governments, NGOs and international development partners. Broadly, our results 
-              include increased profits, innovation, job creation, youth development, 
-              environmental enhancement, and knowledge building.
+              For over three decades, we have worked globally across industries, communities, and boardrooms. We have seen the gaps. We have seen the potential — and we built AIVORA to bridge both. A unified ecosystem where trusted expertise and advanced AI work together to deliver consulting, training, and business growth in one seamless digital environment.
             </p>
           </div>
         </div>

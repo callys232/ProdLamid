@@ -2,14 +2,9 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Project } from "@/types/project";
+import { Project, Bid } from "@/types/project";
 import { Consultant, ClientProfile } from "@/types/client";
 import BidSection from "./bidSection";
-
-interface Bid {
-  amount: number;
-  date: string;
-}
 
 interface ApplyModalProps {
   job: Project;
@@ -348,7 +343,7 @@ export default function ApplyModal({
                   {/* About client */}
                   {client && (
                     <FieldSection title="About the client">
-                      <div className="px-3 py-3 bg白/10 border border-white/20 rounded-lg text-sm space-y-1">
+                      <div className="px-3 py-3 bg-white/10 border border-white/20 rounded-lg text-sm space-y-1">
                         <p className="text-white font-semibold">
                           {client.name || client.companyname}
                         </p>

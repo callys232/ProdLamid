@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
 
 interface JobFilterProps {
   active: string;
@@ -17,117 +18,79 @@ export default function JobFilter({
   onChange,
   label,
 }: JobFilterProps) {
-  const [hovered, setHovered] = useState<string | null>(null);
-  const [clicked, setClicked] = useState<string | null>(null);
-  const [focusIndex, setFocusIndex] = useState<number>(0);
-
-  // search state
   const [query, setQuery] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const showTooltip = (opt: string) => hovered === opt || clicked === opt;
-
-  const classes = (opt: string) =>
-    `relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
-     border ${
-       active === opt
-         ? "bg-[#c21219] text-white border-[#c21219] shadow-md"
-         : "bg-gray-800 text-gray-300 border-transparent hover:border-[#c21219] hover:text-[#c21219]"
-     }`;
-
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLButtonElement>,
-    index: number,
-    opt: string
-  ) => {
-    if (e.key === "ArrowRight") {
-      setFocusIndex((prev) => (prev + 1) % options.length);
-    } else if (e.key === "ArrowLeft") {
-      setFocusIndex((prev) => (prev - 1 + options.length) % options.length);
-    } else if (e.key === "Enter" || e.key === " ") {
-      onChange(opt);
-      setClicked(opt);
-      setTimeout(() => setClicked(null), 2000);
-    }
-  };
-
-  // filter options live as user types
-  const filteredOptions = options.filter((opt) =>
-    opt.toLowerCase().includes(query.toLowerCase())
-  );
+  const visible = query.trim()
+    ? options.filter((o) => o.toLowerCase().includes(query.toLowerCase()))
+    : options;
 
   return (
-    <div className="mb-4">
-      {label && <p className="text-sm text-gray-400 mb-2">{label}</p>}
+    <div className="mb-6 space-y-3">
+      {label && <p className="text-sm text-gray-400">{label}</p>}
 
-      {/* Search input */}
-      <div className="flex gap-2 mb-3">
+      {/* Search */}
+      <div className="flex gap-2">
         <input
+          ref={inputRef}
           type="text"
           value={query}
-          onFocus={() => setShowFilters(true)} // show filters when focused
-          onBlur={() => setShowFilters(false)} // hide filters when blurred
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search categories..."
-          className="flex-1 px-3 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none border border-gray-600"
+          placeholder="Search projects by title, category, or skill…"
+          className="w-52 rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#c21219] focus:outline-none"
         />
         {query && (
           <button
             type="button"
-            onClick={() => setQuery("")}
-            className="px-3 py-2 text-xs bg-gray-700 text-white rounded-md hover:bg-gray-600 transition"
+            onClick={() => { setQuery(""); inputRef.current?.focus(); }}
+            className="rounded-lg bg-gray-700 px-3 py-2 text-xs text-white transition hover:bg-gray-600"
           >
             Clear
           </button>
         )}
       </div>
 
-      {/* Filters appear only when search bar is active */}
-      {showFilters && (
+      {/* Category pills — always visible */}
+      {visible.length > 0 ? (
         <div
-          className="flex flex-wrap gap-2"
           role="radiogroup"
-          aria-label={label || "Job categories"}
+          aria-label={label ?? "Job categories"}
+          className="flex flex-wrap gap-2"
         >
-          {filteredOptions.length > 0 ? (
-            filteredOptions.map((opt, i) => (
-              <div
+          {visible.map((opt) => {
+            const isActive = active === opt;
+            return (
+              <motion.button
                 key={opt}
-                className="relative"
-                onMouseEnter={() => setHovered(opt)}
-                onMouseLeave={() => setHovered(null)}
+                type="button"
+                role="radio"
+                aria-checked={isActive}
+                onClick={() => onChange(opt)}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                className={`relative flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "border-[#c21219] bg-[#c21219] text-white shadow-md"
+                    : "border-transparent bg-gray-800 text-gray-300 hover:border-[#c21219] hover:text-[#c21219]"
+                }`}
               >
-                <button
-                  type="button"
-                  aria-label={`Filter by ${opt}`}
-                  className={classes(opt)}
-                  onClick={() => {
-                    onChange(opt);
-                    setClicked(opt);
-                    setTimeout(() => setClicked(null), 2000);
-                  }}
-                  onKeyDown={(e) => handleKeyDown(e, i, opt)}
-                  tabIndex={focusIndex === i ? 0 : -1}
-                >
-                  {opt}
-                  {counts[opt] !== undefined && (
-                    <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-white/20 text-gray-200">
-                      {counts[opt]}
-                    </span>
-                  )}
-                </button>
-
-                {showTooltip(opt) && (
-                  <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap z-10">
-                    {counts[opt]} {opt} {counts[opt] === 1 ? "job" : "jobs"}
-                  </div>
+                {opt}
+                {counts[opt] != null && (
+                  <span
+                    className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
+                      isActive ? "bg-white/25 text-white" : "bg-white/10 text-gray-400"
+                    }`}
+                  >
+                    {counts[opt]}
+                  </span>
                 )}
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-400 text-sm">No results found.</p>
-          )}
+              </motion.button>
+            );
+          })}
         </div>
+      ) : (
+        <p className="text-sm text-gray-500">No categories match &ldquo;{query}&rdquo;.</p>
       )}
     </div>
   );

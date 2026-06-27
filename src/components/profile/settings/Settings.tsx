@@ -9,47 +9,59 @@ import SecuritySettings from "./SecuritySettings";
 import PaymentInformation from "./payment";
 import UploadResume from "./UploadResume";
 import DeleteAccount from "./DeleteAccount";
+import Contract from "./contract";
+import EmploymentHistory from "./EmploymentHistory";
 
 // Business + AI features
-import BusinessProfile from "./premium/BusinessProfile";
-import AIPreferences from "./premium/AIPreferences";
-import OnboardingAssistant from "./premium/OnboardingAssistant";
+import BusinessProfile from "../../premium/BusinessProfile";
+import Tiers from "../tiers/tier";
+import OnboardingAssistant from "../../premium/OnboardingAssistant";
+import ProfileCompletionBar from "@/components/profile/ProfileCompletionBar";
+import NotificationPreferences from "@/components/settings/NotificationPreferences";
 
-export default function Settings() {
+export default function Settings({ user }: { user: any }) {
   const [activeTab, setActiveTab] = useState("profile");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const tabs = [
-    { key: "profile", label: "Profile" },
-    { key: "business", label: "Business Profile" },
-    { key: "ai", label: "AI Preferences" },
-    { key: "onboarding", label: "Onboarding Assistant" },
-    { key: "security", label: "Security" },
-    { key: "payment", label: "Payment Info" },
-    { key: "resume", label: "Upload Resume" },
-    { key: "delete", label: "Delete Account" },
+    { key: "profile",        label: "Profile" },
+    { key: "employment",     label: "Employment History" },
+    { key: "security",       label: "Security" },
+    { key: "notifications",  label: "Notifications" },
+    { key: "resume",         label: "Upload Resume" },
+    { key: "business",       label: "Business Profile" },
+    { key: "tiers",          label: "Tiers" },
+    { key: "Contract",       label: "Contract and Legal" },
+    { key: "payment",        label: "Payment Info" },
+    { key: "delete",         label: "Delete Account" },
   ];
 
   const renderTab = () => {
     switch (activeTab) {
       case "profile":
-        return <EditProfileForm />;
+        return <EditProfileForm user={user} onClose={() => { }} />;
       case "business":
-        return <BusinessProfile />;
-      case "ai":
-        return <AIPreferences />;
+        return <BusinessProfile user={user} />;
+      case "tiers":
+        return <Tiers />;
       case "onboarding":
         return <OnboardingAssistant />;
       case "security":
-        return <SecuritySettings />;
+        return <SecuritySettings user={user} />;
+      case "notifications":
+        return <NotificationPreferences />;
       case "payment":
-        return <PaymentInformation />;
+        return <PaymentInformation user={user} />;
       case "resume":
-        return <UploadResume />;
+        return <UploadResume user={user} />;
       case "delete":
         return <DeleteAccount />;
+      case "employment":
+        return <EmploymentHistory user={user} />;
+      case "Contract":
+        return <Contract />;
       default:
-        return <EditProfileForm />;
+        return <EditProfileForm user={user} onClose={() => { }} />;
     }
   };
 
@@ -74,11 +86,10 @@ export default function Settings() {
                   setActiveTab(item.key);
                   setMobileMenuOpen(false);
                 }}
-                className={`block w-full text-left px-4 py-3 hover:bg-gray-800 ${
-                  activeTab === item.key
-                    ? "bg-gray-800 text-red-500"
-                    : "text-gray-300"
-                }`}
+                className={`block w-full text-left px-4 py-3 hover:bg-gray-800 ${activeTab === item.key
+                  ? "bg-gray-800 text-red-500"
+                  : "text-gray-300"
+                  }`}
               >
                 {item.label}
               </button>
@@ -109,17 +120,19 @@ export default function Settings() {
         flex justify-center
       "
       >
-        <div
-          className="
-            w-full max-w-3xl 
-            bg-gray-900/40 border border-gray-800 
-            rounded-xl p-5 sm:p-6 md:p-8
-            shadow-[0_0_25px_rgba(193,33,41,0.15)]
-            backdrop-blur-xl transition-all 
-            min-h-[75vh]
-          "
-        >
-          {renderTab()}
+        <div className="w-full max-w-3xl space-y-4">
+          <ProfileCompletionBar profile={user?.profile ?? user} dashboardPath="/profile" />
+          <div
+            className="
+              bg-gray-900/40 border border-gray-800
+              rounded-xl p-5 sm:p-6 md:p-8
+              shadow-[0_0_25px_rgba(193,33,41,0.15)]
+              backdrop-blur-xl transition-all
+              min-h-[75vh]
+            "
+          >
+            {renderTab()}
+          </div>
         </div>
       </main>
     </div>

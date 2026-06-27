@@ -1,0 +1,57 @@
+/* ── Single joined card ─────────────────────────────────────────── */
+.joinedCard {
+  background: linear-gradient(to right, #1e3a8a 0%, #312e81 28%, #581c87 50%, #7f1d1d 72%, #991b1b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 48px rgba(99, 32, 135, 0.28), 0 2px 12px rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Mobile: gradient flips top → bottom */
+@media (max-width: 639px) {
+  .joinedCard {
+    background: linear-gradient(to bottom, #1e3a8a 0%, #312e81 28%, #581c87 50%, #7f1d1d 72%, #991b1b 100%);
+  }
+}
+
+/* ── Subtle dot pattern across the whole card ────────────────────── */
+.pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='11' cy='11' r='1.1' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
+  background-size: 22px 22px;
+}
+
+/* ── Centre divider ──────────────────────────────────────────────── */
+.divider {
+  flex-shrink: 0;
+  width: 1px;
+  align-self: stretch;
+  background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
+}
+
+@media (max-width: 639px) {
+  .divider {
+    width: auto;
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
+  }
+}
+
+/* ── Modal button gradients ────────────────────────────────────────── */
+.btnFileshare {
+  background: linear-gradient(to right, #4f46e5, #3730a3);
+}
+
+.btnConcierge {
+  background: linear-gradient(to right, #c12129, #800000);
+}
+
+.modalStripeFileshare {
+  background: linear-gradient(to right, #4f46e5, #312e81);
+}
+
+.modalStripeConcierge {
+  background: linear-gradient(to right, #c12129, #800000);
+}

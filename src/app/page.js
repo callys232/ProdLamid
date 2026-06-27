@@ -1,27 +1,44 @@
 "use client";
 import Header from "@/components/Header";
-import ServicesSection from "@/components/service/Service";
-import BusinessInnovationZone from "@/components/BusinessInnovationZone ";
-import HumanCapitalDevelopment from "@/components/HumanCapitalDevelopment";
-import SustainableDevelopmentSection from "@/components/SustainableDevelopmentSection ";
-import Impact from "@/components/Impact";
-import AboutUs from "@/components/AboutUs";
-import VMO from "@/components/VMO";
-import SDI from "@/components/SDI";
+import ProofStrip from "@/components/aivora/ProofStrip";
+import AivoraGap from "@/components/aivora/AivoraGap";
+import EcosystemOverview from "@/components/aivora/EcosystemOverview";
+import HowItWorks from "@/components/aivora/HowItWorks";
+import WhyAivora from "@/components/aivora/WhyAivora";
+import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
+import ManifestoExcerpt from "@/components/aivora/ManifestoExcerpt";
+import CtaBanner from "@/components/aivora/CtaBanner";
 import "animate.css";
 
 export default function Home() {
   return (
-    <main>
+    <main className="aivora-section">
+      {/* Hero */}
       <Header />
-      <ServicesSection />
-      <BusinessInnovationZone />
-      <HumanCapitalDevelopment />
-      {/* <SustainableDevelopmentSection/>
-      <Impact /> */}
-      <SDI />
-      <AboutUs />
-      <VMO />
+
+      {/* Trust signals */}
+      <ProofStrip />
+
+      {/* Why AIVORA exists — the problem */}
+      <AivoraGap />
+
+      {/* One platform, three portals — the solution */}
+      <EcosystemOverview />
+
+      {/* How it works — 5 steps */}
+      <HowItWorks />
+
+      {/* Differentiators */}
+      <WhyAivora />
+
+      {/* Testimonials */}
+      <AivoraTestimonials />
+
+      {/* Manifesto excerpt */}
+      <ManifestoExcerpt />
+
+      {/* Closing CTA */}
+      <CtaBanner />
     </main>
   );
 }

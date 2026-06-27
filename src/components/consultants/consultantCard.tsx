@@ -1,3 +1,4 @@
+// components/ConsultantCard.tsx
 "use client";
 
 import { Star } from "lucide-react";
@@ -5,13 +6,19 @@ import Image from "next/image";
 import { useState } from "react";
 import type { Consultant } from "@/types/client";
 import ConsultantModal from "./consultantModal";
-import Feedback from "./feedback"; // ✅ reusable toast
+import Feedback from "./feedback";
 
 interface ConsultantCardProps {
   consultant: Consultant;
+  isPremiumUser?: boolean;
+  isEnterpriseUser?: boolean;
 }
 
-export default function ConsultantCard({ consultant }: ConsultantCardProps) {
+export default function ConsultantCard({
+  consultant,
+  isPremiumUser = false,
+  isEnterpriseUser = false,
+}: ConsultantCardProps) {
   const {
     name,
     image,
@@ -21,55 +28,29 @@ export default function ConsultantCard({ consultant }: ConsultantCardProps) {
     rating,
     experience,
     role,
-    email,
+    skills = [],
   } = consultant;
+
   const [showModal, setShowModal] = useState(false);
-  const [feedback, setFeedback] = useState<{
-    message: string;
-    type: "success" | "error";
-  } | null>(null);
+  const [feedback, setFeedback] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   const renderStars = (rating: number) =>
     Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-4 h-4 ${
-          i + 1 <= Math.round(rating)
-            ? "text-red-500 fill-red-500"
-            : "text-gray-600"
-        }`}
+        className={`w-4 h-4 ${i + 1 <= Math.round(rating) ? "text-red-500 fill-red-500" : "text-gray-400"}`}
       />
     ));
 
-  // ✅ Hire Now handler
   const handleHire = async (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const res = await fetch("/api/hire-consultant", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          consultantId: consultant.id || consultant._id,
-          consultantEmail: email,
-        }),
-      });
-
-      if (res.ok) {
-        setFeedback({
-          message: "Hire request sent successfully!",
-          type: "success",
-        });
-        setTimeout(() => setFeedback(null), 2500);
-      } else {
-        setFeedback({
-          message: "Something went wrong. Try again.",
-          type: "error",
-        });
-        setTimeout(() => setFeedback(null), 2500);
-      }
+      const { hireConsultant } = await import("@/lib/api/consultantApi");
+      await hireConsultant(consultant.id || consultant._id || "", "");
+      setFeedback({ message: "Hire request sent successfully!", type: "success" });
+      setTimeout(() => setFeedback(null), 2500);
     } catch (err) {
-      console.error(err);
-      setFeedback({ message: "Error sending hire request.", type: "error" });
+      setFeedback({ message: "Error sending hire request. Please try again.", type: "error" });
       setTimeout(() => setFeedback(null), 2500);
     }
   };
@@ -77,45 +58,56 @@ export default function ConsultantCard({ consultant }: ConsultantCardProps) {
   return (
     <>
       <div
-        className="bg-[#140000] border border-[#2a0d0d] rounded-lg shadow-lg hover:shadow-red-700/30 transition-all duration-300 hover:-translate-y-1 p-4 flex flex-col justify-between cursor-pointer"
+        className="bg-gradient-to-b from-[#1a0d0d] to-[#0d0000] border border-[#2a0d0d] rounded-xl shadow-md
+                   hover:shadow-lg hover:shadow-red-700/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#1f0d0d] p-5 flex flex-col justify-between cursor-pointer"
         onClick={() => setShowModal(true)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") setShowModal(true);
+        }}
       >
-        {/* Avatar / Image */}
-        {/* Avatar / Image */}
-        <div className="flex flex-col items-center mb-4">
-          <div className="relative w-16 h-16 rounded-full bg-[#2a0d0d] flex items-center justify-center overflow-hidden">
+        {/* Avatar */}
+        <div className="flex flex-col items-center mb-3">
+          <div className="relative w-20 h-20 rounded-full bg-[#2a0d0d] flex items-center justify-center overflow-hidden shadow-md">
             {image ? (
-              <Image
-                src={image}
-                alt={name}
-                fill
-                className="object-cover rounded-full"
-              />
+              <Image src={image} alt={name} fill className="object-cover rounded-full" />
             ) : (
-              // Blank space placeholder
-              <div className="w-full h-full bg-[#1a1a1a]" />
+              <div className="text-red-500 text-3xl font-bold">👤</div>
             )}
           </div>
-          <h3 className="text-lg font-semibold text-white mt-3">{name}</h3>
-          <p className="text-xs text-gray-400 -mt-1 mb-1">{role}</p>
 
-          <div
-            className="flex justify-center mb-2"
-            aria-label={`Rating: ${rating} out of 5`}
-          >
+          <h3 className="text-lg font-semibold text-white mt-3">{name}</h3>
+          <p className="text-xs text-gray-400 -mt-1 mb-2">{role}</p>
+
+          <div className="flex justify-center mb-2" aria-label={`Rating: ${rating} out of 5`}>
             {renderStars(rating)}
           </div>
+
+          {/* Skills row: visible on card */}
+          {skills.length > 0 && (
+            <div className="mt-2 w-full flex flex-wrap justify-center gap-2">
+              {skills.slice(0, 6).map((s) => (
+                <span
+                  key={s}
+                  className="px-2 py-0.5 bg-red-50 text-red-700 rounded-full text-xs font-medium truncate max-w-[8rem]"
+                  title={s}
+                >
+                  {s}
+                </span>
+              ))}
+              {skills.length > 6 && (
+                <span className="px-2 py-0.5 bg-gray-800 text-gray-200 rounded-full text-xs">+{skills.length - 6}</span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Info */}
-        <div className="text-center mb-3">
+        <div className="text-center mb-3 space-y-1">
           <p className="text-gray-300 text-sm">{industry}</p>
           <p className="text-gray-300 text-sm">{delivery}</p>
-          {experience && (
-            <p className="text-gray-300 text-sm">
-              Experience: {experience} yrs
-            </p>
-          )}
+          {experience && <p className="text-gray-300 text-sm">Experience: {experience} yrs</p>}
         </div>
 
         {/* Rate */}
@@ -125,23 +117,21 @@ export default function ConsultantCard({ consultant }: ConsultantCardProps) {
 
         {/* Buttons */}
         <div className="flex justify-center gap-3 mt-auto">
-          {/* View Team → opens modal */}
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               setShowModal(true);
             }}
-            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-md transition-all"
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-md shadow-sm hover:shadow-md transition-all"
           >
             View Team
           </button>
 
-          {/* Hire Now → triggers API + feedback */}
           <button
             type="button"
             onClick={handleHire}
-            className="px-4 py-2 border border-red-600 text-red-400 hover:bg-red-800 hover:text-white text-xs font-medium rounded-md transition-all"
+            className="px-4 py-2 border border-red-600 text-red-400 hover:bg-red-800 hover:text-white text-xs font-medium rounded-md shadow-sm hover:shadow-md transition-all"
           >
             Hire Now
           </button>

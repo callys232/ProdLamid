@@ -24,7 +24,7 @@ export default function HybridConsultingHero() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            video.play().catch(() => {});
+            video.play().catch(() => { });
           } else {
             video.pause();
           }
@@ -66,15 +66,15 @@ export default function HybridConsultingHero() {
       : "Search for available jobs or opportunities...";
 
   return (
-    <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center text-white overflow-hidden bg-black">
+    <section className="relative w-full min-h-[55vh] flex flex-col items-center justify-center text-white overflow-hidden bg-black">
       {/* Background Image */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
-        style={{ backgroundImage: "url('/hero-bg.jpg')" }} // 👈 replace with your image path
+        style={{ backgroundImage: "url('/hybrid.png')" }}
       />
 
-      {/* Background Video layered above image */}
-      <video
+      {/* Background Video layered above image (Optional - removed if missing) */}
+      {/* <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
         src="/hero-bg.mp4"
@@ -82,43 +82,47 @@ export default function HybridConsultingHero() {
         loop
         playsInline
         preload="auto"
-      />
+      /> */}
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10" />
 
       {/* Foreground Content */}
-      <div className="relative z-20 text-center max-w-3xl px-6">
+      <div className="relative z-20 text-center text-red max-w-3xl px-6">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6"
+          className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 
+             bg-gradient-to-r from-red-600 to-white bg-clip-text text-transparent"
         >
-          HybridConsulting connects{" "}
-          <span className="text-[#c12129]">{displayText}</span>
+          Hybrid consulting connects{" "}
+          <span className="font-display">{displayText}</span>
         </motion.h1>
 
+
+
+
+
+
         {/* Tabs + Search */}
-        <div className="mt-6 mx-auto max-w-xl w-full" role="search">
+        <div className="mt-8 mx-auto max-w-xl w-full" role="search">
           <div className="flex justify-center items-center bg-black/30 rounded-xl border border-gray-700 backdrop-blur-sm overflow-hidden">
             <button
               onClick={() => setActiveTab("consultants")}
-              className={`flex-1 py-3 text-base font-semibold transition-all ${
-                activeTab === "consultants"
-                  ? "bg-[#c12129] text-white"
-                  : "text-[#c12129] hover:text-red-400"
-              }`}
+              className={`flex-1 py-3 text-base font-semibold transition-all ${activeTab === "consultants"
+                ? "bg-[#c12129] text-white"
+                : "text-[#c12129] hover:text-red-400"
+                }`}
             >
               CONSULTANTS
             </button>
             <button
               onClick={() => setActiveTab("jobs")}
-              className={`flex-1 py-3 text-base font-semibold transition-all ${
-                activeTab === "jobs"
-                  ? "bg-[#c12129] text-white"
-                  : "text-[#c12129] hover:text-red-400"
-              }`}
+              className={`flex-1 py-3 text-base font-semibold transition-all ${activeTab === "jobs"
+                ? "bg-[#c12129] text-white"
+                : "text-[#c12129] hover:text-red-400"
+                }`}
             >
               JOBS
             </button>
@@ -138,25 +142,25 @@ export default function HybridConsultingHero() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-          className="mt-8 flex justify-center gap-6 flex-wrap"
+          className="mt-10 flex justify-center gap-8 flex-wrap"
         >
           <Link
             href="/jobs"
             className="text-white text-lg hover:text-[#c12129] transition"
           >
-            Find Jobs
+            Find Projects
           </Link>
           <Link
             href="/postjobs"
             className="text-white text-lg hover:text-[#c12129] transition"
           >
-            Post Jobs
+            Post Projects
           </Link>
           <Link
             href="/talent"
             className="bg-[#c12129] px-6 py-3 rounded-xl text-white text-lg hover:bg-[#a11e25] transition"
           >
-            Seek a Consultant
+            Find a Consultant
           </Link>
         </motion.div>
       </div>

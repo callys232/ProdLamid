@@ -1,10 +1,14 @@
+import ConsultingHero from "@/components/consultingHero";
 import Job from "@/components/jobsConsult/jobConsult";
-import ConsultHero from "@/components/consultingHero";
+export const metadata = {
+  title: "Browse Projects — Lamid",
+  description: "Find consulting projects across 20 specialist categories.",
+};
 
 const JobPage = () => {
   return (
     <div>
-      <ConsultHero />
+      <ConsultingHero />
       <Job />
     </div>
   );

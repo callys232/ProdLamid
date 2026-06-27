@@ -1,0 +1,74 @@
+/* ── Section background wrapper ─────────────────────────────── */
+.sectionBg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Faint red grid ──────────────────────────────────────────── */
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(193, 33, 41, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(193, 33, 41, 0.055) 1px, transparent 1px);
+  background-size: 52px 52px;
+  -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 50%, black 25%, transparent 100%);
+  mask-image: radial-gradient(ellipse 95% 85% at 50% 50%, black 25%, transparent 100%);
+}
+
+/* ── Glowing orbs ────────────────────────────────────────────── */
+.orb1 {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  top: -110px;
+  right: 4%;
+  background: radial-gradient(circle, rgba(193, 33, 41, 0.22) 0%, transparent 68%);
+  filter: blur(65px);
+  animation: sBDrift1 16s ease-in-out infinite;
+}
+
+.orb2 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  bottom: -70px;
+  left: 6%;
+  background: radial-gradient(circle, rgba(193, 33, 41, 0.14) 0%, transparent 68%);
+  filter: blur(55px);
+  animation: sBDrift2 21s ease-in-out infinite;
+}
+
+.orb3 {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  top: 28%;
+  left: 36%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.035) 0%, transparent 68%);
+  filter: blur(45px);
+  animation: sBDrift3 27s ease-in-out infinite;
+}
+
+@keyframes sBDrift1 {
+  0%,  100% { transform: translate(0, 0)    scale(1);    }
+  33%        { transform: translate(-55px, 38px) scale(1.12); }
+  66%        { transform: translate(28px, -28px) scale(0.91); }
+}
+
+@keyframes sBDrift2 {
+  0%,  100% { transform: translate(0, 0)   scale(1);    }
+  50%        { transform: translate(42px, -34px) scale(1.10); }
+}
+
+@keyframes sBDrift3 {
+  0%,  100% { transform: translate(0, 0);            }
+  38%        { transform: translate(-30px, 22px);     }
+  72%        { transform: translate(24px, -16px);     }
+}

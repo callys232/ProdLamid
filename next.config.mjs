@@ -1,7 +1,19 @@
 // next.config.mjs
 const nextConfig = {
   images: {
-    domains: ["randomuser.me", "images.remotePatterns", "randomuser.me"],
+    remotePatterns: [
+      { protocol: "https", hostname: "randomuser.me" },
+      { protocol: "https", hostname: "placehold.co" },
+    ],
+  },
+  transpilePackages: ["lucide-react", "framer-motion"],
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "react-icons",
+      "@headlessui/react",
+    ],
   },
 };
 

@@ -1,17 +1,17 @@
 import Header from "@/components/bizprototype/Header";
-import BusinessPrototypes from "@/components/bizprototype/BusinessPrototypes";
+import BusinessPrototypes from "@/components/bizprototype/bizPrototypes";
 import BizPT from "@/components/bizprototype/BizPT";
-import LastEvent from "@/components/event/LastEvent";
+import LastEvent from "@/components/Events/eventsSummary";
 
 const Bizprototype = () => {
-    return (
-        <div>
-            <Header />
-            <BusinessPrototypes />
-            <BizPT />
-            <LastEvent />
-        </div>
-    );
+  return (
+    <div>
+      <Header />
+      <BusinessPrototypes text="Business Prototypes" />
+      <BizPT />
+      <LastEvent />
+    </div>
+  );
 };
 
 export default Bizprototype;

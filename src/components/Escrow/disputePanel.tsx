@@ -48,36 +48,42 @@ export default function EscrowDisputePanel({
   };
 
   return (
-    <div className="bg-white border border-[#c21219] rounded-lg p-4 space-y-3">
-      <h4 className="font-semibold text-[#c21219]">Open Dispute</h4>
+    <div className="bg-[#1a0d0d] border border-gray-800 rounded-xl p-6 space-y-4">
+      <h4 className="font-semibold text-lg text-white">Open Dispute</h4>
 
-      <textarea
-        placeholder="Describe the issue..."
-        value={reason}
-        onChange={(e) => setReason(e.target.value)}
-        className="w-full px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219] text-black"
-        rows={3}
-      />
+      <div className="space-y-4">
+        <textarea
+          placeholder="Describe the issue in detail..."
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+          className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-800 focus:border-red-600 focus:ring-1 focus:ring-red-600 text-white outline-none transition"
+          rows={3}
+        />
 
-      <input
-        aria-label="file-upload"
-        type="file"
-        multiple
-        onChange={handleFiles}
-        className="text-sm"
-      />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex-1">
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Evidence / Documentation</label>
+            <input
+              aria-label="file-upload"
+              type="file"
+              multiple
+              onChange={handleFiles}
+              className="text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gray-800 file:text-gray-300 hover:file:bg-gray-700 transition cursor-pointer"
+            />
+          </div>
 
-      <button
-        onClick={submit}
-        disabled={submitting}
-        className={`px-4 py-2 rounded-md text-white ${
-          submitting
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-[#c21219] hover:bg-red-700"
-        }`}
-      >
-        {submitting ? "Submitting..." : "Submit Dispute"}
-      </button>
+          <button
+            onClick={submit}
+            disabled={submitting || !reason.trim()}
+            className={`px-6 py-2 rounded-lg font-bold text-white transition shadow-lg ${submitting || !reason.trim()
+                ? "bg-gray-800 text-gray-600 cursor-not-allowed border border-gray-700"
+                : "bg-red-600 hover:bg-red-700 shadow-red-900/20"
+              }`}
+          >
+            {submitting ? "Submitting..." : "Submit Dispute"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

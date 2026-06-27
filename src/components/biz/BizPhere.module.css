@@ -1,0 +1,47 @@
+/* ── Left showcase card ── */
+.leftCard {
+  border: 1px solid rgba(251, 146, 60, 0.25);
+}
+
+.leftCardBg {
+  background: radial-gradient(
+    ellipse at 15% 20%,
+    rgba(154, 52, 18, 0.75) 0%,
+    rgba(30, 10, 2, 0.95) 50%,
+    #080808 100%
+  );
+}
+
+/* ── Description card ── */
+.descCard {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ── Get Notified button ── */
+.notifyBtn {
+  background: linear-gradient(135deg, #c21219, #8b0f14);
+  box-shadow: 0 6px 20px rgba(194, 18, 25, 0.35);
+}
+
+.notifyBtn:hover {
+  box-shadow: 0 0 28px rgba(194, 18, 25, 0.65);
+}
+
+/* ── Advisor section ── */
+.advisorSection {
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  background: linear-gradient(
+    145deg,
+    rgba(59, 130, 246, 0.05) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+.advisorSection:hover {
+  border-color: rgba(251, 146, 60, 0.45);
+}

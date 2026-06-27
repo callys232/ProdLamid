@@ -7,8 +7,8 @@ interface Props {
 }
 
 const mockProjects: Project[] = [
-  { id: "p1", title: "Alpha", category: "Tech", status: "active" },
-  { id: "p2", title: "Beta", category: "Finance", status: "completed" },
+  { id: "p1", title: "Alpha", category: "Tech", status: "active", data: {}, total: 0 },
+  { id: "p2", title: "Beta", category: "Finance", status: "completed", data: {}, total: 0 },
 ];
 
 export default function ProjectStats({ projects = mockProjects }: Props) {

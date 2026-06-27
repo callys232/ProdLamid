@@ -10,6 +10,9 @@ import CommunicationAgent from "./aiagents/communicate/communication";
 import FinanceBilling from "./finance/finance";
 import PolicyCompliance from "./policy/policy";
 import ActivityLogs from "./activityLog/activityLog";
+import KycQueue from "./kyc/KycQueue";
+import DeletionRequests from "./requests/DeletionRequests";
+import ConciergeRequests from "./requests/ConciergeRequests";
 import { FaBars } from "react-icons/fa";
 import AdminHeader from "./Header";
 
@@ -40,7 +43,6 @@ export default function AdminDashboard() {
         setProjectId(data.projectId);
         setClientId(data.clientId);
       } catch (err) {
-        console.warn("Admin bootstrap failed:", err);
       } finally {
         setLoading(false);
       }
@@ -75,6 +77,12 @@ export default function AdminDashboard() {
         return <PolicyCompliance />;
       case "Activity Logs":
         return <ActivityLogs />;
+      case "KYC Review":
+        return <KycQueue />;
+      case "Deletion Requests":
+        return <DeletionRequests />;
+      case "Concierge Requests":
+        return <ConciergeRequests />;
       default:
         return <Overview />;
     }
