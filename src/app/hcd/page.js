@@ -1,51 +1,281 @@
 "use client";
 
 import { useState } from "react";
-import HcdHeader from "@/components/hcd/hcdHeader";
-import HcdTrainer from "@/components/hcd/hcdTrainer";
-import HcdEvent from "@/components/hcd/hcdEvent";
-import BusinessPrototypes from "@/components/bizprototype/bizPrototypes";
-import Testimonial from "@/components/Testimonial";
-import BusinessTraining from "@/components/hcd/businessTraining";
-import PortalServicesSlide from "@/components/portal/PortalServicesSlide";
-import TalentPillars from "@/components/hcd/TalentPillars";
-import TalentLearningJourney from "@/components/hcd/TalentLearningJourney";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-const HCDPage = () => {
-  const [eventsOpen, setEventsOpen] = useState(false);
+/* ── Learning journey steps ── */
+const JOURNEY = [
+  {
+    num: 1,
+    title: "Assess",
+    body: "AI analyses your current skills, experience, and goals to create a baseline competency map.",
+    href: "/premium/business-diagnostic",
+  },
+  {
+    num: 2,
+    title: "Learn",
+    body: "Personalised learning paths adapt in real-time. AI curates content, paces your learning, and identifies gaps.",
+    href: "/events",
+  },
+  {
+    num: 3,
+    title: "Certify & Grow",
+    body: "Earn micro-certifications, build your portfolio, and get matched with opportunities.",
+    href: "/hcd/recruitment",
+  },
+];
+
+/* ── 4 Feature cards ── */
+const FEATURES = [
+  {
+    icon: "⚡",
+    title: "Adaptive Learning AI",
+    body: "Content difficulty and pacing adjust automatically based on your performance.",
+    href: "/events",
+  },
+  {
+    icon: "◈",
+    title: "Micro-Certifications",
+    body: "Industry-recognised credentials you can earn in days, not months.",
+    href: "/hcd/recruitment",
+  },
+  {
+    icon: "⬡",
+    title: "Mentorship Matching",
+    body: "AI pairs you with mentors who have walked your career path.",
+    href: "/talent",
+  },
+  {
+    icon: "⬟",
+    title: "Career Intelligence",
+    body: "AI-powered career trajectory modelling and opportunity alerts.",
+    href: "/jobs",
+  },
+];
+
+/* ── Impact stats ── */
+const STATS = [
+  { value: "3×",  label: "Faster skill acquisition vs. traditional learning" },
+  { value: "92%", label: "Certification completion rate" },
+  { value: "40%", label: "Average salary increase within 12 months" },
+];
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5, delay },
+});
+
+export default function HCDPage() {
+  const [hoveredFeature, setHoveredFeature] = useState(null);
+  const [hoveredStep, setHoveredStep] = useState(null);
+  const router = useRouter();
 
   return (
-    <div>
-      <HcdHeader />
-      <HcdTrainer />
+    <div className="aivora-section min-h-screen">
 
-      {/* 4 Talent Development Pillars */}
-      <TalentPillars />
+      {/* ── Hero ── */}
+      <section className="relative px-4 pt-32 pb-20 text-center overflow-hidden">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+          <motion.path
+            d="M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"
+            fill="none" stroke="#C12129" strokeWidth="0.6" strokeOpacity="0.07" strokeDasharray="12 20"
+            animate={{ strokeDashoffset: [0, -100] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+        </svg>
 
-      {/* Learning journey — 3 steps, differentiators, programs, stats, enterprise banner */}
-      <TalentLearningJourney />
+        <motion.div {...fadeUp(0)} className="relative z-10 max-w-3xl mx-auto">
+          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+            AIVORA Talent Portal
+          </p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+            <span className="aivora-gradient-text">Your AI-Powered Career Engine</span>
+          </h1>
+          <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
+            Personalised learning paths, micro-certifications, and career development powered by AI — built for the modern professional.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link href="/premium/business-diagnostic"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_20px_rgba(193,33,41,0.45)] hover:shadow-[0_0_32px_rgba(193,33,41,0.7)]">
+                Start Your Assessment
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link href="/events"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-colors">
+                Explore Programs
+              </Link>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
 
-      {/* Upcoming Events */}
-      <div className="flex justify-center py-10 bg-black">
-        <button
-          type="button"
-          onClick={() => setEventsOpen(true)}
-          className="px-7 py-3 rounded-full text-sm font-semibold bg-orange-500 text-black hover:bg-orange-400 transition shadow-[0_0_20px_-4px_rgba(249,115,22,0.6)]"
-        >
-          View Upcoming Events
-        </button>
-      </div>
+      {/* ── Your Learning Journey ── */}
+      <section className="px-4 pb-24">
+        <div className="max-w-4xl mx-auto">
+          <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-12">
+            Your Learning Journey
+          </motion.h2>
 
-      <HcdEvent isOpen={eventsOpen} onClose={() => setEventsOpen(false)} />
+          {/* Desktop: horizontal with arrows */}
+          <div className="hidden sm:grid grid-cols-3 gap-6 relative">
+            {/* Connecting line */}
+            <motion.div
+              className="absolute top-[52px] left-[20%] right-[20%] h-[2px]"
+              style={{ background: "linear-gradient(to right, #C12129, #ff6060, #C12129)" }}
+              initial={{ scaleX: 0, originX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+            />
 
-      <BusinessPrototypes text="Biz Prototypes" />
-      <BusinessTraining />
-      <Testimonial />
+            {JOURNEY.map((step, i) => {
+              const isHov = hoveredStep === i;
+              return (
+                <motion.div
+                  key={step.num}
+                  {...fadeUp(i * 0.1)}
+                  onHoverStart={() => setHoveredStep(i)}
+                  onHoverEnd={() => setHoveredStep(null)}
+                  onClick={() => router.push(step.href)}
+                  whileHover={{ y: -6, boxShadow: "0 16px 36px rgba(193,33,41,0.18)" }}
+                  whileTap={{ scale: 0.97 }}
+                  className="aivora-card border rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer"
+                  style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                >
+                  <motion.div
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl mb-5 bg-[#C12129] relative z-10"
+                    animate={{ scale: isHov ? 1.12 : 1, boxShadow: isHov ? "0 0 24px rgba(193,33,41,0.6)" : "none" }}
+                    transition={{ type: "spring", stiffness: 280, damping: 18 }}
+                  >
+                    {step.num}
+                  </motion.div>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{step.title}</h3>
+                  <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{step.body}</p>
+                </motion.div>
+              );
+            })}
+          </div>
 
-      {/* Portal services */}
-      <PortalServicesSlide />
+          {/* Mobile: vertical */}
+          <div className="flex flex-col gap-4 sm:hidden">
+            {JOURNEY.map((step, i) => {
+              const isHov = hoveredStep === i + 10;
+              return (
+                <motion.div
+                  key={step.num}
+                  {...fadeUp(i * 0.08)}
+                  onHoverStart={() => setHoveredStep(i + 10)}
+                  onHoverEnd={() => setHoveredStep(null)}
+                  onClick={() => router.push(step.href)}
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="aivora-card border rounded-2xl p-5 flex items-start gap-4 cursor-pointer"
+                  style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                >
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold bg-[#C12129] shrink-0">
+                    {step.num}
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-1">{step.title}</h3>
+                    <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{step.body}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4 Feature cards ── */}
+      <section className="px-4 pb-24">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {FEATURES.map((f, i) => {
+            const isHov = hoveredFeature === i;
+            return (
+              <motion.div
+                key={f.title}
+                {...fadeUp(i * 0.08)}
+                onHoverStart={() => setHoveredFeature(i)}
+                onHoverEnd={() => setHoveredFeature(null)}
+                onClick={() => router.push(f.href)}
+                whileHover={{ y: -5, boxShadow: "0 14px 34px rgba(193,33,41,0.16)" }}
+                whileTap={{ scale: 0.97 }}
+                className="aivora-card border rounded-2xl p-6 cursor-pointer"
+                style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+              >
+                <motion.div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25"
+                  animate={{ scale: isHov ? 1.1 : 1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                >
+                  <span className="text-base text-[#C12129]">{f.icon}</span>
+                </motion.div>
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{f.title}</h3>
+                <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{f.body}</p>
+                <motion.span
+                  className="text-[10px] font-semibold mt-3 block text-[#C12129]"
+                  animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  Open →
+                </motion.span>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ── Impact stats ── */}
+      <section className="px-4 pb-24">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {STATS.map((s, i) => (
+            <motion.div
+              key={s.label}
+              {...fadeUp(i * 0.1)}
+              whileHover={{ y: -4, boxShadow: "0 12px 30px rgba(193,33,41,0.15)" }}
+              className="aivora-card border rounded-2xl p-8 text-center"
+            >
+              <p className="text-4xl sm:text-5xl font-extrabold aivora-gradient-text mb-3">{s.value}</p>
+              <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{s.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Enterprise enrollment banner ── */}
+      <section className="px-4 pb-24">
+        <motion.div {...fadeUp(0)}
+          className="max-w-4xl mx-auto rounded-2xl border border-[#C12129]/30 bg-gradient-to-br from-[#C12129]/8 via-transparent to-transparent p-10 text-center">
+          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">For Teams</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            Transform your entire organisation — not just individuals.
+          </h2>
+          <p className="text-gray-500 dark:text-white/50 text-sm mb-8 max-w-lg mx-auto leading-relaxed">
+            AIVORA&apos;s enterprise cohort programs enroll entire departments, each receiving personalised paths within a shared framework.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link href="/premium/business-diagnostic"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_18px_rgba(193,33,41,0.4)]">
+                Start Your Free Assessment
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link href="/contact"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-colors">
+                Explore Enterprise Programs
+              </Link>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
     </div>
   );
-};
-
-export default HCDPage;
+}
