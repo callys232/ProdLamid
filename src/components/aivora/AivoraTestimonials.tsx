@@ -138,7 +138,7 @@ export default function AivoraTestimonials() {
               return (
                 <motion.div
                   key={i}
-                  className={`absolute top-0 inset-x-0 h-[300px] border rounded-2xl p-7 flex flex-col overflow-hidden cursor-default transition-shadow duration-300 ${isFront ? "bg-gray-50 dark:bg-[#161616] border-[#C12129]/30 shadow-[0_8px_32px_rgba(193,33,41,0.1)]" : "aivora-card border-white/[0.06]"}`}
+                  className={`absolute top-0 inset-x-0 h-[300px] border rounded-2xl p-7 flex flex-col overflow-hidden cursor-default transition-shadow duration-300 ${isFront ? "bg-gray-50 dark:bg-[#161616] border-[#C12129]/30 shadow-[0_8px_32px_rgba(193,33,41,0.1)]" : "aivora-card border-gray-200 dark:border-white/[0.06]"}`}
                   initial={{ rotate: stackPos.rotate, scale: stackPos.scale, y: stackPos.y, opacity: stackPos.opacity, zIndex: stackPos.zIndex }}
                   animate={getAnimate(i)}
                   transition={getTransition(i)}
@@ -169,7 +169,7 @@ export default function AivoraTestimonials() {
                     "
                   </span>
 
-                  <p className="text-white/70 text-sm leading-relaxed flex-1 mb-6 italic">
+                  <p className="text-gray-700 dark:text-white/70 text-sm leading-relaxed flex-1 mb-6 italic">
                     {t.quote}
                   </p>
 
@@ -178,8 +178,8 @@ export default function AivoraTestimonials() {
                       {t.initial}
                     </div>
                     <div>
-                      <p className="text-white text-sm font-semibold">{t.name}</p>
-                      <p className="text-white/40 text-xs">{t.org}</p>
+                      <p className="text-gray-900 dark:text-white text-sm font-semibold">{t.name}</p>
+                      <p className="text-gray-500 dark:text-white/40 text-xs">{t.org}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -196,7 +196,7 @@ export default function AivoraTestimonials() {
                   className={`rounded-full transition-all duration-300 ${
                     i === activeIndex
                       ? "w-5 h-[6px] bg-[#C12129]"
-                      : "w-[6px] h-[6px] bg-white/25"
+                      : "w-[6px] h-[6px] bg-gray-300 dark:bg-white/25"
                   }`}
                 />
               ))}
@@ -206,7 +206,7 @@ export default function AivoraTestimonials() {
               type="button"
               onClick={handleNext}
               disabled={phase !== "idle"}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#C12129]/10 border border-[#C12129]/30 hover:bg-[#C12129]/20 hover:border-[#C12129]/60 text-white text-sm font-medium rounded-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed select-none"
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#C12129]/10 border border-[#C12129]/30 hover:bg-[#C12129]/20 hover:border-[#C12129]/60 text-gray-900 dark:text-white text-sm font-medium rounded-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed select-none"
             >
               Next
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -221,7 +221,7 @@ export default function AivoraTestimonials() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-center text-white/20 text-xs mt-8 tracking-wide"
+          className="text-center text-gray-300 dark:text-white/20 text-xs mt-8 tracking-wide"
         >
           Testimonials will be replaced with verified client quotes before launch.
         </motion.p>

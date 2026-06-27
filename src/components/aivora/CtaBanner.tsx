@@ -82,7 +82,7 @@ export default function CtaBanner() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.5 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug mb-4 relative z-10"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4 relative z-10"
           >
             Your organization&apos;s next chapter starts here.
           </motion.h2>
@@ -92,7 +92,7 @@ export default function CtaBanner() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.45 }}
-            className="text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8 relative z-10"
+            className="text-gray-600 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8 relative z-10"
           >
             Join the growing network of ambitious organizations using AIVORA to grow smarter, move faster, and build lasting capability.
           </motion.p>
@@ -126,7 +126,7 @@ export default function CtaBanner() {
               href="/contact"
               onMouseEnter={() => setSecondaryHov(true)}
               onMouseLeave={() => setSecondaryHov(false)}
-              className="px-7 py-3 rounded-full text-sm font-semibold border border-white/20 text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
+              className="px-7 py-3 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20 text-gray-600 dark:text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
             >
               Talk to an Expert
               <motion.span
