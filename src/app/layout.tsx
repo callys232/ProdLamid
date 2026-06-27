@@ -15,26 +15,26 @@ const BASE = process.env.NEXT_PUBLIC_URL ?? "https://lamid.io";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default:  "Lamid — Human and AI-Assisted Consulting Marketplace",
-    template: "%s | Lamid",
+    default:  "AIVORA — The HumanAI Consulting Ecosystem",
+    template: "%s | AIVORA",
   },
   description:
-    "Source, manage, and pay world-class consultants across 20 specialist categories. " +
-    "AI-assisted matching, milestone escrow, and enterprise workspaces.",
-  keywords: ["consulting", "freelance", "consultant marketplace", "project management", "escrow", "Nigeria", "Africa", "UK"],
-  authors:  [{ name: "Lamid", url: BASE }],
+    "AIVORA blends trusted expertise with advanced AI to deliver smarter, faster, accessible solutions " +
+    "for organizations seeking clarity and growth. Expert matching, BIZ intelligence, and talent development — in one ecosystem.",
+  keywords: ["AIVORA", "HumanAI consulting", "consulting ecosystem", "AI consulting", "expert matching", "talent development", "business intelligence", "Africa", "global"],
+  authors:  [{ name: "AIVORA", url: BASE }],
   openGraph: {
     type:        "website",
     url:         BASE,
-    siteName:    "Lamid Consulting",
-    title:       "Lamid — Human and AI-Assisted Consulting Marketplace",
-    description: "Source world-class consultants. AI matching, secure escrow, enterprise workspaces.",
-    images: [{ url: `${BASE}/og-image.png`, width: 1200, height: 630, alt: "Lamid Consulting" }],
+    siteName:    "AIVORA",
+    title:       "AIVORA — The HumanAI Consulting Ecosystem",
+    description: "Smarter. Faster. Accessible. Expert matching, AI-powered intelligence, and talent development in one unified platform.",
+    images: [{ url: `${BASE}/og-image.png`, width: 1200, height: 630, alt: "AIVORA — The HumanAI Consulting Ecosystem" }],
   },
   twitter: {
     card:        "summary_large_image",
-    title:       "Lamid — Human and AI-Assisted Consulting Marketplace",
-    description: "Source world-class consultants across 20 categories.",
+    title:       "AIVORA — The HumanAI Consulting Ecosystem",
+    description: "Smarter. Faster. Accessible. Trusted expertise + advanced AI in one unified platform.",
     images:      [`${BASE}/og-image.png`],
   },
   robots: { index: true, follow: true },

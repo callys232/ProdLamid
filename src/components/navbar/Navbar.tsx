@@ -16,7 +16,7 @@ const NAV_LINKS = [
   { label: "BIZ Portal",   href: "/biz"       },
   { label: "Talent Portal", href: "/hcd"      },
   { label: "About",        href: "/portfolio" },
-  { label: "For Experts",  href: "/signup"    },
+  { label: "For Experts",  href: "/for-experts" },
   { label: "Pricing",      href: "/pricing"   },
 ];
 
