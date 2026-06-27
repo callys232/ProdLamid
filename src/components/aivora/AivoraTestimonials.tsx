@@ -78,7 +78,7 @@ export default function AivoraTestimonials() {
 
 
   return (
-    <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
+    <section className="relative aivora-section py-16 px-4 overflow-hidden">
 
       {/* Arc bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -113,7 +113,7 @@ export default function AivoraTestimonials() {
           <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
             Client Voices
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-snug">
             Organizations That{" "}
             <span className="text-[#C12129]">Refuse to Stand Still.</span>
           </h2>
@@ -130,7 +130,7 @@ export default function AivoraTestimonials() {
               return (
                 <motion.div
                   key={i}
-                  className={`absolute top-0 inset-x-0 h-[300px] border rounded-2xl p-7 flex flex-col overflow-hidden cursor-default ${isFront ? "bg-[#161616] border-[#C12129]/30" : "bg-white/[0.025] border-white/[0.08]"}`}
+                  className={`absolute top-0 inset-x-0 h-[300px] border rounded-2xl p-7 flex flex-col overflow-hidden cursor-default ${isFront ? "bg-gray-50 dark:bg-[#161616] border-[#C12129]/30" : "aivora-card border-white/[0.08] dark:border-white/[0.08]"}`}
                   initial={{ rotate: stackPos.rotate, scale: stackPos.scale, y: stackPos.y, opacity: stackPos.opacity, zIndex: stackPos.zIndex }}
                   animate={getAnimate(i)}
                   transition={getTransition(i)}
@@ -161,7 +161,7 @@ export default function AivoraTestimonials() {
                     "
                   </span>
 
-                  <p className="text-white/70 text-sm leading-relaxed flex-1 mb-6 italic">
+                  <p className="text-gray-600 dark:text-white/70 text-sm leading-relaxed flex-1 mb-6 italic">
                     {t.quote}
                   </p>
 
@@ -170,8 +170,8 @@ export default function AivoraTestimonials() {
                       {t.initial}
                     </div>
                     <div>
-                      <p className="text-white text-sm font-semibold">{t.name}</p>
-                      <p className="text-white/40 text-xs">{t.org}</p>
+                      <p className="text-gray-900 dark:text-white text-sm font-semibold">{t.name}</p>
+                      <p className="text-gray-400 dark:text-white/40 text-xs">{t.org}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -213,7 +213,7 @@ export default function AivoraTestimonials() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-center text-white/20 text-xs mt-8 tracking-wide"
+          className="text-center aivora-text-muted text-xs mt-8 tracking-wide"
         >
           Testimonials will be replaced with verified client quotes before launch.
         </motion.p>

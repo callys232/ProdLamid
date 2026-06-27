@@ -49,61 +49,122 @@ function SectionBg() {
         aria-hidden="true"
       >
         {/* ── Hexagon cluster — top right ── */}
-        <polygon points="1020,14 1100,14 1140,83 1100,152 1020,152 980,83"
-          stroke="rgba(193,33,41,0.12)" strokeWidth="1" />
-        <polygon points="1035,40 1085,40 1110,83 1085,126 1035,126 1010,83"
-          stroke="rgba(193,33,41,0.07)" strokeWidth="0.8" />
+        <polygon
+          points="1020,14 1100,14 1140,83 1100,152 1020,152 980,83"
+          stroke="rgba(193,33,41,0.12)"
+          strokeWidth="1"
+        />
+        <polygon
+          points="1035,40 1085,40 1110,83 1085,126 1035,126 1010,83"
+          stroke="rgba(193,33,41,0.07)"
+          strokeWidth="0.8"
+        />
         <circle cx="1060" cy="83" r="3" fill="rgba(193,33,41,0.20)" />
-        <circle cx="1060" cy="83" r="7" stroke="rgba(193,33,41,0.10)" strokeWidth="0.8" />
+        <circle
+          cx="1060"
+          cy="83"
+          r="7"
+          stroke="rgba(193,33,41,0.10)"
+          strokeWidth="0.8"
+        />
 
         {/* ── Hexagon — bottom left ── */}
-        <polygon points="60,390 120,390 150,442 120,494 60,494 30,442"
-          stroke="rgba(255,255,255,0.06)" strokeWidth="0.9" />
+        <polygon
+          points="60,390 120,390 150,442 120,494 60,494 30,442"
+          stroke="rgba(255,255,255,0.06)"
+          strokeWidth="0.9"
+        />
         <circle cx="90" cy="442" r="2.5" fill="rgba(255,255,255,0.10)" />
 
         {/* ── Diamond accent — upper left ── */}
-        <polygon points="110,60 158,105 110,150 62,105"
-          stroke="rgba(193,33,41,0.10)" strokeWidth="0.9" />
-        <polygon points="110,82 136,105 110,128 84,105"
-          stroke="rgba(193,33,41,0.06)" strokeWidth="0.7" />
+        <polygon
+          points="110,60 158,105 110,150 62,105"
+          stroke="rgba(193,33,41,0.10)"
+          strokeWidth="0.9"
+        />
+        <polygon
+          points="110,82 136,105 110,128 84,105"
+          stroke="rgba(193,33,41,0.06)"
+          strokeWidth="0.7"
+        />
 
         {/* ── Large sweeping arc — right edge ── */}
-        <path d="M 1250 50 A 260 260 0 0 1 1250 510"
-          stroke="rgba(193,33,41,0.09)" strokeWidth="0.9" strokeDasharray="8 16" />
-        <path d="M 1230 100 A 200 200 0 0 1 1230 460"
-          stroke="rgba(193,33,41,0.05)" strokeWidth="0.7" strokeDasharray="5 18" />
+        <path
+          d="M 1250 50 A 260 260 0 0 1 1250 510"
+          stroke="rgba(193,33,41,0.09)"
+          strokeWidth="0.9"
+          strokeDasharray="8 16"
+        />
+        <path
+          d="M 1230 100 A 200 200 0 0 1 1230 460"
+          stroke="rgba(193,33,41,0.05)"
+          strokeWidth="0.7"
+          strokeDasharray="5 18"
+        />
 
         {/* ── Circuit path — bottom left ── */}
-        <path d="M 0 500 L 60 500 L 60 440 L 160 440 L 160 480 L 280 480 L 280 510 L 380 510"
-          stroke="rgba(193,33,41,0.13)" strokeWidth="1" />
-        <circle cx="60"  cy="500" r="2" fill="rgba(193,33,41,0.22)" />
+        <path
+          d="M 0 500 L 60 500 L 60 440 L 160 440 L 160 480 L 280 480 L 280 510 L 380 510"
+          stroke="rgba(193,33,41,0.13)"
+          strokeWidth="1"
+        />
+        <circle cx="60" cy="500" r="2" fill="rgba(193,33,41,0.22)" />
         <circle cx="160" cy="440" r="2" fill="rgba(193,33,41,0.18)" />
         <circle cx="280" cy="480" r="2" fill="rgba(193,33,41,0.18)" />
 
         {/* ── Circuit path — top centre ── */}
-        <path d="M 420 0 L 420 40 L 520 40 L 520 18 L 680 18 L 680 40 L 760 40"
-          stroke="rgba(255,255,255,0.05)" strokeWidth="0.8" />
+        <path
+          d="M 420 0 L 420 40 L 520 40 L 520 18 L 680 18 L 680 40 L 760 40"
+          stroke="rgba(255,255,255,0.05)"
+          strokeWidth="0.8"
+        />
         <circle cx="520" cy="40" r="1.8" fill="rgba(255,255,255,0.10)" />
         <circle cx="680" cy="18" r="1.8" fill="rgba(255,255,255,0.10)" />
 
         {/* ── Diagonal dashed lines ── */}
-        <line x1="0"    y1="200" x2="320" y2="560"
-          stroke="rgba(193,33,41,0.06)" strokeWidth="0.8" strokeDasharray="6 18" />
-        <line x1="900"  y1="0"   x2="640" y2="560"
-          stroke="rgba(193,33,41,0.05)" strokeWidth="0.7" strokeDasharray="5 20" />
+        <line
+          x1="0"
+          y1="200"
+          x2="320"
+          y2="560"
+          stroke="rgba(193,33,41,0.06)"
+          strokeWidth="0.8"
+          strokeDasharray="6 18"
+        />
+        <line
+          x1="900"
+          y1="0"
+          x2="640"
+          y2="560"
+          stroke="rgba(193,33,41,0.05)"
+          strokeWidth="0.7"
+          strokeDasharray="5 20"
+        />
 
         {/* ── Corner brackets ── */}
-        <path d="M 24 28 L 24 6 L 46 6"
-          stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-        <path d="M 1256 532 L 1256 554 L 1234 554"
-          stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-        <path d="M 1256 6 L 1256 28 L 1234 28"
-          stroke="rgba(193,33,41,0.12)" strokeWidth="1" />
-        <path d="M 24 532 L 24 554 L 46 554"
-          stroke="rgba(193,33,41,0.10)" strokeWidth="1" />
+        <path
+          d="M 24 28 L 24 6 L 46 6"
+          stroke="rgba(255,255,255,0.08)"
+          strokeWidth="1"
+        />
+        <path
+          d="M 1256 532 L 1256 554 L 1234 554"
+          stroke="rgba(255,255,255,0.07)"
+          strokeWidth="1"
+        />
+        <path
+          d="M 1256 6 L 1256 28 L 1234 28"
+          stroke="rgba(193,33,41,0.12)"
+          strokeWidth="1"
+        />
+        <path
+          d="M 24 532 L 24 554 L 46 554"
+          stroke="rgba(193,33,41,0.10)"
+          strokeWidth="1"
+        />
 
         {/* ── Scattered node dots ── */}
-        <circle cx="340" cy="90"  r="1.5" fill="rgba(193,33,41,0.18)" />
+        <circle cx="340" cy="90" r="1.5" fill="rgba(193,33,41,0.18)" />
         <circle cx="560" cy="300" r="1.5" fill="rgba(255,255,255,0.09)" />
         <circle cx="780" cy="180" r="1.5" fill="rgba(193,33,41,0.14)" />
         <circle cx="920" cy="400" r="1.5" fill="rgba(255,255,255,0.08)" />
@@ -115,31 +176,31 @@ function SectionBg() {
 
 /* ── Data ────────────────────────────────────────────────────── */
 const PROBLEM = {
-  title: "The Solution we Provide",
-  subtitle: "The hidden cost of fragmented work",
+  title: "One Ecosystem. Every Layer of Growth.",
+  subtitle: "Why fragmented consulting fails organizations",
   bullets: [
     {
-      text: "Leads die in inbox chaos — before they become clients",
+      text: "Quality expertise is expensive and hard to access",
       detail:
-        "Every unanswered message and delayed follow-up is a deal lost to a competitor who moved faster. Without a unified CRM, your pipeline leaks silently and expensively. LAMID closes the gap — keeping every lead warm, every client engaged, and every opportunity visible in one intelligent workspace.",
+        "73% of SMEs report difficulty accessing affordable, high-quality consulting. Without the right match, organizations pay premium rates for misaligned expertise — or go without. AIVORA's AI matching engine surfaces the right consultant for every challenge, in 24 hours.",
     },
     {
-      text: "Teams drift when communication lives across five apps",
+      text: "AI adoption is urgent — but poorly guided",
       detail:
-        "When decisions are buried in WhatsApp threads, emails, and Slack channels, accountability blurs and momentum dies. LAMID's Workrooms consolidate every conversation, task, and file in one place — so your team moves with clarity, not confusion.",
+        "87% of executives say AI integration is a strategic priority, yet fewer than 1 in 4 have a clear plan. Adopting AI tools without human expertise to guide application produces expensive experiments with limited returns. AIVORA pairs advanced AI with trusted expertise at every stage.",
     },
     {
-      text: "Projects stall when accountability has no single home",
+      text: "Tools, consultants, and training don't talk to each other",
       detail:
-        "One missed update across Google Docs, Trello, and email chains is all it takes to derail a delivery. LAMID replaces the patchwork with a single source of truth — milestones, budgets, timelines, and sign-offs all in sync, so every engagement ships on time.",
+        "Organizations rely on fragmented providers — a consultant here, an LMS there, a SaaS dashboard elsewhere. Nothing reinforces anything. AIVORA integrates Marketplace, BIZ intelligence, and Talent development into one connected ecosystem — each layer amplifying the others.",
     },
     {
-      text: "Experts can't grow what they can't track or monetize",
+      text: "Decisions are made on last month's data",
       detail:
-        "Top consultants chasing clients manually, managing admin across spreadsheets, and upskilling in isolation can't build a sustainable practice. LAMID's marketplace connects specialist consultants to high-impact projects, automates the operational layer, and keeps skills sharp — so experts focus on impact, not overhead.",
+        "Board packs assembled manually. KPIs in spreadsheets. Risks surfacing after they've compounded. AIVORA's BIZ Portal gives leadership a live, AI-powered intelligence window — business health scores, scenario modelling, and board-ready reports, generated automatically.",
     },
   ],
-  full: "LAMID eliminates friction, unifying strategy, talent, delivery, and growth into one Human and AI-assisted ecosystem built for scale.",
+  full: "AIVORA eliminates friction — unifying expert consulting, business intelligence, and talent development into one HumanAI ecosystem built for scale.",
   hex: "#c21219",
   glow: "rgba(194,18,25,0.25)",
 };
@@ -147,54 +208,54 @@ const PROBLEM = {
 /* ── 4 core service cards — one capability per service ─────── */
 const SERVICE_CARDS = [
   {
-    service: "Human Capital Dev",
-    area:    "Recruitment",
-    href:    "/hcd",
+    service: "AIVORA Marketplace",
+    area: "Expert Matching & Delivery",
+    href: "/talent",
     tools: [
-      "AI-matched talent for every role",
-      "Skills verification before engagement",
-      "End-to-end onboarding workflows",
+      "AI-matched consultants, 24-hr shortlist",
+      "Vetted experts across every sector",
+      "72-hr kickoff, measurable outcomes",
+    ],
+    borderCls: "border-l-2 border-[#C12129]/35 hover:border-[#C12129]/70",
+    serviceCls: "text-[#C12129]/70",
+    areaCls: "text-rose-300",
+    dotCls: "bg-[#C12129]",
+    hoverBg: "hover:bg-[#C12129]/[0.05]",
+  },
+  {
+    service: "AIVORA BIZ Portal",
+    area: "Business Intelligence",
+    href: "/biz",
+    tools: [
+      "Real-time business health score",
+      "AI insight engine & scenario modelling",
+      "Board-ready reporting, automated",
     ],
     borderCls: "border-l-2 border-blue-500/35 hover:border-blue-500/70",
     serviceCls: "text-blue-400/70",
-    areaCls:    "text-blue-300",
-    dotCls:     "bg-blue-400",
-    hoverBg:    "hover:bg-blue-500/[0.05]",
+    areaCls: "text-blue-300",
+    dotCls: "bg-blue-400",
+    hoverBg: "hover:bg-blue-500/[0.05]",
   },
   {
-    service: "Business Innovation Zone",
-    area:    "Strategy & Digital Growth",
-    href:    "/bizphere",
+    service: "AIVORA Talent Portal",
+    area: "Capability & Learning",
+    href: "/hcd",
     tools: [
-      "AI diagnostics for enterprise gaps",
-      "Digital transformation roadmaps",
-      "Market strategy & growth planning",
+      "AI-powered skills assessment (12 min)",
+      "Personalized learning paths, AI coach",
+      "Expert-designed certifications",
     ],
     borderCls: "border-l-2 border-orange-500/35 hover:border-orange-500/70",
     serviceCls: "text-orange-400/70",
-    areaCls:    "text-orange-300",
-    dotCls:     "bg-orange-400",
-    hoverBg:    "hover:bg-orange-500/[0.05]",
+    areaCls: "text-orange-300",
+    dotCls: "bg-orange-400",
+    hoverBg: "hover:bg-orange-500/[0.05]",
   },
   {
-    service: "Sustainable Development",
-    area:    "Impact & ESG",
-    href:    "/sustainableDev",
-    tools: [
-      "ESG & impact framework design",
-      "Community development planning",
-      "Sustainability reporting tools",
-    ],
-    borderCls: "border-l-2 border-emerald-500/35 hover:border-emerald-500/70",
-    serviceCls: "text-emerald-400/70",
-    areaCls:    "text-emerald-300",
-    dotCls:     "bg-emerald-400",
-    hoverBg:    "hover:bg-emerald-500/[0.05]",
-  },
-  {
-    service: "LAMID Portal",
-    area:    "Project Delivery",
-    href:    "/dashboard",
+    service: "AIVORA Workspace",
+    area: "Project Delivery",
+    href: "/postjobs",
     tools: [
       "Milestone-tracked engagements",
       "CRM, contracts & secure escrow",
@@ -202,9 +263,9 @@ const SERVICE_CARDS = [
     ],
     borderCls: "border-l-2 border-violet-500/35 hover:border-violet-500/70",
     serviceCls: "text-violet-400/70",
-    areaCls:    "text-violet-300",
-    dotCls:     "bg-violet-400",
-    hoverBg:    "hover:bg-violet-500/[0.05]",
+    areaCls: "text-violet-300",
+    dotCls: "bg-violet-400",
+    hoverBg: "hover:bg-violet-500/[0.05]",
   },
 ];
 
@@ -273,32 +334,41 @@ const SOLUTIONS = [
   },
 ];
 
-
 /* ── Problem modal — 4 pain points → solution CTA ────────────── */
-function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal: () => void }) {
+function FragmentedModal({
+  onClose,
+  onReveal,
+}: {
+  onClose: () => void;
+  onReveal: () => void;
+}) {
   const PAIN = [
     {
       label: "Pipeline",
       text: "Leads die in inbox chaos — before they become clients",
-      detail: "Without a unified CRM, every unanswered message is a deal lost to a faster competitor.",
+      detail:
+        "Without a unified CRM, every unanswered message is a deal lost to a faster competitor.",
       icon: "📉",
     },
     {
       label: "Collaboration",
       text: "Teams drift when work lives across five apps",
-      detail: "Decisions buried in WhatsApp, email, and Slack blur accountability and kill momentum.",
+      detail:
+        "Decisions buried in WhatsApp, email, and Slack blur accountability and kill momentum.",
       icon: "🔀",
     },
     {
       label: "Delivery",
       text: "Projects stall when accountability has no single home",
-      detail: "One missed update across Trello and Google Docs is all it takes to derail a client engagement.",
+      detail:
+        "One missed update across Trello and Google Docs is all it takes to derail a client engagement.",
       icon: "⏳",
     },
     {
       label: "Growth",
       text: "Experts can't scale what they can't track or monetise",
-      detail: "Top consultants chasing clients manually and upskilling in isolation can't build a sustainable practice.",
+      detail:
+        "Top consultants chasing clients manually and upskilling in isolation can't build a sustainable practice.",
       icon: "📊",
     },
   ];
@@ -333,16 +403,20 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
                 <span className="inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-[0.18em] px-2.5 py-1 rounded-full border border-[#c21219]/30 bg-[#c21219]/8 text-[#c21219] mb-3">
                   <motion.span
                     animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-                    transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1.8,
+                      ease: "easeInOut",
+                    }}
                     className="h-1 w-1 rounded-full bg-[#c21219]"
                   />
                   Why Businesses Stall
                 </span>
                 <h2 className="text-lg sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-[#c21219] leading-tight">
-                  The silent drain of fragmented work
+                  Why organizations can&apos;t grow as fast as they need to.
                 </h2>
                 <p className="text-xs text-gray-500 mt-1.5 leading-relaxed max-w-md">
-                  Four compounding problems that stall growth — and the one platform that eliminates all of them.
+                  Four compounding challenges — and one ecosystem built to close every gap.
                 </p>
               </div>
               <motion.button
@@ -364,15 +438,26 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
                 key={p.label}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07, type: "spring", stiffness: 300, damping: 24 }}
+                transition={{
+                  delay: i * 0.07,
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 24,
+                }}
                 className="group flex flex-col gap-2 rounded-xl border border-[#c21219]/12 bg-[#c21219]/[0.04] hover:border-[#c21219]/28 hover:bg-[#c21219]/[0.07] p-4 transition-all duration-200"
               >
                 <div className="flex items-center gap-2">
                   <span className="text-base leading-none">{p.icon}</span>
-                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-[#c21219]/80">{p.label}</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-[#c21219]/80">
+                    {p.label}
+                  </span>
                 </div>
-                <p className="text-[12.5px] font-semibold text-white leading-snug">{p.text}</p>
-                <p className="text-[11px] text-gray-500 leading-relaxed">{p.detail}</p>
+                <p className="text-[12.5px] font-semibold text-white leading-snug">
+                  {p.text}
+                </p>
+                <p className="text-[11px] text-gray-500 leading-relaxed">
+                  {p.detail}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -380,16 +465,26 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
           {/* Solution CTA */}
           <div className="relative px-6 pb-6">
             <motion.button
-              whileHover={{ scale: 1.02, boxShadow: "0 0 28px rgba(194,18,25,0.55)" }}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 0 28px rgba(194,18,25,0.55)",
+              }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => { onClose(); onReveal(); }}
+              onClick={() => {
+                onClose();
+                onReveal();
+              }}
               className="group relative w-full inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#c21219] via-red-700 to-rose-800 px-5 py-3 text-sm font-bold text-white overflow-hidden shadow-[0_0_18px_rgba(194,18,25,0.35)]"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none" />
-              <span className="relative z-10">See How LAMID Solves This</span>
+              <span className="relative z-10">See How AIVORA Solves This</span>
               <motion.span
                 animate={{ x: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 1.4,
+                  ease: "easeInOut",
+                }}
                 className="relative z-10"
               >
                 <ArrowRight className="h-4 w-4" />
@@ -434,30 +529,44 @@ export default function AISystemSection() {
             >
               <motion.span
                 animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut",
+                }}
                 className="h-1.5 w-1.5 rounded-full bg-[#c21219] flex-shrink-0"
               />
               <p className="text-xs text-gray-400 leading-snug">
-                The Unified Growth Ecosystem — Matches businesses with vetted experts, provides built-in CRM &amp; project management and uses AI to automate the process.
+                AIVORA — The HumanAI Consulting Ecosystem. Expert matching, AI-powered intelligence, and talent development in one unified platform.
               </p>
             </motion.div>
 
             {/* ── Sliding panels ── */}
             <div className="relative z-10 overflow-hidden">
               <AnimatePresence mode="wait" custom={dir}>
-
                 {/* ══ PANEL 1: Solutions overview ══ */}
                 {!revealed && (
-                  <motion.div key="overview" custom={dir} variants={slide}
-                    initial="enter" animate="center" exit="exit" transition={slideTx}>
+                  <motion.div
+                    key="overview"
+                    custom={dir}
+                    variants={slide}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={slideTx}
+                  >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-7 md:p-10 items-stretch">
-
                       {/* Left: headline + description + CTA */}
                       <div className="flex flex-col gap-4">
                         <motion.div
                           initial={{ scale: 0.6, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
-                          transition={{ type: "spring", stiffness: 400, damping: 18, delay: 0.1 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 18,
+                            delay: 0.1,
+                          }}
                           className="flex items-center gap-2.5 w-fit"
                         >
                           <motion.div
@@ -484,13 +593,24 @@ export default function AISystemSection() {
                           className="group flex items-center gap-2 w-fit cursor-pointer bg-transparent border-0 p-0"
                         >
                           <motion.span
-                            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-                            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                            animate={{
+                              scale: [1, 1.5, 1],
+                              opacity: [0.5, 1, 0.5],
+                            }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 1.8,
+                              ease: "easeInOut",
+                            }}
                             className="h-1 w-1 rounded-full bg-[#c21219] shrink-0"
                           />
                           <motion.span
                             variants={{ hover: { x: 3 } }}
-                            transition={{ type: "spring", stiffness: 380, damping: 22 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 380,
+                              damping: 22,
+                            }}
                             className="text-[11px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 group-hover:from-[#c21219] group-hover:via-rose-300 group-hover:to-white"
                           >
                             {PROBLEM.subtitle}
@@ -504,11 +624,16 @@ export default function AISystemSection() {
                           </motion.span>
                         </motion.button>
 
-                        <p className="text-[13px] text-gray-300 leading-relaxed">{PROBLEM.full}</p>
+                        <p className="text-[13px] text-gray-300 leading-relaxed">
+                          {PROBLEM.full}
+                        </p>
 
                         <div className="flex flex-wrap gap-2 mt-1">
                           <motion.button
-                            whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(194,18,25,0.5)" }}
+                            whileHover={{
+                              scale: 1.03,
+                              boxShadow: "0 0 24px rgba(194,18,25,0.5)",
+                            }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setRevealed(true)}
                             className="group inline-flex items-center gap-2.5 rounded-xl bg-[#c21219] hover:bg-red-700 px-5 py-2.5 text-xs font-bold text-white transition-colors w-fit shadow-[0_0_16px_rgba(193,33,41,0.3)]"
@@ -516,14 +641,21 @@ export default function AISystemSection() {
                             Explore Our Solutions
                             <motion.span
                               animate={{ x: [0, 3, 0] }}
-                              transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+                              transition={{
+                                repeat: Infinity,
+                                duration: 1.4,
+                                ease: "easeInOut",
+                              }}
                             >
                               <ArrowRight className="h-3.5 w-3.5" />
                             </motion.span>
                           </motion.button>
 
                           <motion.button
-                            whileHover={{ scale: 1.03, backgroundColor: "rgba(255,255,255,0.07)" }}
+                            whileHover={{
+                              scale: 1.03,
+                              backgroundColor: "rgba(255,255,255,0.07)",
+                            }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setModalOpen(true)}
                             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-gray-400 border border-white/10 bg-white/[0.03] transition-colors"
@@ -547,7 +679,12 @@ export default function AISystemSection() {
                               href={card.href}
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.1 + i * 0.07, type: "spring", stiffness: 300, damping: 24 }}
+                              transition={{
+                                delay: 0.1 + i * 0.07,
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 24,
+                              }}
                               whileHover={{ x: 2 }}
                               whileTap={{ scale: 0.98 }}
                               className={`group flex flex-col gap-2 rounded-lg p-3 no-underline
@@ -555,27 +692,38 @@ export default function AISystemSection() {
                                           ${card.borderCls} ${card.hoverBg}`}
                             >
                               {/* Service label */}
-                              <span className={`text-[9px] font-bold uppercase tracking-widest leading-none ${card.serviceCls}`}>
+                              <span
+                                className={`text-[9px] font-bold uppercase tracking-widest leading-none ${card.serviceCls}`}
+                              >
                                 {card.service}
                               </span>
 
                               {/* Area name */}
-                              <p className={`text-[12px] font-extrabold leading-tight ${card.areaCls}`}>
+                              <p
+                                className={`text-[12px] font-extrabold leading-tight ${card.areaCls}`}
+                              >
                                 {card.area}
                               </p>
 
                               {/* Tool bullets */}
                               <ul className="flex flex-col gap-1 mt-auto">
                                 {card.tools.map((t) => (
-                                  <li key={t} className="flex items-start gap-1.5 text-[10.5px] text-gray-400 leading-snug">
-                                    <span className={`mt-[4px] h-1 w-1 rounded-full flex-shrink-0 ${card.dotCls}`} />
+                                  <li
+                                    key={t}
+                                    className="flex items-start gap-1.5 text-[10.5px] text-gray-400 leading-snug"
+                                  >
+                                    <span
+                                      className={`mt-[4px] h-1 w-1 rounded-full flex-shrink-0 ${card.dotCls}`}
+                                    />
                                     {t}
                                   </li>
                                 ))}
                               </ul>
 
                               {/* Arrow */}
-                              <span className={`text-[11px] font-bold self-end opacity-0 group-hover:opacity-100 transition-opacity duration-150 ${card.areaCls}`}>
+                              <span
+                                className={`text-[11px] font-bold self-end opacity-0 group-hover:opacity-100 transition-opacity duration-150 ${card.areaCls}`}
+                              >
                                 →
                               </span>
                             </motion.a>
@@ -588,34 +736,55 @@ export default function AISystemSection() {
 
                 {/* ══ PANEL 2: Solution cards ══ */}
                 {revealed && (
-                  <motion.div key="solutions" custom={dir} variants={slide}
-                    initial="enter" animate="center" exit="exit" transition={slideTx}>
+                  <motion.div
+                    key="solutions"
+                    custom={dir}
+                    variants={slide}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={slideTx}
+                  >
                     <div className="p-7 md:p-10 flex flex-col gap-5">
-
                       {/* Header row */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <motion.div
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            transition={{ type: "spring", stiffness: 380, damping: 16 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 380,
+                              damping: 16,
+                            }}
                             className="h-1.5 w-1.5 rounded-full bg-[#c21219] animate-pulse"
                           />
                           <div>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-red-500 mb-0.5">Our Solution</p>
-                            <h3 className="text-xl font-bold text-white leading-tight">One Integrated Ecosystem — Built for Every Outcome</h3>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-red-500 mb-0.5">
+                              Our Solution
+                            </p>
+                            <h3 className="text-xl font-bold text-white leading-tight">
+                              One Integrated Ecosystem — Built for Every Outcome
+                            </h3>
                           </div>
                         </div>
 
                         <motion.button
-                          whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.08)" }}
+                          whileHover={{
+                            scale: 1.05,
+                            backgroundColor: "rgba(255,255,255,0.08)",
+                          }}
                           whileTap={{ scale: 0.94 }}
                           onClick={() => setRevealed(false)}
                           className="inline-flex items-center gap-1.5 rounded-lg border border-white/12 bg-white/5 px-3.5 py-2 text-xs font-semibold text-gray-400 transition-colors"
                         >
                           <motion.span
                             animate={{ x: [0, -3, 0] }}
-                            transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 1.4,
+                              ease: "easeInOut",
+                            }}
                           >
                             <ArrowLeft className="h-3 w-3" />
                           </motion.span>
@@ -633,8 +802,18 @@ export default function AISystemSection() {
                               key={s.title}
                               initial={{ opacity: 0, y: 18, scale: 0.95 }}
                               animate={{ opacity: 1, y: 0, scale: 1 }}
-                              transition={{ delay: i * 0.08, duration: 0.35, type: "spring", stiffness: 300, damping: 22 }}
-                              whileHover={{ y: -4, boxShadow: `0 14px 36px ${s.glow}`, borderColor: s.hex + "60" }}
+                              transition={{
+                                delay: i * 0.08,
+                                duration: 0.35,
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 22,
+                              }}
+                              whileHover={{
+                                y: -4,
+                                boxShadow: `0 14px 36px ${s.glow}`,
+                                borderColor: s.hex + "60",
+                              }}
                               whileTap={{ scale: 0.97, y: 0 }}
                               onHoverStart={() => setHovered(i)}
                               onHoverEnd={() => setHovered(null)}
@@ -643,28 +822,55 @@ export default function AISystemSection() {
                               <Lines color={s.hex} />
                               <div className="relative z-10 flex flex-col gap-2.5">
                                 <motion.div
-                                  animate={isHov ? { scale: 1.15, rotate: 6, boxShadow: `0 0 16px ${s.glow}` } : { scale: 1, rotate: 0, boxShadow: "none" }}
-                                  transition={{ type: "spring", stiffness: 400, damping: 16 }}
+                                  animate={
+                                    isHov
+                                      ? {
+                                          scale: 1.15,
+                                          rotate: 6,
+                                          boxShadow: `0 0 16px ${s.glow}`,
+                                        }
+                                      : {
+                                          scale: 1,
+                                          rotate: 0,
+                                          boxShadow: "none",
+                                        }
+                                  }
+                                  transition={{
+                                    type: "spring",
+                                    stiffness: 400,
+                                    damping: 16,
+                                  }}
                                   className={`w-9 h-9 rounded-xl flex items-center justify-center ${s.iconStyle} border ${s.border}`}
                                 >
                                   <Icon className="h-4 w-4" />
                                 </motion.div>
-                                <h4 className="text-[13px] font-bold text-white leading-snug">{s.title}</h4>
+                                <h4 className="text-[13px] font-bold text-white leading-snug">
+                                  {s.title}
+                                </h4>
                                 <div className="space-y-2">
                                   {s.bullets.map((b, bi) => (
                                     <motion.div
                                       key={bi}
                                       initial={{ opacity: 0, x: -6 }}
                                       animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: i * 0.08 + bi * 0.07 + 0.15, duration: 0.3 }}
+                                      transition={{
+                                        delay: i * 0.08 + bi * 0.07 + 0.15,
+                                        duration: 0.3,
+                                      }}
                                       className="flex items-start gap-2 text-xs text-gray-400 leading-relaxed"
                                     >
                                       <motion.span
-                                        animate={isHov ? { x: 2, opacity: 1 } : { x: 0, opacity: 0.7 }}
+                                        animate={
+                                          isHov
+                                            ? { x: 2, opacity: 1 }
+                                            : { x: 0, opacity: 0.7 }
+                                        }
                                         transition={{ duration: 0.2 }}
                                         className="mt-0.5 flex-shrink-0 text-[8px]"
                                         style={{ color: s.hex }}
-                                      >▸</motion.span>
+                                      >
+                                        ▸
+                                      </motion.span>
                                       {b}
                                     </motion.div>
                                   ))}
@@ -686,7 +892,10 @@ export default function AISystemSection() {
                       {/* How it Works CTA */}
                       <div className="flex justify-center mt-1">
                         <motion.button
-                          whileHover={{ scale: 1.04, boxShadow: "0 0 28px rgba(194,18,25,0.65)" }}
+                          whileHover={{
+                            scale: 1.04,
+                            boxShadow: "0 0 28px rgba(194,18,25,0.65)",
+                          }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => setHowItWorksOpen(true)}
                           className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white overflow-hidden bg-gradient-to-r from-[#c21219] via-rose-600 to-rose-500 shadow-[0_0_16px_rgba(194,18,25,0.4)]"
@@ -699,7 +908,6 @@ export default function AISystemSection() {
                     </div>
                   </motion.div>
                 )}
-
               </AnimatePresence>
             </div>
           </div>
@@ -707,9 +915,16 @@ export default function AISystemSection() {
       </section>
 
       {/* ── Modal portals ────────────────────────────────────── */}
-      {modalOpen && <FragmentedModal onClose={() => setModalOpen(false)} onReveal={() => setRevealed(true)} />}
+      {modalOpen && (
+        <FragmentedModal
+          onClose={() => setModalOpen(false)}
+          onReveal={() => setRevealed(true)}
+        />
+      )}
       <AnimatePresence>
-        {howItWorksOpen && <HowItWorksModal onClose={() => setHowItWorksOpen(false)} />}
+        {howItWorksOpen && (
+          <HowItWorksModal onClose={() => setHowItWorksOpen(false)} />
+        )}
       </AnimatePresence>
     </>
   );

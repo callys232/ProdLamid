@@ -20,7 +20,7 @@ export default function LayoutWrapper({
   const hideLayout = noLayoutRoutes.some((path) => pathname.startsWith(path));
 
   return (
-    <div className="min-h-screen w-screen bg-[#0c0000] text-white overflow-x-hidden flex flex-col transition-colors duration-300">
+    <div className="min-h-screen w-screen overflow-x-hidden flex flex-col transition-colors duration-300">
 
       {/* ── Site-wide vector line background ── */}
       <svg

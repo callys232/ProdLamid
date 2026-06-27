@@ -7,6 +7,9 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import AccountMenu from "./Account";
 import PeekView from "@/components/peekview/PeekView";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
+
 
 interface ServiceItem {
   name: string;
@@ -70,6 +73,7 @@ const Navbar: React.FC = () => {
   const lastScrollY = useRef(0);
   const pathname = usePathname();
   const notificationCount = useNotifications();
+  const { isAuthenticated, loading } = useAuth();
 
   /* ── Scroll-aware hide / show ─────────────────────────────── */
   useEffect(() => {
@@ -198,7 +202,7 @@ const Navbar: React.FC = () => {
       style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}
     >
       <nav
-        className="bg-black text-white w-full"
+        className="aivora-nav w-full"
         role="navigation"
         aria-label="Main navigation"
       >
@@ -207,7 +211,7 @@ const Navbar: React.FC = () => {
           <Link href="/" aria-label="Home">
             <Image
               src="/Logo.png"
-              alt="Lamid Consulting Logo"
+              alt="AIVORA"
               width={120}
               height={40}
               priority
@@ -287,10 +291,33 @@ const Navbar: React.FC = () => {
 
           {/* Account + tools + mobile hamburger — always at the far right */}
           <div className="flex items-center gap-2">
+            {/* Theme toggle — desktop */}
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
+
             {/* Tools peek — desktop only */}
             <div className="hidden md:block">
               <PeekView />
             </div>
+
+            {/* Sign In + Get Started — desktop, guests only */}
+            {!loading && !isAuthenticated && (
+              <div className="hidden md:flex items-center gap-2">
+                <Link
+                  href="/signin"
+                  className="px-4 py-2 rounded-xl text-sm font-semibold border border-white/20 text-white/80 hover:border-[#C12129] hover:text-[#C12129] transition-colors duration-200"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/signup"
+                  className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors duration-200 shadow-[0_0_12px_rgba(193,33,41,0.4)]"
+                >
+                  Get Started
+                </Link>
+              </div>
+            )}
 
             <div className="relative hidden md:block">
               <AccountMenu />
@@ -382,6 +409,32 @@ const Navbar: React.FC = () => {
               >
                 CONTACT US
               </Link>
+
+              {/* Theme toggle — mobile */}
+              <div className="pt-1 flex items-center gap-2">
+                <ThemeToggle />
+                <span className="text-xs aivora-text-muted">Day / Night</span>
+              </div>
+
+              {/* Sign In + Get Started — mobile, guests only */}
+              {!loading && !isAuthenticated && (
+                <div className="flex flex-col gap-2 pt-2">
+                  <Link
+                    href="/signin"
+                    onClick={() => setIsOpen(false)}
+                    className="text-center py-2.5 rounded-xl text-sm font-semibold border border-white/20 text-white/80 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={() => setIsOpen(false)}
+                    className="text-center py-2.5 rounded-xl text-sm font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              )}
 
               {/* Tools peek */}
               <div className="pt-1">

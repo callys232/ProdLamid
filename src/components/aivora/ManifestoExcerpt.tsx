@@ -29,7 +29,7 @@ const dots = [
 
 export default function ManifestoExcerpt() {
   return (
-    <section className="relative bg-black text-white py-20 px-4 overflow-hidden">
+    <section className="relative aivora-section py-20 px-4 overflow-hidden">
 
       {/* Radial lines bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -85,8 +85,8 @@ export default function ManifestoExcerpt() {
               transition={{ duration: 0.45, delay: i * 0.1 }}
               className={`leading-relaxed ${
                 line.bold
-                  ? "text-xl sm:text-2xl font-bold text-white"
-                  : "text-base sm:text-lg text-white/60"
+                  ? "text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"
+                  : "text-base sm:text-lg text-gray-500 dark:text-white/60"
               }`}
             >
               {line.text}

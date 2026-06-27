@@ -3,12 +3,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 const STATS = [
-  { value: "74%", label: "of organizations report fragmented consulting delivery", authHref: "/postjobs" },
-  { value: "60%", label: "of consulting engagements fail to achieve stated goals", authHref: "/talent"   },
-  { value: "40%", label: "faster delivery with AI-assisted project management",    authHref: "/premium/business-diagnostic" },
+  { value: "73%", label: "of SMEs report difficulty accessing affordable, high-quality consulting expertise", authHref: "/postjobs" },
+  { value: "87%", label: "of executives say AI integration is a strategic priority — yet fewer than 1 in 4 have a clear plan", authHref: "/talent" },
+  { value: "$1.3T", label: "the size of the global consulting market by 2030, driven by demand for smarter, faster solutions", authHref: "/premium/business-diagnostic" },
 ];
 
 /* Vertical column lines — data/intelligence feel */
@@ -27,12 +26,10 @@ const dots = [
 
 export default function AivoraGap() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
-  const dest = (href: string) => (!loading && isAuthenticated ? href : "/signup");
 
   return (
-    <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
+    <section className="relative aivora-section py-16 px-4 overflow-hidden">
 
       {/* Vertical column lines bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -68,15 +65,15 @@ export default function AivoraGap() {
             <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
               Why AIVORA Exists
             </p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug mb-5">
-              The Gap We Were{" "}
-              <span className="text-[#C12129]">Built to Close.</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-snug mb-5">
+              Organizations are moving faster than ever.{" "}
+              <span className="text-[#C12129]">Consulting hasn't kept pace.</span>
             </h2>
-            <p className="text-white/65 text-sm sm:text-base leading-relaxed mb-4">
-              Most organizations operate with fragmented tools, inconsistent expertise, and no unified delivery system. The result: costly trial and error, slow decisions, and outcomes that never quite match the brief.
+            <p className="text-gray-600 dark:text-white/65 text-sm sm:text-base leading-relaxed mb-4">
+              Most organizations face three compounding challenges: quality expertise is expensive and hard to access; AI adoption is urgent but poorly guided; and the tools, consultants, and training providers they rely on don't talk to each other.
             </p>
-            <p className="text-white/65 text-sm sm:text-base leading-relaxed">
-              AIVORA was built to change this — combining trusted human expertise with advanced AI in one ecosystem, giving every organization access to the intelligence, talent, and systems they need to grow smarter and faster.
+            <p className="text-gray-600 dark:text-white/65 text-sm sm:text-base leading-relaxed">
+              AIVORA was built to close that gap — permanently.
             </p>
           </motion.div>
 
@@ -94,9 +91,9 @@ export default function AivoraGap() {
                   onHoverStart={() => setHovered(i)}
                   onHoverEnd={() => setHovered(null)}
                   animate={{ y: isHov ? -3 : 0 }}
-                  onClick={() => router.push(dest(stat.authHref))}
-                  className="relative flex items-start gap-5 bg-white/[0.03] border rounded-xl p-5 overflow-hidden cursor-pointer"
-                  style={{ borderColor: isHov ? "#C1212955" : "rgba(255,255,255,0.08)" }}
+                  onClick={() => router.push(stat.authHref)}
+                  className="relative flex items-start gap-5 aivora-card border rounded-xl p-5 overflow-hidden cursor-pointer"
+                  style={{ borderColor: isHov ? "#C1212955" : undefined }}
                 >
                   {/* Left accent bar */}
                   <motion.div
@@ -113,13 +110,13 @@ export default function AivoraGap() {
                     {stat.value}
                   </motion.span>
                   <div className="flex-1">
-                    <p className="text-white/75 text-sm leading-relaxed">{stat.label}</p>
+                    <p className="text-gray-600 dark:text-white/75 text-sm leading-relaxed">{stat.label}</p>
                     <motion.span
                       className="text-[10px] font-semibold text-white/30 mt-1 block"
                       animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                       transition={{ duration: 0.16 }}
                     >
-                      {!loading && isAuthenticated ? "Explore solution →" : "Sign up →"}
+                      Explore solution →
                     </motion.span>
                   </div>
                 </motion.div>

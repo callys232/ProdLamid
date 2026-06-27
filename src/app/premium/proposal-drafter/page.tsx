@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Sparkles, Loader2, Copy, CheckCheck, ChevronDown,
   FileText, Target, Layers, DollarSign, Clock, Shield,
@@ -87,6 +89,7 @@ function BulletList({ items, color = "text-gray-300", dot = "▸", dotColor = "t
 
 /* ── Page ──────────────────────────────────────────────────────── */
 export default function ProposalDrafter() {
+  const { isAuthenticated, loading: authLoading } = useAuth();
   const [form, setForm] = useState({
     projectTitle: "", clientName: "", companyName: "", category: "",
     description: "", budget: "", timeline: "", skills: "", deliverables: "",
@@ -129,7 +132,7 @@ export default function ProposalDrafter() {
     const lines: string[] = [
       `CONSULTING PROPOSAL — ${form.projectTitle.toUpperCase()}`,
       `Prepared for: ${form.clientName || "Valued Client"}${form.companyName ? `, ${form.companyName}` : ""}`,
-      `Prepared by: Lamid Consulting`,
+      `Prepared by: AIVORA`,
       ``,
       `═══════════════════════════════════════`,
       `EXECUTIVE SUMMARY`,
@@ -171,7 +174,7 @@ export default function ProposalDrafter() {
       `Payment Terms: ${proposal.investment.paymentTerms}`,
       proposal.investment.roi ? `ROI: ${proposal.investment.roi}` : "",
       ``,
-      `WHY LAMID`,
+      `WHY AIVORA`,
       `───────────────────────────────────────`,
       ...(proposal.whyLamid ?? []).map((w) =>
         typeof w === "string" ? `  ▸ ${w}` : `  ▸ ${w.point}: ${w.detail}`
@@ -201,8 +204,8 @@ export default function ProposalDrafter() {
     <div className="min-h-screen bg-black text-white px-4 py-10 md:px-12">
       {/* ── Header ── */}
       <div className="max-w-6xl mx-auto mb-8">
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-[#c21219] border border-[#c21219]/30 bg-[#c21219]/10 px-3 py-1 rounded-full mb-3">
-          <Star className="h-3 w-3" /> Premium Feature
+        <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 rounded-full mb-3">
+          <Star className="h-3 w-3" /> Free Tool
         </span>
         <h1 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent leading-tight">
           AI Proposal & Scoping Drafter
@@ -340,15 +343,25 @@ export default function ProposalDrafter() {
                       10 sections
                     </span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={copyAll}
-                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-white/15 text-gray-300 hover:border-white/40 hover:text-white transition"
-                  >
-                    {copied
-                      ? <><CheckCheck className="h-3.5 w-3.5 text-emerald-400" />Copied!</>
-                      : <><Copy className="h-3.5 w-3.5" />Copy all</>}
-                  </button>
+                  {!authLoading && isAuthenticated ? (
+                    <button
+                      type="button"
+                      onClick={copyAll}
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-white/15 text-gray-300 hover:border-white/40 hover:text-white transition"
+                    >
+                      {copied
+                        ? <><CheckCheck className="h-3.5 w-3.5 text-emerald-400" />Copied!</>
+                        : <><Copy className="h-3.5 w-3.5" />Copy all</>}
+                    </button>
+                  ) : (
+                    <Link
+                      href="/signup"
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-[#C12129]/40 text-[#C12129] hover:bg-[#C12129]/10 transition"
+                    >
+                      <Copy className="h-3.5 w-3.5" />
+                      Sign up to save
+                    </Link>
+                  )}
                 </div>
 
                 {/* 1 — Executive Summary */}
@@ -443,8 +456,8 @@ export default function ProposalDrafter() {
                   )}
                 </Section>
 
-                {/* 9 — Why Lamid */}
-                <Section icon={Star} title="Why Lamid" color="text-[#c21219]">
+                {/* 9 — Why AIVORA */}
+                <Section icon={Star} title="Why AIVORA" color="text-[#c21219]">
                   <div className="flex flex-col gap-3">
                     {(proposal.whyLamid ?? []).map((w, i) => {
                       const isObj = typeof w === "object" && w !== null;
@@ -497,6 +510,40 @@ export default function ProposalDrafter() {
                   </div>
                   <p className="text-sm text-gray-200 leading-relaxed">{proposal.callToAction}</p>
                 </div>
+
+                {/* Sign-up gate for guests */}
+                {!authLoading && !isAuthenticated && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    className="rounded-2xl border border-[#C12129]/40 bg-gradient-to-br from-[#C12129]/10 via-black to-black px-6 py-6 text-center"
+                  >
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#C12129] mb-2">
+                      Save your proposal
+                    </p>
+                    <h3 className="text-base font-bold text-white mb-1">
+                      Create a free account to copy, share, and use this proposal.
+                    </h3>
+                    <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+                      Sign up to unlock the full copy, submit the proposal through AIVORA, and connect with the right consultants to deliver on it.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <Link
+                        href="/signup"
+                        className="px-6 py-2.5 rounded-xl text-sm font-bold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors shadow-[0_0_18px_rgba(193,33,41,0.4)]"
+                      >
+                        Create Free Account
+                      </Link>
+                      <Link
+                        href="/signin"
+                        className="px-6 py-2.5 rounded-xl text-sm font-semibold border border-white/20 text-white/70 hover:border-white/40 hover:text-white transition-colors"
+                      >
+                        Sign In
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
 
               </motion.div>
             )}

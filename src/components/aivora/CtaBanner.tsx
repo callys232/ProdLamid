@@ -23,7 +23,7 @@ export default function CtaBanner() {
   const [secondaryHov, setSecondaryHov] = useState(false);
 
   return (
-    <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
+    <section className="relative aivora-section py-16 px-4 overflow-hidden">
 
       {/* Diamond burst bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -82,9 +82,9 @@ export default function CtaBanner() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.5 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug mb-4 relative z-10"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4 relative z-10"
           >
-            Build Your Future with AIVORA.
+            Your organization's next chapter starts here.
           </motion.h2>
 
           <motion.p
@@ -92,9 +92,9 @@ export default function CtaBanner() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.45 }}
-            className="text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8 relative z-10"
+            className="text-gray-600 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8 relative z-10"
           >
-            Powered by trusted expertise and advanced AI. Join organizations that refuse to stand still.
+            Join the growing network of ambitious organizations using AIVORA to grow smarter, move faster, and build lasting capability.
           </motion.p>
 
           <motion.div
@@ -123,12 +123,12 @@ export default function CtaBanner() {
             </Link>
 
             <Link
-              href="/contact-sales"
+              href="/contact"
               onMouseEnter={() => setSecondaryHov(true)}
               onMouseLeave={() => setSecondaryHov(false)}
               className="px-7 py-3 rounded-full text-sm font-semibold border border-white/20 text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
             >
-              Request a Demo
+              Talk to an Expert
               <motion.span
                 className="inline-block ml-1"
                 animate={{ x: secondaryHov ? 3 : 0 }}

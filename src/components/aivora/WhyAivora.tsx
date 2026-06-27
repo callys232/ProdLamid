@@ -3,13 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 const TILES = [
-  { icon: "◈", iconCls: "text-[#C12129]",  accentColor: "#C12129", authHref: "/talent",                    title: "Integrated by Design",        body: "Marketplace, BIZ Portal, and Talent Development are not separate products — they are one ecosystem, built to work together from day one." },
-  { icon: "⬡", iconCls: "text-blue-400",   accentColor: "#3b82f6", authHref: "/talent",                    title: "AI + Experts",                 body: "Advanced AI accelerates matching, delivery, and diagnostics. Human expertise ensures every outcome is grounded in real-world knowledge." },
-  { icon: "⬟", iconCls: "text-emerald-400",accentColor: "#10b981", authHref: "/pricing",                   title: "Accessible at Every Scale",    body: "Whether you're a growing SME or a global enterprise, AIVORA scales with you. No gatekeepers. No complexity. Built for the realities of today." },
-  { icon: "⚡", iconCls: "text-amber-400",  accentColor: "#f59e0b", authHref: "/postjobs",                  title: "Outcomes, Not Outputs",        body: "We measure success by what your organization achieves — not the number of reports delivered. Every engagement is built around measurable results." },
+  { icon: "◈", iconCls: "text-[#C12129]",  accentColor: "#C12129", authHref: "/talent",   title: "Integrated by Design",             body: "Consulting, intelligence, and talent development don't exist in silos on AIVORA — they're connected, reinforcing each other at every stage of your growth journey." },
+  { icon: "⬡", iconCls: "text-blue-400",   accentColor: "#3b82f6", authHref: "/talent",   title: "AI That Works Alongside Experts",  body: "Our AI doesn't replace human judgment — it enhances it. Every insight, match, and recommendation is powered by the intersection of human expertise and machine intelligence." },
+  { icon: "⬟", iconCls: "text-emerald-400",accentColor: "#10b981", authHref: "/pricing",  title: "Accessible at Every Scale",        body: "From early-stage SMEs to global enterprises, AIVORA is priced and designed to grow with you. World-class expertise should never be a privilege of scale." },
+  { icon: "⚡", iconCls: "text-amber-400",  accentColor: "#f59e0b", authHref: "/postjobs", title: "Outcomes, Not Outputs",            body: "We track what matters: decisions made, capabilities built, growth delivered. Every engagement on AIVORA is measured against real business outcomes." },
 ];
 
 /* Cross-hatch / grid feel — structure and precision */
@@ -29,12 +28,10 @@ const dots = [
 
 export default function WhyAivora() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
-  const dest = (href: string) => (!loading && isAuthenticated ? href : "/signup");
 
   return (
-    <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
+    <section className="relative aivora-section py-16 px-4 overflow-hidden">
 
       {/* Grid / cross-hatch bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -69,9 +66,9 @@ export default function WhyAivora() {
           <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
             Why AIVORA
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
-            Built Different.{" "}
-            <span className="text-[#C12129]">Delivered Differently.</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-snug">
+            Not a consultancy. Not a SaaS tool. Not a training platform.{" "}
+            <span className="text-[#C12129]">Something entirely new.</span>
           </h2>
           <div className="mt-6 h-px bg-gradient-to-r from-[#C12129]/40 via-white/10 to-transparent" />
         </motion.div>
@@ -89,9 +86,9 @@ export default function WhyAivora() {
                 animate={{ y: isHov ? -5 : 0 }}
                 onHoverStart={() => setHovered(i)}
                 onHoverEnd={() => setHovered(null)}
-                className="relative bg-white/[0.025] border rounded-2xl p-7 overflow-hidden cursor-pointer"
-                style={{ borderColor: isHov ? `${tile.accentColor}55` : "rgba(255,255,255,0.08)" }}
-                onClick={() => router.push(dest(tile.authHref))}
+                className="relative aivora-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
+                style={{ borderColor: isHov ? `${tile.accentColor}55` : undefined }}
+                onClick={() => router.push(tile.authHref)}
               >
                 {/* Glow */}
                 <motion.div
@@ -116,14 +113,14 @@ export default function WhyAivora() {
                 >
                   {tile.icon}
                 </motion.span>
-                <h3 className="text-base font-bold text-white mb-2">{tile.title}</h3>
-                <p className="text-white/70 text-sm leading-relaxed mb-3">{tile.body}</p>
+                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{tile.title}</h3>
+                <p className="text-gray-600 dark:text-white/70 text-sm leading-relaxed mb-3">{tile.body}</p>
                 <motion.span
                   className="text-[10px] font-semibold text-white/30"
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >
-                  {!loading && isAuthenticated ? "Open →" : "Sign up →"}
+                  Open →
                 </motion.span>
               </motion.div>
             );
