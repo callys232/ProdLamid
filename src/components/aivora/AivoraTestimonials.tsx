@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const TESTIMONIALS = [
-  { quote: "AIVORA gave us access to verified expertise we couldn't find locally — and delivered results in half the time we expected. The AI matching was remarkably accurate.", name: "Chief Operating Officer", org: "Technology Group, UAE",           initial: "C", accentCls: "bg-[#C12129]" },
-  { quote: "As an SME navigating scale-up, the BIZ diagnostics gave us a clear picture of our gaps. We walked away with a roadmap, not just a report.",                          name: "Chief Executive Officer",   org: "FinTech Startup, Nigeria",       initial: "C", accentCls: "bg-blue-600"   },
-  { quote: "The Talent Development portal transformed how we build capability across our teams. The structured learning journeys and program quality speak for themselves.",        name: "Chief People Officer",      org: "Professional Services Firm, UK", initial: "C", accentCls: "bg-orange-500" },
+  { quote: "AIVORA connected us with the right consultant in 48 hours. The project that followed delivered in half the time we expected — and the BIZ Portal has become essential to how we make decisions now.", name: "Chief Operating Officer", org: "Financial Services Firm, UAE",    initial: "C", accentCls: "bg-[#C12129]" },
+  { quote: "We've tried fragmented tools and individual consultants. AIVORA is the first platform that actually felt like a partner — not a vendor.",                                                              name: "Chief Executive Officer",   org: "Technology Scale-up, Nigeria",   initial: "C", accentCls: "bg-blue-600"   },
+  { quote: "The Talent Portal transformed how we approach capability building. Our teams are developing skills 3× faster, and they're actually engaged.",                                                         name: "Chief People Officer",      org: "Healthcare Organization, UK",    initial: "C", accentCls: "bg-orange-500" },
 ];
 
 const paths = [
@@ -34,6 +34,15 @@ export default function AivoraTestimonials() {
   const [phase, setPhase]               = useState<Phase>("idle");
   const [droppingCard, setDroppingCard] = useState<number | null>(null);
   const n = TESTIMONIALS.length;
+
+  // Auto-rotate every 4 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (phase === "idle") handleNext();
+    }, 4000);
+    return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, activeIndex]);
 
   const handleNext = useCallback(() => {
     if (phase !== "idle") return;
@@ -78,7 +87,7 @@ export default function AivoraTestimonials() {
 
 
   return (
-    <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
+    <section className="relative aivora-section py-24 px-4 overflow-hidden" id="testimonials">
 
       {/* Arc bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -110,12 +119,11 @@ export default function AivoraTestimonials() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
-            Client Voices
+          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+            Testimonials
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
-            Organizations That{" "}
-            <span className="text-[#C12129]">Refuse to Stand Still.</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug">
+            <span className="aivora-gradient-text">What Leaders Say</span>
           </h2>
         </motion.div>
 
@@ -130,7 +138,7 @@ export default function AivoraTestimonials() {
               return (
                 <motion.div
                   key={i}
-                  className={`absolute top-0 inset-x-0 h-[300px] border rounded-2xl p-7 flex flex-col overflow-hidden cursor-default ${isFront ? "bg-[#161616] border-[#C12129]/30" : "bg-white/[0.025] border-white/[0.08]"}`}
+                  className={`absolute top-0 inset-x-0 h-[300px] border rounded-2xl p-7 flex flex-col overflow-hidden cursor-default transition-shadow duration-300 ${isFront ? "bg-gray-50 dark:bg-[#161616] border-[#C12129]/30 shadow-[0_8px_32px_rgba(193,33,41,0.1)]" : "aivora-card border-white/[0.06]"}`}
                   initial={{ rotate: stackPos.rotate, scale: stackPos.scale, y: stackPos.y, opacity: stackPos.opacity, zIndex: stackPos.zIndex }}
                   animate={getAnimate(i)}
                   transition={getTransition(i)}

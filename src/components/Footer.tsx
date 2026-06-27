@@ -1,135 +1,85 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import React from "react";
 import Link from "next/link";
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedin,
-  FaEnvelope,
-} from "react-icons/fa";
-import axios from "axios";
+import Image from "next/image";
+
+const COLUMNS = [
+  {
+    heading: "Platform",
+    links: [
+      { label: "Marketplace",   href: "/talent"   },
+      { label: "BIZ Portal",    href: "/biz"      },
+      { label: "Talent Portal", href: "/hcd"      },
+      { label: "Pricing",       href: "/pricing"  },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "About",      href: "/portfolio" },
+      { label: "For Experts", href: "/signup"   },
+      { label: "Careers",    href: "/contact"   },
+      { label: "Contact",    href: "/contact"   },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Privacy Policy",  href: "/privacy" },
+      { label: "Terms of Service", href: "/terms"  },
+      { label: "Cookie Policy",   href: "/privacy" },
+      { label: "Security",        href: "/privacy" },
+    ],
+  },
+];
 
 const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState < "idle" | "loading" | "success" | "error" > ("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setStatus("loading");
-    try {
-      // Example API call – create /api/newsletter/subscribe
-      await axios.post("/api/newsletter/subscribe", { email });
-      setStatus("success");
-      setEmail("");
-    } catch (err) {
-      setStatus("error");
-    }
-  };
-
   return (
-    <footer className="bg-[#181818] text-white py-12 px-4 md:px-12">
-      <div className="container mx-auto">
-        {/* Top section with logo and social icons */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
-          {/* Logo */}
-          <div className="mb-6 md:mb-0">
-            <Link href="/">
-              <Image
-                src="/lamid-logo.png"
-                alt="Lamid Consulting"
-                width={200}
-                height={80}
-                className="mb-4"
-              />
-            </Link>
+    <footer className="aivora-section border-t border-white/8 dark:border-white/8 border-gray-200">
 
-            {/* Social Media Icons */}
-            <div className="flex space-x-4">
-              <Link href="https://facebook.com" className="text-white hover:text-gray-400">
-                <FaFacebook size={24} />
-              </Link>
-              <Link href="https://twitter.com" className="text-white hover:text-gray-400">
-                <FaTwitter size={24} />
-              </Link>
-              <Link href="https://instagram.com" className="text-white hover:text-gray-400">
-                <FaInstagram size={24} />
-              </Link>
-              <Link href="https://linkedin.com" className="text-white hover:text-gray-400">
-                <FaLinkedin size={24} />
-              </Link>
+      {/* ── Main content ── */}
+      <div className="max-w-7xl mx-auto px-4 md:px-10 pt-14 pb-10">
+
+        {/* Brand block above columns */}
+        <div className="flex flex-col gap-2 mb-10">
+          <Link href="/" className="inline-block">
+            <Image src="/Logo.png" alt="AIVORA" width={120} height={40} className="object-contain" />
+          </Link>
+          <p className="text-sm text-[#C12129] font-medium">Smarter. Faster. Accessible.</p>
+          <p className="text-sm text-gray-500 dark:text-white/45">The Human–AI Consulting Ecosystem.</p>
+        </div>
+
+        <div className="h-px bg-white/6 dark:bg-white/6 bg-gray-200 mb-10" />
+
+        {/* 3-column navigation (matches prototype) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+          {COLUMNS.map((col) => (
+            <div key={col.heading}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C12129] mb-4">
+                {col.heading}
+              </p>
+              <ul className="flex flex-col gap-2.5">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href}
+                      className="text-sm text-gray-500 dark:text-white/45 hover:text-[#C12129] dark:hover:text-[#C12129] transition-colors duration-200 hover:translate-x-0.5 inline-block">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-
-          {/* Newsletter */}
-          <div className="w-full md:w-1/2 lg:w-1/3">
-            <h3 className="text-red-600 text-xl font-bold mb-3">Newsletter</h3>
-            <p className="text-[15px] mb-5">
-              Sign up for our newsletter to stay up to date on the latest from
-              Lamid Consulting.
-            </p>
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your mail here..."
-                className="bg-transparent border-0 rounded-l px-4 py-2 w-full sm:w-2/3 focus:outline-none"
-                style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
-                required
-              />
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="bg-red-600 text-white px-4 py-2 rounded-r uppercase text-sm font-semibold mt-2 sm:mt-0 disabled:opacity-50"
-              >
-                {status === "loading" ? "Signing up..." : "Signup"}
-              </button>
-            </form>
-            {status === "success" && (
-              <p className="text-green-500 text-sm mt-2">Thanks for subscribing!</p>
-            )}
-            {status === "error" && (
-              <p className="text-red-500 text-sm mt-2">Something went wrong. Try again.</p>
-            )}
-          </div>
+          ))}
         </div>
+      </div>
 
-        {/* Quick links */}
-        <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-10">
-          <Link href="/bizphere" className="bg-red-900 hover:bg-red-800 px-4 py-2 rounded text-white">
-            Bizphere
-          </Link>
-          <Link href="/event" className="bg-red-900 hover:bg-red-800 px-4 py-2 rounded text-white">
-            Events
-          </Link>
-          <Link href="/biz" className="bg-red-900 hover:bg-red-800 px-4 py-2 rounded text-white">
-            BIZ
-          </Link>
-          <Link href="/hcd" className="bg-red-900 hover:bg-red-800 px-4 py-2 rounded text-white">
-            HCD
-          </Link>
-          <Link href="/sustainableDev" className="bg-red-900 hover:bg-red-800 px-4 py-2 rounded text-white">
-            SD
-          </Link>
-        </div>
-
-        {/* Contact */}
-        <div className="mt-8">
-          <h3 className="text-red-600 text-xl font-bold mb-4">Contact Us</h3>
-          <div className="flex items-center">
-            <FaEnvelope className="mr-2" />
-            <a
-              href="mailto:hq@lamidconsulting.com"
-              className="text-white hover:text-gray-400"
-            >
-              hq@lamidconsulting.com
-            </a>
-          </div>
+      {/* ── Bottom bar ── */}
+      <div className="border-t border-white/6 dark:border-white/6 border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 md:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-gray-400 dark:text-white/25">
+            © 2026 AIVORA. All rights reserved. | Smarter. Faster. Accessible.
+          </p>
         </div>
       </div>
     </footer>

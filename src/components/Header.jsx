@@ -1,144 +1,122 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Typewriter } from "react-simple-typewriter";
-import { AnimatePresence, motion } from "framer-motion";
-import Serv from "./Serv";
-import AISystemSection from "./aiHero/Aihero";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import HowWeServeModal from "./navbar/HowWeServeModal";
-import EcosystemTag from "./EcosystemTag";
 import HeroStickmen from "./HeroStickmen";
 
-// "Empowering Growth," = 18 chars × 60 ms/char + 200 ms buffer
-const H1_TYPE_MS = 18 * 60 + 200;
-
 export default function Header() {
-  const [showH2, setShowH2] = useState(false);
-  const [cycle, setCycle] = useState(0);
   const [howWeServeOpen, setHowWeServeOpen] = useState(false);
-
-  // When a new cycle starts, wait for h1 to finish typing then show h2
-  useEffect(() => {
-    const t = setTimeout(() => setShowH2(true), H1_TYPE_MS);
-    return () => clearTimeout(t);
-  }, [cycle]);
-
-  // Once h2 is visible, wait 5 s then restart the loop
-  useEffect(() => {
-    if (!showH2) return;
-    const t = setTimeout(() => {
-      setShowH2(false);
-      setCycle((c) => c + 1);
-    }, 5000);
-    return () => clearTimeout(t);
-  }, [showH2]);
 
   return (
     <>
-      <header className="relative w-full bg-black text-white overflow-hidden px-6 md:px-12 flex flex-col md:flex-row items-center justify-between min-h-[85vh] md:min-h-0">
-        {/* dg-glow used by h2 */}
-        <style>{`
-          @keyframes dg-glow{0%,100%{filter:drop-shadow(0 0 8px rgba(220,38,38,0.55))}50%{filter:drop-shadow(0 0 22px rgba(251,113,133,0.9))}}
-        `}</style>
+      {/* ── Hero ── */}
+      <header className="relative w-full aivora-section overflow-hidden min-h-screen flex flex-col items-center justify-center px-4 text-center">
 
-        {/* Interactive service stickmen */}
+        {/* Stickman background */}
         <HeroStickmen />
 
-        {/* ── Left content ── */}
-        <div className="w-full md:w-2/3 z-10 pt-24 md:pt-0 text-center md:text-left space-y-4 md:space-y-5">
-          {/* Typewriter headline — remounts on each cycle via key */}
-          <h1 className="whitespace-normal text-lg sm:text-xl md:text-3xl font-extrabold leading-snug max-w-2xl mx-auto md:mx-0 px-2 font-display text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-white pb-1">
-            <Typewriter
-              key={cycle}
-              words={["Empowering Growth,"]}
-              loop={1}
-              typeSpeed={60}
-              deleteSpeed={30}
-              delaySpeed={500}
-              cursor
-              cursorStyle=""
-            />
-          </h1>
+        {/* ── Content ── */}
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6 py-24 md:py-0">
 
-          {/* h2 slides in from the left once h1 is done */}
-          <div className="min-h-[1.5em]">
-            <AnimatePresence>
-              {showH2 && (
-                <motion.h2
-                  initial={{ opacity: 0, x: -32, scale: 0.88, skewX: -4 }}
-                  animate={{ opacity: 1, x: 0, scale: 1, skewX: 0 }}
-                  exit={{ opacity: 0, x: -16, scale: 0.94 }}
-                  transition={{ type: "spring", stiffness: 90, damping: 11 }}
-                  className="whitespace-normal text-xl sm:text-2xl md:text-4xl font-extrabold leading-snug max-w-2xl mx-auto md:mx-0 px-2 font-display text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-red-500 to-red-900 tracking-wide pb-1"
-                  style={{ animation: "dg-glow 2.6s ease-in-out infinite" }}
-                >
-                  Digitally.
-                </motion.h2>
-              )}
-            </AnimatePresence>
-          </div>
+          {/* Eyebrow pill */}
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold border border-[#C12129]/25 bg-[#C12129]/8">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C12129] animate-pulse" />
+              <span className="aivora-gradient-text">Smarter. Faster. Accessible.</span>
+            </span>
+          </motion.div>
 
-          {/* Paragraph */}
-          <p className="mt-6 md:mt-10 text-slate-300 text-sm sm:text-base md:text-lg font-light tracking-wide max-w-lg md:max-w-3xl mx-auto md:mx-0 px-2 leading-7 md:leading-8" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-            AIVORA blends trusted expertise with advanced AI to deliver smarter, faster, accessible solutions for organizations seeking clarity and growth.
-          </p>
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-6xl font-extrabold leading-tight tracking-tight"
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
+          >
+            <span className="text-gray-900 dark:text-white">The Intelligence Your<br />Organization </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C12129] to-red-900 dark:from-red-500 dark:to-white">
+              Has Been Waiting For.
+            </span>
+          </motion.h1>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-3 md:gap-4 justify-center md:justify-start px-2 mt-6 md:mt-10 pb-10 md:pb-0">
-            {/* Primary — filled gradient + glow */}
-            <button
+          {/* Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.22 }}
+            className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl leading-relaxed"
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
+          >
+            AIVORA blends trusted expertise with advanced AI to deliver smarter,
+            faster, accessible solutions for organizations seeking clarity and growth.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.34 }}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
+          >
+            {/* Primary */}
+            <motion.button
+              whileHover={{ scale: 1.04, boxShadow: "0 0 36px rgba(193,33,41,0.85)" }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setHowWeServeOpen(true)}
-              className="group relative inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-black text-sm overflow-hidden
-                transition-all duration-300 ease-out cursor-pointer
-                bg-gradient-to-br from-zinc-100 via-rose-400 to-[#C12129]
-                shadow-[0_0_18px_rgba(193,33,41,0.55)]
-                hover:shadow-[0_0_32px_rgba(193,33,41,0.9)]
-                hover:scale-105 active:scale-95"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white text-sm overflow-hidden cursor-pointer
+                bg-[#C12129] hover:bg-[#a01a20] transition-colors duration-200
+                shadow-[0_0_22px_rgba(193,33,41,0.5)]"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
-              <span className="relative z-10">Get Started</span>
-              <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </button>
+              <span className="relative z-10">Get Started Free</span>
+            </motion.button>
 
-            {/* Secondary — gradient border, fills on hover, smooth scrolls to services */}
-            <button
-              onClick={() =>
-                document
-                  .getElementById("services")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="group relative inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm
-                transition-all duration-300 ease-out cursor-pointer
-                text-red-400 hover:text-white
-                shadow-[0_0_12px_rgba(193,33,41,0.25)]
-                hover:shadow-[0_0_26px_rgba(193,33,41,0.65)]
-                hover:scale-105 active:scale-95"
-              style={{
-                background:
-                  "linear-gradient(#000,#000) padding-box, linear-gradient(135deg,#C12129,#ff6b6b) border-box",
-                border: "2px solid transparent",
-              }}
+            {/* Secondary */}
+            <motion.button
+              whileHover={{ scale: 1.04, borderColor: "rgba(193,33,41,0.6)", color: "#C12129" }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-sm cursor-pointer
+                border border-white/20 dark:border-white/20 border-gray-300
+                text-gray-700 dark:text-white/80
+                hover:border-[#C12129]/60 hover:text-[#C12129]
+                transition-all duration-200"
             >
-              {/* Fill overlay on hover */}
-              <span className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-red-800 via-red-600 to-rose-500 pointer-events-none" />
-              <span className="relative z-10">Explore the Platform</span>
-              <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </button>
-          </div>
-          <EcosystemTag className="md:justify-start" />
-        </div>
+              <motion.span
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                className="text-[#C12129]"
+              >
+                ⏵
+              </motion.span>
+              See How It Works
+            </motion.button>
+          </motion.div>
 
-        {/* ── Right — Serv cards ── */}
-        <div className="flex w-full md:w-1/3 justify-center md:justify-end items-center z-10 pb-10 md:pb-0">
-          <Serv />
+          {/* Scroll hint */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.5 }}
+            className="flex flex-col items-center gap-1 mt-4"
+          >
+            <span className="text-[10px] tracking-widest uppercase text-gray-400 dark:text-white/25">Scroll to explore</span>
+            <motion.span
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              className="text-gray-400 dark:text-white/30 text-sm"
+            >
+              ↓
+            </motion.span>
+          </motion.div>
         </div>
       </header>
-
-      <AISystemSection />
 
       <AnimatePresence>
         <HowWeServeModal

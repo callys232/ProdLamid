@@ -29,7 +29,7 @@ const dots = [
 
 export default function ManifestoExcerpt() {
   return (
-    <section className="relative bg-black text-white py-20 px-4 overflow-hidden">
+    <section className="relative aivora-section py-32 px-4 overflow-hidden">
 
       {/* Radial lines bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -70,7 +70,7 @@ export default function ManifestoExcerpt() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-8"
+          className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-8"
         >
           Our Belief
         </motion.p>

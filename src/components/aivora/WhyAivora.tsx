@@ -3,132 +3,116 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 const TILES = [
-  { icon: "◈", iconCls: "text-[#C12129]",  accentColor: "#C12129", authHref: "/talent",                    title: "Integrated by Design",        body: "Marketplace, BIZ Portal, and Talent Development are not separate products — they are one ecosystem, built to work together from day one." },
-  { icon: "⬡", iconCls: "text-blue-400",   accentColor: "#3b82f6", authHref: "/talent",                    title: "AI + Experts",                 body: "Advanced AI accelerates matching, delivery, and diagnostics. Human expertise ensures every outcome is grounded in real-world knowledge." },
-  { icon: "⬟", iconCls: "text-emerald-400",accentColor: "#10b981", authHref: "/pricing",                   title: "Accessible at Every Scale",    body: "Whether you're a growing SME or a global enterprise, AIVORA scales with you. No gatekeepers. No complexity. Built for the realities of today." },
-  { icon: "⚡", iconCls: "text-amber-400",  accentColor: "#f59e0b", authHref: "/postjobs",                  title: "Outcomes, Not Outputs",        body: "We measure success by what your organization achieves — not the number of reports delivered. Every engagement is built around measurable results." },
+  { icon: "⚡", href: "/talent",  title: "Human + AI Hybrid",  body: "The best of human intuition combined with AI precision. Neither alone is enough." },
+  { icon: "◈", href: "/talent",  title: "10x Faster Matching", body: "AI-powered expert matching delivers results in minutes, not weeks or months." },
+  { icon: "⬡", href: "/pricing", title: "Enterprise-Grade",    body: "SOC 2 compliant, end-to-end encryption, and enterprise SSO integration." },
+  { icon: "⬟", href: "/postjobs",title: "Accessible to All",   body: "Democratizing world-class consulting for organizations of every size." },
 ];
 
-/* Cross-hatch / grid feel — structure and precision */
-const paths = [
-  { d: "M0 100 L1400 100",   delay: 0,   dur: 25, dash: "6 40" },
-  { d: "M0 300 L1400 300",   delay: 5,   dur: 28, dash: "6 40" },
-  { d: "M0 500 L1400 500",   delay: 10,  dur: 22, dash: "6 40" },
-  { d: "M300 0 L300 700",    delay: 2,   dur: 26, dash: "6 40" },
-  { d: "M700 0 L700 700",    delay: 7,   dur: 24, dash: "6 40" },
-  { d: "M1100 0 L1100 700",  delay: 12,  dur: 20, dash: "6 40" },
-];
-const dots = [
-  { cx: "25%", cy: 30, r: 1.5, delay: 0,   dur: 9,  floatPct: 3 },
-  { cx: "75%", cy: 70, r: 1,   delay: 2,   dur: 11, floatPct: 3 },
-  { cx: "50%", cy: 50, r: 1.5, delay: 4,   dur: 8,  floatPct: 4 },
-];
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } };
+const tileV = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
 
 export default function WhyAivora() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
-  const dest = (href: string) => (!loading && isAuthenticated ? href : "/signup");
 
   return (
-    <section className="relative bg-black text-white py-16 px-4 overflow-hidden">
+    <section className="relative aivora-section py-24 px-4 overflow-hidden">
 
-      {/* Grid / cross-hatch bg */}
+      {/* Grid bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
-        {paths.map((v, i) => (
-          <motion.path
-            key={i} d={v.d} fill="none" stroke="#C12129" strokeWidth="0.5"
-            strokeOpacity="0.07" strokeDasharray={v.dash}
-            animate={{ strokeDashoffset: [0, -100], opacity: [0.04, 0.14, 0.04] }}
-            transition={{
-              strokeDashoffset: { duration: v.dur, repeat: Infinity, ease: "linear", delay: v.delay },
-              opacity: { duration: v.dur * 0.6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay: v.delay },
-            }}
-          />
-        ))}
-        {dots.map((dot, i) => (
-          <motion.circle key={i} cx={dot.cx} r={dot.r} fill="#C12129"
-            animate={{ cy: [`${dot.cy}%`, `${dot.cy - dot.floatPct}%`, `${dot.cy}%`], opacity: [0.1, 0.28, 0.1] }}
-            transition={{ duration: dot.dur, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
+        {["M0 100 L1400 100", "M0 300 L1400 300", "M0 500 L1400 500",
+          "M300 0 L300 700", "M700 0 L700 700", "M1100 0 L1100 700"].map((d, i) => (
+          <motion.path key={i} d={d} fill="none" stroke="#C12129" strokeWidth="0.4"
+            strokeOpacity="0.05" strokeDasharray="6 40"
+            animate={{ strokeDashoffset: [0, -100], opacity: [0.03, 0.1, 0.03] }}
+            transition={{ duration: 24 + i * 2, repeat: Infinity, ease: "linear", delay: i * 2 }}
           />
         ))}
       </svg>
 
       <div className="relative z-10 max-w-6xl mx-auto">
 
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-12"
+          className="text-center mb-16"
         >
-          <p className="text-[#C12129] text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
+          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             Why AIVORA
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
-            Built Different.{" "}
-            <span className="text-[#C12129]">Delivered Differently.</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug">
+            <span className="aivora-gradient-text">Built Different</span>
           </h2>
-          <div className="mt-6 h-px bg-gradient-to-r from-[#C12129]/40 via-white/10 to-transparent" />
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {/* 4 tiles */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+        >
           {TILES.map((tile, i) => {
             const isHov = hovered === i;
             return (
               <motion.div
                 key={tile.title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.42, delay: i * 0.09 }}
-                animate={{ y: isHov ? -5 : 0 }}
+                variants={tileV}
                 onHoverStart={() => setHovered(i)}
                 onHoverEnd={() => setHovered(null)}
-                className="relative bg-white/[0.025] border rounded-2xl p-7 overflow-hidden cursor-pointer"
-                style={{ borderColor: isHov ? `${tile.accentColor}55` : "rgba(255,255,255,0.08)" }}
-                onClick={() => router.push(dest(tile.authHref))}
+                onClick={() => router.push(tile.href)}
+                whileHover={{ y: -6, boxShadow: "0 16px 36px rgba(193,33,41,0.2)" }}
+                whileTap={{ scale: 0.97 }}
+                className="relative aivora-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
+                style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
               >
-                {/* Glow */}
+                {/* Glow — red */}
                 <motion.div
-                  className="absolute -top-8 -right-8 w-28 h-28 rounded-full blur-2xl pointer-events-none"
-                  style={{ background: tile.accentColor }}
+                  className="absolute -top-8 -right-8 w-28 h-28 rounded-full blur-2xl pointer-events-none bg-[#C12129]"
                   animate={{ opacity: isHov ? 0.12 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
-
-                {/* Bottom sweep */}
+                {/* Bottom sweep — red */}
                 <motion.div
                   className="absolute bottom-0 left-0 h-[2px] rounded-b-2xl"
-                  style={{ background: `linear-gradient(to right, ${tile.accentColor}, transparent)` }}
+                  style={{ background: "linear-gradient(to right, #C12129, transparent)" }}
                   animate={{ width: isHov ? "100%" : "0%" }}
-                  transition={{ duration: 0.32, ease: "easeOut" }}
+                  transition={{ duration: 0.3 }}
                 />
 
-                <motion.span
-                  className={`text-3xl block mb-4 ${tile.iconCls}`}
-                  animate={{ scale: isHov ? 1.18 : 1, rotate: isHov ? 10 : 0 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                {/* Icon square — always red */}
+                <motion.div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 border border-[#C12129]/25 bg-[#C12129]/12"
+                  animate={{
+                    scale: isHov ? 1.12 : 1,
+                    boxShadow: isHov ? "0 0 16px rgba(193,33,41,0.35)" : "none",
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 >
-                  {tile.icon}
-                </motion.span>
-                <h3 className="text-base font-bold text-white mb-2">{tile.title}</h3>
-                <p className="text-white/70 text-sm leading-relaxed mb-3">{tile.body}</p>
+                  <span className="text-lg text-[#C12129]">{tile.icon}</span>
+                </motion.div>
+
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{tile.title}</h3>
+                <p className="text-gray-600 dark:text-white/65 text-xs leading-relaxed">{tile.body}</p>
+
                 <motion.span
-                  className="text-[10px] font-semibold text-white/30"
+                  className="text-[10px] font-semibold mt-3 block text-[#C12129]"
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >
-                  {!loading && isAuthenticated ? "Open →" : "Sign up →"}
+                  Open →
                 </motion.span>
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

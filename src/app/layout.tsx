@@ -8,6 +8,7 @@ import { CartProvider } from "@/components/Cartcontext";
 import ClientGlobals from "./ClientGlobal";
 import CookieConsent from "@/components/CookieConsent";
 import StickmanBg from "@/components/StickmanBg";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const BASE = process.env.NEXT_PUBLIC_URL ?? "https://lamid.io";
 
@@ -58,7 +59,8 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${playfair.variable} ${spaceGrotesk.variable}`}
     >
-      <body className="antialiased font-sans bg-[#0c0000] text-white min-h-screen flex flex-col">
+      <body className="antialiased font-sans min-h-screen flex flex-col">
+        <ThemeProvider>
         <CartProvider>
           {/* Running stickman background — fixed, behind all content */}
           <StickmanBg />
@@ -73,6 +75,7 @@ export default function RootLayout({
           <ClientGlobals />
           <CookieConsent />
         </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

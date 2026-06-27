@@ -4,10 +4,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 const STATS = [
-  { value: "14+",   label: "Organizations" },
-  { value: "120+",  label: "Verified Experts" },
-  { value: "4.8/5", label: "Platform Rating" },
-  { value: "3",     label: "Integrated Portals" },
+  { value: "14+",   label: "Enterprise Organizations" },
+  { value: "120+",  label: "Expert Partners" },
+  { value: "4.8/5", label: "Client Satisfaction" },
+  { value: "30+",   label: "Countries" },
 ];
 
 /* Horizontal dashes — calm, structured */
@@ -26,7 +26,7 @@ export default function ProofStrip() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
-    <section className="relative bg-black border-y border-white/8 py-5 overflow-hidden">
+    <section className="relative aivora-section border-y border-white/8 dark:border-white/8 border-gray-200 py-8 overflow-hidden">
 
       {/* Horizontal dashes bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -69,7 +69,7 @@ export default function ProofStrip() {
               className="flex items-center gap-3 cursor-default select-none"
             >
               <motion.span
-                className="text-xl sm:text-2xl font-bold text-[#C12129]"
+                className="text-xl sm:text-2xl font-bold aivora-gradient-text"
                 animate={{ scale: hoveredIdx === i ? 1.12 : 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 18 }}
               >
@@ -93,9 +93,9 @@ export default function ProofStrip() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.45, duration: 0.5 }}
-            className="text-white/25 text-xs tracking-widest uppercase hidden lg:block"
+            className="aivora-text-muted text-xs tracking-widest uppercase hidden lg:block"
           >
-            Trusted by organizations seeking clarity and growth
+            Trusted by enterprise organizations across 30+ countries worldwide
           </motion.p>
         </motion.div>
       </div>
