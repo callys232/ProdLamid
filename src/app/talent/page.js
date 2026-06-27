@@ -446,7 +446,7 @@ export default function MarketplacePage() {
 
       {/* ══ TABS ══ */}
       <div className="px-4 pb-4">
-        <div className="max-w-5xl mx-auto flex items-center gap-2 overflow-x-auto">
+        <div className="max-w-5xl mx-auto flex items-center justify-center gap-3 overflow-x-auto flex-wrap">
           {TABS.map(tab => (
             <motion.button key={tab.id} type="button"
               onClick={() => { setActiveTab(tab.id); setActiveTag(null); setSearch(""); }}

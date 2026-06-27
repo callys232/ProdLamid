@@ -215,18 +215,12 @@ const Navbar: React.FC = () => {
 
             {/* Guest CTAs */}
             {!authLoading && !isAuthenticated && (
-              <div className="hidden lg:flex items-center gap-2">
-                <Link href="/signin"
-                  className="px-4 py-2 rounded-xl text-sm font-medium text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white transition-colors duration-200">
-                  Sign In
+              <motion.div className="hidden lg:block" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Link href="/signup"
+                  className="px-5 py-2 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors duration-200 shadow-[0_0_12px_rgba(193,33,41,0.4)] hover:shadow-[0_0_20px_rgba(193,33,41,0.7)]">
+                  Get Started
                 </Link>
-                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                  <Link href="/signup"
-                    className="px-5 py-2 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors duration-200 shadow-[0_0_12px_rgba(193,33,41,0.4)] hover:shadow-[0_0_20px_rgba(193,33,41,0.7)]">
-                    Get Started
-                  </Link>
-                </motion.div>
-              </div>
+              </motion.div>
             )}
 
             {/* Account menu + notifications (auth users) */}
@@ -316,13 +310,9 @@ const Navbar: React.FC = () => {
 
                 {/* Guest CTAs */}
                 {!authLoading && !isAuthenticated && (
-                  <div className="flex flex-col gap-2 pt-2">
-                    <Link href="/signin" onClick={() => setIsOpen(false)}
-                      className="text-center py-3 rounded-xl text-sm font-medium border border-white/20 dark:border-white/20 border-gray-300 text-gray-700 dark:text-white/70 hover:border-[#C12129]/50 hover:text-[#C12129] transition-colors">
-                      Sign In
-                    </Link>
+                  <div className="pt-2">
                     <Link href="/signup" onClick={() => setIsOpen(false)}
-                      className="text-center py-3 rounded-xl text-sm font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors shadow-[0_0_12px_rgba(193,33,41,0.4)]">
+                      className="block text-center py-3 rounded-xl text-sm font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors shadow-[0_0_12px_rgba(193,33,41,0.4)]">
                       Get Started
                     </Link>
                   </div>
