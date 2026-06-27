@@ -122,14 +122,14 @@ const Navbar: React.FC = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 group
+                  className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 group
                     ${active
                       ? "text-[#C12129]"
-                      : "text-gray-600 dark:text-white/65 hover:text-gray-900 dark:hover:text-white"
+                      : "text-gray-500 dark:text-white/50 hover:text-gray-900 dark:hover:text-white hover:bg-white/5 dark:hover:bg-white/5"
                     }`}
                 >
                   {link.label}
-                  {/* Active underline */}
+                  {/* Active — solid red underline */}
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
@@ -137,9 +137,9 @@ const Navbar: React.FC = () => {
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
-                  {/* Hover underline for inactive */}
+                  {/* Hover — white/light underline (distinct from active red) */}
                   {!active && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[#C12129]/40 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+                    <span className="absolute bottom-0 left-3 right-3 h-[1px] rounded-full bg-gray-400 dark:bg-white/30 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
                   )}
                 </Link>
               );
@@ -274,10 +274,10 @@ const Navbar: React.FC = () => {
                       key={link.href}
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-colors duration-200
+                      className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
                         ${active
-                          ? "bg-[#C12129]/10 text-[#C12129]"
-                          : "text-gray-700 dark:text-white/70 hover:bg-white/5 hover:text-gray-900 dark:hover:text-white"
+                          ? "bg-[#C12129]/10 text-[#C12129] border border-[#C12129]/20"
+                          : "text-gray-500 dark:text-white/50 hover:bg-white/6 dark:hover:bg-white/6 hover:text-gray-900 dark:hover:text-white border border-transparent"
                         }`}
                     >
                       {active && <span className="w-1.5 h-1.5 rounded-full bg-[#C12129] shrink-0" />}

@@ -55,6 +55,16 @@ const FEATURES = [
   },
 ];
 
+/* ── 6 Program categories ── */
+const PROGRAMS = [
+  { icon: "⚡", title: "Strategic Leadership & Executive Effectiveness",  href: "/events" },
+  { icon: "◈", title: "AI Literacy & Digital Strategy for Leaders",       href: "/events" },
+  { icon: "⬡", title: "Financial Acumen & Business Performance",          href: "/events" },
+  { icon: "⬟", title: "Organisational Design & Change Management",        href: "/events" },
+  { icon: "▣", title: "Sales, Growth & Business Development",             href: "/events" },
+  { icon: "✦", title: "Operational Excellence & Process Improvement",     href: "/events" },
+];
+
 /* ── Impact stats ── */
 const STATS = [
   { value: "3×",  label: "Faster skill acquisition vs. traditional learning" },
@@ -71,7 +81,8 @@ const fadeUp = (delay = 0) => ({
 
 export default function HCDPage() {
   const [hoveredFeature, setHoveredFeature] = useState(null);
-  const [hoveredStep, setHoveredStep] = useState(null);
+  const [hoveredStep,    setHoveredStep]    = useState(null);
+  const [hoveredProgram, setHoveredProgram] = useState(null);
   const router = useRouter();
 
   return (
@@ -228,6 +239,46 @@ export default function HCDPage() {
               </motion.div>
             );
           })}
+        </div>
+      </section>
+
+      {/* ── 6 Program categories ── */}
+      <section className="px-4 pb-24">
+        <div className="max-w-4xl mx-auto">
+          <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-4">
+            What would you like to build?
+          </motion.h2>
+          <motion.p {...fadeUp(0.06)} className="text-gray-500 dark:text-white/45 text-sm text-center mb-10">
+            Don&apos;t see your topic? Our expert-design team builds custom programs for enterprise cohorts.
+          </motion.p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {PROGRAMS.map((prog, i) => {
+              const isHov = hoveredProgram === i;
+              return (
+                <motion.div
+                  key={prog.title}
+                  {...fadeUp(i * 0.06)}
+                  onHoverStart={() => setHoveredProgram(i)}
+                  onHoverEnd={() => setHoveredProgram(null)}
+                  onClick={() => router.push(prog.href)}
+                  whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(193,33,41,0.14)" }}
+                  whileTap={{ scale: 0.97 }}
+                  className="aivora-card border rounded-2xl p-5 flex items-center gap-4 cursor-pointer transition-all duration-200"
+                  style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                >
+                  <motion.div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/12 border border-[#C12129]/20"
+                    animate={{ scale: isHov ? 1.1 : 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                  >
+                    <span className="text-sm text-[#C12129]">{prog.icon}</span>
+                  </motion.div>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white leading-snug">{prog.title}</p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
