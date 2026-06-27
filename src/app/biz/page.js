@@ -2,8 +2,40 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+
+/* ── AIHero repurposed content: 4 pain points ── */
+const PAIN_POINTS = [
+  {
+    icon: "⚡",
+    title: "Quality expertise is expensive and hard to access",
+    body: "73% of SMEs report difficulty accessing affordable, high-quality consulting. AIVORA's AI matching engine surfaces the right consultant for every challenge, in 24 hours.",
+  },
+  {
+    icon: "◈",
+    title: "AI adoption is urgent — but poorly guided",
+    body: "87% of executives say AI integration is a strategic priority, yet fewer than 1 in 4 have a clear plan. AIVORA pairs advanced AI with trusted expertise at every stage.",
+  },
+  {
+    icon: "⬡",
+    title: "Tools, consultants, and training don't talk to each other",
+    body: "AIVORA integrates Marketplace, BIZ intelligence, and Talent development into one connected ecosystem — each layer amplifying the others.",
+  },
+  {
+    icon: "⬟",
+    title: "Decisions are made on last month's data",
+    body: "Board packs assembled manually. KPIs in spreadsheets. Risks compounding silently. AIVORA's BIZ Portal gives leadership a live, AI-powered intelligence window.",
+  },
+];
+
+/* ── AIHero repurposed content: 4 portal cards ── */
+const PORTALS = [
+  { icon: "◈", title: "AIVORA Marketplace",  area: "Expert Matching & Delivery",  href: "/talent",  bullets: ["AI-matched consultants, 24-hr shortlist", "Vetted experts across every sector", "72-hr kickoff, measurable outcomes"] },
+  { icon: "⬡", title: "AIVORA BIZ Portal",   area: "Business Intelligence",        href: "/biz",     bullets: ["Real-time business health score", "AI insight engine & scenario modelling", "Board-ready reporting, automated"] },
+  { icon: "⬟", title: "AIVORA Talent Portal", area: "Capability & Learning",        href: "/hcd",     bullets: ["AI-powered skills assessment (12 min)", "Personalised learning paths, AI coach", "Expert-designed certifications"] },
+  { icon: "▣", title: "AIVORA Workspace",    area: "Project Delivery",              href: "/postjobs",bullets: ["Milestone-tracked engagements", "CRM, contracts & secure escrow", "Real-time team workrooms"] },
+];
 
 /* ── Feature rows ── */
 const FEATURES = [
@@ -69,8 +101,10 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function BizPage() {
-  const [hoveredFeature, setHoveredFeature] = useState(null);
-  const [hoveredPersona, setHoveredPersona] = useState(null);
+  const [hoveredFeature,  setHoveredFeature]  = useState(null);
+  const [hoveredPersona,  setHoveredPersona]  = useState(null);
+  const [hoveredPortal,   setHoveredPortal]   = useState(null);
+  const [overviewOpen,    setOverviewOpen]    = useState(false);
   const router = useRouter();
 
   return (
@@ -216,15 +250,124 @@ export default function BizPage() {
                 Activate Your BIZ Portal
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-colors">
-                Book a Demo
-              </Link>
-            </motion.div>
+            {/* Platform Overview — reveals the repurposed AIHero content */}
+            <motion.button
+              type="button"
+              onClick={() => setOverviewOpen(true)}
+              whileHover={{ scale: 1.04, borderColor: "rgba(193,33,41,0.6)", color: "#C12129", boxShadow: "0 0 18px rgba(193,33,41,0.2)" }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-all duration-200 cursor-pointer"
+            >
+              How the Ecosystem Works →
+            </motion.button>
           </div>
         </motion.div>
       </section>
+
+      {/* ── Platform Overview Modal (repurposed AIHero content) ── */}
+      <AnimatePresence>
+        {overviewOpen && (
+          <motion.div
+            key="overview-backdrop"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/88 backdrop-blur-md px-4 py-8"
+            onClick={() => setOverviewOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 24 }}
+              transition={{ type: "spring", stiffness: 280, damping: 28 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-3xl bg-[#080808] border border-white/8 rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(193,33,41,0.2)] max-h-[88vh] overflow-y-auto"
+            >
+              <div className="h-[3px] bg-gradient-to-r from-[#C12129] via-red-400 to-transparent sticky top-0" />
+
+              <div className="px-7 pt-7 pb-8">
+                {/* Header */}
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-2">Platform Overview</p>
+                    <h2 className="text-xl font-bold text-white leading-snug">
+                      One Ecosystem. Every Layer of Growth.
+                    </h2>
+                    <p className="text-white/45 text-xs mt-2 max-w-md leading-relaxed">
+                      AIVORA eliminates friction — unifying expert consulting, business intelligence, and talent development into one HumanAI ecosystem built for scale.
+                    </p>
+                  </div>
+                  <button type="button" onClick={() => setOverviewOpen(false)}
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#C12129]/40 transition-colors cursor-pointer text-base">
+                    ✕
+                  </button>
+                </div>
+
+                {/* 4 pain points */}
+                <div className="h-px bg-white/8 mb-5" />
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-4">Why organizations struggle</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-7">
+                  {PAIN_POINTS.map((pain, i) => (
+                    <motion.div
+                      key={pain.title}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.06, duration: 0.3 }}
+                      className="flex gap-3 p-4 rounded-xl border border-[#C12129]/12 bg-[#C12129]/[0.04] hover:border-[#C12129]/25 hover:bg-[#C12129]/[0.07] transition-all duration-200"
+                    >
+                      <span className="text-[#C12129] text-base shrink-0 mt-0.5">{pain.icon}</span>
+                      <div>
+                        <p className="text-xs font-semibold text-white leading-snug mb-1">{pain.title}</p>
+                        <p className="text-[11px] text-white/40 leading-relaxed">{pain.body}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* 4 portal cards */}
+                <div className="h-px bg-white/8 mb-5" />
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-4">How AIVORA solves it</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {PORTALS.map((portal, i) => {
+                    const isHov = hoveredPortal === i;
+                    return (
+                      <motion.div
+                        key={portal.title}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.24 + i * 0.06, duration: 0.3 }}
+                        onHoverStart={() => setHoveredPortal(i)}
+                        onHoverEnd={() => setHoveredPortal(null)}
+                        onClick={() => { setOverviewOpen(false); router.push(portal.href); }}
+                        whileHover={{ y: -2, boxShadow: "0 8px 24px rgba(193,33,41,0.18)" }}
+                        whileTap={{ scale: 0.97 }}
+                        className="flex gap-3 p-4 rounded-xl border bg-white/[0.025] cursor-pointer transition-all duration-200"
+                        style={{ borderColor: isHov ? "rgba(193,33,41,0.45)" : "rgba(255,255,255,0.07)" }}
+                      >
+                        <motion.div
+                          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-[#C12129]/15 border border-[#C12129]/25 mt-0.5"
+                          animate={{ scale: isHov ? 1.1 : 1 }} transition={{ type: "spring", stiffness: 300, damping: 18 }}>
+                          <span className="text-sm text-[#C12129]">{portal.icon}</span>
+                        </motion.div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[9px] font-bold uppercase tracking-wider text-[#C12129] mb-0.5">{portal.area}</p>
+                          <p className="text-xs font-bold text-white mb-2">{portal.title}</p>
+                          <ul className="space-y-1">
+                            {portal.bullets.map((b) => (
+                              <li key={b} className="text-[10.5px] text-white/40 flex gap-1.5 leading-snug">
+                                <span className="text-[#C12129] shrink-0 mt-0.5">▸</span>{b}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
