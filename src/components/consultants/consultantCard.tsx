@@ -32,7 +32,10 @@ export default function ConsultantCard({
   } = consultant;
 
   const [showModal, setShowModal] = useState(false);
-  const [feedback, setFeedback] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const [feedback, setFeedback] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
 
   const renderStars = (rating: number) =>
     Array.from({ length: 5 }, (_, i) => (
@@ -47,10 +50,16 @@ export default function ConsultantCard({
     try {
       const { hireConsultant } = await import("@/lib/api/consultantApi");
       await hireConsultant(consultant.id || consultant._id || "", "");
-      setFeedback({ message: "Hire request sent successfully!", type: "success" });
+      setFeedback({
+        message: "Hire request sent successfully!",
+        type: "success",
+      });
       setTimeout(() => setFeedback(null), 2500);
     } catch (err) {
-      setFeedback({ message: "Error sending hire request. Please try again.", type: "error" });
+      setFeedback({
+        message: "Error sending hire request. Please try again.",
+        type: "error",
+      });
       setTimeout(() => setFeedback(null), 2500);
     }
   };
@@ -67,20 +76,28 @@ export default function ConsultantCard({
           if (e.key === "Enter" || e.key === " ") setShowModal(true);
         }}
       >
-        {/* Avatar */}
-        <div className="flex flex-col items-center mb-3">
-          <div className="relative w-20 h-20 rounded-full bg-[#2a0d0d] flex items-center justify-center overflow-hidden shadow-md">
+        {/* Avatar / Image */}
+        <div className="flex flex-col items-center mb-4">
+          <div className="relative w-16 h-16 rounded-full bg-[#2a0d0d] flex items-center justify-center overflow-hidden">
             {image ? (
-              <Image src={image} alt={name} fill className="object-cover rounded-full" />
+              <Image
+                src={image}
+                alt={name}
+                fill
+                className="object-cover rounded-full"
+              />
             ) : (
-              <div className="text-red-500 text-3xl font-bold">👤</div>
+              <div className="text-red-500 text-2xl font-bold">👤</div>
             )}
           </div>
 
           <h3 className="text-lg font-semibold text-white mt-3">{name}</h3>
           <p className="text-xs text-gray-400 -mt-1 mb-2">{role}</p>
 
-          <div className="flex justify-center mb-2" aria-label={`Rating: ${rating} out of 5`}>
+          <div
+            className="flex justify-center mb-2"
+            aria-label={`Rating: ${rating} out of 5`}
+          >
             {renderStars(rating)}
           </div>
 
@@ -97,7 +114,9 @@ export default function ConsultantCard({
                 </span>
               ))}
               {skills.length > 6 && (
-                <span className="px-2 py-0.5 bg-gray-800 text-gray-200 rounded-full text-xs">+{skills.length - 6}</span>
+                <span className="px-2 py-0.5 bg-gray-800 text-gray-200 rounded-full text-xs">
+                  +{skills.length - 6}
+                </span>
               )}
             </div>
           )}
@@ -107,7 +126,11 @@ export default function ConsultantCard({
         <div className="text-center mb-3 space-y-1">
           <p className="text-gray-300 text-sm">{industry}</p>
           <p className="text-gray-300 text-sm">{delivery}</p>
-          {experience && <p className="text-gray-300 text-sm">Experience: {experience} yrs</p>}
+          {experience && (
+            <p className="text-gray-300 text-sm">
+              Experience: {experience} yrs
+            </p>
+          )}
         </div>
 
         {/* Rate */}
