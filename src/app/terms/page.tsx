@@ -1,4 +1,4 @@
-export const metadata = { title: "Terms of Service — Lamid" };
+export const metadata = { title: "Terms of Service — AIVORA" };
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="mb-8">
@@ -18,16 +18,16 @@ export default function TermsPage() {
         </div>
 
         <Section title="1. Acceptance of Terms">
-          <p>By accessing or using Lamid ("the Platform"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Platform.</p>
+          <p>By accessing or using Lamid ("the Ecosystem"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Platform.</p>
         </Section>
 
         <Section title="2. Description of Service">
-          <p>Lamid is a Human and AI-assisted consulting marketplace that connects Clients (organisations seeking expertise) with Consultants (independent professionals). The Platform provides project posting, bidding, messaging, milestone tracking, and escrow payment services.</p>
+          <p>AIVORA is a HumanAI Consulting Ecosystem that connects Clients (organisations seeking expertise) with Consultants (independent professionals). It connects organizations with expert consultants through an integrated ecosystem of matching, project delivery, business intelligence, and talent development.</p>
         </Section>
 
         <Section title="3. User Accounts">
           <p>You must be at least 18 years old to create an account. You are responsible for maintaining the confidentiality of your credentials and for all activity under your account.</p>
-          <p>You agree to provide accurate and complete information. Lamid reserves the right to suspend or terminate accounts that violate these Terms.</p>
+          <p>You agree to provide accurate and complete information. AIVORA reserves the right to suspend or terminate accounts that violate these Terms.</p>
         </Section>
 
         <Section title="4. Consultant and Client Obligations">
@@ -36,8 +36,8 @@ export default function TermsPage() {
         </Section>
 
         <Section title="5. Payments and Escrow">
-          <p>All payments are processed via Paystack. Lamid holds milestone payments in escrow and releases them upon Client approval. A platform fee of up to 5% applies to each transaction.</p>
-          <p>Disputed payments are subject to Lamid's dispute resolution process. Lamid's decision is final in cases where mediation is required.</p>
+          <p>All payments are processed via Paystack. AIVORA holds milestone payments in escrow and releases them upon Client approval. A success fee of up to 15–20% applies to each transaction.</p>
+          <p>Disputed payments are subject to AIVORA's dispute resolution process. AIVORA's decision is final in cases where mediation is required.</p>
         </Section>
 
         <Section title="6. Intellectual Property">
@@ -45,15 +45,15 @@ export default function TermsPage() {
         </Section>
 
         <Section title="7. Prohibited Conduct">
-          <p>You may not: circumvent the Platform to pay or receive payment outside of Lamid; post false, misleading, or fraudulent information; harass, threaten, or abuse other users; or engage in any activity that violates applicable law.</p>
+          <p>You may not: engage consultants outside the AIVORA ecosystem to avoid the success fee; post false, misleading, or fraudulent information; harass, threaten, or abuse other users; or engage in any activity that violates applicable law.</p>
         </Section>
 
         <Section title="8. Limitation of Liability">
-          <p>Lamid is not liable for any indirect, incidental, or consequential damages arising from use of the Platform. Lamid's total liability shall not exceed the fees paid by you in the 12 months preceding the claim.</p>
+          <p>AIVORA is not liable for any indirect, incidental, or consequential damages arising from use of the Platform. AIVORA's total liability shall not exceed the fees paid by you in the 12 months preceding the claim.</p>
         </Section>
 
         <Section title="9. Termination">
-          <p>Lamid may suspend or terminate your account at any time for violation of these Terms. You may close your account at any time via your account settings.</p>
+          <p>AIVORA may suspend or terminate your account at any time for violation of these Terms. You may close your account at any time via your account settings.</p>
         </Section>
 
         <Section title="10. Governing Law">
@@ -61,7 +61,7 @@ export default function TermsPage() {
         </Section>
 
         <Section title="11. Changes to Terms">
-          <p>Lamid reserves the right to modify these Terms at any time. Continued use of the Platform after changes constitutes acceptance of the new Terms.</p>
+          <p>AIVORA reserves the right to modify these Terms at any time. Continued use of the Platform after changes constitutes acceptance of the new Terms.</p>
         </Section>
 
         <Section title="12. Contact">

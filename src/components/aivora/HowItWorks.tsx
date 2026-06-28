@@ -5,48 +5,18 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 const STEPS = [
-  {
-    num: 1,
-    title: "Define Your Challenge",
-    body: "Tell us what you need — strategy, growth, compliance, or innovation.",
-    href: "/premium/business-diagnostic",
-    accent: "#C12129",
-  },
-  {
-    num: 2,
-    title: "AI Matches Experts",
-    body: "Our engine analyzes 120+ experts to find your ideal match in minutes.",
-    href: "/talent",
-    accent: "#3b82f6",
-  },
-  {
-    num: 3,
-    title: "Engage & Collaborate",
-    body: "Work seamlessly with your expert through our integrated platform.",
-    href: "/premium/proposal-drafter",
-    accent: "#7c3aed",
-  },
-  {
-    num: 4,
-    title: "AI-Augmented Delivery",
-    body: "Get real-time insights, automated reports, and data-driven strategy.",
-    href: "/client",
-    accent: "#f59e0b",
-  },
-  {
-    num: 5,
-    title: "Measure & Scale",
-    body: "Track impact with dashboards and scale what works across your org.",
-    href: "/hcd",
-    accent: "#10b981",
-  },
+  { num: 1, title: "Define Your Challenge",  body: "Tell us what you need — strategy, growth, compliance, or innovation.",          href: "/premium/business-diagnostic", accent: "#C12129" },
+  { num: 2, title: "AI Matches Experts",     body: "Our engine analyzes 120+ experts to find your ideal match in minutes.",          href: "/talent",                      accent: "#C12129" },
+  { num: 3, title: "Engage & Collaborate",   body: "Work seamlessly with your expert through our integrated ecosystem.",              href: "/premium/proposal-drafter",    accent: "#C12129" },
+  { num: 4, title: "AI-Augmented Delivery",  body: "Get real-time insights, automated reports, and data-driven strategy.",           href: "/client",                      accent: "#C12129" },
+  { num: 5, title: "Measure & Scale",        body: "Track impact with dashboards and scale what works across your org.",              href: "/hcd",                         accent: "#C12129" },
 ];
 
 const QUICK_TOOLS = [
-  { label: "Business Diagnostic", href: "/premium/business-diagnostic", icon: "⚡", accent: "#C12129" },
-  { label: "Proposal Drafter",    href: "/premium/proposal-drafter",    icon: "◈", accent: "#3b82f6" },
-  { label: "Budget Estimator",    href: "/postjobs?tool=estimator",     icon: "▣", accent: "#f59e0b" },
-  { label: "Expert Advisor",      href: "/concierge",                   icon: "✦", accent: "#7c3aed" },
+  { label: "Business Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
+  { label: "Proposal Drafter",    href: "/premium/proposal-drafter",    icon: "◈" },
+  { label: "Budget Estimator",    href: "/postjobs?tool=estimator",     icon: "▣" },
+  { label: "Expert Advisor",      href: "/concierge",                   icon: "✦" },
 ];
 
 export default function HowItWorks() {
@@ -188,12 +158,12 @@ export default function HowItWorks() {
           {QUICK_TOOLS.map((tool) => (
             <motion.button key={tool.label} type="button"
               onClick={() => router.push(tool.href)}
-              whileHover={{ scale: 1.06, borderColor: "#C12129", color: "#C12129", boxShadow: "0 0 14px rgba(193,33,41,0.4)" }}
+              whileHover={{ scale: 1.08, borderColor: "#C12129", color: "#C12129", boxShadow: "0 0 22px rgba(193,33,41,0.65)" }}
               whileTap={{ scale: 0.96 }}
               transition={{ duration: 0.16 }}
-              className="flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-medium border border-white/12 dark:border-white/12 border-gray-200 text-gray-500 dark:text-white/55 cursor-pointer transition-colors"
+              className="flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-medium border border-[#C12129]/30 text-gray-600 dark:text-white/60 cursor-pointer transition-colors shadow-[0_0_10px_rgba(193,33,41,0.2)]"
             >
-              <span className="text-[#C12129]">{tool.icon}</span>{tool.label}
+              <span className="aivora-gradient-text">{tool.icon}</span>{tool.label}
             </motion.button>
           ))}
         </div>

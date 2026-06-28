@@ -130,23 +130,9 @@ export default function BizPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
             <span className="aivora-gradient-text">Your AI Command Center</span>
           </h1>
-          <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
-            Real-time analytics, strategic dashboards, and AI-powered governance tools — all in one unified platform.
+          <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            Real-time analytics, strategic dashboards, and AI-powered governance tools — all in one unified ecosystem.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/premium/business-diagnostic"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_20px_rgba(193,33,41,0.45)] hover:shadow-[0_0_32px_rgba(193,33,41,0.7)]">
-                Run a Business Diagnostic
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/client"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-colors">
-                View Dashboard
-              </Link>
-            </motion.div>
-          </div>
         </motion.div>
       </section>
 
@@ -233,33 +219,22 @@ export default function BizPage() {
         </div>
       </section>
 
-      {/* ── CTA strip ── */}
+      {/* ── Subtle CTA strip at bottom ── */}
       <section className="px-4 pb-24">
-        <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto rounded-2xl border border-[#C12129]/30 bg-gradient-to-br from-[#C12129]/8 via-transparent to-transparent p-10 text-center">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Next Step</p>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
-            What would your leadership team do with real-time intelligence?
-          </h2>
-          <p className="text-gray-500 dark:text-white/50 text-sm mb-8 max-w-lg mx-auto">
-            Activate your BIZ Portal and have your first AI-generated business analysis within 48 hours.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/premium/business-diagnostic"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_18px_rgba(193,33,41,0.4)]">
-                Activate Your BIZ Portal
-              </Link>
-            </motion.div>
-            {/* Platform Overview — reveals the repurposed AIHero content */}
-            <motion.button
-              type="button"
-              onClick={() => setOverviewOpen(true)}
-              whileHover={{ scale: 1.04, borderColor: "rgba(193,33,41,0.6)", color: "#C12129", boxShadow: "0 0 18px rgba(193,33,41,0.2)" }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-all duration-200 cursor-pointer"
-            >
-              How the Ecosystem Works →
-            </motion.button>
+        <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto border-t border-gray-100 dark:border-white/6 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Ready to see it in action?</p>
+            <p className="text-xs text-gray-500 dark:text-white/40">Your first AI analysis is ready within 48 hours of activation.</p>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <Link href="/premium/business-diagnostic"
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)]">
+              Run a Diagnostic
+            </Link>
+            <button type="button" onClick={() => setOverviewOpen(true)}
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors cursor-pointer">
+              Ecosystem Overview →
+            </button>
           </div>
         </motion.div>
       </section>

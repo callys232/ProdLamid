@@ -89,6 +89,7 @@ function Card({ item, type, onClick }) {
       <div className="flex items-start gap-3">
         <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/12 border border-[#C12129]/25 text-base font-bold overflow-hidden">
           {type === "consultants" && item.avatar
+            // eslint-disable-next-line @next/next/no-img-element
             ? <img src={item.avatar} alt={name} className="w-full h-full object-cover" />
             : <span className="aivora-gradient-text">
                 {type === "consultants" ? (name[0] || "C") : type === "projects" ? "⬡" : type === "jobs" ? "⬟" : "▣"}
@@ -108,9 +109,7 @@ function Card({ item, type, onClick }) {
         </div>
       )}
       <div className="flex items-center justify-between text-[10px] pt-2 border-t border-gray-100 dark:border-white/6">
-        {item.hourlyRate && <span className="aivora-gradient-text font-bold">${item.hourlyRate}/hr</span>}
-        {item.budget     && <span className="aivora-gradient-text font-bold">{item.budget}</span>}
-        {item.location   && <span className="text-gray-400 dark:text-white/25">{item.location}</span>}
+        {item.location && <span className="text-gray-400 dark:text-white/25">{item.location}</span>}
         <motion.span className="aivora-gradient-text font-semibold ml-auto"
           animate={{ opacity: hov ? 1 : 0, x: hov ? 0 : -4 }} transition={{ duration: 0.15 }}>View →</motion.span>
       </div>
@@ -139,6 +138,7 @@ function DetailModal({ item, type, onClose }) {
         <div className="px-7 pt-6 pb-8">
           <div className="flex items-start gap-4 mb-5">
             <div className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/12 border border-[#C12129]/25 overflow-hidden text-xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               {type === "consultants" && item.avatar ? <img src={item.avatar} alt={name} className="w-full h-full object-cover" />
                 : <span className="aivora-gradient-text font-bold">{type === "consultants" ? name[0] : type === "projects" ? "⬡" : type === "jobs" ? "⬟" : "▣"}</span>}
             </div>
@@ -150,10 +150,8 @@ function DetailModal({ item, type, onClose }) {
             <button type="button" onClick={onClose}
               className="w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#C12129]/40 transition-colors cursor-pointer shrink-0 text-base">✕</button>
           </div>
-          {(item.hourlyRate || item.budget || item.matchScore || item.location) && (
+          {(item.matchScore || item.location) && (
             <div className="flex flex-wrap gap-2 mb-5">
-              {item.hourlyRate  && <span className="px-3 py-1.5 rounded-xl bg-[#C12129]/10 border border-[#C12129]/25 text-xs aivora-gradient-text font-bold">${item.hourlyRate}/hr</span>}
-              {item.budget      && <span className="px-3 py-1.5 rounded-xl bg-[#C12129]/10 border border-[#C12129]/25 text-xs aivora-gradient-text font-bold">{item.budget}</span>}
               {item.matchScore  && <span className="px-3 py-1.5 rounded-xl bg-[#C12129]/10 border border-[#C12129]/25 text-xs aivora-gradient-text font-bold">{item.matchScore}% match</span>}
               {item.location    && <span className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/8 text-xs text-white/50">{item.location}</span>}
             </div>
@@ -195,111 +193,19 @@ function Skeleton() {
 }
 
 /* ── Review Section ── */
-function ReviewSection() {
-  const [reviews,    setReviews]    = useState([]);
-  const [name,       setName]       = useState("");
-  const [comment,    setComment]    = useState("");
-  const [rating,     setRating]     = useState(5);
-  const [loading,    setLoading]    = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [error,      setError]      = useState("");
-  const [success,    setSuccess]    = useState(false);
-
-  useEffect(() => {
-    fetch("/api/reviews").then(r => r.json()).then(d => {
-      setReviews(Array.isArray(d.reviews) ? d.reviews : Array.isArray(d) ? d : []);
-    }).catch(() => {}).finally(() => setLoading(false));
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name.trim() || !comment.trim()) { setError("Name and comment are required."); return; }
-    setSubmitting(true); setError("");
-    try {
-      const res  = await fetch("/api/reviews", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ rating, comment, reviewerName: name }) });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      setReviews(prev => [data, ...prev]); setName(""); setComment(""); setRating(5);
-      setSuccess(true); setTimeout(() => setSuccess(false), 3000);
-    } catch { setError("Failed to submit. Please try again."); }
-    finally  { setSubmitting(false); }
-  };
-
-  const inputCls = "w-full px-4 py-2.5 rounded-xl text-sm aivora-card border text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/25 focus:outline-none focus:border-[#C12129]/50 transition-colors";
-
-  return (
-    <section className="aivora-section px-4 py-24 border-t border-gray-100 dark:border-white/6">
-      <div className="max-w-4xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-center mb-16">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Client Voices</p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">What Leaders Say After Working with AIVORA</h2>
-          <p className="text-gray-500 dark:text-white/45 text-sm mt-3 max-w-md mx-auto leading-relaxed">Real outcomes. Verified engagements. No guesswork.</p>
-        </motion.div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <motion.div initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-            <div className="aivora-card border rounded-2xl p-7">
-              <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-5">Share Your Experience</p>
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <div><label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40 block mb-1.5">Your Name</label><input type="text" value={name} onChange={e => setName(e.target.value)} required className={inputCls} placeholder="e.g. Sarah O., COO" /></div>
-                <div><label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40 block mb-1.5">Rating</label><Stars count={rating} onSet={setRating} /></div>
-                <div><label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40 block mb-1.5">Your Review</label>
-                  <textarea value={comment} onChange={e => setComment(e.target.value)} required rows={4} className={inputCls + " resize-none"} placeholder="What was the outcome? How did AIVORA change how your organization works?" />
-                </div>
-                {error   && <p className="text-xs text-red-400">{error}</p>}
-                {success && <p className="text-xs text-emerald-400">Thank you — your review has been published.</p>}
-                <motion.button type="submit" disabled={submitting}
-                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(193,33,41,0.5)" }} whileTap={{ scale: 0.97 }}
-                  className="py-3 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] disabled:opacity-50 transition-colors cursor-pointer">
-                  {submitting ? "Publishing…" : "Publish Review"}
-                </motion.button>
-              </form>
-            </div>
-          </motion.div>
-          <div className="flex flex-col gap-4 max-h-[560px] overflow-y-auto pr-1 custom-scrollbar">
-            {loading ? [1,2,3].map(i => (
-              <div key={i} className="aivora-card border rounded-2xl p-5 animate-pulse space-y-3">
-                <div className="flex gap-3"><div className="w-9 h-9 rounded-full bg-white/8 shrink-0" /><div className="flex-1 space-y-2"><div className="h-3 bg-white/8 rounded w-1/2" /></div></div>
-                <div className="h-2 bg-white/5 rounded" /><div className="h-2 bg-white/5 rounded w-3/4" />
-              </div>
-            )) : reviews.length === 0 ? (
-              <div className="aivora-card border rounded-2xl p-10 text-center">
-                <p className="text-gray-500 dark:text-white/35 text-sm">No reviews yet.</p>
-                <p className="text-gray-400 dark:text-white/20 text-xs mt-1">Be the first to share your experience.</p>
-              </div>
-            ) : reviews.map((review, i) => (
-              <motion.div key={review.id || review._id || i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }} className="aivora-card border rounded-2xl p-5">
-                <div className="flex items-start gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-full bg-[#C12129]/12 border border-[#C12129]/25 flex items-center justify-center shrink-0 text-sm font-bold aivora-gradient-text">
-                    {(review.reviewerName || review.name || "A")[0].toUpperCase()}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white leading-tight">{review.reviewerName || review.name || "Anonymous"}</p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <Stars count={review.rating || 5} />
-                      {review.createdAt && <span className="text-[10px] text-gray-400 dark:text-white/25">{new Date(review.createdAt).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}</span>}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-600 dark:text-white/55 leading-relaxed italic">&ldquo;{review.comment}&rdquo;</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 const fadeUp = (delay = 0) => ({ initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } });
 
 /* ════ MAIN PAGE ════ */
 export default function MarketplacePage() {
-  const [activeTab, setActiveTab] = useState("consultants");
-  const [items,     setItems]     = useState([]);
-  const [loading,   setLoading]   = useState(false);
-  const [search,    setSearch]    = useState("");
-  const [activeTag, setActiveTag] = useState(null);
-  const [selected,  setSelected]  = useState(null);
+  const [activeTab,    setActiveTab]    = useState("consultants");
+  const [items,        setItems]        = useState([]);
+  const [loading,      setLoading]      = useState(false);
+  const [search,       setSearch]       = useState("");
+  const [activeTag,    setActiveTag]    = useState(null);
+  const [selected,     setSelected]     = useState(null);
+  const [hoveredTrust, setHoveredTrust] = useState(null);
+  const [hoveredUC,    setHoveredUC]    = useState(null);
 
   const fetchItems = useCallback(async (tab) => {
     setLoading(true); setItems([]);
@@ -313,7 +219,6 @@ export default function MarketplacePage() {
 
   useEffect(() => { fetchItems(activeTab); }, [activeTab, fetchItems]);
 
-  const allTags  = [...new Set(items.flatMap(it => it.skills || it.tags || it.sectors || []))].slice(0, 12);
   const filtered = items.filter(it => {
     const q = search.toLowerCase();
     return (!q || (it.name || it.title || it.jobTitle || "").toLowerCase().includes(q) || (it.bio || it.description || "").toLowerCase().includes(q))
@@ -399,21 +304,19 @@ export default function MarketplacePage() {
       {/* ══ 3 TRUST CARDS ══ */}
       <section className="px-4 pb-16">
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {TRUST.map((t, i) => {
-            const [hov, setHov] = useState(false);
-            return (
-              <motion.div key={t.title} {...fadeUp(i * 0.08)}
-                onHoverStart={() => setHov(true)} onHoverEnd={() => setHov(false)}
-                whileHover={{ y: -4, boxShadow: "0 12px 30px rgba(193,33,41,0.15)" }}
-                className="aivora-card border rounded-2xl p-6" style={{ borderColor: hov ? "rgba(193,33,41,0.4)" : undefined }}>
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25">
-                  <span className="text-base aivora-gradient-text">{t.icon}</span>
-                </div>
-                <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{t.title}</h3>
-                <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{t.body}</p>
-              </motion.div>
-            );
-          })}
+          {TRUST.map((t, i) => (
+            <motion.div key={t.title} {...fadeUp(i * 0.08)}
+              onHoverStart={() => setHoveredTrust(i)} onHoverEnd={() => setHoveredTrust(null)}
+              whileHover={{ y: -4, boxShadow: "0 12px 30px rgba(193,33,41,0.15)" }}
+              className="aivora-card border rounded-2xl p-6"
+              style={{ borderColor: hoveredTrust === i ? "rgba(193,33,41,0.4)" : undefined }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25">
+                <span className="text-base aivora-gradient-text">{t.icon}</span>
+              </div>
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{t.title}</h3>
+              <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{t.body}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -424,22 +327,19 @@ export default function MarketplacePage() {
             Use Cases
           </motion.h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {USE_CASES.map((uc, i) => {
-              const [hov, setHov] = useState(false);
-              return (
-                <motion.div key={uc.title} {...fadeUp(i * 0.07)}
-                  onHoverStart={() => setHov(true)} onHoverEnd={() => setHov(false)}
-                  whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(193,33,41,0.14)" }}
-                  className="aivora-card border rounded-2xl p-5 cursor-default"
-                  style={{ borderColor: hov ? "rgba(193,33,41,0.4)" : undefined }}>
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-base aivora-gradient-text">{uc.icon}</span>
-                    <h3 className="text-sm font-bold text-gray-900 dark:text-white">{uc.title}</h3>
-                  </div>
-                  <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{uc.body}</p>
-                </motion.div>
-              );
-            })}
+            {USE_CASES.map((uc, i) => (
+              <motion.div key={uc.title} {...fadeUp(i * 0.07)}
+                onHoverStart={() => setHoveredUC(i)} onHoverEnd={() => setHoveredUC(null)}
+                whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(193,33,41,0.14)" }}
+                className="aivora-card border rounded-2xl p-5 cursor-default"
+                style={{ borderColor: hoveredUC === i ? "rgba(193,33,41,0.4)" : undefined }}>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-base aivora-gradient-text">{uc.icon}</span>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">{uc.title}</h3>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{uc.body}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -459,24 +359,7 @@ export default function MarketplacePage() {
         </div>
       </div>
 
-      {/* ══ TAG FILTERS ══ */}
-      {allTags.length > 0 && (
-        <div className="px-4 pb-6">
-          <div className="max-w-5xl mx-auto flex items-center gap-2 flex-wrap">
-            <span className="text-[10px] aivora-text-muted uppercase tracking-wider shrink-0">Filter:</span>
-            <button type="button" onClick={() => setActiveTag(null)}
-              className={`text-[10px] font-bold px-3 py-1 rounded-full border cursor-pointer transition-all ${!activeTag ? "bg-[#C12129]/12 border-[#C12129]/40 aivora-gradient-text" : "aivora-card border text-gray-500 dark:text-white/40 hover:border-[#C12129]/30"}`}>
-              All
-            </button>
-            {allTags.map(tag => (
-              <button key={tag} type="button" onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                className={`text-[10px] font-bold px-3 py-1 rounded-full border cursor-pointer transition-all ${activeTag === tag ? tagCls(tag) : "aivora-card border text-gray-500 dark:text-white/40 hover:border-[#C12129]/30"}`}>
-                {tag}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Tag filters available after platform is established */}
 
       {/* ══ CARD GRID ══ */}
       <section className="px-4 pb-24">
@@ -509,8 +392,7 @@ export default function MarketplacePage() {
         </div>
       </section>
 
-      {/* ══ REVIEWS ══ */}
-      <ReviewSection />
+      {/* Reviews deferred — product needs to be understood before validation */}
 
       {/* ══ MODAL ══ */}
       <AnimatePresence>

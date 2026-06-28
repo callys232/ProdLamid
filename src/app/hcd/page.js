@@ -98,23 +98,9 @@ export default function HCDPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
             <span className="aivora-gradient-text">Your AI-Powered Career Engine</span>
           </h1>
-          <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Personalised learning paths, micro-certifications, and career development powered by AI — built for the modern professional.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/premium/business-diagnostic"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_20px_rgba(193,33,41,0.45)] hover:shadow-[0_0_32px_rgba(193,33,41,0.7)]">
-                Start Your Assessment
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/events"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-colors">
-                Explore Programs
-              </Link>
-            </motion.div>
-          </div>
         </motion.div>
       </section>
 
@@ -348,6 +334,26 @@ export default function HCDPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ── Subtle CTA at bottom ── */}
+      <section className="px-4 pb-24">
+        <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto border-t border-gray-100 dark:border-white/6 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">The capability your organisation needs is 12 minutes away.</p>
+            <p className="text-xs text-gray-500 dark:text-white/40">Start with an AI-powered skills assessment. Receive your personalised learning path.</p>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <Link href="/premium/business-diagnostic"
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)]">
+              Start Your Assessment
+            </Link>
+            <Link href="/events"
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+              Explore Programs →
+            </Link>
+          </div>
+        </motion.div>
+      </section>
 
     </div>
   );

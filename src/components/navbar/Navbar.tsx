@@ -110,8 +110,9 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
 
           {/* ── Logo ── */}
-          <Link href="/" aria-label="AIVORA Home" className="flex-shrink-0">
-            <Image src="/Logo.png" alt="AIVORA" width={110} height={36} priority className="object-contain" />
+          <Link href="/" aria-label="AIVORA Home" className="flex-shrink-0 flex items-center gap-2">
+            <Image src="/Logo.png" alt="AIVORA" width={90} height={30} priority className="object-contain" />
+            <span className="text-base font-black tracking-tight aivora-gradient-text hidden sm:block">AIVORA</span>
           </Link>
 
           {/* ── Desktop nav links ── */}

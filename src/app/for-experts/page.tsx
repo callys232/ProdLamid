@@ -27,7 +27,7 @@ const BENEFITS = [
   {
     icon: "▣",
     title: "Premium Compensation",
-    body: "Set your own rates. Get paid on time, every time. Our platform handles invoicing and collections.",
+    body: "Set your own rates. Get paid on time, every time. AIVORA handles invoicing and collections seamlessly.",
     href: "/signup",
   },
 ];
@@ -101,7 +101,7 @@ export default function ForExpertsPage() {
       <section className="px-4 pb-24">
         <div className="max-w-4xl mx-auto">
           <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-10">
-            A platform built for serious consultants.
+            An ecosystem built for serious consultants.
           </motion.h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
