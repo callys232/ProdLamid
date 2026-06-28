@@ -50,7 +50,7 @@ const Testimonial: React.FC = () => {
 
             {/* Testimonials Text */}
             <motion.div className="w-full md:w-3/5" variants={fadeInUp}>
-              <h2 className="text-blue-600 text-2xl mb-8 hover:text-blue-400 transition duration-300">
+              <h2 className="text-blue-700 text-2xl mb-8 hover:text-blue-400 transition duration-300">
                 Testimonials
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
