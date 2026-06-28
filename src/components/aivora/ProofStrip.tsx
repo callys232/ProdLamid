@@ -36,10 +36,10 @@ export default function ProofStrip() {
           {ITEMS.map((item, i) => (
             <span key={i} className="flex items-center">
               <span className="flex items-center gap-2">
-                <item.Icon className="w-4 h-4 text-[#C12129] shrink-0" strokeWidth={1.5} />
+                <item.Icon className="w-4 h-4 shrink-0 text-[#C12129]" strokeWidth={1.5} />
                 <span className="text-xs sm:text-sm text-gray-500 dark:text-white/50 font-medium">
                   {item.prefix && <>{item.prefix} </>}
-                  <strong className="text-gray-900 dark:text-white font-bold">{item.bold}</strong>
+                  <strong className="font-bold aivora-gradient-text">{item.bold}</strong>
                   {" "}{item.text}
                 </span>
               </span>

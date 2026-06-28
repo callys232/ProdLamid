@@ -1,6 +1,6 @@
 "use client";
 
-import PostJobs from "@/components/postJobs/jobPost";
+import PostJobs from "@/components/postjobs/jobPost";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
