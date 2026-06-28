@@ -29,7 +29,7 @@ const dots = [
 
 export default function ManifestoExcerpt() {
   return (
-    <section className="relative aivora-section py-32 px-4 overflow-hidden">
+    <section className="relative aivora-section py-12 px-4 overflow-hidden">
 
       {/* Radial lines bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">

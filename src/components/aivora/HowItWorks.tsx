@@ -24,7 +24,7 @@ export default function HowItWorks() {
   const router = useRouter();
 
   return (
-    <section id="how-it-works" className="relative aivora-section py-24 px-4 overflow-hidden">
+    <section id="how-it-works" className="relative aivora-section py-10 px-4 overflow-hidden">
 
       {/* Wave bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -153,7 +153,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Quick tools — repositioned here below steps */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mt-14">
+        <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
           <span className="text-[10px] aivora-text-muted tracking-wider uppercase shrink-0 w-full text-center mb-2">Quick access</span>
           {QUICK_TOOLS.map((tool) => (
             <motion.button key={tool.label} type="button"

@@ -1,15 +1,14 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
-/* ── Tabs ── */
+/* ── Tabs — each is a descriptor card ── */
 const TABS = [
-  { id: "consultants", label: "Consultants", icon: "◈" },
-  { id: "projects",    label: "Projects",    icon: "⬡" },
-  { id: "jobs",        label: "Jobs",        icon: "⬟" },
-  { id: "prototypes",  label: "Prototypes",  icon: "▣" },
+  { id: "consultants", label: "Consultants", icon: "◈", desc: "Find a vetted expert matched to your challenge." },
+  { id: "jobs",        label: "Jobs",        icon: "⬟", desc: "Browse open roles and consulting engagements." },
+  { id: "prototypes",  label: "Prototypes",  icon: "▣", desc: "Explore live builds and framework tools." },
 ];
 
 /* ── 3 Trust cards ── */
@@ -192,44 +191,126 @@ function Skeleton() {
   );
 }
 
-/* ── Review Section ── */
+/* ── Category modal — results grid for a chosen tab ── */
+function CategoryModal({ tab, onClose, onSelectItem }) {
+  const [items,   setItems]   = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search,  setSearch]  = useState("");
+
+  useEffect(() => {
+    setLoading(true); setItems([]);
+    const map = { consultants: "/api/consultants?limit=48", jobs: "/api/recruitment/jobs?limit=48", prototypes: "/api/projects?category=prototype&limit=48" };
+    fetch(map[tab.id])
+      .then(r => r.json())
+      .then(d => setItems(d.consultants || d.jobs || d.data || (Array.isArray(d) ? d : [])))
+      .catch(() => setItems([]))
+      .finally(() => setLoading(false));
+  }, [tab.id]);
+
+  const filtered = items.filter(it => {
+    const q = search.toLowerCase();
+    return !q || (it.name || it.title || it.jobTitle || "").toLowerCase().includes(q) || (it.bio || it.description || "").toLowerCase().includes(q);
+  });
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-[999998] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-md px-4 pb-0 sm:pb-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 60, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 40, scale: 0.97 }}
+        transition={{ type: "spring", stiffness: 260, damping: 28 }}
+        onClick={e => e.stopPropagation()}
+        className="relative w-full max-w-4xl bg-[#080808] border border-white/8 rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.8)] flex flex-col"
+        style={{ maxHeight: "88vh" }}
+      >
+        {/* Top accent */}
+        <div className="h-[3px] bg-gradient-to-r from-[#C12129] via-red-400 to-transparent shrink-0" />
+
+        {/* Header */}
+        <div className="flex items-center justify-between gap-4 px-6 pt-5 pb-4 border-b border-white/6 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-[#C12129]/12 border border-[#C12129]/25 flex items-center justify-center">
+              <span className="aivora-gradient-text text-lg">{tab.icon}</span>
+            </div>
+            <div>
+              <h2 className="text-base font-bold text-white leading-tight">{tab.label}</h2>
+              <p className="text-[11px] text-white/35">{tab.desc}</p>
+            </div>
+          </div>
+          <button type="button" onClick={onClose}
+            className="w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#C12129]/40 transition-colors cursor-pointer text-base shrink-0">
+            ✕
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="px-6 py-4 border-b border-white/6 shrink-0">
+          <div className="relative">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 aivora-gradient-text pointer-events-none">⬡</span>
+            <input type="text" value={search} onChange={e => setSearch(e.target.value)}
+              placeholder={`Search ${tab.label.toLowerCase()}…`}
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm bg-white/[0.04] border border-white/8 text-white placeholder-white/25 focus:outline-none focus:border-[#C12129]/40 transition-colors" />
+          </div>
+        </div>
+
+        {/* Results */}
+        <div className="flex-1 overflow-y-auto px-6 py-5 custom-scrollbar">
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[1,2,3,4,5,6].map(i => (
+                <div key={i} className="bg-white/[0.025] border border-white/6 rounded-2xl p-5 animate-pulse space-y-3">
+                  <div className="flex gap-3"><div className="w-10 h-10 rounded-xl bg-white/8 shrink-0" /><div className="flex-1 space-y-2 pt-1"><div className="h-3 bg-white/8 rounded w-3/4" /><div className="h-2 bg-white/5 rounded w-1/2" /></div></div>
+                  <div className="h-2 bg-white/5 rounded" /><div className="h-2 bg-white/5 rounded w-4/5" />
+                </div>
+              ))}
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 gap-3">
+              <span className="text-4xl aivora-gradient-text">{tab.icon}</span>
+              <p className="text-white/35 text-sm">{search ? `No results for "${search}"` : `No ${tab.label.toLowerCase()} yet.`}</p>
+              {search && <button type="button" onClick={() => setSearch("")} className="text-xs aivora-gradient-text cursor-pointer">Clear search →</button>}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filtered.map((item, i) => (
+                <motion.div key={item._id || item.id || i}
+                  initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: Math.min(i * 0.04, 0.35), duration: 0.3 }}>
+                  <Card item={item} type={tab.id} onClick={onSelectItem} />
+                </motion.div>
+              ))}
+            </div>
+          )}
+          {!loading && filtered.length > 0 && (
+            <p className="text-center text-[10px] aivora-text-muted mt-6">
+              {filtered.length} {tab.label.toLowerCase()}{search ? ` matching "${search}"` : ""}
+            </p>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 const fadeUp = (delay = 0) => ({ initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } });
 
 /* ════ MAIN PAGE ════ */
 export default function MarketplacePage() {
-  const [activeTab,    setActiveTab]    = useState("consultants");
-  const [items,        setItems]        = useState([]);
-  const [loading,      setLoading]      = useState(false);
-  const [search,       setSearch]       = useState("");
-  const [activeTag,    setActiveTag]    = useState(null);
+  const [openTab,      setOpenTab]      = useState(null);
   const [selected,     setSelected]     = useState(null);
   const [hoveredTrust, setHoveredTrust] = useState(null);
   const [hoveredUC,    setHoveredUC]    = useState(null);
-
-  const fetchItems = useCallback(async (tab) => {
-    setLoading(true); setItems([]);
-    const map = { consultants: "/api/consultants?limit=24", projects: "/api/projects?limit=24", jobs: "/api/recruitment/jobs?limit=24", prototypes: "/api/projects?category=prototype&limit=24" };
-    try {
-      const res  = await fetch(map[tab]);
-      const data = await res.json();
-      setItems(data.consultants || data.projects || data.jobs || data.data || (Array.isArray(data) ? data : []));
-    } catch { setItems([]); } finally { setLoading(false); }
-  }, []);
-
-  useEffect(() => { fetchItems(activeTab); }, [activeTab, fetchItems]);
-
-  const filtered = items.filter(it => {
-    const q = search.toLowerCase();
-    return (!q || (it.name || it.title || it.jobTitle || "").toLowerCase().includes(q) || (it.bio || it.description || "").toLowerCase().includes(q))
-        && (!activeTag || (it.skills || it.tags || it.sectors || []).includes(activeTag));
-  });
 
   return (
     <div className="aivora-section min-h-screen">
 
       {/* ══ HERO ══ */}
-      <section className="relative px-4 pt-32 pb-16 text-center overflow-hidden">
+      <section className="relative px-4 pt-24 pb-8 text-center overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
           <motion.path d="M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"
             fill="none" stroke="#C12129" strokeWidth="0.6" strokeOpacity="0.07" strokeDasharray="12 20"
@@ -244,18 +325,12 @@ export default function MarketplacePage() {
           <p className="text-gray-500 dark:text-white/50 text-sm sm:text-base mb-8 leading-relaxed max-w-xl mx-auto">
             Our AI-powered matching engine analyzes your needs and connects you with vetted experts in minutes.
           </p>
-          {/* Search */}
-          <div className="relative max-w-xl mx-auto">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-white/30 pointer-events-none">⬡</span>
-            <input type="text" value={search} onChange={e => setSearch(e.target.value)}
-              placeholder="Search consultants, projects, or skills…"
-              className="w-full pl-10 pr-4 py-3.5 rounded-2xl text-sm aivora-card border text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:border-[#C12129]/50 transition-colors" />
-          </div>
+          {/* Search lives inside each category modal */}
         </motion.div>
       </section>
 
       {/* ══ AI MATCHING FEATURE CARD ══ */}
-      <section className="px-4 pb-16">
+      <section className="px-4 pb-8">
         <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto">
           <div className="aivora-card border rounded-2xl p-8 flex flex-col sm:flex-row items-start gap-8 overflow-hidden relative"
             style={{ borderColor: "rgba(193,33,41,0.2)" }}>
@@ -302,7 +377,7 @@ export default function MarketplacePage() {
       </section>
 
       {/* ══ 3 TRUST CARDS ══ */}
-      <section className="px-4 pb-16">
+      <section className="px-4 pb-8">
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
           {TRUST.map((t, i) => (
             <motion.div key={t.title} {...fadeUp(i * 0.08)}
@@ -321,7 +396,7 @@ export default function MarketplacePage() {
       </section>
 
       {/* ══ USE CASES ══ */}
-      <section className="px-4 pb-16">
+      <section className="px-4 pb-8">
         <div className="max-w-4xl mx-auto">
           <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-10">
             Use Cases
@@ -344,59 +419,57 @@ export default function MarketplacePage() {
         </div>
       </section>
 
-      {/* ══ TABS ══ */}
-      <div className="px-4 pb-4">
-        <div className="max-w-5xl mx-auto flex items-center gap-2 overflow-x-auto">
-          {TABS.map(tab => (
-            <motion.button key={tab.id} type="button"
-              onClick={() => { setActiveTab(tab.id); setActiveTag(null); setSearch(""); }}
-              whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
-              className={`flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap cursor-pointer transition-all duration-200 shrink-0
-                ${activeTab === tab.id ? "bg-[#C12129] text-white shadow-[0_0_14px_rgba(193,33,41,0.5)]" : "aivora-card border text-gray-600 dark:text-white/60 hover:text-gray-900 dark:hover:text-white hover:border-[#C12129]/30"}`}>
-              <span>{tab.icon}</span>{tab.label}
-            </motion.button>
-          ))}
+      {/* ══ TABS — descriptor cards, centered ══ */}
+      <div className="px-4 pb-8">
+        <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {TABS.map(tab => {
+            const isActive = openTab?.id === tab.id;
+            return (
+              <motion.button key={tab.id} type="button"
+                onClick={() => setOpenTab(tab)}
+                whileHover={{ y: -4, boxShadow: "0 12px 28px rgba(193,33,41,0.2)" }}
+                whileTap={{ scale: 0.97 }}
+                className={`flex flex-col items-center gap-2 px-5 py-5 rounded-2xl border text-center cursor-pointer transition-all duration-200
+                  ${isActive
+                    ? "bg-[#C12129]/10 border-[#C12129]/50 shadow-[0_0_18px_rgba(193,33,41,0.25)]"
+                    : "aivora-card border hover:border-[#C12129]/30"}`}>
+                <span className={`text-2xl ${isActive ? "aivora-gradient-text" : "text-gray-500 dark:text-white/40"}`}>
+                  {tab.icon}
+                </span>
+                <span className={`text-sm font-bold ${isActive ? "aivora-gradient-text" : "text-gray-900 dark:text-white"}`}>
+                  {tab.label}
+                </span>
+                <span className="text-[11px] text-gray-500 dark:text-white/40 leading-snug">
+                  {tab.desc}
+                </span>
+              </motion.button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Tag filters available after platform is established */}
-
-      {/* ══ CARD GRID ══ */}
-      <section className="px-4 pb-24">
-        <div className="max-w-5xl mx-auto">
-          <AnimatePresence mode="wait">
-            {loading ? (
-              <motion.div key="sk" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><Skeleton /></motion.div>
-            ) : filtered.length === 0 ? (
-              <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-24">
-                <p className="text-4xl mb-4 aivora-gradient-text">◈</p>
-                <p className="text-gray-500 dark:text-white/35 text-sm">{search ? `No results for "${search}"` : `No ${activeTab} available yet.`}</p>
-                {search && <button type="button" onClick={() => setSearch("")} className="mt-4 text-xs aivora-gradient-text hover:opacity-70 cursor-pointer">Clear search →</button>}
-              </motion.div>
-            ) : (
-              <motion.div key={activeTab + activeTag} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {filtered.map((item, i) => (
-                  <motion.div key={item._id || item.id || i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.35 }}>
-                    <Card item={item} type={activeTab} onClick={setSelected} />
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {!loading && filtered.length > 0 && (
-            <p className="text-center text-xs aivora-text-muted mt-8">
-              {filtered.length} {activeTab}{activeTag ? ` · ${activeTag}` : ""}{search ? ` matching "${search}"` : ""}
-            </p>
-          )}
-        </div>
-      </section>
-
-      {/* Reviews deferred — product needs to be understood before validation */}
-
-      {/* ══ MODAL ══ */}
+      {/* ══ CATEGORY MODAL ══ */}
       <AnimatePresence>
-        {selected && <DetailModal key="modal" item={selected} type={activeTab} onClose={() => setSelected(null)} />}
+        {openTab && (
+          <CategoryModal
+            key="cat-modal"
+            tab={openTab}
+            onClose={() => { setOpenTab(null); setSelected(null); }}
+            onSelectItem={setSelected}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* ══ ITEM DETAIL MODAL ══ */}
+      <AnimatePresence>
+        {selected && (
+          <DetailModal
+            key="item-modal"
+            item={selected}
+            type={openTab?.id || "consultants"}
+            onClose={() => setSelected(null)}
+          />
+        )}
       </AnimatePresence>
 
     </div>

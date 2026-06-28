@@ -21,7 +21,7 @@ const BENEFITS = [
   {
     icon: "⚡",
     title: "AI-Augmented Delivery",
-    body: "Access AI tools that help you deliver faster: automated research, report generation, and data analysis.",
+    body: "AIVORA's ecosystem amplifies your delivery — automated research, intelligent reporting, and data analysis built in.",
     href: "/premium/proposal-drafter",
   },
   {
@@ -64,7 +64,7 @@ export default function ForExpertsPage() {
     <div className="aivora-section min-h-screen">
 
       {/* ── Hero ── */}
-      <section className="relative px-4 pt-32 pb-20 text-center overflow-hidden">
+      <section className="relative px-4 pt-28 pb-10 text-center overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
           <motion.path
             d="M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"
@@ -98,7 +98,7 @@ export default function ForExpertsPage() {
       </section>
 
       {/* ── 4 Benefit cards ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto">
           <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-10">
             An ecosystem built for serious consultants.
@@ -143,7 +143,7 @@ export default function ForExpertsPage() {
       </section>
 
       {/* ── Eligibility Requirements ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto">
           <motion.div
             {...fadeUp(0)}
@@ -165,7 +165,7 @@ export default function ForExpertsPage() {
       </section>
 
       {/* ── How to Join — 4 step cards ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto">
           <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-10">
             How to Join
@@ -202,20 +202,21 @@ export default function ForExpertsPage() {
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
-      <section className="px-4 pb-24">
+      {/* ── Subtle bottom CTA ── */}
+      <section className="px-4 pb-12">
         <motion.div {...fadeUp(0)}
-          className="max-w-4xl mx-auto rounded-2xl border border-[#C12129]/30 bg-gradient-to-br from-[#C12129]/8 via-transparent to-transparent p-10 text-center">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Ready?</p>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
-            Join a network of practitioners shaping the future of consulting.
-          </h2>
-          <p className="text-gray-500 dark:text-white/50 text-sm mb-8 max-w-md mx-auto">
-            Applications reviewed within 5 business days. No fees to apply.
-          </p>
-          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+          className="max-w-4xl mx-auto border-t border-gray-100 dark:border-white/6 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+              Join a network shaping the future of consulting.
+            </p>
+            <p className="text-xs text-gray-500 dark:text-white/40">
+              Applications reviewed within 5 business days. No fees to apply.
+            </p>
+          </div>
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="shrink-0">
             <Link href="/signup"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_20px_rgba(193,33,41,0.45)]">
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)]">
               Apply to Join →
             </Link>
           </motion.div>

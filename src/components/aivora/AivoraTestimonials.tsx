@@ -87,7 +87,7 @@ export default function AivoraTestimonials() {
 
 
   return (
-    <section className="relative aivora-section py-24 px-4 overflow-hidden" id="testimonials">
+    <section className="relative aivora-section py-10 px-4 overflow-hidden" id="testimonials">
 
       {/* Arc bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -117,7 +117,7 @@ export default function AivoraTestimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-7"
         >
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             Testimonials

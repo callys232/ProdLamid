@@ -33,7 +33,7 @@ export default function AivoraGap() {
   const router = useRouter();
 
   return (
-    <section className="relative aivora-section py-24 px-4 overflow-hidden">
+    <section className="relative aivora-section py-10 px-4 overflow-hidden">
 
       {/* Subtle vertical column lines */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -54,7 +54,7 @@ export default function AivoraGap() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="text-center mb-16"
+          className="text-center mb-7"
         >
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             The Problem

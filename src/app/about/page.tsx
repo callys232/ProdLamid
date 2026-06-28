@@ -25,11 +25,11 @@ const fadeUp = (d = 0) => ({
 
 export default function AboutPage() {
   return (
-    <main className="aivora-section min-h-screen pt-28 pb-24 px-4">
+    <main className="aivora-section min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
 
         {/* ── Hero ── */}
-        <motion.div {...fadeUp(0)} className="text-center mb-16">
+        <motion.div {...fadeUp(0)} className="text-center mb-8">
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">About AIVORA</p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-6">
             Our Origin Story
@@ -42,7 +42,7 @@ export default function AboutPage() {
         </motion.div>
 
         {/* ── Mission & Vision ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
           {[
             {
               icon: "◈",
@@ -67,7 +67,7 @@ export default function AboutPage() {
         </div>
 
         {/* ── Core Values ── */}
-        <motion.div {...fadeUp(0)} className="mb-20">
+        <motion.div {...fadeUp(0)} className="mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-10">
             Our Core Values
           </h2>

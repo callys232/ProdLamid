@@ -71,11 +71,11 @@ export default function ContactPage() {
   const inputCls = "w-full px-4 py-2.5 rounded-xl text-sm aivora-card border text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/25 focus:outline-none focus:border-[#C12129]/50 transition-colors";
 
   return (
-    <main className="aivora-section min-h-screen pt-28 pb-24 px-4">
+    <main className="aivora-section min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
 
         {/* ── Hero ── */}
-        <motion.div {...fadeUp(0)} className="text-center mb-16">
+        <motion.div {...fadeUp(0)} className="text-center mb-8">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-3 leading-tight">
             Let&apos;s talk.
           </h1>
@@ -85,7 +85,7 @@ export default function ContactPage() {
         </motion.div>
 
         {/* ── 3 Contact cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
           {CARDS.map((card, i) => {
             const [hov, setHov] = useState(false);
             return (

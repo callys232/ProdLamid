@@ -1,23 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
 import HowWeServeModal from "./navbar/HowWeServeModal";
 import HeroStickmen from "./HeroStickmen";
 
+// Duration for the typewriter to finish one pass of the longest phrase
+const TYPE_DURATION_MS = 2200;
+
 export default function Header() {
   const [howWeServeOpen, setHowWeServeOpen] = useState(false);
+  const [cycle,          setCycle]          = useState(0);
+  const [showAccent,     setShowAccent]     = useState(false);
+
+  // Wait for H1 static text to fade in, then show the typewriter accent
+  useEffect(() => {
+    const t = setTimeout(() => setShowAccent(true), 700);
+    return () => clearTimeout(t);
+  }, []);
+
+  // After each typewriter pass completes, restart the cycle
+  useEffect(() => {
+    if (!showAccent) return;
+    const t = setTimeout(() => {
+      setShowAccent(false);
+      setTimeout(() => { setCycle(c => c + 1); setShowAccent(true); }, 200);
+    }, TYPE_DURATION_MS + 3500); // type + display pause
+    return () => clearTimeout(t);
+  }, [cycle, showAccent]);
 
   return (
     <>
       {/* ── Hero ── */}
-      <header className="relative w-full aivora-section overflow-hidden min-h-screen flex flex-col items-center justify-center px-4 text-center">
+      <header className="relative w-full aivora-section overflow-hidden min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
 
         {/* Stickman background */}
         <HeroStickmen />
 
         {/* ── Content ── */}
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6 py-24 md:py-0">
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-5 py-16 md:py-10">
 
           {/* Eyebrow pill */}
           <motion.div
@@ -31,7 +53,7 @@ export default function Header() {
             </span>
           </motion.div>
 
-          {/* Headline */}
+          {/* Headline — static first line + typewriter accent */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -40,9 +62,34 @@ export default function Header() {
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
             <span className="text-gray-900 dark:text-white">The Intelligence Your<br />Organization </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C12129] to-red-900 dark:from-red-500 dark:to-white">
-              Has Been Waiting For.
-            </span>
+            {/* Typewriter accent — fades in after static line, cycles through phrases */}
+            <AnimatePresence mode="wait">
+              {showAccent && (
+                <motion.span
+                  key={cycle}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#C12129] to-red-900 dark:from-red-500 dark:to-white"
+                >
+                  <Typewriter
+                    key={cycle}
+                    words={[
+                      "Has Been Waiting For.",
+                      "Needs to Grow.",
+                      "Can Trust.",
+                      "Deserves.",
+                    ]}
+                    loop={1}
+                    typeSpeed={55}
+                    deleteSpeed={0}
+                    delaySpeed={99999}
+                    cursor={false}
+                  />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </motion.h1>
 
           {/* Subheadline */}
@@ -103,8 +150,8 @@ export default function Header() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="flex flex-col items-center gap-1 mt-4"
+            transition={{ delay: 1.2, duration: 0.5 }}
+            className="flex flex-col items-center gap-1 mt-2"
           >
             <span className="text-[10px] tracking-widest uppercase text-gray-400 dark:text-white/25">Scroll to explore</span>
             <motion.span

@@ -18,11 +18,11 @@ export default function TermsPage() {
         </div>
 
         <Section title="1. Acceptance of Terms">
-          <p>By accessing or using Lamid ("the Ecosystem"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Platform.</p>
+          <p>By accessing or using AIVORA ("the Ecosystem"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Ecosystem.</p>
         </Section>
 
-        <Section title="2. Description of Service">
-          <p>AIVORA is a HumanAI Consulting Ecosystem that connects Clients (organisations seeking expertise) with Consultants (independent professionals). It connects organizations with expert consultants through an integrated ecosystem of matching, project delivery, business intelligence, and talent development.</p>
+        <Section title="2. About AIVORA">
+          <p>AIVORA is a HumanAI Consulting Ecosystem that connects organisations seeking expertise with independent consultants and talent, supported by AI-powered matching, project delivery, business intelligence, and capability development — all in one unified environment.</p>
         </Section>
 
         <Section title="3. User Accounts">
@@ -65,7 +65,7 @@ export default function TermsPage() {
         </Section>
 
         <Section title="12. Contact">
-          <p>For legal enquiries: <a href="mailto:legal@lamid.io" className="text-[#c12129] hover:underline">legal@lamid.io</a> · Lagos, Nigeria · London, UK</p>
+          <p>For legal enquiries: <a href="mailto:legal@aivora.ai" className="text-[#c12129] hover:underline">legal@aivora.ai</a> · Lagos, Nigeria · London, UK</p>
         </Section>
       </div>
     </main>

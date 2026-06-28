@@ -111,7 +111,7 @@ export default function BizPage() {
     <div className="aivora-section min-h-screen">
 
       {/* ── Hero ── */}
-      <section className="relative px-4 pt-32 pb-20 text-center overflow-hidden">
+      <section className="relative px-4 pt-28 pb-10 text-center overflow-hidden">
         {/* bg lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
           {["M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"].map((d, i) => (
@@ -137,7 +137,7 @@ export default function BizPage() {
       </section>
 
       {/* ── 5 Feature rows ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto flex flex-col gap-4">
           {FEATURES.map((f, i) => {
             const isHov = hoveredFeature === i;
@@ -181,7 +181,7 @@ export default function BizPage() {
       </section>
 
       {/* ── Built for Decision-Makers ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto">
           <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-10">
             Built for Decision-Makers
@@ -220,7 +220,7 @@ export default function BizPage() {
       </section>
 
       {/* ── Subtle CTA strip at bottom ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto border-t border-gray-100 dark:border-white/6 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Ready to see it in action?</p>

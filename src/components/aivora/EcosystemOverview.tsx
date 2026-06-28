@@ -43,7 +43,7 @@ export default function EcosystemOverview() {
   const router = useRouter();
 
   return (
-    <section className="relative aivora-section py-24 px-4 overflow-hidden">
+    <section className="relative aivora-section py-10 px-4 overflow-hidden">
 
       {/* Diagonal bg lines */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -68,7 +68,7 @@ export default function EcosystemOverview() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-7"
         >
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             The Ecosystem

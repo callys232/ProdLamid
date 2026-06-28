@@ -85,7 +85,7 @@ export default function HCDPage() {
     <div className="aivora-section min-h-screen">
 
       {/* ── Hero ── */}
-      <section className="relative px-4 pt-32 pb-20 text-center overflow-hidden">
+      <section className="relative px-4 pt-28 pb-10 text-center overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
           <motion.path d="M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"
             fill="none" stroke="#C12129" strokeWidth="0.6" strokeOpacity="0.07" strokeDasharray="12 20"
@@ -105,9 +105,9 @@ export default function HCDPage() {
       </section>
 
       {/* ── Your Learning Journey ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto">
-          <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-12">
+          <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">
             Your Learning Journey
           </motion.h2>
           {/* Desktop: horizontal with connecting line */}
@@ -163,7 +163,7 @@ export default function HCDPage() {
       </section>
 
       {/* ── 4 Feature cards ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-5">
           {FEATURES.map((f, i) => {
             const isHov = hoveredFeature === i;
@@ -191,7 +191,7 @@ export default function HCDPage() {
       </section>
 
       {/* ── Impact stats ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
           {STATS.map((s, i) => (
             <motion.div key={s.label} {...fadeUp(i * 0.1)}
@@ -205,7 +205,7 @@ export default function HCDPage() {
       </section>
 
       {/* ── Enterprise enrollment + Programs button (final CTA) ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <motion.div {...fadeUp(0)}
           className="max-w-4xl mx-auto rounded-2xl border border-[#C12129]/30 bg-gradient-to-br from-[#C12129]/8 via-transparent to-transparent p-10 text-center">
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">For Teams</p>
@@ -336,7 +336,7 @@ export default function HCDPage() {
       </AnimatePresence>
 
       {/* ── Subtle CTA at bottom ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-12">
         <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto border-t border-gray-100 dark:border-white/6 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">The capability your organisation needs is 12 minutes away.</p>
