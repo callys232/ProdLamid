@@ -33,13 +33,13 @@ export default function Header() {
   return (
     <>
       {/* ── Hero ── */}
-      <header className="relative w-full aivora-section overflow-hidden min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
+      <header className="relative w-full aivora-section overflow-hidden min-h-[60vh] flex flex-col items-center justify-center px-4 text-center">
 
         {/* Stickman background */}
         <HeroStickmen />
 
         {/* ── Content ── */}
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-5 py-16 md:py-10">
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-4 py-10 md:py-8">
 
           {/* Eyebrow pill */}
           <motion.div
