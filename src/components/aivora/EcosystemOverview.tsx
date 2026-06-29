@@ -10,7 +10,6 @@ const PORTALS = [
     id: "marketplace",
     icon: "◈",
     label: "AIVORA Marketplace",
-    headline: "Find the Right Expert. Start Today.",
     body: "AI-powered expert matching. Find the right consultant, advisor, or specialist in minutes — not months.",
     cta: "Explore Marketplace",
     href: "/talent",
@@ -19,7 +18,6 @@ const PORTALS = [
     id: "biz",
     icon: "⬡",
     label: "AIVORA BIZ Portal",
-    headline: "Clarity at the Speed of Decision.",
     body: "Your AI-augmented command center. Real-time analytics, strategic dashboards, and governance tools.",
     cta: "Explore BIZ",
     href: "/biz",
@@ -28,7 +26,6 @@ const PORTALS = [
     id: "talent",
     icon: "⬟",
     label: "AIVORA Talent Portal",
-    headline: "Build the Organization That Builds the Future.",
     body: "Personalized AI learning and career development for every professional.",
     cta: "Explore Talent",
     href: "/hcd",
@@ -136,13 +133,9 @@ export default function EcosystemOverview() {
                   {portal.icon}
                 </motion.span>
 
-                <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-3 aivora-gradient-text">
+                <p className="text-base font-bold mb-3 aivora-gradient-text">
                   {portal.label}
                 </p>
-
-                <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug mb-3">
-                  {portal.headline}
-                </h3>
 
                 <p className="text-gray-600 dark:text-white/55 text-sm leading-relaxed flex-1 mb-6">
                   {portal.body}
