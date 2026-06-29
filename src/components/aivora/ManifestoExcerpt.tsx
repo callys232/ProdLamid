@@ -85,8 +85,8 @@ export default function ManifestoExcerpt() {
               transition={{ duration: 0.45, delay: i * 0.1 }}
               className={`leading-relaxed ${
                 line.bold
-                  ? "text-xl sm:text-2xl font-bold text-white"
-                  : "text-base sm:text-lg text-white/60"
+                  ? "text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"
+                  : "text-base sm:text-lg text-gray-500 dark:text-white/60"
               }`}
             >
               {line.text}

@@ -82,7 +82,7 @@ export default function CtaBanner() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.5 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug mb-4 relative z-10"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4 relative z-10"
           >
             Ready to Transform Your Organization?
           </motion.h2>

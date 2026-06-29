@@ -43,7 +43,7 @@ export default function MarketplaceHero() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-black text-white pt-28 pb-16 px-4">
+      <section className="aivora-section pt-20 pb-10 px-4">
         <div className="max-w-5xl mx-auto text-center">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
@@ -57,7 +57,7 @@ export default function MarketplaceHero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-snug mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-snug mb-4"
           >
             Find the Right Expert.{" "}
             <span className="aivora-gradient-text">Start Today.</span>
@@ -66,7 +66,7 @@ export default function MarketplaceHero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-white/60 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8"
+            className="text-gray-500 dark:text-white/60 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8"
           >
             AIVORA's Marketplace connects your organization with vetted, AI-matched consultants — ready to deliver results from day one.
           </motion.p>
@@ -93,9 +93,9 @@ export default function MarketplaceHero() {
       </section>
 
       {/* How matching works */}
-      <section className="bg-black text-white py-10 px-4 border-y border-white/8">
+      <section className="aivora-section py-6 px-4 border-y border-white/8 dark:border-white/8 border-gray-200">
         <div className="max-w-5xl mx-auto">
-          <p className="text-center text-white/40 text-xs uppercase tracking-widest mb-6">
+          <p className="text-center text-gray-400 dark:text-white/40 text-xs uppercase tracking-widest mb-6">
             How Matching Works
           </p>
           <div className="flex flex-wrap justify-center gap-10">
@@ -109,7 +109,7 @@ export default function MarketplaceHero() {
                 className="text-center"
               >
                 <span className="text-2xl font-bold aivora-gradient-text block">{item.value}</span>
-                <span className="text-white/50 text-xs mt-1 block">{item.label}</span>
+                <span className="text-gray-500 dark:text-white/50 text-xs mt-1 block">{item.label}</span>
               </motion.div>
             ))}
           </div>
@@ -117,7 +117,7 @@ export default function MarketplaceHero() {
       </section>
 
       {/* Value props */}
-      <section className="bg-black text-white py-16 px-4">
+      <section className="aivora-section py-10 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {VALUE_PROPS.map((vp, i) => (
@@ -130,8 +130,8 @@ export default function MarketplaceHero() {
                 className="bg-white/[0.025] border border-white/8 rounded-2xl p-6"
               >
                 <span className={`text-3xl block mb-4 ${vp.iconCls}`}>{vp.icon}</span>
-                <h3 className="text-sm font-bold text-white mb-2">{vp.title}</h3>
-                <p className="text-white/55 text-xs leading-relaxed">{vp.body}</p>
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{vp.title}</h3>
+                <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{vp.body}</p>
               </motion.div>
             ))}
           </div>
@@ -139,7 +139,7 @@ export default function MarketplaceHero() {
       </section>
 
       {/* Use cases */}
-      <section className="bg-black text-white py-10 px-4">
+      <section className="aivora-section py-8 px-4">
         <div className="max-w-5xl mx-auto">
           <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-6 text-center">
             Sectors We Cover
@@ -161,12 +161,12 @@ export default function MarketplaceHero() {
       </section>
 
       {/* For Expert Partners banner */}
-      <section className="bg-black text-white py-10 px-4">
+      <section className="aivora-section py-8 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/[0.03] border border-white/8 rounded-2xl px-7 py-5">
             <div>
-              <p className="text-sm font-bold text-white mb-1">Are you a consultant?</p>
-              <p className="text-white/50 text-xs">Join the AIVORA network. Build your profile, get matched to quality engagements, and grow your practice.</p>
+              <p className="text-sm font-bold text-gray-900 dark:text-white mb-1">Are you a consultant?</p>
+              <p className="text-gray-500 dark:text-white/50 text-xs">Join the AIVORA network. Build your profile, get matched to quality engagements, and grow your practice.</p>
             </div>
             <Link
               href="/signup"

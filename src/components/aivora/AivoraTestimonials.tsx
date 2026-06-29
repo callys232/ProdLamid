@@ -169,7 +169,7 @@ export default function AivoraTestimonials() {
                     "
                   </span>
 
-                  <p className="text-white/70 text-sm leading-relaxed flex-1 mb-6 italic">
+                  <p className="text-gray-700 dark:text-white/70 text-sm leading-relaxed flex-1 mb-6 italic">
                     {t.quote}
                   </p>
 
@@ -178,8 +178,8 @@ export default function AivoraTestimonials() {
                       {t.initial}
                     </div>
                     <div>
-                      <p className="text-white text-sm font-semibold">{t.name}</p>
-                      <p className="text-white/40 text-xs">{t.org}</p>
+                      <p className="text-gray-900 dark:text-white text-sm font-semibold">{t.name}</p>
+                      <p className="text-gray-400 dark:text-white/40 text-xs">{t.org}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -221,7 +221,7 @@ export default function AivoraTestimonials() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-center text-white/20 text-xs mt-8 tracking-wide"
+          className="text-center text-gray-300 dark:text-white/20 text-xs mt-8 tracking-wide"
         >
           Testimonials will be replaced with verified client quotes before launch.
         </motion.p>

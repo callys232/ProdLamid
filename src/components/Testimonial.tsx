@@ -1,81 +1,93 @@
 "use client";
 
-import React, { useState } from "react";
-import Head from "next/head";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { fadeInUp, fadeInDown, staggerContainer } from "@/utils/motionVaraints";
+import { Play } from "lucide-react";
+
+const QUOTES = [
+  {
+    text: "The programs helped in the effective management and motivation of staff to enable them leverage their intellectual capability, transforming business challenges into real opportunities.",
+    role: "Chief People Officer",
+    org: "Enterprise Client",
+  },
+  {
+    text: "AIVORA's training program enhanced the quality of our negotiation processes and led to significant improvements in industrial relations between management and our teams.",
+    role: "Chief Executive Officer",
+    org: "Professional Services",
+  },
+];
 
 const Testimonial: React.FC = () => {
-  const [videoPlaying, setVideoPlaying] = useState<boolean>(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
 
   return (
-    <div className="bg-black text-white">
-      <Head>
-        <title>Testimonials</title>
-        <meta name="description" content="Client testimonials and partners" />
-      </Head>
-
-      {/* Testimonials section */}
-      <div className="bg-black py-16">
-        <div className="container mx-auto px-4">
+    <section className="aivora-section py-14 px-4">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          className="flex flex-col md:flex-row gap-10 items-start"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
+        >
+          {/* Video */}
           <motion.div
-            className="flex flex-col md:flex-row gap-10"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={staggerContainer}
+            className="w-full md:w-2/5 shrink-0"
+            variants={{ hidden: { opacity: 0, y: -16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
           >
-            {/* Video Section */}
-            <motion.div className="w-full md:w-2/5" variants={fadeInDown}>
-              <div
-                className="border-2 border-blue-600 aspect-video relative cursor-pointer hover:opacity-80 transition duration-300"
-                onClick={() => setVideoPlaying(!videoPlaying)}
-              >
-                {!videoPlaying ? (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:scale-110 transition duration-300">
-                      <div className="w-0 h-0 border-t-8 border-t-transparent border-l-16 border-l-white border-b-8 border-b-transparent ml-1"></div>
-                    </div>
-                  </div>
-                ) : (
-                  <video
-                    className="w-full h-full"
-                    controls
-                    autoPlay
-                    src="/videos/demo-video.mp4"
-                  />
-                )}
-              </div>
-            </motion.div>
-
-            {/* Testimonials Text */}
-            <motion.div className="w-full md:w-3/5" variants={fadeInUp}>
-              <h2 className="text-blue-700 text-2xl mb-8 hover:text-blue-400 transition duration-300">
-                Testimonials
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-                <div className="bg-gray-900 p-6 rounded hover:bg-gray-800 transition duration-300">
-                  <p className="text-[15px] leading-relaxed">
-                    “The programs helped in the effective management and
-                    motivation of staff to enable them leverage their
-                    intellectual capability, to transform business challenges
-                    into opportunities.”
-                  </p>
+            <div
+              className="relative aspect-video rounded-2xl overflow-hidden border border-[#C12129]/30 bg-black cursor-pointer group"
+              onClick={() => setVideoPlaying(!videoPlaying)}
+            >
+              {!videoPlaying ? (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+                  <motion.div
+                    whileHover={{ scale: 1.12 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-14 h-14 rounded-full bg-[#C12129] flex items-center justify-center shadow-[0_0_24px_rgba(193,33,41,0.6)]"
+                  >
+                    <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
+                  </motion.div>
                 </div>
-                <div className="bg-gray-900 p-6 rounded hover:bg-gray-800 transition duration-300">
-                  <p className="text-[15px] leading-relaxed">
-                    “LAMID’s training program enhanced the quality of the
-                    negotiation processes with respective Trade Unions, and led
-                    to significant improvements in industrial relations, between
-                    their officials and management of the organization.”
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+              ) : (
+                <video className="w-full h-full object-cover" controls autoPlay src="/videos/demo-video.mp4" />
+              )}
+            </div>
           </motion.div>
-        </div>
+
+          {/* Quotes */}
+          <motion.div
+            className="w-full"
+            variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+          >
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Client Voices</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-8 leading-snug">
+              What Leaders Say
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {QUOTES.map((q, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  className="aivora-card border rounded-2xl p-6 flex flex-col gap-3"
+                >
+                  <span className="text-3xl text-[#C12129]/20 font-serif leading-none select-none">&ldquo;</span>
+                  <p className="text-sm text-gray-600 dark:text-white/65 leading-relaxed italic flex-1">{q.text}</p>
+                  <div className="pt-3 border-t border-gray-100 dark:border-white/6">
+                    <p className="text-xs font-semibold text-gray-900 dark:text-white">{q.role}</p>
+                    <p className="text-[11px] text-gray-400 dark:text-white/30">{q.org}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
