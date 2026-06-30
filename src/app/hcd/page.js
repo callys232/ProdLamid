@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
 
 /* ── Learning journey steps ── */
 const JOURNEY = [
@@ -334,6 +335,8 @@ export default function HCDPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AivoraTestimonials pillar="talent" />
 
       {/* ── Subtle CTA at bottom ── */}
       <section className="px-4 pb-12">

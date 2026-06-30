@@ -5,37 +5,42 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const TESTIMONIALS = [
   {
+    pillar: "grow",
     quote: "LAMID GROW gives our board real-time visibility we never had. It's like having a strategic command center at our fingertips.",
     name: "Marcus Williams",
     role: "CEO, Horizon Capital Group",
   },
   {
+    pillar: "core",
     quote: "LAMID CORE connected us with the right consultant in 48 hours. The project delivered in half the time we expected.",
     name: "Chief Operating Officer",
     role: "Financial Services Firm, UAE",
   },
   {
+    pillar: "talent",
     quote: "LAMID TALENT transformed how we approach capability building. Our teams are developing skills 3× faster, and they're actually engaged.",
     name: "Chief People Officer",
     role: "Healthcare Organization, UK",
   },
 ];
 
-export default function AivoraTestimonials() {
+export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow" | "talent" }) {
+  const ITEMS = pillar ? TESTIMONIALS.filter(t => t.pillar === pillar) : TESTIMONIALS;
   const [active, setActive] = useState(0);
   const [dir,    setDir]    = useState(1);
-  const n = TESTIMONIALS.length;
+  const n = ITEMS.length;
 
   const next = useCallback(() => {
     setDir(1);
     setActive(p => (p + 1) % n);
   }, [n]);
 
-  // Auto-rotate every 5 seconds
+  // Auto-rotate every 5 seconds (only when there's more than one to rotate through)
   useEffect(() => {
+    if (n <= 1) return;
     const t = setInterval(next, 5000);
     return () => clearInterval(t);
-  }, [next]);
+  }, [next, n]);
 
   const go = (i: number) => {
     setDir(i > active ? 1 : -1);
@@ -97,36 +102,38 @@ export default function AivoraTestimonials() {
 
               {/* Quote */}
               <p className="text-base sm:text-lg text-gray-700 dark:text-white/80 leading-relaxed mb-8">
-                {TESTIMONIALS[active].quote}
+                {ITEMS[active].quote}
               </p>
 
               {/* Attribution */}
               <p className="text-sm font-bold text-gray-900 dark:text-white">
-                {TESTIMONIALS[active].name}
+                {ITEMS[active].name}
               </p>
               <p className="text-sm aivora-gradient-text mt-1">
-                {TESTIMONIALS[active].role}
+                {ITEMS[active].role}
               </p>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Dot navigation */}
-        <div className="flex items-center justify-center gap-2 mt-8">
-          {TESTIMONIALS.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => go(i)}
-              aria-label={`Testimonial ${i + 1}`}
-              className={`rounded-full transition-all duration-300 cursor-pointer ${
-                i === active
-                  ? "w-8 h-2 bg-[#C12129]"
-                  : "w-2 h-2 bg-gray-300 dark:bg-white/20 hover:bg-gray-400 dark:hover:bg-white/40"
-              }`}
-            />
-          ))}
-        </div>
+        {/* Dot navigation — only shown when rotating through more than one */}
+        {n > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {ITEMS.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => go(i)}
+                aria-label={`Testimonial ${i + 1}`}
+                className={`rounded-full transition-all duration-300 cursor-pointer ${
+                  i === active
+                    ? "w-8 h-2 bg-[#C12129]"
+                    : "w-2 h-2 bg-gray-300 dark:bg-white/20 hover:bg-gray-400 dark:hover:bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
       </div>
     </section>

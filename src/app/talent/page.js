@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
 
 /* ── Tabs — each is a descriptor card ── */
 const TABS = [
@@ -30,14 +32,14 @@ const TRUST = [
   },
 ];
 
-/* ── 6 Use-case tiles ── */
+/* ── 6 Use-case tiles — each links to its associated tool. Free to use; sign-in only required to save/export results. ── */
 const USE_CASES = [
-  { icon: "▣", title: "Strategy & Growth",       body: "Market entry, competitive analysis, and growth roadmaps." },
-  { icon: "◈", title: "Compliance & Risk",        body: "Regulatory compliance, risk assessment, and governance frameworks." },
-  { icon: "⚡", title: "Digital Transformation",  body: "AI adoption, tech modernization, and process automation." },
-  { icon: "⬟", title: "Talent & Culture",         body: "Leadership development, organizational design, and change management." },
-  { icon: "⬡", title: "Innovation Labs",          body: "Product ideation, design sprints, and innovation workshops." },
-  { icon: "✦", title: "Board Advisory",           body: "Board-ready materials, governance reviews, and fiduciary guidance." },
+  { icon: "▣", title: "Strategy & Growth",       body: "Market entry, competitive analysis, and growth roadmaps.",              href: "/premium/business-diagnostic" },
+  { icon: "◈", title: "Compliance & Risk",        body: "Regulatory compliance, risk assessment, and governance frameworks.",    href: "/premium/business-diagnostic" },
+  { icon: "⚡", title: "Digital Transformation",  body: "AI adoption, tech modernization, and process automation.",              href: "/premium/business-diagnostic" },
+  { icon: "⬟", title: "Talent & Culture",         body: "Leadership development, organizational design, and change management.", href: "/hcd" },
+  { icon: "⬡", title: "Innovation Labs",          body: "Product ideation, design sprints, and innovation workshops.",           href: "/premium/proposal-drafter" },
+  { icon: "✦", title: "Board Advisory",           body: "Board-ready materials, governance reviews, and fiduciary guidance.",    href: "/premium/proposal-drafter" },
 ];
 
 /* ── Tag colour by keyword ── */
@@ -301,6 +303,7 @@ const fadeUp = (delay = 0) => ({ initial: { opacity: 0, y: 20 }, whileInView: { 
 
 /* ════ MAIN PAGE ════ */
 export default function MarketplacePage() {
+  const router = useRouter();
   const [openTab,      setOpenTab]      = useState(null);
   const [selected,     setSelected]     = useState(null);
   const [hoveredTrust, setHoveredTrust] = useState(null);
@@ -405,8 +408,10 @@ export default function MarketplacePage() {
             {USE_CASES.map((uc, i) => (
               <motion.div key={uc.title} {...fadeUp(i * 0.07)}
                 onHoverStart={() => setHoveredUC(i)} onHoverEnd={() => setHoveredUC(null)}
+                onClick={() => router.push(uc.href)}
                 whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(193,33,41,0.14)" }}
-                className="aivora-card border rounded-2xl p-5 cursor-default"
+                whileTap={{ scale: 0.98 }}
+                className="aivora-card border rounded-2xl p-5 cursor-pointer"
                 style={{ borderColor: hoveredUC === i ? "rgba(193,33,41,0.4)" : undefined }}>
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-base aivora-gradient-text">{uc.icon}</span>
@@ -434,6 +439,8 @@ export default function MarketplacePage() {
           </div>
         </motion.div>
       </section>
+
+      <AivoraTestimonials pillar="core" />
 
       {/* ══ TABS — descriptor cards, centered ══ */}
       <div className="px-4 pb-8">

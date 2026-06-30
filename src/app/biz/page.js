@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
 
 /* ── AIHero repurposed content: 4 pain points ── */
 const PAIN_POINTS = [
@@ -218,6 +219,8 @@ export default function BizPage() {
           </div>
         </div>
       </section>
+
+      <AivoraTestimonials pillar="grow" />
 
       {/* ── Subtle CTA strip at bottom ── */}
       <section className="px-4 pb-12">

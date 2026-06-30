@@ -1,5 +1,5 @@
 import SDHeader from "@/components/sustainableDev/SDHeader";
-import Testimonial from "@/components/Testimonial";
+import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
 import SDImpactDashboard from "@/components/sustainableDev/SDImpactDashboard";
 import SDImapactandSocial from "@/components/sustainableDev/SDImapactandSocial";
 import SDQA from "@/components/sustainableDev/SDQA";
@@ -20,7 +20,7 @@ const sustainableDevPage = () => {
       <SDQA /> */}
       {/* <SDBusinessPrototype />
       <SDTestimonialandRest /> */}
-      <Testimonial />
+      <AivoraTestimonials />
     </div>
   );
 };

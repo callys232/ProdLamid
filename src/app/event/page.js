@@ -1,10 +1,9 @@
 import EventsHeader from "@/components/Events/eventsHeader";
 import BusinessPrototypes from "@/components/bizprototype/bizPrototypes";
-import Testimonial from "@/components/Testimonial";
+import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
 import Slider from "../../components/slider";
 import EventList from "@/components/Events/EventsList";
 import Allevents from "@/components/Events/allEvents";
-import Color from "@/components/ColorLegder";
 
 export default async function EventsPage() {
   return (
@@ -13,8 +12,7 @@ export default async function EventsPage() {
       <EventList />
       <Allevents />
       <BusinessPrototypes />
-      <Color />
-      <Testimonial />
+      <AivoraTestimonials pillar="talent" />
       <Slider />
     </main>
   );
