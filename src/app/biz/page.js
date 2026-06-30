@@ -231,6 +231,10 @@ export default function BizPage() {
               className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)]">
               Run a Diagnostic
             </Link>
+            <Link href="/grow-dashboard"
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+              Open Dashboard →
+            </Link>
             <button type="button" onClick={() => setOverviewOpen(true)}
               className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors cursor-pointer">
               Ecosystem Overview →

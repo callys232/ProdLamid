@@ -419,6 +419,22 @@ export default function MarketplacePage() {
         </div>
       </section>
 
+      {/* ── Subtle CTA strip ── */}
+      <section className="px-4 pb-8">
+        <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto border-t border-gray-100 dark:border-white/6 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">See the engagement, not just the match.</p>
+            <p className="text-xs text-gray-500 dark:text-white/40">Track active engagements, matching, and delivery in one place.</p>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <Link href="/core-dashboard"
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+              Open Dashboard →
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+
       {/* ══ TABS — descriptor cards, centered ══ */}
       <div className="px-4 pb-8">
         <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
