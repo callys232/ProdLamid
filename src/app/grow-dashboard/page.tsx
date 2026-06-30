@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { TrendingUp, Clock, Gauge, Briefcase, Target, ArrowUpRight } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import DashboardAuthGate from "@/components/aivora/DashboardAuthGate";
 
 const KPIS = [
   { icon: Target,      label: "Opportunities Identified", value: "34",  trend: "+8 this quarter" },
@@ -27,6 +29,11 @@ const READINESS = [
 const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.45, delay: d } });
 
 export default function GrowDashboardPage() {
+  const { isAuthenticated, loading: authLoading } = useAuth();
+
+  if (authLoading) return <main className="aivora-section min-h-screen" />;
+  if (!isAuthenticated) return <DashboardAuthGate pillar="LAMID GROW" backHref="/biz" backLabel="Back to LAMID GROW" />;
+
   return (
     <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-6xl mx-auto">

@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { GraduationCap, Users2, TrendingUp, BadgeCheck, Lightbulb, ArrowUpRight } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import DashboardAuthGate from "@/components/aivora/DashboardAuthGate";
 
 const KPIS = [
   { icon: Users2,        label: "Workforce Readiness Index", value: "76%", trend: "Up 4pts this quarter" },
@@ -26,6 +28,11 @@ const LEARNING = [
 const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.45, delay: d } });
 
 export default function TalentDashboardPage() {
+  const { isAuthenticated, loading: authLoading } = useAuth();
+
+  if (authLoading) return <main className="aivora-section min-h-screen" />;
+  if (!isAuthenticated) return <DashboardAuthGate pillar="LAMID TALENT" backHref="/hcd" backLabel="Back to LAMID TALENT" />;
+
   return (
     <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-6xl mx-auto">

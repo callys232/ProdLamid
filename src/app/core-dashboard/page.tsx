@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Users, Workflow, Gauge, CheckCircle2, AlertTriangle, ArrowUpRight } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import DashboardAuthGate from "@/components/aivora/DashboardAuthGate";
 
 const KPIS = [
   { icon: Users,        label: "Active Engagements",     value: "18",   trend: "+3 this month" },
@@ -27,6 +29,11 @@ const WORKFLOWS = [
 const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.45, delay: d } });
 
 export default function CoreDashboardPage() {
+  const { isAuthenticated, loading: authLoading } = useAuth();
+
+  if (authLoading) return <main className="aivora-section min-h-screen" />;
+  if (!isAuthenticated) return <DashboardAuthGate pillar="LAMID CORE" backHref="/talent" backLabel="Back to LAMID CORE" />;
+
   return (
     <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-6xl mx-auto">
