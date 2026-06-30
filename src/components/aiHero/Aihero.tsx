@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -121,25 +121,25 @@ const PROBLEM = {
     {
       text: "Quality expertise is expensive and hard to access",
       detail:
-        "73% of SMEs report difficulty accessing affordable, high-quality consulting. Without the right match, organizations pay premium rates for misaligned expertise — or go without. AIVORA's AI matching engine surfaces the right consultant for every challenge, in 24 hours.",
+        "73% of SMEs report difficulty accessing affordable, high-quality consulting. Without the right match, organizations pay premium rates for misaligned expertise — or go without. LAMID CORE's AI matching engine surfaces the right consultant for every challenge, in 24 hours.",
     },
     {
       text: "AI adoption is urgent — but poorly guided",
       detail:
-        "87% of executives say AI integration is a strategic priority, yet fewer than 1 in 4 have a clear plan. Adopting AI tools without human expertise to guide application produces expensive experiments with limited returns. AIVORA pairs advanced AI with trusted expertise at every stage.",
+        "87% of executives say AI integration is a strategic priority, yet fewer than 1 in 4 have a clear plan. Adopting AI tools without human expertise to guide application produces expensive experiments with limited returns. LAMID ONE pairs advanced AI with trusted expertise at every stage.",
     },
     {
       text: "Tools, consultants, and training don't talk to each other",
       detail:
-        "Organizations rely on fragmented providers — a consultant here, an LMS there, a SaaS dashboard elsewhere. Nothing reinforces anything. AIVORA integrates Marketplace, BIZ intelligence, and Talent development into one connected ecosystem — each layer amplifying the others.",
+        "Organizations rely on fragmented providers — a consultant here, an LMS there, a SaaS dashboard elsewhere. Nothing reinforces anything. LAMID ONE integrates Marketplace, BIZ intelligence, and Talent development into one connected ecosystem — each layer amplifying the others.",
     },
     {
       text: "Decisions are made on last month's data",
       detail:
-        "Board packs assembled manually. KPIs in spreadsheets. Risks surfacing after they've compounded. AIVORA's BIZ Portal gives leadership a live, AI-powered intelligence window — business health scores, scenario modelling, and board-ready reports, generated automatically.",
+        "Board packs assembled manually. KPIs in spreadsheets. Risks surfacing after they've compounded. LAMID GROW gives leadership a live, AI-powered intelligence window — business health scores, scenario modelling, and board-ready reports, generated automatically.",
     },
   ],
-  full: "AIVORA eliminates friction — unifying expert consulting, business intelligence, and talent development into one HumanAI ecosystem built for scale.",
+  full: "LAMID ONE eliminates friction — unifying expert consulting, business intelligence, and talent development into one HumanAI ecosystem built for scale.",
   hex: "#c21219",
   glow: "rgba(194,18,25,0.25)",
 };
@@ -147,7 +147,7 @@ const PROBLEM = {
 /* ── 4 core service cards — one capability per portal ─────── */
 const SERVICE_CARDS = [
   {
-    service: "AIVORA Marketplace",
+    service: "LAMID CORE",
     area:    "Expert Matching & Delivery",
     href:    "/talent",
     tools: [
@@ -162,7 +162,7 @@ const SERVICE_CARDS = [
     hoverBg:    "hover:bg-[#C12129]/[0.05]",
   },
   {
-    service: "AIVORA BIZ Portal",
+    service: "LAMID GROW",
     area:    "Business Intelligence",
     href:    "/biz",
     tools: [
@@ -177,7 +177,7 @@ const SERVICE_CARDS = [
     hoverBg:    "hover:bg-blue-500/[0.05]",
   },
   {
-    service: "AIVORA Talent Portal",
+    service: "LAMID TALENT",
     area:    "Capability & Learning",
     href:    "/hcd",
     tools: [
@@ -192,7 +192,7 @@ const SERVICE_CARDS = [
     hoverBg:    "hover:bg-orange-500/[0.05]",
   },
   {
-    service: "AIVORA Workspace",
+    service: "LAMID Workspace",
     area:    "Project Delivery",
     href:    "/postjobs",
     tools: [
@@ -386,7 +386,7 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
               className="group relative w-full inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#c21219] via-red-700 to-rose-800 px-5 py-3 text-sm font-bold text-white overflow-hidden shadow-[0_0_18px_rgba(194,18,25,0.35)]"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none" />
-              <span className="relative z-10">See How AIVORA Solves This</span>
+              <span className="relative z-10">See How LAMID ONE Solves This</span>
               <motion.span
                 animate={{ x: [0, 4, 0] }}
                 transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
@@ -438,7 +438,7 @@ export default function AISystemSection() {
                 className="h-1.5 w-1.5 rounded-full bg-[#c21219] flex-shrink-0"
               />
               <p className="text-xs text-gray-400 leading-snug">
-                AIVORA — The HumanAI Consulting Ecosystem. Expert matching, AI-powered intelligence, and talent development in one unified platform.
+                LAMID ONE — The HumanAI Consulting Ecosystem. Expert matching, AI-powered intelligence, and talent development in one unified platform.
               </p>
             </motion.div>
 

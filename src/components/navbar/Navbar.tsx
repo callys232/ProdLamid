@@ -11,10 +11,10 @@ import { useAuth } from "@/hooks/useAuth";
 
 /* ── Main nav links (matches prototype exactly) ── */
 const NAV_LINKS = [
-  { label: "Home",         href: "/"          },
-  { label: "Marketplace",  href: "/talent"    },
-  { label: "BIZ Portal",   href: "/biz"       },
-  { label: "Talent Portal", href: "/hcd"      },
+  { label: "Home",   href: "/"          },
+  { label: "CORE",   href: "/talent"    },
+  { label: "GROW",   href: "/biz"       },
+  { label: "TALENT", href: "/hcd"       },
   { label: "About",        href: "/portfolio" },
   { label: "For Experts",  href: "/for-experts" },
   { label: "Pricing",      href: "/pricing"   },
@@ -23,7 +23,7 @@ const NAV_LINKS = [
 /* ── Hidden behind "Actions" dropdown ── */
 const ACTION_ITEMS = [
   { label: "Events & Training", href: "/events",    icon: "✦", desc: "Upcoming workshops, webinars, and learning events" },
-  { label: "Portfolio",         href: "/portfolio", icon: "◈", desc: "Our work, case studies, and about AIVORA" },
+  { label: "Portfolio",         href: "/portfolio", icon: "◈", desc: "Our work, case studies, and about LAMID ONE" },
   { label: "Contact",           href: "/contact",   icon: "⬡", desc: "Get in touch with our team" },
   { label: "Blog",              href: "/contact",   icon: "▣", desc: "Insights, research, and ecosystem updates" },
 ];
@@ -110,9 +110,9 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
 
           {/* ── Logo ── */}
-          <Link href="/" aria-label="AIVORA Home" className="flex-shrink-0 flex items-center gap-2">
-            <Image src="/Logo.png" alt="AIVORA" width={90} height={30} priority className="object-contain" />
-            <span className="text-base font-black tracking-tight aivora-gradient-text hidden sm:block">AIVORA</span>
+          <Link href="/" aria-label="LAMID ONE Home" className="flex-shrink-0 flex items-center gap-2">
+            <Image src="/Logo.png" alt="LAMID" width={90} height={30} priority className="object-contain" />
+            <span className="text-base font-black tracking-tight aivora-gradient-text hidden sm:block">LAMID ONE</span>
           </Link>
 
           {/* ── Desktop nav links ── */}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -94,7 +94,7 @@ export default function HCDPage() {
           />
         </svg>
         <motion.div {...fadeUp(0)} className="relative z-10 max-w-3xl mx-auto">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">AIVORA Talent Portal</p>
+          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">LAMID TALENT</p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
             <span className="aivora-gradient-text">Your AI-Powered Career Engine</span>
           </h1>

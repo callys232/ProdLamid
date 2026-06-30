@@ -44,7 +44,7 @@ export default function WhyAivora() {
           className="text-center mb-7"
         >
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
-            Why AIVORA
+            Why LAMID ONE
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug">
             <span className="aivora-gradient-text">Built Different</span>

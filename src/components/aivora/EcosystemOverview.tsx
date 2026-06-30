@@ -7,27 +7,27 @@ import { useRouter } from "next/navigation";
 
 const PORTALS = [
   {
-    id: "marketplace",
+    id: "core",
     icon: "◈",
-    label: "AIVORA Marketplace",
-    body: "AI-powered expert matching. Find the right consultant, advisor, or specialist in minutes — not months.",
-    cta: "Explore Marketplace",
+    label: "LAMID CORE",
+    body: "The digital backbone of modern consulting. Smart vetting, matching, workflows, and trust infrastructure for intelligent strategy and execution.",
+    cta: "Explore CORE",
     href: "/talent",
   },
   {
-    id: "biz",
+    id: "grow",
     icon: "⬡",
-    label: "AIVORA BIZ Portal",
-    body: "Your AI-augmented command center. Real-time analytics, strategic dashboards, and governance tools.",
-    cta: "Explore BIZ",
+    label: "LAMID GROW",
+    body: "The engine for business modernization. Diagnostics, advisory, and digital transformation pathways for SMEs, startups, and enterprises.",
+    cta: "Explore GROW",
     href: "/biz",
   },
   {
     id: "talent",
     icon: "⬟",
-    label: "AIVORA Talent Portal",
-    body: "Personalized AI learning and career development for every professional.",
-    cta: "Explore Talent",
+    label: "LAMID TALENT",
+    body: "The intelligence layer for workforce capability. AI-powered scoring, capability mapping, and LMS-driven learning acceleration.",
+    cta: "Explore TALENT",
     href: "/hcd",
   },
 ];
@@ -71,12 +71,12 @@ export default function EcosystemOverview() {
             The Ecosystem
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
-            Three Portals.{" "}
+            Three Pillars.{" "}
             <span className="aivora-gradient-text">One Ecosystem.</span>
           </h2>
           <p className="text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Whether you&apos;re seeking expertise, running a business, or building your career —
-            AIVORA has a portal for you.
+            LAMID CORE, LAMID GROW, and LAMID TALENT — integrated into one seamless system
+            for consulting excellence, enterprise growth, and workforce capability.
           </p>
         </motion.div>
 

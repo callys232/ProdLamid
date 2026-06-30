@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -317,7 +317,7 @@ export default function MarketplacePage() {
             animate={{ strokeDashoffset: [0, -100] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} />
         </svg>
         <motion.div {...fadeUp(0)} className="relative z-10 max-w-2xl mx-auto">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">AIVORA Marketplace</p>
+          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">LAMID CORE</p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4">
             <span className="text-gray-900 dark:text-white">Find Your Expert.</span>{" "}
             <span className="aivora-gradient-text">Instantly.</span>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -116,7 +116,7 @@ export default function TalentPillars() {
           className="mb-10"
         >
           <p className="text-orange-500 text-[10px] tracking-[0.35em] uppercase font-bold mb-2">
-            Talent Development — AIVORA
+            Talent Development — LAMID ONE
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
             Four Pillars of a{" "}

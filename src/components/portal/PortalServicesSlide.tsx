@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -264,7 +264,7 @@ const PortalServicesSlide: React.FC = () => {
           className="mb-10"
         >
           <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-3">
-            The AIVORA Portal
+            The LAMID ONE
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug mb-3">
             One Ecosystem.{" "}

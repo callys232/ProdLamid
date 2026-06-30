@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -83,8 +83,8 @@ const FAQ = [
     a: "Our network spans 30+ industries — technology, financial services, healthcare, energy, manufacturing, government, and non-profit. If you have a niche need, our AI will find the closest match.",
   },
   {
-    q: "Is my data secure on AIVORA?",
-    a: "Absolutely. AIVORA is SOC 2 Type II compliant with end-to-end encryption, enterprise SSO, and role-based access controls. We never share your data with third parties.",
+    q: "Is my data secure on LAMID ONE?",
+    a: "Absolutely. LAMID ONE is SOC 2 Type II compliant with end-to-end encryption, enterprise SSO, and role-based access controls. We never share your data with third parties.",
   },
   {
     q: "What is the difference between the Marketplace and BIZ Portal?",

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -33,7 +33,7 @@ const FREE_TOOLS = [
     icon: "◈",
     accent: "#C12129",
     title: "Browse Consultants",
-    desc: "Search AIVORA's verified talent marketplace across every industry.",
+    desc: "Search LAMID CORE's verified talent marketplace across every industry.",
     href: "/talent",
   },
   {
@@ -73,7 +73,7 @@ const FREE_TOOLS = [
     icon: "⬡",
     accent: "#ea580c",
     title: "Learning Platform",
-    desc: "Training, workshops, and certifications via the AIVORA Learning hub.",
+    desc: "Training, workshops, and certifications via the LAMID TALENT hub.",
     href: "https://learn-by-lamid.vercel.app/",
     external: true,
   },

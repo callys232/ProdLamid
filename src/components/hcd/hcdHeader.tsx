@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Head from "next/head";
@@ -58,13 +58,13 @@ const HcdHeader: React.FC = () => {
       <Head>
         <meta
           name="description"
-          content="AIVORA Talent Development — AI-personalized learning, expert coaching, and globally recognized certifications for professionals and organizations."
+          content="LAMID TALENT — AI-personalized learning, expert coaching, and globally recognized certifications for professionals and organizations."
         />
         <meta
           name="keywords"
           content="Talent Development, Leadership, AI Coaching, Recruitment, Workforce, Capability Building, LMS"
         />
-        <meta name="aivora" content="AIVORA — Smarter. Faster. Accessible." />
+        <meta name="aivora" content="LAMID ONE — Smarter. Faster. Accessible." />
         <meta
           property="og:title"
           content="Talent Development | Build the Organization That Builds the Future"

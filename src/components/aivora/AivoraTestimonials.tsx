@@ -5,17 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const TESTIMONIALS = [
   {
-    quote: "The BIZ Portal dashboards give our board real-time visibility we never had. It's like having a strategic command center at our fingertips.",
+    quote: "LAMID GROW gives our board real-time visibility we never had. It's like having a strategic command center at our fingertips.",
     name: "Marcus Williams",
     role: "CEO, Horizon Capital Group",
   },
   {
-    quote: "AIVORA connected us with the right consultant in 48 hours. The project delivered in half the time we expected.",
+    quote: "LAMID CORE connected us with the right consultant in 48 hours. The project delivered in half the time we expected.",
     name: "Chief Operating Officer",
     role: "Financial Services Firm, UAE",
   },
   {
-    quote: "The Talent Portal transformed how we approach capability building. Our teams are developing skills 3× faster, and they're actually engaged.",
+    quote: "LAMID TALENT transformed how we approach capability building. Our teams are developing skills 3× faster, and they're actually engaged.",
     name: "Chief People Officer",
     role: "Healthcare Organization, UK",
   },

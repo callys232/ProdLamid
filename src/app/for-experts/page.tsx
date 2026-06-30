@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -21,13 +21,13 @@ const BENEFITS = [
   {
     icon: "⚡",
     title: "AI-Augmented Delivery",
-    body: "AIVORA's ecosystem amplifies your delivery — automated research, intelligent reporting, and data analysis built in.",
+    body: "LAMID ONE's ecosystem amplifies your delivery — automated research, intelligent reporting, and data analysis built in.",
     href: "/premium/proposal-drafter",
   },
   {
     icon: "▣",
     title: "Premium Compensation",
-    body: "Set your own rates. Get paid on time, every time. AIVORA handles invoicing and collections seamlessly.",
+    body: "Set your own rates. Get paid on time, every time. LAMID ONE handles invoicing and collections seamlessly.",
     href: "/signup",
   },
 ];
@@ -82,7 +82,7 @@ export default function ForExpertsPage() {
             <span className="aivora-gradient-text">Amplify Your Expertise</span>
           </h1>
           <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
-            Join the AIVORA ecosystem and get matched with high-value engagements.
+            Join the LAMID ONE ecosystem and get matched with high-value engagements.
             Let AI handle the business while you focus on impact.
           </p>
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>

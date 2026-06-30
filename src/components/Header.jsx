@@ -49,7 +49,7 @@ export default function Header() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold border border-[#C12129]/25 bg-[#C12129]/8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C12129] animate-pulse" />
-              <span className="aivora-gradient-text">Smarter. Faster. Accessible.</span>
+              <span className="aivora-gradient-text">Human Insight. AI Precision. One Ecosystem.</span>
             </span>
           </motion.div>
 
@@ -100,8 +100,8 @@ export default function Header() {
             className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl leading-relaxed"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            AIVORA blends trusted expertise with advanced AI to deliver smarter,
-            faster, accessible solutions for organizations seeking clarity and growth.
+            LAMID ONE is the unified HumanAI consulting ecosystem that helps organizations
+            diagnose, transform, and grow with clarity, intelligence, and trust.
           </motion.p>
 
           {/* CTAs */}

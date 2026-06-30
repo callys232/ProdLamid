@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -10,7 +10,7 @@ const FREE_TOOLS = [
   { id: "diagnostic",   icon: "⚡", accent: "#b45309", title: "Business Diagnostic",  desc: "AI-powered health check across 7 business dimensions — free, instant results.", href: "/premium/business-diagnostic" },
   { id: "proposal",     icon: "◈", accent: "#C12129", title: "Proposal Drafter",      desc: "Generate a client-ready consulting proposal in seconds.",                         href: "/premium/proposal-drafter" },
   { id: "bizprototype", icon: "⬡", accent: "#2563eb", title: "Biz Prototypes",        desc: "Explore startup methodology, frameworks, and rapid build tools.",                 href: "/bizprototype" },
-  { id: "talent",       icon: "◈", accent: "#C12129", title: "Browse Consultants",    desc: "Search AIVORA's verified talent marketplace across every industry.",             href: "/talent" },
+  { id: "talent",       icon: "◈", accent: "#C12129", title: "Browse Consultants",    desc: "Search LAMID CORE's verified talent marketplace across every industry.",             href: "/talent" },
   { id: "jobs",         icon: "▣", accent: "#d97706", title: "Job Board",             desc: "Explore open roles — contract, permanent, and short-term.",                       href: "/jobs" },
   { id: "events",       icon: "✦", accent: "#7c3aed", title: "Events & Training",     desc: "Browse upcoming Talent Development events, workshops, and training programs.",    href: "/events" },
   { id: "estimator",    icon: "▣", accent: "#eab308", title: "Budget Estimator",      desc: "AI-assisted project cost & timeline estimator — plan before you post.",           href: "/postjobs?tool=estimator" },

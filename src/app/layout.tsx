@@ -15,26 +15,26 @@ const BASE = process.env.NEXT_PUBLIC_URL ?? "https://lamid.io";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default:  "AIVORA — The HumanAI Consulting Ecosystem",
-    template: "%s | AIVORA",
+    default:  "LAMID ONE — The HumanAI Consulting & Growth Ecosystem",
+    template: "%s | LAMID ONE",
   },
   description:
-    "AIVORA blends trusted expertise with advanced AI to deliver smarter, faster, accessible solutions " +
-    "for organizations seeking clarity and growth. Expert matching, BIZ intelligence, and talent development — in one ecosystem.",
-  keywords: ["AIVORA", "HumanAI consulting", "consulting ecosystem", "AI consulting", "expert matching", "talent development", "business intelligence", "Africa", "global"],
-  authors:  [{ name: "AIVORA", url: BASE }],
+    "LAMID ONE is the unified HumanAI consulting ecosystem that empowers organizations to diagnose, transform, and accelerate " +
+    "with clarity, intelligence, and trust — through LAMID CORE, LAMID GROW, and LAMID TALENT.",
+  keywords: ["LAMID ONE", "LAMID CORE", "LAMID GROW", "LAMID TALENT", "HumanAI consulting", "consulting ecosystem", "AI consulting", "expert matching", "talent development", "business intelligence", "Africa", "global"],
+  authors:  [{ name: "LAMID ONE", url: BASE }],
   openGraph: {
     type:        "website",
     url:         BASE,
-    siteName:    "AIVORA",
-    title:       "AIVORA — The HumanAI Consulting Ecosystem",
-    description: "Smarter. Faster. Accessible. Expert matching, AI-powered intelligence, and talent development in one unified platform.",
-    images: [{ url: `${BASE}/og-image.png`, width: 1200, height: 630, alt: "AIVORA — The HumanAI Consulting Ecosystem" }],
+    siteName:    "LAMID ONE",
+    title:       "LAMID ONE — The HumanAI Consulting & Growth Ecosystem",
+    description: "Human insight. AI precision. One ecosystem. LAMID CORE, LAMID GROW, and LAMID TALENT — unified.",
+    images: [{ url: `${BASE}/og-image.png`, width: 1200, height: 630, alt: "LAMID ONE — The HumanAI Consulting & Growth Ecosystem" }],
   },
   twitter: {
     card:        "summary_large_image",
-    title:       "AIVORA — The HumanAI Consulting Ecosystem",
-    description: "Smarter. Faster. Accessible. Trusted expertise + advanced AI in one unified platform.",
+    title:       "LAMID ONE — The HumanAI Consulting & Growth Ecosystem",
+    description: "Human insight. AI precision. One ecosystem.",
     images:      [`${BASE}/og-image.png`],
   },
   robots: { index: true, follow: true },

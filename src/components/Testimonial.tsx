@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -11,7 +11,7 @@ const QUOTES = [
     org: "Enterprise Client",
   },
   {
-    text: "AIVORA's training program enhanced the quality of our negotiation processes and led to significant improvements in industrial relations between management and our teams.",
+    text: "LAMID TALENT's training program enhanced the quality of our negotiation processes and led to significant improvements in industrial relations between management and our teams.",
     role: "Chief Executive Officer",
     org: "Professional Services",
   },

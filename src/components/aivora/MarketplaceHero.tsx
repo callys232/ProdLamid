@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -14,7 +14,7 @@ const VALUE_PROPS = [
     icon: "⬡",
     iconCls: "text-blue-400",
     title: "Faster Delivery, Built In",
-    body: "Every engagement is supported by AIVORA's AI delivery tools, cutting average project timelines by up to 40% without sacrificing quality.",
+    body: "Every engagement is supported by LAMID CORE's AI delivery tools, cutting average project timelines by up to 40% without sacrificing quality.",
   },
   {
     icon: "⬟",
@@ -51,7 +51,7 @@ export default function MarketplaceHero() {
             transition={{ duration: 0.4 }}
             className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
           >
-            AIVORA Marketplace
+            LAMID CORE
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -68,7 +68,7 @@ export default function MarketplaceHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-gray-500 dark:text-white/60 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8"
           >
-            AIVORA's Marketplace connects your organization with vetted, AI-matched consultants — ready to deliver results from day one.
+            LAMID CORE connects your organization with vetted, AI-matched consultants — ready to deliver results from day one.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -166,7 +166,7 @@ export default function MarketplaceHero() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/[0.03] border border-white/8 rounded-2xl px-7 py-5">
             <div>
               <p className="text-sm font-bold text-gray-900 dark:text-white mb-1">Are you a consultant?</p>
-              <p className="text-gray-500 dark:text-white/50 text-xs">Join the AIVORA network. Build your profile, get matched to quality engagements, and grow your practice.</p>
+              <p className="text-gray-500 dark:text-white/50 text-xs">Join the LAMID ONE network. Build your profile, get matched to quality engagements, and grow your practice.</p>
             </div>
             <Link
               href="/signup"

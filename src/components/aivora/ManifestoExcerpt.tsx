@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -104,7 +104,7 @@ export default function ManifestoExcerpt() {
             href="/portfolio"
             className="inline-flex items-center gap-2 text-sm font-semibold aivora-gradient-text hover:opacity-80 transition-opacity group"
           >
-            Read the full AIVORA manifesto
+            Read the full LAMID ONE manifesto
             <motion.span
               className="group-hover:translate-x-1 transition-transform"
             >

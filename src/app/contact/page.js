@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -8,25 +8,25 @@ const CARDS = [
   {
     icon: "◈",
     title: "For Organizations",
-    body:  "Ready to explore AIVORA for your organization? Book a 30-minute discovery call and we'll build a recommended configuration for your context.",
+    body:  "Ready to explore LAMID ONE for your organization? Book a 30-minute discovery call and we'll build a recommended configuration for your context.",
     cta:   "Book a Discovery Call",
     href:  "/signup",
   },
   {
     icon: "⬡",
     title: "For Expert Partners",
-    body:  "Interested in joining the AIVORA Expert Network? Begin your application or reach out to our Expert Partnerships team.",
+    body:  "Interested in joining the LAMID CORE? Begin your application or reach out to our Expert Partnerships team.",
     cta:   "Start Your Application",
     href:  "/for-experts",
-    sub:   "experts@aivora.ai",
+    sub:   "experts@lamid.io",
   },
   {
     icon: "⬟",
     title: "For Investors & Partners",
     body:  "For investment inquiries, strategic partnership discussions, or media requests, please contact our team directly.",
     cta:   "Contact Investor Relations",
-    href:  "mailto:investors@aivora.ai",
-    sub:   "investors@aivora.ai",
+    href:  "mailto:investors@lamid.io",
+    sub:   "investors@lamid.io",
   },
 ];
 
@@ -62,7 +62,7 @@ export default function ContactPage() {
       if (!res.ok) throw new Error();
       setSent(true);
     } catch {
-      setError("Something went wrong. Email us directly at hello@aivora.ai");
+      setError("Something went wrong. Email us directly at hello@lamid.io");
     } finally {
       setSending(false);
     }
@@ -80,7 +80,7 @@ export default function ContactPage() {
             Let&apos;s talk.
           </h1>
           <p className="text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
-            Whether you&apos;re exploring AIVORA for the first time, ready to get started, or looking to partner with us — we&apos;d love to hear from you.
+            Whether you&apos;re exploring LAMID ONE for the first time, ready to get started, or looking to partner with us — we&apos;d love to hear from you.
           </p>
         </motion.div>
 
@@ -121,7 +121,7 @@ export default function ContactPage() {
               <p className="text-emerald-400 font-semibold mb-2">Message received.</p>
               <p className="text-sm text-gray-500 dark:text-white/50 leading-relaxed">
                 We&apos;ll respond within 2 business hours. If urgent, email us at{" "}
-                <a href="mailto:hello@aivora.ai" className="aivora-gradient-text hover:opacity-70 transition-opacity">hello@aivora.ai</a>
+                <a href="mailto:hello@lamid.io" className="aivora-gradient-text hover:opacity-70 transition-opacity">hello@lamid.io</a>
               </p>
             </div>
           ) : (

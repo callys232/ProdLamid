@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
@@ -139,7 +139,7 @@ const TalentClubForm: React.FC<TalentClubProps> = ({ closeModal }) => {
           <Star className="w-5 h-5 text-amber-400" />
         </div>
         <div>
-          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-amber-400/80">AIVORA TD</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-amber-400/80">LAMID TALENT</p>
           <h2 className="text-lg font-extrabold text-white leading-tight">Join the Talent Club</h2>
           <p className="text-xs text-gray-500 mt-0.5">Be first in line when elite opportunities open up</p>
         </div>

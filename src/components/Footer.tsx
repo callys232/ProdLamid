@@ -8,10 +8,10 @@ const COLUMNS = [
   {
     heading: "Platform",
     links: [
-      { label: "Marketplace",   href: "/talent"      },
-      { label: "BIZ Portal",    href: "/biz"         },
-      { label: "Talent Portal", href: "/hcd"         },
-      { label: "Pricing",       href: "/pricing"     },
+      { label: "LAMID CORE",   href: "/talent"      },
+      { label: "LAMID GROW",   href: "/biz"         },
+      { label: "LAMID TALENT", href: "/hcd"         },
+      { label: "Pricing",      href: "/pricing"     },
     ],
   },
   {
@@ -42,20 +42,20 @@ const Footer = () => {
       <div className="max-w-5xl mx-auto px-6 md:px-10 pt-14 pb-10">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 items-start">
 
-          {/* Brand block: AIVORA + taglines at top, LAMID logo at base */}
+          {/* Brand block: LAMID ONE + taglines at top, LAMID logo at base */}
           <div className="col-span-2 sm:col-span-1 flex flex-col gap-2 pr-4">
-            {/* AIVORA — ecosystem brand name */}
+            {/* LAMID ONE — ecosystem brand name */}
             <span className="text-xl font-black tracking-tight aivora-gradient-text leading-none">
-              AIVORA
+              LAMID ONE
             </span>
 
             {/* Taglines */}
-            <p className="text-xs aivora-gradient-text font-semibold">Smarter. Faster. Accessible.</p>
+            <p className="text-xs aivora-gradient-text font-semibold">Human Insight. AI Precision. One Ecosystem.</p>
             <p className="text-xs text-gray-500 dark:text-white/40 leading-relaxed">
-              The Human–AI Consulting Ecosystem.
+              The HumanAI Consulting &amp; Growth Ecosystem.
             </p>
 
-            {/* LAMID logo — the legacy root, sits at base */}
+            {/* LAMID logo — parent brand, sits at base */}
             <Link href="/" className="inline-block mt-4">
               <Image
                 src="/Logo.png"
@@ -94,7 +94,7 @@ const Footer = () => {
       <div className="border-t border-white/6 dark:border-white/6 border-gray-100">
         <div className="max-w-5xl mx-auto px-6 md:px-10 py-4">
           <p className="text-xs text-gray-400 dark:text-white/25">
-            © 2026 AIVORA. All rights reserved. | Smarter. Faster. Accessible.
+            © 2026 LAMID ONE. All rights reserved. | Human Insight. AI Precision. One Ecosystem.
           </p>
         </div>
       </div>

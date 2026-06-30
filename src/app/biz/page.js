@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -10,31 +10,31 @@ const PAIN_POINTS = [
   {
     icon: "⚡",
     title: "Quality expertise is expensive and hard to access",
-    body: "73% of SMEs report difficulty accessing affordable, high-quality consulting. AIVORA's AI matching engine surfaces the right consultant for every challenge, in 24 hours.",
+    body: "73% of SMEs report difficulty accessing affordable, high-quality consulting. LAMID CORE's AI matching engine surfaces the right consultant for every challenge, in 24 hours.",
   },
   {
     icon: "◈",
     title: "AI adoption is urgent — but poorly guided",
-    body: "87% of executives say AI integration is a strategic priority, yet fewer than 1 in 4 have a clear plan. AIVORA pairs advanced AI with trusted expertise at every stage.",
+    body: "87% of executives say AI integration is a strategic priority, yet fewer than 1 in 4 have a clear plan. LAMID ONE pairs advanced AI with trusted expertise at every stage.",
   },
   {
     icon: "⬡",
     title: "Tools, consultants, and training don't talk to each other",
-    body: "AIVORA integrates Marketplace, BIZ intelligence, and Talent development into one connected ecosystem — each layer amplifying the others.",
+    body: "LAMID ONE integrates Marketplace, BIZ intelligence, and Talent development into one connected ecosystem — each layer amplifying the others.",
   },
   {
     icon: "⬟",
     title: "Decisions are made on last month's data",
-    body: "Board packs assembled manually. KPIs in spreadsheets. Risks compounding silently. AIVORA's BIZ Portal gives leadership a live, AI-powered intelligence window.",
+    body: "Board packs assembled manually. KPIs in spreadsheets. Risks compounding silently. LAMID GROW gives leadership a live, AI-powered intelligence window.",
   },
 ];
 
 /* ── AIHero repurposed content: 4 portal cards ── */
 const PORTALS = [
-  { icon: "◈", title: "AIVORA Marketplace",  area: "Expert Matching & Delivery",  href: "/talent",  bullets: ["AI-matched consultants, 24-hr shortlist", "Vetted experts across every sector", "72-hr kickoff, measurable outcomes"] },
-  { icon: "⬡", title: "AIVORA BIZ Portal",   area: "Business Intelligence",        href: "/biz",     bullets: ["Real-time business health score", "AI insight engine & scenario modelling", "Board-ready reporting, automated"] },
-  { icon: "⬟", title: "AIVORA Talent Portal", area: "Capability & Learning",        href: "/hcd",     bullets: ["AI-powered skills assessment (12 min)", "Personalised learning paths, AI coach", "Expert-designed certifications"] },
-  { icon: "▣", title: "AIVORA Workspace",    area: "Project Delivery",              href: "/postjobs",bullets: ["Milestone-tracked engagements", "CRM, contracts & secure escrow", "Real-time team workrooms"] },
+  { icon: "◈", title: "LAMID CORE",  area: "Expert Matching & Delivery",  href: "/talent",  bullets: ["AI-matched consultants, 24-hr shortlist", "Vetted experts across every sector", "72-hr kickoff, measurable outcomes"] },
+  { icon: "⬡", title: "LAMID GROW",   area: "Business Intelligence",        href: "/biz",     bullets: ["Real-time business health score", "AI insight engine & scenario modelling", "Board-ready reporting, automated"] },
+  { icon: "⬟", title: "LAMID TALENT", area: "Capability & Learning",        href: "/hcd",     bullets: ["AI-powered skills assessment (12 min)", "Personalised learning paths, AI coach", "Expert-designed certifications"] },
+  { icon: "▣", title: "LAMID Workspace",    area: "Project Delivery",              href: "/postjobs",bullets: ["Milestone-tracked engagements", "CRM, contracts & secure escrow", "Real-time team workrooms"] },
 ];
 
 /* ── Feature rows ── */
@@ -125,7 +125,7 @@ export default function BizPage() {
 
         <motion.div {...fadeUp(0)} className="relative z-10 max-w-3xl mx-auto">
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
-            AIVORA BIZ Portal
+            LAMID GROW
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
             <span className="aivora-gradient-text">Your AI Command Center</span>
@@ -268,7 +268,7 @@ export default function BizPage() {
                       One Ecosystem. Every Layer of Growth.
                     </h2>
                     <p className="text-white/45 text-xs mt-2 max-w-md leading-relaxed">
-                      AIVORA eliminates friction — unifying expert consulting, business intelligence, and talent development into one HumanAI ecosystem built for scale.
+                      LAMID ONE eliminates friction — unifying expert consulting, business intelligence, and talent development into one HumanAI ecosystem built for scale.
                     </p>
                   </div>
                   <button type="button" onClick={() => setOverviewOpen(false)}
@@ -300,7 +300,7 @@ export default function BizPage() {
 
                 {/* 4 portal cards */}
                 <div className="h-px bg-white/8 mb-5" />
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-4">How AIVORA solves it</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-4">How LAMID ONE solves it</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {PORTALS.map((portal, i) => {
                     const isHov = hoveredPortal === i;

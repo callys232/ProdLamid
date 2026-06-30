@@ -1,4 +1,4 @@
-export const metadata = { title: "Terms of Service — AIVORA" };
+﻿export const metadata = { title: "Terms of Service — LAMID ONE" };
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="mb-8">
@@ -18,16 +18,16 @@ export default function TermsPage() {
         </div>
 
         <Section title="1. Acceptance of Terms">
-          <p>By accessing or using AIVORA ("the Ecosystem"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Ecosystem.</p>
+          <p>By accessing or using LAMID ONE ("the Ecosystem"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Ecosystem.</p>
         </Section>
 
-        <Section title="2. About AIVORA">
-          <p>AIVORA is a HumanAI Consulting Ecosystem that connects organisations seeking expertise with independent consultants and talent, supported by AI-powered matching, project delivery, business intelligence, and capability development — all in one unified environment.</p>
+        <Section title="2. About LAMID ONE">
+          <p>LAMID ONE is a HumanAI Consulting Ecosystem that connects organisations seeking expertise with independent consultants and talent, supported by AI-powered matching, project delivery, business intelligence, and capability development — all in one unified environment.</p>
         </Section>
 
         <Section title="3. User Accounts">
           <p>You must be at least 18 years old to create an account. You are responsible for maintaining the confidentiality of your credentials and for all activity under your account.</p>
-          <p>You agree to provide accurate and complete information. AIVORA reserves the right to suspend or terminate accounts that violate these Terms.</p>
+          <p>You agree to provide accurate and complete information. LAMID ONE reserves the right to suspend or terminate accounts that violate these Terms.</p>
         </Section>
 
         <Section title="4. Consultant and Client Obligations">
@@ -36,8 +36,8 @@ export default function TermsPage() {
         </Section>
 
         <Section title="5. Payments and Escrow">
-          <p>All payments are processed via Paystack. AIVORA holds milestone payments in escrow and releases them upon Client approval. A success fee of up to 15–20% applies to each transaction.</p>
-          <p>Disputed payments are subject to AIVORA's dispute resolution process. AIVORA's decision is final in cases where mediation is required.</p>
+          <p>All payments are processed via Paystack. LAMID ONE holds milestone payments in escrow and releases them upon Client approval. A success fee of up to 15–20% applies to each transaction.</p>
+          <p>Disputed payments are subject to LAMID ONE's dispute resolution process. LAMID ONE's decision is final in cases where mediation is required.</p>
         </Section>
 
         <Section title="6. Intellectual Property">
@@ -45,15 +45,15 @@ export default function TermsPage() {
         </Section>
 
         <Section title="7. Prohibited Conduct">
-          <p>You may not: engage consultants outside the AIVORA ecosystem to avoid the success fee; post false, misleading, or fraudulent information; harass, threaten, or abuse other users; or engage in any activity that violates applicable law.</p>
+          <p>You may not: engage consultants outside the LAMID ONE ecosystem to avoid the success fee; post false, misleading, or fraudulent information; harass, threaten, or abuse other users; or engage in any activity that violates applicable law.</p>
         </Section>
 
         <Section title="8. Limitation of Liability">
-          <p>AIVORA is not liable for any indirect, incidental, or consequential damages arising from use of the Platform. AIVORA's total liability shall not exceed the fees paid by you in the 12 months preceding the claim.</p>
+          <p>LAMID ONE is not liable for any indirect, incidental, or consequential damages arising from use of the Platform. LAMID ONE's total liability shall not exceed the fees paid by you in the 12 months preceding the claim.</p>
         </Section>
 
         <Section title="9. Termination">
-          <p>AIVORA may suspend or terminate your account at any time for violation of these Terms. You may close your account at any time via your account settings.</p>
+          <p>LAMID ONE may suspend or terminate your account at any time for violation of these Terms. You may close your account at any time via your account settings.</p>
         </Section>
 
         <Section title="10. Governing Law">
@@ -61,11 +61,11 @@ export default function TermsPage() {
         </Section>
 
         <Section title="11. Changes to Terms">
-          <p>AIVORA reserves the right to modify these Terms at any time. Continued use of the Platform after changes constitutes acceptance of the new Terms.</p>
+          <p>LAMID ONE reserves the right to modify these Terms at any time. Continued use of the Platform after changes constitutes acceptance of the new Terms.</p>
         </Section>
 
         <Section title="12. Contact">
-          <p>For legal enquiries: <a href="mailto:legal@aivora.ai" className="text-[#c12129] hover:underline">legal@aivora.ai</a> · Lagos, Nigeria · London, UK</p>
+          <p>For legal enquiries: <a href="mailto:legal@lamid.io" className="text-[#c12129] hover:underline">legal@lamid.io</a> · Lagos, Nigeria · London, UK</p>
         </Section>
       </div>
     </main>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -132,7 +132,7 @@ export default function ProposalDrafter() {
     const lines: string[] = [
       `CONSULTING PROPOSAL — ${form.projectTitle.toUpperCase()}`,
       `Prepared for: ${form.clientName || "Valued Client"}${form.companyName ? `, ${form.companyName}` : ""}`,
-      `Prepared by: AIVORA`,
+      `Prepared by: LAMID ONE`,
       ``,
       `═══════════════════════════════════════`,
       `EXECUTIVE SUMMARY`,
@@ -174,7 +174,7 @@ export default function ProposalDrafter() {
       `Payment Terms: ${proposal.investment.paymentTerms}`,
       proposal.investment.roi ? `ROI: ${proposal.investment.roi}` : "",
       ``,
-      `WHY AIVORA`,
+      `WHY LAMID ONE`,
       `───────────────────────────────────────`,
       ...(proposal.whyLamid ?? []).map((w) =>
         typeof w === "string" ? `  ▸ ${w}` : `  ▸ ${w.point}: ${w.detail}`
@@ -448,8 +448,8 @@ export default function ProposalDrafter() {
                   )}
                 </Section>
 
-                {/* 9 — Why AIVORA */}
-                <Section icon={Star} title="Why AIVORA" color="text-[#c21219]">
+                {/* 9 — Why LAMID ONE */}
+                <Section icon={Star} title="Why LAMID ONE" color="text-[#c21219]">
                   <div className="flex flex-col gap-3">
                     {(proposal.whyLamid ?? []).map((w, i) => {
                       const isObj = typeof w === "object" && w !== null;
@@ -512,7 +512,7 @@ export default function ProposalDrafter() {
                     <p className="text-[10px] font-black uppercase tracking-widest aivora-gradient-text mb-2">Save your proposal</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to copy, share, and use this proposal.</h3>
                     <p className="text-xs text-gray-400 mb-4 leading-relaxed">
-                      Sign up to unlock the full copy, submit the proposal through AIVORA, and connect with the right consultants to deliver on it.
+                      Sign up to unlock the full copy, submit the proposal through LAMID ONE, and connect with the right consultants to deliver on it.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                       <Link href="/signup" className="px-6 py-2.5 rounded-xl text-sm font-bold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors shadow-[0_0_18px_rgba(193,33,41,0.4)]">

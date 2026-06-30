@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -30,7 +30,7 @@ const STEPS = [
     icon: "⚡",
     iconCls: "text-emerald-400",
     borderCls: "border-emerald-500/30",
-    body: "Earn globally recognized AIVORA certifications. Download your credential, share on LinkedIn, and unlock your updated capability profile.",
+    body: "Earn globally recognized LAMID ONE certifications. Download your credential, share on LinkedIn, and unlock your updated capability profile.",
     cta: "View Certifications",
     href: "/hcd/recruitment",
   },
@@ -82,7 +82,7 @@ export default function TalentLearningJourney() {
               In a rapidly changing world, the organizations that win are the ones that build capability faster than the competition. Talent development is no longer a training budget line — it is a strategic imperative.
             </p>
             <p className="text-white/60 text-sm sm:text-base leading-relaxed">
-              AIVORA's Talent Development portal delivers AI-personalized learning, expert coaching, and globally recognized certifications — designed for professionals who move fast and organizations that think ahead.
+              LAMID TALENT delivers AI-personalized learning, expert coaching, and globally recognized certifications — designed for professionals who move fast and organizations that think ahead.
             </p>
           </motion.div>
         </div>

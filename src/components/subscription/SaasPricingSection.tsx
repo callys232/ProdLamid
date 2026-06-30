@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -210,7 +210,7 @@ export default function SaasPricingSection() {
           Flexible Plans for Every Stage of Growth.
         </h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Whether you're a growing SME or a global enterprise, AIVORA scales with you. No contracts. No surprises. Cancel anytime.
+          Whether you're a growing SME or a global enterprise, LAMID ONE scales with you. No contracts. No surprises. Cancel anytime.
         </p>
       </div>
 

@@ -1,9 +1,9 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 import RecruitmentDashboard from "@/components/recruitment/RecruitmentDashboard";
 
 export const metadata = {
-  title:       "Recruitment Hub | AIVORA Talent Development",
-  description: "Explore open roles and manage your hiring pipeline — powered by AIVORA Talent Development.",
+  title:       "Recruitment Hub | LAMID TALENT",
+  description: "Explore open roles and manage your hiring pipeline — powered by LAMID TALENT.",
 };
 
 export default function RecruitmentPage() {

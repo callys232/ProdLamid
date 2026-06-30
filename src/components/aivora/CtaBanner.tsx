@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -74,7 +74,7 @@ export default function CtaBanner() {
             transition={{ delay: 0.1 }}
             className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4 relative z-10"
           >
-            AIVORA — Smarter. Faster. Accessible.
+            LAMID ONE — Smarter. Faster. Accessible.
           </motion.p>
 
           <motion.h2
@@ -94,7 +94,7 @@ export default function CtaBanner() {
             transition={{ delay: 0.2, duration: 0.45 }}
             className="text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8 relative z-10"
           >
-            See the ecosystem in action. Book a live demo and discover how AIVORA connects expertise, intelligence, and talent — in one place.
+            See the ecosystem in action. Book a live demo and discover how LAMID ONE connects expertise, intelligence, and talent — in one place.
           </motion.p>
 
           <motion.div
