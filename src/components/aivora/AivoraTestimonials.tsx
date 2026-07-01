@@ -35,7 +35,6 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
     setActive(p => (p + 1) % n);
   }, [n]);
 
-  // Auto-rotate every 5 seconds (only when there's more than one to rotate through)
   useEffect(() => {
     if (n <= 1) return;
     const t = setInterval(next, 5000);
@@ -48,7 +47,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
   };
 
   return (
-    <section className="relative aivora-section py-20 px-4 overflow-hidden">
+    <section className="relative aivora-section py-32 px-4 overflow-hidden">
 
       {/* Subtle arc bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -72,9 +71,9 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-14"
+          className="text-center mb-20"
         >
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-5">
             Testimonials
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
@@ -82,43 +81,46 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
           </h2>
         </motion.div>
 
-        {/* Single wide card — prototype style */}
+        {/* Single wide card */}
         <div className="relative">
           <AnimatePresence mode="wait" custom={dir}>
             <motion.div
               key={active}
               custom={dir}
-              initial={{ opacity: 0, x: dir * 40 }}
+              initial={{ opacity: 0, x: dir * 56 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: dir * -40 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="aivora-card border rounded-2xl px-8 py-10 text-center mx-auto max-w-2xl"
+              exit={{ opacity: 0, x: dir * -56 }}
+              transition={{ duration: 0.45, ease: "easeInOut" }}
+              className="aivora-card border rounded-3xl px-14 py-16 text-center mx-auto max-w-3xl"
               style={{ borderColor: "rgba(193,33,41,0.15)" }}
             >
               {/* Large quote marks */}
-              <span className="text-5xl font-serif text-gray-200 dark:text-white/10 leading-none select-none block mb-4">
+              <span className="text-6xl font-serif text-gray-200 dark:text-white/10 leading-none select-none block mb-8">
                 &ldquo;&ldquo;
               </span>
 
               {/* Quote */}
-              <p className="text-base sm:text-lg text-gray-700 dark:text-white/80 leading-relaxed mb-8">
+              <p className="text-base sm:text-xl text-gray-700 dark:text-white/80 leading-loose mb-12">
                 {ITEMS[active].quote}
               </p>
 
+              {/* Divider */}
+              <div className="w-10 h-px bg-[#C12129]/30 mx-auto mb-8" />
+
               {/* Attribution */}
-              <p className="text-sm font-bold text-gray-900 dark:text-white">
+              <p className="text-sm font-bold text-gray-900 dark:text-white tracking-wide">
                 {ITEMS[active].name}
               </p>
-              <p className="text-sm aivora-gradient-text mt-1">
+              <p className="text-sm aivora-gradient-text mt-2">
                 {ITEMS[active].role}
               </p>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Dot navigation — only shown when rotating through more than one */}
+        {/* Dot navigation */}
         {n > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-8">
+          <div className="flex items-center justify-center gap-3 mt-14">
             {ITEMS.map((_, i) => (
               <button
                 key={i}
@@ -127,7 +129,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
                 aria-label={`Testimonial ${i + 1}`}
                 className={`rounded-full transition-all duration-300 cursor-pointer ${
                   i === active
-                    ? "w-8 h-2 bg-[#C12129]"
+                    ? "w-10 h-2 bg-[#C12129]"
                     : "w-2 h-2 bg-gray-300 dark:bg-white/20 hover:bg-gray-400 dark:hover:bg-white/40"
                 }`}
               />

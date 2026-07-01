@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import AccountMenu from "./Account";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
+import PeekView from "@/components/peekview/PeekView";
 
 /* ── Main nav links (matches prototype exactly) ── */
 const NAV_LINKS = [
@@ -176,7 +177,7 @@ const Navbar: React.FC = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.16, ease: "easeOut" }}
-                    className="absolute left-0 mt-2 w-64 rounded-2xl border border-white/8 dark:border-white/8 border-gray-200 shadow-[0_16px_48px_rgba(0,0,0,0.25)] overflow-hidden"
+                    className="absolute left-0 mt-2 w-64 rounded-2xl border border-gray-200 dark:border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.18)] dark:shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden"
                     style={{ background: "var(--navbar-bg)" }}
                   >
                     {/* Top accent */}
@@ -196,7 +197,7 @@ const Navbar: React.FC = () => {
                             <p className="text-sm font-semibold text-gray-900 dark:text-white leading-tight">
                               {item.label}
                             </p>
-                            <p className="text-[11px] text-gray-500 dark:text-white/40 leading-snug mt-0.5">
+                            <p className="text-[11px] text-gray-500 dark:text-white/60 leading-snug mt-0.5">
                               {item.desc}
                             </p>
                           </div>
@@ -211,6 +212,9 @@ const Navbar: React.FC = () => {
 
           {/* ── Right side actions ── */}
           <div className="flex items-center gap-2">
+            {/* Tools peek view */}
+            <PeekView />
+
             {/* Theme toggle */}
             <ThemeToggle />
 

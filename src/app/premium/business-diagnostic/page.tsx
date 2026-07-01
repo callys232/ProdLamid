@@ -111,23 +111,23 @@ function Section({ icon: Icon, title, color = "text-[#c21219]", badge, children 
 }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] overflow-hidden">
+    <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-white/[0.03] transition"
+        className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-gray-100 dark:hover:bg-white/[0.03] transition"
       >
-        <span className="flex items-center gap-2 text-sm font-semibold text-white">
+        <span className="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
           <Icon className={`h-4 w-4 shrink-0 ${color}`} />
           {title}
           {badge && (
-            <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-white/10 text-gray-400 border border-white/10">
+            <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-white/10">
               {badge}
             </span>
           )}
         </span>
         <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronDown className="h-4 w-4 text-gray-600" />
+          <ChevronDown className="h-4 w-4 text-gray-400 dark:text-gray-600" />
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
@@ -136,7 +136,7 @@ function Section({ icon: Icon, title, color = "text-[#c21219]", badge, children 
             initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }}
             transition={{ duration: 0.22 }} style={{ overflow: "hidden" }}
           >
-            <div className="px-5 pb-5 border-t border-white/[0.06] pt-4">{children}</div>
+            <div className="px-5 pb-5 border-t border-gray-100 dark:border-white/[0.06] pt-4">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -238,26 +238,26 @@ export default function BusinessDiagnostic() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const inputCls  = "w-full rounded-xl bg-black border border-white/10 text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 focus:ring-1 focus:ring-[#c21219]/20 placeholder-gray-600 transition";
-  const selectCls = inputCls + " appearance-none cursor-pointer bg-[#111111]";
+  const inputCls  = "w-full rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 focus:ring-1 focus:ring-[#c21219]/20 placeholder-gray-400 dark:placeholder-gray-600 transition";
+  const selectCls = inputCls + " appearance-none cursor-pointer bg-white dark:bg-[#111111]";
   const textaCls  = inputCls + " resize-none";
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-10 md:px-12">
+    <div className="min-h-screen aivora-section text-gray-900 dark:text-white px-4 py-10 md:px-12">
 
       {/* ── Page Header ── */}
       <div className="max-w-6xl mx-auto mb-8">
         <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 rounded-full mb-3">
           <Star className="h-3 w-3" /> Free Tool
         </span>
-        <h1 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent leading-tight">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight">
           AI Business Diagnostic
         </h1>
-        <p className="mt-2 text-sm text-gray-400 max-w-xl">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 max-w-xl">
           Get a comprehensive health assessment across 7 business dimensions — scored insights,
           critical gap analysis, and a prioritised action plan. Powered by Claude Sonnet&nbsp;4.6.
         </p>
-        <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-[11px] text-gray-400">
+        <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 text-[11px] text-gray-600 dark:text-gray-400">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           Claude Sonnet 4.6 · 7 Dimensions · via OpenRouter
         </div>
@@ -270,7 +270,7 @@ export default function BusinessDiagnostic() {
 
           {/* Progress bar */}
           <div className="flex items-center gap-3">
-            <div className="flex-1 h-1 rounded-full bg-white/10 overflow-hidden">
+            <div className="flex-1 h-1 rounded-full bg-gray-200 dark:bg-white/10 overflow-hidden">
               <motion.div
                 className="h-full bg-gradient-to-r from-[#c21219] to-red-500 rounded-full"
                 initial={{ width: 0 }}
@@ -282,7 +282,7 @@ export default function BusinessDiagnostic() {
           </div>
 
           {/* Section 1: Business Profile */}
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 flex flex-col gap-4">
+          <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] p-5 flex flex-col gap-4">
             <h2 className="text-[10px] font-black uppercase tracking-widest text-gray-500">Business Profile</h2>
 
             <div>
@@ -296,14 +296,14 @@ export default function BusinessDiagnostic() {
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">Industry / Sector</label>
               <select value={form.industry} onChange={set("industry")} className={selectCls} aria-label="Industry" title="Industry">
-                <option value="" className="bg-[#111111]">Select industry…</option>
+                <option value="">Select industry…</option>
                 {[
                   "Financial Services", "Technology & Software", "Healthcare & Pharma",
                   "FMCG & Retail", "Real Estate & Construction", "Energy & Utilities",
                   "Agriculture & Agritech", "Logistics & Supply Chain", "Education & EdTech",
                   "Media & Entertainment", "Professional Services", "Manufacturing",
                   "NGO / Non-profit", "Government & Public Sector", "Other",
-                ].map((o) => <option key={o} className="bg-[#111111]">{o}</option>)}
+                ].map((o) => <option key={o}>{o}</option>)}
               </select>
             </div>
 
@@ -311,18 +311,18 @@ export default function BusinessDiagnostic() {
               <div>
                 <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">Stage</label>
                 <select value={form.stage} onChange={set("stage")} className={selectCls} aria-label="Stage" title="Stage">
-                  <option value="" className="bg-[#111111]">Select…</option>
+                  <option value="">Select…</option>
                   {["Startup", "Growth", "Scale-up", "Mature", "Turnaround"].map((o) => (
-                    <option key={o} className="bg-[#111111]">{o}</option>
+                    <option key={o}>{o}</option>
                   ))}
                 </select>
               </div>
               <div>
                 <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">Years Operating</label>
                 <select value={form.yearsInOperation} onChange={set("yearsInOperation")} className={selectCls} aria-label="Years Operating" title="Years Operating">
-                  <option value="" className="bg-[#111111]">Select…</option>
+                  <option value="">Select…</option>
                   {["Less than 1 year", "1–2 years", "3–5 years", "6–10 years", "11–20 years", "20+ years"].map((o) => (
-                    <option key={o} className="bg-[#111111]">{o}</option>
+                    <option key={o}>{o}</option>
                   ))}
                 </select>
               </div>
@@ -330,25 +330,25 @@ export default function BusinessDiagnostic() {
           </div>
 
           {/* Section 2: Scale & Market */}
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 flex flex-col gap-4">
+          <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] p-5 flex flex-col gap-4">
             <h2 className="text-[10px] font-black uppercase tracking-widest text-gray-500">Scale & Market</h2>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">Team Size</label>
                 <select value={form.teamSize} onChange={set("teamSize")} className={selectCls} aria-label="Team Size" title="Team Size">
-                  <option value="" className="bg-[#111111]">Select…</option>
+                  <option value="">Select…</option>
                   {["1–5", "6–15", "16–50", "51–200", "201–500", "500+"].map((o) => (
-                    <option key={o} className="bg-[#111111]">{o}</option>
+                    <option key={o}>{o}</option>
                   ))}
                 </select>
               </div>
               <div>
                 <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">Annual Revenue</label>
                 <select value={form.revenueRange} onChange={set("revenueRange")} className={selectCls} aria-label="Annual Revenue" title="Annual Revenue">
-                  <option value="" className="bg-[#111111]">Select…</option>
+                  <option value="">Select…</option>
                   {["Pre-revenue", "< ₦10M", "₦10M–₦50M", "₦50M–₦250M", "₦250M–₦1B", "₦1B–₦5B", "₦5B+"].map((o) => (
-                    <option key={o} className="bg-[#111111]">{o}</option>
+                    <option key={o}>{o}</option>
                   ))}
                 </select>
               </div>
@@ -357,16 +357,16 @@ export default function BusinessDiagnostic() {
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">Primary Market</label>
               <select value={form.primaryMarket} onChange={set("primaryMarket")} className={selectCls} aria-label="Primary Market" title="Primary Market">
-                <option value="" className="bg-[#111111]">Select…</option>
+                <option value="">Select…</option>
                 {["Nigeria", "West Africa", "East Africa", "Southern Africa", "Pan-Africa", "Global"].map((o) => (
-                  <option key={o} className="bg-[#111111]">{o}</option>
+                  <option key={o}>{o}</option>
                 ))}
               </select>
             </div>
           </div>
 
           {/* Section 3: Challenges & Goals */}
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 flex flex-col gap-4">
+          <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] p-5 flex flex-col gap-4">
             <h2 className="text-[10px] font-black uppercase tracking-widest text-gray-500">Challenges & Goals</h2>
 
             <div>
@@ -389,7 +389,7 @@ export default function BusinessDiagnostic() {
           </div>
 
           {/* Section 4: Additional Context */}
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 flex flex-col gap-4">
+          <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] p-5 flex flex-col gap-4">
             <h2 className="text-[10px] font-black uppercase tracking-widest text-gray-500">Additional Context</h2>
 
             <div>
@@ -434,7 +434,7 @@ export default function BusinessDiagnostic() {
 
           {/* Empty state */}
           {!report && !loading && (
-            <div className="flex-1 rounded-2xl border border-dashed border-white/10 bg-white/[0.02] flex flex-col items-center justify-center p-16 text-center gap-4">
+            <div className="flex-1 rounded-2xl border border-dashed border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.02] flex flex-col items-center justify-center p-16 text-center gap-4">
               <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
                 <Activity className="h-7 w-7 text-gray-600" />
               </div>
@@ -490,7 +490,7 @@ export default function BusinessDiagnostic() {
                 </div>
 
                 {/* ── Overall Score Card ── */}
-                <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5">
+                <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] p-5">
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
                     <ScoreRing score={report.overallScore} />
                     <div className="flex-1 text-center sm:text-left">
@@ -657,7 +657,7 @@ export default function BusinessDiagnostic() {
 
                 {/* ── Benchmark ── */}
                 {report.benchmarkInsight && (
-                  <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] px-5 py-4">
+                  <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] px-5 py-4">
                     <div className="flex items-center gap-2 mb-2">
                       <TrendingUp className="w-4 h-4 text-blue-400" />
                       <p className="text-[10px] font-black uppercase tracking-widest text-blue-400">Market Benchmark</p>

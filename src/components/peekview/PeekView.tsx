@@ -148,12 +148,12 @@ export default function PeekView() {
               </div>
               <div className="min-w-0">
                 <p className="text-[11px] font-bold text-white leading-none">LAMID Platform</p>
-                <p className="text-[9px] text-gray-500 mt-0.5">Quick access</p>
+                <p className="text-[9px] text-white/45 mt-0.5">Quick access</p>
               </div>
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setOpen(false)}
-                className="ml-auto text-gray-600 hover:text-gray-400 transition-colors text-xs leading-none"
+                className="ml-auto text-white/45 hover:text-gray-400 transition-colors text-xs leading-none"
                 aria-label="Close"
               >
                 ✕
@@ -162,7 +162,7 @@ export default function PeekView() {
 
             {/* Free tools section */}
             <div className="px-3 pt-3">
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-600 mb-2 px-1">Free Tools</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45 mb-2 px-1">Free Tools</p>
               <div className="grid grid-cols-3 gap-2">
                 {visibleTools.filter(t => !t.member && !t.premium && !t.enterprise).map((tool, i) => (
                   <motion.div
@@ -180,7 +180,7 @@ export default function PeekView() {
             {/* Member / Premium / Enterprise tools */}
             {(tier === "member" || tier === "premium" || tier === "enterprise") && (
               <div className="px-3 pt-3">
-                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-600 mb-2 px-1">Your Tools</p>
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45 mb-2 px-1">Your Tools</p>
                 <div className="grid grid-cols-3 gap-2">
                   {visibleTools.filter(t => t.member || t.premium || t.enterprise).map((tool, i) => (
                     <motion.div
@@ -199,14 +199,14 @@ export default function PeekView() {
             {/* Upsell hint when free or member tier */}
             {(tier === "free" || tier === "member") && (
               <div className="mx-3 mt-3 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/6">
-                <Lock className="w-3 h-3 text-gray-600 shrink-0" />
-                <p className="text-[9px] text-gray-600 leading-snug">{tierLabels[tier]}</p>
+                <Lock className="w-3 h-3 text-white/45 shrink-0" />
+                <p className="text-[9px] text-white/45 leading-snug">{tierLabels[tier]}</p>
               </div>
             )}
 
             {/* Footer */}
             <div className="px-4 py-2.5 mt-3 border-t border-white/8 flex items-center justify-between">
-              <p className="text-[9px] text-gray-600">One Ecosystem. Every Layer of Impact.</p>
+              <p className="text-[9px] text-white/45">One Ecosystem. Every Layer of Impact.</p>
               <div className="flex gap-1">
                 {visibleTools.map(t => (
                   <div

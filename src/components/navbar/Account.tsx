@@ -85,12 +85,12 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
         </button>
 
         {open && (
-          <div className={`${dropdownClass} w-56 overflow-hidden rounded-xl border border-white/10 bg-[#111] shadow-2xl`}>
+          <div className={`${dropdownClass} w-56 overflow-hidden rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-[0_16px_48px_rgba(0,0,0,0.12)] dark:shadow-2xl`}>
             {/* User header */}
-            <div className="border-b border-white/10 px-4 py-3">
-              <p className="truncate text-sm font-semibold text-white">{user.name}</p>
-              <p className="truncate text-xs text-gray-500">{maskEmail(user.email)}</p>
-              <span className="mt-1.5 inline-block rounded-full bg-red-600/20 px-2 py-0.5 text-[10px] font-semibold text-red-400">
+            <div className="border-b border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/[0.03] px-4 py-3">
+              <p className="truncate text-sm font-semibold text-gray-900 dark:text-white">{user.name}</p>
+              <p className="truncate text-xs text-gray-500 dark:text-gray-500">{maskEmail(user.email)}</p>
+              <span className="mt-1.5 inline-block rounded-full bg-red-600/15 dark:bg-red-600/20 px-2 py-0.5 text-[10px] font-semibold text-red-600 dark:text-red-400">
                 {roleLabel(user.role)}
               </span>
             </div>
@@ -119,7 +119,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block px-4 py-2.5 text-sm text-gray-300 transition hover:bg-red-600/10 hover:text-white"
+                    className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 transition hover:bg-[#C12129]/8 hover:text-[#C12129] dark:hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -128,10 +128,10 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
             </ul>
 
             {/* Sign out */}
-            <div className="border-t border-white/10 py-1">
+            <div className="border-t border-gray-100 dark:border-white/10 py-1">
               <button
                 onClick={() => { setOpen(false); signOut(); }}
-                className="w-full px-4 py-2.5 text-left text-sm text-red-400 transition hover:bg-red-600/10 hover:text-red-300"
+                className="w-full px-4 py-2.5 text-left text-sm text-red-600 dark:text-red-400 transition hover:bg-red-600/8 dark:hover:bg-red-600/10 hover:text-red-700 dark:hover:text-red-300"
               >
                 Sign Out
               </button>
@@ -163,7 +163,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
       </button>
 
       {open && (
-        <div className={`${dropdownClass} w-48 overflow-hidden rounded-xl border border-white/10 bg-[#111] shadow-xl`}>
+        <div className={`${dropdownClass} w-48 overflow-hidden rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-[0_16px_48px_rgba(0,0,0,0.12)] dark:shadow-xl`}>
           <ul className="py-1">
             {[
               { label: "Sign In", href: "/signin" },
@@ -173,7 +173,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block px-4 py-2.5 text-sm text-gray-300 transition hover:bg-red-600/10 hover:text-white"
+                  className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 transition hover:bg-[#C12129]/8 hover:text-[#C12129] dark:hover:text-white"
                 >
                   {item.label}
                 </Link>

@@ -39,23 +39,23 @@ function Section({
 }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] overflow-hidden">
+    <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-white/[0.03] transition"
+        className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-gray-100 dark:hover:bg-white/[0.03] transition"
       >
-        <span className="flex items-center gap-2 text-sm font-semibold text-white">
+        <span className="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
           <Icon className={`h-4 w-4 shrink-0 ${color}`} />
           {title}
           {badge && (
-            <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-white/10 text-gray-400 border border-white/10">
+            <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-white/10">
               {badge}
             </span>
           )}
         </span>
         <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronDown className="h-4 w-4 text-gray-600" />
+          <ChevronDown className="h-4 w-4 text-gray-400 dark:text-gray-600" />
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
@@ -64,7 +64,7 @@ function Section({
             initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }}
             transition={{ duration: 0.22 }} style={{ overflow: "hidden" }}
           >
-            <div className="px-5 pb-5 border-t border-white/[0.06] pt-4">{children}</div>
+            <div className="px-5 pb-5 border-t border-gray-100 dark:border-white/[0.06] pt-4">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -73,7 +73,7 @@ function Section({
 }
 
 /* ── Pill list ──────────────────────────────────────────────────── */
-function BulletList({ items, color = "text-gray-300", dot = "▸", dotColor = "text-[#c21219]" }: {
+function BulletList({ items, color = "text-gray-700 dark:text-gray-300", dot = "▸", dotColor = "text-[#c21219]" }: {
   items: string[]; color?: string; dot?: string; dotColor?: string;
 }) {
   return (
@@ -197,26 +197,26 @@ export default function ProposalDrafter() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const inputCls = "w-full rounded-xl bg-black border border-white/10 text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 focus:ring-1 focus:ring-[#c21219]/20 placeholder-gray-600 transition";
-  const selectCls = inputCls + " appearance-none cursor-pointer bg-[#0a0a0a]";
+  const inputCls = "w-full rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 focus:ring-1 focus:ring-[#c21219]/20 placeholder-gray-400 dark:placeholder-gray-600 transition";
+  const selectCls = inputCls + " appearance-none cursor-pointer bg-white dark:bg-[#0a0a0a]";
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-10 md:px-12">
+    <div className="min-h-screen aivora-section text-gray-900 dark:text-white px-4 py-10 md:px-12">
       {/* ── Header ── */}
       <div className="max-w-6xl mx-auto mb-8">
         <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 rounded-full mb-3">
           <Star className="h-3 w-3" /> Free Tool
         </span>
-        <h1 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent leading-tight">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight">
           AI Proposal & Scoping Drafter
         </h1>
-        <p className="mt-2 text-sm text-gray-400 max-w-xl">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 max-w-xl">
           Generate a client-ready consulting proposal in seconds — powered by Claude Sonnet 4.6.
           Fill in the engagement brief and let AI do the strategic drafting.
         </p>
 
         {/* Model badge */}
-        <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-[11px] text-gray-400">
+        <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 text-[11px] text-gray-600 dark:text-gray-400">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           Claude Sonnet 4.6 · via OpenRouter
         </div>
@@ -225,7 +225,7 @@ export default function ProposalDrafter() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
         {/* ── LEFT: Form ── */}
         <div className="flex flex-col gap-5">
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 flex flex-col gap-4">
+          <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] p-5 flex flex-col gap-4">
             <h2 className="text-xs font-black uppercase tracking-widest text-gray-400">Engagement Brief</h2>
 
             {([
@@ -250,13 +250,13 @@ export default function ProposalDrafter() {
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">Category</label>
               <select value={form.category} onChange={set("category")} className={selectCls} aria-label="Category" title="Category">
-                <option value="" className="bg-[#0a0a0a]">Select category…</option>
+                <option value="">Select category…</option>
                 {[
                   "Strategy Consulting", "HR & Talent", "Technology",
                   "Financial Advisory", "Sustainable Development",
                   "Training & Capacity Building", "NGO Consulting",
                   "Sales Enablement", "Digital Transformation", "Other",
-                ].map((c) => <option key={c} className="bg-[#0a0a0a]">{c}</option>)}
+                ].map((c) => <option key={c}>{c}</option>)}
               </select>
             </div>
 

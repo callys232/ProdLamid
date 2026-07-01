@@ -22,7 +22,7 @@ module.exports = {
         fadeInUp: "fadeInUp 1s ease-out forwards",
         glitchPulse: "glitchPulse 3s infinite",
         fadeIn: "fadeIn 0.4s ease-out forwards",
-        blurIn: "blurIn 6s ease-out forwards", // ✅ Added for modal
+        blurIn: "blurIn 6s ease-out forwards",
         "slide-horizontal": "slideH 2s ease-in-out infinite",
       },
       keyframes: {
