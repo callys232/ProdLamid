@@ -102,14 +102,36 @@ export default function GrowDashboardPage() {
           </motion.div>
         </div>
 
-        {/* Quick actions */}
-        <motion.div {...fadeUp(0.2)} className="mt-10 flex flex-wrap gap-3">
-          <Link href="/premium/business-diagnostic" className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)] inline-flex items-center gap-1.5">
-            Run a Diagnostic <ArrowUpRight className="w-3.5 h-3.5" />
-          </Link>
-          <Link href="/biz" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
-            Back to LAMID GROW
-          </Link>
+        {/* Sub-module navigation */}
+        <motion.div {...fadeUp(0.2)} className="mt-10">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">GROW Intelligence Modules</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
+            {[
+              { title: "Opportunity Signals",    href: "/grow-opportunity-signals" },
+              { title: "Growth Pathways",        href: "/grow-pathways" },
+              { title: "Modernisation Readiness",href: "/grow-modernisation" },
+              { title: "Market Intelligence",    href: "/grow-market-intelligence" },
+              { title: "Digital Maturity Model", href: "/grow-digital-maturity" },
+              { title: "Growth Planner",         href: "/grow-planner" },
+              { title: "Advisory Console",       href: "/grow-advisory-console" },
+              { title: "Executive Report",       href: "/grow-executive-report" },
+            ].map((m) => (
+              <Link key={m.href} href={m.href} className="aivora-card border rounded-xl px-4 py-3 text-xs font-semibold text-gray-700 dark:text-white/70 hover:text-[#C12129] hover:border-[#C12129]/30 transition-colors inline-flex items-center justify-between gap-1">
+                {m.title}<ArrowUpRight className="w-3 h-3 shrink-0 opacity-50" />
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/premium/business-diagnostic" className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)] inline-flex items-center gap-1.5">
+              Run a Diagnostic <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link href="/biz" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+              Back to LAMID GROW
+            </Link>
+            <Link href="/intelligence-hub" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40 hover:border-[#C12129]/30 hover:text-[#C12129] transition-colors">
+              Intelligence Hub
+            </Link>
+          </div>
         </motion.div>
 
       </div>
