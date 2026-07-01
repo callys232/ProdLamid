@@ -5,28 +5,29 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
+import { BadgeCheck, Wallet, Award, Target, Scale, Cpu, Users, Lightbulb, Landmark, Search, Briefcase, FlaskConical } from "lucide-react";
 
 /* ── Tabs — each is a descriptor card ── */
 const TABS = [
-  { id: "consultants", label: "Consultants", icon: "◈", desc: "Find a vetted expert matched to your challenge." },
-  { id: "jobs",        label: "Jobs",        icon: "⬟", desc: "Browse open roles and consulting engagements." },
-  { id: "prototypes",  label: "Prototypes",  icon: "▣", desc: "Explore live builds and framework tools." },
+  { id: "consultants", label: "Consultants", icon: Search,       desc: "Find a vetted expert matched to your challenge." },
+  { id: "jobs",        label: "Jobs",        icon: Briefcase,    desc: "Browse open roles and consulting engagements." },
+  { id: "prototypes",  label: "Prototypes",  icon: FlaskConical, desc: "Explore live builds and framework tools." },
 ];
 
 /* ── 3 Trust cards ── */
 const TRUST = [
   {
-    icon: "◈",
+    icon: BadgeCheck,
     title: "Vetted Experts Only",
     body:  "Every expert passes a rigorous 5-stage vetting process with verified credentials.",
   },
   {
-    icon: "⬡",
+    icon: Wallet,
     title: "Transparent Pricing",
     body:  "No hidden fees. See rates upfront and pay only for value delivered.",
   },
   {
-    icon: "⬟",
+    icon: Award,
     title: "Quality Guaranteed",
     body:  "Satisfaction guarantee on every engagement. We stand behind our experts.",
   },
@@ -34,12 +35,12 @@ const TRUST = [
 
 /* ── 6 Use-case tiles — each links to its associated tool. Free to use; sign-in only required to save/export results. ── */
 const USE_CASES = [
-  { icon: "▣", title: "Strategy & Growth",       body: "Market entry, competitive analysis, and growth roadmaps.",              href: "/premium/business-diagnostic" },
-  { icon: "◈", title: "Compliance & Risk",        body: "Regulatory compliance, risk assessment, and governance frameworks.",    href: "/premium/business-diagnostic" },
-  { icon: "⚡", title: "Digital Transformation",  body: "AI adoption, tech modernization, and process automation.",              href: "/premium/business-diagnostic" },
-  { icon: "⬟", title: "Talent & Culture",         body: "Leadership development, organizational design, and change management.", href: "/hcd" },
-  { icon: "⬡", title: "Innovation Labs",          body: "Product ideation, design sprints, and innovation workshops.",           href: "/premium/proposal-drafter" },
-  { icon: "✦", title: "Board Advisory",           body: "Board-ready materials, governance reviews, and fiduciary guidance.",    href: "/premium/proposal-drafter" },
+  { icon: Target,    title: "Strategy & Growth",       body: "Market entry, competitive analysis, and growth roadmaps.",              href: "/premium/business-diagnostic" },
+  { icon: Scale,     title: "Compliance & Risk",        body: "Regulatory compliance, risk assessment, and governance frameworks.",    href: "/premium/business-diagnostic" },
+  { icon: Cpu,       title: "Digital Transformation",  body: "AI adoption, tech modernization, and process automation.",              href: "/premium/business-diagnostic" },
+  { icon: Users,     title: "Talent & Culture",         body: "Leadership development, organizational design, and change management.", href: "/hcd" },
+  { icon: Lightbulb, title: "Innovation Labs",          body: "Product ideation, design sprints, and innovation workshops.",           href: "/premium/proposal-drafter" },
+  { icon: Landmark,  title: "Board Advisory",           body: "Board-ready materials, governance reviews, and fiduciary guidance.",    href: "/premium/proposal-drafter" },
 ];
 
 /* ── Tag colour by keyword ── */
@@ -237,7 +238,7 @@ function CategoryModal({ tab, onClose, onSelectItem }) {
         <div className="flex items-center justify-between gap-4 px-6 pt-5 pb-4 border-b border-white/6 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-[#C12129]/12 border border-[#C12129]/25 flex items-center justify-center">
-              <span className="aivora-gradient-text text-lg">{tab.icon}</span>
+              <tab.icon className="w-5 h-5 text-[#C12129]" strokeWidth={1.75} />
             </div>
             <div>
               <h2 className="text-base font-bold text-white leading-tight">{tab.label}</h2>
@@ -273,7 +274,7 @@ function CategoryModal({ tab, onClose, onSelectItem }) {
             </div>
           ) : filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 gap-3">
-              <span className="text-4xl aivora-gradient-text">{tab.icon}</span>
+              <tab.icon className="w-9 h-9 text-[#C12129]" strokeWidth={1.5} />
               <p className="text-white/35 text-sm">{search ? `No results for "${search}"` : `No ${tab.label.toLowerCase()} yet.`}</p>
               {search && <button type="button" onClick={() => setSearch("")} className="text-xs aivora-gradient-text cursor-pointer">Clear search →</button>}
             </div>
@@ -388,8 +389,8 @@ export default function MarketplacePage() {
               whileHover={{ y: -4, boxShadow: "0 12px 30px rgba(193,33,41,0.15)" }}
               className="aivora-card border rounded-2xl p-6"
               style={{ borderColor: hoveredTrust === i ? "rgba(193,33,41,0.4)" : undefined }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25">
-                <span className="text-base aivora-gradient-text">{t.icon}</span>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25">
+                <t.icon className="w-6 h-6 text-[#C12129]" strokeWidth={1.75} />
               </div>
               <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{t.title}</h3>
               <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{t.body}</p>
@@ -414,7 +415,9 @@ export default function MarketplacePage() {
                 className="aivora-card border rounded-2xl p-5 cursor-pointer"
                 style={{ borderColor: hoveredUC === i ? "rgba(193,33,41,0.4)" : undefined }}>
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-base aivora-gradient-text">{uc.icon}</span>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/12 border border-[#C12129]/25">
+                    <uc.icon className="w-5 h-5 text-[#C12129]" strokeWidth={1.75} />
+                  </div>
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white">{uc.title}</h3>
                 </div>
                 <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{uc.body}</p>
@@ -456,9 +459,13 @@ export default function MarketplacePage() {
                   ${isActive
                     ? "bg-[#C12129]/10 border-[#C12129]/50 shadow-[0_0_18px_rgba(193,33,41,0.25)]"
                     : "aivora-card border hover:border-[#C12129]/30"}`}>
-                <span className={`text-2xl ${isActive ? "aivora-gradient-text" : "text-gray-500 dark:text-white/40"}`}>
-                  {tab.icon}
-                </span>
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center border ${
+                  isActive
+                    ? "bg-[#C12129]/12 border-[#C12129]/30"
+                    : "bg-gray-100 dark:bg-white/6 border-transparent"
+                }`}>
+                  <tab.icon className={`w-5 h-5 ${isActive ? "text-[#C12129]" : "text-gray-500 dark:text-white/40"}`} strokeWidth={1.75} />
+                </div>
                 <span className={`text-sm font-bold ${isActive ? "aivora-gradient-text" : "text-gray-900 dark:text-white"}`}>
                   {tab.label}
                 </span>

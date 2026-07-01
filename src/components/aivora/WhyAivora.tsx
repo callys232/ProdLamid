@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { Sparkles, Zap, ShieldCheck, Globe } from "lucide-react";
 
 const TILES = [
-  { icon: "⚡", href: "/talent",  title: "Human + AI Hybrid",  body: "The best of human intuition combined with AI precision. Neither alone is enough." },
-  { icon: "◈", href: "/talent",  title: "10x Faster Matching", body: "AI-powered expert matching delivers results in minutes, not weeks or months." },
-  { icon: "⬡", href: "/pricing", title: "Enterprise-Grade",    body: "SOC 2 compliant, end-to-end encryption, and enterprise SSO integration." },
-  { icon: "⬟", href: "/postjobs",title: "Accessible to All",   body: "Democratizing world-class consulting for organizations of every size." },
+  { icon: Sparkles,    href: "/talent",  title: "Human + AI Hybrid",  body: "The best of human intuition combined with AI precision. Neither alone is enough." },
+  { icon: Zap,         href: "/talent",  title: "10x Faster Matching", body: "AI-powered expert matching delivers results in minutes, not weeks or months." },
+  { icon: ShieldCheck, href: "/pricing", title: "Enterprise-Grade",    body: "SOC 2 compliant, end-to-end encryption, and enterprise SSO integration." },
+  { icon: Globe,       href: "/postjobs",title: "Accessible to All",   body: "Democratizing world-class consulting for organizations of every size." },
 ];
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } };
@@ -87,16 +88,16 @@ export default function WhyAivora() {
                   transition={{ duration: 0.3 }}
                 />
 
-                {/* Icon square — always red */}
+                {/* Icon square — premium badge, always red */}
                 <motion.div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 border border-[#C12129]/25 bg-[#C12129]/12"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-[#C12129]/25 bg-[#C12129]/12"
                   animate={{
                     scale: isHov ? 1.12 : 1,
                     boxShadow: isHov ? "0 0 16px rgba(193,33,41,0.35)" : "none",
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 >
-                  <span className="text-lg aivora-gradient-text">{tile.icon}</span>
+                  <tile.icon className="w-6 h-6 text-[#C12129]" strokeWidth={1.75} />
                 </motion.div>
 
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{tile.title}</h3>

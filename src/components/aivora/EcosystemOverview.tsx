@@ -4,11 +4,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Network, TrendingUp, GraduationCap } from "lucide-react";
 
 const PORTALS = [
   {
     id: "core",
-    icon: "◈",
+    icon: Network,
     label: "LAMID CORE",
     body: "The digital backbone of modern consulting. Smart vetting, matching, workflows, and trust infrastructure for intelligent strategy and execution.",
     cta: "Explore CORE",
@@ -16,7 +17,7 @@ const PORTALS = [
   },
   {
     id: "grow",
-    icon: "⬡",
+    icon: TrendingUp,
     label: "LAMID GROW",
     body: "The engine for business modernization. Diagnostics, advisory, and digital transformation pathways for SMEs, startups, and enterprises.",
     cta: "Explore GROW",
@@ -24,7 +25,7 @@ const PORTALS = [
   },
   {
     id: "talent",
-    icon: "⬟",
+    icon: GraduationCap,
     label: "LAMID TALENT",
     body: "The intelligence layer for workforce capability. AI-powered scoring, capability mapping, and LMS-driven learning acceleration.",
     cta: "Explore TALENT",
@@ -124,14 +125,17 @@ export default function EcosystemOverview() {
                   transition={{ duration: 0.35 }}
                 />
 
-                {/* Icon — always red */}
-                <motion.span
-                  className="text-4xl mb-5 block aivora-gradient-text"
-                  animate={{ scale: isHov ? 1.2 : 1, rotate: isHov ? 6 : 0 }}
+                {/* Icon — premium badge, always red */}
+                <motion.div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-[#C12129]/25 bg-[#C12129]/10"
+                  animate={{
+                    scale: isHov ? 1.08 : 1,
+                    boxShadow: isHov ? "0 0 24px rgba(193,33,41,0.35)" : "0 0 0 rgba(193,33,41,0)",
+                  }}
                   transition={{ type: "spring", stiffness: 260, damping: 18 }}
                 >
-                  {portal.icon}
-                </motion.span>
+                  <portal.icon className="w-7 h-7 text-[#C12129]" strokeWidth={1.75} />
+                </motion.div>
 
                 <p className="text-base font-bold mb-3 aivora-gradient-text">
                   {portal.label}
