@@ -1,57 +1,13 @@
 "use client";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { Activity, MapPin, BarChart3, CheckCircle2, AlertCircle, ArrowUpRight } from "lucide-react";
 import DashboardTierGate from "@/components/aivora/DashboardTierGate";
-
-const KPIS = [
-  { icon: Activity,      label: "Quality Score",         value: "78%",  trend: "Across all enterprise systems" },
-  { icon: MapPin,        label: "Active Quality Signals", value: "47",   trend: "Monitored in real time" },
-  { icon: BarChart3,     label: "Critical Gaps",          value: "6",    trend: "Requiring immediate remediation" },
-  { icon: CheckCircle2,  label: "Quality Coverage",       value: "84%",  trend: "Enterprise-wide mapping coverage" },
-];
-const SIGNALS = [
-  { severity: "High",   title: "6 critical quality gaps with no remediation plan", action: "Assign ownership and initiate remediation sprints immediately" },
-  { severity: "Medium", title: "Delivery quality slipping below SLA in consulting engagements", action: "Review engagement-level quality checkpoints and reinstate standards" },
-  { severity: "Low",    title: "Client satisfaction scores trending up", action: "Document contributing factors and replicate across other pillars" },
-];
-const DIMENSIONS = [
-  { label: "Delivery Quality",  value: 79 },
-  { label: "Service Quality",   value: 84 },
-  { label: "Process Quality",   value: 68 },
-  { label: "Output Quality",    value: 73 },
-];
-const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.45, delay: d } });
+import IntelligenceModule from "@/components/aivora/IntelligenceModule";
+import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function Q01Page() {
+  const config = MODULE_REGISTRY["Q01"] ?? buildFallbackConfig("Q01", "Q-Series — Quality Intelligence", "Quality Mapping Engine");
   return (
-    <DashboardTierGate pillar="Q01 — Quality Mapping Engine" backHref="/quality-intelligence" backLabel="Back to Quality Intelligence">
-      <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.div {...fadeUp(0)} className="mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Q-Series · Q01 · Quality Intelligence</p>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Quality Mapping Engine</h1>
-            <p className="text-gray-500 dark:text-white/45 text-sm max-w-xl">Maps quality signals across enterprise systems to surface gaps, coverage blind spots, and priority remediation zones in real time.</p>
-          </motion.div>
-          <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            {KPIS.map((k) => (<div key={k.label} className="aivora-card border rounded-2xl p-5"><k.icon className="w-4 h-4 text-[#C12129] mb-3" strokeWidth={2.2} /><p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1.5">{k.value}</p><p className="text-xs text-gray-500 dark:text-white/45">{k.label}</p><p className="text-[10px] text-gray-400 dark:text-white/30 mt-1">{k.trend}</p></div>))}
-          </motion.div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Quality Signals</p>
-              <div className="flex flex-col gap-3">{SIGNALS.map((s) => (<div key={s.title} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0"><AlertCircle className={`w-4 h-4 mt-0.5 shrink-0 ${s.severity === "High" ? "text-[#C12129]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} /><div><p className="text-sm text-gray-900 dark:text-white leading-snug">{s.title}</p><p className="text-xs text-gray-500 dark:text-white/40 mt-0.5">{s.action}</p></div></div>))}</div>
-            </motion.div>
-            <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Quality Dimensions</p>
-              <div className="flex flex-col gap-4">{DIMENSIONS.map((d) => (<div key={d.label}><div className="flex items-center justify-between mb-1.5"><p className="text-sm text-gray-700 dark:text-white/70">{d.label}</p><p className="text-xs font-semibold text-gray-900 dark:text-white">{d.value}%</p></div><div className="h-1.5 rounded-full bg-gray-100 dark:bg-white/8 overflow-hidden"><motion.div className="h-full rounded-full bg-[#C12129]" initial={{ width: 0 }} whileInView={{ width: `${d.value}%` }} viewport={{ once: true }} transition={{ duration: 0.7, ease: "easeOut" }} /></div></div>))}</div>
-            </motion.div>
-          </div>
-          <motion.div {...fadeUp(0.2)} className="mt-10 flex flex-wrap gap-3">
-            <Link href="/q02-quality-velocity" className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)] inline-flex items-center gap-1.5">Quality Velocity <ArrowUpRight className="w-3.5 h-3.5" /></Link>
-            <Link href="/quality-intelligence" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">Quality Intelligence</Link>
-          </motion.div>
-        </div>
-      </main>
+    <DashboardTierGate pillar="Q01 — Quality Mapping Engine" backHref="/quality-intelligence" backLabel="Quality Intelligence">
+      <IntelligenceModule config={config} />
     </DashboardTierGate>
   );
 }
