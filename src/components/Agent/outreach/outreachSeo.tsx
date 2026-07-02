@@ -157,6 +157,7 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
         <div className="flex gap-2">
           <input type="text" placeholder="Add keyword" value={newKeyword}
             onChange={e => setNewKeyword(e.target.value)}
+            id="outreach-keyword-input"
             onKeyDown={e => e.key === "Enter" && addKeyword()}
             className="flex-1 rounded-lg bg-[#0f0f0f] border border-[#333] text-xs text-white px-2.5 py-2 focus:outline-none focus:border-blue-500/50" />
           <button onClick={addKeyword} className="rounded-lg bg-blue-600 px-3 py-2 text-xs text-white">
@@ -172,10 +173,13 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
           {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : saved ? <Check className="h-3.5 w-3.5" /> : <Send className="h-3.5 w-3.5" />}
           {saved ? "Saved!" : "Save Campaign"}
         </motion.button>
-        <button className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-300 hover:bg-white/10 transition-colors">
+        <a href="/contact-sales"
+          className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-300 hover:bg-white/10 transition-colors">
           Manage Lists
-        </button>
-        <button className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-300 hover:bg-white/10 transition-colors">
+        </a>
+        <button type="button"
+          onClick={() => { const el = document.getElementById("outreach-keyword-input"); el?.focus(); el?.scrollIntoView({ behavior: "smooth" }); }}
+          className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-300 hover:bg-white/10 transition-colors">
           Adjust Keywords
         </button>
       </div>

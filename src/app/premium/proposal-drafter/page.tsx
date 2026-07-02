@@ -118,6 +118,7 @@ export default function ProposalDrafter() {
         }),
       });
       const data = await res.json();
+      if (res.status === 429) throw new Error(data.message + " Create a free account to keep going.");
       if (!res.ok) throw new Error(data.message);
       setProposal(data.proposal);
     } catch (e: unknown) {

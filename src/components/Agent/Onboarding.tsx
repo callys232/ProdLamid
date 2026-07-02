@@ -10,6 +10,10 @@ import { routeIntent } from "./intentRouter";
 import AgentSwitcher from "./agentSwitcher";
 import LockedMessage from "./lockedMessage";
 import ProjectAgent from "./project/projectAgent";
+import LearningAgent from "./learningAgent";
+import SupportAgent from "./supportAgent";
+import ChatAgent from "./chatAgent";
+import AnalyticsAgent from "./analyticsAgent";
 
 /* ── Types ───────────────────────────────────────────────────── */
 interface ChatMessage {
@@ -153,8 +157,9 @@ export default function AIAgent() {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify({
-          stream:   true,
-          messages: [...chatHistory, userMsg].map(m => ({
+          stream:    true,
+          agentType: activeAgent,
+          messages:  [...chatHistory, userMsg].map(m => ({
             role:    m.sender === "user" ? "user" : "assistant",
             content: m.text,
           })),
@@ -309,17 +314,42 @@ export default function AIAgent() {
 
             {/* Body */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
+              {activeAgent !== "onboarding" && (
+                <motion.button
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                  onClick={() => setActiveAgent("onboarding")}
+                  className="flex items-center gap-1.5 text-[10px] text-gray-500 hover:text-white transition-colors"
+                >
+                  <span>←</span> Back
+                </motion.button>
+              )}
+
               {activeAgent === "project" ? (
-                <div className="space-y-3">
-                  <motion.button
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                    onClick={() => setActiveAgent("onboarding")}
-                    className="flex items-center gap-1.5 text-[10px] text-gray-500 hover:text-white transition-colors"
-                  >
-                    <span>←</span> Back to Onboarding
-                  </motion.button>
-                  <ProjectAgent />
-                </div>
+                <ProjectAgent />
+              ) : activeAgent === "analytics" ? (
+                <AnalyticsAgent />
+              ) : activeAgent === "learning" ? (
+                <LearningAgent />
+              ) : activeAgent === "support" ? (
+                <SupportAgent />
+              ) : activeAgent === "creative" ? (
+                <ChatAgent
+                  agentType="creative" accentHex="#a855f7" label="Creative Advisor"
+                  placeholder="What would you like to brainstorm?"
+                  quickAsk={["Help me position my consulting brand","Give me 5 tagline ideas","How do I stand out from competitors?","Help me write a compelling bio"]}
+                />
+              ) : activeAgent === "productivity" ? (
+                <ChatAgent
+                  agentType="productivity" accentHex="#eab308" label="Productivity Coach"
+                  placeholder="What do you need help organising?"
+                  quickAsk={["Help me prioritise my week","Build me a meeting agenda template","How do I reduce project bottlenecks?","Set up an OKR framework for me"]}
+                />
+              ) : activeAgent === "shopping" ? (
+                <ChatAgent
+                  agentType="shopping" accentHex="#22c55e" label="Product Advisor"
+                  placeholder="Tell me about your needs…"
+                  quickAsk={["Which plan is right for my company?","What's included in Enterprise?","Compare CORE vs GROW","How does the concierge service work?"]}
+                />
               ) : (
                 <>
                   {/* Welcome message */}
@@ -370,19 +400,6 @@ export default function AIAgent() {
                   ))}
 
                   <div ref={chatEndRef} />
-
-                  {/* Back to Onboarding — visible from any non-onboarding agent */}
-                  {activeAgent !== "onboarding" && (
-                    <motion.button
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      onClick={() => setActiveAgent("onboarding")}
-                      className="flex items-center gap-1.5 text-[10px] text-gray-500 hover:text-white transition-colors py-1"
-                    >
-                      <span>←</span>
-                      Back to Onboarding
-                    </motion.button>
-                  )}
 
                   {/* Agent switcher */}
                   <AgentSwitcher

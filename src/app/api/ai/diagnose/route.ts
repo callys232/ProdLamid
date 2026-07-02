@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { rateLimit } from "@/lib/rateLimit";
 
 const client = () =>
   new OpenAI({
@@ -22,7 +23,32 @@ Your diagnostic assessments are known for:
 
 You MUST return ONLY valid JSON — no markdown, no code fences, no commentary outside the JSON object.`;
 
+function getIP(req: NextRequest) {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    req.headers.get("x-real-ip") ||
+    "anonymous"
+  );
+}
+
 export async function POST(req: NextRequest) {
+  /* ── Rate limiting: 5 diagnostics per IP per 24 hours ── */
+  const ip     = getIP(req);
+  const limit  = await rateLimit(`diagnose:${ip}`, { windowMs: 24 * 60 * 60_000, max: 5 });
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { message: "Daily diagnostic limit reached. Sign in for higher limits or try again tomorrow." },
+      {
+        status: 429,
+        headers: {
+          "X-RateLimit-Remaining": "0",
+          "X-RateLimit-Reset":     String(limit.resetAt),
+          "Retry-After":           String(Math.ceil((limit.resetAt - Date.now()) / 1000)),
+        },
+      }
+    );
+  }
+
   try {
     const body = await req.json();
 

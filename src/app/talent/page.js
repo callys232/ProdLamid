@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
+import ExpertMatchModal from "@/components/talent/ExpertMatchModal";
 import { BadgeCheck, Wallet, Award, Target, Scale, Cpu, Users, Lightbulb, Landmark, Search, Briefcase, FlaskConical } from "lucide-react";
 
 /* ── Tabs — each is a descriptor card ── */
@@ -309,6 +310,7 @@ export default function MarketplacePage() {
   const [selected,     setSelected]     = useState(null);
   const [hoveredTrust, setHoveredTrust] = useState(null);
   const [hoveredUC,    setHoveredUC]    = useState(null);
+  const [matchOpen,    setMatchOpen]    = useState(false);
 
   return (
     <div className="aivora-section min-h-screen">
@@ -336,7 +338,9 @@ export default function MarketplacePage() {
       {/* ══ AI MATCHING FEATURE CARD ══ */}
       <section className="px-4 pb-8">
         <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto">
-          <div className="aivora-card border rounded-2xl p-8 flex flex-col sm:flex-row items-start gap-8 overflow-hidden relative"
+          <div
+            onClick={() => setMatchOpen(true)}
+            className="aivora-card border rounded-2xl p-8 flex flex-col sm:flex-row items-start gap-8 overflow-hidden relative cursor-pointer hover:border-[#C12129]/40 transition-colors"
             style={{ borderColor: "rgba(193,33,41,0.2)" }}>
             {/* Red accent */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#C12129] to-transparent" />
@@ -501,6 +505,9 @@ export default function MarketplacePage() {
           />
         )}
       </AnimatePresence>
+
+      {/* ══ EXPERT MATCH MODAL ══ */}
+      <ExpertMatchModal open={matchOpen} onClose={() => setMatchOpen(false)} />
 
     </div>
   );

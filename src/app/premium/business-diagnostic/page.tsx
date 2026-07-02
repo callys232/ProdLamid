@@ -177,6 +177,7 @@ export default function BusinessDiagnostic() {
         body:    JSON.stringify(form),
       });
       const data = await res.json();
+      if (res.status === 429) throw new Error(data.message + " Create a free account to keep going.");
       if (!res.ok) throw new Error(data.message);
       setReport(data.report);
     } catch (e: unknown) {
@@ -257,10 +258,6 @@ export default function BusinessDiagnostic() {
           Get a comprehensive health assessment across 7 business dimensions — scored insights,
           critical gap analysis, and a prioritised action plan. Powered by Claude Sonnet&nbsp;4.6.
         </p>
-        <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 text-[11px] text-gray-600 dark:text-gray-400">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          Claude Sonnet 4.6 · 7 Dimensions · via OpenRouter
-        </div>
       </div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">

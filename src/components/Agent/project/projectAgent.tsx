@@ -121,6 +121,27 @@ function getRecommendations(steps: Step[], p: FullProject): string[] {
 }
 
 /* ── Component ───────────────────────────────────────────────── */
+interface MilestoneItem {
+  title: string;
+  description: string;
+  durationDays: number;
+  payment_percentage: number;
+  acceptance_criteria: string;
+}
+
+interface Phase {
+  name: string;
+  duration: string;
+  milestones: MilestoneItem[];
+}
+
+interface MilestonePlan {
+  phases: Phase[];
+  totalDurationWeeks: number;
+  riskFlags: string[];
+  recommendations: string;
+}
+
 export default function ProjectAgent() {
   const [projects,   setProjects]   = useState<ProjectMeta[]>([]);
   const [selectedId, setSelectedId] = useState<string>("");
@@ -129,6 +150,36 @@ export default function ProjectAgent() {
   const [openStep,   setOpenStep]   = useState<number | null>(null);
   const [loading,    setLoading]    = useState(false);
   const [tips,       setTips]       = useState<string[]>([]);
+  const [plan,       setPlan]       = useState<MilestonePlan | null>(null);
+  const [planOpen,   setPlanOpen]   = useState(false);
+  const [generating, setGenerating] = useState(false);
+
+  const generateMilestonePlan = async () => {
+    if (!project || generating) return;
+    setGenerating(true);
+    setPlan(null);
+    setPlanOpen(false);
+    try {
+      const res  = await fetch("/api/ai/milestones", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({
+          title:       project.title,
+          description: project.description,
+          category:    project.category,
+          skills:      project.skills,
+          budget:      project.budget,
+          timeline:    project.deadline,
+        }),
+      });
+      const data = await res.json();
+      if (data.plan) { setPlan(data.plan); setPlanOpen(true); }
+    } catch {
+      /* silent — user can retry */
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   // Fetch project list
   useEffect(() => {
@@ -322,6 +373,78 @@ export default function ProjectAgent() {
               <p className="text-[10px] text-emerald-400">Project is fully set up — no gaps detected.</p>
             </div>
           )}
+
+          {/* ── AI Milestone Generator ── */}
+          <div className="rounded-lg border border-[#3b82f6]/20 bg-[#3b82f6]/5 px-3 py-2.5 space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm">🗂️</span>
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-[#3b82f6]">AI Milestone Plan</span>
+              </div>
+              <button
+                type="button"
+                onClick={generateMilestonePlan}
+                disabled={generating}
+                className="flex items-center gap-1 text-[9px] font-bold px-2 py-1 rounded-md bg-[#3b82f6]/20 hover:bg-[#3b82f6]/35 text-[#3b82f6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {generating
+                  ? <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Generating…</>
+                  : <><Plus className="h-2.5 w-2.5" /> Generate</>}
+              </button>
+            </div>
+
+            {!plan && !generating && (
+              <p className="text-[10px] text-gray-600">
+                Let AI break this project into phases, milestones, and payment percentages.
+              </p>
+            )}
+
+            {/* Generated plan */}
+            <AnimatePresence>
+              {plan && planOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden space-y-1.5 pt-1"
+                >
+                  <div className="flex items-center justify-between text-[9px] text-gray-500 pb-1 border-b border-white/5">
+                    <span>{plan.phases.length} phases · {plan.totalDurationWeeks}w total</span>
+                    <button type="button" onClick={() => setPlanOpen(false)} className="hover:text-white transition-colors">collapse</button>
+                  </div>
+                  {plan.phases.map((phase, pi) => (
+                    <div key={pi} className="space-y-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[9px] font-bold text-[#3b82f6]">{phase.name}</span>
+                        <span className="text-[8px] text-gray-600">· {phase.duration}</span>
+                      </div>
+                      {phase.milestones.map((m, mi) => (
+                        <div key={mi} className="ml-2 pl-2 border-l border-[#3b82f6]/20 space-y-0.5">
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="text-[9px] text-gray-300 font-medium">{m.title}</span>
+                            <span className="text-[8px] text-[#3b82f6] shrink-0">{m.payment_percentage}%</span>
+                          </div>
+                          <p className="text-[8px] text-gray-600 leading-snug">{m.acceptance_criteria}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                  {plan.recommendations && (
+                    <p className="text-[9px] text-yellow-400/70 pt-1 border-t border-white/5">
+                      💡 {plan.recommendations}
+                    </p>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {plan && !planOpen && (
+              <button type="button" onClick={() => setPlanOpen(true)} className="text-[9px] text-[#3b82f6] hover:underline">
+                Show {plan.phases.length}-phase plan →
+              </button>
+            )}
+          </div>
         </>
       )}
 

@@ -1,7 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { rateLimit } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
+
+function getIP(req: NextRequest) {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    req.headers.get("x-real-ip") ||
+    "anonymous"
+  );
+}
 
 interface SimilarProject {
   title: string;
@@ -26,7 +35,17 @@ interface BenchmarkResponse {
   recommendations: string[];
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  /* ── Rate limiting: 30 benchmark lookups per IP per hour ── */
+  const ip    = getIP(request);
+  const limit = await rateLimit(`estimate-similar:${ip}`, { windowMs: 60 * 60_000, max: 30 });
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down or sign in." },
+      { status: 429 }
+    );
+  }
+
   const openai = new OpenAI({
     apiKey: process.env.OPENROUTER_API_KEY,
     baseURL: "https://openrouter.ai/api/v1",
