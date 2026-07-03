@@ -10,18 +10,18 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
 import PeekView from "@/components/peekview/PeekView";
 
-/* ── Main nav links (matches prototype exactly) ── */
+/* ── Main nav links ── */
 const NAV_LINKS = [
-  { label: "Home",   href: "/"          },
-  { label: "CORE",   href: "/talent"    },
-  { label: "GROW",   href: "/biz"       },
-  { label: "TALENT", href: "/hcd"       },
-  { label: "About",        href: "/portfolio" },
-  { label: "For Experts",  href: "/for-experts" },
-  { label: "Pricing",      href: "/pricing"   },
+  { label: "Home",        href: "/"            },
+  { label: "CORE",        href: "/talent"      },
+  { label: "GROW",        href: "/biz"         },
+  { label: "TALENT",      href: "/hcd"         },
+  { label: "About",       href: "/portfolio"   },
+  { label: "For Experts", href: "/for-experts" },
+  { label: "Pricing",     href: "/pricing"     },
 ];
 
-/* ── Hidden behind "Actions" dropdown ── */
+/* ── Hidden behind "More" dropdown ── */
 const ACTION_ITEMS = [
   { label: "Events & Training", href: "/events",    icon: "✦", desc: "Upcoming workshops, webinars, and learning events" },
   { label: "Portfolio",         href: "/portfolio", icon: "◈", desc: "Our work, case studies, and about LAMID ONE" },
@@ -50,13 +50,13 @@ function useNotifications() {
 }
 
 const Navbar: React.FC = () => {
-  const [isOpen,     setIsOpen]     = useState(false);
-  const [actionsOpen,setActionsOpen]= useState(false);
-  const [navVisible, setNavVisible] = useState(true);
-  const lastScrollY   = useRef(0);
-  const actionsRef    = useRef<HTMLDivElement>(null);
-  const pathname      = usePathname() ?? "";
-  const notifCount    = useNotifications();
+  const [isOpen,      setIsOpen]      = useState(false);
+  const [actionsOpen, setActionsOpen] = useState(false);
+  const [navVisible,  setNavVisible]  = useState(true);
+  const lastScrollY = useRef(0);
+  const actionsRef  = useRef<HTMLDivElement>(null);
+  const pathname    = usePathname() ?? "";
+  const notifCount  = useNotifications();
   const { isAuthenticated, loading: authLoading } = useAuth();
 
   /* Scroll-aware hide/show */
@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Close actions on outside click / escape */
+  /* Close dropdowns on outside click / escape */
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (actionsRef.current && !actionsRef.current.contains(e.target as Node))
@@ -131,7 +131,6 @@ const Navbar: React.FC = () => {
                     }`}
                 >
                   {link.label}
-                  {/* Active — solid red underline */}
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
@@ -139,7 +138,6 @@ const Navbar: React.FC = () => {
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
-                  {/* Hover — white/light underline (distinct from active red) */}
                   {!active && (
                     <span className="absolute bottom-0 left-3 right-3 h-[1px] rounded-full bg-gray-400 dark:bg-white/30 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
                   )}
@@ -147,7 +145,7 @@ const Navbar: React.FC = () => {
               );
             })}
 
-            {/* Actions dropdown — Events & Portfolio hidden here */}
+            {/* More dropdown */}
             <div ref={actionsRef} className="relative">
               <motion.button
                 type="button"
@@ -180,7 +178,6 @@ const Navbar: React.FC = () => {
                     className="absolute left-0 mt-2 w-64 rounded-2xl border border-gray-200 dark:border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.18)] dark:shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden"
                     style={{ background: "var(--navbar-bg)" }}
                   >
-                    {/* Top accent */}
                     <div className="h-[2px] bg-gradient-to-r from-[#C12129] to-transparent" />
                     <div className="p-2">
                       {ACTION_ITEMS.map((item) => (
@@ -212,13 +209,9 @@ const Navbar: React.FC = () => {
 
           {/* ── Right side actions ── */}
           <div className="flex items-center gap-2">
-            {/* Tools peek view */}
             <PeekView />
-
-            {/* Theme toggle */}
             <ThemeToggle />
 
-            {/* Guest CTAs — Sign In handled by account avatar */}
             {!authLoading && !isAuthenticated && (
               <motion.div className="hidden lg:block" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link href="/signup"
@@ -228,13 +221,11 @@ const Navbar: React.FC = () => {
               </motion.div>
             )}
 
-            {/* Account menu + notifications (auth users) */}
             <div className="relative hidden lg:block">
               <AccountMenu />
               {renderNotifBadge()}
             </div>
 
-            {/* Mobile hamburger */}
             <motion.button
               type="button"
               whileTap={{ scale: 0.92 }}
@@ -242,10 +233,7 @@ const Navbar: React.FC = () => {
               onClick={() => setIsOpen((v) => !v)}
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
-              <motion.span
-                animate={{ rotate: isOpen ? 45 : 0 }}
-                className="text-base leading-none select-none"
-              >
+              <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="text-base leading-none select-none">
                 {isOpen ? "✕" : "☰"}
               </motion.span>
             </motion.button>
@@ -264,8 +252,6 @@ const Navbar: React.FC = () => {
               style={{ background: "var(--navbar-bg)" }}
             >
               <div className="px-4 py-4 flex flex-col gap-1">
-
-                {/* Main links */}
                 {NAV_LINKS.map((link) => {
                   const active = isActive(link.href);
                   return (
@@ -285,13 +271,9 @@ const Navbar: React.FC = () => {
                   );
                 })}
 
-                {/* Divider */}
                 <div className="h-px bg-white/8 dark:bg-white/8 bg-gray-200 my-2" />
 
-                {/* Hidden items */}
-                <p className="px-4 text-[10px] font-bold uppercase tracking-widest aivora-gradient-text mb-1">
-                  More
-                </p>
+                <p className="px-4 text-[10px] font-bold uppercase tracking-widest aivora-gradient-text mb-1">More</p>
                 {ACTION_ITEMS.map((item) => (
                   <Link
                     key={item.href + item.label}
@@ -304,16 +286,13 @@ const Navbar: React.FC = () => {
                   </Link>
                 ))}
 
-                {/* Divider */}
                 <div className="h-px bg-white/8 dark:bg-white/8 bg-gray-200 my-2" />
 
-                {/* Theme toggle */}
                 <div className="flex items-center gap-3 px-4 py-2">
                   <ThemeToggle />
                   <span className="text-xs aivora-text-muted">Day / Night</span>
                 </div>
 
-                {/* Guest CTA — Sign In handled by account avatar */}
                 {!authLoading && !isAuthenticated && (
                   <div className="pt-2">
                     <Link href="/signup" onClick={() => setIsOpen(false)}
@@ -323,7 +302,6 @@ const Navbar: React.FC = () => {
                   </div>
                 )}
 
-                {/* Account (mobile) */}
                 <div className="pt-2 relative">
                   <AccountMenu align="left" />
                   {notifCount > 0 && renderNotifBadge()}
@@ -333,7 +311,6 @@ const Navbar: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* Bottom red line accent */}
         <div className="h-[1px] bg-gradient-to-r from-transparent via-[#C12129]/30 to-transparent" />
       </nav>
     </motion.header>

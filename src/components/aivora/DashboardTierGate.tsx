@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Lock, ArrowUpRight } from "lucide-react";
+import { Lock, ArrowUpRight, FlaskConical, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import DashboardAuthGate from "./DashboardAuthGate";
+
+const DEV_BYPASS = process.env.NEXT_PUBLIC_DEV_BYPASS_GATE === "true";
 
 interface Props {
   pillar: string;
@@ -15,7 +17,26 @@ interface Props {
 
 export default function DashboardTierGate({ pillar, backHref, backLabel, children }: Props) {
   const { isAuthenticated, loading: authLoading } = useAuth();
-  const [tier, setTier]       = useState<"checking" | "free" | "premium">("checking");
+  const [tier, setTier]         = useState<"checking" | "free" | "premium">("checking");
+  const [bannerDismissed, setBannerDismissed] = useState(false);
+
+  /* ── Dev bypass — skip all gates ── */
+  if (DEV_BYPASS) {
+    return (
+      <>
+        {!bannerDismissed && (
+          <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[999] flex items-center gap-3 px-4 py-2.5 rounded-xl border border-amber-400/40 bg-amber-950/90 backdrop-blur-sm shadow-lg text-amber-300 text-xs font-medium">
+            <FlaskConical className="w-3.5 h-3.5 shrink-0" />
+            <span>Dev mode — all gates bypassed. Set <code className="font-mono bg-amber-900/60 px-1 rounded">NEXT_PUBLIC_DEV_BYPASS_GATE=false</code> before deploying.</span>
+            <button type="button" aria-label="Dismiss dev banner" onClick={() => setBannerDismissed(true)} className="ml-1 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+        {children}
+      </>
+    );
+  }
 
   useEffect(() => {
     if (authLoading) return;

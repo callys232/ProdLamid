@@ -3,6 +3,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
+const DEV_BYPASS = process.env.NEXT_PUBLIC_DEV_BYPASS_GATE === "true";
+
 export interface AuthUser {
   id: string;
   name: string;
@@ -10,9 +12,23 @@ export interface AuthUser {
   email: string;
   role: "client" | "seller" | "admin";
   accountType?: "Client" | "Freelancer" | "Enterprise" | "Concierge" | "Admin";
+  isPremium?: boolean;
+  subscriptionStatus?: string;
   orgId?: string;
   avatar?: string;
 }
+
+/* Fake admin user returned when NEXT_PUBLIC_DEV_BYPASS_GATE=true */
+const DEV_USER: AuthUser = {
+  id:                 "dev-admin-bypass",
+  name:               "Dev Admin",
+  username:           "devadmin",
+  email:              "dev@lamid.one",
+  role:               "admin",
+  accountType:        "Admin",
+  isPremium:          true,
+  subscriptionStatus: "active",
+};
 
 interface UseAuthReturn {
   user: AuthUser | null;
@@ -50,11 +66,13 @@ function getDashboardHref(user: AuthUser): string {
 }
 
 export function useAuth(): UseAuthReturn {
+  /* All hooks called unconditionally — bypass only affects return value */
   const [user,    setUser]    = useState<AuthUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!DEV_BYPASS);
   const router = useRouter();
 
   useEffect(() => {
+    if (DEV_BYPASS) return;
     let mounted = true;
     fetch("/api/auth/me", { credentials: "include" })
       .then((res) => (res.ok ? res.json() : null))
@@ -67,6 +85,7 @@ export function useAuth(): UseAuthReturn {
   }, []);
 
   const signOut = useCallback(async () => {
+    if (DEV_BYPASS) return;
     try {
       await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
     } catch {}
@@ -74,6 +93,16 @@ export function useAuth(): UseAuthReturn {
     setUser(null);
     router.push("/signin");
   }, [router]);
+
+  if (DEV_BYPASS) {
+    return {
+      user:            DEV_USER,
+      loading:         false,
+      isAuthenticated: true,
+      dashboardHref:   "/admin",
+      signOut:         async () => {},
+    };
+  }
 
   return {
     user,
