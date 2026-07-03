@@ -18,6 +18,8 @@ import EscrowTab          from "@/components/client/escrow/Escrow";
 import WorkspaceTab       from "@/components/client/messaging/ProjectWorkspace";
 import EnterpriseTeams    from "./tabs/Teams";
 import EnterpriseInvitations from "./tabs/Invitations";
+import ApprovalWorkflow  from "./ApprovalWorkflow";
+import OrgAuditLog       from "./OrgAuditLog";
 
 import type { Organization, EnterpriseDashboardStats, OrgTier, OrgRole } from "@/types/enterprise";
 
@@ -56,6 +58,7 @@ export default function EnterpriseDashboard() {
   const [org, setOrg]                 = useState<Organization | null>(null);
   const [stats, setStats]             = useState<EnterpriseDashboardStats | null>(null);
   const [orgRole, setOrgRole]         = useState<OrgRole>("org_member");
+  const [userId, setUserId]           = useState<string>("");
   const [loading, setLoading]         = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -66,7 +69,8 @@ export default function EnterpriseDashboard() {
         const accountRes = await fetch("/api/groupware/get-account");
         if (accountRes.status === 401) { router.replace("/signin"); return; }
         if (accountRes.ok) {
-          const { accountType, orgRole: userOrgRole } = await accountRes.json();
+          const { accountType, orgRole: userOrgRole, _id: uid } = await accountRes.json();
+          if (uid) setUserId(String(uid));
           // Also check localStorage in case API lags
           const stored = typeof window !== "undefined" ? localStorage.getItem("account_type") : null;
           const resolved = accountType || stored;
@@ -100,7 +104,7 @@ export default function EnterpriseDashboard() {
         }
       } catch {
         setOrg(MOCK_ORG);
-        setStats(MOCK_STATS);
+        setStats(null);
       } finally {
         setLoading(false);
       }
@@ -120,8 +124,36 @@ export default function EnterpriseDashboard() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0B0F19]">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#c12129] border-t-transparent" />
+      <div className="flex min-h-screen flex-col bg-[#0B0F19] text-white">
+        {/* Skeleton header bar */}
+        <div className="h-14 border-b border-white/10 bg-black" />
+        <div className="flex flex-1">
+          {/* Skeleton sidebar */}
+          <div className="hidden md:flex flex-col w-56 border-r border-white/10 bg-black p-4 gap-2">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-9 w-full animate-pulse rounded-xl bg-white/5" />
+            ))}
+          </div>
+          {/* Skeleton content */}
+          <div className="flex-1 p-6 space-y-5">
+            {/* Welcome banner skeleton */}
+            <div className="h-16 w-full animate-pulse rounded-xl bg-white/5" />
+            {/* Stat cards skeleton grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="rounded-2xl border border-gray-800 bg-gray-900 p-5 space-y-3">
+                  <div className="h-3 w-16 animate-pulse rounded bg-white/10" />
+                  <div className="h-8 w-20 animate-pulse rounded bg-white/10" />
+                  <div className="h-2 w-24 animate-pulse rounded bg-white/5" />
+                </div>
+              ))}
+            </div>
+            {/* Content rows skeleton */}
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="h-32 w-full animate-pulse rounded-2xl bg-white/5" />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
@@ -136,6 +168,8 @@ export default function EnterpriseDashboard() {
       case "escrow":        return <EscrowTab />;
       case "messaging":     return <WorkspaceTab />;
       case "analytics":     return <Analytics />;
+      case "approvals":     return <ApprovalWorkflow orgId={org?._id ?? ""} userId={userId} userRole={orgRole} />;
+      case "auditlog":      return <OrgAuditLog />;
       case "billing":       return <Billing        tier={tier} orgStatus={org?.status ?? "trial"} />;
       case "settings":      return <OrgSettings    org={org} orgRole={orgRole} />;
       case "notifications": return <Notifications />;

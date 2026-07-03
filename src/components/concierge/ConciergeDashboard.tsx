@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, LayoutDashboard, FolderKanban, Users, Bell, MessageSquare,
   BarChart3, TrendingUp, HeadphonesIcon, Settings, Star, UserCheck, Lock, Mail,
-  ChevronLeft, ChevronRight,
+  ChevronLeft, ChevronRight, ShieldCheck, Activity,
 } from "lucide-react";
 
 import Overview            from "./tabs/ConciergeOverview";
@@ -21,6 +21,8 @@ import EscrowTab           from "@/components/client/escrow/Escrow";
 import WorkspaceTab        from "@/components/client/messaging/ProjectWorkspace";
 import ConciergeInvitations from "./tabs/ConciergeInvitations";
 import ConciergeAnalytics   from "./tabs/ConciergeAnalytics";
+import SLATracker           from "./SLATracker";
+import ConciergeKPIs        from "./ConciergeKPIs";
 import { UserGuide } from "@/components/Guides/UserGuide";
 import { conciergeGuide } from "@/lib/UserGuide/conciergeGuide";
 
@@ -33,6 +35,8 @@ const NAV = [
   { key: "escrow",        label: "Escrow",           icon: Lock,            guide: "guide-con-escrow"      },
   { key: "messaging",     label: "Messaging",        icon: MessageSquare,   guide: "guide-con-messaging"   },
   { key: "invitations",   label: "Invitations",      icon: Mail,            guide: "guide-con-invitations" },
+  { key: "sla",           label: "SLA Tracking",     icon: ShieldCheck,     guide: undefined               },
+  { key: "kpis",          label: "KPIs",             icon: Activity,        guide: undefined               },
   { key: "analytics",     label: "Analytics",        icon: TrendingUp,      guide: undefined               },
   { key: "reports",       label: "Reports",          icon: BarChart3,       guide: "guide-con-reports"     },
   { key: "notifications", label: "Notifications",    icon: Bell,            guide: undefined               },
@@ -79,6 +83,8 @@ export default function ConciergeDashboard() {
       );
       case "dedicated-pm":  return <ConciergePM />;
       case "teams":         return <Teams />;
+      case "sla":           return <SLATracker userId={userId} />;
+      case "kpis":          return <ConciergeKPIs />;
       case "analytics":     return <ConciergeAnalytics />;
       case "reports":       return <ConciergeReports />;
       case "notifications": return <Notifications clientId={userId} />;
@@ -254,6 +260,7 @@ export default function ConciergeDashboard() {
                   const active = activeTab === key;
                   return (
                     <button
+                      type="button"
                       key={key}
                       onClick={() => switchTab(key)}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${

@@ -20,6 +20,8 @@ import { Project } from "@/types/project";
 import { mockClients } from "@/mocks/mockClient";
 import CProfileHeader from "./CprofileHeader";
 import Messaging from "./messaging/ProjectWorkspace";
+import WalletPanel from "@/components/shared/WalletPanel";
+import InvoiceHistory from "./InvoiceHistory";
 /* -------------------- Skeleton Loader -------------------- */
 function SkeletonLoader() {
   return (
@@ -110,6 +112,10 @@ export default function ClientProfileDashboard() {
           />
         );
       case "messaging": return <Messaging />;
+      case "wallet":
+        return <WalletPanel userId={client?.id || ""} role="client" />;
+      case "invoices":
+        return <InvoiceHistory userId={client.id ?? client._id ?? ""} />;
       case "invitations":
         return <Invitations client={client} consultants={client.consultants} />;
       default:

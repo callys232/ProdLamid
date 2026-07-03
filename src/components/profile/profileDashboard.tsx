@@ -16,6 +16,10 @@ import { Project } from "@/types/project";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ProjectMatching from "./projectMatching/projectMatch";
 import Messaging from "@/components/messaging/ProjectWorkspace";
+import WalletPanel from "@/components/shared/WalletPanel";
+import EarningsDashboard from "./EarningsDashboard";
+import PortfolioSection from "./PortfolioSection";
+import ProfileCompletionScore from "./ProfileCompletionScore";
 
 export default function ProfileDashboard({
   params,
@@ -48,6 +52,16 @@ export default function ProfileDashboard({
     fetchUserData();
   }, []);
 
+  // Listen for tab-switch events emitted by ProfileCompletionScore "Fix →" buttons
+  useEffect(() => {
+    function handleSetTab(e: Event) {
+      const tab = (e as CustomEvent<string>).detail;
+      if (tab) setActiveTab(tab);
+    }
+    window.addEventListener("lamid:setTab", handleSetTab);
+    return () => window.removeEventListener("lamid:setTab", handleSetTab);
+  }, []);
+
   const projects = user?.projects || [];
   const [selectedProjectId, setSelectedProjectId] = useState<string>("");
 
@@ -57,13 +71,39 @@ export default function ProfileDashboard({
     }
   }, [projects, selectedProjectId]);
 
+  // Derive portfolio & project completion status for ProfileCompletionScore
+  const userId = user?._id ?? user?.id ?? "";
+  const hasPortfolio =
+    typeof window !== "undefined" && userId
+      ? ((): boolean => {
+          try {
+            return JSON.parse(localStorage.getItem(`portfolio_${userId}`) ?? "[]").length > 0;
+          } catch {
+            return false;
+          }
+        })()
+      : false;
+
+  const hasCompletedProject = (user?.projects ?? []).some(
+    (p: any) => p.status === "completed"
+  );
+
   const renderTab = () => {
     if (loading) return <p>Loading...</p>;
     if (!user) return <p>No profile data available.</p>;
 
     switch (activeTab) {
       case "overview":
-        return <Overview projectId={selectedProjectId} />;
+        return (
+          <div className="space-y-6">
+            <ProfileCompletionScore
+              user={user}
+              hasPortfolio={hasPortfolio}
+              hasCompletedProject={hasCompletedProject}
+            />
+            <Overview projectId={selectedProjectId} />
+          </div>
+        );
       case "projects":
         return <ProjectsTab projects={projects} />;
       case "settings":
@@ -78,10 +118,24 @@ export default function ProfileDashboard({
         return <Messaging />;
       case "project-matching":
         return <ProjectMatching showSidebar={true} isPremiumUser={user.isPremium ?? true} />;
+      case "wallet":
+        return <WalletPanel userId={user._id || ""} role="seller" />;
+      case "earnings":
+        return <EarningsDashboard userId={userId} />;
+      case "portfolio":
+        return <PortfolioSection userId={userId} />;
 
       default:
-        return <Overview projectId={selectedProjectId} />;
-
+        return (
+          <div className="space-y-6">
+            <ProfileCompletionScore
+              user={user}
+              hasPortfolio={hasPortfolio}
+              hasCompletedProject={hasCompletedProject}
+            />
+            <Overview projectId={selectedProjectId} />
+          </div>
+        );
     }
   };
 

@@ -34,6 +34,9 @@ export default function ProfileSidebar({
     { key: "messaging",        label: "Messaging",        guide: "guide-freelancer-messaging" },
     { key: "project-matching", label: "Project Matching", guide: "guide-freelancer-matching"  },
     { key: "escrow",           label: "Escrow",           guide: "guide-freelancer-escrow"    },
+    { key: "wallet",           label: "Wallet",           guide: undefined                    },
+    { key: "earnings",         label: "Earnings",         guide: undefined                    },
+    { key: "portfolio",        label: "Portfolio",        guide: undefined                    },
   ];
 
   return (

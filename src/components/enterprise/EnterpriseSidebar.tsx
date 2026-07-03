@@ -6,6 +6,7 @@ import {
   LayoutDashboard, Users, FolderOpen, BarChart2,
   CreditCard, Settings, Bell, LogOut, Lock, MessageSquare,
   UsersRound, Mail, ChevronLeft, ChevronRight,
+  CheckCircle2, ShieldCheck,
 } from "lucide-react";
 import PointsBalance from "@/components/points/PointsBalance";
 import { UserGuide } from "@/components/Guides/UserGuide";
@@ -20,6 +21,8 @@ const TABS = [
   { key: "messaging",     label: "Messaging",      icon: MessageSquare,   guide: "guide-ent-messaging"   },
   { key: "invitations",   label: "Invitations",    icon: Mail,            guide: "guide-ent-invitations" },
   { key: "analytics",     label: "Analytics",      icon: BarChart2,       guide: "guide-ent-analytics"   },
+  { key: "approvals",     label: "Approvals",      icon: CheckCircle2,    guide: undefined               },
+  { key: "auditlog",      label: "Audit Log",      icon: ShieldCheck,     guide: undefined               },
   { key: "billing",       label: "Billing",        icon: CreditCard,      guide: "guide-ent-billing"     },
   { key: "settings",      label: "Settings",       icon: Settings,        guide: "guide-ent-settings"    },
   { key: "notifications", label: "Notifications",  icon: Bell,            guide: undefined               },
