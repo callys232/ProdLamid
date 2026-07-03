@@ -166,6 +166,7 @@ export default function BusinessDiagnostic() {
   const progress = Math.round((filled / REQUIRED.length) * 100);
 
   const run = async () => {
+    if (loading) return; /* double-click guard */
     if (!form.businessName) { setError("Business name is required."); return; }
     if (!form.challenges)   { setError("Please describe your key challenges."); return; }
     if (!form.goals)        { setError("Please describe your strategic goals."); return; }

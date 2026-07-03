@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { rateLimit } from "@/lib/rateLimit";
+import { sanitiseInput, isBodyTooLarge, getClientIP } from "@/lib/sanitize";
 
 const client = () =>
   new OpenAI({
@@ -12,17 +13,12 @@ const client = () =>
     },
   });
 
-function getIP(req: NextRequest) {
-  return (
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    req.headers.get("x-real-ip") ||
-    "anonymous"
-  );
-}
-
 export async function POST(req: NextRequest) {
-  /* Rate limit: 20 intelligence runs per IP per 24 hours */
-  const ip    = getIP(req);
+  if (isBodyTooLarge(req)) {
+    return NextResponse.json({ message: "Request too large." }, { status: 413 });
+  }
+
+  const ip    = getClientIP(req);
   const limit = await rateLimit(`intelligence:${ip}`, { windowMs: 24 * 60 * 60_000, max: 20 });
   if (!limit.allowed) {
     return NextResponse.json(
@@ -32,9 +28,11 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { moduleId, engineName, seriesName, purpose, dimensionLabels, driverContext, correctionProtocols, context } = await req.json();
+    const body = await req.json();
+    const { moduleId, engineName, seriesName, purpose, dimensionLabels, driverContext, correctionProtocols } = body;
+    const context = sanitiseInput(body.context ?? {});
 
-    if (!context?.organisationName) {
+    if (!context.organisationName?.trim()) {
       return NextResponse.json({ message: "Organisation name is required." }, { status: 400 });
     }
 

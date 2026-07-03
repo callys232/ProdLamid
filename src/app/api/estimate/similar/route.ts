@@ -1,16 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { rateLimit } from "@/lib/rateLimit";
+import { isBodyTooLarge, getClientIP } from "@/lib/sanitize";
 
 export const dynamic = "force-dynamic";
-
-function getIP(req: NextRequest) {
-  return (
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    req.headers.get("x-real-ip") ||
-    "anonymous"
-  );
-}
 
 interface SimilarProject {
   title: string;
@@ -36,8 +29,11 @@ interface BenchmarkResponse {
 }
 
 export async function POST(request: NextRequest) {
+  if (isBodyTooLarge(request)) {
+    return NextResponse.json({ error: "Request too large." }, { status: 413 });
+  }
   /* ── Rate limiting: 30 benchmark lookups per IP per hour ── */
-  const ip    = getIP(request);
+  const ip    = getClientIP(request);
   const limit = await rateLimit(`estimate-similar:${ip}`, { windowMs: 60 * 60_000, max: 30 });
   if (!limit.allowed) {
     return NextResponse.json(

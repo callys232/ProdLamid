@@ -25,10 +25,12 @@ export default function DashboardTierGate({ pillar, backHref, backLabel, childre
       .then(r => r.ok ? r.json() : null)
       .then(d => {
         const u = d?.data;
-        const hasTier = u?.isPremium === true
+        const hasTier =
+          /* Explicit premium flag — accept boolean true or truthy number */
+          (u?.isPremium === true || u?.isPremium === 1)
           || u?.subscriptionStatus === "active"
-          || u?.accountType === "Enterprise"
-          || u?.accountType === "Admin"
+          /* Enterprise account types always have premium access */
+          || ["Enterprise", "Concierge", "Admin"].includes(u?.accountType ?? "")
           || u?.role === "admin";
         setTier(hasTier ? "premium" : "free");
       })

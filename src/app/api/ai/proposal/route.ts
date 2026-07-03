@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { rateLimit } from "@/lib/rateLimit";
+import { sanitiseInput, isBodyTooLarge, getClientIP } from "@/lib/sanitize";
 
 const client = () =>
   new OpenAI({
@@ -23,17 +24,12 @@ Your proposals are known for:
 
 You MUST return ONLY valid JSON — no markdown, no code fences, no commentary outside the JSON object.`;
 
-function getIP(req: NextRequest) {
-  return (
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    req.headers.get("x-real-ip") ||
-    "anonymous"
-  );
-}
-
 export async function POST(req: NextRequest) {
+  if (isBodyTooLarge(req)) {
+    return NextResponse.json({ message: "Request too large." }, { status: 413 });
+  }
   /* ── Rate limiting: 10 proposals per IP per 24 hours ── */
-  const ip    = getIP(req);
+  const ip    = getClientIP(req);
   const limit = await rateLimit(`proposal:${ip}`, { windowMs: 24 * 60 * 60_000, max: 10 });
   if (!limit.allowed) {
     return NextResponse.json(
@@ -50,12 +46,13 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const {
-      projectTitle, clientName, companyName, category,
-      description, budget, timeline, skills, deliverables,
-    } = await req.json();
+    const clean = sanitiseInput(await req.json());
+    const { projectTitle, clientName, companyName, category, description, timeline } = clean;
+    const budget       = clean.budget;
+    const skills       = clean.skills;
+    const deliverables = clean.deliverables;
 
-    if (!projectTitle)
+    if (!projectTitle?.trim())
       return NextResponse.json({ message: "Project title required." }, { status: 400 });
 
     const prompt = `Generate an exceptionally detailed, client-ready consulting proposal for the following engagement. Use specific, persuasive language tailored to the category and context. Include measurable KPIs, industry benchmarks where relevant, and a tone that inspires confidence and urgency.

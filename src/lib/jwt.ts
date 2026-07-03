@@ -3,7 +3,17 @@
 import jwt from "jsonwebtoken";
 import { JwtAccessTokenPayload, JwtRefreshTokenPayload, JwtValidatorTokenPayload } from "./types/auth";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const _RAW_SECRET = process.env.JWT_SECRET;
+if (!_RAW_SECRET || _RAW_SECRET.length < 32) {
+  /* Log loudly — we cannot throw at module-load time since Next.js build
+     runs in "production" mode even locally. The runtime will still fail
+     if JWT_SECRET is missing when signing/verifying tokens. */
+  console.error(
+    "[SECURITY CRITICAL] JWT_SECRET is not set or is shorter than 32 characters. " +
+    "Set a strong secret in .env before deploying to production."
+  );
+}
+const JWT_SECRET: string = _RAW_SECRET ?? "dev-only-insecure-fallback-change-before-deploying";
 
 export function signAccessToken(user: { id: string; email: string; role?: string; orgId?: string; orgRole?: string }) {
   const payload: JwtAccessTokenPayload = {

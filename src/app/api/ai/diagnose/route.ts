@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { rateLimit } from "@/lib/rateLimit";
+import { sanitiseInput, isBodyTooLarge, getClientIP } from "@/lib/sanitize";
 
 const client = () =>
   new OpenAI({
@@ -23,17 +24,12 @@ Your diagnostic assessments are known for:
 
 You MUST return ONLY valid JSON — no markdown, no code fences, no commentary outside the JSON object.`;
 
-function getIP(req: NextRequest) {
-  return (
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    req.headers.get("x-real-ip") ||
-    "anonymous"
-  );
-}
-
 export async function POST(req: NextRequest) {
+  if (isBodyTooLarge(req)) {
+    return NextResponse.json({ message: "Request too large." }, { status: 413 });
+  }
   /* ── Rate limiting: 5 diagnostics per IP per 24 hours ── */
-  const ip     = getIP(req);
+  const ip     = getClientIP(req);
   const limit  = await rateLimit(`diagnose:${ip}`, { windowMs: 24 * 60 * 60_000, max: 5 });
   if (!limit.allowed) {
     return NextResponse.json(
@@ -50,10 +46,8 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const body = await req.json();
-
-    // Support both legacy { formData: {...} } and new direct-field format
-    const raw = body.formData ?? body;
+    const body  = await req.json();
+    const raw   = sanitiseInput(body.formData ?? body);
 
     const businessName   = raw.businessName   || raw.fullname  || "the business";
     const industry       = raw.industry       || raw.eventCategory || "";

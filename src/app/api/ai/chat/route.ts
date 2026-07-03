@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { isBodyTooLarge } from "@/lib/sanitize";
 
 function getClient() {
   return new OpenAI({
@@ -187,20 +188,32 @@ Under 150 words per response.`,
 
 /* ── Route handler ────────────────────────────────────────────── */
 export async function POST(req: NextRequest) {
-  try {
-    const { messages, stream = false, agentType = "onboarding" } = await req.json();
+  if (isBodyTooLarge(req, 32_768)) {
+    return NextResponse.json({ error: "Request too large." }, { status: 413 });
+  }
 
-    if (!messages || !Array.isArray(messages)) {
+  try {
+    const body = await req.json();
+    const { stream = false, agentType = "onboarding" } = body;
+    const messages = Array.isArray(body.messages) ? body.messages : null;
+
+    if (!messages) {
       return NextResponse.json({ error: "Invalid messages" }, { status: 400 });
     }
 
-    const systemPrompt = AGENT_PROMPTS[agentType] ?? AGENT_PROMPTS.onboarding;
+    /* Sanitise each message content to prevent prompt injection */
+    const sanitisedMessages = messages.slice(-12).map((m: { role: string; content: string }) => ({
+      role:    m.role === "user" ? "user" : "assistant",
+      content: typeof m.content === "string" ? m.content.slice(0, 1000).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g, "") : "",
+    }));
+
+    const systemPrompt = AGENT_PROMPTS[agentType as string] ?? AGENT_PROMPTS.onboarding;
 
     const payload = {
       model:       "openai/gpt-4o-mini",
       messages: [
         { role: "system" as const, content: systemPrompt },
-        ...messages.slice(-12),
+        ...sanitisedMessages,
       ],
       temperature: 0.7,
       max_tokens:  350,
