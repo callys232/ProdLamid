@@ -4,50 +4,58 @@ import Link from "next/link";
 
 const ACCOUNTS = [
   {
-    role:      "client",
-    label:     "Client",
-    email:     "client@lamid.test",
-    password:  "Client@123",
-    dashboard: "/client",
-    color:     "#3b82f6",
-    icon:      "👤",
-    desc:      "Projects, invoices, and hiring tools",
+    role:       "client",
+    label:      "Client",
+    email:      "client@lamid.test",
+    password:   "Client@123",
+    dashboard:  "/client",
+    btnClass:   "bg-blue-500/10 text-blue-400 border border-blue-500/25",
+    icon:       "👤",
+    desc:       "Projects, invoices, and hiring tools",
   },
   {
-    role:      "freelancer",
-    label:     "Freelancer / Consultant",
-    email:     "freelancer@lamid.test",
-    password:  "Freelancer@123",
-    dashboard: "/profile",
-    color:     "#10b981",
-    icon:      "💼",
-    desc:      "Expert profile, bids, and earnings",
+    role:       "freelancer",
+    label:      "Freelancer / Consultant",
+    email:      "freelancer@lamid.test",
+    password:   "Freelancer@123",
+    dashboard:  "/profile",
+    btnClass:   "bg-emerald-500/10 text-emerald-400 border border-emerald-500/25",
+    icon:       "💼",
+    desc:       "Expert profile, bids, and earnings",
   },
   {
-    role:      "enterprise",
-    label:     "Enterprise",
-    email:     "enterprise@lamid.test",
-    password:  "Enterprise@123",
-    dashboard: "/enterprise",
-    color:     "#8b5cf6",
-    icon:      "🏢",
-    desc:      "Team management and org billing",
+    role:       "enterprise",
+    label:      "Enterprise",
+    email:      "enterprise@lamid.test",
+    password:   "Enterprise@123",
+    dashboard:  "/enterprise",
+    btnClass:   "bg-violet-500/10 text-violet-400 border border-violet-500/25",
+    icon:       "🏢",
+    desc:       "Team management and org billing",
   },
   {
-    role:      "concierge",
-    label:     "Concierge",
-    email:     "concierge@lamid.test",
-    password:  "Concierge@123",
-    dashboard: "/concierge",
-    color:     "#f59e0b",
-    icon:      "🎩",
-    desc:      "Managed service and PM console",
+    role:       "concierge",
+    label:      "Concierge",
+    email:      "concierge@lamid.test",
+    password:   "Concierge@123",
+    dashboard:  "/concierge",
+    btnClass:   "bg-amber-500/10 text-amber-400 border border-amber-500/25",
+    icon:       "🎩",
+    desc:       "Managed service and PM console",
+  },
+  {
+    role:       "admin",
+    label:      "Admin",
+    email:      "admin@lamid.test",
+    password:   "Admin@123",
+    dashboard:  "/admin",
+    btnClass:   "bg-red-500/10 text-red-400 border border-red-500/25",
+    icon:       "🛡️",
+    desc:       "Full platform admin console",
   },
 ];
 
 export default function DevLoginPage() {
-  if (process.env.NODE_ENV === "production") return null;
-
   return (
     <main className="min-h-screen bg-gray-950 flex flex-col items-center justify-center px-4 py-16">
       <div className="w-full max-w-2xl">
@@ -86,10 +94,7 @@ export default function DevLoginPage() {
                 <div><span className="text-white/20">goes to</span>  {acct.dashboard}</div>
               </div>
 
-              <div
-                className="mt-1 w-full py-2 rounded-xl text-xs font-bold text-center transition-opacity group-hover:opacity-100 opacity-80"
-                style={{ background: `${acct.color}22`, color: acct.color, border: `1px solid ${acct.color}40` }}
-              >
+              <div className={`mt-1 w-full py-2 rounded-xl text-xs font-bold text-center transition-opacity group-hover:opacity-100 opacity-80 ${acct.btnClass}`}>
                 Login as {acct.label} →
               </div>
             </a>
