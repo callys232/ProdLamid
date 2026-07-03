@@ -14,8 +14,6 @@ const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
 
 export async function GET(request: Request) {
     try {
-        await connectDB();
-
         // Get token from cookie or header
         const cookieStore = await cookies();
         const tokenCookie = cookieStore.get("token");
@@ -43,6 +41,29 @@ export async function GET(request: Request) {
                 { status: 401 }
             );
         }
+
+        /* ── Dev token short-circuit — no DB touch ── */
+        if (decoded.dev === true && process.env.NODE_ENV !== "production") {
+            return NextResponse.json({
+                success: true,
+                data: {
+                    _id:                decoded.userId,
+                    id:                 decoded.userId,
+                    email:              decoded.email      ?? "",
+                    username:           decoded.username   ?? "",
+                    name:               decoded.name       ?? "Dev User",
+                    role:               decoded.role       ?? "client",
+                    accountType:        decoded.accountType ?? "Client",
+                    isPremium:          decoded.isPremium  ?? false,
+                    subscriptionStatus: decoded.subscriptionStatus ?? "inactive",
+                    isVerified:         true,
+                    status:             "active",
+                    profile:            { firstName: decoded.name?.split(" ")[0] ?? "Dev", lastName: decoded.name?.split(" ")[1] ?? "User" },
+                },
+            });
+        }
+
+        await connectDB();
 
         // Find User
         const user = await Users.findById(decoded.userId)

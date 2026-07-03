@@ -145,6 +145,21 @@ const Navbar: React.FC = () => {
               );
             })}
 
+            {/* Dev login — visible in development only */}
+            {process.env.NODE_ENV === "development" && (
+              <Link
+                href="/dev-login"
+                className={`relative flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200
+                  ${isActive("/dev-login")
+                    ? "bg-amber-500/20 text-amber-400 border-amber-500/40"
+                    : "bg-amber-500/8 text-amber-500/70 border-amber-500/20 hover:bg-amber-500/15 hover:text-amber-400 hover:border-amber-500/35"
+                  }`}
+              >
+                <span className="text-[10px]">⚗</span>
+                Dev Login
+              </Link>
+            )}
+
             {/* More dropdown */}
             <div ref={actionsRef} className="relative">
               <motion.button
@@ -270,6 +285,20 @@ const Navbar: React.FC = () => {
                     </Link>
                   );
                 })}
+
+                {process.env.NODE_ENV === "development" && (
+                  <>
+                    <div className="h-px bg-white/8 dark:bg-white/8 bg-gray-200 my-2" />
+                    <Link
+                      href="/dev-login"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold bg-amber-500/8 text-amber-400 border border-amber-500/20 hover:bg-amber-500/15 transition-colors duration-200"
+                    >
+                      <span>⚗</span>
+                      Dev Login
+                    </Link>
+                  </>
+                )}
 
                 <div className="h-px bg-white/8 dark:bg-white/8 bg-gray-200 my-2" />
 
