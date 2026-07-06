@@ -11,7 +11,8 @@ const PORTALS = [
     id: "core",
     icon: Network,
     label: "LAMID CORE",
-    body: "The digital backbone of modern consulting. Smart vetting, matching, workflows, and trust infrastructure for intelligent strategy and execution.",
+    tagline: "Continuous consulting clarity. Powered by HumanAI precision.",
+    body: "The digital backbone of modern consulting — smart vetting, matching, workflows, and trust infrastructure for intelligent strategy and execution.",
     cta: "Explore CORE",
     href: "/talent",
   },
@@ -19,7 +20,8 @@ const PORTALS = [
     id: "grow",
     icon: TrendingUp,
     label: "LAMID GROW",
-    body: "The engine for business modernization. Diagnostics, advisory, and digital transformation pathways for SMEs, startups, and enterprises.",
+    tagline: "Where Digital Intelligence Accelerates Business Growth.",
+    body: "The engine for business modernization — diagnostics, advisory, and digital transformation pathways for SMEs, startups, and enterprises.",
     cta: "Explore GROW",
     href: "/biz",
   },
@@ -27,7 +29,8 @@ const PORTALS = [
     id: "talent",
     icon: GraduationCap,
     label: "LAMID TALENT",
-    body: "The intelligence layer for workforce capability. AI-powered scoring, capability mapping, and LMS-driven learning acceleration.",
+    tagline: "Stronger teams. Smarter decisions. Future-ready talent.",
+    body: "The intelligence layer for workforce capability — AI-powered scoring, capability mapping, and LMS-driven learning acceleration.",
     cta: "Explore TALENT",
     href: "/hcd",
   },
@@ -137,11 +140,15 @@ export default function EcosystemOverview() {
                   <portal.icon className="w-7 h-7 text-[#C12129]" strokeWidth={1.75} />
                 </motion.div>
 
-                <p className="text-base font-bold mb-3 aivora-gradient-text">
+                <p className="text-base font-bold mb-2 aivora-gradient-text">
                   {portal.label}
                 </p>
 
-                <p className="text-gray-600 dark:text-white/55 text-sm leading-relaxed flex-1 mb-6">
+                <p className="text-gray-900 dark:text-white text-sm font-semibold leading-snug mb-3">
+                  {portal.tagline}
+                </p>
+
+                <p className="text-gray-500 dark:text-white/45 text-xs leading-relaxed flex-1 mb-6">
                   {portal.body}
                 </p>
 

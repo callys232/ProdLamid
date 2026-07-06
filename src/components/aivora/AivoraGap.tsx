@@ -60,11 +60,12 @@ export default function AivoraGap() {
             The Problem
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
-            <span className="aivora-gradient-text">Organizations Are Stuck</span>
+            <span className="aivora-gradient-text">Complexity Is Accelerating</span>
           </h2>
           <p className="text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Traditional consulting is slow, expensive, and inaccessible. The talent gap is widening,
-            and AI alone isn&apos;t the answer.
+            Organizations today face accelerating complexity: digital disruption, workforce shifts,
+            competitive pressure, and fragmented consulting solutions that cannot keep pace with
+            real-time change.
           </p>
         </motion.div>
 
