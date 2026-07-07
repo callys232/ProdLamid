@@ -4,14 +4,16 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET ?? "dev_secret_key_lamid";
 
-/* All user data is embedded directly in the token — no DB needed */
+/* Payloads match JwtAccessTokenPayload — sub + type:"access" are required for verifyAccessToken */
 const DEV_ACCOUNTS: Record<string, object> = {
   client: {
+    sub:                "dev-client-001",
     userId:             "dev-client-001",
     email:              "client@lamid.test",
     name:               "Test Client",
     username:           "client_test",
     role:               "client",
+    type:               "access",
     accountType:        "Client",
     isPremium:          false,
     subscriptionStatus: "inactive",
@@ -20,11 +22,13 @@ const DEV_ACCOUNTS: Record<string, object> = {
     dev:                true,
   },
   freelancer: {
+    sub:                "dev-freelancer-001",
     userId:             "dev-freelancer-001",
     email:              "freelancer@lamid.test",
     name:               "Test Freelancer",
     username:           "freelancer_test",
     role:               "seller",
+    type:               "access",
     accountType:        "Freelancer",
     isPremium:          false,
     subscriptionStatus: "inactive",
@@ -33,11 +37,13 @@ const DEV_ACCOUNTS: Record<string, object> = {
     dev:                true,
   },
   enterprise: {
+    sub:                "dev-enterprise-001",
     userId:             "dev-enterprise-001",
     email:              "enterprise@lamid.test",
     name:               "Test Enterprise",
     username:           "enterprise_test",
     role:               "client",
+    type:               "access",
     accountType:        "Enterprise",
     isPremium:          true,
     subscriptionStatus: "active",
@@ -46,11 +52,13 @@ const DEV_ACCOUNTS: Record<string, object> = {
     dev:                true,
   },
   concierge: {
+    sub:                "dev-concierge-001",
     userId:             "dev-concierge-001",
     email:              "concierge@lamid.test",
     name:               "Test Concierge",
     username:           "concierge_test",
     role:               "client",
+    type:               "access",
     accountType:        "Concierge",
     isPremium:          true,
     subscriptionStatus: "active",
@@ -59,11 +67,13 @@ const DEV_ACCOUNTS: Record<string, object> = {
     dev:                true,
   },
   admin: {
+    sub:                "dev-admin-001",
     userId:             "dev-admin-001",
     email:              "admin@lamid.test",
     name:               "Dev Admin",
     username:           "admin_test",
     role:               "admin",
+    type:               "access",
     accountType:        "Admin",
     isPremium:          true,
     subscriptionStatus: "active",
