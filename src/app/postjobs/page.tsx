@@ -1,15 +1,16 @@
 "use client";
 
 import PostJobs from "@/components/postjobs/jobPost";
+import type { Project } from "@/types/project";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const PostJobsPage = () => {
   const router = useRouter();
 
-  const handlePostProject = async (projectData) => {
+  const handlePostProject = async (projectData: Project) => {
     try {
-      const res  = await fetch("/api/projects", {
+      const res = await fetch("/api/projects", {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify(projectData),

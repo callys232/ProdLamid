@@ -1,7 +1,7 @@
 // lib/jwt.ts
 
 import jwt from "jsonwebtoken";
-import { JwtAccessTokenPayload, JwtRefreshTokenPayload, JwtValidatorTokenPayload } from "./types/auth";
+import { JwtAccessTokenPayload, JwtRefreshTokenPayload, JwtValidatorTokenPayload, JwtResetTokenPayload } from "./types/auth";
 
 const _RAW_SECRET = process.env.JWT_SECRET;
 if (!_RAW_SECRET || _RAW_SECRET.length < 32) {
@@ -63,24 +63,22 @@ export function verifyRefreshToken(token: string): JwtRefreshTokenPayload {
 
 
 export function signResetToken(user: { id: string; email: string; }) {
-  const payload: JwtValidatorTokenPayload = {
+  const payload: JwtResetTokenPayload = {
     sub: user.id,
     email: user.email,
-    type: "access",
+    type: "reset",
   };
 
   return jwt.sign(payload, JWT_SECRET, { expiresIn: "7m" });
 }
 
-export function verifyResetToken(token: string): JwtAccessTokenPayload {
-
-
+export function verifyResetToken(token: string): JwtResetTokenPayload {
   const decoded = jwt.verify(token, JWT_SECRET);
 
-  if (typeof decoded !== "object" || !decoded || decoded.type !== "access") {
-    throw new Error("Invalid access token");
+  if (typeof decoded !== "object" || !decoded || decoded.type !== "reset") {
+    throw new Error("Invalid reset token");
   }
 
-  return decoded as JwtAccessTokenPayload;
+  return decoded as JwtResetTokenPayload;
 }
 

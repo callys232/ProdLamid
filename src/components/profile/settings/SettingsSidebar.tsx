@@ -14,6 +14,7 @@ import {
   Cpu,
   Building2,
   Briefcase,
+  Lock,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -53,8 +54,9 @@ export default function SettingsSidebar({
     { key: "business", label: "Business Profile", icon: <Building2 size={18} />, guideTarget: "business-tab" },
     { key: "tiers", label: "Tiers", icon: <Cpu size={18} />, guideTarget: "tiers-tab" },
     { key: "Contract", label: "Contract & Legal", icon: <FileText size={18} />, guideTarget: "contract-tab" },
-    { key: "payment", label: "Payment Information", icon: <CreditCard size={18} />, guideTarget: "payment-tab" },
-    { key: "delete", label: "Delete Account", icon: <Trash size={18} />, danger: true, guideTarget: "delete-tab" },
+    { key: "payment",  label: "Payment Information", icon: <CreditCard size={18} />, guideTarget: "payment-tab" },
+    { key: "privacy",  label: "Privacy & Data",       icon: <Lock size={18} />,       guideTarget: "privacy-tab" },
+    { key: "delete",   label: "Delete Account",        icon: <Trash size={18} />,      danger: true, guideTarget: "delete-tab" },
   ];
 
   const groupedTabs: TabItem[][] = [];

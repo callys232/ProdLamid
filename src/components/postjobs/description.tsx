@@ -1,4 +1,5 @@
 "use client";
+
 import type { Project } from "@/types/project";
 
 interface DescriptionStepProps {
@@ -12,116 +13,139 @@ interface DescriptionStepProps {
   setMilestoneInput: (val: string) => void;
   addMilestone: () => void;
   removeMilestone: (index: number) => void;
-  errors: Record<string, string>; // ✅ new prop for validation errors
+  errors: Record<string, string>;
 }
 
 export default function DescriptionStep({
-  project,
-  handleChange,
-  skillInput,
-  setSkillInput,
-  addSkill,
-  removeSkill,
-  milestoneInput,
-  setMilestoneInput,
-  addMilestone,
-  removeMilestone,
+  project, handleChange,
+  skillInput, setSkillInput, addSkill, removeSkill,
+  milestoneInput, setMilestoneInput, addMilestone, removeMilestone,
   errors,
 }: DescriptionStepProps) {
+  const onSkillKey = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") { e.preventDefault(); addSkill(); }
+  };
+  const onMilestoneKey = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") { e.preventDefault(); addMilestone(); }
+  };
+
   return (
-    <>
+    <div className="space-y-6">
       {/* Description */}
-      <div>
-        <label className="block text-sm mb-1">Description</label>
+      <div className="group">
+        <label className="pj-label">Project Description</label>
         <textarea
-          aria-label="description"
           value={project.description}
           onChange={(e) => handleChange("description", e.target.value)}
-          className={`w-full px-3 py-2 rounded-md border ${
-            errors.description
-              ? "border-red-500 focus:ring-red-500"
-              : "border-[#c21219] focus:ring-[#c21219]"
-          }`}
+          placeholder="Describe scope, objectives, and expected outcomes..."
           rows={4}
-          required
+          className={`pj-field resize-none${errors.description ? " pj-error" : ""}`}
         />
-        {errors.description && (
-          <p className="text-red-500 text-xs mt-1">{errors.description}</p>
-        )}
+        <div className="flex items-center justify-between mt-1">
+          {errors.description
+            ? <p className="pj-error-msg">{errors.description}</p>
+            : <span />}
+          <span className="text-xs text-gray-400 ml-auto">
+            {project.description?.length ?? 0} chars
+          </span>
+        </div>
       </div>
 
       {/* Skills */}
-      <div>
-        <label className="block text-sm mb-1">Skills</label>
-        <div className="flex gap-2 mb-2">
+      <div className="group">
+        <label className="pj-label">Required Skills</label>
+        <div className="flex gap-2 mb-3">
           <input
             type="text"
             value={skillInput}
             onChange={(e) => setSkillInput(e.target.value)}
-            className="flex-1 px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219]"
-            placeholder="Add a skill..."
+            onKeyDown={onSkillKey}
+            placeholder="Type a skill and press Enter..."
+            className="pj-field flex-1"
           />
           <button
             type="button"
             onClick={addSkill}
-            className="px-4 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md"
+            className="px-4 py-2 bg-[#c21219] text-white text-sm font-semibold rounded-lg
+                       transition-all duration-150 hover:bg-red-700 hover:shadow-md active:scale-95 whitespace-nowrap"
           >
-            Add
+            + Add
           </button>
         </div>
-        <ul className="flex flex-wrap gap-2">
-          {project.skills?.map((skill, idx) => (
-            <li
-              key={idx}
-              className="flex items-center gap-2 px-2 py-1 bg-red-100 text-[#c21219] rounded-md text-xs font-medium"
-            >
-              {skill}
-              <button
-                type="button"
-                onClick={() => removeSkill(idx)}
-                className="text-gray-600 hover:text-red-600"
+        {project.skills && project.skills.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {project.skills.map((skill, idx) => (
+              <span
+                key={idx}
+                className="pj-tag-enter inline-flex items-center gap-1.5 px-3 py-1.5
+                           bg-white border border-gray-200 text-gray-700 rounded-full text-xs font-medium
+                           transition-all duration-150 hover:border-red-300 hover:text-[#c21219] hover:scale-105"
               >
-                ✕
-              </button>
-            </li>
-          ))}
-        </ul>
+                {skill}
+                <button
+                  type="button"
+                  onClick={() => removeSkill(idx)}
+                  className="w-3.5 h-3.5 flex items-center justify-center rounded-full
+                             text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors duration-150 text-base leading-none"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Milestones */}
-      <div>
-        <label className="block text-sm mb-1">Milestones</label>
-        <div className="flex gap-2 mb-2">
+      <div className="group">
+        <label className="pj-label">Milestones</label>
+        <div className="flex gap-2 mb-3">
           <input
             type="text"
             value={milestoneInput}
             onChange={(e) => setMilestoneInput(e.target.value)}
-            className="flex-1 px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219]"
-            placeholder="Add a milestone..."
+            onKeyDown={onMilestoneKey}
+            placeholder="Type a milestone and press Enter..."
+            className="pj-field flex-1"
           />
           <button
             type="button"
             onClick={addMilestone}
-            className="px-4 py-2 bg-[#c21219] hover:bg-red-700 text-white rounded-md"
+            className="px-4 py-2 bg-[#c21219] text-white text-sm font-semibold rounded-lg
+                       transition-all duration-150 hover:bg-red-700 hover:shadow-md active:scale-95 whitespace-nowrap"
           >
-            Add
+            + Add
           </button>
         </div>
-        <ul className="list-disc list-inside text-sm text-gray-700">
-          {project.milestones?.map((m, idx) => (
-            <li key={idx} className="flex items-center gap-2">
-              {m.title}
-              <button
-                type="button"
-                onClick={() => removeMilestone(idx)}
-                className="text-gray-600 hover:text-red-600 text-xs"
+        {project.milestones && project.milestones.length > 0 && (
+          <div className="space-y-2">
+            {project.milestones.map((m, idx) => (
+              <div
+                key={idx}
+                className="pj-tag-enter flex items-center justify-between px-4 py-2.5
+                           bg-white border border-gray-200 rounded-lg text-sm text-gray-700
+                           transition-all duration-150 hover:border-red-200 hover:shadow-sm group/ms"
               >
-                ✕
-              </button>
-            </li>
-          ))}
-        </ul>
+                <span className="flex items-center gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center
+                                   text-xs font-bold text-gray-500
+                                   group-hover/ms:bg-red-50 group-hover/ms:text-[#c21219] transition-colors duration-150">
+                    {idx + 1}
+                  </span>
+                  {m.title}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeMilestone(idx)}
+                  className="text-gray-300 hover:text-red-500 transition-colors duration-150 text-xl leading-none"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

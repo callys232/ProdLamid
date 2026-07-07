@@ -18,6 +18,7 @@ import Tiers from "../tiers/tier";
 import OnboardingAssistant from "../../premium/OnboardingAssistant";
 import ProfileCompletionBar from "@/components/profile/ProfileCompletionBar";
 import NotificationPreferences from "@/components/settings/NotificationPreferences";
+import GdprSettings from "@/components/profile/GdprSettings";
 
 export default function Settings({ user }: { user: any }) {
   const [activeTab, setActiveTab] = useState("profile");
@@ -33,6 +34,7 @@ export default function Settings({ user }: { user: any }) {
     { key: "tiers",          label: "Tiers" },
     { key: "Contract",       label: "Contract and Legal" },
     { key: "payment",        label: "Payment Info" },
+    { key: "privacy",        label: "Privacy & Data" },
     { key: "delete",         label: "Delete Account" },
   ];
 
@@ -54,6 +56,8 @@ export default function Settings({ user }: { user: any }) {
         return <PaymentInformation user={user} />;
       case "resume":
         return <UploadResume user={user} />;
+      case "privacy":
+        return <GdprSettings />;
       case "delete":
         return <DeleteAccount />;
       case "employment":

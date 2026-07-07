@@ -82,6 +82,13 @@ export const approveMilestone = async (milestoneId: string, userId: string) => {
     const milestone = await Milestone.findById(milestoneId);
     if (!milestone) throw new Error("Milestone not found");
 
+    // Ownership check — only the project owner can approve milestones
+    const ownerProject = await Project.findById(milestone.projectId).lean() as any;
+    if (!ownerProject) throw new Error("Project not found");
+    if (ownerProject.ownerId.toString() !== userId) {
+        throw new Error("Unauthorised: only the project owner can approve milestones");
+    }
+
     const escrow = await Escrow.findOne({ milestoneId });
     
     // If escrow not funded, ask client to fund it first

@@ -6,12 +6,23 @@ import { Users } from "@/lib/models/User";
 import { Profile } from "@/lib/models/Profile";
 import { initiatePaystackTransfer } from "@/lib/paystack";
 import { emailPaymentReleased } from "@/lib/services/transactionalEmailService";
+import { rateLimit } from "@/lib/rateLimit";
+import { getClientIP } from "@/lib/sanitize";
 
 export async function POST(request: NextRequest) {
   try {
     await connectDB();
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
+
+    /* Rate-limit: 2 release attempts per user per minute */
+    const rl = await rateLimit(`escrow:release:${auth.userId}`, { windowMs: 60_000, max: 2 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { success: false, message: "Too many release requests. Please wait before trying again." },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+      );
+    }
 
     const { escrowId } = await request.json();
     if (!escrowId) {

@@ -1,25 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { GraduationCap, Users2, TrendingUp, BadgeCheck, Lightbulb, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import DashboardAuthGate from "@/components/aivora/DashboardAuthGate";
 
-const KPIS = [
-  { icon: Users2,        label: "Workforce Readiness Index", value: "76%", trend: "Up 4pts this quarter" },
-  { icon: BadgeCheck,    label: "Capability Health Score",   value: "81%", trend: "Stable" },
-  { icon: GraduationCap, label: "Learning Completion Rate",  value: "88%", trend: "+12pts vs last cohort" },
-  { icon: TrendingUp,    label: "Leadership Pipeline Strength", value: "63%", trend: "Watch: mid-level gap" },
-];
-
-const SIGNALS = [
+const DEFAULT_SIGNALS = [
   { severity: "High",   title: "Digital capability gap in Operations team",  action: "Assign upskilling pathway" },
   { severity: "Medium", title: "Leadership bench thin at mid-level",         action: "Activate mentorship matching" },
   { severity: "Low",    title: "Certification completion trending up",       action: "No action needed" },
 ];
 
-const LEARNING = [
+const DEFAULT_LEARNING = [
   { label: "Leadership Essentials",    progress: 92 },
   { label: "Digital Foundations",      progress: 74 },
   { label: "Operational Excellence",   progress: 58 },
@@ -29,6 +23,59 @@ const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opac
 
 export default function TalentDashboardPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
+
+  const [stats, setStats] = useState({
+    workforceReadiness: 76,
+    capabilityHealth: 81,
+    learningCompletion: 88,
+    leadershipPipeline: 63,
+  });
+  const [signals, setSignals] = useState(DEFAULT_SIGNALS);
+  const [learning, setLearning] = useState(DEFAULT_LEARNING);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    // Fetch user profile data
+    fetch("/api/auth/me", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.data) {
+          setStats((prev) => ({
+            workforceReadiness: d.data.workforceReadiness ?? d.data.readinessScore ?? prev.workforceReadiness,
+            capabilityHealth: d.data.capabilityHealth ?? d.data.capabilityScore ?? prev.capabilityHealth,
+            learningCompletion: d.data.learningCompletion ?? d.data.completionRate ?? prev.learningCompletion,
+            leadershipPipeline: d.data.leadershipPipeline ?? d.data.pipelineScore ?? prev.leadershipPipeline,
+          }));
+          if (Array.isArray(d.data.signals) && d.data.signals.length > 0) {
+            setSignals(d.data.signals);
+          }
+          if (Array.isArray(d.data.learning) && d.data.learning.length > 0) {
+            setLearning(d.data.learning);
+          }
+        }
+      })
+      .catch(() => {});
+
+    // Also check consultant projects for additional context
+    fetch("/api/projects?role=consultant", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.data?.completionRate != null) {
+          setStats((prev) => ({ ...prev, learningCompletion: d.data.completionRate ?? prev.learningCompletion }));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [isAuthenticated]);
+
+  const KPIS = [
+    { icon: Users2,        label: "Workforce Readiness Index",    value: loading ? "—" : `${stats.workforceReadiness}%`,  trend: "Up 4pts this quarter" },
+    { icon: BadgeCheck,    label: "Capability Health Score",      value: loading ? "—" : `${stats.capabilityHealth}%`,    trend: "Stable" },
+    { icon: GraduationCap, label: "Learning Completion Rate",     value: loading ? "—" : `${stats.learningCompletion}%`,  trend: "+12pts vs last cohort" },
+    { icon: TrendingUp,    label: "Leadership Pipeline Strength", value: loading ? "—" : `${stats.leadershipPipeline}%`,  trend: "Watch: mid-level gap" },
+  ];
 
   if (authLoading) return <main className="aivora-section min-h-screen" />;
   if (!isAuthenticated) return <DashboardAuthGate pillar="LAMID TALENT" backHref="/hcd" backLabel="Back to LAMID TALENT" />;
@@ -64,7 +111,7 @@ export default function TalentDashboardPage() {
           <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Talent Signals</p>
             <div className="flex flex-col gap-3">
-              {SIGNALS.map((item) => (
+              {signals.map((item) => (
                 <div key={item.title} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
                   <Lightbulb className={`w-4 h-4 mt-0.5 shrink-0 ${item.severity === "High" ? "text-[#C12129]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
                   <div>
@@ -80,7 +127,7 @@ export default function TalentDashboardPage() {
           <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Learning Progress</p>
             <div className="flex flex-col gap-4">
-              {LEARNING.map((l) => (
+              {learning.map((l) => (
                 <div key={l.label}>
                   <div className="flex items-center justify-between mb-1.5">
                     <p className="text-sm text-gray-700 dark:text-white/70">{l.label}</p>

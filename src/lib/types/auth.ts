@@ -48,6 +48,14 @@ export interface JwtValidatorTokenPayload {
   email?: string;
 }
 
+export interface JwtResetTokenPayload {
+  sub: string;
+  email: string;
+  type: "reset";
+  iat?: number;
+  exp?: number;
+}
+
 export interface Iuser {
   _id: string | Types.ObjectId;
   email: string;

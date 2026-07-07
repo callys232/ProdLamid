@@ -1,25 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Users, Workflow, Gauge, CheckCircle2, AlertTriangle, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import DashboardAuthGate from "@/components/aivora/DashboardAuthGate";
 
-const KPIS = [
-  { icon: Users,        label: "Active Engagements",     value: "18",   trend: "+3 this month" },
-  { icon: Workflow,     label: "Consultants Matched",    value: "120+", trend: "Across 6 countries" },
-  { icon: Gauge,        label: "Avg. Match Time",        value: "24h",  trend: "Down from 72h" },
-  { icon: CheckCircle2, label: "Workflow Completion",    value: "92%",  trend: "On-track engagements" },
-];
-
-const INSIGHTS = [
+const DEFAULT_INSIGHTS = [
   { severity: "High",   title: "Consultant capacity tight in Compliance & Risk", action: "Open vetting for 3 new specialists" },
   { severity: "Medium", title: "2 engagements approaching milestone review",     action: "Schedule client check-ins this week" },
   { severity: "Low",    title: "Onboarding time improving across new clients",   action: "No action needed" },
 ];
 
-const WORKFLOWS = [
+const DEFAULT_WORKFLOWS = [
   { name: "Horizon Capital — Strategy Engagement",  stage: "Delivery",   status: "On track" },
   { name: "NovaTech — Digital Transformation",       stage: "Discovery", status: "On track" },
   { name: "Meridian Group — Compliance Review",      stage: "Review",    status: "At risk" },
@@ -30,6 +24,47 @@ const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opac
 
 export default function CoreDashboardPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
+
+  const [stats, setStats] = useState({
+    engagements: 18,
+    consultants: "120+",
+    matchTime: "24h",
+    completion: 92,
+  });
+  const [insights, setInsights] = useState(DEFAULT_INSIGHTS);
+  const [workflows, setWorkflows] = useState(DEFAULT_WORKFLOWS);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    fetch("/api/enterprise/dashboard", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.data) {
+          setStats({
+            engagements: d.data.activeProjects ?? d.data.stats?.projects ?? 18,
+            consultants: d.data.consultants ?? "120+",
+            matchTime: "24h",
+            completion: d.data.completionRate ?? 92,
+          });
+          if (Array.isArray(d.data.insights) && d.data.insights.length > 0) {
+            setInsights(d.data.insights);
+          }
+          if (Array.isArray(d.data.activity) && d.data.activity.length > 0) {
+            setWorkflows(d.data.activity);
+          }
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [isAuthenticated]);
+
+  const KPIS = [
+    { icon: Users,        label: "Active Engagements",     value: loading ? "—" : String(stats.engagements), trend: "+3 this month" },
+    { icon: Workflow,     label: "Consultants Matched",    value: loading ? "—" : String(stats.consultants), trend: "Across 6 countries" },
+    { icon: Gauge,        label: "Avg. Match Time",        value: loading ? "—" : stats.matchTime,           trend: "Down from 72h" },
+    { icon: CheckCircle2, label: "Workflow Completion",    value: loading ? "—" : `${stats.completion}%`,    trend: "On-track engagements" },
+  ];
 
   if (authLoading) return <main className="aivora-section min-h-screen" />;
   if (!isAuthenticated) return <DashboardAuthGate pillar="LAMID CORE" backHref="/talent" backLabel="Back to LAMID CORE" />;
@@ -65,7 +100,7 @@ export default function CoreDashboardPage() {
           <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Intelligence Feed</p>
             <div className="flex flex-col gap-3">
-              {INSIGHTS.map((item) => (
+              {insights.map((item) => (
                 <div key={item.title} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
                   <AlertTriangle className={`w-4 h-4 mt-0.5 shrink-0 ${item.severity === "High" ? "text-[#C12129]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
                   <div>
@@ -81,7 +116,7 @@ export default function CoreDashboardPage() {
           <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Workflow Status</p>
             <div className="flex flex-col gap-3">
-              {WORKFLOWS.map((wf) => (
+              {workflows.map((wf) => (
                 <div key={wf.name} className="flex items-center justify-between gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
                   <div>
                     <p className="text-sm text-gray-900 dark:text-white leading-snug">{wf.name}</p>

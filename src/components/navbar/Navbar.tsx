@@ -29,23 +29,53 @@ const ACTION_ITEMS = [
   { label: "Blog",              href: "/contact",   icon: "▣", desc: "Insights, research, and ecosystem updates" },
 ];
 
-/* ── Notification hook ── */
+/* ── Notification hook — SSE with polling fallback ── */
 function useNotifications() {
   const [count, setCount] = useState(0);
+
   useEffect(() => {
-    let mounted = true;
-    const fetch_ = async () => {
-      try {
-        const res = await fetch("/api/notifications", { credentials: "include" });
-        if (!res.ok) return;
-        const data = await res.json();
-        if (mounted) setCount(data.notifications?.length ?? 0);
-      } catch {}
+    let eventSource: EventSource | null = null;
+    let pollInterval: ReturnType<typeof setInterval> | null = null;
+
+    function startPolling() {
+      const fetch_ = async () => {
+        try {
+          const res = await fetch("/api/notifications", { credentials: "include" });
+          if (!res.ok) return;
+          const data = await res.json();
+          setCount(data.unreadCount ?? data.notifications?.length ?? 0);
+        } catch {}
+      };
+      fetch_();
+      pollInterval = setInterval(fetch_, 60000);
+    }
+
+    try {
+      eventSource = new EventSource("/api/notifications/stream");
+
+      eventSource.onmessage = (e) => {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.type === "count") setCount(data.count);
+        } catch {}
+      };
+
+      eventSource.onerror = () => {
+        // SSE failed — close and fall back to polling
+        eventSource?.close();
+        eventSource = null;
+        startPolling();
+      };
+    } catch {
+      startPolling();
+    }
+
+    return () => {
+      eventSource?.close();
+      if (pollInterval) clearInterval(pollInterval);
     };
-    fetch_();
-    const id = setInterval(fetch_, 60000);
-    return () => { mounted = false; clearInterval(id); };
   }, []);
+
   return count;
 }
 

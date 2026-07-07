@@ -1,35 +1,84 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { TrendingUp, Clock, Gauge, Briefcase, Target, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import DashboardAuthGate from "@/components/aivora/DashboardAuthGate";
 
-const KPIS = [
-  { icon: Target,      label: "Opportunities Identified", value: "34",  trend: "+8 this quarter" },
-  { icon: Clock,       label: "Avg. Diagnostic Turnaround", value: "48h", trend: "Down from 5 days" },
-  { icon: Gauge,       label: "Modernization Readiness",  value: "71%", trend: "Up 6pts this quarter" },
-  { icon: Briefcase,   label: "Active Advisory Engagements", value: "11", trend: "Across 4 sectors" },
-];
-
-const OPPORTUNITIES = [
+const DEFAULT_OPPORTUNITIES = [
   { impact: "High",   title: "Digital modernization gap in Operations",     action: "Recommend phased automation roadmap" },
   { impact: "Medium", title: "Customer experience scores trailing sector",  action: "Activate CX diagnostic" },
   { impact: "Medium", title: "Market expansion signal — West Africa",       action: "Run market entry assessment" },
 ];
 
-const READINESS = [
-  { label: "Digital Readiness",    value: 78 },
+const DEFAULT_READINESS = [
+  { label: "Digital Readiness",     value: 78 },
   { label: "Operational Readiness", value: 64 },
-  { label: "Culture Readiness",    value: 70 },
-  { label: "Leadership Readiness", value: 82 },
+  { label: "Culture Readiness",     value: 70 },
+  { label: "Leadership Readiness",  value: 82 },
 ];
 
 const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.45, delay: d } });
 
 export default function GrowDashboardPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
+
+  const [stats, setStats] = useState({
+    opportunities: 34,
+    turnaround: "48h",
+    modernizationReadiness: 71,
+    activeEngagements: 11,
+  });
+  const [opportunities, setOpportunities] = useState(DEFAULT_OPPORTUNITIES);
+  const [readiness, setReadiness] = useState(DEFAULT_READINESS);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    // Fetch analytics data
+    fetch("/api/enterprise/analytics", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.data) {
+          setStats((prev) => ({
+            ...prev,
+            opportunities: d.data.opportunities ?? d.data.totalProjects ?? prev.opportunities,
+            modernizationReadiness: d.data.modernizationReadiness ?? d.data.readinessScore ?? prev.modernizationReadiness,
+            activeEngagements: d.data.activeEngagements ?? d.data.activeProjects ?? prev.activeEngagements,
+          }));
+          if (Array.isArray(d.data.signals) && d.data.signals.length > 0) {
+            setOpportunities(d.data.signals);
+          }
+          if (Array.isArray(d.data.readiness) && d.data.readiness.length > 0) {
+            setReadiness(d.data.readiness);
+          }
+        }
+      })
+      .catch(() => {});
+
+    // Also try projects endpoint for opportunity count
+    fetch("/api/projects?limit=5", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.total != null) {
+          setStats((prev) => ({ ...prev, opportunities: d.total ?? prev.opportunities }));
+        } else if (Array.isArray(d?.data) && d.data.length > 0) {
+          setStats((prev) => ({ ...prev, opportunities: d.data.length ?? prev.opportunities }));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [isAuthenticated]);
+
+  const KPIS = [
+    { icon: Target,    label: "Opportunities Identified",    value: loading ? "—" : String(stats.opportunities),           trend: "+8 this quarter" },
+    { icon: Clock,     label: "Avg. Diagnostic Turnaround",  value: loading ? "—" : stats.turnaround,                      trend: "Down from 5 days" },
+    { icon: Gauge,     label: "Modernization Readiness",     value: loading ? "—" : `${stats.modernizationReadiness}%`,    trend: "Up 6pts this quarter" },
+    { icon: Briefcase, label: "Active Advisory Engagements", value: loading ? "—" : String(stats.activeEngagements),       trend: "Across 4 sectors" },
+  ];
 
   if (authLoading) return <main className="aivora-section min-h-screen" />;
   if (!isAuthenticated) return <DashboardAuthGate pillar="LAMID GROW" backHref="/biz" backLabel="Back to LAMID GROW" />;
@@ -65,7 +114,7 @@ export default function GrowDashboardPage() {
           <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Opportunity Signals</p>
             <div className="flex flex-col gap-3">
-              {OPPORTUNITIES.map((item) => (
+              {opportunities.map((item) => (
                 <div key={item.title} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
                   <TrendingUp className={`w-4 h-4 mt-0.5 shrink-0 ${item.impact === "High" ? "text-[#C12129]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
                   <div>
@@ -81,7 +130,7 @@ export default function GrowDashboardPage() {
           <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Modernization Readiness</p>
             <div className="flex flex-col gap-4">
-              {READINESS.map((r) => (
+              {readiness.map((r) => (
                 <div key={r.label}>
                   <div className="flex items-center justify-between mb-1.5">
                     <p className="text-sm text-gray-700 dark:text-white/70">{r.label}</p>

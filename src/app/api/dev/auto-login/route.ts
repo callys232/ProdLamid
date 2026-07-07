@@ -74,6 +74,10 @@ const DEV_ACCOUNTS: Record<string, object> = {
 };
 
 export async function GET(req: NextRequest) {
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json({ error: "Not available in production." }, { status: 403 });
+  }
+
   const role   = req.nextUrl.searchParams.get("role") ?? "";
   const acct   = DEV_ACCOUNTS[role] as any;
 

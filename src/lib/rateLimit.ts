@@ -4,6 +4,23 @@
  *
  * Set REDIS_URL + REDIS_TOKEN in .env to enable distributed limiting.
  * Without those vars the in-memory store is used automatically.
+ *
+ * UPGRADE NOTE — User-level rate limiting:
+ * Currently this module is IP-only by convention: all call sites pass the
+ * client IP (from x-forwarded-for / request.ip) as the `key` argument.
+ * This means authenticated users who share a NAT/proxy can be incorrectly
+ * throttled together, and a single bad actor can exhaust the quota for an
+ * entire office network.
+ *
+ * To add user-level limiting, callers should:
+ *   1. Extract the authenticated user ID from the session/JWT.
+ *   2. Call rateLimit(`user:${userId}:${action}`, opts) for sensitive
+ *      authenticated endpoints (e.g. project creation, payment initiation).
+ *   3. Continue using the IP key as a secondary, stricter guard for
+ *      unauthenticated endpoints (e.g. login attempts, sign-up).
+ *
+ * No changes to this file's implementation are required — only the `key`
+ * passed by each route handler needs to change.
  */
 
 /* ── In-memory fallback ──────────────────────────────────────── */
@@ -84,4 +101,16 @@ export async function rateLimit(
 // Sync wrapper kept for callers that haven't been updated yet
 export function rateLimitSync(key: string, opts: RateLimitOptions): RateLimitResult {
   return memRateLimit(key, opts.windowMs, opts.max);
+}
+
+/**
+ * Rate-limit an authenticated endpoint by user ID.
+ * Falls back to IP if userId is not provided.
+ * Usage: await rateLimitUser(userId ?? ip, { windowMs, max })
+ */
+export async function rateLimitUser(
+  identifier: string,
+  opts: { windowMs: number; max: number }
+): Promise<{ allowed: boolean; resetAt: number; remaining: number }> {
+  return rateLimit(`user:${identifier}`, opts);
 }

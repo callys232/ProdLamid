@@ -250,3 +250,80 @@ select option:checked {
   background-color: #c21219;
   color: white;
 }
+
+/* ── Post Jobs Form ─────────────────────────────────────────── */
+.pj-field {
+  width: 100%;
+  padding: 0.6rem 0.875rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid #e5e7eb;
+  background: #ffffff;
+  color: #111827;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.pj-field::placeholder { color: #9ca3af; }
+.pj-field:hover:not(:focus) { border-color: #d1d5db; }
+.pj-field:focus {
+  border-color: #c21219;
+  box-shadow: 0 0 0 3px rgba(194, 18, 25, 0.08);
+}
+.pj-field.pj-error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  animation: pj-shake 0.32s ease;
+}
+
+.pj-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.pj-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.01em;
+  transition: color 0.15s ease;
+}
+.group:focus-within .pj-label { color: #c21219; }
+
+.pj-error-msg {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: 0.3rem;
+}
+
+@keyframes pj-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-3px); }
+  80%       { transform: translateX(3px); }
+}
+@keyframes pj-tag-in {
+  from { opacity: 0; transform: scale(0.8) translateY(4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes pj-step-fwd {
+  from { opacity: 0; transform: translateX(22px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pj-step-bck {
+  from { opacity: 0; transform: translateX(-22px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.pj-step-fwd { animation: pj-step-fwd 0.22s ease forwards; }
+.pj-step-bck { animation: pj-step-bck 0.22s ease forwards; }
+.pj-tag-enter { animation: pj-tag-in 0.2s cubic-bezier(0.34,1.56,0.64,1) forwards; }

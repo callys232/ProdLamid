@@ -10,13 +10,24 @@ import { Points } from "@/lib/models/Points";
 import { OrgMember } from "@/lib/models/OrgMember";
 
 // POST /api/gdpr/delete — right to erasure (soft-delete + PII scrub)
+// Admin-only: pass { targetUserId } in body to delete a specific account.
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
 
-    const userId = auth.userId;
+    // Only admins may perform hard deletions
+    if (auth.userRole !== "admin") {
+      return NextResponse.json(
+        { success: false, message: "Account deletion requires admin authorisation. Please submit a deletion request via Settings → Privacy & Data." },
+        { status: 403 }
+      );
+    }
+
+    const body = await req.json().catch(() => ({}));
+    // Admin can delete their own account or a specified target account
+    const userId = body.targetUserId ?? auth.userId;
 
     // Anonymise user record (retain _id for referential integrity with projects/bids)
     await Users.findByIdAndUpdate(userId, {

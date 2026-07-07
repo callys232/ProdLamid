@@ -110,14 +110,13 @@ export function getClientIP(req: Request): string {
   if (real) return real.trim();
 
   // X-Forwarded-For: client, proxy1, proxy2
-  // If behind a trusted proxy, the LAST entry is the connecting proxy's IP
-  // and the FIRST is the real client IP — use first only if we trust the chain.
-  // Without confirmed proxy trust, use the last entry (safest default).
+  // The FIRST entry is the real client IP. Taking the last entry is exploitable:
+  // an attacker can append extra IPs to land on a spoofed value.
   const xff = (req as any).headers?.get?.("x-forwarded-for");
   if (xff) {
     const parts = xff.split(",").map((s: string) => s.trim()).filter(Boolean);
-    // Take last entry — harder to spoof behind a real load balancer
-    return parts[parts.length - 1] ?? "anonymous";
+    // Take first entry — the original client IP
+    return parts[0] ?? "anonymous";
   }
 
   return "anonymous";

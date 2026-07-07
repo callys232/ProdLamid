@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { rateLimit } from "@/lib/rateLimit";
 import { sanitiseInput, isBodyTooLarge, getClientIP } from "@/lib/sanitize";
+import { cookies } from "next/headers";
+import jwt from "jsonwebtoken";
 
 const client = () =>
   new OpenAI({
@@ -18,8 +20,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Request too large." }, { status: 413 });
   }
 
-  const ip    = getClientIP(req);
-  const limit = await rateLimit(`intelligence:${ip}`, { windowMs: 24 * 60 * 60_000, max: 20 });
+  const ip = getClientIP(req);
+
+  // Resolve authenticated user ID from JWT cookie
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  let userId: string | null = null;
+  if (token) {
+    try {
+      const decoded: any = jwt.verify(token, process.env.JWT_SECRET ?? "");
+      userId = decoded.userId;
+    } catch {}
+  }
+
+  // Authenticated users: 50/day by userId; anonymous: 20/day by IP
+  const key = userId ?? ip;
+  const maxRequests = userId ? 50 : 20;
+  const limit = await rateLimit(`intelligence:${key}`, { windowMs: 24 * 60 * 60_000, max: maxRequests });
   if (!limit.allowed) {
     return NextResponse.json(
       { message: "Daily intelligence limit reached. Sign in for higher limits or try again tomorrow." },
