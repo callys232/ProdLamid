@@ -85,12 +85,18 @@ export default function CoreDashboardPage() {
         {/* KPI row */}
         <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {KPIS.map((kpi) => (
-            <div key={kpi.label} className="aivora-card border rounded-2xl p-5">
+            <motion.div
+              key={kpi.label}
+              whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(0,0,0,0.07), 0 2px 6px rgba(193,33,41,0.06)" }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="aivora-card border rounded-2xl p-5 cursor-default"
+            >
               <kpi.icon className="w-4 h-4 text-[#C12129] mb-3" strokeWidth={2.2} />
               <p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1.5">{kpi.value}</p>
               <p className="text-xs text-gray-500 dark:text-white/45">{kpi.label}</p>
               <p className="text-[10px] text-gray-400 dark:text-white/30 mt-1">{kpi.trend}</p>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
 
@@ -101,13 +107,18 @@ export default function CoreDashboardPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Intelligence Feed</p>
             <div className="flex flex-col gap-3">
               {insights.map((item) => (
-                <div key={item.title} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
+                <motion.div
+                  key={item.title}
+                  whileHover={{ x: 3, backgroundColor: "rgba(193,33,41,0.02)" }}
+                  transition={{ duration: 0.14 }}
+                  className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0 rounded-lg px-1 -mx-1"
+                >
                   <AlertTriangle className={`w-4 h-4 mt-0.5 shrink-0 ${item.severity === "High" ? "text-[#C12129]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
                   <div>
                     <p className="text-sm text-gray-900 dark:text-white leading-snug">{item.title}</p>
                     <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5">{item.action}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -117,7 +128,12 @@ export default function CoreDashboardPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Workflow Status</p>
             <div className="flex flex-col gap-3">
               {workflows.map((wf) => (
-                <div key={wf.name} className="flex items-center justify-between gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
+                <motion.div
+                  key={wf.name}
+                  whileHover={{ x: 3, backgroundColor: "rgba(193,33,41,0.02)" }}
+                  transition={{ duration: 0.14 }}
+                  className="flex items-center justify-between gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0 rounded-lg px-1 -mx-1"
+                >
                   <div>
                     <p className="text-sm text-gray-900 dark:text-white leading-snug">{wf.name}</p>
                     <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5">{wf.stage}</p>
@@ -129,7 +145,7 @@ export default function CoreDashboardPage() {
                   }`}>
                     {wf.status}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -149,8 +165,16 @@ export default function CoreDashboardPage() {
               { title: "Change Management",        href: "/core-change-management" },
               { title: "Executive Console",        href: "/core-executive-console" },
             ].map((m) => (
-              <Link key={m.href} href={m.href} className="aivora-card border rounded-xl px-4 py-3 text-xs font-semibold text-gray-700 dark:text-white/70 hover:text-[#C12129] hover:border-[#C12129]/30 transition-colors inline-flex items-center justify-between gap-1">
-                {m.title}<ArrowUpRight className="w-3 h-3 shrink-0 opacity-50" />
+              <Link
+                key={m.href}
+                href={m.href}
+                className="group aivora-card border rounded-xl px-4 py-3 text-xs font-semibold text-gray-700 dark:text-white/70
+                           hover:text-[#C12129] hover:border-[#C12129]/30 hover:-translate-y-[3px]
+                           hover:shadow-[0_6px_20px_rgba(193,33,41,0.10)] active:scale-[0.97]
+                           transition-all duration-200 inline-flex items-center justify-between gap-1"
+              >
+                {m.title}
+                <ArrowUpRight className="w-3 h-3 shrink-0 opacity-40 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             ))}
           </div>

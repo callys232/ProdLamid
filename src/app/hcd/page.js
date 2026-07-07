@@ -9,16 +9,16 @@ import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
 /* ── Learning journey steps ── */
 const JOURNEY = [
   { num: 1, title: "Assess",        body: "AI analyses your current skills, experience, and goals to create a baseline competency map.",                                   href: "/premium/business-diagnostic" },
-  { num: 2, title: "Learn",         body: "Personalised learning paths adapt in real-time. AI curates content, paces your learning, and identifies gaps.",                href: "/events" },
-  { num: 3, title: "Certify & Grow",body: "Earn micro-certifications, build your portfolio, and get matched with opportunities.",                                          href: "/hcd/recruitment" },
+  { num: 2, title: "Learn",         body: "Personalised learning paths adapt in real-time. AI curates content, paces your learning, and identifies gaps.",                href: "/talent-capability" },
+  { num: 3, title: "Certify & Grow",body: "Earn micro-certifications, build your portfolio, and get matched with opportunities.",                                          href: "/talent-workforce-readiness" },
 ];
 
 /* ── 4 Feature cards ── */
 const FEATURES = [
-  { icon: "⚡", title: "Adaptive Learning AI",   body: "Content difficulty and pacing adjust automatically based on your performance.",           href: "/events" },
-  { icon: "◈", title: "Micro-Certifications",    body: "Industry-recognised credentials you can earn in days, not months.",                       href: "/hcd/recruitment" },
+  { icon: "⚡", title: "Adaptive Learning AI",   body: "Content difficulty and pacing adjust automatically based on your performance.",           href: "/talent-capability" },
+  { icon: "◈", title: "Micro-Certifications",    body: "Industry-recognised credentials you can earn in days, not months.",                       href: "/talent-workforce-readiness" },
   { icon: "⬡", title: "Mentorship Matching",     body: "AI pairs you with mentors who have walked your career path.",                             href: "/talent" },
-  { icon: "⬟", title: "Career Intelligence",     body: "AI-powered career trajectory modelling and opportunity alerts.",                           href: "/jobs" },
+  { icon: "⬟", title: "Career Intelligence",     body: "AI-powered career trajectory modelling and opportunity alerts.",                           href: "/talent-dashboard" },
 ];
 
 /* ── Impact stats ── */
@@ -34,37 +34,37 @@ const PROGRAMS = [
     icon: "⚡",
     title: "Strategic Leadership & Executive Effectiveness",
     outcome: "Lead with confidence. Build decision-makers who move organisations forward — not just manage them.",
-    href: "/events",
+    href: "/core-strategic-alignment",
   },
   {
     icon: "◈",
     title: "AI Literacy & Digital Strategy for Leaders",
     outcome: "Stop guessing about AI. Own the strategy. Lead digital transformation with clarity and intent.",
-    href: "/events",
+    href: "/grow-digital-maturity",
   },
   {
     icon: "⬡",
     title: "Financial Acumen & Business Performance",
     outcome: "Read the numbers like a CFO. Drive performance like an operator. Speak the language of growth.",
-    href: "/events",
+    href: "/core-dashboard",
   },
   {
     icon: "⬟",
     title: "Organisational Design & Change Management",
     outcome: "Build structures that scale. Lead change that sticks. Design organisations built for the future.",
-    href: "/events",
+    href: "/core-change-management",
   },
   {
     icon: "▣",
     title: "Sales, Growth & Business Development",
     outcome: "Fill the pipeline. Open markets. Build a business development engine that runs without you.",
-    href: "/events",
+    href: "/grow-pathways",
   },
   {
     icon: "✦",
     title: "Operational Excellence & Process Improvement",
     outcome: "Cut the waste. Lift the margins. Make excellence the default — not the exception.",
-    href: "/events",
+    href: "/core-workflow",
   },
 ];
 
