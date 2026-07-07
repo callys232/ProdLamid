@@ -74,8 +74,9 @@ const DEV_ACCOUNTS: Record<string, object> = {
 };
 
 export async function GET(req: NextRequest) {
-  if (process.env.NODE_ENV === "production") {
-    return NextResponse.json({ error: "Not available in production." }, { status: 403 });
+  // Block unless DEV_LOGIN_ENABLED is explicitly set — works in all environments
+  if (process.env.DEV_LOGIN_ENABLED !== "true") {
+    return NextResponse.json({ error: "Dev login is not enabled." }, { status: 403 });
   }
 
   const role   = req.nextUrl.searchParams.get("role") ?? "";
@@ -93,9 +94,11 @@ export async function GET(req: NextRequest) {
 
   const response = NextResponse.redirect(new URL(acct.dashboard, req.url));
 
+  const isSecure = process.env.NODE_ENV === "production";
+
   response.cookies.set("token", token, {
     httpOnly: true,
-    secure:   false,
+    secure:   isSecure,
     sameSite: "lax",
     maxAge:   7 * 24 * 60 * 60,
     path:     "/",
@@ -103,7 +106,7 @@ export async function GET(req: NextRequest) {
 
   response.cookies.set("user_role", acct.role, {
     httpOnly: false,
-    secure:   false,
+    secure:   isSecure,
     sameSite: "lax",
     maxAge:   7 * 24 * 60 * 60,
     path:     "/",
