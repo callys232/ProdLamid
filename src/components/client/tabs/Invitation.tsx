@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { ClientProfile, Consultant, Invitation } from "@/types/client";
@@ -146,7 +146,7 @@ export default function Invitations({
           />
           <button
             onClick={handleEmailInvite}
-            className="px-4 py-2 bg-red-600 rounded hover:bg-red-700 text-white"
+            className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 text-white"
           >
             Send
           </button>
@@ -172,7 +172,7 @@ export default function Invitations({
           </select>
           <button
             onClick={handleConsultantInvite}
-            className="px-4 py-2 bg-red-600 rounded hover:bg-red-700 text-white"
+            className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 text-white"
           >
             Invite
           </button>
@@ -253,7 +253,7 @@ export default function Invitations({
                     </button>
                     <button
                       onClick={() => handleCancel(inv.id)}
-                      className="text-xs bg-red-700 px-2 py-1 rounded text-white hover:bg-red-800"
+                      className="text-xs bg-blue-700 px-2 py-1 rounded text-white hover:bg-blue-800"
                     >
                       Cancel
                     </button>

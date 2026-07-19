@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Plus, Trash2, ChevronDown } from "lucide-react";
@@ -106,7 +106,7 @@ export default function MaterialsInput() {
 
             <button type="button" onClick={() => setItems((p) => p.filter((_, idx) => idx !== i))}
               disabled={items.length === 1}
-              className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-600 transition hover:bg-red-600/10 hover:text-red-400 disabled:opacity-20"
+              className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-600 transition hover:bg-blue-600/10 hover:text-blue-400 disabled:opacity-20"
             >
               <Trash2 className="h-3.5 w-3.5" />
             </button>

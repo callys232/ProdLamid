@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Card from "./card";
 
@@ -7,7 +7,7 @@ export default function ProgressCard({ progress }: { progress: number }) {
     <Card title="📈 Project Progress">
       <div className="w-full bg-gray-700 rounded-full h-4">
         <div
-          className="bg-[#c21219] h-4 rounded-full transition-all duration-500"
+          className="bg-[#2563EB] h-4 rounded-full transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,7 +28,7 @@ const fadeUp = (i = 0) => ({
 const MILESTONE_CONFIG: Record<string, { card: string; badge: string; dot: string; bar: string; pct: string; shadow: string }> = {
   completed:   { card: "border-green-500/30  bg-green-500/8",   badge: "text-green-400  border-green-500/30  bg-green-500/10",   dot: "bg-green-400",   bar: "bg-green-500",   pct: "text-green-400",   shadow: "0 6px 20px rgba(34,197,94,0.2)"   },
   in_progress: { card: "border-yellow-500/30 bg-yellow-500/8",  badge: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",  dot: "bg-yellow-400",  bar: "bg-yellow-500",  pct: "text-yellow-400",  shadow: "0 6px 20px rgba(234,179,8,0.2)"   },
-  disputed:    { card: "border-red-500/30    bg-red-500/8",     badge: "text-red-400    border-red-500/30    bg-red-500/10",     dot: "bg-red-400",     bar: "bg-red-500",     pct: "text-red-400",     shadow: "0 6px 20px rgba(239,68,68,0.2)"   },
+  disputed:    { card: "border-blue-500/30    bg-blue-500/8",     badge: "text-blue-400    border-blue-500/30    bg-blue-500/10",     dot: "bg-blue-400",     bar: "bg-blue-500",     pct: "text-blue-400",     shadow: "0 6px 20px rgba(37,99,235,0.2)"   },
   funded:      { card: "border-purple-500/30 bg-purple-500/8",  badge: "text-purple-400 border-purple-500/30 bg-purple-500/10",  dot: "bg-purple-400",  bar: "bg-purple-500",  pct: "text-purple-400",  shadow: "0 6px 20px rgba(168,85,247,0.2)"  },
   pending:     { card: "border-white/10      bg-white/5",        badge: "text-gray-400   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",    bar: "bg-gray-600",    pct: "text-gray-400",    shadow: "0 6px 20px rgba(0,0,0,0.3)"       },
   cancelled:   { card: "border-white/8       bg-white/3",        badge: "text-gray-500   border-gray-600/20   bg-gray-600/10",   dot: "bg-gray-600",    bar: "bg-gray-700",    pct: "text-gray-500",    shadow: "0 6px 20px rgba(0,0,0,0.2)"       },
@@ -178,8 +178,8 @@ export default function ConciergeOverview() {
       {/* Welcome */}
       <motion.div {...fadeUp(0)}>
         <div className="flex items-center gap-2 mb-1">
-          <Star className="h-4 w-4 text-[#c21219]" />
-          <span className="text-xs font-semibold text-[#c21219] uppercase tracking-widest">Concierge Portal</span>
+          <Star className="h-4 w-4 text-[#2563EB]" />
+          <span className="text-xs font-semibold text-[#2563EB] uppercase tracking-widest">Concierge Portal</span>
         </div>
         <h1 className="text-2xl font-bold text-white">Welcome back</h1>
         <p className="text-sm text-gray-400 mt-0.5">Here's your executive summary across all active programmes.</p>
@@ -223,7 +223,7 @@ export default function ConciergeOverview() {
       {/* Projects — click to expand milestones */}
       <motion.div {...fadeUp(4)}>
         <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-          <FolderKanban className="h-4 w-4 text-[#c21219]" />Active Programmes
+          <FolderKanban className="h-4 w-4 text-[#2563EB]" />Active Programmes
           <span className="ml-auto text-[10px] text-gray-500">Click a project to view milestones</span>
         </h2>
         <div className="space-y-2">
@@ -260,7 +260,7 @@ export default function ConciergeOverview() {
                             <span>{completedM}/{p.milestones.length} milestones · {p.progress}%</span>
                           </div>
                           <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
-                            <motion.div className="h-full rounded-full bg-[#c21219]"
+                            <motion.div className="h-full rounded-full bg-[#2563EB]"
                               initial={{ width: 0 }} animate={{ width: `${p.progress}%` }}
                               transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 + i * 0.1 }} />
                           </div>
@@ -295,7 +295,7 @@ export default function ConciergeOverview() {
                             {p.skills?.length > 0 && (
                               <div className="flex flex-wrap gap-2">
                                 {p.skills.map(s => (
-                                  <span key={s} className="rounded-full border border-[#c21219]/30 bg-[#c21219]/10 px-3 py-0.5 text-[11px] text-[#c21219]">
+                                  <span key={s} className="rounded-full border border-[#2563EB]/30 bg-[#2563EB]/10 px-3 py-0.5 text-[11px] text-[#2563EB]">
                                     {s}
                                   </span>
                                 ))}
@@ -357,7 +357,7 @@ export default function ConciergeOverview() {
                               <motion.div whileHover={{ scale: 1.05, y: -2, boxShadow: "0 6px 20px rgba(194,18,25,0.25)" }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
                                 <Link
                                   href={`/projects/${p.id}/workspace`}
-                                  className="flex items-center gap-1.5 rounded-lg border border-[#c21219]/30 bg-[#c21219]/10 px-4 py-2 text-xs font-semibold text-[#c21219] transition hover:bg-[#c21219]/20"
+                                  className="flex items-center gap-1.5 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-2 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20"
                                 >
                                   Open Workspace <ArrowRight className="h-3.5 w-3.5" />
                                 </Link>
@@ -394,7 +394,7 @@ export default function ConciergeOverview() {
       {!loading && projects.length > 0 && (
         <motion.div {...fadeUp(9)}>
           <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-            <Clock className="h-4 w-4 text-[#c21219]" />Recent Activity
+            <Clock className="h-4 w-4 text-[#2563EB]" />Recent Activity
           </h2>
           <div className="space-y-2">
             {projects

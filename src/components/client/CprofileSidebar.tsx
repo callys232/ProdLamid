@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -63,7 +63,7 @@ export default function ProfileSidebar({
       <div className="flex justify-end mb-3">
         <button
           onClick={() => setShowGuide(true)}
-          className="text-xs px-3 py-1 rounded-md border border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-red-500"
+          className="text-xs px-3 py-1 rounded-md border border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-blue-500"
         >
           See Guide
         </button>
@@ -76,8 +76,8 @@ export default function ProfileSidebar({
               type="button"
               data-guide={tab.guide}
               onClick={() => setActiveTab(tab.key)}
-              className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-red-800 ${activeTab === tab.key
-                ? "bg-red-600 text-white"
+              className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-800 ${activeTab === tab.key
+                ? "bg-blue-600 text-white"
                 : "hover:bg-gray-700 text-gray-300"
                 }`}
               aria-current={activeTab === tab.key ? "page" : undefined}

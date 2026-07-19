@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+﻿import React, { useMemo } from "react";
 
 interface SummaryProps {
     laborTotal: number;
@@ -53,7 +53,7 @@ export default function EstimateSummary(props: SummaryProps) {
     return (
         <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition">
 
-            <h2 className="text-xl font-bold border-b-2 border-[#c12129] mb-4">
+            <h2 className="text-xl font-bold border-b-2 border-[#2563EB] mb-4">
                 Estimate Summary
             </h2>
 
@@ -68,7 +68,7 @@ export default function EstimateSummary(props: SummaryProps) {
 
             <div className="mt-6 p-4 bg-black text-white rounded-lg flex justify-between items-center">
                 <span className="font-semibold">Grand Total</span>
-                <span className="text-[#c12129] font-bold text-lg">
+                <span className="text-[#2563EB] font-bold text-lg">
                     ${grandTotal.toLocaleString()}
                 </span>
             </div>

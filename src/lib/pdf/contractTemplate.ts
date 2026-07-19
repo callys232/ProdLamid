@@ -1,4 +1,4 @@
-export interface ContractData {
+﻿export interface ContractData {
   contractNumber:  string;
   date:            string;
   client:    { name: string; email: string; company?: string };
@@ -34,7 +34,7 @@ export function buildContractHtml(d: ContractData): string {
   .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 60px; }
   .sig-line { border-top: 1px solid #333; padding-top: 8px; font-size: 13px; color: #555; }
   .footer { margin-top: 48px; text-align: center; font-size: 11px; color: #bbb; }
-  .highlight { color: #c12129; font-weight: bold; }
+  .highlight { color: #2563EB; font-weight: bold; }
 </style>
 </head>
 <body>

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import "animate.css";
 
@@ -24,7 +24,7 @@ const BizToolbox = () => {
           {/* Text Block */}
           <div className="flex-1">
             <h2 className="text-2xl md:text-3xl font-bold mb-4 hover:text-gray-300 transition duration-300">
-              <span className="text-red-500 animate-float">B</span>usiness
+              <span className="text-blue-500 animate-float">B</span>usiness
               <span className="text-yellow-500 animate-float"> E</span>xpansion
               <span className="text-orange-500 animate-float"> S</span>trategy
               <span> and </span>

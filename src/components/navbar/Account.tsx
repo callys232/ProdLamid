@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
@@ -28,7 +28,7 @@ function Initials({ name }: { name: string }) {
     .toUpperCase()
     .slice(0, 2);
   return (
-    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-red-600 text-[11px] font-bold text-white">
+    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-[11px] font-bold text-white">
       {initials}
     </span>
   );
@@ -71,7 +71,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
           onClick={() => setOpen((v) => !v)}
           title={user.name}
           aria-label="Account menu"
-          className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:border-red-600/50 hover:bg-white/10 focus:outline-none"
+          className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:border-blue-600/50 hover:bg-white/10 focus:outline-none"
         >
           {user.avatar ? (
             <img
@@ -90,7 +90,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
             <div className="border-b border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/[0.03] px-4 py-3">
               <p className="truncate text-sm font-semibold text-gray-900 dark:text-white">{user.name}</p>
               <p className="truncate text-xs text-gray-500 dark:text-gray-500">{maskEmail(user.email)}</p>
-              <span className="mt-1.5 inline-block rounded-full bg-red-600/15 dark:bg-red-600/20 px-2 py-0.5 text-[10px] font-semibold text-red-600 dark:text-red-400">
+              <span className="mt-1.5 inline-block rounded-full bg-blue-600/15 dark:bg-blue-600/20 px-2 py-0.5 text-[10px] font-semibold text-blue-600 dark:text-blue-400">
                 {roleLabel(user.role)}
               </span>
             </div>
@@ -119,7 +119,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 transition hover:bg-[#C12129]/8 hover:text-[#C12129] dark:hover:text-white"
+                    className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 transition hover:bg-[#2563EB]/8 hover:text-[#2563EB] dark:hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -131,7 +131,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
             <div className="border-t border-gray-100 dark:border-white/10 py-1">
               <button
                 onClick={() => { setOpen(false); signOut(); }}
-                className="w-full px-4 py-2.5 text-left text-sm text-red-600 dark:text-red-400 transition hover:bg-red-600/8 dark:hover:bg-red-600/10 hover:text-red-700 dark:hover:text-red-300"
+                className="w-full px-4 py-2.5 text-left text-sm text-blue-600 dark:text-blue-400 transition hover:bg-blue-600/8 dark:hover:bg-blue-600/10 hover:text-blue-700 dark:hover:text-blue-300"
               >
                 Sign Out
               </button>
@@ -149,7 +149,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label="Account menu"
-        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition hover:border-red-600/50 hover:bg-white/10 hover:text-white focus:outline-none"
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition hover:border-blue-600/50 hover:bg-white/10 hover:text-white focus:outline-none"
       >
         <svg
           aria-hidden="true"
@@ -173,7 +173,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 transition hover:bg-[#C12129]/8 hover:text-[#C12129] dark:hover:text-white"
+                  className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 transition hover:bg-[#2563EB]/8 hover:text-[#2563EB] dark:hover:text-white"
                 >
                   {item.label}
                 </Link>

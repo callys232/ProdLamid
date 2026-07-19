@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -72,7 +72,7 @@ export default function BookingModal({ consultantId, consultantName, clientId, o
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-[#c21219]" />
+            <Calendar className="h-4 w-4 text-[#2563EB]" />
             <p className="text-sm font-semibold text-white">Book a session with {consultantName}</p>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-white transition"><X className="h-4 w-4" /></button>
@@ -87,10 +87,10 @@ export default function BookingModal({ consultantId, consultantName, clientId, o
                 {selected?.day} at {selected?.hour}:00 — {serviceType}.<br />
                 You'll receive a confirmation shortly.
               </p>
-              <button onClick={onClose} className="mt-6 px-6 py-2 rounded-xl bg-[#c21219] text-white text-sm font-semibold hover:bg-red-700 transition">Done</button>
+              <button onClick={onClose} className="mt-6 px-6 py-2 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition">Done</button>
             </motion.div>
           ) : loading ? (
-            <div className="flex items-center justify-center py-12"><Loader2 className="h-6 w-6 text-[#c21219] animate-spin" /></div>
+            <div className="flex items-center justify-center py-12"><Loader2 className="h-6 w-6 text-[#2563EB] animate-spin" /></div>
           ) : (
             <div className="space-y-5">
               {/* Availability Grid */}
@@ -117,7 +117,7 @@ export default function BookingModal({ consultantId, consultantName, clientId, o
                                   disabled={!avail}
                                   onClick={() => avail && setSelected({ day: d, hour: h })}
                                   className={`w-8 h-6 rounded text-[10px] transition ${
-                                    isSel ? "bg-[#c21219] text-white" :
+                                    isSel ? "bg-[#2563EB] text-white" :
                                     avail ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40" :
                                     "bg-white/5 text-gray-700 cursor-not-allowed"
                                   }`}
@@ -143,7 +143,7 @@ export default function BookingModal({ consultantId, consultantName, clientId, o
                   <div>
                     <label className="text-xs text-gray-400 mb-1 block">Service type</label>
                     <select value={serviceType} onChange={(e) => setServiceType(e.target.value)}
-                      className="w-full rounded-lg bg-black border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#c21219]">
+                      className="w-full rounded-lg bg-black border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#2563EB]">
                       {["Consultation", "Strategy Session", "Training", "Coaching", "Review"].map((s) => <option key={s}>{s}</option>)}
                     </select>
                   </div>
@@ -151,15 +151,15 @@ export default function BookingModal({ consultantId, consultantName, clientId, o
                     <label className="text-xs text-gray-400 mb-1 block">Notes (optional)</label>
                     <textarea rows={2} value={notes} onChange={(e) => setNotes(e.target.value)}
                       placeholder="Brief description of what you need help with…"
-                      className="w-full rounded-lg bg-black border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#c21219] resize-none" />
+                      className="w-full rounded-lg bg-black border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#2563EB] resize-none" />
                   </div>
                 </motion.div>
               )}
 
-              {error && <p className="text-xs text-red-400">{error}</p>}
+              {error && <p className="text-xs text-blue-400">{error}</p>}
 
               <button onClick={handleBook} disabled={!selected || submitting}
-                className="w-full py-2.5 rounded-xl bg-[#c21219] hover:bg-red-700 text-white text-sm font-semibold transition disabled:opacity-40 flex items-center justify-center gap-2">
+                className="w-full py-2.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-sm font-semibold transition disabled:opacity-40 flex items-center justify-center gap-2">
                 {submitting ? <><Loader2 className="h-4 w-4 animate-spin" />Confirming…</> : "Confirm Booking"}
               </button>
             </div>

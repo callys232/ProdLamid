@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,7 +11,7 @@ import {
 function strengthOf(pw: string) {
   if (!pw) return { label: "", color: "", pct: 0 };
   const score = [/[A-Z]/.test(pw), /[a-z]/.test(pw), /\d/.test(pw), /[^A-Za-z0-9]/.test(pw), pw.length >= 8].filter(Boolean).length;
-  if (score <= 2) return { label: "Weak",   color: "bg-red-500",    pct: 33 };
+  if (score <= 2) return { label: "Weak",   color: "bg-blue-500",    pct: 33 };
   if (score <= 3) return { label: "Medium", color: "bg-yellow-400", pct: 66 };
   return           { label: "Strong",  color: "bg-emerald-500", pct: 100 };
 }
@@ -153,10 +153,10 @@ export default function SecuritySettings({ user }: { user: any }) {
                 </p>
               </div>
               <motion.button
-                whileHover={{ scale: 1.03, boxShadow: "0 4px 16px rgba(239,68,68,0.2)" }}
+                whileHover={{ scale: 1.03, boxShadow: "0 4px 16px rgba(37,99,235,0.2)" }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setShowDis(true)}
-                className="flex items-center gap-2 rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-2.5 text-sm font-medium text-red-400 transition hover:bg-red-500/15"
+                className="flex items-center gap-2 rounded-xl border border-blue-500/20 bg-blue-500/5 px-4 py-2.5 text-sm font-medium text-blue-400 transition hover:bg-blue-500/15"
               >
                 <ShieldOff className="h-4 w-4" /> Disable 2FA
               </motion.button>
@@ -180,14 +180,14 @@ export default function SecuritySettings({ user }: { user: any }) {
                   type="password" value={disablePw}
                   onChange={e => setDisablePw(e.target.value)}
                   placeholder="Your current password"
-                  className="flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-red-500/50 transition"
+                  className="flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-blue-500/50 transition"
                 />
                 <motion.button
-                  whileHover={{ scale: 1.04, boxShadow: "0 4px 14px rgba(185,28,28,0.35)" }}
+                  whileHover={{ scale: 1.04, boxShadow: "0 4px 14px rgba(29,78,216,0.35)" }}
                   whileTap={{ scale: 0.96 }}
                   disabled={faLoading || !disablePw}
                   onClick={disable2FA}
-                  className="rounded-xl bg-red-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-800 disabled:opacity-50"
+                  className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-800 disabled:opacity-50"
                 >
                   {faLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Confirm"}
                 </motion.button>
@@ -209,10 +209,10 @@ export default function SecuritySettings({ user }: { user: any }) {
                 When enabled, a 6-digit code will be sent to your email each time you sign in.
               </p>
               <motion.button
-                whileHover={{ scale: 1.03, boxShadow: "0 6px 20px rgba(193,33,41,0.3)" }}
+                whileHover={{ scale: 1.03, boxShadow: "0 6px 20px rgba(37,99,235,0.3)" }}
                 whileTap={{ scale: 0.97 }}
                 onClick={send2FACode}
-                className="flex items-center gap-2 rounded-xl bg-[#c12129] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700"
+                className="flex items-center gap-2 rounded-xl bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
                 <Mail className="h-4 w-4" /> Enable Email 2FA
               </motion.button>
@@ -225,7 +225,7 @@ export default function SecuritySettings({ user }: { user: any }) {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               className="flex items-center gap-3 py-2"
             >
-              <Loader2 className="h-4 w-4 animate-spin text-[#c12129]" />
+              <Loader2 className="h-4 w-4 animate-spin text-[#2563EB]" />
               <span className="text-sm text-gray-400">Sending code to your email…</span>
             </motion.div>
           )}
@@ -241,20 +241,20 @@ export default function SecuritySettings({ user }: { user: any }) {
                 <p className="text-xs text-blue-300">Code sent. Check your inbox and enter it below.</p>
               </div>
               <motion.input
-                whileFocus={{ boxShadow: "0 0 0 2px rgba(193,33,41,0.3)" }}
+                whileFocus={{ boxShadow: "0 0 0 2px rgba(37,99,235,0.3)" }}
                 type="text" inputMode="numeric" maxLength={6}
                 value={otp}
                 onChange={e => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
                 placeholder="000000"
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-center text-2xl font-mono tracking-[0.4em] text-white placeholder-gray-700 focus:outline-none focus:border-[#c12129]/60 transition"
+                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-center text-2xl font-mono tracking-[0.4em] text-white placeholder-gray-700 focus:outline-none focus:border-[#2563EB]/60 transition"
               />
               <div className="flex gap-3">
                 <motion.button
-                  whileHover={{ scale: 1.03, boxShadow: "0 4px 16px rgba(193,33,41,0.3)" }}
+                  whileHover={{ scale: 1.03, boxShadow: "0 4px 16px rgba(37,99,235,0.3)" }}
                   whileTap={{ scale: 0.97 }}
                   disabled={faLoading || otp.length !== 6}
                   onClick={verify2FA}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#c12129] py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#2563EB] py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
                 >
                   {faLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
                   {faLoading ? "Verifying…" : "Verify & Activate"}
@@ -298,7 +298,7 @@ export default function SecuritySettings({ user }: { user: any }) {
             <label className="block text-xs text-gray-400 mb-1.5">Current Password</label>
             <input type="password" value={oldPw} onChange={e => setOldPw(e.target.value)} required
               placeholder="Current password"
-              className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c12129]/50 transition" />
+              className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition" />
           </div>
 
           <div>
@@ -307,7 +307,7 @@ export default function SecuritySettings({ user }: { user: any }) {
               <input type={showPw ? "text" : "password"} value={newPw}
                 onChange={e => setNewPw(e.target.value)} required
                 placeholder="New password (min 8 chars)"
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 pr-10 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c12129]/50 transition" />
+                className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 pr-10 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition" />
               <motion.button type="button" whileTap={{ scale: 0.85 }}
                 onClick={() => setShowPw(p => !p)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition">
@@ -324,7 +324,7 @@ export default function SecuritySettings({ user }: { user: any }) {
                 </div>
                 <p className={`text-[11px] ${
                   strength.label === "Strong" ? "text-emerald-400" :
-                  strength.label === "Medium" ? "text-yellow-400" : "text-red-400"
+                  strength.label === "Medium" ? "text-yellow-400" : "text-blue-400"
                 }`}>{strength.label} password</p>
               </div>
             )}
@@ -336,18 +336,18 @@ export default function SecuritySettings({ user }: { user: any }) {
               onChange={e => setConfirmPw(e.target.value)} required
               placeholder="Repeat new password"
               className={`w-full rounded-xl border bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none transition ${
-                confirmPw && confirmPw !== newPw ? "border-red-500/50 focus:border-red-500/70" : "border-white/10 focus:border-[#c12129]/50"
+                confirmPw && confirmPw !== newPw ? "border-blue-500/50 focus:border-blue-500/70" : "border-white/10 focus:border-[#2563EB]/50"
               }`} />
             {confirmPw && confirmPw !== newPw && (
-              <p className="mt-1 text-[11px] text-red-400">Passwords do not match</p>
+              <p className="mt-1 text-[11px] text-blue-400">Passwords do not match</p>
             )}
           </div>
 
           <motion.button type="submit"
             disabled={pwLoading || !oldPw || !newPw || newPw !== confirmPw || strength.label === "Weak"}
-            whileHover={{ scale: 1.02, boxShadow: "0 6px 20px rgba(193,33,41,0.3)" }}
+            whileHover={{ scale: 1.02, boxShadow: "0 6px 20px rgba(37,99,235,0.3)" }}
             whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2 rounded-xl bg-[#c12129] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl bg-[#2563EB] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
           >
             {pwLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" />}
             {pwLoading ? "Updating…" : "Update Password"}

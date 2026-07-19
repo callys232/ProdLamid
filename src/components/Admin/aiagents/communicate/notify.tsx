@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState } from "react";
 
 export interface Notification {
@@ -47,7 +47,7 @@ export default function NotificationCenter({
                 <span
                   className={`ml-2 text-xs ${
                     n.severity === "High"
-                      ? "text-red-400"
+                      ? "text-blue-400"
                       : n.severity === "Medium"
                       ? "text-yellow-400"
                       : "text-green-400"
@@ -81,7 +81,7 @@ export default function NotificationCenter({
         />
         <button
           onClick={handleBroadcast}
-          className="px-3 py-1 bg-[#c21229] text-white rounded transition-transform transform hover:scale-105 hover:bg-red-700"
+          className="px-3 py-1 bg-[#c21229] text-white rounded transition-transform transform hover:scale-105 hover:bg-blue-700"
         >
           Send
         </button>

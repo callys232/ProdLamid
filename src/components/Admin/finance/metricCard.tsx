@@ -1,4 +1,4 @@
-import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+﻿import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 export default function MetricCard({
   label,
@@ -13,7 +13,7 @@ export default function MetricCard({
     trendDelta === undefined ? null : trendDelta > 0 ? (
       <FaArrowUp className="inline text-green-400 ml-2" />
     ) : trendDelta < 0 ? (
-      <FaArrowDown className="inline text-red-400 ml-2" />
+      <FaArrowDown className="inline text-blue-400 ml-2" />
     ) : null;
 
   return (

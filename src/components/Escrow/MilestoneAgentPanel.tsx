@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
@@ -21,8 +21,8 @@ export default function MilestoneAgentPanel({
       className="rounded-xl border border-gray-800 bg-gray-900 p-6"
     >
       <div className="flex items-center gap-3 mb-4">
-        <div className="h-8 w-8 rounded-full bg-red-600/20 flex items-center justify-center">
-          <span className="text-red-400 text-sm font-bold">AI</span>
+        <div className="h-8 w-8 rounded-full bg-blue-600/20 flex items-center justify-center">
+          <span className="text-blue-400 text-sm font-bold">AI</span>
         </div>
         <div>
           <h3 className="text-white font-semibold text-sm">Milestone Agent</h3>
@@ -32,7 +32,7 @@ export default function MilestoneAgentPanel({
       <div className="space-y-2">
         <div className="h-2 w-full rounded bg-gray-800 overflow-hidden">
           <motion.div
-            className="h-full bg-red-600/60 rounded"
+            className="h-full bg-blue-600/60 rounded"
             initial={{ width: "0%" }}
             animate={{ width: "60%" }}
             transition={{ duration: 1.2, ease: "easeInOut" }}

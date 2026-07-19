@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -46,8 +46,8 @@ const EventListCard: React.FC<EventListCardProps> = ({
         <h3
           className="
             text-lg font-extrabold mb-1
-            bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent
-            group-hover:from-orange-300 group-hover:to-red-500 transition-all
+            bg-gradient-to-r from-orange-400 to-blue-600 bg-clip-text text-transparent
+            group-hover:from-orange-300 group-hover:to-blue-500 transition-all
           "
         >
           {event.title}

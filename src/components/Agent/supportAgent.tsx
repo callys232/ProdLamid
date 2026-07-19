@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -72,12 +72,12 @@ export default function SupportAgent() {
         <div className="bg-[#0d1117] rounded-lg border border-white/8 overflow-hidden">
           <div className="flex items-center gap-2 px-3 py-2 border-b border-white/8">
             <span className="text-sm">🛠️</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#ef4444]">What do you need help with?</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">What do you need help with?</span>
           </div>
           <div className="grid grid-cols-2 gap-1.5 p-2">
             {CATEGORIES.map(c => (
               <button key={c.label} type="button" onClick={() => send(c.prompt)}
-                className="flex items-center gap-1.5 px-2.5 py-2 rounded-lg border border-white/8 hover:border-[#ef4444]/30 hover:bg-[#ef4444]/8 text-left transition-all group">
+                className="flex items-center gap-1.5 px-2.5 py-2 rounded-lg border border-white/8 hover:border-[#2563EB]/30 hover:bg-[#2563EB]/8 text-left transition-all group">
                 <span className="text-sm">{c.emoji}</span>
                 <span className="text-[9px] font-semibold text-gray-400 group-hover:text-white">{c.label}</span>
               </button>
@@ -87,13 +87,13 @@ export default function SupportAgent() {
       )}
 
       {/* Chat area */}
-      <div className="bg-[#0d1117] rounded-lg border border-[#ef4444]/20 overflow-hidden">
+      <div className="bg-[#0d1117] rounded-lg border border-[#2563EB]/20 overflow-hidden">
         <div className="flex items-center gap-2 px-3 py-2 border-b border-white/8">
-          <Bot className="h-3 w-3 text-[#ef4444]" />
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[#ef4444]">Support Agent</span>
+          <Bot className="h-3 w-3 text-[#2563EB]" />
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">Support Agent</span>
           {streaming && <span className="ml-auto text-[9px] text-gray-600 animate-pulse">Responding…</span>}
           {!streaming && started && (
-            <a href="/contact-sales" className="ml-auto text-[9px] text-gray-600 hover:text-[#ef4444] flex items-center gap-0.5 transition-colors">
+            <a href="/contact-sales" className="ml-auto text-[9px] text-gray-600 hover:text-[#2563EB] flex items-center gap-0.5 transition-colors">
               Escalate <ExternalLink className="h-2.5 w-2.5" />
             </a>
           )}
@@ -106,7 +106,7 @@ export default function SupportAgent() {
           {messages.map((m, i) => (
             <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[88%] text-[10px] leading-relaxed px-2.5 py-1.5 rounded-xl ${
-                m.role === "user" ? "bg-[#ef4444]/20 text-white/90 rounded-br-sm" : "bg-white/6 text-gray-300 rounded-bl-sm"
+                m.role === "user" ? "bg-[#2563EB]/20 text-white/90 rounded-br-sm" : "bg-white/6 text-gray-300 rounded-bl-sm"
               }`}>
                 {m.content || (streaming && i === messages.length - 1 &&
                   <span className="flex gap-0.5">{[0,1,2].map(j => <motion.span key={j} className="w-1 h-1 rounded-full bg-gray-500" animate={{ opacity: [0.3,1,0.3] }} transition={{ repeat: Infinity, duration: 1, delay: j * 0.2 }} />)}</span>
@@ -118,7 +118,7 @@ export default function SupportAgent() {
             <div className="pt-1 border-t border-white/5">
               <p className="text-[9px] text-gray-600 text-center">
                 Issue unresolved?{" "}
-                <a href="/contact-sales" className="text-[#ef4444] hover:underline">Contact our team →</a>
+                <a href="/contact-sales" className="text-[#2563EB] hover:underline">Contact our team →</a>
               </p>
             </div>
           )}
@@ -129,9 +129,9 @@ export default function SupportAgent() {
           <input value={input} onChange={e => setInput(e.target.value)}
             onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); send(); } }}
             placeholder="Describe your issue…"
-            className="flex-1 text-[10px] bg-white/5 border border-white/8 rounded-lg px-2.5 py-1.5 text-white placeholder-gray-600 focus:outline-none focus:border-[#ef4444]/40 transition-colors" />
+            className="flex-1 text-[10px] bg-white/5 border border-white/8 rounded-lg px-2.5 py-1.5 text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/40 transition-colors" />
           <button type="button" onClick={() => send()} disabled={!input.trim() || streaming}
-            className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#ef4444] disabled:opacity-40 transition-opacity shrink-0">
+            className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#2563EB] disabled:opacity-40 transition-opacity shrink-0">
             {streaming ? <Loader2 className="h-3 w-3 text-white animate-spin" /> : <Send className="h-3 w-3 text-white" />}
           </button>
         </div>

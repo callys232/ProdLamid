@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -47,14 +47,14 @@ export default function ConsultantPublicProfile({ consultantId }: { consultantId
 
   if (loading) return (
     <div className="flex min-h-screen items-center justify-center bg-black">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#c12129] border-t-transparent" />
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2563EB] border-t-transparent" />
     </div>
   );
 
   if (error || !data) return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-black text-white gap-4">
       <p className="text-gray-400">{error ?? "Consultant not found"}</p>
-      <Link href="/talent" className="text-sm text-[#c12129] hover:underline">← Browse consultants</Link>
+      <Link href="/talent" className="text-sm text-[#2563EB] hover:underline">← Browse consultants</Link>
     </div>
   );
 
@@ -80,7 +80,7 @@ export default function ConsultantPublicProfile({ consultantId }: { consultantId
               <img src={p.profilePicture} alt={name}
                 className="h-20 w-20 flex-shrink-0 rounded-2xl object-cover" />
             ) : (
-              <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-[#c12129]/20 text-2xl font-black text-[#c12129]">
+              <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-[#2563EB]/20 text-2xl font-black text-[#2563EB]">
                 {initials}
               </div>
             )}
@@ -89,7 +89,7 @@ export default function ConsultantPublicProfile({ consultantId }: { consultantId
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h1 className="text-2xl font-bold text-white">{name}</h1>
                 {data.isPremium && (
-                  <span className="rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#c12129]">
+                  <span className="rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">
                     Premium
                   </span>
                 )}
@@ -111,7 +111,7 @@ export default function ConsultantPublicProfile({ consultantId }: { consultantId
 
             {/* CTA */}
             <Link href={`/postjobs?consultant=${consultantId}`}
-              className="flex-shrink-0 flex items-center gap-2 rounded-xl bg-[#c12129] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-700">
+              className="flex-shrink-0 flex items-center gap-2 rounded-xl bg-[#2563EB] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700">
               <MessageSquare className="h-4 w-4" /> Hire {p.firstName ?? "Consultant"}
             </Link>
           </div>
@@ -132,7 +132,7 @@ export default function ConsultantPublicProfile({ consultantId }: { consultantId
                 <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">Skills</h2>
                 <div className="flex flex-wrap gap-2">
                   {p.skills.map(s => (
-                    <span key={s} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300 transition hover:border-[#c12129]/30">
+                    <span key={s} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300 transition hover:border-[#2563EB]/30">
                       {s}
                     </span>
                   ))}
@@ -163,7 +163,7 @@ export default function ConsultantPublicProfile({ consultantId }: { consultantId
 
             <motion.div whileHover={{ y: -2 }}>
               <Link href={`/postjobs?consultant=${consultantId}`}
-                className="block w-full rounded-xl bg-[#c12129] py-3 text-center text-sm font-bold text-white transition hover:bg-red-700">
+                className="block w-full rounded-xl bg-[#2563EB] py-3 text-center text-sm font-bold text-white transition hover:bg-blue-700">
                 Post a Project for {p.firstName ?? "this Consultant"}
               </Link>
             </motion.div>

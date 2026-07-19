@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import type { EventItem } from "@/types/eventTypes";
@@ -40,7 +40,7 @@ const AllEvents = () => {
 
   return (
     <div className="bg-black text-white py-8">
-      <h2 className="text-3xl font-extrabold mb-6 text-center bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent">
+      <h2 className="text-3xl font-extrabold mb-6 text-center bg-gradient-to-r from-orange-400 to-blue-600 bg-clip-text text-transparent">
         All Events
       </h2>
 

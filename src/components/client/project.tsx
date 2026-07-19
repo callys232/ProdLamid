@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,7 +24,7 @@ const Button = ({ children, onClick, variant = "default" }: ButtonProps) => {
     const styles =
         variant === "outline"
             ? "bg-transparent border border-gray-600 text-white hover:bg-gray-700"
-            : "bg-red-600 text-white hover:bg-red-500";
+            : "bg-blue-600 text-white hover:bg-blue-500";
 
     return (
         <button onClick={onClick} className={`${base} ${styles}`}>
@@ -58,7 +58,7 @@ export default function ProjectsTab({ client }: { client?: ClientProfile }) {
 
 
     return (
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 shadow-xl border border-red-600">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 shadow-xl border border-blue-600">
             <div className="flex gap-2 flex-wrap mb-4">
                 {(["team", "individual"] as const).map((type) => (
                     <Button

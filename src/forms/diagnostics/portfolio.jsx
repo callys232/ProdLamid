@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { motion } from "framer-motion";
 
 const Portfolio = ({ formData, handleChange, handleProceed }) => {
@@ -31,7 +31,7 @@ const Portfolio = ({ formData, handleChange, handleProceed }) => {
     >
       {/* Form Frame */}
       <div className="bg-black p-6 rounded-lg shadow-lg w-full max-w-md backdrop-blur-lg border border-white/20">
-        <h2 className="text-2xl font-bold text-red-700 mb-4 text-center">
+        <h2 className="text-2xl font-bold text-blue-700 mb-4 text-center">
           Tell us about your Business
         </h2>
         <p className="text-gray-400 mb-6 text-center">
@@ -90,7 +90,7 @@ const Portfolio = ({ formData, handleChange, handleProceed }) => {
           className="w-full p-2 border rounded-lg mb-2 text-black"
           onChange={handleFileUpload}
         />
-        {resumeError && <p className="text-red-500 text-sm">{resumeError}</p>}
+        {resumeError && <p className="text-blue-500 text-sm">{resumeError}</p>}
       </div>
     </motion.div>
   );

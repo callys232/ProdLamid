@@ -89,7 +89,7 @@ export default function HCDPage() {
       <section className="relative px-4 pt-28 pb-10 text-center overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
           <motion.path d="M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"
-            fill="none" stroke="#C12129" strokeWidth="0.6" strokeOpacity="0.07" strokeDasharray="12 20"
+            fill="none" stroke="#2563EB" strokeWidth="0.6" strokeOpacity="0.07" strokeDasharray="12 20"
             animate={{ strokeDashoffset: [0, -100] }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           />
@@ -114,7 +114,7 @@ export default function HCDPage() {
           {/* Desktop: horizontal with connecting line */}
           <div className="hidden sm:grid grid-cols-3 gap-6 relative">
             <motion.div className="absolute top-[52px] left-[20%] right-[20%] h-[2px]"
-              style={{ background: "linear-gradient(to right, #C12129, #ff6060, #C12129)" }}
+              style={{ background: "linear-gradient(to right, #2563EB, #ff6060, #2563EB)" }}
               initial={{ scaleX: 0, originX: 0 }}
               whileInView={{ scaleX: 1 }} viewport={{ once: true }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
@@ -125,12 +125,12 @@ export default function HCDPage() {
                 <motion.div key={step.num} {...fadeUp(i * 0.1)}
                   onHoverStart={() => setHoveredStep(i)} onHoverEnd={() => setHoveredStep(null)}
                   onClick={() => router.push(step.href)}
-                  whileHover={{ y: -6, boxShadow: "0 16px 36px rgba(193,33,41,0.18)" }} whileTap={{ scale: 0.97 }}
+                  whileHover={{ y: -6, boxShadow: "0 16px 36px rgba(37,99,235,0.18)" }} whileTap={{ scale: 0.97 }}
                   className="aivora-card border rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer"
-                  style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                  style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
-                  <motion.div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl mb-5 bg-[#C12129] relative z-10"
-                    animate={{ scale: isHov ? 1.12 : 1, boxShadow: isHov ? "0 0 24px rgba(193,33,41,0.6)" : "none" }}
+                  <motion.div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl mb-5 bg-[#2563EB] relative z-10"
+                    animate={{ scale: isHov ? 1.12 : 1, boxShadow: isHov ? "0 0 24px rgba(37,99,235,0.6)" : "none" }}
                     transition={{ type: "spring", stiffness: 280, damping: 18 }}>
                     {step.num}
                   </motion.div>
@@ -150,8 +150,8 @@ export default function HCDPage() {
                   onClick={() => router.push(step.href)}
                   whileHover={{ x: 4 }} whileTap={{ scale: 0.98 }}
                   className="aivora-card border rounded-2xl p-5 flex items-start gap-4 cursor-pointer"
-                  style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold bg-[#C12129] shrink-0">{step.num}</div>
+                  style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold bg-[#2563EB] shrink-0">{step.num}</div>
                   <div>
                     <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-1">{step.title}</h3>
                     <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{step.body}</p>
@@ -172,10 +172,10 @@ export default function HCDPage() {
               <motion.div key={f.title} {...fadeUp(i * 0.08)}
                 onHoverStart={() => setHoveredFeature(i)} onHoverEnd={() => setHoveredFeature(null)}
                 onClick={() => router.push(f.href)}
-                whileHover={{ y: -5, boxShadow: "0 14px 34px rgba(193,33,41,0.16)" }} whileTap={{ scale: 0.97 }}
+                whileHover={{ y: -5, boxShadow: "0 14px 34px rgba(37,99,235,0.16)" }} whileTap={{ scale: 0.97 }}
                 className="aivora-card border rounded-2xl p-6 cursor-pointer"
-                style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}>
-                <motion.div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25"
+                style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}>
+                <motion.div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#2563EB]/12 border border-[#2563EB]/25"
                   animate={{ scale: isHov ? 1.1 : 1 }} transition={{ type: "spring", stiffness: 300, damping: 18 }}>
                   <span className="text-base aivora-gradient-text">{f.icon}</span>
                 </motion.div>
@@ -196,7 +196,7 @@ export default function HCDPage() {
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
           {STATS.map((s, i) => (
             <motion.div key={s.label} {...fadeUp(i * 0.1)}
-              whileHover={{ y: -4, boxShadow: "0 12px 30px rgba(193,33,41,0.15)" }}
+              whileHover={{ y: -4, boxShadow: "0 12px 30px rgba(37,99,235,0.15)" }}
               className="aivora-card border rounded-2xl p-8 text-center">
               <p className="text-4xl sm:text-5xl font-extrabold aivora-gradient-text mb-3">{s.value}</p>
               <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{s.label}</p>
@@ -208,7 +208,7 @@ export default function HCDPage() {
       {/* ── Enterprise enrollment + Programs button (final CTA) ── */}
       <section className="px-4 pb-12">
         <motion.div {...fadeUp(0)}
-          className="max-w-4xl mx-auto rounded-2xl border border-[#C12129]/30 bg-gradient-to-br from-[#C12129]/8 via-transparent to-transparent p-10 text-center">
+          className="max-w-4xl mx-auto rounded-2xl border border-[#2563EB]/30 bg-gradient-to-br from-[#2563EB]/8 via-transparent to-transparent p-10 text-center">
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">For Teams</p>
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
             Transform your entire organisation — not just individuals.
@@ -219,7 +219,7 @@ export default function HCDPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link href="/premium/business-diagnostic"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_18px_rgba(193,33,41,0.4)]">
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_18px_rgba(37,99,235,0.4)]">
                 Start Your Free Assessment
               </Link>
             </motion.div>
@@ -227,9 +227,9 @@ export default function HCDPage() {
             <motion.button
               type="button"
               onClick={() => setProgramsOpen(true)}
-              whileHover={{ scale: 1.04, borderColor: "rgba(193,33,41,0.6)", color: "#C12129", boxShadow: "0 0 18px rgba(193,33,41,0.25)" }}
+              whileHover={{ scale: 1.04, borderColor: "rgba(37,99,235,0.6)", color: "#2563EB", boxShadow: "0 0 18px rgba(37,99,235,0.25)" }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-all duration-200 cursor-pointer"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold border border-[#2563EB]/30 text-[#2563EB] hover:bg-[#2563EB]/10 transition-all duration-200 cursor-pointer"
             >
               What Can You Build? →
             </motion.button>
@@ -253,10 +253,10 @@ export default function HCDPage() {
               exit={{ opacity: 0, scale: 0.94, y: 24 }}
               transition={{ type: "spring", stiffness: 280, damping: 28 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-3xl bg-[#080808] border border-white/8 rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(193,33,41,0.2)] max-h-[88vh] overflow-y-auto"
+              className="relative w-full max-w-3xl bg-[#080808] border border-white/8 rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(37,99,235,0.2)] max-h-[88vh] overflow-y-auto"
             >
               {/* Top accent */}
-              <div className="h-[3px] bg-gradient-to-r from-[#C12129] via-red-400 to-transparent sticky top-0" />
+              <div className="h-[3px] bg-gradient-to-r from-[#2563EB] via-blue-400 to-transparent sticky top-0" />
 
               <div className="px-7 pt-7 pb-8">
                 {/* Header */}
@@ -271,7 +271,7 @@ export default function HCDPage() {
                     </p>
                   </div>
                   <button type="button" onClick={() => setProgramsOpen(false)}
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#C12129]/40 transition-colors cursor-pointer text-base">
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#2563EB]/40 transition-colors cursor-pointer text-base">
                     ✕
                   </button>
                 </div>
@@ -291,22 +291,22 @@ export default function HCDPage() {
                         onHoverStart={() => setHoveredProgram(i)}
                         onHoverEnd={() => setHoveredProgram(null)}
                         onClick={() => { setProgramsOpen(false); router.push(prog.href); }}
-                        whileHover={{ y: -3, boxShadow: "0 10px 28px rgba(193,33,41,0.18)" }}
+                        whileHover={{ y: -3, boxShadow: "0 10px 28px rgba(37,99,235,0.18)" }}
                         whileTap={{ scale: 0.97 }}
                         className="group relative flex gap-4 p-5 rounded-xl border bg-white/[0.025] cursor-pointer overflow-hidden transition-all duration-200"
-                        style={{ borderColor: isHov ? "rgba(193,33,41,0.45)" : "rgba(255,255,255,0.07)" }}
+                        style={{ borderColor: isHov ? "rgba(37,99,235,0.45)" : "rgba(255,255,255,0.07)" }}
                       >
                         {/* Left accent bar */}
-                        <motion.div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl bg-[#C12129]"
+                        <motion.div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl bg-[#2563EB]"
                           animate={{ scaleY: isHov ? 1 : 0, originY: 0 }} transition={{ duration: 0.2 }} />
                         {/* Glow */}
-                        <motion.div className="absolute -top-4 -right-4 w-20 h-20 rounded-full blur-2xl bg-[#C12129] pointer-events-none"
+                        <motion.div className="absolute -top-4 -right-4 w-20 h-20 rounded-full blur-2xl bg-[#2563EB] pointer-events-none"
                           animate={{ opacity: isHov ? 0.1 : 0 }} transition={{ duration: 0.25 }} />
 
                         <motion.div
-                          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/15 border border-[#C12129]/25 mt-0.5"
+                          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[#2563EB]/15 border border-[#2563EB]/25 mt-0.5"
                           animate={{ scale: isHov ? 1.12 : 1 }} transition={{ type: "spring", stiffness: 300, damping: 18 }}>
-                          <span className="text-sm text-[#C12129]">{prog.icon}</span>
+                          <span className="text-sm text-[#2563EB]">{prog.icon}</span>
                         </motion.div>
 
                         <div className="flex-1 min-w-0">
@@ -326,7 +326,7 @@ export default function HCDPage() {
                 <p className="text-center text-white/35 text-xs">
                   Don&apos;t see your topic? Our expert-design team builds custom programs for enterprise cohorts.{" "}
                   <button type="button" onClick={() => { setProgramsOpen(false); router.push("/contact"); }}
-                    className="text-[#C12129] hover:text-red-400 transition-colors cursor-pointer underline underline-offset-2">
+                    className="text-[#2563EB] hover:text-blue-400 transition-colors cursor-pointer underline underline-offset-2">
                     Talk to us →
                   </button>
                 </p>
@@ -347,15 +347,15 @@ export default function HCDPage() {
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <Link href="/premium/business-diagnostic"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)]">
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_14px_rgba(37,99,235,0.35)]">
               Start Your Assessment
             </Link>
             <Link href="/talent-dashboard"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors">
               Open Dashboard →
             </Link>
             <Link href="/events"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors">
               Explore Programs →
             </Link>
           </div>

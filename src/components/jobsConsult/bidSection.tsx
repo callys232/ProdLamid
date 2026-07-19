@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Zap, Lock, Star } from "lucide-react";
@@ -149,7 +149,7 @@ export default function BidSection({
       {!isRegisteredUser && (
         <p className="text-xs text-gray-400">
           Bidding is available to logged-in users.{" "}
-          <Link href="/signin" className="text-[#c21219] hover:underline">Sign in to continue.</Link>
+          <Link href="/signin" className="text-[#2563EB] hover:underline">Sign in to continue.</Link>
         </p>
       )}
 
@@ -163,7 +163,7 @@ export default function BidSection({
             {bids.map((bid, i) => (
               <li key={i} className={`px-4 py-2 rounded-md border transition-all duration-200 flex items-center justify-between ${
                 i === bids.length - 1
-                  ? "border-[#c21219] bg-[#c21219]/20 text-[#c21219] font-semibold"
+                  ? "border-[#2563EB] bg-[#2563EB]/20 text-[#2563EB] font-semibold"
                   : "border-white/20 bg-white/5 text-gray-200"
               }`}>
                 <span>${bid.amount}{bid.boosted && <span className="ml-2 text-xs text-yellow-400">⚡ Boosted</span>}</span>

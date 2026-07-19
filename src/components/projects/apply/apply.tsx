@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -36,7 +36,7 @@ export default function ApplyPage({ params }: { params: { id: string } }) {
       {/* Left: Application Form */}
       <div className="flex-1 p-10">
         <h1 className="text-4xl font-bold mb-6 flex items-center gap-3">
-          <span className="text-[#c21219]">🚀</span> Apply / Bid for Project
+          <span className="text-[#2563EB]">🚀</span> Apply / Bid for Project
         </h1>
         <ApplyForm
           project={project}

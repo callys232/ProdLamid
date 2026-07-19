@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { UserGuide } from "@/components/Guides/UserGuide";
@@ -45,7 +45,7 @@ export default function ProfileSidebar({
       {/* Guide Trigger */}
       <button
         onClick={() => setShowGuide(true)}
-        className="mb-4 w-full text-sm border border-gray-600 text-gray-400 hover:text-red-500 hover:border-red-500 px-3 py-2 rounded-md transition"
+        className="mb-4 w-full text-sm border border-gray-600 text-gray-400 hover:text-blue-500 hover:border-blue-500 px-3 py-2 rounded-md transition"
       >
         Sidebar Guide
       </button>
@@ -58,7 +58,7 @@ export default function ProfileSidebar({
               data-guide={tab.guide}
               onClick={() => setActiveTab(tab.key)}
               className={`w-full text-left px-4 py-3 cursor-pointer transition-colors rounded-md ${
-                activeTab === tab.key ? "bg-red-600 text-white" : "hover:bg-gray-700 text-gray-300"
+                activeTab === tab.key ? "bg-blue-600 text-white" : "hover:bg-gray-700 text-gray-300"
               }`}
             >
               {tab.label}

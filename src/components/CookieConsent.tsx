@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -36,19 +36,19 @@ export default function CookieConsent() {
           className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-xl rounded-2xl border border-white/10 bg-[#0B0F19] p-5 shadow-2xl backdrop-blur-sm md:left-auto md:right-6 md:max-w-sm"
         >
           <div className="mb-3 flex items-center gap-2">
-            <Cookie className="h-4 w-4 flex-shrink-0 text-[#c12129]" />
+            <Cookie className="h-4 w-4 flex-shrink-0 text-[#2563EB]" />
             <p className="text-sm font-semibold text-white">Cookie Notice</p>
           </div>
           <p className="mb-4 text-xs leading-relaxed text-gray-400">
             We use strictly necessary cookies for authentication and functional cookies to improve your experience.
             No advertising or tracking cookies.{" "}
-            <Link href="/privacy" className="text-[#c12129] hover:underline">Learn more</Link>
+            <Link href="/privacy" className="text-[#2563EB] hover:underline">Learn more</Link>
           </p>
           <div className="flex gap-2">
             <motion.button
               whileTap={{ scale: 0.96 }}
               onClick={accept}
-              className="flex-1 rounded-lg bg-[#c12129] py-2 text-xs font-bold text-white transition hover:bg-red-700"
+              className="flex-1 rounded-lg bg-[#2563EB] py-2 text-xs font-bold text-white transition hover:bg-blue-700"
             >
               Accept
             </motion.button>

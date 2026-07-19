@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -13,24 +13,24 @@ const STATUS_COLORS: Record<string, string> = {
     released: "bg-green-500",
     completed: "bg-green-700",
     cancelled: "bg-orange-500",
-    disputed: "bg-red-600",
+    disputed: "bg-blue-600",
 };
 
 const PHASE_COLORS: Record<string, string> = {
     pending: "text-gray-400",
-    active: "text-red-500",
+    active: "text-blue-500",
     completed: "text-green-500",
 };
 
 function getProgressColor(status?: string) {
-    if (!status) return "bg-red-500";
+    if (!status) return "bg-blue-500";
     const s = String(status).toLowerCase();
     if (s === "completed") return "bg-green-500";
     if (s === "pending") return "bg-orange-500";
     if (s === "in_progress") return "bg-blue-500";
     if (s === "funded" || s === "released") return "bg-green-500";
     if (s === "disputed" || s === "under_review") return "bg-yellow-400";
-    return "bg-red-500";
+    return "bg-blue-500";
 }
 
 function fmtDate(d?: string) {
@@ -163,7 +163,7 @@ export default function PhasesSection({ project }: { project?: Project | null })
                                                                             href={doc.url}
                                                                             target="_blank"
                                                                             rel="noopener noreferrer"
-                                                                            className="text-xs text-red-500 hover:text-white underline"
+                                                                            className="text-xs text-blue-500 hover:text-white underline"
                                                                         >
                                                                             {doc.name} <span className="text-gray-500">• {fmtDate(doc.uploadedAt)}</span>
                                                                         </a>
@@ -192,7 +192,7 @@ export default function PhasesSection({ project }: { project?: Project | null })
                     <ul className="space-y-2">
                         {docsFromProject.map((d) => (
                             <li key={d.id ?? d.url} className="text-xs">
-                                <a href={d.url} target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-white underline">
+                                <a href={d.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-white underline">
                                     {d.name}
                                 </a>
                                 <span className="ml-2 text-gray-500">• {fmtDate(d.uploadedAt)}</span>

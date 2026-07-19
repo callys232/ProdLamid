@@ -1,514 +1,258 @@
-﻿"use client";
+"use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
-import ExpertMatchModal from "@/components/talent/ExpertMatchModal";
-import { BadgeCheck, Wallet, Award, Target, Scale, Cpu, Users, Lightbulb, Landmark, Search, Briefcase, FlaskConical } from "lucide-react";
+import { GraduationCap, Search, BarChart2, BookOpen, Users, Heart } from "lucide-react";
+import { useScrollBackground } from "@/hooks/useScrollBackground";
 
-/* ── Tabs — each is a descriptor card ── */
-const TABS = [
-  { id: "consultants", label: "Consultants", icon: Search,       desc: "Find a vetted expert matched to your challenge." },
-  { id: "jobs",        label: "Jobs",        icon: Briefcase,    desc: "Browse open roles and consulting engagements." },
-  { id: "prototypes",  label: "Prototypes",  icon: FlaskConical, desc: "Explore live builds and framework tools." },
-];
-
-/* ── 3 Trust cards ── */
-const TRUST = [
+const FEATURES = [
   {
-    icon: BadgeCheck,
-    title: "Vetted Experts Only",
-    body:  "Every expert passes a rigorous 5-stage vetting process with verified credentials.",
+    Icon: Search,
+    title: "40+ Signal Matching Engine",
+    body: "Goes far beyond CVs. LAMID TALENT evaluates capability, culture fit, leadership potential, and role trajectory — across 40+ organizational signals — to surface the right person for the right role.",
+    href: "/jobs",
+    cta: "Find Expert Talent →",
   },
   {
-    icon: Wallet,
-    title: "Transparent Pricing",
-    body:  "No hidden fees. See rates upfront and pay only for value delivered.",
+    Icon: GraduationCap,
+    title: "AI-Assisted Capability Diagnostics",
+    body: "Understand what your people can actually do — not just what their job titles say. Our capability diagnostic maps real skills to real business needs.",
+    href: "/talent/capability-diagnostics",
+    cta: "Run Capability Diagnostic →",
   },
   {
-    icon: Award,
-    title: "Quality Guaranteed",
-    body:  "Satisfaction guarantee on every engagement. We stand behind our experts.",
+    Icon: BookOpen,
+    title: "LMS-Driven Learning Acceleration",
+    body: "A learning management system built for workforce impact, not just compliance. Courses, pathways, and skill-building tied directly to what your organization needs next.",
+    href: "/talent/lms",
+    cta: "Launch Learning Platform →",
+  },
+  {
+    Icon: BarChart2,
+    title: "Workforce Intelligence",
+    body: "Real-time visibility into team performance, capability gaps, engagement trends, and succession risk — so people decisions are grounded in data, not instinct.",
+    href: "/talent/workforce-analytics",
+    cta: "View Workforce Analytics →",
+  },
+  {
+    Icon: Heart,
+    title: "Mentorship Program",
+    body: "Structured mentorship connections that pair emerging talent with experienced professionals — building institutional knowledge and leadership pipelines that compound over time.",
+    href: "/talent/mentorship",
+    cta: "Explore Mentorship →",
   },
 ];
 
-/* ── 6 Use-case tiles — each links to its associated tool. Free to use; sign-in only required to save/export results. ── */
-const USE_CASES = [
-  { icon: Target,    title: "Strategy & Growth",       body: "Market entry, competitive analysis, and growth roadmaps.",              href: "/premium/business-diagnostic" },
-  { icon: Scale,     title: "Compliance & Risk",        body: "Regulatory compliance, risk assessment, and governance frameworks.",    href: "/premium/business-diagnostic" },
-  { icon: Cpu,       title: "Digital Transformation",  body: "AI adoption, tech modernization, and process automation.",              href: "/premium/business-diagnostic" },
-  { icon: Users,     title: "Talent & Culture",         body: "Leadership development, organizational design, and change management.", href: "/hcd" },
-  { icon: Lightbulb, title: "Innovation Labs",          body: "Product ideation, design sprints, and innovation workshops.",           href: "/premium/proposal-drafter" },
-  { icon: Landmark,  title: "Board Advisory",           body: "Board-ready materials, governance reviews, and fiduciary guidance.",    href: "/premium/proposal-drafter" },
+const WHY = [
+  "Better teams built on real capability, not resume keywords",
+  "A learning culture that grows with your organization",
+  "People decisions that connect to business outcomes",
+  "Succession and retention intelligence before it's too late",
 ];
 
-/* ── Tag colour by keyword ── */
-function tagCls(tag) {
-  const k = (tag || "").toLowerCase();
-  if (k.includes("strateg") || k.includes("plan"))  return "bg-blue-500/15 text-blue-400 border-blue-500/25";
-  if (k.includes("financ")  || k.includes("cfo"))   return "bg-emerald-500/15 text-emerald-400 border-emerald-500/25";
-  if (k.includes("tech")    || k.includes("ai"))     return "bg-violet-500/15 text-violet-400 border-violet-500/25";
-  if (k.includes("legal")   || k.includes("comply")) return "bg-amber-500/15 text-amber-400 border-amber-500/25";
-  if (k.includes("talent")  || k.includes("hr"))     return "bg-orange-500/15 text-orange-400 border-orange-500/25";
-  return "bg-[#C12129]/12 text-[#C12129] border-[#C12129]/25";
-}
+const cardV = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.42 } } };
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } } };
 
-/* ── Stars ── */
-function Stars({ count, onSet }) {
+export default function TalentPage() {
+  useScrollBackground();
   return (
-    <div className="flex items-center gap-0.5">
-      {[1,2,3,4,5].map(s => (
-        <button key={s} type="button" onClick={onSet ? () => onSet(s) : undefined}
-          className={`text-base transition-transform ${onSet ? "cursor-pointer hover:scale-125" : "cursor-default"}
-            ${s <= count ? "aivora-gradient-text" : "text-white/15 dark:text-white/15 text-gray-200"}`}>
-          ★
-        </button>
-      ))}
-    </div>
-  );
-}
+    <main className="min-h-screen aivora-section">
 
-/* ── Marketplace card ── */
-function Card({ item, type, onClick }) {
-  const [hov, setHov] = useState(false);
-  const name = item.name || item.title || item.jobTitle || "Untitled";
-  const sub  = item.role || item.company || item.category || "";
-  const desc = item.bio  || item.description || item.summary || "";
-  const tags = item.skills || item.tags || item.sectors || [];
-
-  return (
-    <motion.div onHoverStart={() => setHov(true)} onHoverEnd={() => setHov(false)}
-      onClick={() => onClick(item)}
-      whileHover={{ y: -5, boxShadow: "0 16px 40px rgba(193,33,41,0.18)" }} whileTap={{ scale: 0.97 }}
-      className="relative aivora-card border rounded-2xl p-5 cursor-pointer flex flex-col gap-3 overflow-hidden"
-      style={{ borderColor: hov ? "rgba(193,33,41,0.45)" : undefined }}>
-      <motion.div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
-        style={{ background: "linear-gradient(to right, #C12129, transparent)" }}
-        animate={{ scaleX: hov ? 1 : 0, originX: 0 }} transition={{ duration: 0.25 }} />
-      <motion.div className="absolute -top-8 -right-8 w-24 h-24 rounded-full blur-3xl bg-[#C12129] pointer-events-none"
-        animate={{ opacity: hov ? 0.1 : 0 }} transition={{ duration: 0.3 }} />
-      <div className="flex items-start gap-3">
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/12 border border-[#C12129]/25 text-base font-bold overflow-hidden">
-          {type === "consultants" && item.avatar
-            // eslint-disable-next-line @next/next/no-img-element
-            ? <img src={item.avatar} alt={name} className="w-full h-full object-cover" />
-            : <span className="aivora-gradient-text">
-                {type === "consultants" ? (name[0] || "C") : type === "projects" ? "⬡" : type === "jobs" ? "⬟" : "▣"}
-              </span>}
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug line-clamp-1">{name}</h3>
-          {sub && <p className="text-[11px] text-gray-500 dark:text-white/40 mt-0.5 line-clamp-1">{sub}</p>}
-        </div>
-        {item.rating != null && <span className="text-[10px] font-bold aivora-gradient-text shrink-0">★ {parseFloat(item.rating).toFixed(1)}</span>}
-      </div>
-      {desc && <p className="text-[11px] text-gray-500 dark:text-white/40 leading-relaxed line-clamp-2">{desc}</p>}
-      {tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mt-auto">
-          {tags.slice(0, 3).map((tag, i) => <span key={i} className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${tagCls(tag)}`}>{tag}</span>)}
-          {tags.length > 3 && <span className="text-[9px] text-gray-400 dark:text-white/25 self-center">+{tags.length - 3}</span>}
-        </div>
-      )}
-      <div className="flex items-center justify-between text-[10px] pt-2 border-t border-gray-100 dark:border-white/6">
-        {item.location && <span className="text-gray-400 dark:text-white/25">{item.location}</span>}
-        <motion.span className="aivora-gradient-text font-semibold ml-auto"
-          animate={{ opacity: hov ? 1 : 0, x: hov ? 0 : -4 }} transition={{ duration: 0.15 }}>View →</motion.span>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ── Detail Modal ── */
-function DetailModal({ item, type, onClose }) {
-  const name = item.name || item.title || item.jobTitle || "Details";
-  const desc = item.bio  || item.description || item.summary || "";
-  const sub  = item.role || item.company || item.category || "";
-  const tags = item.skills || item.tags || item.sectors || [];
-  const href = type === "consultants" ? `/consultant/${item._id || item.id}` : type === "projects" ? `/projects/${item._id || item.id}` : `/jobs`;
-
-  return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.18 }}
-      className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/88 backdrop-blur-md px-4 py-8"
-      onClick={onClose}>
-      <motion.div initial={{ opacity: 0, scale: 0.93, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.93, y: 24 }} transition={{ type: "spring", stiffness: 280, damping: 28 }}
-        onClick={e => e.stopPropagation()}
-        className="relative w-full max-w-lg bg-[#080808] border border-white/8 rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(193,33,41,0.2)] max-h-[88vh] overflow-y-auto">
-        <div className="h-[3px] bg-gradient-to-r from-[#C12129] via-red-400 to-transparent sticky top-0" />
-        <div className="px-7 pt-6 pb-8">
-          <div className="flex items-start gap-4 mb-5">
-            <div className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/12 border border-[#C12129]/25 overflow-hidden text-xl">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              {type === "consultants" && item.avatar ? <img src={item.avatar} alt={name} className="w-full h-full object-cover" />
-                : <span className="aivora-gradient-text font-bold">{type === "consultants" ? name[0] : type === "projects" ? "⬡" : type === "jobs" ? "⬟" : "▣"}</span>}
-            </div>
-            <div className="flex-1 min-w-0">
-              <h2 className="text-lg font-bold text-white leading-snug">{name}</h2>
-              {sub && <p className="text-sm text-white/45 mt-0.5">{sub}</p>}
-              {item.rating != null && <Stars count={Math.round(item.rating)} />}
-            </div>
-            <button type="button" onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#C12129]/40 transition-colors cursor-pointer shrink-0 text-base">✕</button>
-          </div>
-          {(item.matchScore || item.location) && (
-            <div className="flex flex-wrap gap-2 mb-5">
-              {item.matchScore  && <span className="px-3 py-1.5 rounded-xl bg-[#C12129]/10 border border-[#C12129]/25 text-xs aivora-gradient-text font-bold">{item.matchScore}% match</span>}
-              {item.location    && <span className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/8 text-xs text-white/50">{item.location}</span>}
-            </div>
-          )}
-          {desc && <><p className="text-[10px] font-bold uppercase tracking-widest aivora-gradient-text mb-2">About</p><p className="text-sm text-white/60 leading-relaxed mb-5">{desc}</p></>}
-          {tags.length > 0 && (
-            <div className="mb-6">
-              <p className="text-[10px] font-bold uppercase tracking-widest aivora-gradient-text mb-3">Skills</p>
-              <div className="flex flex-wrap gap-2">{tags.map((tag, i) => <span key={i} className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${tagCls(tag)}`}>{tag}</span>)}</div>
-            </div>
-          )}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href={href} className="flex-1 text-center py-3 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_18px_rgba(193,33,41,0.4)]">
-              {type === "consultants" ? "View Full Profile" : "View Details"}
-            </Link>
-            <Link href="/signup" className="flex-1 text-center py-3 rounded-xl text-sm font-semibold border border-[#C12129]/30 text-[#C12129] hover:bg-[#C12129]/10 transition-colors">
-              {type === "consultants" ? "Request Consultation" : "Apply Now"}
-            </Link>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-/* ── Skeleton ── */
-function Skeleton() {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {[1,2,3,4,5,6].map(i => (
-        <div key={i} className="aivora-card border rounded-2xl p-5 animate-pulse space-y-3">
-          <div className="flex gap-3"><div className="w-11 h-11 rounded-xl bg-white/8" /><div className="flex-1 space-y-2 pt-1"><div className="h-3 bg-white/8 rounded w-3/4" /><div className="h-2 bg-white/5 rounded w-1/2" /></div></div>
-          <div className="space-y-1.5"><div className="h-2 bg-white/5 rounded" /><div className="h-2 bg-white/5 rounded w-4/5" /></div>
-          <div className="flex gap-1.5"><div className="h-5 w-14 bg-white/6 rounded-full" /><div className="h-5 w-12 bg-white/6 rounded-full" /></div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ── Category modal — results grid for a chosen tab ── */
-function CategoryModal({ tab, onClose, onSelectItem }) {
-  const [items,   setItems]   = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [search,  setSearch]  = useState("");
-
-  useEffect(() => {
-    setLoading(true); setItems([]);
-    const map = { consultants: "/api/consultants?limit=48", jobs: "/api/recruitment/jobs?limit=48", prototypes: "/api/projects?category=prototype&limit=48" };
-    fetch(map[tab.id])
-      .then(r => r.json())
-      .then(d => setItems(d.consultants || d.jobs || d.data || (Array.isArray(d) ? d : [])))
-      .catch(() => setItems([]))
-      .finally(() => setLoading(false));
-  }, [tab.id]);
-
-  const filtered = items.filter(it => {
-    const q = search.toLowerCase();
-    return !q || (it.name || it.title || it.jobTitle || "").toLowerCase().includes(q) || (it.bio || it.description || "").toLowerCase().includes(q);
-  });
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-[999998] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-md px-4 pb-0 sm:pb-4"
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 60, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 40, scale: 0.97 }}
-        transition={{ type: "spring", stiffness: 260, damping: 28 }}
-        onClick={e => e.stopPropagation()}
-        className="relative w-full max-w-4xl bg-[#080808] border border-white/8 rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.8)] flex flex-col"
-        style={{ maxHeight: "88vh" }}
-      >
-        {/* Top accent */}
-        <div className="h-[3px] bg-gradient-to-r from-[#C12129] via-red-400 to-transparent shrink-0" />
-
-        {/* Header */}
-        <div className="flex items-center justify-between gap-4 px-6 pt-5 pb-4 border-b border-white/6 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#C12129]/12 border border-[#C12129]/25 flex items-center justify-center">
-              <tab.icon className="w-5 h-5 text-[#C12129]" strokeWidth={1.75} />
-            </div>
-            <div>
-              <h2 className="text-base font-bold text-white leading-tight">{tab.label}</h2>
-              <p className="text-[11px] text-white/35">{tab.desc}</p>
-            </div>
-          </div>
-          <button type="button" onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#C12129]/40 transition-colors cursor-pointer text-base shrink-0">
-            ✕
-          </button>
+      {/* Hero */}
+      <section data-scroll-section data-bg-from-dark="#0D6E8A" data-bg-to-dark="#04111F" data-bg-from-light="#BFE3FF" data-bg-to-light="#F8FAFF" className="relative py-28 px-4 overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+          <div className="w-[480px] h-[220px] rounded-full bg-[#2563EB]/6 blur-[80px]" />
         </div>
 
-        {/* Search */}
-        <div className="px-6 py-4 border-b border-white/6 shrink-0">
-          <div className="relative">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 aivora-gradient-text pointer-events-none">⬡</span>
-            <input type="text" value={search} onChange={e => setSearch(e.target.value)}
-              placeholder={`Search ${tab.label.toLowerCase()}…`}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm bg-white/[0.04] border border-white/8 text-white placeholder-white/25 focus:outline-none focus:border-[#C12129]/40 transition-colors" />
-          </div>
-        </div>
-
-        {/* Results */}
-        <div className="flex-1 overflow-y-auto px-6 py-5 custom-scrollbar">
-          {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[1,2,3,4,5,6].map(i => (
-                <div key={i} className="bg-white/[0.025] border border-white/6 rounded-2xl p-5 animate-pulse space-y-3">
-                  <div className="flex gap-3"><div className="w-10 h-10 rounded-xl bg-white/8 shrink-0" /><div className="flex-1 space-y-2 pt-1"><div className="h-3 bg-white/8 rounded w-3/4" /><div className="h-2 bg-white/5 rounded w-1/2" /></div></div>
-                  <div className="h-2 bg-white/5 rounded" /><div className="h-2 bg-white/5 rounded w-4/5" />
-                </div>
-              ))}
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 gap-3">
-              <tab.icon className="w-9 h-9 text-[#C12129]" strokeWidth={1.5} />
-              <p className="text-white/35 text-sm">{search ? `No results for "${search}"` : `No ${tab.label.toLowerCase()} yet.`}</p>
-              {search && <button type="button" onClick={() => setSearch("")} className="text-xs aivora-gradient-text cursor-pointer">Clear search →</button>}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filtered.map((item, i) => (
-                <motion.div key={item._id || item.id || i}
-                  initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: Math.min(i * 0.04, 0.35), duration: 0.3 }}>
-                  <Card item={item} type={tab.id} onClick={onSelectItem} />
-                </motion.div>
-              ))}
-            </div>
-          )}
-          {!loading && filtered.length > 0 && (
-            <p className="text-center text-[10px] aivora-text-muted mt-6">
-              {filtered.length} {tab.label.toLowerCase()}{search ? ` matching "${search}"` : ""}
-            </p>
-          )}
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-const fadeUp = (delay = 0) => ({ initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } });
-
-/* ════ MAIN PAGE ════ */
-export default function MarketplacePage() {
-  const router = useRouter();
-  const [openTab,      setOpenTab]      = useState(null);
-  const [selected,     setSelected]     = useState(null);
-  const [hoveredTrust, setHoveredTrust] = useState(null);
-  const [hoveredUC,    setHoveredUC]    = useState(null);
-  const [matchOpen,    setMatchOpen]    = useState(false);
-
-  return (
-    <div className="aivora-section min-h-screen">
-
-      {/* ══ HERO ══ */}
-      <section className="relative px-4 pt-24 pb-8 text-center overflow-hidden">
+        {/* Grid bg */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
-          <motion.path d="M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"
-            fill="none" stroke="#C12129" strokeWidth="0.6" strokeOpacity="0.07" strokeDasharray="12 20"
-            animate={{ strokeDashoffset: [0, -100] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} />
+          {["M0 150 L1400 150", "M0 350 L1400 350", "M350 0 L350 600", "M900 0 L900 600"].map((d, i) => (
+            <motion.path key={i} d={d} fill="none" stroke="#2563EB" strokeWidth="0.4"
+              strokeOpacity="0.05" strokeDasharray="6 40"
+              animate={{ strokeDashoffset: [0, -100], opacity: [0.03, 0.1, 0.03] }}
+              transition={{ duration: 24 + i * 2, repeat: Infinity, ease: "linear", delay: i * 2 }}
+            />
+          ))}
         </svg>
-        <motion.div {...fadeUp(0)} className="relative z-10 max-w-2xl mx-auto">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">LAMID CORE</p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4">
-            <span className="text-gray-900 dark:text-white">Find Your Expert.</span>{" "}
-            <span className="aivora-gradient-text">Instantly.</span>
-          </h1>
-          <p className="text-gray-500 dark:text-white/50 text-sm sm:text-base mb-8 leading-relaxed max-w-xl mx-auto">
-            Our AI-powered matching engine analyzes your needs and connects you with vetted experts in minutes.
-          </p>
-          {/* Search lives inside each category modal */}
-        </motion.div>
-      </section>
 
-      {/* ══ AI MATCHING FEATURE CARD ══ */}
-      <section className="px-4 pb-8">
-        <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto">
-          <div
-            onClick={() => setMatchOpen(true)}
-            className="aivora-card border rounded-2xl p-8 flex flex-col sm:flex-row items-start gap-8 overflow-hidden relative cursor-pointer hover:border-[#C12129]/40 transition-colors"
-            style={{ borderColor: "rgba(193,33,41,0.2)" }}>
-            {/* Red accent */}
-            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#C12129] to-transparent" />
-            <motion.div className="absolute -top-10 -right-10 w-36 h-36 rounded-full blur-3xl bg-[#C12129] pointer-events-none"
-              animate={{ opacity: [0.06, 0.12, 0.06] }} transition={{ duration: 4, repeat: Infinity }} />
-            {/* Text */}
-            <div className="flex-1 min-w-0">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">AI-Powered Expert Matching</h2>
-              <p className="text-sm text-gray-500 dark:text-white/55 leading-relaxed mb-5">
-                Our proprietary algorithm considers 40+ factors including industry experience, methodology expertise, cultural fit, availability, and past engagement ratings to deliver your ideal match.
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.48 }}
+            className="mb-8"
+          >
+            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
+              <span className="aivora-gradient-text">People Intelligence Engine</span>
+            </span>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4"
+              >
+                LAMID TALENT
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-gray-900 dark:text-white mb-6"
+              >
+                People intelligence for{" "}
+                <span className="aivora-gradient-text">modern teams.</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.2 }}
+                className="text-gray-500 dark:text-white/60 text-base leading-relaxed mb-8"
+              >
+                LAMID TALENT helps leaders understand culture, performance, and workforce needs with clarity.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.32 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <Link href="/premium/business-diagnostic"
+                  className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-white text-sm overflow-hidden bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
+                >
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/18 to-transparent skew-x-12 pointer-events-none" />
+                  <span className="relative z-10">See TALENT in Action</span>
+                </Link>
+                <Link href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white/75 hover:border-[#2563EB]/60 hover:text-[#2563EB] transition-all duration-200"
+                >
+                  Book a Demo
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Why it matters */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="aivora-card border rounded-2xl p-8"
+            >
+              <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-5">
+                Why It Matters
               </p>
-              <ul className="flex flex-col gap-2.5">
-                {["Natural language need description", "Multi-dimensional scoring engine", "Results in under 2 minutes"].map(item => (
-                  <li key={item} className="flex items-center gap-2.5 text-sm text-gray-600 dark:text-white/60">
-                    <span className="aivora-gradient-text text-base shrink-0">✓</span>
-                    {item}
+              <ul className="space-y-4">
+                {WHY.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="w-5 h-5 rounded-full bg-[#2563EB]/12 border border-[#2563EB]/30 flex items-center justify-center shrink-0 mt-0.5">
+                      <span className="text-[#2563EB] text-[10px] font-bold">✓</span>
+                    </span>
+                    <span className="text-gray-700 dark:text-white/70 text-sm leading-relaxed">{item}</span>
                   </li>
                 ))}
               </ul>
-            </div>
-            {/* 97% score ring */}
-            <div className="flex flex-col items-center gap-1 shrink-0">
-              <div className="relative w-28 h-28">
-                <svg viewBox="0 0 108 108" className="absolute inset-0 w-full h-full -rotate-90">
-                  <circle cx="54" cy="54" r="46" fill="none" stroke="rgba(193,33,41,0.12)" strokeWidth="8" />
-                  <motion.circle cx="54" cy="54" r="46" fill="none" stroke="#C12129" strokeWidth="8"
-                    strokeLinecap="round" strokeDasharray={289} strokeDashoffset={289 * 0.03}
-                    initial={{ strokeDashoffset: 289 }}
-                    whileInView={{ strokeDashoffset: 289 * 0.03 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.6, ease: "easeOut", delay: 0.3 }}
-                  />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-2xl font-extrabold aivora-gradient-text leading-none">97%</span>
-                  <span className="text-[9px] text-gray-400 dark:text-white/35 mt-0.5 tracking-wide">Match Score</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ══ 3 TRUST CARDS ══ */}
-      <section className="px-4 pb-8">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {TRUST.map((t, i) => (
-            <motion.div key={t.title} {...fadeUp(i * 0.08)}
-              onHoverStart={() => setHoveredTrust(i)} onHoverEnd={() => setHoveredTrust(null)}
-              whileHover={{ y: -4, boxShadow: "0 12px 30px rgba(193,33,41,0.15)" }}
-              className="aivora-card border rounded-2xl p-6"
-              style={{ borderColor: hoveredTrust === i ? "rgba(193,33,41,0.4)" : undefined }}>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25">
-                <t.icon className="w-6 h-6 text-[#C12129]" strokeWidth={1.75} />
-              </div>
-              <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{t.title}</h3>
-              <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{t.body}</p>
             </motion.div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* ══ USE CASES ══ */}
-      <section className="px-4 pb-8">
-        <div className="max-w-4xl mx-auto">
-          <motion.h2 {...fadeUp(0)} className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-10">
-            Use Cases
-          </motion.h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {USE_CASES.map((uc, i) => (
-              <motion.div key={uc.title} {...fadeUp(i * 0.07)}
-                onHoverStart={() => setHoveredUC(i)} onHoverEnd={() => setHoveredUC(null)}
-                onClick={() => router.push(uc.href)}
-                whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(193,33,41,0.14)" }}
-                whileTap={{ scale: 0.98 }}
-                className="aivora-card border rounded-2xl p-5 cursor-pointer"
-                style={{ borderColor: hoveredUC === i ? "rgba(193,33,41,0.4)" : undefined }}>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/12 border border-[#C12129]/25">
-                    <uc.icon className="w-5 h-5 text-[#C12129]" strokeWidth={1.75} />
+      {/* Feature cards */}
+      <section data-scroll-section data-bg-from-dark="#1456A0" data-bg-to-dark="#040A1E" data-bg-from-light="#B8CCFF" data-bg-to-light="#F5F3FF" className="relative py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">What You Get</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+              People intelligence that <span className="aivora-gradient-text">compounds over time.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {FEATURES.map((feat) => (
+              <Link key={feat.title} href={feat.href}>
+                <motion.div
+                  variants={cardV}
+                  whileHover={{ y: -4, boxShadow: "0 16px 36px rgba(37,99,235,0.16)" }}
+                  className="aivora-card border rounded-2xl p-7 h-full flex flex-col cursor-pointer"
+                >
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-[#2563EB]/25 bg-[#2563EB]/10">
+                    <feat.Icon className="w-6 h-6 text-[#2563EB]" strokeWidth={1.75} />
                   </div>
-                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">{uc.title}</h3>
-                </div>
-                <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{uc.body}</p>
-              </motion.div>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{feat.title}</h3>
+                  <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed flex-1">{feat.body}</p>
+                  <span className="mt-4 text-[10px] font-semibold aivora-gradient-text">
+                    {feat.cta}
+                  </span>
+                </motion.div>
+              </Link>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── Subtle CTA strip ── */}
-      <section className="px-4 pb-8">
-        <motion.div {...fadeUp(0)} className="max-w-4xl mx-auto border-t border-gray-100 dark:border-white/6 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">See the engagement, not just the match.</p>
-            <p className="text-xs text-gray-500 dark:text-white/40">Track active engagements, matching, and delivery in one place.</p>
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <Link href="/core-dashboard"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
-              Open Dashboard →
-            </Link>
-          </div>
-        </motion.div>
+      {/* Who it's for */}
+      <section data-scroll-section data-bg-from-dark="#0A8090" data-bg-to-dark="#030C14" data-bg-from-light="#FDDCB0" data-bg-to-light="#FEF9F0" className="relative py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="aivora-card border rounded-2xl p-10 text-center"
+          >
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Who It&apos;s For</p>
+            <p className="text-gray-700 dark:text-white/70 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-8">
+              LAMID TALENT is built for Chief People Officers, HR leaders, and talent teams who need people decisions to be as data-driven and strategically connected as every other business decision.
+            </p>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
+              <Link href="/premium/business-diagnostic"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-white text-sm bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
+              >
+                Take the Diagnostic
+              </Link>
+              <a
+                href="/talent/lms"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm bg-[#2563EB]/10 border border-[#2563EB]/30 text-[#2563EB] hover:bg-[#2563EB]/18 transition-all duration-200"
+              >
+                <BookOpen className="w-4 h-4" />
+                Launch Learning Platform
+              </a>
+              <Link href="/jobs"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white/75 hover:border-[#2563EB]/60 hover:text-[#2563EB] transition-all duration-200"
+              >
+                <Users className="w-4 h-4" />
+                Find Expert Consultants
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
-      <AivoraTestimonials pillar="core" />
+      {/* Back to Ecosystem */}
+      <section data-scroll-section data-bg-from-dark="#076070" data-bg-to-dark="#04101A" data-bg-from-light="#A8D8FF" data-bg-to-light="#F0F9FF" className="py-10 px-4 text-center">
+        <Link href="/ecosystem" className="inline-flex items-center gap-2 text-sm font-medium aivora-gradient-text hover:opacity-80 transition-opacity">
+          ← Back to the Ecosystem
+        </Link>
+      </section>
 
-      {/* ══ TABS — descriptor cards, centered ══ */}
-      <div className="px-4 pb-8">
-        <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {TABS.map(tab => {
-            const isActive = openTab?.id === tab.id;
-            return (
-              <motion.button key={tab.id} type="button"
-                onClick={() => setOpenTab(tab)}
-                whileHover={{ y: -4, boxShadow: "0 12px 28px rgba(193,33,41,0.2)" }}
-                whileTap={{ scale: 0.97 }}
-                className={`flex flex-col items-center gap-2 px-5 py-5 rounded-2xl border text-center cursor-pointer transition-all duration-200
-                  ${isActive
-                    ? "bg-[#C12129]/10 border-[#C12129]/50 shadow-[0_0_18px_rgba(193,33,41,0.25)]"
-                    : "aivora-card border hover:border-[#C12129]/30"}`}>
-                <div className={`w-11 h-11 rounded-xl flex items-center justify-center border ${
-                  isActive
-                    ? "bg-[#C12129]/12 border-[#C12129]/30"
-                    : "bg-gray-100 dark:bg-white/6 border-transparent"
-                }`}>
-                  <tab.icon className={`w-5 h-5 ${isActive ? "text-[#C12129]" : "text-gray-500 dark:text-white/40"}`} strokeWidth={1.75} />
-                </div>
-                <span className={`text-sm font-bold ${isActive ? "aivora-gradient-text" : "text-gray-900 dark:text-white"}`}>
-                  {tab.label}
-                </span>
-                <span className="text-[11px] text-gray-500 dark:text-white/40 leading-snug">
-                  {tab.desc}
-                </span>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ══ CATEGORY MODAL ══ */}
-      <AnimatePresence>
-        {openTab && (
-          <CategoryModal
-            key="cat-modal"
-            tab={openTab}
-            onClose={() => { setOpenTab(null); setSelected(null); }}
-            onSelectItem={setSelected}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* ══ ITEM DETAIL MODAL ══ */}
-      <AnimatePresence>
-        {selected && (
-          <DetailModal
-            key="item-modal"
-            item={selected}
-            type={openTab?.id || "consultants"}
-            onClose={() => setSelected(null)}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* ══ EXPERT MATCH MODAL ══ */}
-      <ExpertMatchModal open={matchOpen} onClose={() => setMatchOpen(false)} />
-
-    </div>
+    </main>
   );
 }

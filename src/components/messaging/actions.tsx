@@ -1,4 +1,4 @@
-// components/escrow/EscrowActions.tsx
+﻿// components/escrow/EscrowActions.tsx
 import { EscrowStatus } from "@/types/escrow";
 
 interface Props {
@@ -50,7 +50,7 @@ export function EscrowActions({
       );
 
     case "disputed":
-      return <span className="text-sm text-red-400">Awaiting resolution</span>;
+      return <span className="text-sm text-blue-400">Awaiting resolution</span>;
 
     default:
       return null;
@@ -67,10 +67,10 @@ function ActionButton({
   variant?: "primary" | "success" | "secondary" | "danger";
 }) {
   const styles = {
-    primary: "bg-red-600 hover:bg-red-700",
+    primary: "bg-blue-600 hover:bg-blue-700",
     success: "bg-green-600 hover:bg-green-700",
     secondary: "bg-gray-700 hover:bg-gray-600",
-    danger: "bg-red-800 hover:bg-red-900",
+    danger: "bg-blue-800 hover:bg-blue-900",
   };
 
   return (

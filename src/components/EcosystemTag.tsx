@@ -22,7 +22,7 @@ export default function EcosystemTag({ className = "" }: { className?: string })
         .eco-text {
           background: linear-gradient(
             270deg,
-            #c21219, #f43f5e, #fb923c, #a78bfa, #34d399, #60a5fa, #f43f5e, #c21219
+            #2563EB, #f43f5e, #fb923c, #a78bfa, #34d399, #60a5fa, #f43f5e, #2563EB
           );
           background-size: 400% 400%;
           -webkit-background-clip: text;
@@ -50,7 +50,7 @@ export default function EcosystemTag({ className = "" }: { className?: string })
         >
           <span
             className="eco-dot w-1.5 h-1.5 rounded-full flex-shrink-0"
-            style={{ backgroundColor: "#c21219" }}
+            style={{ backgroundColor: "#2563EB" }}
           />
           <span className="eco-text text-xs sm:text-sm font-semibold tracking-wide">
             LAMID ONE — Smarter. Faster. Accessible.

@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import { Project } from "@/types/project";
 import { motion } from "framer-motion";
 
 function getProgressColor(status?: string) {
 
-    if (!status) return "bg-red-500";
+    if (!status) return "bg-blue-500";
 
     const s = status.toLowerCase();
 

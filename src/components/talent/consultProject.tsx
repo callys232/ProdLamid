@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import ConsultantsSection from "../consultants/consultancyMatching";
@@ -29,7 +29,7 @@ export default function ConsultancyMatchingSection() {
               }}
               className={`px-6 py-2 rounded-md font-semibold transition-all ${
                 activeTab === tab
-                  ? "bg-red-600 text-white"
+                  ? "bg-blue-600 text-white"
                   : "bg-[#1a0d0d] border border-[#a71414] text-gray-200 hover:bg-[#010101]"
               }`}
             >

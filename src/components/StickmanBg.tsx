@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 
@@ -110,11 +110,11 @@ function drawRunner(
 }
 
 const RUNNERS: Omit<Runner, "x">[] = [
-  { groundY: 0.98, size: 34, speed: 1.2, phase: 0,    phaseSpeed: 0.14, opacity: 0.13, color: "#c21219", dir:  1 },
+  { groundY: 0.98, size: 34, speed: 1.2, phase: 0,    phaseSpeed: 0.14, opacity: 0.13, color: "#2563EB", dir:  1 },
   { groundY: 0.95, size: 22, speed: 0.9, phase: 1.5,  phaseSpeed: 0.11, opacity: 0.09, color: "#ffffff", dir: -1 },
-  { groundY: 0.99, size: 28, speed: 1.5, phase: 3.0,  phaseSpeed: 0.16, opacity: 0.10, color: "#c21219", dir:  1 },
+  { groundY: 0.99, size: 28, speed: 1.5, phase: 3.0,  phaseSpeed: 0.16, opacity: 0.10, color: "#2563EB", dir:  1 },
   { groundY: 0.96, size: 18, speed: 0.7, phase: 0.8,  phaseSpeed: 0.09, opacity: 0.07, color: "#ffffff", dir: -1 },
-  { groundY: 0.97, size: 40, speed: 1.8, phase: 2.2,  phaseSpeed: 0.18, opacity: 0.08, color: "#c21219", dir:  1 },
+  { groundY: 0.97, size: 40, speed: 1.8, phase: 2.2,  phaseSpeed: 0.18, opacity: 0.08, color: "#2563EB", dir:  1 },
   { groundY: 0.94, size: 26, speed: 1.0, phase: 4.1,  phaseSpeed: 0.12, opacity: 0.07, color: "#ffffff", dir: -1 },
 ];
 

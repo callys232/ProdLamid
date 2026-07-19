@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -33,10 +33,10 @@ const TOOLTIP = {
     background: "#0d0d0d", border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: 10, color: "#fff", fontSize: 11,
   },
-  cursor: { fill: "rgba(193,33,41,0.05)" },
+  cursor: { fill: "rgba(37,99,235,0.05)" },
 };
 
-const ACCENT = "#c12129";
+const ACCENT = "#2563EB";
 
 /* ── component ───────────────────────────────────────────── */
 export default function Analytics() {
@@ -54,7 +54,7 @@ export default function Analytics() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-16">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#c12129] border-t-transparent" />
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#2563EB] border-t-transparent" />
       </div>
     );
   }
@@ -72,8 +72,8 @@ export default function Analytics() {
 
       {/* ── Section label ── */}
       <motion.div {...fadeUp(0)} className="flex items-center gap-2">
-        <BarChart3 className="h-4 w-4 text-[#c12129]" />
-        <span className="text-xs font-semibold uppercase tracking-widest text-[#c12129]">Enterprise Analytics</span>
+        <BarChart3 className="h-4 w-4 text-[#2563EB]" />
+        <span className="text-xs font-semibold uppercase tracking-widest text-[#2563EB]">Enterprise Analytics</span>
       </motion.div>
 
       {/* ── KPI grid ── */}
@@ -86,7 +86,7 @@ export default function Analytics() {
           { label: "Completed",         value: kpi.completedProjects,                            icon: CheckCircle2,color: "text-green-400",   bg: "bg-green-500/10",  border: "border-green-500/20"  },
           { label: "Milestone Rate",    value: `${milestonePct}%`,                               icon: CheckCircle2,color: "text-purple-400",  bg: "bg-purple-500/10", border: "border-purple-500/20" },
           { label: "Active Consultants",value: `${kpi.activeConsultants}/${kpi.totalConsultants}`,icon: UserCheck,  color: "text-cyan-400",    bg: "bg-cyan-500/10",   border: "border-cyan-500/20"   },
-          { label: "Open Disputes",     value: kpi.openDisputes,                                 icon: AlertTriangle,color:"text-red-400",     bg: "bg-red-500/10",    border: "border-red-500/20"    },
+          { label: "Open Disputes",     value: kpi.openDisputes,                                 icon: AlertTriangle,color:"text-blue-400",     bg: "bg-blue-500/10",    border: "border-blue-500/20"    },
           { label: "Completion Rate",   value: `${kpi.avgCompletionRate}%`,                      icon: Target,      color: "text-emerald-400", bg: "bg-emerald-500/10",border: "border-emerald-500/20"},
           { label: "Avg Duration",      value: `${kpi.avgProjectDuration} mo`,                   icon: Briefcase,   color: "text-orange-400",  bg: "bg-orange-500/10", border: "border-orange-500/20" },
           { label: "Team Members",      value: kpi.memberCount,                                  icon: Users,       color: "text-pink-400",    bg: "bg-pink-500/10",   border: "border-pink-500/20"   },
@@ -110,13 +110,13 @@ export default function Analytics() {
       <motion.div {...fadeUp(14)} className={card}>
         <div className="flex items-center justify-between mb-3">
           <p className="text-xs font-semibold text-white">Budget Utilisation</p>
-          <span className={`text-xs font-bold ${budgetPct > 85 ? "text-red-400" : budgetPct > 65 ? "text-yellow-400" : "text-emerald-400"}`}>
+          <span className={`text-xs font-bold ${budgetPct > 85 ? "text-blue-400" : budgetPct > 65 ? "text-yellow-400" : "text-emerald-400"}`}>
             {budgetPct}%
           </span>
         </div>
         <div className="h-2.5 w-full rounded-full bg-white/10 overflow-hidden mb-1.5">
           <motion.div
-            className={`h-full rounded-full ${budgetPct > 85 ? "bg-red-500" : budgetPct > 65 ? "bg-yellow-500" : "bg-emerald-500"}`}
+            className={`h-full rounded-full ${budgetPct > 85 ? "bg-blue-500" : budgetPct > 65 ? "bg-yellow-500" : "bg-emerald-500"}`}
             initial={{ width: 0 }} animate={{ width: `${budgetPct}%` }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
           />
@@ -153,7 +153,7 @@ export default function Analytics() {
               <YAxis tick={{ fill: "#6b7280", fontSize: 10 }} axisLine={false} tickLine={false} />
               <Tooltip {...TOOLTIP} />
               <Bar dataKey="count" fill={ACCENT} radius={[4, 4, 0, 0]} name="Projects" />
-              <Bar dataKey="spend" fill="rgba(193,33,41,0.25)" radius={[4, 4, 0, 0]} name="Spend ($)" />
+              <Bar dataKey="spend" fill="rgba(37,99,235,0.25)" radius={[4, 4, 0, 0]} name="Spend ($)" />
             </BarChart>
           </ResponsiveContainer>
         </motion.div>
@@ -245,7 +245,7 @@ export default function Analytics() {
               </div>
               <div className="flex justify-between text-xs">
                 <span className="text-gray-400">Disputes open</span>
-                <span className="text-red-400 font-semibold">{kpi.openDisputes}</span>
+                <span className="text-blue-400 font-semibold">{kpi.openDisputes}</span>
               </div>
               <div className="flex justify-between text-xs">
                 <span className="text-gray-400">Disputes resolved</span>
@@ -265,10 +265,10 @@ export default function Analytics() {
                   <motion.div className="w-full rounded-t-sm bg-emerald-500/60"
                     initial={{ height: 0 }} animate={{ height: `${(e.released / maxEscrow) * 100}%` }}
                     transition={{ duration: 0.6, delay: i * 0.07, ease: "easeOut" }} />
-                  <motion.div className="w-full bg-[#c12129]/70"
+                  <motion.div className="w-full bg-[#2563EB]/70"
                     initial={{ height: 0 }} animate={{ height: `${((e.funded - e.released) / maxEscrow) * 100}%` }}
                     transition={{ duration: 0.6, delay: i * 0.07 + 0.08, ease: "easeOut" }} />
-                  <motion.div className="w-full rounded-b-sm bg-red-800/50"
+                  <motion.div className="w-full rounded-b-sm bg-blue-800/50"
                     initial={{ height: 0 }} animate={{ height: `${(e.disputed / maxEscrow) * 100}%` }}
                     transition={{ duration: 0.6, delay: i * 0.07 + 0.14, ease: "easeOut" }} />
                 </div>
@@ -278,8 +278,8 @@ export default function Analytics() {
           </div>
           <div className="flex flex-wrap items-center gap-4">
             <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-emerald-500/60 inline-block" />Released</span>
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-[#c12129]/70 inline-block" />Held</span>
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-red-800/50 inline-block" />Disputed</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-[#2563EB]/70 inline-block" />Held</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-blue-800/50 inline-block" />Disputed</span>
           </div>
         </motion.div>
       </div>
@@ -309,7 +309,7 @@ export default function Analytics() {
                 >
                   <td className="py-3">
                     <div className="flex items-center gap-2.5">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#c12129]/15 text-xs font-bold text-[#c12129] flex-shrink-0">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2563EB]/15 text-xs font-bold text-[#2563EB] flex-shrink-0">
                         {c.avatar}
                       </div>
                       <span className="font-medium text-white">{c.name}</span>
@@ -319,7 +319,7 @@ export default function Analytics() {
                   <td className="py-3 text-center text-gray-400">{c.projects}</td>
                   <td className="py-3 text-center font-semibold text-yellow-400">★ {c.avgRating}</td>
                   <td className="py-3 text-center">
-                    <span className={`text-xs font-semibold ${c.onTime >= 98 ? "text-green-400" : c.onTime >= 90 ? "text-yellow-400" : "text-red-400"}`}>
+                    <span className={`text-xs font-semibold ${c.onTime >= 98 ? "text-green-400" : c.onTime >= 90 ? "text-yellow-400" : "text-blue-400"}`}>
                       {c.onTime}%
                     </span>
                   </td>
@@ -334,7 +334,7 @@ export default function Analytics() {
       {/* ── Summary footer row ── */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { icon: Lock,    label: "Total Escrow Funded",   value: fmt(escrowActivity.reduce((s, e) => s + e.funded,   0)), color: "text-[#c12129]" },
+          { icon: Lock,    label: "Total Escrow Funded",   value: fmt(escrowActivity.reduce((s, e) => s + e.funded,   0)), color: "text-[#2563EB]" },
           { icon: Lock,    label: "Total Escrow Released",  value: fmt(escrowActivity.reduce((s, e) => s + e.released, 0)), color: "text-emerald-400" },
           { icon: ArrowUpRight, label: "Bids → Accepted",  value: `${hiringActivity.reduce((s, e) => s + e.accepted, 0)} / ${hiringActivity.reduce((s, e) => s + e.bids, 0)}`, color: "text-blue-400" },
         ].map(({ icon: Icon, label, value, color }, i) => (

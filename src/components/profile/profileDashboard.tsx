@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -148,7 +148,7 @@ export default function ProfileDashboard({
         </div>
         <div className="flex-1 p-4 md:p-6 overflow-y-auto">
           {error && (
-            <div className="mb-4 p-2 bg-red-600 text-white rounded">
+            <div className="mb-4 p-2 bg-blue-600 text-white rounded">
               {error}
             </div>
           )}

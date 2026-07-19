@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -29,7 +29,7 @@ const BusinessTraining: React.FC = () => {
             </p>
 
             <div className="space-y-2">
-              <div className="bg-red-900 px-3 py-2 text-sm text-white rounded-md cursor-pointer transition-transform duration-300 hover:scale-105 hover:bg-red-700">
+              <div className="bg-blue-900 px-3 py-2 text-sm text-white rounded-md cursor-pointer transition-transform duration-300 hover:scale-105 hover:bg-blue-700">
                 Functional management training
               </div>
               <div className="bg-amber-800 px-3 py-2 text-sm text-white rounded-md cursor-pointer transition-transform duration-300 hover:scale-105 hover:bg-amber-600">

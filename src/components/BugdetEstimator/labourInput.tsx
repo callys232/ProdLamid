@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import { Plus, Trash2, ChevronDown, Search, Users } from "lucide-react";
@@ -97,8 +97,8 @@ const ROLE_CATEGORIES: { label: string; color: string; bg: string; roles: string
   },
   {
     label: "Legal",
-    color: "text-red-400",
-    bg: "bg-red-500/15 border-red-500/30",
+    color: "text-blue-400",
+    bg: "bg-blue-500/15 border-blue-500/30",
     roles: [
       "Legal Counsel",
       "Compliance Officer",
@@ -137,7 +137,7 @@ function RolePicker({
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-2 rounded-lg border border-gray-700 bg-black/60 px-3 py-2 text-left text-sm transition hover:border-[#c12129]/50"
+        className="flex w-full items-center justify-between gap-2 rounded-lg border border-gray-700 bg-black/60 px-3 py-2 text-left text-sm transition hover:border-[#2563EB]/50"
       >
         <span className={`truncate font-medium ${cat ? cat.color : "text-gray-400"}`}>
           {value || "Select role…"}
@@ -258,7 +258,7 @@ export default function LaborInput() {
       {/* Column headers */}
       <div className="grid grid-cols-[1fr_100px_100px_32px] gap-3 px-4 pb-1">
         <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-500">
-          <Users className="h-3 w-3 text-[#c12129]" /> Role
+          <Users className="h-3 w-3 text-[#2563EB]" /> Role
         </span>
         <span className="text-[10px] font-semibold uppercase tracking-widest text-green-500 text-right">$/hr</span>
         <span className="text-[10px] font-semibold uppercase tracking-widest text-blue-400 text-right">Hours</span>
@@ -276,7 +276,7 @@ export default function LaborInput() {
             key={r._id}
             className={`relative grid grid-cols-[1fr_100px_100px_32px] items-center gap-3 rounded-xl border p-3 transition ${
               isActive
-                ? "border-[#c12129]/60 bg-[#c12129]/5 shadow-[0_0_12px_rgba(193,33,41,0.15)]"
+                ? "border-[#2563EB]/60 bg-[#2563EB]/5 shadow-[0_0_12px_rgba(37,99,235,0.15)]"
                 : "border-gray-800 bg-black/40 hover:border-gray-700"
             }`}
           >
@@ -316,7 +316,7 @@ export default function LaborInput() {
               type="button"
               onClick={() => removeRow(i)}
               disabled={roles.length === 1}
-              className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-600 transition hover:bg-red-600/10 hover:text-red-400 disabled:opacity-20"
+              className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-600 transition hover:bg-blue-600/10 hover:text-blue-400 disabled:opacity-20"
             >
               <Trash2 className="h-3.5 w-3.5" />
             </button>
@@ -328,7 +328,7 @@ export default function LaborInput() {
                   {cat && <span className={`mr-1 font-semibold ${cat.color}`}>{cat.label}</span>}
                   {r.role || "Custom role"}
                 </span>
-                <span className="font-semibold text-[#c12129]">
+                <span className="font-semibold text-[#2563EB]">
                   ${rowCost.toLocaleString()} subtotal
                 </span>
               </div>
@@ -351,14 +351,14 @@ export default function LaborInput() {
         <button
           type="button"
           onClick={addRow}
-          className="flex items-center gap-1.5 rounded-lg border border-dashed border-gray-700 px-3 py-2 text-xs text-gray-500 transition hover:border-[#c12129]/50 hover:text-[#c12129]"
+          className="flex items-center gap-1.5 rounded-lg border border-dashed border-gray-700 px-3 py-2 text-xs text-gray-500 transition hover:border-[#2563EB]/50 hover:text-[#2563EB]"
         >
           <Plus className="h-3.5 w-3.5" /> Add Role
         </button>
 
         <div className="text-right">
           <p className="text-[10px] text-gray-500">Total Labour Cost</p>
-          <p className="text-base font-bold text-[#c12129]">${total.toLocaleString()}</p>
+          <p className="text-base font-bold text-[#2563EB]">${total.toLocaleString()}</p>
         </div>
       </div>
     </div>

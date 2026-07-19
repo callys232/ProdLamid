@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -108,11 +108,11 @@ const SDImapactandSocial = () => {
                 <p className="text-sm">
                   Be the next raving success. Join the race
                 </p>
-                <p className="text-red-500 text-sm">
+                <p className="text-blue-500 text-sm">
                   Register now and experience immersion
                 </p>
                 <div className="mt-2">
-                  <button className="bg-transparent border border-red-500 text-red-500 px-4 py-1 text-sm hover:bg-red-500 hover:text-white transition duration-300 rounded-sm">
+                  <button className="bg-transparent border border-blue-500 text-blue-500 px-4 py-1 text-sm hover:bg-blue-500 hover:text-white transition duration-300 rounded-sm">
                     Boot Camp
                   </button>
                 </div>

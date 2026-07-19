@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import Section from "./section";
@@ -77,7 +77,7 @@ export default function FinanceAgent() {
         <p className="text-gray-400 text-sm">Loading finance data...</p>
       )}
       {error && (
-        <p className="text-red-400 text-sm">
+        <p className="text-blue-400 text-sm">
           Failed to load finance data. Showing fallback.
         </p>
       )}

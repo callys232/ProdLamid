@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 import { Score } from "@/types/aiMatch";
@@ -37,7 +37,7 @@ export default function ExplainabilityPanel({ score }: Props) {
 
             {/* HEADER */}
             <div className="flex items-center justify-between mb-2">
-                <h4 className="text-sm font-semibold text-[#c12129]">
+                <h4 className="text-sm font-semibold text-[#2563EB]">
                     AI Insight
                 </h4>
 
@@ -47,8 +47,8 @@ export default function ExplainabilityPanel({ score }: Props) {
             </div>
 
             {/* PRIMARY INSIGHT */}
-            <div className="mb-3 p-2 rounded-md bg-red-50 border border-red-100">
-                <p className="text-xs font-medium text-[#c12129]">
+            <div className="mb-3 p-2 rounded-md bg-blue-50 border border-blue-100">
+                <p className="text-xs font-medium text-[#2563EB]">
                     {primaryInsight}
                 </p>
             </div>
@@ -61,7 +61,7 @@ export default function ExplainabilityPanel({ score }: Props) {
                             key={i}
                             className="flex items-start gap-2 hover:text-black transition"
                         >
-                            <span className="text-[#c12129] mt-[2px]">•</span>
+                            <span className="text-[#2563EB] mt-[2px]">•</span>
                             <span>{r}</span>
                         </li>
                     ))}

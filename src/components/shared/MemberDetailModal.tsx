@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -38,7 +38,7 @@ interface Props {
 const M_CFG: Record<string, { card: string; badge: string; dot: string; bar: string; pct: string }> = {
   completed:   { card: "border-green-500/30  bg-green-500/8",  badge: "text-green-400  border-green-500/30  bg-green-500/10",  dot: "bg-green-400",  bar: "bg-green-500",  pct: "text-green-400"  },
   in_progress: { card: "border-yellow-500/30 bg-yellow-500/8", badge: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10", dot: "bg-yellow-400", bar: "bg-yellow-500", pct: "text-yellow-400" },
-  disputed:    { card: "border-red-500/40    bg-red-500/10",   badge: "text-red-400    border-red-500/30    bg-red-500/10",    dot: "bg-red-400",    bar: "bg-red-500",    pct: "text-red-400"    },
+  disputed:    { card: "border-blue-500/40    bg-blue-500/10",   badge: "text-blue-400    border-blue-500/30    bg-blue-500/10",    dot: "bg-blue-400",    bar: "bg-blue-500",    pct: "text-blue-400"    },
   funded:      { card: "border-purple-500/30 bg-purple-500/8", badge: "text-purple-400 border-purple-500/30 bg-purple-500/10", dot: "bg-purple-400", bar: "bg-purple-500", pct: "text-purple-400" },
   pending:     { card: "border-white/10      bg-white/5",       badge: "text-gray-400   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",   bar: "bg-gray-600",   pct: "text-gray-400"   },
   cancelled:   { card: "border-white/8       bg-white/3",       badge: "text-gray-500   border-gray-600/20   bg-gray-600/10",   dot: "bg-gray-600",   bar: "bg-gray-700",   pct: "text-gray-500"   },
@@ -47,7 +47,7 @@ const M_CFG: Record<string, { card: string; badge: string; dot: string; bar: str
 const STATUS_DOT: Record<string, string> = {
   active:    "bg-green-500",
   pending:   "bg-yellow-500",
-  suspended: "bg-red-500",
+  suspended: "bg-blue-500",
 };
 
 /* ── Mock fallback data (shown when API returns nothing) ─────────── */
@@ -114,7 +114,7 @@ function ProjectCardHeader({ p, pct, completedMs, milestones, hasDispute, accent
               {p.title}
             </p>
             {hasDispute && (
-              <span className="flex items-center gap-1 text-[10px] text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-0.5 rounded-full">
+              <span className="flex items-center gap-1 text-[10px] text-blue-400 border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 rounded-full">
                 <AlertTriangle className="h-2.5 w-2.5" /> Dispute
               </span>
             )}
@@ -144,7 +144,7 @@ function ProjectCardHeader({ p, pct, completedMs, milestones, hasDispute, accent
         <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-700"
-            style={{ width: `${pct}%`, backgroundColor: hasDispute ? "#ef4444" : accent }}
+            style={{ width: `${pct}%`, backgroundColor: hasDispute ? "#2563EB" : accent }}
           />
         </div>
       </div>
@@ -153,7 +153,7 @@ function ProjectCardHeader({ p, pct, completedMs, milestones, hasDispute, accent
 }
 
 /* ── Component ───────────────────────────────────────────────────── */
-export default function MemberDetailModal({ member, onClose, accent = "#c12129" }: Props) {
+export default function MemberDetailModal({ member, onClose, accent = "#2563EB" }: Props) {
   const [projects, setProjects] = useState<ProjectWithProgress[]>([]);
   const [loading, setLoading]   = useState(false);
 
@@ -290,14 +290,14 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
               {disputeCount > 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
-                  className="flex items-start gap-3 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3.5"
+                  className="flex items-start gap-3 rounded-xl border border-blue-500/40 bg-blue-500/10 px-4 py-3.5"
                 >
-                  <ShieldAlert className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  <ShieldAlert className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm font-semibold text-red-300">
+                    <p className="text-sm font-semibold text-blue-300">
                       {disputeCount} Active Dispute{disputeCount > 1 ? "s" : ""}
                     </p>
-                    <p className="text-xs text-red-400/80 mt-0.5">
+                    <p className="text-xs text-blue-400/80 mt-0.5">
                       Mediation team has been notified. Review details below.
                     </p>
                   </div>
@@ -310,7 +310,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
                   { label: "Projects",    value: projects.length,  color: "text-white",          icon: FolderOpen },
                   { label: "Milestones",  value: totalMilestones,  color: "text-white",          icon: TrendingUp },
                   { label: "Completed",   value: completedCount,   color: "text-green-400",      icon: CheckCircle2 },
-                  { label: "Disputes",    value: disputeCount,     color: disputeCount > 0 ? "text-red-400" : "text-gray-500", icon: AlertTriangle },
+                  { label: "Disputes",    value: disputeCount,     color: disputeCount > 0 ? "text-blue-400" : "text-gray-500", icon: AlertTriangle },
                 ].map(({ label, value, color, icon: Icon }, i) => (
                   <motion.div
                     key={label}
@@ -342,7 +342,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
               {/* ── Disputes detail ─────────────────────────────── */}
               {disputes.length > 0 && (
                 <div>
-                  <p className="text-[11px] uppercase tracking-widest text-red-400 mb-3 flex items-center gap-1.5">
+                  <p className="text-[11px] uppercase tracking-widest text-blue-400 mb-3 flex items-center gap-1.5">
                     <ShieldAlert className="h-3.5 w-3.5" /> Dispute Details
                   </p>
                   <div className="space-y-2">
@@ -351,22 +351,22 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
                       const inner = (
                         <motion.div
                           initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}
-                          whileHover={{ scale: 1.02, x: 3, boxShadow: "0 6px 20px rgba(239,68,68,0.2)" }}
+                          whileHover={{ scale: 1.02, x: 3, boxShadow: "0 6px 20px rgba(37,99,235,0.2)" }}
                           whileTap={{ scale: 0.98 }}
-                          className={`rounded-xl border border-red-500/30 bg-red-500/8 px-4 py-3.5 ${disputeHref ? "cursor-pointer" : ""}`}
+                          className={`rounded-xl border border-blue-500/30 bg-blue-500/8 px-4 py-3.5 ${disputeHref ? "cursor-pointer" : ""}`}
                         >
                           <div className="flex items-start justify-between gap-2 mb-1">
                             <div className="flex items-start gap-2 min-w-0">
-                              <AlertTriangle className="h-3.5 w-3.5 text-red-400 flex-shrink-0 mt-0.5" />
+                              <AlertTriangle className="h-3.5 w-3.5 text-blue-400 flex-shrink-0 mt-0.5" />
                               <div className="min-w-0">
-                                <p className="text-sm font-semibold text-red-300 truncate">{d.milestone}</p>
-                                <p className="text-[11px] text-red-400/70">on {d.project}</p>
+                                <p className="text-sm font-semibold text-blue-300 truncate">{d.milestone}</p>
+                                <p className="text-[11px] text-blue-400/70">on {d.project}</p>
                               </div>
                             </div>
-                            {disputeHref && <ExternalLink className="h-3.5 w-3.5 text-red-500/50 flex-shrink-0 mt-0.5" />}
+                            {disputeHref && <ExternalLink className="h-3.5 w-3.5 text-blue-500/50 flex-shrink-0 mt-0.5" />}
                           </div>
                           {d.reason && (
-                            <p className="text-xs text-red-300/80 leading-relaxed mt-1 pl-5">{d.reason}</p>
+                            <p className="text-xs text-blue-300/80 leading-relaxed mt-1 pl-5">{d.reason}</p>
                           )}
                         </motion.div>
                       );
@@ -408,7 +408,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
                         <motion.div
                           key={pId || pi}
                           initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: pi * 0.07 }}
-                          className={`rounded-xl border bg-white/5 overflow-hidden ${hasDispute ? "border-red-500/30" : "border-white/10"}`}
+                          className={`rounded-xl border bg-white/5 overflow-hidden ${hasDispute ? "border-blue-500/30" : "border-white/10"}`}
                         >
                           {/* ── Project header + progress — entire block is a link ── */}
                           {workspaceHref ? (
@@ -452,7 +452,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#c12129" 
                                         <p className="text-[11px] text-white font-medium leading-snug line-clamp-2">{m.title}</p>
                                       </div>
                                       {m.status === "disputed" && m.disputeReason && (
-                                        <p className="text-[10px] text-red-300/80 leading-snug mb-1.5 line-clamp-2">
+                                        <p className="text-[10px] text-blue-300/80 leading-snug mb-1.5 line-clamp-2">
                                           {m.disputeReason}
                                         </p>
                                       )}

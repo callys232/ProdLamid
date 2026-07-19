@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
@@ -57,10 +57,10 @@ export default function ProjectWorkspace() {
         <div className="min-h-screen bg-[#050000] text-white p-4 md:p-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="mb-8 border-b border-[#c21219]/30 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div className="mb-8 border-b border-[#2563EB]/30 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h1 className="text-3xl font-bold text-white">{project.title}</h1>
-                        <p className="text-gray-400 mt-1">Status: <span className="text-red-500 font-semibold uppercase">{project.status}</span></p>
+                        <p className="text-gray-400 mt-1">Status: <span className="text-blue-500 font-semibold uppercase">{project.status}</span></p>
                     </div>
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-4 bg-white/5 p-3 rounded-lg border border-white/10">
@@ -110,7 +110,7 @@ export default function ProjectWorkspace() {
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 px-6 py-3 rounded-full transition-all whitespace-nowrap ${
                                 activeTab === tab.id
-                                    ? "bg-red-600 text-white shadow-lg shadow-red-900/40"
+                                    ? "bg-blue-600 text-white shadow-lg shadow-blue-900/40"
                                     : "bg-white/5 text-gray-400 hover:bg-white/10 border border-white/5"
                             }`}
                         >
@@ -142,7 +142,7 @@ export default function ProjectWorkspace() {
                                     <h4 className="text-sm text-gray-400 mb-2 uppercase">Skills Required</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {project.skills?.map((skill: string) => (
-                                            <span key={skill} className="bg-red-900/30 text-red-400 px-3 py-1 rounded-full text-xs font-semibold">
+                                            <span key={skill} className="bg-blue-900/30 text-blue-400 px-3 py-1 rounded-full text-xs font-semibold">
                                                 {skill}
                                             </span>
                                         ))}

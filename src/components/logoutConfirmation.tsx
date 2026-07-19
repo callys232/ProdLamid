@@ -1,4 +1,4 @@
-// components/logout/LogoutConfirmModal.tsx
+﻿// components/logout/LogoutConfirmModal.tsx
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -90,7 +90,7 @@ export default function LogoutConfirmModal({
                 </p>
 
                 {error && (
-                    <div className="mt-3 text-xs text-red-400" role="alert">
+                    <div className="mt-3 text-xs text-blue-400" role="alert">
                         {error}
                     </div>
                 )}
@@ -106,7 +106,7 @@ export default function LogoutConfirmModal({
 
                     <button
                         onClick={handleConfirm}
-                        className="px-3 py-2 rounded-md bg-red-600 text-sm text-white hover:bg-red-500 disabled:opacity-60"
+                        className="px-3 py-2 rounded-md bg-blue-600 text-sm text-white hover:bg-blue-500 disabled:opacity-60"
                         disabled={loading}
                     >
                         {loading ? "Signing out…" : "Sign out"}

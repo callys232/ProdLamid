@@ -1,4 +1,4 @@
-// app/LayoutWrapper.tsx
+﻿// app/LayoutWrapper.tsx
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -37,14 +37,14 @@ export default function LayoutWrapper({
         <line x1="0"    y1="450" x2="1440" y2="900" stroke="#ffffff" strokeWidth="0.3" opacity="0.02" />
 
         {/* Red accent diagonals — top-left origin */}
-        <line x1="0" y1="0"   x2="720"  y2="900" stroke="#c21219" strokeWidth="0.6" opacity="0.07" />
-        <line x1="0" y1="0"   x2="1440" y2="600" stroke="#c21219" strokeWidth="0.4" opacity="0.05" />
-        <line x1="0" y1="180" x2="900"  y2="900" stroke="#c21219" strokeWidth="0.5" opacity="0.04" />
+        <line x1="0" y1="0"   x2="720"  y2="900" stroke="#2563EB" strokeWidth="0.6" opacity="0.07" />
+        <line x1="0" y1="0"   x2="1440" y2="600" stroke="#2563EB" strokeWidth="0.4" opacity="0.05" />
+        <line x1="0" y1="180" x2="900"  y2="900" stroke="#2563EB" strokeWidth="0.5" opacity="0.04" />
 
         {/* Red accent diagonals — bottom-right origin */}
-        <line x1="1440" y1="900" x2="720"  y2="0"   stroke="#c21219" strokeWidth="0.6" opacity="0.07" />
-        <line x1="1440" y1="900" x2="0"    y2="300"  stroke="#c21219" strokeWidth="0.4" opacity="0.05" />
-        <line x1="1440" y1="720" x2="540"  y2="0"    stroke="#c21219" strokeWidth="0.5" opacity="0.04" />
+        <line x1="1440" y1="900" x2="720"  y2="0"   stroke="#2563EB" strokeWidth="0.6" opacity="0.07" />
+        <line x1="1440" y1="900" x2="0"    y2="300"  stroke="#2563EB" strokeWidth="0.4" opacity="0.05" />
+        <line x1="1440" y1="720" x2="540"  y2="0"    stroke="#2563EB" strokeWidth="0.5" opacity="0.04" />
 
         {/* Subtle horizontal guidelines */}
         <line x1="0" y1="300" x2="1440" y2="300" stroke="#ffffff" strokeWidth="0.3" opacity="0.018" />
@@ -56,13 +56,13 @@ export default function LayoutWrapper({
         <line x1="1080" y1="0" x2="1080" y2="900" stroke="#ffffff" strokeWidth="0.3" opacity="0.018" />
 
         {/* Top-left corner accent cluster */}
-        <line x1="0" y1="0" x2="260" y2="420" stroke="#c21219" strokeWidth="0.8" opacity="0.09" />
-        <line x1="0" y1="0" x2="480" y2="160" stroke="#c21219" strokeWidth="0.6" opacity="0.07" />
+        <line x1="0" y1="0" x2="260" y2="420" stroke="#2563EB" strokeWidth="0.8" opacity="0.09" />
+        <line x1="0" y1="0" x2="480" y2="160" stroke="#2563EB" strokeWidth="0.6" opacity="0.07" />
         <line x1="0" y1="0" x2="140" y2="900" stroke="#ffffff" strokeWidth="0.4" opacity="0.025" />
 
         {/* Bottom-right corner accent cluster */}
-        <line x1="1440" y1="900" x2="1180" y2="480" stroke="#c21219" strokeWidth="0.8" opacity="0.09" />
-        <line x1="1440" y1="900" x2="960"  y2="740" stroke="#c21219" strokeWidth="0.6" opacity="0.07" />
+        <line x1="1440" y1="900" x2="1180" y2="480" stroke="#2563EB" strokeWidth="0.8" opacity="0.09" />
+        <line x1="1440" y1="900" x2="960"  y2="740" stroke="#2563EB" strokeWidth="0.6" opacity="0.07" />
         <line x1="1440" y1="900" x2="1300" y2="0"   stroke="#ffffff" strokeWidth="0.4" opacity="0.025" />
 
         {/* Mid-field cross accents */}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 
@@ -49,7 +49,7 @@ const ACCOUNTS = [
     email:      "admin@lamid.test",
     password:   "Admin@123",
     dashboard:  "/admin",
-    btnClass:   "bg-red-500/10 text-red-400 border border-red-500/25",
+    btnClass:   "bg-blue-500/10 text-blue-400 border border-blue-500/25",
     icon:       "🛡️",
     desc:       "Full platform admin console",
   },

@@ -116,7 +116,7 @@ export default function BizPage() {
         {/* bg lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
           {["M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"].map((d, i) => (
-            <motion.path key={i} d={d} fill="none" stroke="#C12129" strokeWidth="0.6"
+            <motion.path key={i} d={d} fill="none" stroke="#2563EB" strokeWidth="0.6"
               strokeOpacity="0.07" strokeDasharray="12 20"
               animate={{ strokeDashoffset: [0, -100] }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -149,15 +149,15 @@ export default function BizPage() {
                 onHoverStart={() => setHoveredFeature(i)}
                 onHoverEnd={() => setHoveredFeature(null)}
                 onClick={() => router.push(f.href)}
-                whileHover={{ x: 4, boxShadow: "0 8px 30px rgba(193,33,41,0.15)" }}
+                whileHover={{ x: 4, boxShadow: "0 8px 30px rgba(37,99,235,0.15)" }}
                 whileTap={{ scale: 0.99 }}
                 className="aivora-card border rounded-2xl p-6 flex items-start gap-5 cursor-pointer transition-all duration-250"
-                style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
               >
                 {/* Icon square */}
                 <motion.div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#C12129]/12 border border-[#C12129]/25"
-                  animate={{ scale: isHov ? 1.1 : 1, boxShadow: isHov ? "0 0 14px rgba(193,33,41,0.35)" : "none" }}
+                  className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#2563EB]/12 border border-[#2563EB]/25"
+                  animate={{ scale: isHov ? 1.1 : 1, boxShadow: isHov ? "0 0 14px rgba(37,99,235,0.35)" : "none" }}
                   transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 >
                   <span className="text-lg aivora-gradient-text">{f.icon}</span>
@@ -169,7 +169,7 @@ export default function BizPage() {
                 </div>
 
                 <motion.span
-                  className="text-[#C12129] text-sm shrink-0 self-center"
+                  className="text-[#2563EB] text-sm shrink-0 self-center"
                   animate={{ opacity: isHov ? 1 : 0, x: isHov ? 0 : -6 }}
                   transition={{ duration: 0.15 }}
                 >
@@ -198,14 +198,14 @@ export default function BizPage() {
                   onHoverStart={() => setHoveredPersona(i)}
                   onHoverEnd={() => setHoveredPersona(null)}
                   onClick={() => router.push(p.href)}
-                  whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(193,33,41,0.18)" }}
+                  whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(37,99,235,0.18)" }}
                   whileTap={{ scale: 0.98 }}
                   className="aivora-card border rounded-2xl p-7 flex flex-col items-center text-center cursor-pointer"
-                  style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                  style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
                   {/* Circle icon */}
                   <motion.div
-                    className="w-14 h-14 rounded-full flex items-center justify-center mb-5 bg-[#C12129]/12 border border-[#C12129]/25"
+                    className="w-14 h-14 rounded-full flex items-center justify-center mb-5 bg-[#2563EB]/12 border border-[#2563EB]/25"
                     animate={{ scale: isHov ? 1.12 : 1 }}
                     transition={{ type: "spring", stiffness: 280, damping: 18 }}
                   >
@@ -231,15 +231,15 @@ export default function BizPage() {
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <Link href="/premium/business-diagnostic"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)]">
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_14px_rgba(37,99,235,0.35)]">
               Run a Diagnostic
             </Link>
             <Link href="/grow-dashboard"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors">
               Open Dashboard →
             </Link>
             <button type="button" onClick={() => setOverviewOpen(true)}
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors cursor-pointer">
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors cursor-pointer">
               Ecosystem Overview →
             </button>
           </div>
@@ -262,9 +262,9 @@ export default function BizPage() {
               exit={{ opacity: 0, scale: 0.94, y: 24 }}
               transition={{ type: "spring", stiffness: 280, damping: 28 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-3xl bg-[#080808] border border-white/8 rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(193,33,41,0.2)] max-h-[88vh] overflow-y-auto"
+              className="relative w-full max-w-3xl bg-[#080808] border border-white/8 rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(37,99,235,0.2)] max-h-[88vh] overflow-y-auto"
             >
-              <div className="h-[3px] bg-gradient-to-r from-[#C12129] via-red-400 to-transparent sticky top-0" />
+              <div className="h-[3px] bg-gradient-to-r from-[#2563EB] via-blue-400 to-transparent sticky top-0" />
 
               <div className="px-7 pt-7 pb-8">
                 {/* Header */}
@@ -279,7 +279,7 @@ export default function BizPage() {
                     </p>
                   </div>
                   <button type="button" onClick={() => setOverviewOpen(false)}
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#C12129]/40 transition-colors cursor-pointer text-base">
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 text-white/30 hover:text-white hover:border-[#2563EB]/40 transition-colors cursor-pointer text-base">
                     ✕
                   </button>
                 </div>
@@ -294,9 +294,9 @@ export default function BizPage() {
                       initial={{ opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.06, duration: 0.3 }}
-                      className="flex gap-3 p-4 rounded-xl border border-[#C12129]/12 bg-[#C12129]/[0.04] hover:border-[#C12129]/25 hover:bg-[#C12129]/[0.07] transition-all duration-200"
+                      className="flex gap-3 p-4 rounded-xl border border-[#2563EB]/12 bg-[#2563EB]/[0.04] hover:border-[#2563EB]/25 hover:bg-[#2563EB]/[0.07] transition-all duration-200"
                     >
-                      <span className="text-[#C12129] text-base shrink-0 mt-0.5">{pain.icon}</span>
+                      <span className="text-[#2563EB] text-base shrink-0 mt-0.5">{pain.icon}</span>
                       <div>
                         <p className="text-xs font-semibold text-white leading-snug mb-1">{pain.title}</p>
                         <p className="text-[11px] text-white/40 leading-relaxed">{pain.body}</p>
@@ -320,15 +320,15 @@ export default function BizPage() {
                         onHoverStart={() => setHoveredPortal(i)}
                         onHoverEnd={() => setHoveredPortal(null)}
                         onClick={() => { setOverviewOpen(false); router.push(portal.href); }}
-                        whileHover={{ y: -2, boxShadow: "0 8px 24px rgba(193,33,41,0.18)" }}
+                        whileHover={{ y: -2, boxShadow: "0 8px 24px rgba(37,99,235,0.18)" }}
                         whileTap={{ scale: 0.97 }}
                         className="flex gap-3 p-4 rounded-xl border bg-white/[0.025] cursor-pointer transition-all duration-200"
-                        style={{ borderColor: isHov ? "rgba(193,33,41,0.45)" : "rgba(255,255,255,0.07)" }}
+                        style={{ borderColor: isHov ? "rgba(37,99,235,0.45)" : "rgba(255,255,255,0.07)" }}
                       >
                         <motion.div
-                          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-[#C12129]/15 border border-[#C12129]/25 mt-0.5"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-[#2563EB]/15 border border-[#2563EB]/25 mt-0.5"
                           animate={{ scale: isHov ? 1.1 : 1 }} transition={{ type: "spring", stiffness: 300, damping: 18 }}>
-                          <span className="text-sm text-[#C12129]">{portal.icon}</span>
+                          <span className="text-sm text-[#2563EB]">{portal.icon}</span>
                         </motion.div>
                         <div className="flex-1 min-w-0">
                           <p className="text-[9px] font-bold uppercase tracking-wider aivora-gradient-text mb-0.5">{portal.area}</p>
@@ -336,7 +336,7 @@ export default function BizPage() {
                           <ul className="space-y-1">
                             {portal.bullets.map((b) => (
                               <li key={b} className="text-[10.5px] text-white/40 flex gap-1.5 leading-snug">
-                                <span className="text-[#C12129] shrink-0 mt-0.5">▸</span>{b}
+                                <span className="text-[#2563EB] shrink-0 mt-0.5">▸</span>{b}
                               </li>
                             ))}
                           </ul>

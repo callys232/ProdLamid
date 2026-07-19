@@ -1,10 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/middleware/auth";
 import { Project } from "@/lib/models/Project";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
         await connectDB();
+        const auth = await requireAuth(request);
+        if (auth instanceof NextResponse) return auth;
+
         const { escrowId } = await request.json();
 
         if (!escrowId) {
@@ -34,7 +38,7 @@ export async function POST(request: Request) {
         });
     } catch (error: any) {
         return NextResponse.json(
-            { success: false, message: error.message },
+            { success: false, message: "Server error" },
             { status: 500 }
         );
     }

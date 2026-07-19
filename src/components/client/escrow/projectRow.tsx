@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { Project } from "@/types/project";
@@ -33,7 +33,7 @@ export default function ProjectRow({ project, heldAmount, currency, onOpen, onAc
                         <button onClick={() => onAction("fund",    undefined)} className="px-2 py-1 rounded-md bg-blue-600 text-xs text-white hover:bg-blue-700 transition">Fund</button>
                         <button onClick={() => onAction("release", undefined)} className="px-2 py-1 rounded-md bg-green-600 text-xs text-white hover:bg-green-700 transition">Release</button>
                         <button onClick={() => onAction("refund",  undefined)} className="px-2 py-1 rounded-md bg-yellow-700 text-xs text-white hover:bg-yellow-600 transition">Refund</button>
-                        <button onClick={() => onAction("dispute", undefined)} className="px-2 py-1 rounded-md bg-red-700 text-xs text-white hover:bg-red-800 transition">Dispute</button>
+                        <button onClick={() => onAction("dispute", undefined)} className="px-2 py-1 rounded-md bg-blue-700 text-xs text-white hover:bg-blue-800 transition">Dispute</button>
                     </div>
                 </div>
             </div>

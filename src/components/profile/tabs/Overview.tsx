@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -54,7 +54,7 @@ export default function ProjectOverview({ project }: { project: Project }) {
           <p className="text-sm text-gray-400">
             {location} • {category}
           </p>
-          <div className="text-red-500 text-sm mt-1">
+          <div className="text-blue-500 text-sm mt-1">
             {rating > 0 ? "★".repeat(rating) : "No rating"}
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function ProjectOverview({ project }: { project: Project }) {
             onClick={() => setActiveTab(tab as typeof activeTab)}
             className={`px-4 py-2 rounded ${
               activeTab === tab
-                ? "bg-red-600 text-white"
+                ? "bg-blue-600 text-white"
                 : "bg-gray-800 text-gray-300"
             }`}
           >
@@ -192,7 +192,7 @@ export default function ProjectOverview({ project }: { project: Project }) {
               {skills.map((s, i) => (
                 <span
                   key={i}
-                  className="bg-red-700 text-white px-3 py-1 rounded text-sm"
+                  className="bg-blue-700 text-white px-3 py-1 rounded text-sm"
                 >
                   {s}
                 </span>

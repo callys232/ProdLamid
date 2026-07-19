@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -45,7 +45,7 @@ const FormInput: React.FC<FormInputProps> = ({
       />
 
       {error && (
-        <p id={`${inputId}-error`} className="text-red-400 text-sm mt-1">
+        <p id={`${inputId}-error`} className="text-blue-400 text-sm mt-1">
           {error}
         </p>
       )}

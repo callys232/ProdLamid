@@ -1,4 +1,4 @@
-// components/escrow/AdminDisputeResolver.tsx
+﻿// components/escrow/AdminDisputeResolver.tsx
 "use client";
 import { useState } from "react";
 
@@ -35,8 +35,8 @@ export default function AdminDisputeResolver({
   const freelancerPart = amount - clientPart;
 
   return (
-    <div className="bg-white border border-[#c21219] rounded-lg p-4 space-y-3">
-      <h4 className="font-semibold text-[#c21219]">Resolve Dispute</h4>
+    <div className="bg-white border border-[#2563EB] rounded-lg p-4 space-y-3">
+      <h4 className="font-semibold text-[#2563EB]">Resolve Dispute</h4>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div>
           <label className="text-sm">Outcome</label>
@@ -44,7 +44,7 @@ export default function AdminDisputeResolver({
             aria-label="outcome"
             value={outcome}
             onChange={(e) => setOutcome(e.target.value as DisputeOutcome)}
-            className="w-full px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219] text-black"
+            className="w-full px-3 py-2 rounded-md border border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] text-black"
           >
             <option value="refund">Refund to client</option>
             <option value="release">Release to freelancer</option>
@@ -62,7 +62,7 @@ export default function AdminDisputeResolver({
               step={0.05}
               value={ratio}
               onChange={(e) => setRatio(Number(e.target.value))}
-              className="w-full px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219] text-black"
+              className="w-full px-3 py-2 rounded-md border border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] text-black"
             />
           </div>
         )}
@@ -72,7 +72,7 @@ export default function AdminDisputeResolver({
             aria-label="notes"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            className="w-full px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219] text-black"
+            className="w-full px-3 py-2 rounded-md border border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] text-black"
           />
         </div>
       </div>
@@ -91,7 +91,7 @@ export default function AdminDisputeResolver({
             notes,
           })
         }
-        className="px-4 py-2 bg-[#c21219] text-white rounded-md hover:bg-red-700"
+        className="px-4 py-2 bg-[#2563EB] text-white rounded-md hover:bg-blue-700"
       >
         Confirm resolution
       </button>

@@ -9,8 +9,9 @@ import { Profile } from "@/lib/models/Profile";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import mongoose from "mongoose";
+import { isRevoked } from "@/lib/tokenBlocklist";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 export async function GET(request: Request) {
     try {
@@ -31,6 +32,10 @@ export async function GET(request: Request) {
                 { success: false, message: "Unauthorized" },
                 { status: 401 }
             );
+        }
+
+        if (await isRevoked(token)) {
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }
 
         // Verify token
@@ -87,7 +92,7 @@ export async function GET(request: Request) {
                 { ownerId: user._id },
                 { consultants: user._id }
             ]
-        }).lean();
+        }).limit(50).lean();
 
         const userData = user.toJSON();
         userData.projects = projects;
@@ -119,6 +124,10 @@ export async function PATCH(request: Request) {
         }
 
         if (!token) {
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
+        }
+
+        if (await isRevoked(token)) {
             return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }
 

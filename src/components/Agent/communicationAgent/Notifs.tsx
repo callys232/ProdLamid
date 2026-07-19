@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 
@@ -62,7 +62,7 @@ export default function NotificationCenter({
               className={`p-3 rounded flex justify-between items-center ${
                 n.type === "Risk"
                   ? n.severity === "High"
-                    ? "bg-red-900/40 border border-red-500"
+                    ? "bg-blue-900/40 border border-blue-500"
                     : n.severity === "Medium"
                     ? "bg-yellow-900/40 border border-yellow-500"
                     : "bg-green-900/40 border border-green-500"

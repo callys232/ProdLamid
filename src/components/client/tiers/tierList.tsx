@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -29,19 +29,19 @@ export default function TierCard({
 
   return (
     <div
-      className={`rounded-xl border bg-white p-6 shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(193,33,41,0.45)]
-      ${highlight ? "border-[#c12129]" : "border-gray-200"}`}
+      className={`rounded-xl border bg-white p-6 shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(37,99,235,0.45)]
+      ${highlight ? "border-[#2563EB]" : "border-gray-200"}`}
     >
       {/* Title */}
       <h3
-        className={`text-2xl font-bold ${highlight ? "text-[#c12129]" : "text-black"
+        className={`text-2xl font-bold ${highlight ? "text-[#2563EB]" : "text-black"
           }`}
       >
         {title}
       </h3>
 
       {/* red divider */}
-      <div className="h-[2px] w-16 bg-[#c12129] my-4"></div>
+      <div className="h-[2px] w-16 bg-[#2563EB] my-4"></div>
 
       {/* Feature List */}
       <ul className="space-y-2">
@@ -51,19 +51,19 @@ export default function TierCard({
             className="group relative flex items-center gap-3 px-2 py-2 rounded-md transition"
           >
             {/* hover background */}
-            <span className="absolute inset-0 rounded-md bg-[#c12129]/10 opacity-0 group-hover:opacity-100 transition"></span>
+            <span className="absolute inset-0 rounded-md bg-[#2563EB]/10 opacity-0 group-hover:opacity-100 transition"></span>
 
             <TickingBullet />
 
             {svc.href ? (
               <Link
                 href={svc.href}
-                className="relative text-black group-hover:text-[#c12129] transition"
+                className="relative text-black group-hover:text-[#2563EB] transition"
               >
                 {svc.name}
               </Link>
             ) : (
-              <span className="relative text-black group-hover:text-[#c12129]">
+              <span className="relative text-black group-hover:text-[#2563EB]">
                 {svc.name}
               </span>
             )}
@@ -76,19 +76,19 @@ export default function TierCard({
               key={svc.name}
               className="group relative flex items-center gap-3 px-2 py-2 rounded-md transition"
             >
-              <span className="absolute inset-0 rounded-md bg-[#c12129]/10 opacity-0 group-hover:opacity-100 transition"></span>
+              <span className="absolute inset-0 rounded-md bg-[#2563EB]/10 opacity-0 group-hover:opacity-100 transition"></span>
 
               <TickingBullet />
 
               {svc.href ? (
                 <Link
                   href={svc.href}
-                  className="relative text-black group-hover:text-[#c12129] transition"
+                  className="relative text-black group-hover:text-[#2563EB] transition"
                 >
                   {svc.name}
                 </Link>
               ) : (
-                <span className="relative text-black group-hover:text-[#c12129]">
+                <span className="relative text-black group-hover:text-[#2563EB]">
                   {svc.name}
                 </span>
               )}
@@ -100,7 +100,7 @@ export default function TierCard({
       {otherFeatures.length > 0 && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="mt-4 text-sm font-semibold text-[#c12129] hover:text-black transition"
+          className="mt-4 text-sm font-semibold text-[#2563EB] hover:text-black transition"
         >
           {expanded ? "Show Less ▲" : "Show More ▼"}
         </button>
@@ -110,7 +110,7 @@ export default function TierCard({
       <div className="mt-6">
         <Link
           href={tierHref}
-          className="block w-full text-center bg-[#c12129] text-white py-2 rounded-lg font-semibold transition hover:bg-black"
+          className="block w-full text-center bg-[#2563EB] text-white py-2 rounded-lg font-semibold transition hover:bg-black"
         >
           Upgrade to {title}
         </Link>

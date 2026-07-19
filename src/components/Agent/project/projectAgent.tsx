@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -225,7 +225,7 @@ export default function ProjectAgent() {
     ? Math.round(steps.reduce((acc, s) => acc + stepScore(s).pct, 0) / steps.length)
     : 0;
 
-  const healthColor = health >= 80 ? "#10b981" : health >= 50 ? "#eab308" : "#ef4444";
+  const healthColor = health >= 80 ? "#10b981" : health >= 50 ? "#eab308" : "#2563EB";
 
   return (
     <div className="space-y-2 text-white text-xs">
@@ -299,14 +299,14 @@ export default function ProjectAgent() {
                       <div className="w-12 h-1 rounded-full bg-[#222] overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all"
-                          style={{ width: `${pct}%`, backgroundColor: allFilled ? "#10b981" : hasMissing ? "#ef4444" : "#eab308" }}
+                          style={{ width: `${pct}%`, backgroundColor: allFilled ? "#10b981" : hasMissing ? "#2563EB" : "#eab308" }}
                         />
                       </div>
                       <span className="text-[9px] text-gray-600 w-8 text-right">{filled}/{total}</span>
                     </div>
 
                     {hasMissing
-                      ? <AlertCircle className="h-3 w-3 text-red-400 flex-shrink-0" />
+                      ? <AlertCircle className="h-3 w-3 text-blue-400 flex-shrink-0" />
                       : <CheckCircle2 className="h-3 w-3 text-emerald-400 flex-shrink-0" />}
                     {isOpen ? <ChevronDown className="h-3 w-3 text-gray-600 flex-shrink-0" /> : <ChevronRight className="h-3 w-3 text-gray-600 flex-shrink-0" />}
                   </button>
@@ -326,7 +326,7 @@ export default function ProjectAgent() {
                             <div key={field.label} className="flex items-center justify-between gap-2">
                               <span className="text-[10px] text-gray-600 flex-shrink-0">
                                 {field.required && !field.value
-                                  ? <span className="text-red-500">* </span>
+                                  ? <span className="text-blue-500">* </span>
                                   : null
                                 }
                                 {field.label}

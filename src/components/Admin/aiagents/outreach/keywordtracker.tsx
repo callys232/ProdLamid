@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState } from "react";
 
 export default function KeywordTracker({ keywords }: { keywords: string[] }) {
@@ -29,7 +29,7 @@ export default function KeywordTracker({ keywords }: { keywords: string[] }) {
         />
         <button
           onClick={handleAddKeyword}
-          className="px-3 py-1 bg-[#c21229] text-white rounded transition-transform transform hover:scale-105 hover:bg-red-700"
+          className="px-3 py-1 bg-[#c21229] text-white rounded transition-transform transform hover:scale-105 hover:bg-blue-700"
         >
           Add
         </button>

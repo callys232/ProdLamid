@@ -1,4 +1,4 @@
-// PolicyCompliance.tsx
+﻿// PolicyCompliance.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import Section from "../finance/section";
@@ -64,7 +64,7 @@ export default function PolicyCompliance() {
                     p.status === "Compliant"
                       ? "text-green-400"
                       : p.status === "Non-Compliant"
-                      ? "text-red-400"
+                      ? "text-blue-400"
                       : "text-yellow-400"
                   }
                 >
@@ -84,7 +84,7 @@ export default function PolicyCompliance() {
       </div>
       {loading && <p className="text-gray-400 text-sm">Loading policies...</p>}
       {error && (
-        <p className="text-red-400 text-sm">Failed to load policies.</p>
+        <p className="text-blue-400 text-sm">Failed to load policies.</p>
       )}
     </Section>
   );

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -34,7 +34,7 @@ const MEMBERS: (MemberProfile & { type: string })[] = [
     type: "pm",
     joinedAt: "2026-01-05",
     skills: ["Programme Management", "Stakeholder Engagement", "M&E", "Risk Management"],
-    badge: { label: "Dedicated PM", color: "text-[#c21219] bg-[#c21219]/10 border-[#c21219]/30" },
+    badge: { label: "Dedicated PM", color: "text-[#2563EB] bg-[#2563EB]/10 border-[#2563EB]/30" },
   },
   {
     id: "lamid-analyst-001",
@@ -155,7 +155,7 @@ export default function ConciergeTeams() {
                 className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-left"
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#c21219]/15 border border-[#c21219]/25 text-sm font-bold text-[#c21219] flex-shrink-0">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2563EB]/15 border border-[#2563EB]/25 text-sm font-bold text-[#2563EB] flex-shrink-0">
                     {m.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
                   </div>
                   <div className="text-left">
@@ -194,7 +194,7 @@ export default function ConciergeTeams() {
             whileTap={{ scale: 0.96 }}
             transition={{ duration: 0.15 }}
             onClick={() => setShowInvite(true)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#c21219] hover:bg-red-700 text-white text-sm font-semibold transition"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-sm font-semibold transition"
           >
             <UserPlus className="h-4 w-4" /> Contact your PM to invite
           </motion.button>
@@ -205,7 +205,7 @@ export default function ConciergeTeams() {
       <MemberDetailModal
         member={selected}
         onClose={() => setSelected(null)}
-        accent="#c21219"
+        accent="#2563EB"
       />
 
       {/* ── Invite-via-PM modal ─────────────────────────────────────── */}
@@ -230,8 +230,8 @@ export default function ConciergeTeams() {
               {/* Header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#c21219]/15 border border-[#c21219]/25">
-                    <UserPlus className="h-4 w-4 text-[#c21219]" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2563EB]/15 border border-[#2563EB]/25">
+                    <UserPlus className="h-4 w-4 text-[#2563EB]" />
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-white">Request Team Invite</h3>
@@ -274,7 +274,7 @@ export default function ConciergeTeams() {
                     <motion.button
                       whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                       onClick={closeInvite}
-                      className="mt-2 px-6 py-2 rounded-xl bg-[#c21219] text-sm font-semibold text-white hover:bg-red-700 transition"
+                      className="mt-2 px-6 py-2 rounded-xl bg-[#2563EB] text-sm font-semibold text-white hover:bg-blue-700 transition"
                     >
                       Done
                     </motion.button>
@@ -290,14 +290,14 @@ export default function ConciergeTeams() {
                         placeholder="e.g. Ada Lovelace"
                         value={name}
                         onChange={e => setName(e.target.value)}
-                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50 transition"
+                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition"
                       />
                     </div>
 
                     {/* Email */}
                     <div>
                       <label className="block text-xs text-gray-400 mb-1.5">
-                        Email Address <span className="text-[#c21219]">*</span>
+                        Email Address <span className="text-[#2563EB]">*</span>
                       </label>
                       <input
                         type="email"
@@ -305,7 +305,7 @@ export default function ConciergeTeams() {
                         placeholder="member@organisation.com"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
-                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50 transition"
+                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition"
                       />
                     </div>
 
@@ -315,7 +315,7 @@ export default function ConciergeTeams() {
                       <select
                         value={role}
                         onChange={e => setRole(e.target.value)}
-                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-gray-300 focus:outline-none focus:border-[#c21219]/50 transition"
+                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-gray-300 focus:outline-none focus:border-[#2563EB]/50 transition"
                       >
                         {ROLES.map(r => (
                           <option key={r} value={r} className="bg-[#0d1117]">{r}</option>
@@ -331,7 +331,7 @@ export default function ConciergeTeams() {
                         placeholder="Any context you'd like your PM to know before reaching out…"
                         value={msg}
                         onChange={e => setMsg(e.target.value)}
-                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50 transition resize-none"
+                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition resize-none"
                       />
                     </div>
 
@@ -355,7 +355,7 @@ export default function ConciergeTeams() {
                         whileHover={{ scale: 1.04, boxShadow: "0 4px 16px rgba(194,18,25,0.35)" }}
                         whileTap={{ scale: 0.96 }}
                         transition={{ duration: 0.15 }}
-                        className="flex items-center gap-2 rounded-xl bg-[#c21219] px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
+                        className="flex items-center gap-2 rounded-xl bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition disabled:opacity-50"
                       >
                         {sending ? (
                           <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />

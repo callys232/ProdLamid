@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ export default function LockedMessage({
         <div className="flex gap-3 justify-center">
           <button
             onClick={onSignup}
-            className="px-4 py-2 bg-gradient-to-r from-[#c21219] to-[#a40e14] text-white rounded hover:opacity-90 transition"
+            className="px-4 py-2 bg-gradient-to-r from-[#2563EB] to-[#a40e14] text-white rounded hover:opacity-90 transition"
           >
             Sign Up / Log In
           </button>

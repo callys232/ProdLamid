@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { notificationTransporter } from "@/lib/mailer";
 
 export async function POST(request: NextRequest) {
@@ -22,13 +22,13 @@ export async function POST(request: NextRequest) {
         subject: `[BIZPHERE] New Waitlist Signup — ${name || email}`,
         html: `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:24px;border:1px solid #eee;border-radius:10px;">
-            <div style="border-left:4px solid #c21219;padding-left:16px;margin-bottom:20px;">
-              <h2 style="color:#c21219;margin:0;">New BIZPHERE Waitlist Entry</h2>
+            <div style="border-left:4px solid #2563EB;padding-left:16px;margin-bottom:20px;">
+              <h2 style="color:#2563EB;margin:0;">New BIZPHERE Waitlist Entry</h2>
               <p style="color:#666;margin:4px 0 0;">Someone just joined the waitlist</p>
             </div>
             <table style="width:100%;border-collapse:collapse;">
               <tr><td style="padding:8px 0;color:#888;width:140px;">Name</td><td style="padding:8px 0;font-weight:600;">${name || "—"}</td></tr>
-              <tr><td style="padding:8px 0;color:#888;">Email</td><td style="padding:8px 0;font-weight:600;"><a href="mailto:${email}" style="color:#c21219;">${email}</a></td></tr>
+              <tr><td style="padding:8px 0;color:#888;">Email</td><td style="padding:8px 0;font-weight:600;"><a href="mailto:${email}" style="color:#2563EB;">${email}</a></td></tr>
               <tr><td style="padding:8px 0;color:#888;">WhatsApp</td><td style="padding:8px 0;font-weight:600;">${whatsapp}</td></tr>
             </table>
           </div>
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
         subject: "You're on the BIZPHERE waitlist!",
         html: `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:0;background:#0a0a0a;border-radius:12px;overflow:hidden;">
-            <div style="background:linear-gradient(135deg,#c21219,#8b0f14);padding:32px 28px;">
+            <div style="background:linear-gradient(135deg,#2563EB,#8b0f14);padding:32px 28px;">
               <h1 style="color:#fff;margin:0;font-size:24px;letter-spacing:0.05em;">BIZPHERE</h1>
               <p style="color:rgba(255,255,255,0.75);margin:6px 0 0;font-size:13px;">it's all about business</p>
             </div>
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
               </p>
               <div style="border-top:1px solid #222;padding-top:20px;margin-top:4px;">
                 <p style="color:#555;font-size:12px;margin:0;">
-                  One Ecosystem. Every Layer of Impact ·<a href="https://lamid.io" style="color:#c21219;text-decoration:none;">lamid.io</a>
+                  One Ecosystem. Every Layer of Impact ·<a href="https://lamid.io" style="color:#2563EB;text-decoration:none;">lamid.io</a>
                 </p>
               </div>
             </div>

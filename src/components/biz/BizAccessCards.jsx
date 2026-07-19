@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -64,7 +64,7 @@ const BizAccessCards = () => {
 
       {/* Global ambient glow */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-[#c21219]/10 blur-[100px]" />
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-[#2563EB]/10 blur-[100px]" />
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-blue-900/15 blur-[100px]" />
       </div>
 
@@ -85,7 +85,7 @@ const BizAccessCards = () => {
             <div className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(ellipse at 20% 30%, #c21219 0%, #8b0f14 35%, #3a0608 65%, #0d0202 100%)",
+                  "radial-gradient(ellipse at 20% 30%, #2563EB 0%, #8b0f14 35%, #3a0608 65%, #0d0202 100%)",
               }}
             />
             {/* Diagonal stripe overlay */}
@@ -105,7 +105,7 @@ const BizAccessCards = () => {
             {/* Top-right corner highlight */}
             <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-rose-400/20 blur-3xl" />
             {/* Bottom-left accent */}
-            <div className="absolute -bottom-8 -left-8 w-36 h-36 rounded-full bg-red-900/40 blur-2xl" />
+            <div className="absolute -bottom-8 -left-8 w-36 h-36 rounded-full bg-blue-900/40 blur-2xl" />
           </div>
 
           {/* Live sweep glow */}

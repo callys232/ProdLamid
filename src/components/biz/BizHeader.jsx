@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -112,7 +112,7 @@ const BizHeader = () => {
               )}
               <button
                 onClick={() => setShowMore(!showMore)}
-                className="mt-1 text-sm text-red-500 hover:text-red-800 transition"
+                className="mt-1 text-sm text-blue-500 hover:text-blue-800 transition"
               >
                 {showMore ? "Read Less" : "Read More"}
               </button>

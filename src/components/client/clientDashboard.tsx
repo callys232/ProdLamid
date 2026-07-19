@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -127,7 +127,7 @@ export default function ClientProfileDashboard() {
   if (authLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-gray-950">
-        <div className="h-7 w-7 animate-spin rounded-full border-2 border-red-600 border-t-transparent" />
+        <div className="h-7 w-7 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
       </div>
     );
   }
@@ -135,8 +135,8 @@ export default function ClientProfileDashboard() {
   if (!isAuthenticated) {
     return (
       <div className="flex h-screen flex-col items-center justify-center gap-6 bg-gray-950 text-white px-4 text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-red-600/30 bg-red-600/10">
-          <svg viewBox="0 0 24 24" className="h-8 w-8 text-red-500" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-blue-600/30 bg-blue-600/10">
+          <svg viewBox="0 0 24 24" className="h-8 w-8 text-blue-500" fill="none" stroke="currentColor" strokeWidth="1.5">
             <circle cx="12" cy="7" r="4" />
             <path d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8" />
           </svg>
@@ -150,7 +150,7 @@ export default function ClientProfileDashboard() {
         <div className="flex gap-3">
           <Link
             href="/signin"
-            className="rounded-xl bg-red-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 active:scale-95"
+            className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 active:scale-95"
           >
             Sign In
           </Link>

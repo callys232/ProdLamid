@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -256,7 +256,7 @@ export default function AIAgent() {
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
             onClick={() => { setIsOpen(true); setIsMinimized(false); }}
-            className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-[#c21219] to-[#7f0d11] rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(194,18,25,0.5)] z-40"
+            className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-[#2563EB] to-[#7f0d11] rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(194,18,25,0.5)] z-40"
             aria-label="Open Lamid AI"
           >
             <img src="/aibot.png" alt="" className="w-8 h-8" onError={e => { (e.target as HTMLImageElement).style.display="none"; }} />
@@ -277,7 +277,7 @@ export default function AIAgent() {
             className="fixed bottom-6 right-6 w-[92%] sm:w-[420px] max-h-[82vh] bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-[0_24px_80px_rgba(0,0,0,0.8)] flex flex-col z-50 overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#c21219] to-[#7f0d11] flex-shrink-0">
+            <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#2563EB] to-[#7f0d11] flex-shrink-0">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 flex-shrink-0">
                 <Bot className="h-4 w-4 text-white" />
               </div>
@@ -355,8 +355,8 @@ export default function AIAgent() {
                   {/* Welcome message */}
                   {chatHistory.length === 0 && (
                     <div className="flex items-start gap-2.5">
-                      <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#c21219]/20 border border-[#c21219]/30">
-                        <Bot className="h-3.5 w-3.5 text-[#c21219]" />
+                      <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30">
+                        <Bot className="h-3.5 w-3.5 text-[#2563EB]" />
                       </div>
                       <div className="rounded-2xl rounded-tl-none bg-white/8 border border-white/8 px-3.5 py-2.5 max-w-[82%]">
                         <p className="text-sm text-gray-200 leading-relaxed">
@@ -376,14 +376,14 @@ export default function AIAgent() {
                       className={`flex items-end gap-2 ${msg.sender === "bot" ? "flex-row" : "flex-row-reverse"}`}
                     >
                       {msg.sender === "bot" && (
-                        <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#c21219]/20 border border-[#c21219]/30 mb-0.5">
-                          <Bot className="h-3 w-3 text-[#c21219]" />
+                        <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 mb-0.5">
+                          <Bot className="h-3 w-3 text-[#2563EB]" />
                         </div>
                       )}
                       <div className={`max-w-[78%] text-sm leading-relaxed px-3.5 py-2.5 rounded-2xl ${
                         msg.sender === "bot"
                           ? "bg-white/8 border border-white/8 text-gray-200 rounded-tl-none"
-                          : "bg-gradient-to-br from-[#c21219] to-[#7f0d11] text-white rounded-tr-none"
+                          : "bg-gradient-to-br from-[#2563EB] to-[#7f0d11] text-white rounded-tr-none"
                       }`}>
                         {msg.text || (msg.streaming && (
                           <span className="flex gap-1 items-center h-4">
@@ -429,13 +429,13 @@ export default function AIAgent() {
                 onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleMessage(input); } }}
                 placeholder={isStreaming ? "Lamid AI is responding..." : "Ask Lamid AI..."}
                 disabled={isStreaming}
-                className="flex-1 rounded-xl bg-white/6 border border-white/8 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#c21219]/50 transition-colors disabled:opacity-50"
+                className="flex-1 rounded-xl bg-white/6 border border-white/8 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition-colors disabled:opacity-50"
               />
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => handleMessage(input)}
                 disabled={!input.trim() || isStreaming}
-                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[#c21219] disabled:opacity-40 transition-opacity"
+                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[#2563EB] disabled:opacity-40 transition-opacity"
               >
                 <Send className="h-4 w-4 text-white" />
               </motion.button>
@@ -452,7 +452,7 @@ export default function AIAgent() {
             initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
             whileHover={{ scale: 1.06 }}
             onClick={() => setIsMinimized(false)}
-            className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-br from-[#c21219] to-[#7f0d11] rounded-full flex items-center justify-center shadow-lg z-40"
+            className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-br from-[#2563EB] to-[#7f0d11] rounded-full flex items-center justify-center shadow-lg z-40"
           >
             <Bot className="w-5 h-5 text-white" />
           </motion.button>

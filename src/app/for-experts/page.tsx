@@ -68,7 +68,7 @@ export default function ForExpertsPage() {
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
           <motion.path
             d="M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150"
-            fill="none" stroke="#C12129" strokeWidth="0.6" strokeOpacity="0.07" strokeDasharray="12 20"
+            fill="none" stroke="#2563EB" strokeWidth="0.6" strokeOpacity="0.07" strokeDasharray="12 20"
             animate={{ strokeDashoffset: [0, -100] }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           />
@@ -87,7 +87,7 @@ export default function ForExpertsPage() {
           </p>
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Link href="/signup"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_22px_rgba(193,33,41,0.5)] hover:shadow-[0_0_34px_rgba(193,33,41,0.75)]">
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_22px_rgba(37,99,235,0.5)] hover:shadow-[0_0_34px_rgba(37,99,235,0.75)]">
               Apply to Join →
             </Link>
           </motion.div>
@@ -114,13 +114,13 @@ export default function ForExpertsPage() {
                   onHoverStart={() => setHoveredBenefit(i)}
                   onHoverEnd={() => setHoveredBenefit(null)}
                   onClick={() => router.push(b.href)}
-                  whileHover={{ y: -5, boxShadow: "0 14px 34px rgba(193,33,41,0.16)" }}
+                  whileHover={{ y: -5, boxShadow: "0 14px 34px rgba(37,99,235,0.16)" }}
                   whileTap={{ scale: 0.97 }}
                   className="aivora-card border rounded-2xl p-7 cursor-pointer"
-                  style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                  style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
                   <motion.div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#C12129]/12 border border-[#C12129]/25"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#2563EB]/12 border border-[#2563EB]/25"
                     animate={{ scale: isHov ? 1.1 : 1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 18 }}
                   >
@@ -155,7 +155,7 @@ export default function ForExpertsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {ELIGIBILITY.map((req) => (
                 <div key={req} className="flex items-center gap-3">
-                  <span className="text-[#C12129] shrink-0">✓</span>
+                  <span className="text-[#2563EB] shrink-0">✓</span>
                   <span className="text-sm text-gray-600 dark:text-white/65">{req}</span>
                 </div>
               ))}
@@ -181,14 +181,14 @@ export default function ForExpertsPage() {
                   onHoverStart={() => setHoveredStep(i)}
                   onHoverEnd={() => setHoveredStep(null)}
                   onClick={() => router.push(step.href)}
-                  whileHover={{ y: -6, boxShadow: "0 14px 34px rgba(193,33,41,0.16)" }}
+                  whileHover={{ y: -6, boxShadow: "0 14px 34px rgba(37,99,235,0.16)" }}
                   whileTap={{ scale: 0.97 }}
                   className="aivora-card border rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer"
-                  style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                  style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
                   <motion.div
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-base mb-4 bg-[#C12129]"
-                    animate={{ scale: isHov ? 1.12 : 1, boxShadow: isHov ? "0 0 20px rgba(193,33,41,0.55)" : "none" }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-base mb-4 bg-[#2563EB]"
+                    animate={{ scale: isHov ? 1.12 : 1, boxShadow: isHov ? "0 0 20px rgba(37,99,235,0.55)" : "none" }}
                     transition={{ type: "spring", stiffness: 280, damping: 18 }}
                   >
                     {step.num}
@@ -216,7 +216,7 @@ export default function ForExpertsPage() {
           </div>
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="shrink-0">
             <Link href="/signup"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)]">
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_14px_rgba(37,99,235,0.35)]">
               Apply to Join →
             </Link>
           </motion.div>

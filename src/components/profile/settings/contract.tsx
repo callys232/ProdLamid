@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import ContractsSection from "./contract/contracts";
 import InvoicesSection from "./contract/invoice";
 import BillsSection from "./contract/bills";
@@ -24,7 +24,7 @@ const FinanceHub: React.FC = () => {
                         key={section}
                         onClick={() => setActiveTab(section)}
                         className={`px-4 py-2 text-lg font-semibold transition-colors rounded-md ${activeTab === section
-                            ? "bg-[#c12129] text-white shadow-lg"
+                            ? "bg-[#2563EB] text-white shadow-lg"
                             : "text-gray-400 hover:text-white hover:bg-gray-800"
                             }`}
                     >

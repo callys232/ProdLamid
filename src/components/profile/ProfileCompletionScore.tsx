@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 interface UserShape {
   profile?: {
@@ -32,7 +32,7 @@ function CircularProgress({ pct }: { pct: number }) {
   const color =
     pct >= 80 ? "#34d399"   // emerald
     : pct >= 50 ? "#f59e0b" // amber
-    : "#C12129";             // LAMID red
+    : "#2563EB";             // LAMID red
 
   return (
     <svg width="140" height="140" viewBox="0 0 140 140" className="rotate-[-90deg]">
@@ -171,7 +171,7 @@ export default function ProfileCompletionScore({ user, hasPortfolio, hasComplete
                         // Emit a custom event — profileDashboard listens and switches tab
                         window.dispatchEvent(new CustomEvent("lamid:setTab", { detail: item.settingsSection }));
                       }}
-                      className="text-xs text-[#C12129] hover:text-red-400 transition font-medium"
+                      className="text-xs text-[#2563EB] hover:text-blue-400 transition font-medium"
                     >
                       Fix →
                     </button>
@@ -188,7 +188,7 @@ export default function ProfileCompletionScore({ user, hasPortfolio, hasComplete
                 onClick={() => {
                   window.dispatchEvent(new CustomEvent("lamid:setTab", { detail: "settings" }));
                 }}
-                className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#C12129] text-white hover:bg-red-700 transition"
+                className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#2563EB] text-white hover:bg-blue-700 transition"
               >
                 Complete your profile
               </button>

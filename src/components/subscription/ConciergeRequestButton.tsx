@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -52,7 +52,7 @@ export default function ConciergeRequestButton({ label = "Request Concierge Acce
     }
   };
 
-  const inputCls = "w-full rounded-xl bg-black border border-white/10 text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 placeholder-gray-600";
+  const inputCls = "w-full rounded-xl bg-black border border-white/10 text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#2563EB]/60 placeholder-gray-600";
 
   return (
     <>
@@ -80,9 +80,9 @@ export default function ConciergeRequestButton({ label = "Request Concierge Acce
               className="w-full max-w-md bg-[#0d0d0d] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#c21219]/5">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#2563EB]/5">
                 <div className="flex items-center gap-2">
-                  <Star className="h-4 w-4 text-[#c21219]" />
+                  <Star className="h-4 w-4 text-[#2563EB]" />
                   <p className="text-sm font-bold text-white">Concierge Access Request</p>
                 </div>
                 {!submitted && (
@@ -103,7 +103,7 @@ export default function ConciergeRequestButton({ label = "Request Concierge Acce
                       <p className="text-sm text-gray-400 leading-relaxed">
                         Our team will review your request and contact you at{" "}
                         <span className="text-white">{form.email}</span> within{" "}
-                        <span className="text-[#c21219] font-semibold">24 hours</span>.
+                        <span className="text-[#2563EB] font-semibold">24 hours</span>.
                       </p>
                     </div>
                     <div className="flex items-center justify-center gap-2 rounded-xl bg-yellow-500/10 border border-yellow-500/20 px-4 py-3">
@@ -149,7 +149,7 @@ export default function ConciergeRequestButton({ label = "Request Concierge Acce
                     </div>
 
                     <button onClick={submit} disabled={loading}
-                      className="w-full py-2.5 rounded-xl bg-[#c21219] hover:bg-red-700 text-white text-sm font-bold transition disabled:opacity-50 flex items-center justify-center gap-2 mt-2">
+                      className="w-full py-2.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-sm font-bold transition disabled:opacity-50 flex items-center justify-center gap-2 mt-2">
                       {loading ? <><Loader2 className="h-4 w-4 animate-spin" />Submitting…</> : <><Star className="h-4 w-4" />Submit Request</>}
                     </button>
 

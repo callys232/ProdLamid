@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -282,7 +282,7 @@ export default function Teams({ user }: { user: any }) {
           <select
             value={selectedTeam?._id || ""}
             onChange={(e) => setSelectedTeam(teams.find(t => t._id === e.target.value))}
-            className="bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-1 outline-none focus:ring-2 focus:ring-red-500"
+            className="bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-1 outline-none focus:ring-2 focus:ring-blue-500"
           >
             {teams.length === 0 && <option value="">No Teams Found</option>}
             {teams.map(t => (
@@ -292,7 +292,7 @@ export default function Teams({ user }: { user: any }) {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition"
         >
           + Create Team
         </button>
@@ -325,7 +325,7 @@ export default function Teams({ user }: { user: any }) {
                 <button
                   onClick={() => setActiveProject(proj)}
                   className={`w-full text-left px-3 py-2 rounded-md ${activeProject?.id === proj.id
-                    ? "bg-red-600 text-white"
+                    ? "bg-blue-600 text-white"
                     : "bg-gray-800 text-gray-300 hover:bg-gray-700"
                     }`}
                 >
@@ -341,14 +341,14 @@ export default function Teams({ user }: { user: any }) {
           variants={item}
           className="flex-1 bg-gray-900 border border-gray-700 rounded-xl p-8 space-y-8"
         >
-          {error && <div className="text-red-400 text-sm mb-4">{error}</div>}
+          {error && <div className="text-blue-400 text-sm mb-4">{error}</div>}
 
           <header className="flex items-center gap-4">
             {activeProject.image && (
               <img
                 src={activeProject.image}
                 alt={activeProject.title}
-                className="w-16 h-16 rounded-lg object-cover border-2 border-red-500"
+                className="w-16 h-16 rounded-lg object-cover border-2 border-blue-500"
               />
             )}
 
@@ -462,14 +462,14 @@ export default function Teams({ user }: { user: any }) {
                 value={newTeamName}
                 onChange={(e) => setNewTeamName(e.target.value)}
                 placeholder="Enter team name..."
-                className="w-full bg-gray-900 text-white border border-gray-800 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full bg-gray-900 text-white border border-gray-800 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div className="flex gap-3 pt-2">
               <button
                 onClick={handleCreateTeam}
                 disabled={loading || !newTeamName.trim()}
-                className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-md font-semibold transition disabled:opacity-50"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-semibold transition disabled:opacity-50"
               >
                 {loading ? "Creating..." : "Create"}
               </button>
@@ -503,7 +503,7 @@ export default function Teams({ user }: { user: any }) {
                 {selectedTeam.members?.map((m: any) => (
                   <li key={m.user?._id} className="flex items-center justify-between bg-gray-900 p-3 rounded-lg border border-gray-800">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center font-bold text-xs uppercase">
+                      <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xs uppercase">
                         {m.user?.username?.slice(0, 2) || "U"}
                       </div>
                       <div>
@@ -514,7 +514,7 @@ export default function Teams({ user }: { user: any }) {
                     {m.user?._id !== user._id && (
                       <button
                         onClick={() => handleRemoveMember(m.user?._id)}
-                        className="text-xs text-red-500 hover:text-red-400 font-medium"
+                        className="text-xs text-blue-500 hover:text-blue-400 font-medium"
                       >
                         Remove
                       </button>
@@ -531,13 +531,13 @@ export default function Teams({ user }: { user: any }) {
                   value={inviteEmail}
                   onChange={(e) => setInviteEmail(e.target.value)}
                   placeholder="Collaborator's email..."
-                  className="w-full bg-gray-900 text-white border border-gray-800 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full bg-gray-900 text-white border border-gray-800 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <div className="flex gap-3">
                   <select
                     value={inviteRole}
                     onChange={(e) => setInviteRole(e.target.value)}
-                    className="flex-1 bg-gray-900 text-white border border-gray-800 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+                    className="flex-1 bg-gray-900 text-white border border-gray-800 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="member">Member</option>
                     <option value="admin">Admin</option>
@@ -547,7 +547,7 @@ export default function Teams({ user }: { user: any }) {
                   <button
                     onClick={handleAddMember}
                     disabled={loading || !inviteEmail.trim()}
-                    className="flex-[2] bg-red-600 hover:bg-red-700 text-white py-2 rounded-md font-semibold transition disabled:opacity-50"
+                    className="flex-[2] bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-semibold transition disabled:opacity-50"
                   >
                     Send Invite
                   </button>

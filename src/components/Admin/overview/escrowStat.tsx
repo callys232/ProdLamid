@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import { EscrowTransaction } from "@/types/client";
 import {
@@ -66,7 +66,7 @@ export default function EscrowStats({
   }));
 
   return (
-    <div className="bg-[#0f0f0f]/70 backdrop-blur-md border border-[#1f1f1f] rounded-lg p-6 shadow-lg hover:shadow-red-500/30 transition-transform hover:scale-105">
+    <div className="bg-[#0f0f0f]/70 backdrop-blur-md border border-[#1f1f1f] rounded-lg p-6 shadow-lg hover:shadow-blue-500/30 transition-transform hover:scale-105">
       <h3 className="text-lg font-semibold text-white mb-2">
         💰 Escrow Overview
       </h3>

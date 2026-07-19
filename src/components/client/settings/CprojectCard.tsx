@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Project } from "@/types/project";
@@ -31,9 +31,9 @@ export default function ProjectCard({
       onClick={() => onSelect(project.id ?? project._id ?? "")}
       className={`p-4 rounded-lg cursor-pointer border ${
         isSelected
-          ? "border-red-600 bg-gray-800"
+          ? "border-blue-600 bg-gray-800"
           : "border-gray-700 bg-gray-900"
-      } hover:border-red-600 transition-all`}
+      } hover:border-blue-600 transition-all`}
     >
       {/* Title & Category */}
       <h3 className="font-semibold text-white">{project.title}</h3>
@@ -47,7 +47,7 @@ export default function ProjectCard({
         >
           <div className="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
             <div
-              className="bg-red-600 h-2 transition-all"
+              className="bg-blue-600 h-2 transition-all"
               style={{ width: `${milestoneProgress}%` }}
             />
           </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -68,12 +68,12 @@ export default function StepProfessional({ data, onChange }: Props) {
                         maxLength: { value: 60, message: "Too long" },
                     })}
                     className="w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-                    focus:ring-2 focus:ring-[#c12129] outline-none transition
+                    focus:ring-2 focus:ring-[#2563EB] outline-none transition
                     shadow-sm group-hover:shadow-md hover:scale-[1.01]"
                     placeholder="Full Stack Developer | Fintech Specialist"
                 />
                 {errors.title && (
-                    <p className="text-xs text-red-500 mt-1">
+                    <p className="text-xs text-blue-500 mt-1">
                         {errors.title.message}
                     </p>
                 )}
@@ -87,7 +87,7 @@ export default function StepProfessional({ data, onChange }: Props) {
                         required: "Industry is required",
                     })}
                     className="w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-                    focus:ring-2 focus:ring-[#c12129] outline-none transition
+                    focus:ring-2 focus:ring-[#2563EB] outline-none transition
                     shadow-sm group-hover:shadow-md hover:scale-[1.01]"
                 >
                     <option value="">Select industry</option>
@@ -98,7 +98,7 @@ export default function StepProfessional({ data, onChange }: Props) {
                     <option value="consulting">Consulting</option>
                 </select>
                 {errors.industry && (
-                    <p className="text-xs text-red-500 mt-1">
+                    <p className="text-xs text-blue-500 mt-1">
                         {errors.industry.message}
                     </p>
                 )}
@@ -116,12 +116,12 @@ export default function StepProfessional({ data, onChange }: Props) {
                         setValueAs: (v) => v === "" ? undefined : Number(v),
                     })}
                     className="w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-                    focus:ring-2 focus:ring-[#c12129] outline-none transition
+                    focus:ring-2 focus:ring-[#2563EB] outline-none transition
                     shadow-sm group-hover:shadow-md hover:scale-[1.01]"
                     placeholder="5"
                 />
                 {errors.experience && (
-                    <p className="text-xs text-red-500 mt-1">
+                    <p className="text-xs text-blue-500 mt-1">
                         {errors.experience.message}
                     </p>
                 )}
@@ -139,12 +139,12 @@ export default function StepProfessional({ data, onChange }: Props) {
                         valueAsNumber: true,
                     })}
                     className="w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-                    focus:ring-2 focus:ring-[#c12129] outline-none transition
+                    focus:ring-2 focus:ring-[#2563EB] outline-none transition
                     shadow-sm group-hover:shadow-md hover:scale-[1.01]"
                     placeholder="50"
                 />
                 {errors.rate && (
-                    <p className="text-xs text-red-500 mt-1">
+                    <p className="text-xs text-blue-500 mt-1">
                         {errors.rate.message}
                     </p>
                 )}
@@ -161,7 +161,7 @@ export default function StepProfessional({ data, onChange }: Props) {
                         onChange={(e) => setSkillInput(e.target.value)}
                         onKeyDown={handleKeyDown}
                         className="flex-1 bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-                        focus:ring-2 focus:ring-[#c12129] outline-none transition
+                        focus:ring-2 focus:ring-[#2563EB] outline-none transition
                         shadow-sm hover:shadow-md hover:scale-[1.01]"
                         placeholder="e.g. React, Node.js"
                     />
@@ -169,8 +169,8 @@ export default function StepProfessional({ data, onChange }: Props) {
                     <button
                         type="button"
                         onClick={handleAddSkill}
-                        className="px-4 py-2 bg-[#c12129] text-white rounded-md
-                        hover:bg-red-700 active:scale-95 transition shadow-md hover:shadow-lg"
+                        className="px-4 py-2 bg-[#2563EB] text-white rounded-md
+                        hover:bg-blue-700 active:scale-95 transition shadow-md hover:shadow-lg"
                     >
                         Add
                     </button>
@@ -183,14 +183,14 @@ export default function StepProfessional({ data, onChange }: Props) {
                             key={idx}
                             className="flex items-center gap-2 px-3 py-1 text-xs
                             bg-gray-800 border border-gray-700 rounded-full
-                            hover:border-[#c12129] hover:bg-[#c12129]/10
+                            hover:border-[#2563EB] hover:bg-[#2563EB]/10
                             hover:scale-[1.03] transition-all duration-200 shadow-sm"
                         >
                             {skill}
                             <button
                                 type="button"
                                 onClick={() => handleRemoveSkill(skill)}
-                                className="text-gray-400 hover:text-red-500 transition"
+                                className="text-gray-400 hover:text-blue-500 transition"
                             >
                                 ×
                             </button>
@@ -200,7 +200,7 @@ export default function StepProfessional({ data, onChange }: Props) {
 
                 {/* VALIDATION ERROR */}
                 {errors.skills && (
-                    <p className="text-xs text-red-500 mt-1">
+                    <p className="text-xs text-blue-500 mt-1">
                         {errors.skills.message}
                     </p>
                 )}

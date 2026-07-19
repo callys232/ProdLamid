@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useMemo, useState } from "react";
 import EscrowSummaryCard from "./summaryCard";
@@ -61,7 +61,7 @@ export default function EscrowTab({ client }: { client?: any }) {
   }, [projects, query]);
 
   return (
-    <div className="p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-red-700 shadow-lg space-y-6">
+    <div className="p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-blue-700 shadow-lg space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <EscrowSummaryCard
           summary={summary}
@@ -81,12 +81,12 @@ export default function EscrowTab({ client }: { client?: any }) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search projects or ID..."
-              className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-600"
+              className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
             <button
               type="button"
               onClick={() => (window.location.href = "/projectEscrow")}
-              className="px-3 py-2 rounded-md bg-red-600 hover:bg-red-500 text-white text-sm"
+              className="px-3 py-2 rounded-md bg-blue-600 hover:bg-blue-500 text-white text-sm"
             >
               View Ongoing / Pending Projects
             </button>
@@ -122,8 +122,8 @@ export default function EscrowTab({ client }: { client?: any }) {
           <div className="space-y-2">
             <button onClick={() => setActionModal({ type: "release" })} className="w-full px-3 py-2 rounded-md bg-green-600 hover:bg-green-500 text-white text-sm">Release Demo Funds</button>
             <button onClick={() => setActionModal({ type: "refund" })} className="w-full px-3 py-2 rounded-md bg-yellow-700 hover:bg-yellow-600 text-white text-sm">Refund Demo Funds</button>
-            <button onClick={() => setActionModal({ type: "dispute" })} className="w-full px-3 py-2 rounded-md bg-red-700 hover:bg-red-600 text-white text-sm">Raise Demo Dispute</button>
-            <a href="/escrow/export" className={`block mt-3 text-xs ${safeClient?.isPremium ? "text-red-400" : "text-gray-500"}`}>Export (Premium)</a>
+            <button onClick={() => setActionModal({ type: "dispute" })} className="w-full px-3 py-2 rounded-md bg-blue-700 hover:bg-blue-600 text-white text-sm">Raise Demo Dispute</button>
+            <a href="/escrow/export" className={`block mt-3 text-xs ${safeClient?.isPremium ? "text-blue-400" : "text-gray-500"}`}>Export (Premium)</a>
           </div>
         </aside>
       </div>

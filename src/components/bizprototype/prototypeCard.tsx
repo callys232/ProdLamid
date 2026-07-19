@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -33,7 +33,7 @@ const PrototypeCard: React.FC<PrototypeCardProps> = ({
         "rounded-2xl overflow-hidden transition-all cursor-pointer",
         "bg-white/10 backdrop-blur-md border border-white/20 shadow-xl",
         "hover:bg-white/15 hover:border-white/30",
-        isActive ? "ring-2 ring-[#c21219] bg-[#c21219]/10" : "",
+        isActive ? "ring-2 ring-[#2563EB] bg-[#2563EB]/10" : "",
       ].join(" ")}
       onClick={onBuy} // ✅ only click opens modal
     >
@@ -53,7 +53,7 @@ const PrototypeCard: React.FC<PrototypeCardProps> = ({
         <div className="text-center">
           <p className="text-xs text-white/70 tracking-wide">NAME</p>
           <div className="mt-1 font-semibold text-white">{name}</div>
-          <div className="mt-1 text-sm font-bold text-[#c21219]">
+          <div className="mt-1 text-sm font-bold text-[#2563EB]">
             ${price.toFixed(2)}
           </div>
         </div>
@@ -62,7 +62,7 @@ const PrototypeCard: React.FC<PrototypeCardProps> = ({
         <div className="flex gap-2 mt-2">
           <button
             onClick={onBuy}
-            className="flex-1 rounded-lg px-4 py-2 font-medium text-white bg-[#c21219] hover:bg-[#a50f15] transition"
+            className="flex-1 rounded-lg px-4 py-2 font-medium text-white bg-[#2563EB] hover:bg-[#a50f15] transition"
           >
             View Details
           </button>

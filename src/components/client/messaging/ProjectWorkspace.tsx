@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
@@ -61,7 +61,7 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
         return (
             <div className="flex h-screen items-center justify-center bg-[#050000] text-white">
                 <div className="flex flex-col items-center gap-3">
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-red-600 border-t-transparent" />
+                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
                     <p className="text-sm text-gray-500">Loading workspace...</p>
                 </div>
             </div>
@@ -101,12 +101,12 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
         <div className="min-h-screen bg-[#050000] text-white p-4 md:p-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-[#c21219]/30 pb-6 md:flex-row md:items-center">
+                <div className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-[#2563EB]/30 pb-6 md:flex-row md:items-center">
                     <div>
                         <h1 className="text-3xl font-bold text-white">{project.title}</h1>
                         <p className="mt-1 text-gray-400">
                             Status:{" "}
-                            <span className="font-semibold uppercase text-red-500">
+                            <span className="font-semibold uppercase text-blue-500">
                                 {project.status}
                             </span>
                         </p>
@@ -128,7 +128,7 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-3 transition-all ${activeTab === tab.id
-                                    ? "bg-red-600 text-white shadow-lg shadow-red-900/40"
+                                    ? "bg-blue-600 text-white shadow-lg shadow-blue-900/40"
                                     : "border border-white/5 bg-white/5 text-gray-400 hover:bg-white/10"
                                 }`}
                         >
@@ -181,7 +181,7 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                                         {project.skills?.map((skill: string) => (
                                             <span
                                                 key={skill}
-                                                className="rounded-full bg-red-900/30 px-3 py-1 text-xs font-semibold text-red-400"
+                                                className="rounded-full bg-blue-900/30 px-3 py-1 text-xs font-semibold text-blue-400"
                                             >
                                                 {skill}
                                             </span>

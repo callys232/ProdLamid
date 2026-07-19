@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ReactNode } from "react";
 
@@ -16,7 +16,7 @@ export function Dropdown({ isOpen, children }: DropdownProps) {
         absolute mt-2
         w-72
         rounded-lg
-        border border-red-600/40
+        border border-blue-600/40
         bg-black/90
         p-4
         shadow-lg

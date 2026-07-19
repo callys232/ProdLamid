@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -112,7 +112,7 @@ export default function StatCard({ value, label, details }: StatCardProps) {
       <button
         type="button"
         className="w-full bg-gray-800 rounded-lg p-4 text-center shadow-md
-             hover:ring-2 hover:ring-red-500 hover:shadow-lg
+             hover:ring-2 hover:ring-blue-500 hover:shadow-lg
              transition transform hover:scale-105 cursor-pointer"
         onClick={() => setOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}

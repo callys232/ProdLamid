@@ -1,4 +1,4 @@
-// components/ReviewPopup.tsx
+﻿// components/ReviewPopup.tsx
 "use client";
 
 import { useEffect } from "react";
@@ -39,13 +39,13 @@ export default function ReviewPopup({
 
   const Section = ({ title, items }: { title: string; items: UserAlert[] }) => (
     <section className="mb-6">
-      <h3 className="text-xl font-semibold mb-2 text-red-500">{title}</h3>
+      <h3 className="text-xl font-semibold mb-2 text-blue-500">{title}</h3>
       {items.length ? (
         <ul className="space-y-2 max-h-48 overflow-y-auto">
           {items.map((item) => (
             <li
               key={item.id}
-              className="p-3 bg-gray-900 rounded border border-gray-700 hover:border-red-600 transition"
+              className="p-3 bg-gray-900 rounded border border-gray-700 hover:border-blue-600 transition"
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -77,7 +77,7 @@ export default function ReviewPopup({
 
         {loading && <p className="text-gray-400 mb-3">Loading...</p>}
         {error && (
-          <div className="mb-4 p-2 bg-red-600 text-white rounded">{error}</div>
+          <div className="mb-4 p-2 bg-blue-600 text-white rounded">{error}</div>
         )}
 
         <Section title="Alerts" items={alerts} />

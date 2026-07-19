@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -91,7 +91,7 @@ export default function Settings({ client }: SettingsProps) {
                   setMobileMenuOpen(false);
                 }}
                 className={`block w-full text-left px-4 py-3 hover:bg-gray-800 ${activeTab === item.key
-                  ? "bg-gray-800 text-red-500"
+                  ? "bg-gray-800 text-blue-500"
                   : "text-gray-300"
                   }`}
               >
@@ -133,7 +133,7 @@ export default function Settings({ client }: SettingsProps) {
             className="
               bg-gray-900/40 border border-gray-800
               rounded-xl p-5 sm:p-6 md:p-8
-              shadow-[0_0_25px_rgba(193,33,41,0.15)]
+              shadow-[0_0_25px_rgba(37,99,235,0.15)]
               backdrop-blur-xl transition-all
               min-h-[75vh]
             "

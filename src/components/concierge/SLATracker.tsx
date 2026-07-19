@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -105,7 +105,7 @@ function generateSLAsFromProjects(projects: ConciergeProject[]): SLAItem[] {
 const STATUS_STYLE: Record<SLAItem["status"], { badge: string; text: string; icon: any }> = {
   on_track: { badge: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30", text: "On Track", icon: ShieldCheck  },
   at_risk:  { badge: "text-amber-400  bg-amber-500/10   border-amber-500/30",    text: "At Risk",  icon: AlertTriangle },
-  breached: { badge: "text-red-400    bg-red-500/10     border-red-500/30",       text: "Breached", icon: XCircle       },
+  breached: { badge: "text-blue-400    bg-blue-500/10     border-blue-500/30",       text: "Breached", icon: XCircle       },
 };
 
 const SLA_TYPE_COLORS: Record<SLAType, string> = {
@@ -310,7 +310,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
         {[
           { label: "On Track", count: onTrack,  color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20", icon: ShieldCheck,   filter: "on_track"  as const },
           { label: "At Risk",  count: atRisk,   color: "text-amber-400",   bg: "bg-amber-500/10",   border: "border-amber-500/20",   icon: AlertTriangle, filter: "at_risk"   as const },
-          { label: "Breached", count: breached, color: "text-red-400",     bg: "bg-red-500/10",     border: "border-red-500/20",     icon: XCircle,       filter: "breached"  as const },
+          { label: "Breached", count: breached, color: "text-blue-400",     bg: "bg-blue-500/10",     border: "border-blue-500/20",     icon: XCircle,       filter: "breached"  as const },
         ].map((card, i) => (
           <motion.button
             key={card.label}
@@ -383,7 +383,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
                   <span>
                     {sla.dueDate.toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
                     {" · "}
-                    <span className={daysUntil < 0 ? "text-red-400" : daysUntil < 3 ? "text-amber-400" : "text-gray-400"}>
+                    <span className={daysUntil < 0 ? "text-blue-400" : daysUntil < 3 ? "text-amber-400" : "text-gray-400"}>
                       {daysUntil < 0 ? `${Math.abs(daysUntil)}d overdue` : daysUntil === 0 ? "due today" : `${daysUntil}d left`}
                     </span>
                   </span>

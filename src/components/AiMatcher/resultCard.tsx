@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import ScoreBar from "./scoreBoard";
@@ -24,7 +24,7 @@ export default function ResultCard({
     return (
         <div
             onClick={onSelect}
-            className={`cursor-pointer border rounded-lg p-4 bg-white transition hover:shadow-md hover:scale-[1.01] ${selected ? "ring-2 ring-[#c12129]" : ""
+            className={`cursor-pointer border rounded-lg p-4 bg-white transition hover:shadow-md hover:scale-[1.01] ${selected ? "ring-2 ring-[#2563EB]" : ""
                 }`}
         >
             {/* Consultant Info */}
@@ -40,7 +40,7 @@ export default function ResultCard({
             </div>
 
             {/* Total Match */}
-            <div className="mt-2 text-sm font-semibold text-[#c12129]">
+            <div className="mt-2 text-sm font-semibold text-[#2563EB]">
                 {(score.total * 100).toFixed(1)}% Match
             </div>
 

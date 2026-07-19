@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ClientProfile } from "@/types/client";
 
@@ -9,7 +9,7 @@ interface ClientDetailsProps {
 export function ClientDetails({ client }: ClientDetailsProps) {
     return (
         <section className="bg-[#111] border border-white/20 rounded-xl p-6 space-y-6 shadow-md hover:shadow-lg transition">
-            <h2 className="text-2xl font-bold text-[#c12129]">Client Details</h2>
+            <h2 className="text-2xl font-bold text-[#2563EB]">Client Details</h2>
 
             {/* Basic Info */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -61,7 +61,7 @@ function DetailItem({
         <div className="flex flex-col bg-black p-3 rounded-lg border border-gray-700 hover:bg-[#1a1a1a] transition">
             <span className="text-sm text-gray-400">{label}</span>
             <span
-                className={`text-base font-semibold ${accent ? "text-[#c12129]" : "text-white"
+                className={`text-base font-semibold ${accent ? "text-[#2563EB]" : "text-white"
                     }`}
             >
                 {value || "—"}

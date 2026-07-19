@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { FaCheckCircle, FaUpload } from "react-icons/fa";
@@ -53,7 +53,7 @@ export default function StepStatus({ data, onChange, onJumpToStep }: StepStatusP
             {!safeProfile.premium && (
               <a
                 href="/premium"
-                className="mt-2 inline-block text-xs bg-brand hover:bg-red-600 text-white px-3 py-1 rounded-md transition"
+                className="mt-2 inline-block text-xs bg-brand hover:bg-blue-600 text-white px-3 py-1 rounded-md transition"
               >
                 Upgrade
               </a>

@@ -1,4 +1,4 @@
-// components/escrow/EscrowPanel.tsx
+﻿// components/escrow/EscrowPanel.tsx
 "use client";
 
 interface EscrowPanelProps {
@@ -44,7 +44,7 @@ export default function EscrowPanel({
         {onFund && (
           <button
             onClick={onFund}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition shadow-lg shadow-red-900/20"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20"
           >
             Fund Milestone
           </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -87,7 +87,7 @@ export default function OutreachAdminPanel({
       </Section>
 
       {isLoading && <p className="text-gray-400">Loading outreach data...</p>}
-      {error && <p className="text-red-400">Failed to load outreach data.</p>}
+      {error && <p className="text-blue-400">Failed to load outreach data.</p>}
     </div>
   );
 }

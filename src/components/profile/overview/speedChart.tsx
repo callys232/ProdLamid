@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   LineChart,
   Line,
@@ -17,7 +17,7 @@ interface Props {
 
 export default function CompletionSpeedChart({
   milestones,
-  accent = "#c12129",
+  accent = "#2563EB",
 }: Props) {
   const data = milestones.map((m) => ({
     name: m.title,

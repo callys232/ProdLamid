@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import type { EscrowTransaction } from "@/types/escrow";
@@ -16,7 +16,7 @@ const CONFIG: Record<ActionType, { title: string; confirmLabel: string; confirmC
   fund:    { title: "Fund Milestone",    confirmLabel: "Confirm Funding",  confirmCls: "bg-blue-600 hover:bg-blue-700",   notesPlaceholder: "Optional notes about funding…" },
   release: { title: "Release Funds",     confirmLabel: "Confirm Release",  confirmCls: "bg-green-600 hover:bg-green-700", notesPlaceholder: "Reason for releasing funds…" },
   refund:  { title: "Refund Funds",      confirmLabel: "Confirm Refund",   confirmCls: "bg-yellow-700 hover:bg-yellow-600", notesPlaceholder: "Reason for refund…" },
-  dispute: { title: "Raise Dispute",     confirmLabel: "Submit Dispute",   confirmCls: "bg-red-700 hover:bg-red-800",     notesPlaceholder: "Describe the issue clearly…" },
+  dispute: { title: "Raise Dispute",     confirmLabel: "Submit Dispute",   confirmCls: "bg-blue-700 hover:bg-blue-800",     notesPlaceholder: "Describe the issue clearly…" },
 };
 
 export default function ActionModal({ type, tx, onClose, onConfirm, isPremium = false }: ActionModalProps) {
@@ -59,7 +59,7 @@ export default function ActionModal({ type, tx, onClose, onConfirm, isPremium = 
               onChange={(e) => setNotes(e.target.value)}
               placeholder={cfg.notesPlaceholder}
               rows={3}
-              className="w-full resize-none rounded-md border border-gray-700 bg-gray-800 p-2.5 text-sm text-gray-200 focus:border-red-600 focus:outline-none"
+              className="w-full resize-none rounded-md border border-gray-700 bg-gray-800 p-2.5 text-sm text-gray-200 focus:border-blue-600 focus:outline-none"
             />
           </div>
 

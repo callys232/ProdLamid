@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/User";
 
@@ -14,9 +15,11 @@ export async function POST(req: NextRequest) {
     if (password.length < 8)
       return NextResponse.json({ success: false, message: "Password must be at least 8 characters" }, { status: 400 });
 
+    const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+
     const user = await Users.findOne({
       email:            email.toLowerCase().trim(),
-      resetToken:       token,
+      resetToken:       tokenHash,
       resetTokenExpiry: { $gt: new Date() },
     });
 

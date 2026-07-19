@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -10,7 +10,7 @@ const VALUES = [
     title: "Integrity",
     desc: "We build systems that honor people and purpose.",
     Icon: ShieldCheck,
-    hex: "#c21219",
+    hex: "#2563EB",
     glow: "rgba(194,18,25,0.35)",
   },
   {
@@ -72,20 +72,20 @@ const ValuesSection: React.FC = () => {
       {/* Vector bg */}
       <svg aria-hidden="true" className="pointer-events-none absolute inset-0 w-full h-full z-0"
         xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <line x1="0" y1="0" x2="100%" y2="100%" stroke="#c21219" strokeWidth="0.8" opacity="0.07" />
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="#2563EB" strokeWidth="0.8" opacity="0.07" />
         <line x1="100%" y1="0" x2="0" y2="100%" stroke="#ffffff" strokeWidth="0.6" opacity="0.04" />
         <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#ffffff" strokeWidth="0.5" opacity="0.03" />
-        <circle cx="5%" cy="10%" r="120" fill="none" stroke="#c21219" strokeWidth="0.8" opacity="0.08" />
-        <circle cx="95%" cy="90%" r="160" fill="none" stroke="#c21219" strokeWidth="0.7" opacity="0.07" />
+        <circle cx="5%" cy="10%" r="120" fill="none" stroke="#2563EB" strokeWidth="0.8" opacity="0.08" />
+        <circle cx="95%" cy="90%" r="160" fill="none" stroke="#2563EB" strokeWidth="0.7" opacity="0.07" />
         <circle cx="50%" cy="50%" r="260" fill="none" stroke="#ffffff" strokeWidth="0.5" opacity="0.03" />
-        <circle cx="20%" cy="80%" r="3" fill="#c21219" opacity="0.2" />
-        <circle cx="80%" cy="15%" r="2.5" fill="#c21219" opacity="0.18" />
+        <circle cx="20%" cy="80%" r="3" fill="#2563EB" opacity="0.2" />
+        <circle cx="80%" cy="15%" r="2.5" fill="#2563EB" opacity="0.18" />
         <circle cx="60%" cy="70%" r="2" fill="#ffffff" opacity="0.1" />
-        <path d="M 0 0 Q 180 0 180 180" fill="none" stroke="#c21219" strokeWidth="0.8" opacity="0.1" />
+        <path d="M 0 0 Q 180 0 180 180" fill="none" stroke="#2563EB" strokeWidth="0.8" opacity="0.1" />
       </svg>
 
       {/* Red ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-48 rounded-full bg-[#c21219]/8 blur-3xl pointer-events-none z-0" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-48 rounded-full bg-[#2563EB]/8 blur-3xl pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
 
@@ -100,8 +100,8 @@ const ValuesSection: React.FC = () => {
             >
               <motion.span animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
                 transition={{ repeat: Infinity, duration: 2 }}
-                className="h-1.5 w-1.5 rounded-full bg-[#c21219]" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#c21219]">Who we are...</span>
+                className="h-1.5 w-1.5 rounded-full bg-[#2563EB]" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">Who we are...</span>
             </motion.div>
 
             <motion.div
@@ -110,7 +110,7 @@ const ValuesSection: React.FC = () => {
               transition={{ delay: 0.08, type: "spring", stiffness: 280, damping: 22 }}
               className="flex items-center gap-3 flex-wrap"
             >
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] via-rose-400 to-white shrink-0">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-rose-400 to-white shrink-0">
                 Core Values
               </h2>
               <span className="h-8 w-px bg-white/15 shrink-0" />

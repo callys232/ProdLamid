@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,7 +27,7 @@ interface ConsultantListItem {
 const STATUS_STYLE: Record<string, string> = {
   pending:   "text-yellow-400 bg-yellow-500/10 border-yellow-500/30",
   accepted:  "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
-  declined:  "text-red-400 bg-red-500/10 border-red-500/30",    // canonical value from @/types/client
+  declined:  "text-blue-400 bg-blue-500/10 border-blue-500/30",    // canonical value from @/types/client
 };
 
 const STATUS_ICON: Record<string, React.ReactNode> = {
@@ -178,7 +178,7 @@ export default function ConciergeInvitations() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[300px]">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#c21219] border-t-transparent" />
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#2563EB] border-t-transparent" />
       </div>
     );
   }
@@ -188,7 +188,7 @@ export default function ConciergeInvitations() {
       {/* Header */}
       <div>
         <h1 className="text-xl font-bold text-white flex items-center gap-2">
-          <Mail className="h-5 w-5 text-[#c21219]" /> Invitations
+          <Mail className="h-5 w-5 text-[#2563EB]" /> Invitations
         </h1>
         <p className="text-sm text-gray-500 mt-0.5">
           Invite consultants to your projects via email or direct selection.
@@ -202,7 +202,7 @@ export default function ConciergeInvitations() {
           className="rounded-xl border border-white/10 bg-white/5 p-5 space-y-4"
         >
           <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-[#c21219]" />
+            <Mail className="h-4 w-4 text-[#2563EB]" />
             <h2 className="text-sm font-semibold text-white">Invite by Email</h2>
           </div>
           <div className="flex gap-2">
@@ -212,14 +212,14 @@ export default function ConciergeInvitations() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               onKeyDown={e => e.key === "Enter" && handleEmailInvite()}
-              className="flex-1 rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50"
+              className="flex-1 rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50"
             />
             <motion.button
               whileHover={{ scale: 1.04, boxShadow: "0 4px 14px rgba(194,18,25,0.35)" }}
               whileTap={{ scale: 0.96 }}
               disabled={sending || !email.trim()}
               onClick={handleEmailInvite}
-              className="flex items-center gap-1.5 rounded-lg bg-[#c21219] px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-lg bg-[#2563EB] px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
             >
               <SendHorizonal className="h-3.5 w-3.5" /> Send
             </motion.button>
@@ -232,7 +232,7 @@ export default function ConciergeInvitations() {
           className="rounded-xl border border-white/10 bg-white/5 p-5 space-y-4"
         >
           <div className="flex items-center gap-2">
-            <User className="h-4 w-4 text-[#c21219]" />
+            <User className="h-4 w-4 text-[#2563EB]" />
             <h2 className="text-sm font-semibold text-white">Select Consultant</h2>
           </div>
           <div className="relative">
@@ -264,7 +264,7 @@ export default function ConciergeInvitations() {
                       onClick={() => { setSelectedId(c._id ?? c.id); setShowConsultantDrop(false); }}
                       className="flex items-center gap-3 px-4 py-2.5 cursor-pointer text-sm text-gray-300 border-b border-white/5 last:border-0"
                     >
-                      <div className="h-7 w-7 rounded-full bg-[#c21219]/20 flex items-center justify-center text-[11px] font-bold text-[#c21219] flex-shrink-0">
+                      <div className="h-7 w-7 rounded-full bg-[#2563EB]/20 flex items-center justify-center text-[11px] font-bold text-[#2563EB] flex-shrink-0">
                         {(c.name ?? c.username ?? "?")[0].toUpperCase()}
                       </div>
                       <div className="min-w-0">
@@ -283,7 +283,7 @@ export default function ConciergeInvitations() {
               whileTap={{ scale: 0.96 }}
               disabled={sending}
               onClick={() => handleConsultantInvite(selectedConsultant)}
-              className="w-full rounded-lg bg-[#c21219] py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+              className="w-full rounded-lg bg-[#2563EB] py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
             >
               Invite {selectedConsultant.name ?? selectedConsultant.username}
             </motion.button>
@@ -294,19 +294,19 @@ export default function ConciergeInvitations() {
       {/* ── AI Recommendations (Concierge premium feature) ─────── */}
       <motion.div
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-        className="rounded-xl border border-[#c21219]/20 bg-[#c21219]/5 p-5 space-y-4"
+        className="rounded-xl border border-[#2563EB]/20 bg-[#2563EB]/5 p-5 space-y-4"
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-[#c21219]" />
+            <Sparkles className="h-4 w-4 text-[#2563EB]" />
             <h2 className="text-sm font-semibold text-white">AI Recommendations</h2>
-            <span className="text-[10px] bg-[#c21219] text-white px-2 py-0.5 rounded-full font-semibold">Concierge</span>
+            <span className="text-[10px] bg-[#2563EB] text-white px-2 py-0.5 rounded-full font-semibold">Concierge</span>
           </div>
           <motion.button
             whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
             disabled={aiLoading}
             onClick={handleAI}
-            className="flex items-center gap-2 rounded-lg border border-[#c21219]/30 bg-[#c21219]/10 px-4 py-2 text-xs font-semibold text-[#c21219] transition hover:bg-[#c21219]/20 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-2 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20 disabled:opacity-50"
           >
             <Sparkles className="h-3 w-3" />
             {aiLoading ? "Analysing…" : "Get Recommendations"}
@@ -329,7 +329,7 @@ export default function ConciergeInvitations() {
                   className="flex items-center justify-between rounded-lg border border-white/8 bg-white/5 px-4 py-3"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-[#c21219]/20 flex items-center justify-center text-xs font-bold text-[#c21219]">
+                    <div className="h-8 w-8 rounded-full bg-[#2563EB]/20 flex items-center justify-center text-xs font-bold text-[#2563EB]">
                       {(c.name ?? c.username ?? "?")[0].toUpperCase()}
                     </div>
                     <div>
@@ -341,7 +341,7 @@ export default function ConciergeInvitations() {
                     whileHover={{ scale: 1.05, boxShadow: "0 4px 12px rgba(194,18,25,0.3)" }} whileTap={{ scale: 0.95 }}
                     disabled={sending}
                     onClick={() => handleConsultantInvite(c)}
-                    className="rounded-lg bg-[#c21219]/15 border border-[#c21219]/30 px-3 py-1.5 text-xs font-semibold text-[#c21219] transition hover:bg-[#c21219]/25"
+                    className="rounded-lg bg-[#2563EB]/15 border border-[#2563EB]/30 px-3 py-1.5 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/25"
                   >
                     Invite
                   </motion.button>
@@ -366,7 +366,7 @@ export default function ConciergeInvitations() {
               placeholder="Search…"
               value={filter}
               onChange={e => setFilter(e.target.value)}
-              className="rounded-lg border border-white/10 bg-black/40 pl-8 pr-3 py-1.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50 w-44"
+              className="rounded-lg border border-white/10 bg-black/40 pl-8 pr-3 py-1.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 w-44"
             />
           </div>
         </div>
@@ -416,7 +416,7 @@ export default function ConciergeInvitations() {
                           whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
                           onClick={() => handleCancel(inv.id)}
                           title="Cancel"
-                          className="rounded-lg border border-red-500/20 bg-red-500/5 p-1.5 text-red-400 transition hover:bg-red-500/15"
+                          className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-1.5 text-blue-400 transition hover:bg-blue-500/15"
                         >
                           <Trash2 className="h-3 w-3" />
                         </motion.button>

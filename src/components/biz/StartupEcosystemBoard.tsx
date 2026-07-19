@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -262,10 +262,10 @@ export default function StartupEcosystemBoard() {
           </Card>
 
           {/* 4 · Minimum Viable Prototype — icon BOTTOM */}
-          <Card index={3} borderCls="border border-red-500/70" glowColor="#dc2626" href="/biz" onClick={go}>
+          <Card index={3} borderCls="border border-blue-500/70" glowColor="#dc2626" href="/biz" onClick={go}>
             <div className="flex flex-col justify-between items-center h-full p-3">
-              <Tag text="Minimum viable Prototype & Model" color="text-red-300" />
-              <IconCircle bg="#dc2626" glow="#ef4444" icon="lightbulb" />
+              <Tag text="Minimum viable Prototype & Model" color="text-blue-300" />
+              <IconCircle bg="#dc2626" glow="#2563EB" icon="lightbulb" />
             </div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <CurlyArrow color="#f87171" delay={1.2} />
@@ -324,7 +324,7 @@ export default function StartupEcosystemBoard() {
             @keyframes esb-shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
             @keyframes esb-blink{0%,100%{opacity:1}50%{opacity:0.55}}
             @keyframes esb-dot{0%,100%{box-shadow:0 0 4px rgba(194,18,25,0.9)}50%{box-shadow:0 0 14px rgba(251,113,133,1)}}
-            .esb-caption{background:linear-gradient(270deg,#c21219,#f43f5e,#fb923c,#a78bfa,#34d399,#60a5fa,#f43f5e,#c21219);background-size:400% 400%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:esb-shift 6s ease-in-out infinite,esb-blink 3.5s ease-in-out infinite}
+            .esb-caption{background:linear-gradient(270deg,#2563EB,#f43f5e,#fb923c,#a78bfa,#34d399,#60a5fa,#f43f5e,#2563EB);background-size:400% 400%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:esb-shift 6s ease-in-out infinite,esb-blink 3.5s ease-in-out infinite}
             .esb-dot{animation:esb-dot 2s ease-in-out infinite}
           `}</style>
           <motion.div
@@ -334,8 +334,8 @@ export default function StartupEcosystemBoard() {
             transition={{ type: "spring", stiffness: 260, damping: 22, delay: 0.85 }}
             className="flex justify-center mt-6"
           >
-            <span className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full cursor-default select-none border border-[#c21219]/25 bg-[#c21219]/5">
-              <span className="esb-dot w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[#c21219]" />
+            <span className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full cursor-default select-none border border-[#2563EB]/25 bg-[#2563EB]/5">
+              <span className="esb-dot w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[#2563EB]" />
               <span className="esb-caption text-xs sm:text-sm font-semibold tracking-wide">
                 Over 3000 start-ups created and accelerated. Be the next raving success!
               </span>

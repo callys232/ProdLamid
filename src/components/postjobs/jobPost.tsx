@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import type { Project } from "@/types/project";
@@ -161,16 +161,16 @@ export default function JobPostingForm({ onSubmit }: JobPostingFormProps) {
           <button
             type="button"
             onClick={goNext}
-            className="ml-auto px-7 py-2.5 bg-[#c21219] text-white text-sm font-semibold rounded-lg
-                       transition-all duration-150 hover:bg-red-700 hover:shadow-lg hover:-translate-y-px active:scale-95"
+            className="ml-auto px-7 py-2.5 bg-[#2563EB] text-white text-sm font-semibold rounded-lg
+                       transition-all duration-150 hover:bg-blue-700 hover:shadow-lg hover:-translate-y-px active:scale-95"
           >
             Continue →
           </button>
         ) : (
           <button
             type="submit"
-            className="ml-auto px-7 py-2.5 bg-[#c21219] text-white text-sm font-semibold rounded-lg
-                       transition-all duration-150 hover:bg-red-700 hover:shadow-lg hover:-translate-y-px active:scale-95"
+            className="ml-auto px-7 py-2.5 bg-[#2563EB] text-white text-sm font-semibold rounded-lg
+                       transition-all duration-150 hover:bg-blue-700 hover:shadow-lg hover:-translate-y-px active:scale-95"
           >
             Post Project
           </button>

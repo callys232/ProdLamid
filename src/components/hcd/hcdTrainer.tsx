@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
@@ -20,7 +20,7 @@ const RECRUIT_BADGES = [
   { label: "Verified Experts", color: "#10b981", delay: 0.07 },
   { label: "Predictive Fit Scoring", color: "#6366f1", delay: 0.14 },
   { label: "Top 1% Talent", color: "#f59e0b", delay: 0.21 },
-  { label: "Hire Pipeline", color: "#c21219", delay: 0.28 },
+  { label: "Hire Pipeline", color: "#2563EB", delay: 0.28 },
   { label: "Vetted Consultants", color: "#3b82f6", delay: 0.35 },
   { label: "Capacity Building", color: "#8b5cf6", delay: 0.42 },
   { label: "Executive Headhunt", color: "#14b8a6", delay: 0.49 },
@@ -426,8 +426,8 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                     {
                       label: "MANAGEMENT",
                       desc: "Performance management & supervision",
-                      bg: "bg-red-800",
-                      hover: "bg-red-700",
+                      bg: "bg-blue-800",
+                      hover: "bg-blue-700",
                     },
                     {
                       label: "ENTREPRENEURSHIP",

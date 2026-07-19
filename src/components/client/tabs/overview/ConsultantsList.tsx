@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Consultant } from "@/types/client";
 import EmptyState from "@/components/ui/EmptyState";
@@ -12,7 +12,7 @@ export function ConsultantsList({ consultants }: ConsultantsListProps) {
     if (!consultants || consultants.length === 0) {
         return (
             <section className="bg-[#111] border border-white/20 rounded-xl p-6 shadow-md">
-                <h2 className="text-xl font-semibold text-[#c12129] mb-4">Consultants</h2>
+                <h2 className="text-xl font-semibold text-[#2563EB] mb-4">Consultants</h2>
                 <EmptyState
                     icon={Users}
                     title="No consultants yet"
@@ -26,7 +26,7 @@ export function ConsultantsList({ consultants }: ConsultantsListProps) {
 
     return (
         <section className="bg-[#111] border border-white/20 rounded-xl p-6 shadow-md hover:shadow-lg transition">
-            <h2 className="text-xl font-semibold text-[#c12129] mb-4">Consultants</h2>
+            <h2 className="text-xl font-semibold text-[#2563EB] mb-4">Consultants</h2>
             <div className="space-y-4">
                 {consultants.map((c) => (
                     <div
@@ -40,7 +40,7 @@ export function ConsultantsList({ consultants }: ConsultantsListProps) {
                         </div>
                         <div className="text-left sm:text-right">
                             <div className="flex items-center gap-1 sm:justify-end">
-                                <span className="text-[#c12129] font-medium">{c.rating}</span>
+                                <span className="text-[#2563EB] font-medium">{c.rating}</span>
                                 <span className="text-yellow-500">★</span>
                             </div>
                             <p className="text-sm text-gray-300 font-medium mt-1">

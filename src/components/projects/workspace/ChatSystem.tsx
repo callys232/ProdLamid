@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { FaPaperPlane, FaUserCircle, FaPaperclip } from "react-icons/fa";
@@ -97,7 +97,7 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
                                 </div>
                             </>
                         ) : (
-                            <div className="bg-red-900/10 border border-red-900/20 text-red-500 text-[10px] uppercase font-bold tracking-widest px-4 py-1 rounded-full">
+                            <div className="bg-blue-900/10 border border-blue-900/20 text-blue-500 text-[10px] uppercase font-bold tracking-widest px-4 py-1 rounded-full">
                                 {msg.type.replace('_', ' ')}: {msg.message}
                             </div>
                         )}
@@ -118,11 +118,11 @@ export default function ChatSystem({ projectId }: ChatSystemProps) {
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Type your message..."
-                    className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-red-600 transition-all"
+                    className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-blue-600 transition-all"
                 />
                 <button 
                     type="submit"
-                    className="p-3 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all shadow-lg shadow-red-900/20"
+                    className="p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all shadow-lg shadow-blue-900/20"
                 >
                     <FaPaperPlane />
                 </button>

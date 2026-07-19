@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Line, Bar } from "react-chartjs-2";
@@ -93,7 +93,7 @@ function TrendIndicator({ current, prev }: { current: number; prev?: number }) {
   if (current > prev) {
     return <FaArrowUp className="inline text-green-400 ml-2" />;
   } else if (current < prev) {
-    return <FaArrowDown className="inline text-red-400 ml-2" />;
+    return <FaArrowDown className="inline text-blue-400 ml-2" />;
   }
   return null;
 }
@@ -262,7 +262,7 @@ export default function AnalyticsAgent(): React.ReactElement {
         <p className="text-gray-400 text-sm">Loading analytics...</p>
       )}
       {error && (
-        <p className="text-red-400 text-sm mt-4">
+        <p className="text-blue-400 text-sm mt-4">
           Failed to load live analytics. Showing fallback data.
         </p>
       )}

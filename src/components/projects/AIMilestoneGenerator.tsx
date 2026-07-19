@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,7 +66,7 @@ export default function AIMilestoneGenerator({
         {loading ? "Generating plan…" : "Generate AI Milestone Plan"}
       </button>
 
-      {error && <p className="text-xs text-red-400">{error}</p>}
+      {error && <p className="text-xs text-blue-400">{error}</p>}
 
       <AnimatePresence>
         {plan && (

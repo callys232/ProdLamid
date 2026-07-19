@@ -5,7 +5,7 @@ import { Profile } from "@/lib/models/Profile";
 import jwt from "jsonwebtoken";
 import { awardPoints, SIGNUP_BONUS } from "@/lib/services/pointsService";
 
-const JWT_SECRET   = process.env.JWT_SECRET   ?? "default_secret_key_change_me";
+const JWT_SECRET   = process.env.JWT_SECRET   ?? "";
 const CLIENT_ID    = process.env.GOOGLE_CLIENT_ID     ?? "";
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET ?? "";
 

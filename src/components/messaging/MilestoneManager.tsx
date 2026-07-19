@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -75,7 +75,7 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
             case "pending": return "text-yellow-500 bg-yellow-500/10 border-yellow-500/20";
             case "started": return "text-blue-500 bg-blue-500/10 border-blue-500/20";
             case "approved": return "text-green-500 bg-green-500/10 border-green-500/20";
-            case "dispute": return "text-red-500 bg-red-500/10 border-red-500/20";
+            case "dispute": return "text-blue-500 bg-blue-500/10 border-blue-500/20";
             default: return "text-gray-400 bg-gray-400/10 border-gray-400/20";
         }
     };
@@ -86,7 +86,7 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
                 <h3 className="text-xl font-bold">Project Milestones</h3>
                 <button
                     onClick={() => setIsAdding(true)}
-                    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-bold transition-all"
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold transition-all"
                 >
                     <FaPlus /> Add Milestone
                 </button>
@@ -136,7 +136,7 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
                                 </span>
                             </div>
                             <p className="text-sm text-gray-400">{m.description}</p>
-                            <p className="text-red-500 font-bold mt-2">${m.amount.toLocaleString()}</p>
+                            <p className="text-blue-500 font-bold mt-2">${m.amount.toLocaleString()}</p>
                         </div>
 
                         <div className="flex gap-2">
@@ -151,7 +151,7 @@ export default function MilestoneManager({ projectId }: MilestoneManagerProps) {
                                 </button>
                             )}
                             {m.status === "started" && (
-                                <button onClick={() => updateStatus(m._id, "dispute")} className="p-3 bg-red-600 hover:bg-red-700 rounded-lg text-white" title="Raise Dispute">
+                                <button onClick={() => updateStatus(m._id, "dispute")} className="p-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white" title="Raise Dispute">
                                     <FaExclamationTriangle />
                                 </button>
                             )}

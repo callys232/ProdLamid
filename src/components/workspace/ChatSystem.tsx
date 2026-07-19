@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { FaPaperPlane, FaUserCircle, FaPaperclip } from "react-icons/fa";
@@ -142,7 +142,7 @@ export default function ChatSystem({ projectId }: { projectId: string }) {
           </div>
         )}
         {fetchError && !loading && (
-          <div className="flex flex-col items-center justify-center h-full gap-2 text-red-400">
+          <div className="flex flex-col items-center justify-center h-full gap-2 text-blue-400">
             <AlertCircle className="h-6 w-6" />
             <p className="text-sm">Couldn't load messages.</p>
             <button onClick={fetchMessages} className="text-xs underline hover:text-white">Retry</button>
@@ -168,11 +168,11 @@ export default function ChatSystem({ projectId }: { projectId: string }) {
                       {new Date(msg.sentAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                     </span>
                     {msg.status === "sending" && <Loader2 className="h-2.5 w-2.5 animate-spin text-gray-600" />}
-                    {msg.status === "failed"  && <AlertCircle className="h-2.5 w-2.5 text-red-400" />}
+                    {msg.status === "failed"  && <AlertCircle className="h-2.5 w-2.5 text-blue-400" />}
                   </div>
                   <div className={`rounded-2xl rounded-tl-none p-3 text-sm text-gray-200 border transition-colors ${
                     msg.status === "failed"
-                      ? "bg-red-500/5 border-red-500/20"
+                      ? "bg-blue-500/5 border-blue-500/20"
                       : "bg-white/5 border-white/5"
                   } ${msg.status === "sending" ? "opacity-60" : ""}`}>
                     {msg.message}
@@ -180,7 +180,7 @@ export default function ChatSystem({ projectId }: { projectId: string }) {
                 </div>
               </>
             ) : (
-              <div className="bg-red-900/10 border border-red-900/20 text-red-500 text-[10px] uppercase font-bold tracking-widest px-4 py-1 rounded-full">
+              <div className="bg-blue-900/10 border border-blue-900/20 text-blue-500 text-[10px] uppercase font-bold tracking-widest px-4 py-1 rounded-full">
                 {msg.type.replace("_", " ")}: {msg.message}
               </div>
             )}
@@ -198,9 +198,9 @@ export default function ChatSystem({ projectId }: { projectId: string }) {
         </button>
         <input type="text" value={newMessage} onChange={e => setNewMessage(e.target.value)}
           placeholder="Type your message…"
-          className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-red-600 transition-all" />
+          className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-blue-600 transition-all" />
         <button type="submit" disabled={!newMessage.trim()}
-          className="p-3 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all shadow-lg shadow-red-900/20 disabled:opacity-40">
+          className="p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all shadow-lg shadow-blue-900/20 disabled:opacity-40">
           <FaPaperPlane />
         </button>
       </form>

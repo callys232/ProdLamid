@@ -37,7 +37,7 @@ export default function ManifestoExcerpt() {
           <motion.line
             key={i}
             x1={v.x1} y1={v.y1} x2={v.x2} y2={v.y2}
-            stroke="#C12129" strokeWidth="0.6" strokeOpacity="0.08"
+            stroke="#2563EB" strokeWidth="0.6" strokeOpacity="0.08"
             strokeDasharray="5 25"
             animate={{ strokeDashoffset: [0, -90], opacity: [0.04, 0.16, 0.04] }}
             transition={{
@@ -47,7 +47,7 @@ export default function ManifestoExcerpt() {
           />
         ))}
         {dots.map((dot, i) => (
-          <motion.circle key={i} cx={dot.cx} r={dot.r} fill="#C12129"
+          <motion.circle key={i} cx={dot.cx} r={dot.r} fill="#2563EB"
             animate={{ cy: [`${dot.cy}%`, `${dot.cy - dot.floatPct}%`, `${dot.cy}%`], opacity: i === 0 ? [0.2, 0.6, 0.2] : [0.1, 0.3, 0.1] }}
             transition={{ duration: dot.dur, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
           />
@@ -57,7 +57,7 @@ export default function ManifestoExcerpt() {
       {/* Centre ambient glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.div
-          className="w-96 h-96 rounded-full bg-[#C12129] blur-3xl"
+          className="w-96 h-96 rounded-full bg-[#2563EB] blur-3xl"
           animate={{ opacity: [0.02, 0.06, 0.02], scale: [0.9, 1.05, 0.9] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />

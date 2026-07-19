@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Tooltip from "./tooltip";
@@ -9,7 +9,7 @@ type Field = "permitsCost" | "complianceCost" | "legalFees";
 const FIELDS: { key: Field; label: string; color: string; placeholder: string; hint: string }[] = [
   { key: "permitsCost",    label: "Permits Cost",     color: "text-orange-400", placeholder: "5000", hint: "Typical permits: $4k–6k" },
   { key: "complianceCost", label: "Compliance Cost",  color: "text-yellow-400", placeholder: "3000", hint: "Adds ~5–10% of project cost" },
-  { key: "legalFees",      label: "Legal Fees",       color: "text-red-400",    placeholder: "2000", hint: "Average $1.5k–3k" },
+  { key: "legalFees",      label: "Legal Fees",       color: "text-blue-400",    placeholder: "2000", hint: "Average $1.5k–3k" },
 ];
 
 const cardBase = (active: boolean) =>

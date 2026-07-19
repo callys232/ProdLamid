@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Users, Globe, Heart, TrendingUp, BookOpen, Handshake } from "lucide-react";
@@ -7,7 +7,7 @@ const stats = [
   { icon: Users,      value: "50,000+", label: "Lives Impacted",         color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/30" },
   { icon: Globe,      value: "12+",     label: "Countries Reached",      color: "text-blue-400",    bg: "bg-blue-500/10",    border: "border-blue-500/30" },
   { icon: Handshake,  value: "5,000+",  label: "Cooperatives Supported", color: "text-orange-400",  bg: "bg-orange-500/10",  border: "border-orange-500/30" },
-  { icon: Heart,      value: "40+",     label: "Healthcare Partnerships", color: "text-red-400",     bg: "bg-red-500/10",     border: "border-red-500/30" },
+  { icon: Heart,      value: "40+",     label: "Healthcare Partnerships", color: "text-blue-400",     bg: "bg-blue-500/10",     border: "border-blue-500/30" },
   { icon: BookOpen,   value: "200+",    label: "Training Programmes",    color: "text-purple-400",  bg: "bg-purple-500/10",  border: "border-purple-500/30" },
   { icon: TrendingUp, value: "25+",     label: "Years of Impact",        color: "text-yellow-400",  bg: "bg-yellow-500/10",  border: "border-yellow-500/30" },
 ];

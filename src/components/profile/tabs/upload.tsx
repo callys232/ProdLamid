@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -16,7 +16,7 @@ const UploadZone: React.FC<UploadZoneProps> = ({ label, accept, onUpload }) => {
     };
 
     return (
-        <div className="mb-6 border-2 border-dashed border-gray-600 rounded-lg p-6 text-center hover:border-[#c12129] transition">
+        <div className="mb-6 border-2 border-dashed border-gray-600 rounded-lg p-6 text-center hover:border-[#2563EB] transition">
             <p className="text-gray-400 mb-2">{label}</p>
             <input
                 type="file"

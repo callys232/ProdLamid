@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState, KeyboardEvent } from "react";
 import JobCard from "./JobCard";
@@ -56,7 +56,7 @@ export default function JobCarousel({
         {canScrollLeft && (
           <button
             type="button"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/40 hover:bg-black/70 text-white px-3 py-2 rounded-full transition focus:outline-none focus:ring-2 focus:ring-[#c21219]"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/40 hover:bg-black/70 text-white px-3 py-2 rounded-full transition focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
             onClick={() => scrollBy(-400)}
             aria-label="Scroll left"
           >
@@ -66,7 +66,7 @@ export default function JobCarousel({
         {canScrollRight && (
           <button
             type="button"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/40 hover:bg-black/70 text-white px-3 py-2 rounded-full transition focus:outline-none focus:ring-2 focus:ring-[#c21219]"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/40 hover:bg-black/70 text-white px-3 py-2 rounded-full transition focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
             onClick={() => scrollBy(400)}
             aria-label="Scroll right"
           >
@@ -81,7 +81,7 @@ export default function JobCarousel({
         tabIndex={0}
         onKeyDown={handleKeyDown}
         className="
-          flex gap-4 scroll-smooth pb-2 snap-mandatory focus:outline-none focus:ring-2 focus:ring-[#c21219]
+          flex gap-4 scroll-smooth pb-2 snap-mandatory focus:outline-none focus:ring-2 focus:ring-[#2563EB]
           flex-col overflow-y-auto md:flex-row md:overflow-x-auto
         "
         role="list"

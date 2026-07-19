@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import { Sparkles, Zap, ShieldCheck, Globe } from "lucide-react";
 
 const TILES = [
-  { icon: Sparkles,    href: "/talent",  title: "Human + AI Hybrid",  body: "The best of human intuition combined with AI precision. Neither alone is enough." },
-  { icon: Zap,         href: "/talent",  title: "10x Faster Matching", body: "AI-powered expert matching delivers results in minutes, not weeks or months." },
-  { icon: ShieldCheck, href: "/pricing", title: "Enterprise-Grade",    body: "SOC 2 compliant, end-to-end encryption, and enterprise SSO integration." },
-  { icon: Globe,       href: "/postjobs",title: "Accessible to All",   body: "Democratizing world-class consulting for organizations of every size." },
+  { icon: Sparkles,    href: "/ecosystem", title: "Unified by Design",           body: "Not four separate tools bolted together. One system, built from day one to work as a whole — across strategy, growth, talent, and finance." },
+  { icon: Zap,         href: "/talent",   title: "Human Insight + AI Precision", body: "Our diagnostic engine combines 30+ years of consulting expertise with AI pattern recognition across 40+ organizational variables." },
+  { icon: ShieldCheck, href: "/pricing",  title: "Built for Every Scale",        body: "Whether you're a 20-person startup or a 20,000-person enterprise, LAMID ONE adapts to where you are and grows with where you're going." },
+  { icon: Globe,       href: "/ecosystem", title: "Outcomes Not Reports",        body: "We don't hand you a deck and leave. LAMID ONE connects the diagnostic to action — tools, advisors, and a system that tracks what happens next." },
 ];
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } };
@@ -26,7 +26,7 @@ export default function WhyAivora() {
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
         {["M0 100 L1400 100", "M0 300 L1400 300", "M0 500 L1400 500",
           "M300 0 L300 700", "M700 0 L700 700", "M1100 0 L1100 700"].map((d, i) => (
-          <motion.path key={i} d={d} fill="none" stroke="#C12129" strokeWidth="0.4"
+          <motion.path key={i} d={d} fill="none" stroke="#2563EB" strokeWidth="0.4"
             strokeOpacity="0.05" strokeDasharray="6 40"
             animate={{ strokeDashoffset: [0, -100], opacity: [0.03, 0.1, 0.03] }}
             transition={{ duration: 24 + i * 2, repeat: Infinity, ease: "linear", delay: i * 2 }}
@@ -48,7 +48,7 @@ export default function WhyAivora() {
             Why LAMID ONE
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug">
-            <span className="aivora-gradient-text">Built Different</span>
+            <span className="aivora-gradient-text">Why LAMID ONE Works.</span>
           </h2>
         </motion.div>
 
@@ -69,35 +69,35 @@ export default function WhyAivora() {
                 onHoverStart={() => setHovered(i)}
                 onHoverEnd={() => setHovered(null)}
                 onClick={() => router.push(tile.href)}
-                whileHover={{ y: -6, boxShadow: "0 16px 36px rgba(193,33,41,0.2)" }}
+                whileHover={{ y: -6, boxShadow: "0 16px 36px rgba(37,99,235,0.2)" }}
                 whileTap={{ scale: 0.97 }}
                 className="relative aivora-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
-                style={{ borderColor: isHov ? "rgba(193,33,41,0.4)" : undefined }}
+                style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
               >
                 {/* Glow — red */}
                 <motion.div
-                  className="absolute -top-8 -right-8 w-28 h-28 rounded-full blur-2xl pointer-events-none bg-[#C12129]"
+                  className="absolute -top-8 -right-8 w-28 h-28 rounded-full blur-2xl pointer-events-none bg-[#2563EB]"
                   animate={{ opacity: isHov ? 0.12 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
                 {/* Bottom sweep — red */}
                 <motion.div
                   className="absolute bottom-0 left-0 h-[2px] rounded-b-2xl"
-                  style={{ background: "linear-gradient(to right, #C12129, transparent)" }}
+                  style={{ background: "linear-gradient(to right, #2563EB, transparent)" }}
                   animate={{ width: isHov ? "100%" : "0%" }}
                   transition={{ duration: 0.3 }}
                 />
 
                 {/* Icon square — premium badge, always red */}
                 <motion.div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-[#C12129]/25 bg-[#C12129]/12"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-[#2563EB]/25 bg-[#2563EB]/12"
                   animate={{
                     scale: isHov ? 1.12 : 1,
-                    boxShadow: isHov ? "0 0 16px rgba(193,33,41,0.35)" : "none",
+                    boxShadow: isHov ? "0 0 16px rgba(37,99,235,0.35)" : "none",
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 >
-                  <tile.icon className="w-6 h-6 text-[#C12129]" strokeWidth={1.75} />
+                  <tile.icon className="w-6 h-6 text-[#2563EB]" strokeWidth={1.75} />
                 </motion.div>
 
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{tile.title}</h3>

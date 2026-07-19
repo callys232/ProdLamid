@@ -1,4 +1,4 @@
-const StartupFlowchart = () => {
+﻿const StartupFlowchart = () => {
   return (
     <div className="flex flex-col items-center text-center text-white bg-black py-10 px-6 md:px-12">
       <h2 className="text-xl md:text-2xl font-bold mb-6">
@@ -29,7 +29,7 @@ const StartupFlowchart = () => {
         </div>
 
         {/* Stage 3 */}
-        <div className="bg-red-600 p-4 rounded-md">
+        <div className="bg-blue-600 p-4 rounded-md">
           <img
             src="/icons/prototype.png"
             alt="Minimum Viable Prototype"
@@ -84,7 +84,7 @@ const StartupFlowchart = () => {
       </div>
 
       {/* Call-to-Action */}
-      <div className="mt-8 bg-red-700 text-white p-4 rounded-md text-center">
+      <div className="mt-8 bg-blue-700 text-white p-4 rounded-md text-center">
         <h3 className="text-lg font-bold">
           Over 3000 Startups Created & Accelerated
         </h3>

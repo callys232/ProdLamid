@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
@@ -41,12 +41,12 @@ export default function UploadCard() {
       className="
         w-full max-w-md
         rounded-xl
-        border border-red-600/40
+        border border-blue-600/40
         bg-black/50
         p-4
         transition-all
-        hover:border-red-500
-        hover:shadow-red-600/20
+        hover:border-blue-500
+        hover:shadow-blue-600/20
       "
     >
       {/* Hidden file input */}
@@ -64,14 +64,14 @@ export default function UploadCard() {
         className="
           flex w-full cursor-pointer items-center gap-3
           rounded-lg
-          border border-red-600/40
+          border border-blue-600/40
           px-4 py-3
           text-white
-          hover:bg-red-600/10
+          hover:bg-blue-600/10
           transition-all
         "
       >
-        <Plus className="h-5 w-5 text-red-500" />
+        <Plus className="h-5 w-5 text-blue-500" />
         Upload/Send
       </label>
 
@@ -90,11 +90,11 @@ export default function UploadCard() {
         className="
           mt-3
           rounded-lg
-          bg-red-600
+          bg-blue-600
           px-4 py-2
           text-sm font-semibold text-white
           transition-all
-          hover:bg-red-500
+          hover:bg-blue-500
           hover:scale-[1.03]
         "
       >

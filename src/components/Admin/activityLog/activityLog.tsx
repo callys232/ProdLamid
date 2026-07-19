@@ -1,4 +1,4 @@
-// AdminActivityLog.tsx
+﻿// AdminActivityLog.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import Section from "../finance/section";
@@ -69,7 +69,7 @@ export default function AdminActivityLog() {
                     log.status === "Success"
                       ? "text-green-400"
                       : log.status === "Failed"
-                      ? "text-red-400"
+                      ? "text-blue-400"
                       : "text-yellow-400"
                   }
                 >
@@ -91,7 +91,7 @@ export default function AdminActivityLog() {
         <p className="text-gray-400 text-sm">Loading activity log...</p>
       )}
       {error && (
-        <p className="text-red-400 text-sm">Failed to load activity log.</p>
+        <p className="text-blue-400 text-sm">Failed to load activity log.</p>
       )}
     </Section>
   );

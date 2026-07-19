@@ -4,6 +4,8 @@ import { rateLimit } from "@/lib/rateLimit";
 import { sanitiseInput, isBodyTooLarge, getClientIP } from "@/lib/sanitize";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import connectDB from "@/lib/db";
+import { Users } from "@/lib/models/User";
 
 const client = () =>
   new OpenAI({
@@ -33,6 +35,29 @@ export async function POST(req: NextRequest) {
     } catch {}
   }
 
+  // Server-side tier gate: authenticated free-tier users are blocked
+  if (userId) {
+    try {
+      await connectDB();
+      const user = await Users.findById(userId).select("tier subscriptionStatus role accountType").lean() as any;
+      const isPremium =
+        user?.tier === "premium" ||
+        user?.tier === "enterprise" ||
+        user?.subscriptionStatus === "active" ||
+        user?.role === "admin" ||
+        ["Enterprise", "Concierge", "Admin"].includes(user?.accountType ?? "");
+      if (!isPremium) {
+        return NextResponse.json(
+          { message: "Premium subscription required. Upgrade your account to access the Intelligence Hub." },
+          { status: 403 }
+        );
+      }
+    } catch (tierErr) {
+      console.error("[Intelligence] Tier check failed:", tierErr);
+      return NextResponse.json({ message: "Service temporarily unavailable. Please try again." }, { status: 503 });
+    }
+  }
+
   // Authenticated users: 50/day by userId; anonymous: 20/day by IP
   const key = userId ?? ip;
   const maxRequests = userId ? 50 : 20;
@@ -51,6 +76,9 @@ export async function POST(req: NextRequest) {
 
     if (!context.organisationName?.trim()) {
       return NextResponse.json({ message: "Organisation name is required." }, { status: 400 });
+    }
+    if (!Array.isArray(dimensionLabels) || !Array.isArray(correctionProtocols)) {
+      return NextResponse.json({ message: "dimensionLabels and correctionProtocols are required arrays." }, { status: 400 });
     }
 
     const systemPrompt = `You are a senior enterprise intelligence analyst at LAMID ONE — the world's leading HumanAI consulting ecosystem. You are running the ${engineName} (${moduleId}) from the ${seriesName}.

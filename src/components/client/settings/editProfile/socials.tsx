@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useFormContext } from "react-hook-form";
 import { useState } from "react";
@@ -69,8 +69,8 @@ export default function StepSocials({ data, onChange }: Props) {
           flex items-center gap-3 px-3 py-2 rounded-md border
           bg-gray-900 border-gray-700
           transition-all duration-200
-          hover:border-[#c12129]
-          focus-within:ring-2 focus-within:ring-[#c12129]
+          hover:border-[#2563EB]
+          focus-within:ring-2 focus-within:ring-[#2563EB]
         `}
             >
                 <span className={`text-gray-400 ${hoverColor} transition`}>
@@ -87,7 +87,7 @@ export default function StepSocials({ data, onChange }: Props) {
             </div>
 
             {errors[field] && (
-                <p className="text-xs text-red-500">
+                <p className="text-xs text-blue-500">
                     {errors[field]?.message as string}
                 </p>
             )}

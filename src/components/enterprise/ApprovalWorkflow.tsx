@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -250,7 +250,7 @@ export default function ApprovalWorkflow({ orgId, userId, userRole }: Props) {
                       whileTap={{ scale: 0.97 }}
                       disabled={loadingId === item.id}
                       onClick={() => handleDecision(item, "rejected")}
-                      className="flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-2 text-xs font-semibold text-red-400 transition hover:bg-red-500/20 disabled:opacity-50"
+                      className="flex items-center gap-1.5 rounded-lg border border-blue-500/30 bg-blue-500/10 px-4 py-2 text-xs font-semibold text-blue-400 transition hover:bg-blue-500/20 disabled:opacity-50"
                     >
                       <XCircle className="h-3.5 w-3.5" />
                       Reject
@@ -303,7 +303,7 @@ export default function ApprovalWorkflow({ orgId, userId, userRole }: Props) {
                   whileTap={{ scale: 0.97 }}
                   onClick={saveThreshold}
                   disabled={saving}
-                  className="flex items-center gap-1.5 rounded-xl border border-[#C12129]/30 bg-[#C12129]/10 px-5 py-2.5 text-xs font-semibold text-[#C12129] transition hover:bg-[#C12129]/20 disabled:opacity-50"
+                  className="flex items-center gap-1.5 rounded-xl border border-[#2563EB]/30 bg-[#2563EB]/10 px-5 py-2.5 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20 disabled:opacity-50"
                 >
                   {saving
                     ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -389,7 +389,7 @@ export default function ApprovalWorkflow({ orgId, userId, userRole }: Props) {
                       <span className={`flex-shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold capitalize ${
                         item.status === "approved"
                           ? "border-green-500/30 bg-green-500/10 text-green-400"
-                          : "border-red-500/30 bg-red-500/10 text-red-400"
+                          : "border-blue-500/30 bg-blue-500/10 text-blue-400"
                       }`}>
                         {item.status}
                       </span>

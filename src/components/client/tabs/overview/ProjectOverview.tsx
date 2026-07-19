@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import BidsList from "@/components/projects/project/BidsList";
@@ -34,11 +34,11 @@ export default function ProjectOverview() {
     if (projects.length === 0) {
         return (
             <section className="bg-[#111] border border-white/20 rounded-xl p-8 text-center shadow-md">
-                <h2 className="text-2xl font-bold mb-4 text-[#c12129]">Your Projects</h2>
+                <h2 className="text-2xl font-bold mb-4 text-[#2563EB]">Your Projects</h2>
                 <p className="text-gray-400 mb-6">You haven't posted any projects yet.</p>
                 <a
                     href="/postjobs"
-                    className="inline-block bg-[#c12129] px-6 py-2 rounded-lg text-white font-semibold hover:bg-red-700 transition"
+                    className="inline-block bg-[#2563EB] px-6 py-2 rounded-lg text-white font-semibold hover:bg-blue-700 transition"
                 >
                     Post First Project
                 </a>
@@ -48,7 +48,7 @@ export default function ProjectOverview() {
 
     return (
         <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-[#c12129]">Project Management</h2>
+            <h2 className="text-3xl font-bold text-[#2563EB]">Project Management</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {projects.map((project) => (
                     <section
@@ -57,7 +57,7 @@ export default function ProjectOverview() {
                     >
                         <div>
                             <div className="flex justify-between items-start mb-4">
-                                <h3 className="text-xl font-bold text-white hover:text-[#c12129] transition">
+                                <h3 className="text-xl font-bold text-white hover:text-[#2563EB] transition">
                                     {project.title}
                                 </h3>
                                 <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${project.status === 'open' ? 'bg-green-900/50 text-green-400 border border-green-700' :
@@ -93,7 +93,7 @@ export default function ProjectOverview() {
                             <div className="flex -space-x-2">
                                 {(project.consultants || []).length > 0 ? (
                                     project.consultants.map((c: any, i: number) => (
-                                        <div key={i} title={c.username || c.name} className="w-8 h-8 rounded-full bg-[#c12129] border-2 border-[#111] flex items-center justify-center text-[10px] font-bold cursor-default">
+                                        <div key={i} title={c.username || c.name} className="w-8 h-8 rounded-full bg-[#2563EB] border-2 border-[#111] flex items-center justify-center text-[10px] font-bold cursor-default">
                                             {c.username?.substring(0, 2).toUpperCase() || c.name?.substring(0, 2).toUpperCase() || '??'}
                                         </div>
                                     ))
@@ -111,7 +111,7 @@ export default function ProjectOverview() {
                                 </button>
                                 <a
                                     href={`/projects/${project._id || project.id}`}
-                                    className="text-sm text-[#c12129] hover:underline font-semibold"
+                                    className="text-sm text-[#2563EB] hover:underline font-semibold"
                                 >
                                     Manage Project →
                                 </a>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -42,7 +42,7 @@ export default function Notifications() {
         <div className="flex items-center gap-3">
           <h2 className="text-base font-semibold text-white">Notifications</h2>
           {unreadCount > 0 && (
-            <span className="rounded-full bg-[#c12129] px-2 py-0.5 text-[11px] font-bold text-white">
+            <span className="rounded-full bg-[#2563EB] px-2 py-0.5 text-[11px] font-bold text-white">
               {unreadCount}
             </span>
           )}
@@ -55,7 +55,7 @@ export default function Notifications() {
               onClick={() => setFilter(f)}
               className={`rounded-full px-3 py-1 text-xs font-medium capitalize transition ${
                 filter === f
-                  ? "bg-[#c12129]/20 text-[#c12129]"
+                  ? "bg-[#2563EB]/20 text-[#2563EB]"
                   : "text-gray-400 hover:text-white"
               }`}
             >
@@ -89,7 +89,7 @@ export default function Notifications() {
                   exit={{ opacity: 0, x: 10 }}
                   transition={{ delay: i * 0.04 }}
                   onClick={() => markRead(n._id)}
-                  className={`flex cursor-pointer items-start gap-4 px-5 py-4 transition hover:bg-white/5 ${!n.read ? "bg-[#c12129]/3" : ""}`}
+                  className={`flex cursor-pointer items-start gap-4 px-5 py-4 transition hover:bg-white/5 ${!n.read ? "bg-[#2563EB]/3" : ""}`}
                 >
                   <div className="mt-0.5 flex-shrink-0">{TYPE_ICON[n.type]}</div>
                   <div className="min-w-0 flex-1">
@@ -100,7 +100,7 @@ export default function Notifications() {
                     <p className="mt-0.5 text-xs text-gray-500">{n.message}</p>
                   </div>
                   {!n.read && (
-                    <span className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-[#c12129]" />
+                    <span className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-[#2563EB]" />
                   )}
                 </motion.li>
               ))}

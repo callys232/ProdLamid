@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { FaMoneyBillWave, FaClock, FaFlag, FaTasks } from "react-icons/fa";
@@ -28,7 +28,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
       {/* Budget */}
       {project.budget && (
         <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition">
-          <FaMoneyBillWave className="text-[#c21219] text-xl" />
+          <FaMoneyBillWave className="text-[#2563EB] text-xl" />
           <div>
             <p className="font-semibold text-white">{project.budget}</p>
             <p className="text-xs text-gray-300">Budget</p>
@@ -39,7 +39,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
       {/* Suggested Bid Range */}
       {project.suggestedBidRange && (
         <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition">
-          <FaMoneyBillWave className="text-[#c21219] text-xl" />
+          <FaMoneyBillWave className="text-[#2563EB] text-xl" />
           <div>
             <p className="font-semibold text-white">
               ${project.suggestedBidRange.min} – $
@@ -53,7 +53,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
       {/* Deadline */}
       {project.deadline && (
         <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition">
-          <FaClock className="text-[#c21219] text-xl" />
+          <FaClock className="text-[#2563EB] text-xl" />
           <div>
             <p className="font-semibold text-white">{project.deadline}</p>
             <p className="text-xs text-gray-300">Deadline</p>
@@ -64,7 +64,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
       {/* Priority */}
       {project.priority && (
         <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition">
-          <FaFlag className="text-[#c21219] text-xl" />
+          <FaFlag className="text-[#2563EB] text-xl" />
           <div>
             <p className="font-semibold text-white">{project.priority}</p>
             <p className="text-xs text-gray-300">Priority</p>
@@ -76,7 +76,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
       {project.milestones && project.milestones.length > 0 && (
         <div className="p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg">
           <div className="flex items-center gap-3 mb-2">
-            <FaTasks className="text-[#c21219] text-xl" />
+            <FaTasks className="text-[#2563EB] text-xl" />
             <p className="font-semibold text-white">Milestones</p>
           </div>
           <ul className="space-y-1 text-sm text-gray-300">
@@ -101,7 +101,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
           {project.milestoneProgress !== undefined && (
             <div className="w-full bg-white/10 rounded-full h-2 mt-4">
               <div
-                className="h-2 rounded-full bg-[#c21219]"
+                className="h-2 rounded-full bg-[#2563EB]"
                 style={{ width: `${project.milestoneProgress}%` }}
               />
             </div>

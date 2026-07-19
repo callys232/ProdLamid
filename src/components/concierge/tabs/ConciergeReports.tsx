@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -136,7 +136,7 @@ export default function ConciergeReports() {
         {/* Reports list */}
         <div>
           <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-            <BarChart3 className="h-4 w-4 text-[#c21219]" /> Generated Reports
+            <BarChart3 className="h-4 w-4 text-[#2563EB]" /> Generated Reports
           </h3>
           <div className="space-y-3">
             {reports.map((r, i) => (
@@ -155,7 +155,7 @@ export default function ConciergeReports() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleDownload(r)}
                   disabled={downloading === r.id}
-                  className="flex-shrink-0 ml-4 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-[#c21219]/30 bg-[#c21219]/10 text-[#c21219] hover:bg-[#c21219]/20 transition disabled:opacity-50"
+                  className="flex-shrink-0 ml-4 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 text-[#2563EB] hover:bg-[#2563EB]/20 transition disabled:opacity-50"
                 >
                   {downloading === r.id
                     ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -177,7 +177,7 @@ export default function ConciergeReports() {
             whileHover={{ scale: 1.05, boxShadow: "0 6px 20px rgba(194,18,25,0.35)" }}
             whileTap={{ scale: 0.96 }}
             onClick={() => setShowRequest(true)}
-            className="px-5 py-2 rounded-xl bg-[#c21219] hover:bg-red-700 text-white text-sm font-semibold transition"
+            className="px-5 py-2 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-sm font-semibold transition"
           >
             Request Custom Report
           </motion.button>
@@ -202,8 +202,8 @@ export default function ConciergeReports() {
             >
               <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#c21219]/15 border border-[#c21219]/25">
-                    <BarChart3 className="h-4 w-4 text-[#c21219]" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2563EB]/15 border border-[#2563EB]/25">
+                    <BarChart3 className="h-4 w-4 text-[#2563EB]" />
                   </div>
                   <h3 className="text-sm font-bold text-white">Request Custom Report</h3>
                 </div>
@@ -236,7 +236,7 @@ export default function ConciergeReports() {
                     <motion.button
                       whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                       onClick={closeRequest}
-                      className="mt-2 px-6 py-2 rounded-xl bg-[#c21219] text-sm font-semibold text-white hover:bg-red-700 transition"
+                      className="mt-2 px-6 py-2 rounded-xl bg-[#2563EB] text-sm font-semibold text-white hover:bg-blue-700 transition"
                     >
                       Done
                     </motion.button>
@@ -244,24 +244,24 @@ export default function ConciergeReports() {
                 ) : (
                   <form onSubmit={handleRequest} className="space-y-4">
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Report Title / Subject <span className="text-[#c21219]">*</span></label>
+                      <label className="block text-xs text-gray-400 mb-1.5">Report Title / Subject <span className="text-[#2563EB]">*</span></label>
                       <input
                         required
                         value={reqSubject}
                         onChange={e => setReqSubject(e.target.value)}
                         placeholder="e.g. Q3 Programme Impact Report"
-                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50 transition"
+                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Details <span className="text-[#c21219]">*</span></label>
+                      <label className="block text-xs text-gray-400 mb-1.5">Details <span className="text-[#2563EB]">*</span></label>
                       <textarea
                         required
                         rows={4}
                         value={reqMsg}
                         onChange={e => setReqMsg(e.target.value)}
                         placeholder="Describe the report you need — projects to include, metrics, format, deadline…"
-                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50 resize-none transition"
+                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 resize-none transition"
                       />
                     </div>
                     <div className="flex justify-end gap-3 pt-1">
@@ -271,7 +271,7 @@ export default function ConciergeReports() {
                         disabled={sending || !reqSubject.trim() || !reqMsg.trim()}
                         whileHover={{ scale: 1.04, boxShadow: "0 4px 16px rgba(194,18,25,0.35)" }}
                         whileTap={{ scale: 0.96 }}
-                        className="flex items-center gap-2 rounded-xl bg-[#c21219] px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
+                        className="flex items-center gap-2 rounded-xl bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition disabled:opacity-50"
                       >
                         {sending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
                         {sending ? "Sending…" : "Submit Request"}

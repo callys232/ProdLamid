@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,10 +26,10 @@ const CartDrawer: React.FC = () => {
         >
           {/* Header */}
           <div className="flex justify-between items-center px-4 py-3 border-b border-gray-700">
-            <h2 className="text-lg font-bold text-[#c21219]">Your Cart</h2>
+            <h2 className="text-lg font-bold text-[#2563EB]">Your Cart</h2>
             <button
               onClick={toggleCart}
-              className="text-white hover:text-[#c21219] text-xl"
+              className="text-white hover:text-[#2563EB] text-xl"
             >
               ✕
             </button>
@@ -66,7 +66,7 @@ const CartDrawer: React.FC = () => {
                   {/* Remove */}
                   <button
                     onClick={() => removeFromCart(item.id)}
-                    className="text-xs text-[#c21219] hover:text-red-600"
+                    className="text-xs text-[#2563EB] hover:text-blue-600"
                   >
                     Remove
                   </button>
@@ -86,7 +86,7 @@ const CartDrawer: React.FC = () => {
             <div className="flex gap-2">
               <button
                 onClick={clearCart}
-                className="flex-1 bg-[#c21219] text-white py-2 rounded hover:bg-red-700 transition"
+                className="flex-1 bg-[#2563EB] text-white py-2 rounded hover:bg-blue-700 transition"
               >
                 Clear
               </button>

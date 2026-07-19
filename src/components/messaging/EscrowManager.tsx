@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { FaShieldAlt, FaHandHoldingUsd, FaHistory, FaCheckCircle, FaLock } from "react-icons/fa";
@@ -51,8 +51,8 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
 
     return (
         <div className="space-y-8">
-            <div className="bg-red-900/10 border border-red-900/30 rounded-2xl p-6 flex items-center gap-6">
-                <div className="bg-red-600 p-4 rounded-xl text-white text-3xl shadow-lg shadow-red-900/40">
+            <div className="bg-blue-900/10 border border-blue-900/30 rounded-2xl p-6 flex items-center gap-6">
+                <div className="bg-blue-600 p-4 rounded-xl text-white text-3xl shadow-lg shadow-blue-900/40">
                     <FaShieldAlt />
                 </div>
                 <div>

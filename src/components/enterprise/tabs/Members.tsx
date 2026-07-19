@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const ROLE_BADGE: Record<string, string> = {
-  org_admin:   "border-[#c12129]/40 bg-[#c12129]/10 text-[#c12129]",
+  org_admin:   "border-[#2563EB]/40 bg-[#2563EB]/10 text-[#2563EB]",
   org_manager: "border-blue-500/40 bg-blue-500/10 text-blue-400",
   org_member:  "border-white/10 bg-white/5 text-gray-400",
   org_viewer:  "border-white/10 bg-white/5 text-gray-500",
@@ -30,7 +30,7 @@ const ROLE_LABEL: Record<string, string> = {
 const STATUS_DOT: Record<string, string> = {
   active:  "bg-green-500",
   pending: "bg-yellow-500",
-  suspended: "bg-red-500",
+  suspended: "bg-blue-500",
 };
 
 export default function Members({ orgId, orgRole, memberCount, maxMembers, tier }: Props) {
@@ -108,14 +108,14 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
           <motion.div
-            className={`h-full rounded-full ${pct > 80 ? "bg-[#c12129]" : "bg-white/40"}`}
+            className={`h-full rounded-full ${pct > 80 ? "bg-[#2563EB]" : "bg-white/40"}`}
             initial={{ width: 0 }}
             animate={{ width: `${pct}%` }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           />
         </div>
         {pct > 80 && (
-          <p className="mt-2 text-xs text-[#c12129]">
+          <p className="mt-2 text-xs text-[#2563EB]">
             You're at {Math.round(pct)}% capacity.{" "}
             <a href="/contact-sales" className="underline">Upgrade to Enterprise+</a> for 100+ members.
           </p>
@@ -126,7 +126,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
       {canManage && (
         <div className="rounded-xl border border-white/10 bg-white/5 p-5">
           <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-white">
-            <UserPlus className="h-4 w-4 text-[#c12129]" /> Invite Member
+            <UserPlus className="h-4 w-4 text-[#2563EB]" /> Invite Member
           </h3>
           <form onSubmit={handleInvite} className="flex flex-col gap-3 sm:flex-row">
             <input
@@ -134,7 +134,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
               onChange={e => setEmail(e.target.value)}
               type="email" required
               placeholder="colleague@company.com"
-              className="flex-1 rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-[#c12129]/40 focus:outline-none"
+              className="flex-1 rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-[#2563EB]/40 focus:outline-none"
             />
             <select
               value={role}
@@ -148,7 +148,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
             <motion.button
               whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
               type="submit" disabled={inviting}
-              className="flex items-center gap-2 rounded-lg bg-[#c12129] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
             >
               {inviting ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : <Mail className="h-3.5 w-3.5" />}
               Send Invite
@@ -176,7 +176,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
                 className="flex items-center gap-4 px-5 py-3.5 cursor-pointer"
               >
                 {/* Avatar */}
-                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#c12129]/10 text-sm font-bold text-[#c12129]">
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#2563EB]/10 text-sm font-bold text-[#2563EB]">
                   {(m.user?.username?.[0] ?? m.inviteEmail?.[0] ?? "?").toUpperCase()}
                 </div>
                 {/* Info */}
@@ -185,7 +185,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
                     <p className="text-sm font-medium text-white">
                       {m.user?.username ?? m.inviteEmail ?? "Pending"}
                     </p>
-                    {m.role === "org_admin" && <Crown className="h-3 w-3 text-[#c12129]" />}
+                    {m.role === "org_admin" && <Crown className="h-3 w-3 text-[#2563EB]" />}
                   </div>
                   <p className="text-[11px] text-gray-500">{m.user?.email ?? m.inviteEmail}</p>
                 </div>
@@ -224,7 +224,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
                           </button>
                           <button
                             onClick={() => handleRemove(m._id)}
-                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs text-[#c12129] transition hover:bg-[#c12129]/10"
+                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs text-[#2563EB] transition hover:bg-[#2563EB]/10"
                           >
                             <Trash2 className="h-3.5 w-3.5" /> Remove
                           </button>
@@ -242,7 +242,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
       <MemberDetailModal
         member={selected}
         onClose={() => setSelected(null)}
-        accent="#c12129"
+        accent="#2563EB"
       />
     </div>
   );

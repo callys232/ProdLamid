@@ -57,7 +57,7 @@ export default function AboutPage() {
           ].map((item, i) => (
             <motion.div key={item.title} {...fadeUp(i * 0.08)}
               className="aivora-card border rounded-2xl p-7">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 bg-[#C12129]/12 border border-[#C12129]/25">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 bg-[#2563EB]/12 border border-[#2563EB]/25">
                 <span className="text-base aivora-gradient-text">{item.icon}</span>
               </div>
               <h2 className="text-base font-bold text-gray-900 dark:text-white mb-3">{item.title}</h2>
@@ -74,7 +74,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map((v, i) => (
               <motion.div key={v.title} {...fadeUp(i * 0.07)}
-                className="aivora-card border rounded-2xl p-6 text-center hover:border-[#C12129]/30 transition-colors duration-200">
+                className="aivora-card border rounded-2xl p-6 text-center hover:border-[#2563EB]/30 transition-colors duration-200">
                 <div className="text-2xl mb-4">{v.icon}</div>
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{v.title}</h3>
                 <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{v.body}</p>
@@ -92,7 +92,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {STATS.map((s, i) => (
               <motion.div key={s.label} {...fadeUp(i * 0.07)}
-                className="aivora-card border rounded-2xl p-6 text-center hover:border-[#C12129]/25 transition-colors duration-200">
+                className="aivora-card border rounded-2xl p-6 text-center hover:border-[#2563EB]/25 transition-colors duration-200">
                 <p className="text-3xl font-extrabold aivora-gradient-text mb-1">{s.value}</p>
                 <p className="text-xs text-gray-500 dark:text-white/40">{s.label}</p>
               </motion.div>

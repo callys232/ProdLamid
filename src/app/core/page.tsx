@@ -1,0 +1,365 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Network, Target, AlertTriangle, Zap } from "lucide-react";
+import { useScrollBackground } from "@/hooks/useScrollBackground";
+
+const FEATURES = [
+  {
+    Icon: Target,
+    title: "Continuous Strategy Diagnostics",
+    body: "Real-time coherence checks that surface misalignment before it becomes a crisis — not a quarterly review you're already behind on.",
+    href: "/core-diagnostic",
+    cta: "Run Diagnostic →",
+  },
+  {
+    Icon: AlertTriangle,
+    title: "Early-Warning Signal Engine",
+    body: "Pattern recognition across 40+ organizational variables that flags strategic drift weeks before it shows up in financial results.",
+    href: "/core-dashboard",
+    cta: "View Dashboard →",
+  },
+  {
+    Icon: Zap,
+    title: "Execution Intelligence",
+    body: "Close the gap between strategy and action. LAMID CORE connects your direction to your day-to-day operations in one unified view.",
+    href: "/core-workflow",
+    cta: "Open Workflow →",
+  },
+  {
+    Icon: Network,
+    title: "Leadership Alignment Layer",
+    body: "Ensure every leader is working from the same strategic picture — not siloed dashboards and conflicting priorities.",
+    href: "/core-strategic-alignment",
+    cta: "Explore Alignment →",
+  },
+];
+
+const CORE_TOOLS = [
+  { label: "Core Diagnostic",      href: "/core-diagnostic" },
+  { label: "Strategic Alignment",  href: "/core-strategic-alignment" },
+  { label: "Core Blueprint",       href: "/core-blueprint" },
+  { label: "Transformation",       href: "/core-transformation" },
+  { label: "Operating Rhythm",     href: "/core-operating-rhythm" },
+  { label: "Core Workflow",        href: "/core-workflow" },
+  { label: "Change Management",    href: "/core-change-management" },
+  { label: "Executive Console",    href: "/core-executive-console" },
+  { label: "Core Dashboard",       href: "/core-dashboard" },
+];
+
+const STRATEGIC_TOOLS = [
+  { label: "Strategic Identity",   href: "/s01-strategic-identity" },
+  { label: "Strategic Direction",  href: "/s02-strategic-direction" },
+  { label: "Strategic Coherence",  href: "/s03-strategic-coherence" },
+  { label: "Strategic Convergence", href: "/s04-strategic-convergence" },
+  { label: "Strategic Rhythm",     href: "/s05-strategic-rhythm" },
+  { label: "Strategic Flow",       href: "/s06-strategic-flow" },
+  { label: "Strategic Field",      href: "/s07-strategic-field" },
+  { label: "Strategic Force",      href: "/s08-strategic-force" },
+  { label: "Strategic Gravity",    href: "/s09-strategic-gravity" },
+  { label: "Strategic Orbit",      href: "/s10-strategic-orbit" },
+  { label: "Strategic Wave",       href: "/s11-strategic-wave" },
+  { label: "Strategic Horizon",    href: "/s12-strategic-horizon" },
+];
+
+const WHY = [
+  "Clear plans that hold up under pressure",
+  "Better decisions grounded in real-time data",
+  "Smoother execution across every level of the organization",
+  "Early warnings before problems become crises",
+];
+
+const cardV = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.42 } } };
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } } };
+
+export default function CorePage() {
+  useScrollBackground();
+  const [hovered, setHovered] = useState<number | null>(null);
+  const router = useRouter();
+  return (
+    <main className="min-h-screen aivora-section">
+
+      {/* Hero */}
+      <section data-scroll-section data-bg-from-dark="#0D6E8A" data-bg-to-dark="#04111F" data-bg-from-light="#BFE3FF" data-bg-to-light="#F8FAFF" className="relative py-28 px-4 overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+          <div className="w-[480px] h-[220px] rounded-full bg-[#2563EB]/6 blur-[80px]" />
+        </div>
+
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+          {[200, 500, 800].map((x, i) => (
+            <motion.line key={i} x1={x} y1="-20" x2={x} y2="120%"
+              stroke="#2563EB" strokeWidth="0.5" strokeOpacity="0.07" strokeDasharray="4 28"
+              animate={{ strokeDashoffset: [0, -80], opacity: [0.04, 0.14, 0.04] }}
+              transition={{ duration: 18 + i * 4, repeat: Infinity, ease: "linear", delay: i * 2 }}
+            />
+          ))}
+        </svg>
+
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.48 }}
+            className="mb-8"
+          >
+            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
+              <span className="aivora-gradient-text">Strategy & Execution Engine</span>
+            </span>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4"
+              >
+                LAMID CORE
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-gray-900 dark:text-white mb-6"
+              >
+                Strategy, alignment, and execution{" "}
+                <span className="aivora-gradient-text">made clear.</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.2 }}
+                className="text-gray-500 dark:text-white/60 text-base leading-relaxed mb-8"
+              >
+                LAMID CORE is your consulting operating system for modern leadership.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.32 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <Link href="/premium/business-diagnostic"
+                  className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-white text-sm overflow-hidden bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
+                >
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/18 to-transparent skew-x-12 pointer-events-none" />
+                  <span className="relative z-10">See CORE in Action</span>
+                </Link>
+                <Link href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white/75 hover:border-[#2563EB]/60 hover:text-[#2563EB] transition-all duration-200"
+                >
+                  Book a Demo
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Why it matters */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="aivora-card border rounded-2xl p-8"
+            >
+              <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-5">
+                Why It Matters
+              </p>
+              <ul className="space-y-4">
+                {WHY.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="w-5 h-5 rounded-full bg-[#2563EB]/12 border border-[#2563EB]/30 flex items-center justify-center shrink-0 mt-0.5">
+                      <span className="text-[#2563EB] text-[10px] font-bold">✓</span>
+                    </span>
+                    <span className="text-gray-700 dark:text-white/70 text-sm leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature cards */}
+      <section data-scroll-section data-bg-from-dark="#1456A0" data-bg-to-dark="#040A1E" data-bg-from-light="#B8CCFF" data-bg-to-light="#F5F3FF" className="relative py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">What You Get</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+              A strategy engine that works <span className="aivora-gradient-text">every day.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+          >
+            {FEATURES.map((feat, i) => (
+              <motion.div
+                key={feat.title}
+                variants={cardV}
+                whileHover={{ y: -6, boxShadow: "0 20px 48px rgba(37,99,235,0.22)" }}
+                whileTap={{ scale: 0.97 }}
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+                onClick={() => router.push(feat.href)}
+                className="group relative aivora-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
+                style={{ borderColor: hovered === i ? "rgba(37,99,235,0.45)" : undefined }}
+              >
+                {/* Left accent bar */}
+                <motion.div
+                  className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl bg-[#2563EB]"
+                  animate={{ scaleY: hovered === i ? 1 : 0 }}
+                  initial={{ scaleY: 0 }}
+                  style={{ originY: 0 }}
+                  transition={{ duration: 0.22 }}
+                />
+                {/* Corner glow */}
+                <motion.div
+                  className="absolute top-0 right-0 w-32 h-32 rounded-full bg-[#2563EB] pointer-events-none"
+                  style={{ filter: "blur(40px)" }}
+                  animate={{ opacity: hovered === i ? 0.10 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+                {/* Bottom sweep */}
+                <motion.div
+                  className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#2563EB] to-[#60A5FA]"
+                  animate={{ width: hovered === i ? "100%" : "0%" }}
+                  transition={{ duration: 0.38 }}
+                />
+                {/* Icon badge */}
+                <motion.div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-[#2563EB]/25 bg-[#2563EB]/10"
+                  animate={{
+                    scale: hovered === i ? 1.08 : 1,
+                    boxShadow: hovered === i ? "0 0 16px rgba(37,99,235,0.35)" : "none",
+                  }}
+                  transition={{ duration: 0.22 }}
+                >
+                  <feat.Icon className="w-6 h-6 text-[#2563EB]" strokeWidth={1.75} />
+                </motion.div>
+                <h3 className="relative text-sm font-bold text-gray-900 dark:text-white mb-2">{feat.title}</h3>
+                <p className="relative text-gray-500 dark:text-white/55 text-xs leading-relaxed mb-4">{feat.body}</p>
+                {/* CTA reveal */}
+                <motion.span
+                  className="relative inline-flex items-center gap-1 text-xs font-semibold text-[#2563EB]"
+                  animate={{ opacity: hovered === i ? 1 : 0, y: hovered === i ? 0 : 6 }}
+                  transition={{ duration: 0.22 }}
+                >
+                  {feat.cta}
+                </motion.span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Tools in this engine */}
+      <section data-scroll-section data-bg-from-dark="#0A8090" data-bg-to-dark="#030C14" data-bg-from-light="#FDDCB0" data-bg-to-light="#FEF9F0" className="relative py-10 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6 text-center">
+              All Tools in LAMID CORE
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center mb-8">
+              {CORE_TOOLS.map((tool) => (
+                <Link key={tool.label} href={tool.href}
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold border border-[#2563EB]/25 bg-[#2563EB]/6 text-gray-700 dark:text-white/70 hover:border-[#2563EB]/55 hover:text-[#2563EB] hover:bg-[#2563EB]/12 transition-all duration-200"
+                >
+                  {tool.label} <span className="opacity-60">→</span>
+                </Link>
+              ))}
+            </div>
+            <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-4 text-center text-gray-400 dark:text-white/30">
+              Strategic Framework
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {STRATEGIC_TOOLS.map((tool) => (
+                <Link key={tool.label} href={tool.href}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[11px] font-medium border border-gray-200 dark:border-white/12 text-gray-500 dark:text-white/50 hover:border-[#2563EB]/40 hover:text-[#2563EB] hover:bg-[#2563EB]/6 transition-all duration-200"
+                >
+                  {tool.label} <span className="opacity-50">→</span>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Who it's for */}
+      <section data-scroll-section data-bg-from-dark="#3D1070" data-bg-to-dark="#0A041E" data-bg-from-light="#E8D8C0" data-bg-to-light="#FFFFF0" className="relative py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="aivora-card border rounded-2xl p-10 text-center"
+          >
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Who It&apos;s For</p>
+            <p className="text-gray-700 dark:text-white/70 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-8">
+              LAMID CORE is built for CEOs, Chief Strategy Officers, and executive leadership teams who need their strategy to be a living system — not an annual slide deck that gathers dust by February.
+            </p>
+            <Link href="/premium/business-diagnostic"
+              className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
+            >
+              Take the Diagnostic
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Platform tools */}
+      <section data-scroll-section data-bg-from-dark="#0A6078" data-bg-to-dark="#030E18" data-bg-from-light="#B0DCFF" data-bg-to-light="#F0F9FF" className="py-10 px-4">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className="flex flex-col sm:flex-row items-center justify-between gap-4 aivora-card border rounded-2xl px-8 py-5"
+          >
+            <div>
+              <p className="text-xs font-bold text-gray-900 dark:text-white mb-1">LAMID DocuShare</p>
+              <p className="text-[11px] text-gray-500 dark:text-white/50">Access strategy documents, templates, and shared resources.</p>
+            </div>
+            <Link
+              href="/docushare"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold border border-[#2563EB]/30 text-[#2563EB] bg-[#2563EB]/8 hover:bg-[#2563EB]/16 transition-colors"
+            >
+              Open DocuShare →
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Back to Ecosystem */}
+      <section data-scroll-section data-bg-from-dark="#0D6E8A" data-bg-to-dark="#04111F" data-bg-from-light="#BFE3FF" data-bg-to-light="#F8FAFF" className="pb-10 px-4 text-center">
+        <Link href="/ecosystem" className="inline-flex items-center gap-2 text-sm font-medium aivora-gradient-text hover:opacity-80 transition-opacity">
+          ← Back to the Ecosystem
+        </Link>
+      </section>
+
+    </main>
+  );
+}

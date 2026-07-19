@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
@@ -27,7 +27,7 @@ const fadeUp = (i = 0) => ({
 
 const OUTCOME_STYLE: Record<AuditEntry["outcome"], { cls: string; icon: React.ReactNode }> = {
   success: { cls: "border-green-500/30  bg-green-500/10  text-green-400",  icon: <CheckCircle2 className="h-3 w-3" /> },
-  failure: { cls: "border-red-500/30    bg-red-500/10    text-red-400",    icon: <XCircle      className="h-3 w-3" /> },
+  failure: { cls: "border-blue-500/30    bg-blue-500/10    text-blue-400",    icon: <XCircle      className="h-3 w-3" /> },
   warning: { cls: "border-yellow-500/30 bg-yellow-500/10 text-yellow-400", icon: <AlertTriangle className="h-3 w-3" /> },
   info:    { cls: "border-gray-600/30   bg-gray-800      text-gray-400",   icon: <Info          className="h-3 w-3" /> },
 };
@@ -192,7 +192,7 @@ export default function OrgAuditLog() {
           <motion.button
             whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
             onClick={() => exportCSV(filtered)}
-            className="flex items-center gap-1.5 rounded-xl border border-[#C12129]/30 bg-[#C12129]/10 px-4 py-2 text-xs font-semibold text-[#C12129] transition hover:bg-[#C12129]/20"
+            className="flex items-center gap-1.5 rounded-xl border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-2 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20"
           >
             <Download className="h-3.5 w-3.5" />
             Export CSV

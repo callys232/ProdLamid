@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -28,7 +28,7 @@ export default function ScoreBar({
             <div className="h-2 bg-gray-200 rounded mt-1 overflow-hidden">
                 {/* Bar Fill */}
                 <div
-                    className="h-2 bg-[#c12129] rounded transition-all duration-500 ease-out"
+                    className="h-2 bg-[#2563EB] rounded transition-all duration-500 ease-out"
                     style={{ width: `${Math.min(Math.max(value, 0), 1) * 100}%` }}
                 />
             </div>

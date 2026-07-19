@@ -1,4 +1,4 @@
-.progress-container {
+﻿.progress-container {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
 }
 
 .progress-fill {
-  background: linear-gradient(to right, #ef4444, #b91c1c);
+  background: linear-gradient(to right, #2563EB, #1D4ED8);
   height: 16px;
   border-radius: 999px;
   transition: width 0.5s ease-in-out;

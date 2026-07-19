@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -100,32 +100,32 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
       {/* Campaign builder */}
       <div className="bg-[#1a1a1a] rounded-lg border border-[#1f1f1f] p-4 space-y-3">
         <div className="flex items-center gap-2">
-          <Mail className="h-4 w-4 text-[#c21219]" />
+          <Mail className="h-4 w-4 text-[#2563EB]" />
           <p className="text-xs font-semibold text-white">Campaign Builder</p>
         </div>
         <input type="text" placeholder="Subject line" value={subject}
           onChange={e => setSubject(e.target.value)}
-          className="w-full rounded-lg bg-[#0f0f0f] border border-[#333] text-sm text-white px-3 py-2.5 focus:outline-none focus:border-[#c21219]/50" />
+          className="w-full rounded-lg bg-[#0f0f0f] border border-[#333] text-sm text-white px-3 py-2.5 focus:outline-none focus:border-[#2563EB]/50" />
         <textarea placeholder="Campaign content" value={content} rows={4}
           onChange={e => setContent(e.target.value)}
-          className="w-full rounded-lg bg-[#0f0f0f] border border-[#333] text-sm text-white px-3 py-2.5 focus:outline-none focus:border-[#c21219]/50 resize-none" />
+          className="w-full rounded-lg bg-[#0f0f0f] border border-[#333] text-sm text-white px-3 py-2.5 focus:outline-none focus:border-[#2563EB]/50 resize-none" />
 
         {/* Recipients */}
         <div className="flex gap-2">
           <input type="email" placeholder="Add recipient email" value={newRecipient}
             onChange={e => setNewRecipient(e.target.value)}
             onKeyDown={e => e.key === "Enter" && addRecipient()}
-            className="flex-1 rounded-lg bg-[#0f0f0f] border border-[#333] text-xs text-white px-2.5 py-2 focus:outline-none focus:border-[#c21219]/50" />
-          <button onClick={addRecipient} className="rounded-lg bg-[#c21219] px-3 py-2 text-xs text-white">
+            className="flex-1 rounded-lg bg-[#0f0f0f] border border-[#333] text-xs text-white px-2.5 py-2 focus:outline-none focus:border-[#2563EB]/50" />
+          <button onClick={addRecipient} className="rounded-lg bg-[#2563EB] px-3 py-2 text-xs text-white">
             <Plus className="h-3.5 w-3.5" />
           </button>
         </div>
         {recipients.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {recipients.map((r, i) => (
-              <span key={i} className="flex items-center gap-1 rounded-full bg-[#c21219]/10 border border-[#c21219]/20 px-2 py-0.5 text-[10px] text-gray-300">
-                <Mail className="h-2.5 w-2.5 text-[#c21219]" /> {r}
-                <button onClick={() => setRecipients(p => p.filter((_, idx) => idx !== i))} className="text-gray-600 hover:text-red-400 ml-0.5">×</button>
+              <span key={i} className="flex items-center gap-1 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 px-2 py-0.5 text-[10px] text-gray-300">
+                <Mail className="h-2.5 w-2.5 text-[#2563EB]" /> {r}
+                <button onClick={() => setRecipients(p => p.filter((_, idx) => idx !== i))} className="text-gray-600 hover:text-blue-400 ml-0.5">×</button>
               </span>
             ))}
           </div>
@@ -133,8 +133,8 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
 
         {/* Preview */}
         {(subject || content) && (
-          <div className="rounded-lg bg-[#0f0f0f] border border-[#333] hover:border-[#c21219]/40 transition-colors p-3">
-            <p className="text-xs font-semibold text-[#c21219]">{subject || "Draft Subject"}</p>
+          <div className="rounded-lg bg-[#0f0f0f] border border-[#333] hover:border-[#2563EB]/40 transition-colors p-3">
+            <p className="text-xs font-semibold text-[#2563EB]">{subject || "Draft Subject"}</p>
             <p className="text-xs text-gray-400 mt-1">{content || "Draft content goes here..."}</p>
             <p className="text-[10px] text-gray-600 mt-1.5">Recipients: {recipients.length}</p>
           </div>
@@ -151,7 +151,7 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
           <div key={i} className="flex items-center justify-between text-xs text-gray-300 bg-[#0f0f0f] rounded-lg px-3 py-2 border border-[#333]">
             <span className="flex items-center gap-1.5"><Search className="h-3 w-3 text-blue-400" />{k}</span>
             <button onClick={() => setData(d => d ? { ...d, keywords: d.keywords.filter((_, idx) => idx !== i) } : d)}
-              className="text-gray-600 hover:text-red-400 transition-colors text-xs">×</button>
+              className="text-gray-600 hover:text-blue-400 transition-colors text-xs">×</button>
           </div>
         ))}
         <div className="flex gap-2">
@@ -169,7 +169,7 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
       {/* Admin actions */}
       <div className="flex flex-wrap gap-2">
         <motion.button whileTap={{ scale: 0.95 }} onClick={save} disabled={saving}
-          className="flex items-center gap-1.5 rounded-lg bg-[#c21219] px-4 py-2 text-xs font-semibold text-white disabled:opacity-50">
+          className="flex items-center gap-1.5 rounded-lg bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white disabled:opacity-50">
           {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : saved ? <Check className="h-3.5 w-3.5" /> : <Send className="h-3.5 w-3.5" />}
           {saved ? "Saved!" : "Save Campaign"}
         </motion.button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -27,7 +27,7 @@ export default function StatDropdown({
                 onClick={onToggle}
                 className={`w-full bg-gray-800 border rounded-lg p-4 shadow-md 
                    flex flex-col items-center transition 
-                   ${isOpen ? "border-red-500" : "border-gray-700 hover:border-red-500"}`}
+                   ${isOpen ? "border-blue-500" : "border-gray-700 hover:border-blue-500"}`}
             >
                 <span className="text-xl font-bold text-white">{value}</span>
                 <span className="text-sm text-gray-400">{label}</span>

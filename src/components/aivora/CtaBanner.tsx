@@ -29,7 +29,7 @@ export default function CtaBanner() {
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
         {paths.map((v, i) => (
           <motion.path
-            key={i} d={v.d} fill="none" stroke="#C12129" strokeWidth="0.6"
+            key={i} d={v.d} fill="none" stroke="#2563EB" strokeWidth="0.6"
             strokeOpacity="0.08" strokeDasharray="8 20"
             animate={{ strokeDashoffset: [0, -110], opacity: [0.04, 0.16, 0.04] }}
             transition={{
@@ -39,7 +39,7 @@ export default function CtaBanner() {
           />
         ))}
         {dots.map((dot, i) => (
-          <motion.circle key={i} cx={dot.cx} r={dot.r} fill="#C12129"
+          <motion.circle key={i} cx={dot.cx} r={dot.r} fill="#2563EB"
             animate={{ cy: [`${dot.cy}%`, `${dot.cy - dot.floatPct}%`, `${dot.cy}%`], opacity: [0.12, 0.35, 0.12] }}
             transition={{ duration: dot.dur, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
           />
@@ -52,20 +52,20 @@ export default function CtaBanner() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="relative rounded-2xl border border-[#C12129]/30 bg-gradient-to-br from-[#C12129]/8 via-black to-black overflow-hidden px-8 py-14 text-center"
+          className="relative rounded-2xl border border-[#2563EB]/30 bg-gradient-to-br from-[#2563EB]/8 via-black to-black overflow-hidden px-8 py-14 text-center"
         >
           {/* Pulsing background glow */}
           <motion.div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-40 rounded-full blur-3xl bg-[#C12129] pointer-events-none"
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-40 rounded-full blur-3xl bg-[#2563EB] pointer-events-none"
             animate={{ opacity: [0.06, 0.14, 0.06], scale: [0.9, 1.08, 0.9] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
 
           {/* Corner accents */}
-          <div className="absolute top-0 left-0 w-20 h-px bg-gradient-to-r from-[#C12129]/60 to-transparent" />
-          <div className="absolute top-0 left-0 w-px h-20 bg-gradient-to-b from-[#C12129]/60 to-transparent" />
-          <div className="absolute bottom-0 right-0 w-20 h-px bg-gradient-to-l from-[#C12129]/60 to-transparent" />
-          <div className="absolute bottom-0 right-0 w-px h-20 bg-gradient-to-t from-[#C12129]/60 to-transparent" />
+          <div className="absolute top-0 left-0 w-20 h-px bg-gradient-to-r from-[#2563EB]/60 to-transparent" />
+          <div className="absolute top-0 left-0 w-px h-20 bg-gradient-to-b from-[#2563EB]/60 to-transparent" />
+          <div className="absolute bottom-0 right-0 w-20 h-px bg-gradient-to-l from-[#2563EB]/60 to-transparent" />
+          <div className="absolute bottom-0 right-0 w-px h-20 bg-gradient-to-t from-[#2563EB]/60 to-transparent" />
 
           <motion.p
             initial={{ opacity: 0 }}
@@ -109,7 +109,7 @@ export default function CtaBanner() {
               href="/signup"
               onMouseEnter={() => setPrimaryHov(true)}
               onMouseLeave={() => setPrimaryHov(false)}
-              className="relative overflow-hidden px-7 py-3 rounded-full text-sm font-bold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors"
+              className="relative overflow-hidden px-7 py-3 rounded-full text-sm font-bold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors"
             >
               {primaryHov && (
                 <motion.span
@@ -126,7 +126,7 @@ export default function CtaBanner() {
               href="/contact"
               onMouseEnter={() => setSecondaryHov(true)}
               onMouseLeave={() => setSecondaryHov(false)}
-              className="px-7 py-3 rounded-full text-sm font-semibold border border-white/20 text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
+              className="px-7 py-3 rounded-full text-sm font-semibold border border-white/20 text-white/70 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors"
             >
               Explore the Ecosystem
               <motion.span

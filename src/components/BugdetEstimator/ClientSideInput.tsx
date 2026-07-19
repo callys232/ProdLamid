@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Tooltip from "./tooltip";
 import { useFieldRecommendation } from "@/hooks/useField";
 
@@ -43,7 +43,7 @@ function FieldBlock({
     return (
         <div
             className={`relative p-4 rounded-lg shadow transition bg-white
-            ${activeField === field ? "bg-red-50 border border-[#c12129]" : ""}`}
+            ${activeField === field ? "bg-blue-50 border border-[#2563EB]" : ""}`}
         >
             <label className="block text-sm font-semibold mb-2">
                 {label}
@@ -55,7 +55,7 @@ function FieldBlock({
                 onFocus={() => setActiveField(field)}
                 onBlur={() => setActiveField(null)}
                 onChange={(e) => onChange(field, Number(e.target.value))}
-                className="border-b-2 border-gray-300 focus:border-[#c12129] transition w-40"
+                className="border-b-2 border-gray-300 focus:border-[#2563EB] transition w-40"
             />
 
             <Tooltip

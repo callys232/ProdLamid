@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import FAQSection from "./FaqSection";
@@ -14,12 +14,12 @@ export default function ContactPage() {
 
         {/* Chatbot trigger */}
         <section className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold text-[#c12129] mb-6">
+          <h2 className="text-3xl font-bold text-[#2563EB] mb-6">
             Need More Help?
           </h2>
           <button
             onClick={() => setChatExpanded(!chatExpanded)}
-            className="bg-[#c12129] text-white py-3 px-6 rounded hover:bg-black transition"
+            className="bg-[#2563EB] text-white py-3 px-6 rounded hover:bg-black transition"
           >
             {chatExpanded ? "Hide Chat" : "Chat with Bot"}
           </button>

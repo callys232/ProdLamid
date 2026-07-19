@@ -1,4 +1,4 @@
-// components/escrow/EscrowTransactionList.tsx
+﻿// components/escrow/EscrowTransactionList.tsx
 "use client";
 import type { EscrowTransaction } from "@/types/project";
 
@@ -46,7 +46,7 @@ export default function EscrowTransactionList({
                           ? "bg-blue-900/30 text-blue-400 border border-blue-800/50"
                           : tx.status === "disputed"
                             ? "bg-yellow-900/30 text-yellow-400 border border-yellow-800/50"
-                            : "bg-red-900/30 text-red-400 border border-red-800/50"
+                            : "bg-blue-900/30 text-blue-400 border border-blue-800/50"
                       }`}
                   >
                     {tx.status}

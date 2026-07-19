@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,7 +66,7 @@ export default function ProfileTour({
 
                     {/* Spotlight */}
                     <div
-                        className="fixed z-50 pointer-events-none border-2 border-red-500 rounded-xl"
+                        className="fixed z-50 pointer-events-none border-2 border-blue-500 rounded-xl"
                         style={{
                             top: rect.top - 8,
                             left: rect.left - 8,
@@ -77,7 +77,7 @@ export default function ProfileTour({
 
                     {/* Tooltip */}
                     <motion.div
-                        className="fixed z-50 bg-gray-900 border border-red-600 p-4 rounded-xl w-80 shadow-xl"
+                        className="fixed z-50 bg-gray-900 border border-blue-600 p-4 rounded-xl w-80 shadow-xl"
                         style={{
                             top: rect.bottom + 15,
                             left: rect.left,
@@ -117,7 +117,7 @@ export default function ProfileTour({
 
                                 <button
                                     onClick={next}
-                                    className="bg-red-600 text-white px-3 py-1 rounded-md text-sm"
+                                    className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm"
                                 >
                                     {stepIndex === steps.length - 1
                                         ? "Finish"

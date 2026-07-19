@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -133,7 +133,7 @@ export default function ClientProjectSettings({
               </h3>
               <div className="w-full bg-gray-700 h-4 rounded-full overflow-hidden">
                 <div
-                  className="bg-red-600 h-4 transition-all"
+                  className="bg-blue-600 h-4 transition-all"
                   style={{ width: `${milestoneProgress}%` }}
                 />
               </div>
@@ -247,7 +247,7 @@ export default function ClientProjectSettings({
                       <span>{file.name}</span>
                       <button
                         onClick={() => handleRemoveFile(index)}
-                        className="text-red-500 hover:text-red-700 font-bold"
+                        className="text-blue-500 hover:text-blue-700 font-bold"
                       >
                         Remove
                       </button>
@@ -260,7 +260,7 @@ export default function ClientProjectSettings({
             {/* Save */}
             <button
               onClick={() => onSave?.(projectDetails)}
-              className="px-4 py-2 bg-red-600 rounded hover:bg-red-700 text-white"
+              className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 text-white"
             >
               Save Changes
             </button>

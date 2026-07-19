@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 
 const FREE_TOOLS = [
   { id: "diagnostic",   icon: "⚡", accent: "#b45309", title: "Business Diagnostic",  desc: "AI-powered health check across 7 business dimensions — free, instant results.", href: "/premium/business-diagnostic" },
-  { id: "proposal",     icon: "◈", accent: "#C12129", title: "Proposal Drafter",      desc: "Generate a client-ready consulting proposal in seconds.",                         href: "/premium/proposal-drafter" },
+  { id: "proposal",     icon: "◈", accent: "#2563EB", title: "Proposal Drafter",      desc: "Generate a client-ready consulting proposal in seconds.",                         href: "/premium/proposal-drafter" },
   { id: "bizprototype", icon: "⬡", accent: "#2563eb", title: "Biz Prototypes",        desc: "Explore startup methodology, frameworks, and rapid build tools.",                 href: "/bizprototype" },
-  { id: "talent",       icon: "◈", accent: "#C12129", title: "Browse Consultants",    desc: "Search LAMID CORE's verified talent marketplace across every industry.",             href: "/talent" },
+  { id: "talent",       icon: "◈", accent: "#2563EB", title: "Browse Consultants",    desc: "Search LAMID CORE's verified talent marketplace across every industry.",             href: "/talent" },
   { id: "jobs",         icon: "▣", accent: "#d97706", title: "Job Board",             desc: "Explore open roles — contract, permanent, and short-term.",                       href: "/jobs" },
   { id: "events",       icon: "✦", accent: "#7c3aed", title: "Events & Training",     desc: "Browse upcoming Talent Development events, workshops, and training programs.",    href: "/events" },
   { id: "estimator",    icon: "▣", accent: "#eab308", title: "Budget Estimator",      desc: "AI-assisted project cost & timeline estimator — plan before you post.",           href: "/postjobs?tool=estimator" },
@@ -27,7 +27,7 @@ export default function HomepageQuickActions() {
   const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
 
-  const btnCls = "flex-1 cursor-pointer border border-white/20 bg-white/5 hover:bg-[#C12129] hover:border-[#C12129] text-white font-medium text-sm px-6 py-4 rounded-xl transition-all duration-300 hover:text-white";
+  const btnCls = "flex-1 cursor-pointer border border-white/20 bg-white/5 hover:bg-[#2563EB] hover:border-[#2563EB] text-white font-medium text-sm px-6 py-4 rounded-xl transition-all duration-300 hover:text-white";
 
   return (
     <>
@@ -67,7 +67,7 @@ export default function HomepageQuickActions() {
               onClick={(e) => e.stopPropagation()}
               className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden"
             >
-              <div className="h-[3px] bg-gradient-to-r from-[#C12129] to-transparent" />
+              <div className="h-[3px] bg-gradient-to-r from-[#2563EB] to-transparent" />
               <div className="px-6 pt-6 pb-7">
                 <button type="button" onClick={() => setShowTools(false)}
                   className="absolute top-5 right-5 text-white/30 hover:text-white transition text-xl leading-none cursor-pointer">

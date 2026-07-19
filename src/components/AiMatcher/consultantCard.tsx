@@ -1,4 +1,4 @@
-import ScoreBar from "./scoreBoard";
+﻿import ScoreBar from "./scoreBoard";
 
 export default function ConsultantCard({ consultant, score }: any) {
     return (
@@ -17,7 +17,7 @@ export default function ConsultantCard({ consultant, score }: any) {
                 {consultant.skills.slice(0, 5).join(", ")}
             </div>
 
-            <button className="mt-4 w-full bg-[#c12129] text-white py-2 rounded-md hover:bg-red-700 transition">
+            <button className="mt-4 w-full bg-[#2563EB] text-white py-2 rounded-md hover:bg-blue-700 transition">
                 Compare
             </button>
         </div>

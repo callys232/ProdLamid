@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import Image from "next/image";
 import React from "react";
 
@@ -36,7 +36,7 @@ const BestToolsCard = ({ tool }) => {
             <p className="text-sm">{tool.fullDetails}</p>
             <button
               onClick={() => setIsModalOpen(false)}
-              className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md text-white"
+              className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white"
             >
               Close
             </button>
@@ -142,11 +142,11 @@ const BestTools = () => {
 
       {/* Interactive Buttons */}
       <div className="flex flex-col md:flex-row justify-between gap-4 mt-4 px-4">
-        <button className="border border-white px-6 py-3 rounded-md bg-transparent hover:bg-red-700 text-white font-medium text-lg transform hover:scale-105 transition duration-300">
+        <button className="border border-white px-6 py-3 rounded-md bg-transparent hover:bg-blue-700 text-white font-medium text-lg transform hover:scale-105 transition duration-300">
           Build Right! Avoid costly trial and error.
         </button>
 
-        <button className="border border-white px-6 py-3 rounded-md bg-transparent hover:bg-red-700 text-white font-medium text-lg transform hover:scale-105 transition duration-300">
+        <button className="border border-white px-6 py-3 rounded-md bg-transparent hover:bg-blue-700 text-white font-medium text-lg transform hover:scale-105 transition duration-300">
           Get started - FREE Diagnostics, Limited time only!
         </button>
       </div>

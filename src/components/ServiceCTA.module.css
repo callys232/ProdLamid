@@ -1,4 +1,4 @@
-/* ── Single joined card ─────────────────────────────────────────── */
+﻿/* ── Single joined card ─────────────────────────────────────────── */
 .joinedCard {
   background: linear-gradient(to right, #1e3a8a 0%, #312e81 28%, #581c87 50%, #7f1d1d 72%, #991b1b 100%);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -45,7 +45,7 @@
 }
 
 .btnConcierge {
-  background: linear-gradient(to right, #c12129, #800000);
+  background: linear-gradient(to right, #2563EB, #800000);
 }
 
 .modalStripeFileshare {
@@ -53,5 +53,5 @@
 }
 
 .modalStripeConcierge {
-  background: linear-gradient(to right, #c12129, #800000);
+  background: linear-gradient(to right, #2563EB, #800000);
 }

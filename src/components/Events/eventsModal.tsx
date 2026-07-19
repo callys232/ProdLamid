@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -44,7 +44,7 @@ export default function EventModal({
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-orange-500 hover:text-[#c21219] text-2xl font-bold transition-colors"
+              className="absolute top-4 right-4 text-orange-500 hover:text-[#2563EB] text-2xl font-bold transition-colors"
               aria-label="Close"
             >
               ×
@@ -68,7 +68,7 @@ export default function EventModal({
                     setShowSuccess(false);
                     setShowSignup(false);
                   }}
-                  className="px-6 py-2 rounded-md font-semibold bg-orange-500 hover:bg-[#c21219] text-white transition"
+                  className="px-6 py-2 rounded-md font-semibold bg-orange-500 hover:bg-[#2563EB] text-white transition"
                 >
                   Back to Event
                 </button>
@@ -94,7 +94,7 @@ export default function EventModal({
                               p === 0 ? images.length - 1 : p - 1
                             )
                           }
-                          className="absolute left-3 top-1/2 -translate-y-1/2 bg-orange-600/70 hover:bg-[#c21219] text-white px-3 py-1 rounded-full transition"
+                          className="absolute left-3 top-1/2 -translate-y-1/2 bg-orange-600/70 hover:bg-[#2563EB] text-white px-3 py-1 rounded-full transition"
                         >
                           ‹
                         </button>
@@ -104,7 +104,7 @@ export default function EventModal({
                               p === images.length - 1 ? 0 : p + 1
                             )
                           }
-                          className="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-600/70 hover:bg-[#c21219] text-white px-3 py-1 rounded-full transition"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-600/70 hover:bg-[#2563EB] text-white px-3 py-1 rounded-full transition"
                         >
                           ›
                         </button>
@@ -153,7 +153,7 @@ export default function EventModal({
                     setShowSuccess(false);
                   }
                 }}
-                className="px-6 py-2 rounded-md font-semibold bg-orange-500 hover:bg-[#c21219] text-white transition"
+                className="px-6 py-2 rounded-md font-semibold bg-orange-500 hover:bg-[#2563EB] text-white transition"
               >
                 {primaryAction ? primaryAction.label : "Register"}
               </button>
@@ -189,7 +189,7 @@ function Section({
 }) {
   return (
     <div className="mb-6">
-      <h3 className="text-lg font-semibold text-[#c21219] mb-2">{title}</h3>
+      <h3 className="text-lg font-semibold text-[#2563EB] mb-2">{title}</h3>
       {children}
     </div>
   );

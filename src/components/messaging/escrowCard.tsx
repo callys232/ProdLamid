@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Scale } from "lucide-react";
 import type { Escrow } from "@/types/escrow";
@@ -7,13 +7,13 @@ import { EscrowActions } from "./actions";
 
 export function EscrowCard({ escrow }: { escrow: Escrow }) {
   return (
-    <aside className="w-full max-w-sm rounded-2xl border border-red-600 bg-black/70 backdrop-blur-lg p-6 text-white shadow-xl">
+    <aside className="w-full max-w-sm rounded-2xl border border-blue-600 bg-black/70 backdrop-blur-lg p-6 text-white shadow-xl">
 
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Scale className="h-5 w-5 text-red-500" />
-          <span className="text-sm font-semibold uppercase text-red-500">
+          <Scale className="h-5 w-5 text-blue-500" />
+          <span className="text-sm font-semibold uppercase text-blue-500">
             Escrow
           </span>
         </div>

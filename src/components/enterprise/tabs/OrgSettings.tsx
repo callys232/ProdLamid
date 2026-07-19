@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,7 +14,7 @@ interface Props {
   orgRole: string;
 }
 
-const input = "w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-[#c12129]/40 focus:outline-none";
+const input = "w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-[#2563EB]/40 focus:outline-none";
 
 export default function OrgSettings({ org, orgRole }: Props) {
   const [form, setForm] = useState({
@@ -93,7 +93,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
       <div className="rounded-xl border border-white/10 bg-white/5 p-5">
         <div className="mb-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Briefcase className="h-4 w-4 text-[#c12129]" />
+            <Briefcase className="h-4 w-4 text-[#2563EB]" />
             <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-400">Work / Employment History</h3>
             <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-gray-400">{form.employmentHistory.length}</span>
           </div>
@@ -104,14 +104,14 @@ export default function OrgSettings({ org, orgRole }: Props) {
                 setForm(p => ({ ...p, employmentHistory: next }));
                 setExpanded(next.length - 1);
               }}
-              className="flex items-center gap-1.5 rounded-lg border border-[#c12129]/30 bg-[#c12129]/10 px-3 py-1.5 text-xs font-semibold text-[#c12129] hover:bg-[#c12129]/20">
+              className="flex items-center gap-1.5 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-3 py-1.5 text-xs font-semibold text-[#2563EB] hover:bg-[#2563EB]/20">
               <Plus className="h-3.5 w-3.5" /> Add Entry
             </motion.button>
           )}
         </div>
 
         {form.employmentHistory.length === 0 ? (
-          <p className="py-4 text-center text-sm text-gray-600">No work history yet.{isAdmin && <> Click <span className="text-[#c12129]">Add Entry</span> to start.</>}</p>
+          <p className="py-4 text-center text-sm text-gray-600">No work history yet.{isAdmin && <> Click <span className="text-[#2563EB]">Add Entry</span> to start.</>}</p>
         ) : (
           <div className="space-y-3">
             <AnimatePresence>
@@ -195,7 +195,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
                                 setForm(p => ({ ...p, employmentHistory: p.employmentHistory.filter((_, i) => i !== idx) }));
                                 setExpanded(null);
                               }}
-                              className="flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-400 hover:bg-red-500/20">
+                              className="flex items-center gap-1.5 rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-1.5 text-xs font-semibold text-blue-400 hover:bg-blue-500/20">
                               <Trash2 className="h-3.5 w-3.5" /> Remove
                             </motion.button>
                           </div>
@@ -228,7 +228,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
                 disabled={!isAdmin}
                 onClick={() => setSettings(p => ({ ...p, [key]: !p[key as keyof typeof p] }))}
                 className={`relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full transition-colors ${
-                  settings[key as keyof typeof settings] ? "bg-[#c12129]" : "bg-white/20"
+                  settings[key as keyof typeof settings] ? "bg-[#2563EB]" : "bg-white/20"
                 } ${!isAdmin ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
               >
                 <motion.span
@@ -253,7 +253,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
               disabled={!isAdmin || !isPlusTier}
               onClick={() => isPlusTier && setSettings(p => ({ ...p, whiteLabelEnabled: !p.whiteLabelEnabled }))}
               className={`relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full transition-colors ${
-                settings.whiteLabelEnabled ? "bg-[#c12129]" : "bg-white/20"
+                settings.whiteLabelEnabled ? "bg-[#2563EB]" : "bg-white/20"
               } ${(!isAdmin || !isPlusTier) ? "cursor-not-allowed" : "cursor-pointer"}`}
             >
               <motion.span
@@ -270,7 +270,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
         <motion.button
           whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
           onClick={handleSave} disabled={saving}
-          className="flex items-center gap-2 rounded-lg bg-[#c12129] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg bg-[#2563EB] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
         >
           {saving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           Save Changes
@@ -279,14 +279,14 @@ export default function OrgSettings({ org, orgRole }: Props) {
 
       {/* Danger zone */}
       {isAdmin && (
-        <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-5">
-          <h3 className="mb-2 text-sm font-semibold text-red-400">Danger Zone</h3>
+        <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-5">
+          <h3 className="mb-2 text-sm font-semibold text-blue-400">Danger Zone</h3>
           <p className="mb-4 text-xs text-gray-500">Deleting your organisation is permanent. All projects, members, and data will be lost.</p>
           {!confirmDelete ? (
             <motion.button
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
               onClick={() => setConfirmDelete(true)}
-              className="flex items-center gap-2 rounded-lg border border-red-500/30 px-4 py-2 text-sm font-semibold text-red-400 transition hover:bg-red-500/10"
+              className="flex items-center gap-2 rounded-lg border border-blue-500/30 px-4 py-2 text-sm font-semibold text-blue-400 transition hover:bg-blue-500/10"
             >
               <Trash2 className="h-4 w-4" /> Delete Organisation
             </motion.button>
@@ -295,7 +295,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={() => toast.error("Contact support to delete your org")}
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
+                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
                 Yes, delete permanently
               </motion.button>

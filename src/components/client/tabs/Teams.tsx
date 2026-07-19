@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { ClientProfile, Consultant, Team } from "@/types/client";
@@ -119,7 +119,7 @@ export default function ClientTeamSettings({
                 key={team._id || team.id}
                 onClick={() => setActiveTeam(team)}
                 className={`px-3 py-2 rounded-md cursor-pointer flex justify-between items-center text-sm ${activeTeam?._id === team._id || activeTeam?.id === team.id
-                  ? "bg-red-600 text-white"
+                  ? "bg-blue-600 text-white"
                   : "bg-gray-800 hover:bg-gray-700 text-gray-300"
                   }`}
               >
@@ -134,7 +134,7 @@ export default function ClientTeamSettings({
         </div>
         <button
           onClick={() => setShowTeamForm(true)}
-          className="mt-6 px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 text-sm font-medium transition-colors"
+          className="mt-6 px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 text-sm font-medium transition-colors"
         >
           + Create Team
         </button>
@@ -151,7 +151,7 @@ export default function ClientTeamSettings({
               </div>
               <button
                 onClick={() => handleDeleteTeam(activeTeam._id || activeTeam.id)}
-                className="text-xs text-red-500 hover:text-red-400 font-medium"
+                className="text-xs text-blue-500 hover:text-blue-400 font-medium"
               >
                 Delete Team
               </button>
@@ -200,7 +200,7 @@ export default function ClientTeamSettings({
                           <td className="py-4 text-right">
                             <button
                               onClick={() => handleRemoveMember(member.user?._id || member.user?.id)}
-                              className="text-xs text-gray-500 hover:text-red-500"
+                              className="text-xs text-gray-500 hover:text-blue-500"
                             >
                               Remove
                             </button>
@@ -257,7 +257,7 @@ export default function ClientTeamSettings({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-medium text-white disabled:opacity-50"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-sm font-medium text-white disabled:opacity-50"
                 >
                   {loading ? "Creating..." : "Create Team"}
                 </button>
@@ -295,7 +295,7 @@ export default function ClientTeamSettings({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-medium text-white disabled:opacity-50"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-sm font-medium text-white disabled:opacity-50"
                 >
                   {loading ? "Adding..." : "Add Member"}
                 </button>

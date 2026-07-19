@@ -1,4 +1,4 @@
-// mocks/mockConciergeAnalytics.ts
+﻿// mocks/mockConciergeAnalytics.ts
 import type {
   ConciergeAnalytics,
   ConciergeAnalyticsKPI,
@@ -45,7 +45,7 @@ export const mockConciergeAnalytics: ConciergeAnalytics = {
     { status: "Active",    count: 4, color: "#3b82f6" },
     { status: "Completed", count: 2, color: "#22c55e" },
     { status: "Paused",    count: 1, color: "#eab308" },
-    { status: "Disputed",  count: 1, color: "#ef4444" },
+    { status: "Disputed",  count: 1, color: "#2563EB" },
   ],
 
   milestoneTrend: [

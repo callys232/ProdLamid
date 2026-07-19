@@ -1,4 +1,4 @@
-// components/ServicePopup.tsx
+﻿// components/ServicePopup.tsx
 "use client";
 
 import { Fragment } from "react";
@@ -43,13 +43,13 @@ export default function ServicePopup({
             leaveTo="scale-95 opacity-0"
           >
             <Dialog.Panel className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-              <Dialog.Title className="text-2xl font-bold text-[#c12129] mb-4">
+              <Dialog.Title className="text-2xl font-bold text-[#2563EB] mb-4">
                 {title}
               </Dialog.Title>
               <p className="text-gray-700 mb-6">{description}</p>
               <button
                 onClick={onClose}
-                className="w-full bg-[#c12129] text-white py-2 rounded hover:bg-black transition"
+                className="w-full bg-[#2563EB] text-white py-2 rounded hover:bg-black transition"
               >
                 Close
               </button>

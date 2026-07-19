@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { EscrowStatus } from "@/types/escrow";
 import clsx from "clsx";
@@ -9,9 +9,9 @@ const statusStyles: Record<EscrowStatus, string> = {
   in_progress: "bg-yellow-500 text-black",
   released: "bg-green-600 text-white",
   completed: "bg-emerald-700 text-white",
-  disputed: "bg-red-600 text-white",
+  disputed: "bg-blue-600 text-white",
   cancelled: "bg-gray-400 text-white",
-  failed: "bg-red-800 text-white",
+  failed: "bg-blue-800 text-white",
 };
 
 export function StatusBadge({ status }: { status?: EscrowStatus | null }) {

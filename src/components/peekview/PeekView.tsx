@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -143,8 +143,8 @@ export default function PeekView() {
           >
             {/* Header */}
             <div className="flex items-center gap-2.5 px-4 py-3 border-b border-white/8">
-              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#c21219]/20 border border-[#c21219]/30 flex-shrink-0">
-                <span className="text-[10px] font-black text-[#c21219] leading-none">L</span>
+              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#2563EB]/20 border border-[#2563EB]/30 flex-shrink-0">
+                <span className="text-[10px] font-black text-[#2563EB] leading-none">L</span>
               </div>
               <div className="min-w-0">
                 <p className="text-[11px] font-bold text-white leading-none">LAMID Platform</p>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -34,7 +34,7 @@ export default function Dashboard() {
   return (
     <section className="flex min-h-screen items-center justify-center bg-black">
       <div className="flex flex-col items-center gap-4">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#c12129] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2563EB] border-t-transparent" />
         <p className="text-sm text-gray-500">Redirecting to your dashboard…</p>
       </div>
     </section>

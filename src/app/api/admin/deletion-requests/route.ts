@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
+import { requireAuth, hasRole } from "@/lib/middleware/auth";
 import { Users } from "@/lib/models/User";
 
-// GET — fetch all deletion requests
-export async function GET() {
+// GET — fetch all deletion requests (admin only)
+export async function GET(req: NextRequest) {
   try {
     await dbConnect();
+    const auth = await requireAuth(req);
+    if (auth instanceof NextResponse) return auth;
+    if (!hasRole(auth.userRole, ["admin"])) {
+      return NextResponse.json({ message: "Forbidden." }, { status: 403 });
+    }
+
     const requests = await Users.find(
       { "deletionRequest.requested": true },
       "name email username deletionRequest createdAt"
@@ -16,15 +23,20 @@ export async function GET() {
   }
 }
 
-// PATCH — admin approves (deletes) or rejects a request
+// PATCH — admin approves (soft-deletes) or rejects a request (admin only)
 export async function PATCH(req: NextRequest) {
   try {
     await dbConnect();
+    const auth = await requireAuth(req);
+    if (auth instanceof NextResponse) return auth;
+    if (!hasRole(auth.userRole, ["admin"])) {
+      return NextResponse.json({ message: "Forbidden." }, { status: 403 });
+    }
+
     const { userId, action } = await req.json();
     if (!userId || !action) return NextResponse.json({ message: "userId and action required." }, { status: 400 });
 
     if (action === "approve") {
-      // Soft-delete: mark as deleted and update request status
       await Users.findByIdAndUpdate(userId, {
         isDeleted: true,
         status: "deleted",

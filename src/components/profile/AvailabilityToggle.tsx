@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,7 +18,7 @@ interface Props {
 const STATUS_CONFIG: Record<Status, { label: string; color: string; dot: string; icon: typeof Briefcase }> = {
   available:           { label: "Available",          color: "text-emerald-400 border-emerald-500/30 bg-emerald-500/10", dot: "bg-emerald-400", icon: Briefcase },
   partially_available: { label: "Partially Available",color: "text-yellow-400  border-yellow-500/30  bg-yellow-500/10",  dot: "bg-yellow-400",  icon: Clock     },
-  unavailable:         { label: "Unavailable",         color: "text-red-400    border-red-500/30     bg-red-500/10",     dot: "bg-red-400",     icon: XCircle   },
+  unavailable:         { label: "Unavailable",         color: "text-blue-400    border-blue-500/30     bg-blue-500/10",     dot: "bg-blue-400",     icon: XCircle   },
 };
 
 export default function AvailabilityToggle({ initial }: Props) {
@@ -125,7 +125,7 @@ export default function AvailabilityToggle({ initial }: Props) {
               <input type="range" min={0} max={80} step={5} value={hours}
                 onChange={e => setHours(Number(e.target.value))}
                 onMouseUp={() => save({ openToWork, availabilityStatus: status, hoursPerWeek: hours })}
-                className="w-full accent-[#c21219]"
+                className="w-full accent-[#2563EB]"
               />
               <div className="flex justify-between text-[10px] text-gray-600 mt-0.5">
                 <span>0h</span><span>40h</span><span>80h</span>

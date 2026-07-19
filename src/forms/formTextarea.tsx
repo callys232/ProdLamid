@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -45,7 +45,7 @@ const FormTextarea: React.FC<FormTextareaProps> = ({
       />
 
       {error && (
-        <p id={`${textareaId}-error`} className="text-red-400 text-sm mt-1">
+        <p id={`${textareaId}-error`} className="text-blue-400 text-sm mt-1">
           {error}
         </p>
       )}

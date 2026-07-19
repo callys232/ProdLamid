@@ -1,24 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle, Users, Star } from "lucide-react";
+import { Clock, Layers, Zap } from "lucide-react";
 
 const ITEMS = [
   {
-    Icon: CheckCircle,
-    bold: "14+",
-    text: "enterprise organizations",
-    prefix: "Trusted by",
+    Icon: Clock,
+    bold: "30+",
+    text: "years of consulting leadership",
   },
   {
-    Icon: Users,
-    bold: "120+",
-    text: "Expert Partners",
+    Icon: Layers,
+    bold: "4",
+    text: "unified engines",
   },
   {
-    Icon: Star,
-    bold: "4.8/5",
-    text: "Rating across 6 countries",
+    Icon: Zap,
+    bold: "40+",
+    text: "signals per talent match",
   },
 ];
 
@@ -36,9 +35,8 @@ export default function ProofStrip() {
           {ITEMS.map((item, i) => (
             <span key={i} className="flex items-center">
               <span className="flex items-center gap-2">
-                <item.Icon className="w-4 h-4 shrink-0 text-[#C12129]" strokeWidth={1.5} />
+                <item.Icon className="w-4 h-4 shrink-0 text-[#2563EB]" strokeWidth={1.5} />
                 <span className="text-xs sm:text-sm text-gray-500 dark:text-white/50 font-medium">
-                  {item.prefix && <>{item.prefix} </>}
                   <strong className="font-bold aivora-gradient-text">{item.bold}</strong>
                   {" "}{item.text}
                 </span>

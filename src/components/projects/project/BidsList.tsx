@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -94,7 +94,7 @@ export default function BidsList({ projectId }: BidsListProps) {
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-xl font-bold text-red-500">${bid.amount}</p>
+                                        <p className="text-xl font-bold text-blue-500">${bid.amount}</p>
                                         {bid.duration && <p className="text-xs text-gray-400 flex items-center justify-end gap-1"><FaClock size={10} /> {bid.duration}</p>}
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@ export default function BidsList({ projectId }: BidsListProps) {
                                         <button
                                             onClick={() => handleHire(bid)}
                                             disabled={hiringId === bid._id}
-                                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded text-sm font-bold shadow-lg shadow-red-900/20 transition-all disabled:opacity-50"
+                                            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-bold shadow-lg shadow-blue-900/20 transition-all disabled:opacity-50"
                                         >
                                             {hiringId === bid._id ? "Processing..." : "Hire Now"}
                                         </button>

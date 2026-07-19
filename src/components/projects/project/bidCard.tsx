@@ -1,4 +1,4 @@
-// src/components/project/BidCard.tsx
+﻿// src/components/project/BidCard.tsx
 import Card from "./card";
 
 export default function BidCard() {
@@ -16,7 +16,7 @@ export default function BidCard() {
         />
         <button
           type="submit"
-          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-semibold"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold"
         >
           Submit Bid
         </button>

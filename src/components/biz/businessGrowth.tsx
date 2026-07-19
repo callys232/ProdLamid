@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
@@ -62,7 +62,7 @@ const BusinessGrowthSection: React.FC = () => {
       date: "Aug 20, 2025",
       time: "1:00 PM - 3:00 PM",
       location: "Port Harcourt Business School",
-      hoverColor: "hover:border-red-400",
+      hoverColor: "hover:border-blue-400",
     },
     {
       id: 4,

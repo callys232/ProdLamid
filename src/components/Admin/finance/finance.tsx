@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState, useEffect } from "react";
 import Section from "./section";
 import MetricCard from "./metricCard";
@@ -107,7 +107,7 @@ export default function FinanceAgent() {
         <p className="text-gray-400 text-sm">Loading finance data...</p>
       )}
       {error && (
-        <p className="text-red-400 text-sm">
+        <p className="text-blue-400 text-sm">
           Failed to load finance data. Showing fallback.
         </p>
       )}

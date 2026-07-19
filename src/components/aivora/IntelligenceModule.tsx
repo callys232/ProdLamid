@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,14 +50,14 @@ function IntakeForm({ config, onSubmit, loading }: {
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm(f => ({ ...f, [k]: e.target.value }));
 
-  const inputCls  = "w-full rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#C12129]/60 focus:ring-1 focus:ring-[#C12129]/20 placeholder-gray-400 dark:placeholder-gray-600 transition";
+  const inputCls  = "w-full rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#2563EB]/60 focus:ring-1 focus:ring-[#2563EB]/20 placeholder-gray-400 dark:placeholder-gray-600 transition";
   const selectCls = inputCls + " appearance-none cursor-pointer bg-white dark:bg-[#111]";
 
   return (
     <motion.div {...fadeUp(0)} className="max-w-2xl mx-auto">
       {/* Module intro */}
       <div className="aivora-card border rounded-2xl p-6 mb-6">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C12129] mb-2">{config.seriesName} · {config.id}</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] mb-2">{config.seriesName} · {config.id}</p>
         <h2 className="text-base font-bold text-gray-900 dark:text-white mb-2">{config.engineName}</h2>
         <p className="text-sm text-gray-500 dark:text-white/50 leading-relaxed">{config.purpose}</p>
       </div>
@@ -69,7 +69,7 @@ function IntakeForm({ config, onSubmit, loading }: {
         <div className="flex flex-col gap-4">
           <div>
             <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40 block mb-1.5">
-              Organisation Name <span className="text-[#C12129]">*</span>
+              Organisation Name <span className="text-[#2563EB]">*</span>
             </label>
             <input value={form.organisationName} onChange={set("organisationName")}
               placeholder="e.g. Horizon Capital Group" className={inputCls} />
@@ -94,7 +94,7 @@ function IntakeForm({ config, onSubmit, loading }: {
 
           <div>
             <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40 block mb-1.5">
-              Primary Challenge <span className="text-[#C12129]">*</span>
+              Primary Challenge <span className="text-[#2563EB]">*</span>
             </label>
             <textarea rows={2} value={form.challenge} onChange={set("challenge")}
               placeholder={`What is your main challenge in this ${config.id} dimension?`}
@@ -103,7 +103,7 @@ function IntakeForm({ config, onSubmit, loading }: {
 
           <div>
             <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40 block mb-1.5">
-              Strategic Goal <span className="text-[#C12129]">*</span>
+              Strategic Goal <span className="text-[#2563EB]">*</span>
             </label>
             <textarea rows={2} value={form.goal} onChange={set("goal")}
               placeholder="What does success look like in this dimension for your enterprise?"
@@ -125,7 +125,7 @@ function IntakeForm({ config, onSubmit, loading }: {
             onSubmit(form);
           }}
           disabled={loading || !form.organisationName || !form.challenge || !form.goal}
-          className="mt-5 w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#C12129] to-red-700 hover:from-red-700 hover:to-red-800 text-white font-extrabold text-sm shadow-[0_8px_32px_rgba(194,18,25,0.35)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
+          className="mt-5 w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#2563EB] to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-extrabold text-sm shadow-[0_8px_32px_rgba(194,18,25,0.35)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
         >
           {loading
             ? <><Loader2 className="h-4 w-4 animate-spin" />Running {config.engineName}…</>
@@ -182,7 +182,7 @@ function ResultDisplay({ result, config, onReset, orgName }: {
   const distortionColor = {
     Low:    "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
     Medium: "text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/20",
-    High:   "text-[#C12129] bg-[#C12129]/10 border-[#C12129]/20",
+    High:   "text-[#2563EB] bg-[#2563EB]/10 border-[#2563EB]/20",
   }[result.distortionIndex] ?? "text-gray-500";
 
   return (
@@ -191,21 +191,21 @@ function ResultDisplay({ result, config, onReset, orgName }: {
       {/* Report toolbar */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#C12129] mb-0.5">{config.id} · {config.seriesName}</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] mb-0.5">{config.id} · {config.seriesName}</p>
           <h2 className="text-lg font-bold text-gray-900 dark:text-white">{orgName} — {config.engineName}</h2>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={copyReport} className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-xl border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-[#C12129]/30 hover:text-[#C12129] transition">
+          <button onClick={copyReport} className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-xl border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition">
             {copied ? <><CheckCheck className="h-3.5 w-3.5 text-emerald-500" />Copied</> : <><Copy className="h-3.5 w-3.5" />Copy Report</>}
           </button>
-          <button onClick={onReset} className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-xl border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-[#C12129]/30 hover:text-[#C12129] transition">
+          <button onClick={onReset} className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-xl border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition">
             <RefreshCw className="h-3.5 w-3.5" />New Assessment
           </button>
         </div>
       </div>
 
       {/* Executive Summary */}
-      <div className="aivora-card border rounded-2xl p-6" style={{ borderColor: "rgba(193,33,41,0.15)" }}>
+      <div className="aivora-card border rounded-2xl p-6" style={{ borderColor: "rgba(37,99,235,0.15)" }}>
         <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-3">Executive Summary</p>
         <p className="text-sm text-gray-700 dark:text-white/80 leading-relaxed">{result.executiveSummary}</p>
         <div className="flex items-center gap-2 mt-3">
@@ -234,7 +234,7 @@ function ResultDisplay({ result, config, onReset, orgName }: {
           <div className="flex flex-col gap-3">
             {result.signals.map((s, i) => (
               <div key={i} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
-                <AlertCircle className={`w-4 h-4 mt-0.5 shrink-0 ${s.severity === "High" ? "text-[#C12129]" : s.severity === "Medium" ? "text-amber-500" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
+                <AlertCircle className={`w-4 h-4 mt-0.5 shrink-0 ${s.severity === "High" ? "text-[#2563EB]" : s.severity === "Medium" ? "text-amber-500" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
                 <div>
                   <p className="text-sm text-gray-900 dark:text-white leading-snug">{s.title}</p>
                   <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5">{s.action}</p>
@@ -256,7 +256,7 @@ function ResultDisplay({ result, config, onReset, orgName }: {
                 </div>
                 <div className="h-1.5 rounded-full bg-gray-100 dark:bg-white/8 overflow-hidden">
                   <motion.div
-                    className="h-full rounded-full bg-[#C12129]"
+                    className="h-full rounded-full bg-[#2563EB]"
                     initial={{ width: 0 }}
                     animate={{ width: `${d.value}%` }}
                     transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.1 }}
@@ -270,10 +270,10 @@ function ResultDisplay({ result, config, onReset, orgName }: {
       </div>
 
       {/* Correction Priority */}
-      <motion.div {...fadeUp(0.2)} className="aivora-card border rounded-2xl p-6" style={{ borderColor: "rgba(193,33,41,0.15)" }}>
+      <motion.div {...fadeUp(0.2)} className="aivora-card border rounded-2xl p-6" style={{ borderColor: "rgba(37,99,235,0.15)" }}>
         <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-3">Correction Priority</p>
         <div className="flex items-start gap-3">
-          <span className="text-[9px] font-black text-[#C12129] bg-[#C12129]/10 px-2 py-1 rounded-full border border-[#C12129]/20 shrink-0 mt-0.5">
+          <span className="text-[9px] font-black text-[#2563EB] bg-[#2563EB]/10 px-2 py-1 rounded-full border border-[#2563EB]/20 shrink-0 mt-0.5">
             Activate
           </span>
           <div>
@@ -299,11 +299,11 @@ function ResultDisplay({ result, config, onReset, orgName }: {
         {planExpanded && (
           <div className="px-6 pb-6 grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-gray-100 dark:border-white/8 pt-4">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-[#C12129] mb-3">30-Day Plan</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] mb-3">30-Day Plan</p>
               <ol className="flex flex-col gap-2">
                 {result.thirtyDayPlan.map((a, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-[9px] font-black text-[#C12129] shrink-0 mt-0.5 w-4">{i + 1}.</span>
+                    <span className="text-[9px] font-black text-[#2563EB] shrink-0 mt-0.5 w-4">{i + 1}.</span>
                     <p className="text-xs text-gray-700 dark:text-white/65 leading-snug">{a}</p>
                   </li>
                 ))}
@@ -327,11 +327,11 @@ function ResultDisplay({ result, config, onReset, orgName }: {
       {/* Navigation */}
       <motion.div {...fadeUp(0.3)} className="flex flex-wrap gap-3">
         {config.nextHref && (
-          <Link href={config.nextHref} className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)] inline-flex items-center gap-1.5">
+          <Link href={config.nextHref} className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_14px_rgba(37,99,235,0.35)] inline-flex items-center gap-1.5">
             {config.nextLabel} <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
         )}
-        <Link href={config.backHref} className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+        <Link href={config.backHref} className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors">
           {config.backLabel}
         </Link>
       </motion.div>
@@ -392,7 +392,7 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
 
         {/* Error */}
         {error && (
-          <motion.div {...fadeUp(0)} className="mb-6 flex items-center gap-2 px-4 py-3 rounded-xl bg-[#C12129]/8 border border-[#C12129]/20 text-sm text-[#C12129]">
+          <motion.div {...fadeUp(0)} className="mb-6 flex items-center gap-2 px-4 py-3 rounded-xl bg-[#2563EB]/8 border border-[#2563EB]/20 text-sm text-[#2563EB]">
             <AlertCircle className="w-4 h-4 shrink-0" />
             {error}
           </motion.div>

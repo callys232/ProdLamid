@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -143,7 +143,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[300px] p-6">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#c12129] border-t-transparent" />
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#2563EB] border-t-transparent" />
       </div>
     );
   }
@@ -161,7 +161,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
             placeholder="Search teams…"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full rounded-xl border border-white/10 bg-white/5 pl-8 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c12129]/50"
+            className="w-full rounded-xl border border-white/10 bg-white/5 pl-8 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50"
           />
         </div>
 
@@ -182,12 +182,12 @@ export default function EnterpriseTeams({ orgId }: Props) {
                 onClick={() => setActiveTeam(team)}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm transition-colors ${
                   active
-                    ? "bg-[#c12129]/15 border border-[#c12129]/30 text-white"
+                    ? "bg-[#2563EB]/15 border border-[#2563EB]/30 text-white"
                     : "border border-transparent text-gray-400 hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <span className="truncate font-medium">{team.name}</span>
-                <span className={`text-[10px] rounded-full px-1.5 py-0.5 ${active ? "bg-[#c12129]/20 text-[#c12129]" : "bg-white/5 text-gray-500"}`}>
+                <span className={`text-[10px] rounded-full px-1.5 py-0.5 ${active ? "bg-[#2563EB]/20 text-[#2563EB]" : "bg-white/5 text-gray-500"}`}>
                   {team.members?.length ?? 0}
                 </span>
               </motion.button>
@@ -197,10 +197,10 @@ export default function EnterpriseTeams({ orgId }: Props) {
 
         {/* Create team button */}
         <motion.button
-          whileHover={{ scale: 1.03, boxShadow: "0 4px 14px rgba(193,33,41,0.3)" }}
+          whileHover={{ scale: 1.03, boxShadow: "0 4px 14px rgba(37,99,235,0.3)" }}
           whileTap={{ scale: 0.97 }}
           onClick={() => setShowCreate(true)}
-          className="flex items-center justify-center gap-2 rounded-xl bg-[#c12129] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700"
+          className="flex items-center justify-center gap-2 rounded-xl bg-[#2563EB] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
         >
           <Plus className="h-4 w-4" /> Create Team
         </motion.button>
@@ -217,7 +217,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
             <motion.button
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
               onClick={() => setShowCreate(true)}
-              className="mt-2 flex items-center gap-1.5 rounded-lg border border-[#c12129]/30 bg-[#c12129]/10 px-4 py-2 text-sm font-medium text-[#c12129] hover:bg-[#c12129]/20"
+              className="mt-2 flex items-center gap-1.5 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-2 text-sm font-medium text-[#2563EB] hover:bg-[#2563EB]/20"
             >
               <Plus className="h-4 w-4" /> New Team
             </motion.button>
@@ -234,10 +234,10 @@ export default function EnterpriseTeams({ orgId }: Props) {
               </div>
               <div className="flex items-center gap-2">
                 <motion.button
-                  whileHover={{ scale: 1.05, boxShadow: "0 4px 14px rgba(193,33,41,0.25)" }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 4px 14px rgba(37,99,235,0.25)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowAdd(true)}
-                  className="flex items-center gap-1.5 rounded-lg border border-[#c12129]/30 bg-[#c12129]/10 px-3 py-1.5 text-xs font-semibold text-[#c12129] transition hover:bg-[#c12129]/20"
+                  className="flex items-center gap-1.5 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-3 py-1.5 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20"
                 >
                   <Plus className="h-3.5 w-3.5" /> Add Member
                 </motion.button>
@@ -245,7 +245,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                   onClick={handleDelete}
                   disabled={busy}
-                  className="flex items-center gap-1.5 rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-1.5 text-xs font-medium text-red-400 transition hover:bg-red-500/15 disabled:opacity-50"
+                  className="flex items-center gap-1.5 rounded-lg border border-blue-500/20 bg-blue-500/5 px-3 py-1.5 text-xs font-medium text-blue-400 transition hover:bg-blue-500/15 disabled:opacity-50"
                 >
                   <Trash2 className="h-3.5 w-3.5" /> Delete
                 </motion.button>
@@ -294,7 +294,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
                         >
                           <td className="px-4 py-3.5">
                             <div className="flex items-center gap-3">
-                              <div className="h-8 w-8 rounded-full bg-[#c12129]/15 border border-[#c12129]/20 flex items-center justify-center text-xs font-bold text-[#c12129] flex-shrink-0">
+                              <div className="h-8 w-8 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/20 flex items-center justify-center text-xs font-bold text-[#2563EB] flex-shrink-0">
                                 {(m.user?.username ?? "?")[0].toUpperCase()}
                               </div>
                               <div>
@@ -311,7 +311,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
                             <div className="flex items-center justify-end gap-3">
                               <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
                               <motion.button
-                                whileHover={{ scale: 1.1, color: "#ef4444" }} whileTap={{ scale: 0.9 }}
+                                whileHover={{ scale: 1.1, color: "#2563EB" }} whileTap={{ scale: 0.9 }}
                                 onClick={e => { e.stopPropagation(); handleRemove(uid); }}
                                 disabled={busy}
                                 className="flex items-center gap-1 text-xs text-gray-500 transition disabled:opacity-50"
@@ -360,7 +360,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
                     value={newName}
                     onChange={e => setNewName(e.target.value)}
                     placeholder="e.g., Product Engineering"
-                    className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c12129]/50"
+                    className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50"
                   />
                 </div>
                 <div className="flex justify-end gap-3 pt-1">
@@ -368,7 +368,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
                   <motion.button
                     type="submit" disabled={busy || !newName.trim()}
                     whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
-                    className="rounded-xl bg-[#c12129] px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+                    className="rounded-xl bg-[#2563EB] px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
                   >
                     {busy ? "Creating…" : "Create Team"}
                   </motion.button>
@@ -408,7 +408,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
                     value={newEmail}
                     onChange={e => setNewEmail(e.target.value)}
                     placeholder="user@company.com"
-                    className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c12129]/50"
+                    className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50"
                   />
                 </div>
                 <div>
@@ -416,7 +416,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
                   <select
                     value={newRole}
                     onChange={e => setNewRole(e.target.value)}
-                    className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#c12129]/50"
+                    className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#2563EB]/50"
                   >
                     {ROLES.map(r => <option key={r} value={r} className="capitalize bg-[#0d1117]">{r}</option>)}
                   </select>
@@ -426,7 +426,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
                   <motion.button
                     type="submit" disabled={busy || !newEmail.trim()}
                     whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
-                    className="rounded-xl bg-[#c12129] px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+                    className="rounded-xl bg-[#2563EB] px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
                   >
                     {busy ? "Adding…" : "Add Member"}
                   </motion.button>
@@ -441,7 +441,7 @@ export default function EnterpriseTeams({ orgId }: Props) {
       <MemberDetailModal
         member={selected}
         onClose={() => setSelected(null)}
-        accent="#c12129"
+        accent="#2563EB"
       />
     </div>
   );

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -78,7 +78,7 @@ const Footer = () => {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-500 dark:text-white/40 hover:text-[#C12129] dark:hover:text-[#C12129] transition-colors duration-200"
+                      className="text-sm text-gray-500 dark:text-white/40 hover:text-[#2563EB] dark:hover:text-[#2563EB] transition-colors duration-200"
                     >
                       {link.label}
                     </Link>

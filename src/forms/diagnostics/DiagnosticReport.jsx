@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -36,15 +36,15 @@ export default function DiagnosticReport({ formData, onDone }) {
 
   if (loading) return (
     <div className="flex flex-col items-center justify-center py-12 gap-4">
-      <Loader2 className="h-8 w-8 text-[#c21219] animate-spin" />
+      <Loader2 className="h-8 w-8 text-[#2563EB] animate-spin" />
       <p className="text-sm text-gray-400">Analysing your submission…</p>
     </div>
   );
 
   if (error) return (
     <div className="text-center py-8">
-      <p className="text-red-400 text-sm mb-4">{error}</p>
-      <button onClick={onDone} className="px-4 py-2 rounded-lg bg-[#c21219] text-white text-sm">Close</button>
+      <p className="text-blue-400 text-sm mb-4">{error}</p>
+      <button onClick={onDone} className="px-4 py-2 rounded-lg bg-[#2563EB] text-white text-sm">Close</button>
     </div>
   );
 
@@ -58,7 +58,7 @@ export default function DiagnosticReport({ formData, onDone }) {
       className="space-y-4"
     >
       <div className="text-center mb-2">
-        <p className="text-xs font-semibold tracking-widest text-[#c21219] uppercase mb-1">Your AI Diagnostic Report</p>
+        <p className="text-xs font-semibold tracking-widest text-[#2563EB] uppercase mb-1">Your AI Diagnostic Report</p>
         <p className="text-sm text-gray-300">{report.summary}</p>
       </div>
 
@@ -115,14 +115,14 @@ export default function DiagnosticReport({ formData, onDone }) {
       )}
 
       {/* Next Step */}
-      <div className="rounded-xl border border-[#c21219]/30 bg-[#c21219]/10 p-3 flex items-start gap-2">
-        <ArrowRight className="h-4 w-4 text-[#c21219] flex-shrink-0 mt-0.5" />
+      <div className="rounded-xl border border-[#2563EB]/30 bg-[#2563EB]/10 p-3 flex items-start gap-2">
+        <ArrowRight className="h-4 w-4 text-[#2563EB] flex-shrink-0 mt-0.5" />
         <p className="text-xs text-gray-200">{report.nextStep}</p>
       </div>
 
       <button
         onClick={onDone}
-        className="w-full py-2.5 rounded-xl bg-[#c21219] hover:bg-red-700 text-white text-sm font-semibold transition"
+        className="w-full py-2.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-sm font-semibold transition"
       >
         Close
       </button>

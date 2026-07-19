@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Download, AlertTriangle, Send, CheckCircle } from "lucide-react";
@@ -68,7 +68,7 @@ export default function GdprSettings() {
           <button
             onClick={handleExport}
             disabled={exporting}
-            className="shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/15 text-gray-700 dark:text-white/70 hover:border-[#C12129]/40 hover:text-[#C12129] transition-colors disabled:opacity-50 cursor-pointer"
+            className="shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/15 text-gray-700 dark:text-white/70 hover:border-[#2563EB]/40 hover:text-[#2563EB] transition-colors disabled:opacity-50 cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
             {exporting ? "Exporting..." : "Export Data"}
@@ -107,13 +107,13 @@ export default function GdprSettings() {
               onChange={(e) => setRequestReason(e.target.value)}
               placeholder="Please tell us why you'd like to delete your account (optional)..."
               rows={3}
-              className="w-full px-3 py-2.5 text-xs rounded-xl border border-gray-200 dark:border-white/12 bg-transparent text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-white/30 focus:outline-none focus:border-[#C12129]/40 resize-none"
+              className="w-full px-3 py-2.5 text-xs rounded-xl border border-gray-200 dark:border-white/12 bg-transparent text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-white/30 focus:outline-none focus:border-[#2563EB]/40 resize-none"
             />
             <button
               type="button"
               onClick={handleDeletionRequest}
               disabled={submitting}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border border-gray-300 dark:border-white/15 text-gray-700 dark:text-white/70 hover:border-[#C12129]/40 hover:text-[#C12129] transition-colors disabled:opacity-50 cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border border-gray-300 dark:border-white/15 text-gray-700 dark:text-white/70 hover:border-[#2563EB]/40 hover:text-[#2563EB] transition-colors disabled:opacity-50 cursor-pointer"
             >
               <Send className="w-3.5 h-3.5" />
               {submitting ? "Submitting..." : "Submit Deletion Request"}

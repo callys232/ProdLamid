@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
@@ -31,7 +31,7 @@ const DOTS: DotConfig[] = [
 export default function VectorBg({
   paths    = PATHS,
   dots     = DOTS,
-  color    = "#C12129",
+  color    = "#2563EB",
   opacity  = 0.14,
   dashArray = "8 20",
 }: VectorBgProps) {

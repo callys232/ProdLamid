@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 
 export default function BizSphereModal({ isOpen, onClose }) {
   const [isVisible, setIsVisible] = useState(isOpen);
@@ -39,8 +39,8 @@ export default function BizSphereModal({ isOpen, onClose }) {
           {/* Logo and dots */}
           <div className="flex justify-center mb-2">
             <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-red-700"></div>
-              <div className="h-2 w-2 rounded-full bg-red-300"></div>
+              <div className="h-2 w-2 rounded-full bg-blue-700"></div>
+              <div className="h-2 w-2 rounded-full bg-blue-300"></div>
               <div className="h-2 w-2 rounded-full bg-gray-300"></div>
               <div className="h-2 w-2 border border-black"></div>
             </div>
@@ -57,13 +57,13 @@ export default function BizSphereModal({ isOpen, onClose }) {
           {/* Main text */}
           <p className="mb-8 text-sm md:text-base text-black">
             The exclusive online networking{" "}
-            <span className="text-red-600 font-medium">marketplace</span>, where
+            <span className="text-blue-600 font-medium">marketplace</span>, where
             sellers meet buyers, and exchange services and products
           </p>
 
           {/* CTA button */}
           <button
-            className="bg-red-800 hover:bg-red-900 text-white py-2 px-8 rounded transition-colors w-full sm:w-auto"
+            className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-8 rounded transition-colors w-full sm:w-auto"
             onClick={onClose}
           >
             Join our Community

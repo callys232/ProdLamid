@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import clsx from "clsx";
@@ -73,7 +73,7 @@ export default function AvailabilityCalendar({ availability = [], onChange }: Av
                                         className={clsx(
                                             "h-9 rounded-md cursor-pointer transition flex items-center justify-center",
                                             active
-                                                ? "bg-red-600 shadow-lg ring-2 ring-white"
+                                                ? "bg-blue-600 shadow-lg ring-2 ring-white"
                                                 : "bg-[#0f1115] hover:bg-[#1a1d24]"
                                         )}
                                     />
@@ -85,7 +85,7 @@ export default function AvailabilityCalendar({ availability = [], onChange }: Av
             </div>
 
             {/* SELECTED LIST */}
-            <div className="bg-red-500/40 p-3 rounded-lg border border-gray-800">
+            <div className="bg-blue-500/40 p-3 rounded-lg border border-gray-800">
                 <p className="text-xs text-gray-400 mb-2">Selected Slots</p>
                 {local.length === 0 ? (
                     <p className="text-gray-500 text-sm">No time selected</p>

@@ -1,4 +1,4 @@
-export interface JobCategory {
+﻿export interface JobCategory {
   id: string;
   name: string;
   slug: string;
@@ -94,7 +94,7 @@ export const mockCategories: JobCategory[] = [
   {
     id: "cat-17", name: "Video & Animation", slug: "video",
     icon: "🎥", description: "Motion design, 3D animation, VFX, and video production.",
-    avgRate: 65, jobCount: 58, trending: false, color: "#ef4444",
+    avgRate: 65, jobCount: 58, trending: false, color: "#2563EB",
   },
   {
     id: "cat-18", name: "Literature & Content", slug: "literature",

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -62,7 +62,7 @@ export default function PurchasePoints({ open, onClose, onSuccess }: Props) {
             {/* Header */}
             <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Zap className="h-5 w-5 text-[#c12129]" />
+                <Zap className="h-5 w-5 text-[#2563EB]" />
                 <h2 className="text-base font-bold">Purchase Points</h2>
               </div>
               <motion.button
@@ -89,12 +89,12 @@ export default function PurchasePoints({ open, onClose, onSuccess }: Props) {
                   onClick={() => setSelected(pkg.id)}
                   className={`relative rounded-xl border p-4 text-left transition ${
                     selected === pkg.id
-                      ? "border-[#c12129] bg-[#c12129]/10"
+                      ? "border-[#2563EB] bg-[#2563EB]/10"
                       : "border-white/10 bg-white/5 hover:border-white/20"
                   }`}
                 >
                   {pkg.popular && (
-                    <span className="absolute -top-2 left-3 rounded-full bg-[#c12129] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
+                    <span className="absolute -top-2 left-3 rounded-full bg-[#2563EB] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
                       Popular
                     </span>
                   )}
@@ -103,7 +103,7 @@ export default function PurchasePoints({ open, onClose, onSuccess }: Props) {
                     ₦{pkg.priceNgn.toLocaleString()}
                   </p>
                   {selected === pkg.id && (
-                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-[#c12129]" />
+                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-[#2563EB]" />
                   )}
                 </motion.button>
               ))}
@@ -125,7 +125,7 @@ export default function PurchasePoints({ open, onClose, onSuccess }: Props) {
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
               onClick={handlePurchase}
               disabled={!selected || loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#c12129] py-3 text-sm font-bold text-white transition hover:bg-red-700 disabled:opacity-40"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] py-3 text-sm font-bold text-white transition hover:bg-blue-700 disabled:opacity-40"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />}
               {loading ? "Redirecting…" : "Pay with Paystack"}

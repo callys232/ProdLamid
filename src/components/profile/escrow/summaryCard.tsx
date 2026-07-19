@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -24,7 +24,7 @@ export default function EscrowSummaryCard({
             <select value={currency} onChange={(e) => onCurrencyChange(e.target.value)} className="bg-gray-800 border border-gray-700 text-sm text-gray-200 px-2 py-1 rounded-md">
               {currencies.map((c: string) => <option key={c} value={c}>{c}</option>)}
             </select>
-            <button onClick={onExport} disabled={!isPremium} className={`px-3 py-2 rounded-md text-sm ${isPremium ? "bg-red-600 hover:bg-red-500 text-white" : "bg-gray-800 text-gray-400 cursor-not-allowed"}`}>
+            <button onClick={onExport} disabled={!isPremium} className={`px-3 py-2 rounded-md text-sm ${isPremium ? "bg-blue-600 hover:bg-blue-500 text-white" : "bg-gray-800 text-gray-400 cursor-not-allowed"}`}>
               Export
             </button>
           </div>

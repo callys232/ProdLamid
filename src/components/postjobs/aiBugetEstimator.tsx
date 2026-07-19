@@ -1,4 +1,4 @@
-import BudgetEstimator from "@/components/BugdetEstimator/estimator";
+﻿import BudgetEstimator from "@/components/BugdetEstimator/estimator";
 
 interface Props {
     premiumUser?: boolean;
@@ -35,7 +35,7 @@ export default function BudgetEstimatorGate({
 
                 <button
                     onClick={onUpgrade}
-                    className="w-full py-2 bg-[#c21219] text-white rounded-lg
+                    className="w-full py-2 bg-[#2563EB] text-white rounded-lg
                      hover:brightness-110 active:scale-[0.98]"
                 >
                     Upgrade to Premium

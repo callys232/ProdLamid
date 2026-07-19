@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { requireAuth } from "@/lib/middleware/auth";
 
 const getClient = () => new OpenAI({ apiKey: process.env.OPENROUTER_API_KEY ?? "", baseURL: "https://openrouter.ai/api/v1" });
 
 export async function POST(req: NextRequest) {
+  const auth = await requireAuth(req);
+  if (auth instanceof NextResponse) return auth;
+
   try {
     const { title, description, category, skills, budget, timeline } = await req.json();
 

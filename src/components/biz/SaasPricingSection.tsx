@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -53,7 +53,7 @@ const TIERS: Tier[] = [
     key:         "premium",
     name:        "Premium",
     badge:       "Popular",
-    badgeStyle:  "border-[#c12129]/40 bg-[#c12129]/10 text-[#c12129]",
+    badgeStyle:  "border-[#2563EB]/40 bg-[#2563EB]/10 text-[#2563EB]",
     // Monthly $49 · Quarterly $129 (~$43/mo) · Annual $499 (~$41.60/mo)
     prices:      { monthly: 49, quarterly: 129, annual: 499 },
     savings:     { quarterly: "Save $18 vs monthly", annual: "Save $89/yr" },
@@ -61,7 +61,7 @@ const TIERS: Tier[] = [
     description: "Advanced AI tools, priority support, and deeper analytics for power users.",
     cta:         "Upgrade to Premium",
     ctaHref:     "/premium",
-    ctaStyle:    "bg-[#c12129] text-white hover:bg-red-700 hover:shadow-[0_0_24px_rgba(193,33,41,0.4)]",
+    ctaStyle:    "bg-[#2563EB] text-white hover:bg-blue-700 hover:shadow-[0_0_24px_rgba(37,99,235,0.4)]",
     highlight:   true,
     features: [
       "Everything in Starter",
@@ -187,7 +187,7 @@ export default function SaasPricingSection() {
 
       {/* ── Header ── */}
       <div className="mx-auto max-w-5xl text-center mb-14">
-        <span className="inline-block mb-4 rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#c12129]">
+        <span className="inline-block mb-4 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#2563EB]">
           Pricing
         </span>
         <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-5">
@@ -206,7 +206,7 @@ export default function SaasPricingSection() {
             whileTap={{ scale: 0.95 }}
             onClick={() => setCycle(c)}
             className={`relative rounded-full px-5 py-2 text-sm font-semibold transition ${
-              cycle === c ? "bg-[#c12129] text-white" : "border border-white/10 text-gray-400 hover:text-white"
+              cycle === c ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-400 hover:text-white"
             }`}
           >
             {CYCLE_DISPLAY[c]}
@@ -231,7 +231,7 @@ export default function SaasPricingSection() {
             whileHover={{ y: -4, scale: 1.01 }}
             className={`relative flex flex-col rounded-2xl border p-6 transition-all ${
               t.highlight
-                ? "border-[#c12129]/50 bg-gradient-to-b from-[#c12129]/10 to-black shadow-[0_0_40px_rgba(193,33,41,0.15)]"
+                ? "border-[#2563EB]/50 bg-gradient-to-b from-[#2563EB]/10 to-black shadow-[0_0_40px_rgba(37,99,235,0.15)]"
                 : t.key === "enterprise_plus"
                 ? "border-purple-500/30 bg-white/5"
                 : "border-white/10 bg-white/5"
@@ -279,7 +279,7 @@ export default function SaasPricingSection() {
               {t.features.map(f => (
                 <li key={f} className="flex items-start gap-2.5 text-xs text-gray-400">
                   <CheckCircle className={`mt-0.5 h-3.5 w-3.5 flex-shrink-0 ${
-                    t.key === "enterprise_plus" ? "text-purple-400" : "text-[#c12129]"
+                    t.key === "enterprise_plus" ? "text-purple-400" : "text-[#2563EB]"
                   }`} />
                   {f}
                 </li>
@@ -296,9 +296,9 @@ export default function SaasPricingSection() {
             <motion.div
               key={s.label}
               whileHover={{ y: -2 }}
-              className="rounded-xl border border-white/10 bg-white/5 p-5 text-center transition hover:border-[#c12129]/20"
+              className="rounded-xl border border-white/10 bg-white/5 p-5 text-center transition hover:border-[#2563EB]/20"
             >
-              <p className="text-2xl font-bold text-[#c12129]">{s.value}</p>
+              <p className="text-2xl font-bold text-[#2563EB]">{s.value}</p>
               <p className="text-xs text-gray-400 mt-1">{s.label}</p>
             </motion.div>
           ))}
@@ -316,11 +316,11 @@ export default function SaasPricingSection() {
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -3, borderColor: "rgba(193,33,41,0.4)" }}
+              whileHover={{ y: -3, borderColor: "rgba(37,99,235,0.4)" }}
               transition={{ duration: 0.35 }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-[#c12129]/5"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-[#2563EB]/5"
             >
-              <div className="mb-3 text-[#c12129] text-xl">{f.icon}</div>
+              <div className="mb-3 text-[#2563EB] text-xl">{f.icon}</div>
               <h4 className="font-semibold text-white text-sm mb-1.5">{f.title}</h4>
               <p className="text-gray-500 text-xs leading-relaxed">{f.desc}</p>
             </motion.div>
@@ -337,7 +337,7 @@ export default function SaasPricingSection() {
           href="/contact-sales"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="inline-flex items-center gap-2 rounded-full bg-[#c12129] hover:bg-red-700 px-10 py-4 text-base font-bold text-white transition-all"
+          className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] hover:bg-blue-700 px-10 py-4 text-base font-bold text-white transition-all"
         >
           Talk to Enterprise Sales <ArrowRight className="h-4 w-4" />
         </motion.a>

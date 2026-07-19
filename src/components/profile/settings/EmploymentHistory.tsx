@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -55,10 +55,10 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 const inputCls =
-  "w-full rounded-lg border border-gray-700 bg-black/60 px-3 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-[#c12129] focus:outline-none focus:ring-1 focus:ring-[#c12129]/40";
+  "w-full rounded-lg border border-gray-700 bg-black/60 px-3 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]/40";
 
 const selectCls =
-  "w-full rounded-lg border border-gray-700 bg-black/60 px-3 py-2.5 text-sm text-white transition focus:border-[#c12129] focus:outline-none focus:ring-1 focus:ring-[#c12129]/40 appearance-none";
+  "w-full rounded-lg border border-gray-700 bg-black/60 px-3 py-2.5 text-sm text-white transition focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]/40 appearance-none";
 
 /* ── Main Component ───────────────────────────────────────────── */
 export default function EmploymentHistory({ user }: { user?: any }) {
@@ -175,9 +175,9 @@ export default function EmploymentHistory({ user }: { user?: any }) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Briefcase className="h-5 w-5 text-[#c12129]" />
+          <Briefcase className="h-5 w-5 text-[#2563EB]" />
           <h2 className="text-lg font-semibold text-white">Employment History</h2>
-          <span className="rounded-full bg-[#c12129]/20 px-2 py-0.5 text-[10px] font-semibold text-[#c12129]">
+          <span className="rounded-full bg-[#2563EB]/20 px-2 py-0.5 text-[10px] font-semibold text-[#2563EB]">
             {entries.length} {entries.length === 1 ? "entry" : "entries"}
           </span>
         </div>
@@ -185,7 +185,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
           <motion.button
             onClick={openNew}
             whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2 rounded-lg bg-[#c12129] px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
+            className="flex items-center gap-2 rounded-lg bg-[#2563EB] px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
           >
             <Plus className="h-4 w-4" /> Add Position
           </motion.button>
@@ -200,7 +200,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="rounded-2xl border border-[#c12129]/40 bg-black/80 p-6 shadow-2xl shadow-[#c12129]/10"
+            className="rounded-2xl border border-[#2563EB]/40 bg-black/80 p-6 shadow-2xl shadow-[#2563EB]/10"
           >
             <h3 className="mb-5 text-sm font-semibold text-white">
               {editing === "new" ? "Add New Position" : "Edit Position"}
@@ -323,7 +323,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                       type="checkbox"
                       checked={form.current}
                       onChange={(e) => setForm((p) => ({ ...p, current: e.target.checked, endMonth: "", endYear: "" }))}
-                      className="accent-[#c12129]"
+                      className="accent-[#2563EB]"
                     />
                     I currently work here
                   </label>
@@ -358,7 +358,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                   <button
                     type="button"
                     onClick={addSkill}
-                    className="rounded-lg bg-[#c12129] px-3 py-2 text-sm text-white transition hover:bg-red-700"
+                    className="rounded-lg bg-[#2563EB] px-3 py-2 text-sm text-white transition hover:bg-blue-700"
                   >
                     <Plus className="h-4 w-4" />
                   </button>
@@ -366,7 +366,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                 {form.skills.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-2">
                     {form.skills.map((s) => (
-                      <span key={s} className="flex items-center gap-1 rounded-full bg-[#c12129]/15 border border-[#c12129]/30 px-3 py-1 text-xs text-[#c12129]">
+                      <span key={s} className="flex items-center gap-1 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/30 px-3 py-1 text-xs text-[#2563EB]">
                         {s}
                         <button onClick={() => removeSkill(s)} className="hover:text-white">
                           <X className="h-3 w-3" />
@@ -401,9 +401,9 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                   <ul className="mt-2 space-y-1.5">
                     {form.achievements.map((a) => (
                       <li key={a} className="flex items-start gap-2 text-xs text-gray-300">
-                        <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-[#c12129]" />
+                        <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-[#2563EB]" />
                         <span className="flex-1">{a}</span>
-                        <button onClick={() => removeAchievement(a)} className="text-gray-600 hover:text-red-400">
+                        <button onClick={() => removeAchievement(a)} className="text-gray-600 hover:text-blue-400">
                           <X className="h-3.5 w-3.5" />
                         </button>
                       </li>
@@ -425,7 +425,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                 onClick={save}
                 disabled={saving}
                 whileTap={{ scale: 0.96 }}
-                className="flex items-center gap-2 rounded-lg bg-[#c12129] px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-40"
+                className="flex items-center gap-2 rounded-lg bg-[#2563EB] px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-40"
               >
                 {saving ? (
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -445,14 +445,14 @@ export default function EmploymentHistory({ user }: { user?: any }) {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-gray-700 py-14 text-center"
         >
-          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#c12129]/30 bg-[#c12129]/10">
-            <Briefcase className="h-6 w-6 text-[#c12129]" />
+          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#2563EB]/30 bg-[#2563EB]/10">
+            <Briefcase className="h-6 w-6 text-[#2563EB]" />
           </div>
           <p className="text-sm font-medium text-gray-300">No employment history yet</p>
           <p className="text-xs text-gray-600">Add your work experience to strengthen your profile.</p>
           <button
             onClick={openNew}
-            className="mt-2 rounded-lg bg-[#c12129] px-5 py-2 text-sm font-semibold text-white hover:bg-red-700 transition"
+            className="mt-2 rounded-lg bg-[#2563EB] px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
           >
             Add First Position
           </button>
@@ -460,7 +460,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
       ) : (
         <div className="relative space-y-0">
           {/* Vertical line */}
-          <div className="absolute left-[19px] top-3 bottom-3 w-px bg-gradient-to-b from-[#c12129]/60 via-gray-700 to-transparent" />
+          <div className="absolute left-[19px] top-3 bottom-3 w-px bg-gradient-to-b from-[#2563EB]/60 via-gray-700 to-transparent" />
 
           {entries.map((entry, idx) => {
             const open = expanded.has(entry.id);
@@ -473,19 +473,19 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                 className="relative pl-12 pb-6"
               >
                 {/* Dot */}
-                <div className="absolute left-0 top-3 flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#c12129]/50 bg-black shadow-[0_0_12px_rgba(193,33,41,0.3)]">
-                  <span className="text-sm font-bold text-[#c12129]">
+                <div className="absolute left-0 top-3 flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#2563EB]/50 bg-black shadow-[0_0_12px_rgba(37,99,235,0.3)]">
+                  <span className="text-sm font-bold text-[#2563EB]">
                     {entry.company[0]?.toUpperCase() ?? "?"}
                   </span>
                 </div>
 
-                <div className="rounded-xl border border-gray-800 bg-black/60 p-4 transition hover:border-[#c12129]/30 hover:bg-black/80">
+                <div className="rounded-xl border border-gray-800 bg-black/60 p-4 transition hover:border-[#2563EB]/30 hover:bg-black/80">
                   {/* Entry header */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <h3 className="font-semibold text-white">{entry.role}</h3>
-                        <span className="rounded-full bg-[#c12129]/15 px-2 py-0.5 text-[10px] font-semibold text-[#c12129]">
+                        <span className="rounded-full bg-[#2563EB]/15 px-2 py-0.5 text-[10px] font-semibold text-[#2563EB]">
                           {entry.type}
                         </span>
                         {entry.current && (
@@ -523,13 +523,13 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                       </button>
                       <button
                         onClick={() => openEdit(entry)}
-                        className="rounded-lg p-1.5 text-gray-500 transition hover:bg-white/5 hover:text-[#c12129]"
+                        className="rounded-lg p-1.5 text-gray-500 transition hover:bg-white/5 hover:text-[#2563EB]"
                       >
                         <Edit2 className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => remove(entry.id)}
-                        className="rounded-lg p-1.5 text-gray-500 transition hover:bg-red-600/10 hover:text-red-400"
+                        className="rounded-lg p-1.5 text-gray-500 transition hover:bg-blue-600/10 hover:text-blue-400"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -565,7 +565,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                             <ul className="space-y-1">
                               {entry.achievements.map((a) => (
                                 <li key={a} className="flex items-start gap-2 text-xs text-gray-400">
-                                  <Check className="mt-0.5 h-3 w-3 flex-shrink-0 text-[#c12129]" />
+                                  <Check className="mt-0.5 h-3 w-3 flex-shrink-0 text-[#2563EB]" />
                                   {a}
                                 </li>
                               ))}

@@ -31,7 +31,7 @@ const FREE_TOOLS = [
   {
     id: "talent",
     icon: "◈",
-    accent: "#C12129",
+    accent: "#2563EB",
     title: "Browse Consultants",
     desc: "Search LAMID CORE's verified talent marketplace across every industry.",
     href: "/talent",
@@ -231,19 +231,19 @@ const BusinessInnovationZone = () => {
           {...fadeUp(0.4)}
           className="flex flex-col sm:flex-row gap-3 px-1"
         >
-          <button className="flex-1 border border-white/20 bg-white/5 hover:bg-[#c21219] hover:border-[#c21219] text-white font-medium text-sm md:text-base px-5 py-3 rounded-xl transition duration-300">
+          <button className="flex-1 border border-white/20 bg-white/5 hover:bg-[#2563EB] hover:border-[#2563EB] text-white font-medium text-sm md:text-base px-5 py-3 rounded-xl transition duration-300">
             Build Right — Avoid costly trial and error
           </button>
           <button
             type="button"
             onClick={() => setShowFreeTools(true)}
-            className="flex-1 border border-white/20 bg-white/5 hover:bg-[#C12129] hover:border-[#C12129] text-white font-medium text-sm md:text-base px-5 py-3 rounded-xl transition duration-300"
+            className="flex-1 border border-white/20 bg-white/5 hover:bg-[#2563EB] hover:border-[#2563EB] text-white font-medium text-sm md:text-base px-5 py-3 rounded-xl transition duration-300"
           >
             FREE TOOLS
           </button>
           <button
             onClick={() => setShowPopup(true)}
-            className="flex-1 border border-white/20 bg-white/5 hover:bg-[#c21219] hover:border-[#c21219] text-white font-semibold text-sm md:text-base px-5 py-3 rounded-xl transition duration-300"
+            className="flex-1 border border-white/20 bg-white/5 hover:bg-[#2563EB] hover:border-[#2563EB] text-white font-semibold text-sm md:text-base px-5 py-3 rounded-xl transition duration-300"
           >
             Get Started — FREE Diagnostics
           </button>
@@ -272,7 +272,7 @@ const BusinessInnovationZone = () => {
               className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden"
             >
               {/* Red top accent */}
-              <div className="h-[3px] bg-gradient-to-r from-[#C12129] to-transparent" />
+              <div className="h-[3px] bg-gradient-to-r from-[#2563EB] to-transparent" />
 
               <div className="px-6 pt-6 pb-7">
                 {/* Header */}
@@ -284,7 +284,7 @@ const BusinessInnovationZone = () => {
                   ✕
                 </button>
 
-                <p className="text-[#C12129] text-[10px] tracking-[0.3em] uppercase font-bold mb-1">
+                <p className="text-[#2563EB] text-[10px] tracking-[0.3em] uppercase font-bold mb-1">
                   No credit card needed
                 </p>
                 <h2 className="text-xl font-bold text-white mb-1">
@@ -429,7 +429,7 @@ const BusinessInnovationZone = () => {
                     <Link
                       href="/signup"
                       onClick={() => setShowFreeTools(false)}
-                      className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors"
+                      className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors"
                     >
                       Create Free Account
                     </Link>

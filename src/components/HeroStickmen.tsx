@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 
@@ -52,7 +52,7 @@ function pathPos(type: PathType, t: number, cx: number, cy: number, W: number, H
 
 /* ── Colors ───────────────────────────────────────────────────── */
 const W_A = (a: number) => `rgba(255,255,255,${a})`;
-const R_A = (a: number) => `rgba(193,33,41,${a})`;
+const R_A = (a: number) => `rgba(37,99,235,${a})`;
 
 /* ── Background decorations ───────────────────────────────────── */
 function drawBg(ctx: Ctx, W: number, H: number, frame: number) {

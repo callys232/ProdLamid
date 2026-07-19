@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { mockEscrow } from "@/mocks/mocksEscrow";
@@ -46,8 +46,8 @@ export function MilestonesDropdown() {
                 transition-all duration-500 ease-out
                 ${
                   m.progress === 100
-                    ? "bg-red-600 border-red-600 scale-110"
-                    : "border-red-600"
+                    ? "bg-blue-600 border-blue-600 scale-110"
+                    : "border-blue-600"
                 }
               `}
             >
@@ -66,7 +66,7 @@ export function MilestonesDropdown() {
 
             {/* Transition line */}
             {idx < milestones.length - 1 && (
-              <div className="absolute left-3 top-6 h-8 w-0.5 bg-red-600/40 animate-growLine" />
+              <div className="absolute left-3 top-6 h-8 w-0.5 bg-blue-600/40 animate-growLine" />
             )}
           </div>
         ))}

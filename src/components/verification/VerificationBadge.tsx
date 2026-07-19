@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ShieldCheck, ShieldAlert, Clock, ShieldX } from "lucide-react";
 
@@ -13,7 +13,7 @@ interface VerificationBadgeProps {
 const CONFIG: Record<VerificationStatus, { icon: any; label: string; className: string }> = {
   approved:    { icon: ShieldCheck, label: "Verified",     className: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30" },
   pending:     { icon: Clock,       label: "Under Review", className: "text-yellow-400 bg-yellow-500/10 border-yellow-500/30" },
-  rejected:    { icon: ShieldX,     label: "Not Verified", className: "text-red-400 bg-red-500/10 border-red-500/30" },
+  rejected:    { icon: ShieldX,     label: "Not Verified", className: "text-blue-400 bg-blue-500/10 border-blue-500/30" },
   unsubmitted: { icon: ShieldAlert, label: "Unverified",   className: "text-gray-400 bg-white/5 border-white/10" },
 };
 

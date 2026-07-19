@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 
 interface MemberItemProps {
@@ -22,7 +22,7 @@ export function MemberItem({ name, role, avatarUrl }: MemberItemProps) {
     <li
       role="listitem"
       className="flex items-center justify-between bg-gray-800 px-4 py-3 rounded-lg 
-                 ring-1 ring-gray-700 hover:ring-2 hover:ring-red-500 
+                 ring-1 ring-gray-700 hover:ring-2 hover:ring-blue-500 
                  transition transform hover:scale-[1.02] shadow-sm"
     >
       <div className="flex items-center gap-3">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import { FaCheckCircle } from "react-icons/fa";
@@ -117,10 +117,10 @@ export default function ClientProfileHeader({
         ref={headerRef}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-gray-700 p-6 md:p-8 rounded-lg shadow-lg ring-1 ring-gray-700 hover:ring-red-500 transition overflow-hidden"
+        className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-gray-700 p-6 md:p-8 rounded-lg shadow-lg ring-1 ring-gray-700 hover:ring-blue-500 transition overflow-hidden"
       >
         {client.isPremium && (
-          <div className="absolute top-4 left-0 bg-red-600 text-white text-xs px-4 py-1 rounded-r-lg">
+          <div className="absolute top-4 left-0 bg-blue-600 text-white text-xs px-4 py-1 rounded-r-lg">
             Premium Enterprise
           </div>
         )}
@@ -131,7 +131,7 @@ export default function ClientProfileHeader({
             <img
               src={client.avatar || "/company-placeholder.png"}
               alt={displayName}
-              className="w-20 h-20 rounded-full border-4 border-red-500 object-cover"
+              className="w-20 h-20 rounded-full border-4 border-blue-500 object-cover"
             />
             <div>
               <div className="flex items-center gap-2">
@@ -148,11 +148,11 @@ export default function ClientProfileHeader({
             <p className="text-sm text-gray-400">Profile Completion</p>
             <div className="flex items-center gap-2 mt-2">
               <div className="flex-1 bg-gray-700 rounded-full h-2 overflow-hidden">
-                <div className="bg-red-500 h-2 rounded-full transition-all" style={{ width: `${completion}%` }} />
+                <div className="bg-blue-500 h-2 rounded-full transition-all" style={{ width: `${completion}%` }} />
               </div>
               <span className="text-xs text-gray-300">{completion}%</span>
             </div>
-            <button onClick={() => setShowEditProfile(true)} className="text-xs text-red-500 hover:text-white underline mt-2">
+            <button onClick={() => setShowEditProfile(true)} className="text-xs text-blue-500 hover:text-white underline mt-2">
               Complete Profile
             </button>
           </div>
@@ -178,7 +178,7 @@ export default function ClientProfileHeader({
           >
             View Alerts
             {alertCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-2 min-w-[20px] text-center">
+              <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full px-2 min-w-[20px] text-center">
                 {alertCount}
               </span>
             )}

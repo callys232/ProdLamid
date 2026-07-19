@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -6,20 +6,20 @@ import { useRouter } from "next/navigation";
 
 const STATS = [
   {
-    value: "$1.3T",
-    label: "Lost annually to poor decision-making in enterprises worldwide",
+    value: "4 tools",
+    label: "The average organization uses four separate platforms to manage strategy, growth, people, and finance — with zero shared signal between them",
     authHref: "/premium/business-diagnostic",
-    accent: "#C12129",
+    accent: "#2563EB",
   },
   {
-    value: "87%",
-    label: "Of organizations struggle to find the right expertise when they need it",
+    value: "68%",
+    label: "Of leaders say their biggest decisions are made without a unified view of the organization",
     authHref: "/talent",
     accent: "#3b82f6",
   },
   {
-    value: "73%",
-    label: "Of AI initiatives fail without proper human expertise guiding them",
+    value: "3× slower",
+    label: "Organizations with fragmented intelligence move three times slower than those with a unified diagnostic layer",
     authHref: "/hcd",
     accent: "#f97316",
   },
@@ -39,7 +39,7 @@ export default function AivoraGap() {
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
         {[200, 500, 800, 1100].map((x, i) => (
           <motion.line key={i} x1={x} y1="-20" x2={x} y2="120%"
-            stroke="#C12129" strokeWidth="0.5" strokeOpacity="0.07" strokeDasharray="4 28"
+            stroke="#2563EB" strokeWidth="0.5" strokeOpacity="0.07" strokeDasharray="4 28"
             animate={{ strokeDashoffset: [0, -80], opacity: [0.04, 0.14, 0.04] }}
             transition={{ duration: 18 + i * 4, repeat: Infinity, ease: "linear", delay: i * 2 }}
           />
@@ -57,15 +57,15 @@ export default function AivoraGap() {
           className="text-center mb-7"
         >
           <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
-            The Problem
+            The Signal Gap
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
-            <span className="aivora-gradient-text">Complexity Is Accelerating</span>
+            <span className="aivora-gradient-text">Every Tool Sees One Piece.</span>
           </h2>
           <p className="text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Organizations today face accelerating complexity: digital disruption, workforce shifts,
-            competitive pressure, and fragmented consulting solutions that cannot keep pace with
-            real-time change.
+            Most organizations have data. What they lack is a unified signal — one view that
+            connects strategy, growth, people, and finance so decisions are grounded in the
+            full picture, not just the loudest number.
           </p>
         </motion.div>
 
@@ -86,10 +86,10 @@ export default function AivoraGap() {
                 onHoverStart={() => setHovered(i)}
                 onHoverEnd={() => setHovered(null)}
                 onClick={() => router.push(stat.authHref)}
-                whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(193,33,41,0.2)" }}
+                whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(37,99,235,0.2)" }}
                 whileTap={{ scale: 0.98 }}
                 className="relative aivora-card border rounded-2xl p-8 overflow-hidden cursor-pointer transition-colors duration-300"
-                style={{ borderColor: isHov ? "rgba(193,33,41,0.45)" : undefined }}
+                style={{ borderColor: isHov ? "rgba(37,99,235,0.45)" : undefined }}
               >
                 {/* Top accent bar */}
                 <motion.div
@@ -108,7 +108,7 @@ export default function AivoraGap() {
                 />
 
                 <motion.p
-                  className="text-4xl sm:text-5xl font-extrabold mb-3 text-transparent bg-clip-text bg-gradient-to-br from-[#C12129] via-red-400 to-red-300 dark:to-white"
+                  className="text-4xl sm:text-5xl font-extrabold mb-3 text-transparent bg-clip-text bg-gradient-to-br from-[#2563EB] via-blue-400 to-blue-300 dark:to-white"
                   animate={{ scale: isHov ? 1.06 : 1 }}
                   transition={{ type: "spring", stiffness: 280, damping: 18 }}
                 >

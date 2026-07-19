@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Consultant } from "@/types/client";
@@ -61,7 +61,7 @@ export function AddConsultantForm({
             onSubmit={handleSubmit}
             className="bg-[#111] border border-white/20 rounded-xl p-6 space-y-4 w-full max-w-md shadow-md hover:shadow-lg transition"
         >
-            <h2 className="text-xl font-semibold text-[#c12129] mb-4">
+            <h2 className="text-xl font-semibold text-[#2563EB] mb-4">
                 {initialData ? "Edit Consultant" : "Add Consultant to Project"}
             </h2>
 
@@ -75,7 +75,7 @@ export function AddConsultantForm({
                         setWorkPhaseId("");
                         setMilestoneId("");
                     }}
-                    className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#c12129] hover:bg-[#1a1a1a]"
+                    className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#2563EB] hover:bg-[#1a1a1a]"
                 >
                     <option value="">-- Select Project --</option>
                     {projects.map((p) => (
@@ -93,7 +93,7 @@ export function AddConsultantForm({
                     <select
                         value={workPhaseId}
                         onChange={(e) => setWorkPhaseId(e.target.value)}
-                        className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#c12129] hover:bg-[#1a1a1a]"
+                        className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#2563EB] hover:bg-[#1a1a1a]"
                     >
                         <option value="">-- Select Work Phase --</option>
                         {workPhases.map((wp) => (
@@ -112,7 +112,7 @@ export function AddConsultantForm({
                     <select
                         value={milestoneId}
                         onChange={(e) => setMilestoneId(e.target.value)}
-                        className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#c12129] hover:bg-[#1a1a1a]"
+                        className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#2563EB] hover:bg-[#1a1a1a]"
                     >
                         <option value="">-- Select Milestone --</option>
                         {milestones
@@ -133,7 +133,7 @@ export function AddConsultantForm({
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#c12129] hover:bg-[#1a1a1a]"
+                    className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#2563EB] hover:bg-[#1a1a1a]"
                 />
             </div>
 
@@ -144,7 +144,7 @@ export function AddConsultantForm({
                     value={formData.role}
                     onChange={handleChange}
                     placeholder="e.g. Lead Developer"
-                    className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#c12129] hover:bg-[#1a1a1a]"
+                    className="w-full mt-1 p-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#2563EB] hover:bg-[#1a1a1a]"
                 />
             </div>
 

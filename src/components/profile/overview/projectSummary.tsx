@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState } from "react";
 import { Project, ProjectConsultant } from "@/types/project";
 import { mockClients } from "@/mocks/mockClient";
@@ -54,7 +54,7 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
     <div
       className="bg-black border border-gray-700 rounded-xl p-6 grid grid-cols-2 gap-4 shadow-lg 
                  transition transform hover:scale-[1.02] hover:bg-gray-900 
-                 hover:border-[#c12129] relative group"
+                 hover:border-[#2563EB] relative group"
     >
       {/* Basic project info */}
       <div>
@@ -84,7 +84,7 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
           <button
             onClick={() => setActiveTab("available")}
             className={`px-3 py-1 rounded text-sm ${activeTab === "available"
-              ? "bg-[#c12129] text-white"
+              ? "bg-[#2563EB] text-white"
               : "bg-gray-800 text-gray-300"
               }`}
           >
@@ -93,7 +93,7 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
           <button
             onClick={() => setActiveTab("allocated")}
             className={`px-3 py-1 rounded text-sm ${activeTab === "allocated"
-              ? "bg-[#c12129] text-white"
+              ? "bg-[#2563EB] text-white"
               : "bg-gray-800 text-gray-300"
               }`}
           >
@@ -103,7 +103,7 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
 
         {/* Dropdown */}
         <select
-          className="w-full bg-gray-900 text-white text-sm rounded px-3 py-2 border border-gray-700 focus:outline-none focus:border-[#c12129] mb-4"
+          className="w-full bg-gray-900 text-white text-sm rounded px-3 py-2 border border-gray-700 focus:outline-none focus:border-[#2563EB] mb-4"
         >
           {consultants.length ? (
             consultants.map((c: ProjectConsultant) =>
@@ -143,7 +143,7 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
                       new Date(ev.start_at).toLocaleDateString("en-US", { weekday: "short" }) === day
                     )
                     .map((ev, idx) => (
-                      <p key={`${c.id}-alloc-${day}-${idx}`} className="text-red-400">
+                      <p key={`${c.id}-alloc-${day}-${idx}`} className="text-blue-400">
                         {c.name}: {new Date(ev.start_at).toLocaleTimeString()} → {new Date(ev.end_at).toLocaleTimeString()}
                       </p>
                     ))
@@ -155,14 +155,14 @@ export default function ProjectSummary({ projectId }: { projectId: string }) {
 
       {/* Tooltip */}
       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
-        <span className="bg-[#c12129] text-white text-xs px-2 py-1 rounded shadow-md">
+        <span className="bg-[#2563EB] text-white text-xs px-2 py-1 rounded shadow-md">
           Project Summary
         </span>
       </div>
 
       {/* Error badge */}
       {error && (
-        <div className="col-span-2 text-xs text-red-500 mt-2">
+        <div className="col-span-2 text-xs text-blue-500 mt-2">
           Showing fallback data
         </div>
       )}

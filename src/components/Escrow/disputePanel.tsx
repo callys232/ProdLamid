@@ -1,4 +1,4 @@
-// components/escrow/EscrowDisputePanel.tsx
+﻿// components/escrow/EscrowDisputePanel.tsx
 "use client";
 import { useState } from "react";
 
@@ -56,7 +56,7 @@ export default function EscrowDisputePanel({
           placeholder="Describe the issue in detail..."
           value={reason}
           onChange={(e) => setReason(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-800 focus:border-red-600 focus:ring-1 focus:ring-red-600 text-white outline-none transition"
+          className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-white outline-none transition"
           rows={3}
         />
 
@@ -77,7 +77,7 @@ export default function EscrowDisputePanel({
             disabled={submitting || !reason.trim()}
             className={`px-6 py-2 rounded-lg font-bold text-white transition shadow-lg ${submitting || !reason.trim()
                 ? "bg-gray-800 text-gray-600 cursor-not-allowed border border-gray-700"
-                : "bg-red-600 hover:bg-red-700 shadow-red-900/20"
+                : "bg-blue-600 hover:bg-blue-700 shadow-blue-900/20"
               }`}
           >
             {submitting ? "Submitting..." : "Submit Dispute"}

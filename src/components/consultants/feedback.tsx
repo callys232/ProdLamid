@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 interface FeedbackProps {
   message: string;
@@ -12,7 +12,7 @@ export default function Feedback({ message, type = "success" }: FeedbackProps) {
         ${
           type === "success"
             ? "bg-green-600 text-white"
-            : "bg-red-600 text-white"
+            : "bg-blue-600 text-white"
         }`}
     >
       {message}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import type { Review } from "@/mocks/mockreview";
 
@@ -35,7 +35,7 @@ export default function ReviewForm({ onAddReview }: ReviewFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 border border-[#c21219] rounded-md shadow-sm"
+      className="space-y-4 bg-white p-4 border border-[#2563EB] rounded-md shadow-sm"
     >
       <div>
         <label className="block text-sm font-medium text-black mb-1">
@@ -45,7 +45,7 @@ export default function ReviewForm({ onAddReview }: ReviewFormProps) {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219]"
+          className="w-full px-3 py-2 rounded-md border border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]"
           placeholder="Enter your name"
           required
         />
@@ -59,7 +59,7 @@ export default function ReviewForm({ onAddReview }: ReviewFormProps) {
           aria-label="rating"
           value={rating}
           onChange={(e) => setRating(Number(e.target.value))}
-          className="w-full px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219]"
+          className="w-full px-3 py-2 rounded-md border border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]"
         >
           {[5, 4, 3, 2, 1].map((r) => (
             <option key={r} value={r}>
@@ -76,7 +76,7 @@ export default function ReviewForm({ onAddReview }: ReviewFormProps) {
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className="w-full px-3 py-2 rounded-md border border-[#c21219] focus:ring-2 focus:ring-[#c21219]"
+          className="w-full px-3 py-2 rounded-md border border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]"
           rows={4}
           placeholder="Write your review..."
           required
@@ -85,7 +85,7 @@ export default function ReviewForm({ onAddReview }: ReviewFormProps) {
 
       <button
         type="submit"
-        className="bg-[#c21219] text-white px-6 py-2 rounded-md hover:bg-red-700 transition"
+        className="bg-[#2563EB] text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
       >
         Submit Review
       </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -53,7 +53,7 @@ export default function Pagination({ page, pages, total, limit, onChange }: Prop
               onClick={() => onChange(n as number)}
               className={`flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium transition ${
                 n === page
-                  ? "bg-[#c12129] text-white"
+                  ? "bg-[#2563EB] text-white"
                   : "border border-white/10 text-gray-400 hover:border-white/20 hover:text-white"
               }`}
             >

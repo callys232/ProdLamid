@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -152,10 +152,10 @@ export default function ProjectsSection({
   if (error) {
     return (
       <div className="text-center py-20">
-        <p className="text-red-400 text-lg mb-4">{error}</p>
+        <p className="text-blue-400 text-lg mb-4">{error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="bg-red-600 px-6 py-2 rounded-md font-semibold hover:bg-red-700"
+          className="bg-blue-600 px-6 py-2 rounded-md font-semibold hover:bg-blue-700"
         >
           Retry
         </button>
@@ -203,7 +203,7 @@ export default function ProjectsSection({
                 <p>No projects found matching your filters.</p>
                 <button
                   onClick={() => setFilters(defaultFilters)}
-                  className="mt-4 bg-red-600 px-4 py-2 rounded-md font-semibold"
+                  className="mt-4 bg-blue-600 px-4 py-2 rounded-md font-semibold"
                 >
                   Clear Filters
                 </button>

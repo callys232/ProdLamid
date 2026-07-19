@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Score } from "@/types/aiMatch";
@@ -9,7 +9,7 @@ export default function ExplainabilityPanel({ score }: { score: Score }) {
         <div className="mt-4 bg-gray-50 border rounded-lg p-3">
 
             {/* Title */}
-            <h4 className="text-sm font-semibold text-[#c12129] mb-2">
+            <h4 className="text-sm font-semibold text-[#2563EB] mb-2">
                 Why this match
             </h4>
 

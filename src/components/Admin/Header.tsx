@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 
 interface TopbarProps {
@@ -24,7 +24,7 @@ export default function Topbar({
         <span className="text-xs text-gray-400">{userEmail}</span>
         <button
           onClick={onSignOut}
-          className="px-2 py-1 bg-[#c21229] rounded text-white text-xs transition-transform hover:scale-105 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-[#c21229] focus:ring-offset-2"
+          className="px-2 py-1 bg-[#c21229] rounded text-white text-xs transition-transform hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-[#c21229] focus:ring-offset-2"
         >
           Sign out
         </button>

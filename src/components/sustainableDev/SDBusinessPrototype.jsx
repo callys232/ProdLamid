@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -19,9 +19,9 @@ const SDBusinessPrototype = () => {
           {/* Right - Text Content */}
           <div className="space-y-8">
             <div>
-              <h1 className="text-2xl font-bold text-red-500 mb-2">Job and Wealth Creation</h1>
+              <h1 className="text-2xl font-bold text-blue-500 mb-2">Job and Wealth Creation</h1>
               <p className="text-sm text-gray-300">
-                <span className="text-red-500">Sustainable Development</span> is dedicated to bridging the wealth creation 
+                <span className="text-blue-500">Sustainable Development</span> is dedicated to bridging the wealth creation 
                 gap utilizing the principles of green economy for sustainable capital, while building 
                 capacity for high value and creativity for sustainable livelihood. We leverage 
                 global partnerships aimed at sustainability, ensuring resource and financial 
@@ -30,7 +30,7 @@ const SDBusinessPrototype = () => {
             </div>
             
             <div>
-              <p className="text-red-500 text-sm mb-2">CUSTOMIZED WEALTH CREATION</p>
+              <p className="text-blue-500 text-sm mb-2">CUSTOMIZED WEALTH CREATION</p>
             </div>
             
             <div>
@@ -38,7 +38,7 @@ const SDBusinessPrototype = () => {
                 Members are equipped with skills as the first step in preparing and training 
                 to move them to sustainable business models, digital access, and financing, 
                 as well as access to national and global markets, collaborative partnerships, and 
-                a micro fund that can strengthen entrepreneurship. <span className="text-red-500">CALEB THIS IS TO 
+                a micro fund that can strengthen entrepreneurship. <span className="text-blue-500">CALEB THIS IS TO 
                 BE CUSTOMIZED BUT PUT SOMETHING HERE SO ANYONE CHECKING WILL SEE 
                 SOMETHING.</span>
               </p>
@@ -48,13 +48,13 @@ const SDBusinessPrototype = () => {
             <div className="flex flex-wrap gap-2">
               <button className="bg-gray-700 text-white px-4 py-2 text-sm rounded hover:bg-gray-600 transition">OUR PARTNERS</button>
               <button className="bg-gray-700 text-white px-4 py-2 text-sm rounded hover:bg-gray-600 transition">OUR ACTIVITIES</button>
-              <a href="#" className="text-red-500 text-sm hover:underline flex items-center">
+              <a href="#" className="text-blue-500 text-sm hover:underline flex items-center">
                 READ MORE <span className="ml-1">→</span>
               </a>
             </div>
             
             <div>
-              <p className="text-red-500 text-sm mb-2">CALEB THIS PART NEEDS TO BE UNDER SUSTAINABLE DEVELOPMENT</p>
+              <p className="text-blue-500 text-sm mb-2">CALEB THIS PART NEEDS TO BE UNDER SUSTAINABLE DEVELOPMENT</p>
               <p className="text-sm text-gray-300">
                 We provided transitional threshold skills training securely dispersed wealth to 
                 ensure there was optimal coverage. That focus promotes solid communities, 
@@ -84,7 +84,7 @@ const SDBusinessPrototype = () => {
           {/* Grid of Business Prototypes */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {/* Prototype 1 */}
-            <div className="border border-red-900 rounded-md p-2">
+            <div className="border border-blue-900 rounded-md p-2">
               <div className="relative w-full h-36 mb-3">
                 <Image 
                   src="/SD-bags-stacked.png" 
@@ -101,7 +101,7 @@ const SDBusinessPrototype = () => {
             </div>
             
             {/* Prototype 2 */}
-            <div className="border border-red-900 rounded-md p-2">
+            <div className="border border-blue-900 rounded-md p-2">
               <div className="relative w-full h-36 mb-3">
                 <Image 
                   src="/SD-people-working.png" 
@@ -118,7 +118,7 @@ const SDBusinessPrototype = () => {
             </div>
             
             {/* Prototype 3 */}
-            <div className="border border-red-900 rounded-md p-2">
+            <div className="border border-blue-900 rounded-md p-2">
               <div className="relative w-full h-36 mb-3">
                 <Image 
                   src="/SD-classroom.png" 
@@ -135,7 +135,7 @@ const SDBusinessPrototype = () => {
             </div>
             
             {/* Prototype 4 */}
-            <div className="border border-red-900 rounded-md p-2">
+            <div className="border border-blue-900 rounded-md p-2">
               <div className="relative w-full h-36 mb-3">
                 <Image 
                   src="/SD-phone-icon.png" 

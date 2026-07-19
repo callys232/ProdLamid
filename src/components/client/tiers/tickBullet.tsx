@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 export default function TickingBullet() {
   return (
@@ -12,7 +12,7 @@ export default function TickingBullet() {
         cx="12"
         cy="12"
         r="9"
-        stroke="#c12129"
+        stroke="#2563EB"
         strokeWidth="2"
         strokeDasharray="56"
         strokeDashoffset="56"

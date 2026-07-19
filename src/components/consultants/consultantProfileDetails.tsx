@@ -1,4 +1,4 @@
-// components/ConsultantProfileDetails.tsx
+﻿// components/ConsultantProfileDetails.tsx
 "use client";
 
 import Link from "next/link";
@@ -60,7 +60,7 @@ export default function ConsultantProfileDetails({ consultant, isEnterpriseUser 
                 <div className="flex flex-wrap gap-2">
                     {skills.length ? (
                         skills.map((s) => (
-                            <span key={s} className="px-2 py-0.5 bg-red-50 text-red-700 rounded-full text-xs font-medium">
+                            <span key={s} className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
                                 {s}
                             </span>
                         ))
@@ -122,7 +122,7 @@ export default function ConsultantProfileDetails({ consultant, isEnterpriseUser 
                             </ul>
                         ) : (
                             <div className="mt-2">
-                                <Link href="/pricing" className="px-3 py-2 bg-red-600 text-white rounded-md text-sm">
+                                <Link href="/pricing" className="px-3 py-2 bg-blue-600 text-white rounded-md text-sm">
                                     View full availability — Upgrade
                                 </Link>
                             </div>

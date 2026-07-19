@@ -1,4 +1,4 @@
-// components/ConsultantsSection.tsx
+﻿// components/ConsultantsSection.tsx
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
@@ -131,11 +131,11 @@ export default function ConsultantsSection({
             <p>Loading consultants...</p>
           </div>
         ) : error ? (
-          <div className="text-center text-red-400 mt-10">
+          <div className="text-center text-blue-400 mt-10">
             <p>{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="mt-4 bg-red-600 px-4 py-2 rounded-md font-semibold hover:bg-red-700"
+              className="mt-4 bg-blue-600 px-4 py-2 rounded-md font-semibold hover:bg-blue-700"
             >
               Retry
             </button>
@@ -166,7 +166,7 @@ export default function ConsultantsSection({
                   <p>No freelancers found matching your filters.</p>
                   <button
                     onClick={() => setFilters(defaultFilters)}
-                    className="mt-4 bg-red-600 px-4 py-2 rounded-md font-semibold"
+                    className="mt-4 bg-blue-600 px-4 py-2 rounded-md font-semibold"
                   >
                     Clear Filters
                   </button>

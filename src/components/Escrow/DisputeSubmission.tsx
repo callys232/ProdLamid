@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -71,11 +71,11 @@ export default function DisputeSubmission({
   );
 
   return (
-    <div className="rounded-xl border border-[#c21219]/30 bg-[#c21219]/5">
+    <div className="rounded-xl border border-[#2563EB]/30 bg-[#2563EB]/5">
       {/* Toggle */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-[#c21219] hover:text-white transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-[#2563EB] hover:text-white transition-colors"
       >
         <span className="flex items-center gap-2">
           <AlertTriangle className="h-4 w-4" />
@@ -95,14 +95,14 @@ export default function DisputeSubmission({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             style={{ overflow: "hidden" }}
           >
-            <div className="px-4 pb-4 space-y-3 border-t border-[#c21219]/20 pt-3">
+            <div className="px-4 pb-4 space-y-3 border-t border-[#2563EB]/20 pt-3">
               {/* Reason */}
               <div>
                 <label className="text-xs text-gray-400 mb-1 block">Reason *</label>
                 <select
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
-                  className="w-full rounded-lg bg-black border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#c21219]"
+                  className="w-full rounded-lg bg-black border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#2563EB]"
                 >
                   <option value="">Select a reason…</option>
                   {REASONS.map((r) => <option key={r} value={r}>{r}</option>)}
@@ -117,16 +117,16 @@ export default function DisputeSubmission({
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Describe the issue in detail…"
-                  className="w-full rounded-lg bg-black border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#c21219] resize-none"
+                  className="w-full rounded-lg bg-black border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#2563EB] resize-none"
                 />
               </div>
 
-              {error && <p className="text-xs text-red-400">{error}</p>}
+              {error && <p className="text-xs text-blue-400">{error}</p>}
 
               <button
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="w-full py-2.5 rounded-lg bg-[#c21219] hover:bg-red-700 text-white text-sm font-semibold transition disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full py-2.5 rounded-lg bg-[#2563EB] hover:bg-blue-700 text-white text-sm font-semibold transition disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {submitting ? <><Loader2 className="h-4 w-4 animate-spin" />Submitting…</> : "Submit Dispute"}
               </button>

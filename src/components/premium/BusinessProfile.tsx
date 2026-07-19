@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,7 +9,7 @@ import type { EmploymentEntry, OrgSize } from "@/types/client";
 const ORG_SIZES: OrgSize[] = ["1–10", "11–50", "51–200", "201–500", "501–1,000", "1,000+"];
 const EMPTY_JOB: EmploymentEntry = { company: "", role: "", startDate: "", endDate: "", location: "", description: "" };
 
-const inp = "w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-red-500 focus:outline-none";
+const inp = "w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-blue-500 focus:outline-none";
 const lbl = "mb-1.5 block text-xs font-medium text-gray-400";
 
 interface BusinessForm {
@@ -86,7 +86,7 @@ export default function BusinessProfile({ user }: { user: any }) {
       {/* ── Organisation details ── */}
       <section className="rounded-xl border border-gray-800 bg-gray-900/40 p-6">
         <div className="mb-5 flex items-center gap-2">
-          <Building2 className="h-4 w-4 text-[#c12129]" />
+          <Building2 className="h-4 w-4 text-[#2563EB]" />
           <h3 className="text-sm font-semibold text-white">Organisation Details</h3>
         </div>
 
@@ -130,21 +130,21 @@ export default function BusinessProfile({ user }: { user: any }) {
       <section className="rounded-xl border border-gray-800 bg-gray-900/40 p-6">
         <div className="mb-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Briefcase className="h-4 w-4 text-[#c12129]" />
+            <Briefcase className="h-4 w-4 text-[#2563EB]" />
             <h3 className="text-sm font-semibold text-white">Work / Employment History</h3>
             <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-gray-400">
               {form.employmentHistory.length}
             </span>
           </div>
           <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} onClick={addJob}
-            className="flex items-center gap-1.5 rounded-lg border border-[#c12129]/30 bg-[#c12129]/10 px-3 py-1.5 text-xs font-semibold text-[#c12129] hover:bg-[#c12129]/20">
+            className="flex items-center gap-1.5 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-3 py-1.5 text-xs font-semibold text-[#2563EB] hover:bg-[#2563EB]/20">
             <Plus className="h-3.5 w-3.5" /> Add Entry
           </motion.button>
         </div>
 
         {form.employmentHistory.length === 0 ? (
           <p className="py-6 text-center text-sm text-gray-600">
-            No work history yet. Click <span className="text-[#c12129]">Add Entry</span> to start.
+            No work history yet. Click <span className="text-[#2563EB]">Add Entry</span> to start.
           </p>
         ) : (
           <div className="space-y-3">
@@ -207,7 +207,7 @@ export default function BusinessProfile({ user }: { user: any }) {
                         </div>
                         <div className="mt-3 flex justify-end">
                           <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} onClick={() => removeJob(idx)}
-                            className="flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-400 hover:bg-red-500/20">
+                            className="flex items-center gap-1.5 rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-1.5 text-xs font-semibold text-blue-400 hover:bg-blue-500/20">
                             <Trash2 className="h-3.5 w-3.5" /> Remove
                           </motion.button>
                         </div>
@@ -223,7 +223,7 @@ export default function BusinessProfile({ user }: { user: any }) {
 
       {/* Save */}
       <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} onClick={handleSave} disabled={loading}
-        className="flex items-center gap-2 rounded-xl bg-[#c12129] px-6 py-3 text-sm font-bold text-white transition hover:bg-red-700 disabled:opacity-50">
+        className="flex items-center gap-2 rounded-xl bg-[#2563EB] px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-700 disabled:opacity-50">
         {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
         {loading ? "Saving…" : "Save Business Profile"}
       </motion.button>

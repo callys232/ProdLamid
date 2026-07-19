@@ -12,7 +12,7 @@ export default function TermsPage() {
     <main className="min-h-screen bg-black px-4 py-24 text-white">
       <div className="mx-auto max-w-3xl">
         <div className="mb-10">
-          <span className="mb-3 inline-block rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#c12129]">Legal</span>
+          <span className="mb-3 inline-block rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#2563EB]">Legal</span>
           <h1 className="text-3xl font-bold">Terms of Service</h1>
           <p className="mt-2 text-sm text-gray-500">Last updated: May 2026</p>
         </div>
@@ -65,7 +65,7 @@ export default function TermsPage() {
         </Section>
 
         <Section title="12. Contact">
-          <p>For legal enquiries: <a href="mailto:legal@lamid.io" className="text-[#c12129] hover:underline">legal@lamid.io</a> · Lagos, Nigeria · London, UK</p>
+          <p>For legal enquiries: <a href="mailto:legal@lamid.io" className="text-[#2563EB] hover:underline">legal@lamid.io</a> · Lagos, Nigeria · London, UK</p>
         </Section>
       </div>
     </main>

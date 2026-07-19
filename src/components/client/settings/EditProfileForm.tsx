@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useForm, FormProvider, FieldPath } from "react-hook-form";
@@ -217,7 +217,7 @@ export default function MultiStepForm({
         {/* PROGRESS */}
         <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#c12129] transition-all duration-500"
+            className="h-full bg-[#2563EB] transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -258,7 +258,7 @@ export default function MultiStepForm({
             <button
               type="button"
               onClick={handleNext}
-              className="px-4 py-2 bg-[#c12129] hover:bg-red-700 rounded-md transition shadow"
+              className="px-4 py-2 bg-[#2563EB] hover:bg-blue-700 rounded-md transition shadow"
             >
               Next
             </button>

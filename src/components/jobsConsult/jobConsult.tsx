@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
@@ -91,7 +91,7 @@ export default function Job({ isRegisteredUser = false }: JobProps) {
 
       {loading ? (
         <div className="mt-8 flex items-center gap-3 text-gray-400">
-          <div className="h-4 w-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent" />
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
           Loading jobs…
         </div>
       ) : filtered.length === 0 ? (

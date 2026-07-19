@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import type { ProjectEstimateInput } from "@/types/budgetEstimator";
@@ -108,7 +108,7 @@ export default function EstimatorPage({
 
                 {/* ================= LABOR ================= */}
                 <section className="bg-white p-4 md:p-6 rounded-xl shadow hover:shadow-lg transition">
-                    <h2 className="text-xl font-semibold border-b-2 border-[#c12129] mb-4">
+                    <h2 className="text-xl font-semibold border-b-2 border-[#2563EB] mb-4">
                         Labor & Team
                     </h2>
 
@@ -117,7 +117,7 @@ export default function EstimatorPage({
 
                 {/* ================= MATERIALS + TECH ================= */}
                 <section className="bg-gray-50 p-4 md:p-6 rounded-xl shadow hover:shadow-lg transition">
-                    <h2 className="text-xl font-semibold border-b-2 border-[#c12129] mb-4">
+                    <h2 className="text-xl font-semibold border-b-2 border-[#2563EB] mb-4">
                         Materials & Technology
                     </h2>
 
@@ -128,7 +128,7 @@ export default function EstimatorPage({
 
                 {/* ================= TIMELINE ================= */}
                 <section className="bg-white p-4 md:p-6 rounded-xl shadow hover:shadow-lg transition">
-                    <h2 className="text-xl font-semibold border-b-2 border-[#c12129] mb-4">
+                    <h2 className="text-xl font-semibold border-b-2 border-[#2563EB] mb-4">
                         Timeline & Overheads
                     </h2>
 
@@ -136,8 +136,8 @@ export default function EstimatorPage({
                 </section>
 
                 {/* ================= RISK ================= */}
-                <section className="bg-red-50 p-4 md:p-6 rounded-xl shadow hover:shadow-lg transition">
-                    <h2 className="text-xl font-semibold border-b-2 border-[#c12129] mb-4">
+                <section className="bg-blue-50 p-4 md:p-6 rounded-xl shadow hover:shadow-lg transition">
+                    <h2 className="text-xl font-semibold border-b-2 border-[#2563EB] mb-4">
                         Risk & Compliance
                     </h2>
 
@@ -148,7 +148,7 @@ export default function EstimatorPage({
 
                 {/* ================= CLIENT / QA ================= */}
                 <section className="bg-white p-4 md:p-6 rounded-xl shadow hover:shadow-lg transition">
-                    <h2 className="text-xl font-semibold border-b-2 border-[#c12129] mb-4">
+                    <h2 className="text-xl font-semibold border-b-2 border-[#2563EB] mb-4">
                         Client, QA & Sustainability
                     </h2>
 
@@ -161,7 +161,7 @@ export default function EstimatorPage({
 
                 {/* ================= VENDORS ================= */}
                 <section className="bg-gray-100 p-4 md:p-6 rounded-xl shadow hover:shadow-lg transition">
-                    <h2 className="text-xl font-semibold border-b-2 border-[#c12129] mb-4">
+                    <h2 className="text-xl font-semibold border-b-2 border-[#2563EB] mb-4">
                         Vendors & Lifecycle
                     </h2>
 
@@ -172,7 +172,7 @@ export default function EstimatorPage({
 
                 {/* ================= FINANCING + SUMMARY ================= */}
                 <section className="bg-black text-white p-4 md:p-6 rounded-xl shadow hover:shadow-lg transition">
-                    <h2 className="text-xl font-semibold border-b-2 border-[#c12129] mb-4">
+                    <h2 className="text-xl font-semibold border-b-2 border-[#2563EB] mb-4">
                         Financing & Summary
                     </h2>
 

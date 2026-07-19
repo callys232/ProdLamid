@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -94,7 +94,7 @@ export default function HybridConsultingHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 
-             bg-gradient-to-r from-red-600 to-white bg-clip-text text-transparent"
+             bg-gradient-to-r from-blue-600 to-white bg-clip-text text-transparent"
         >
           Hybrid consulting connects{" "}
           <span className="font-display">{displayText}</span>
@@ -111,8 +111,8 @@ export default function HybridConsultingHero() {
             <button
               onClick={() => setActiveTab("consultants")}
               className={`flex-1 py-3 text-base font-semibold transition-all ${activeTab === "consultants"
-                ? "bg-[#c12129] text-white"
-                : "text-[#c12129] hover:text-red-400"
+                ? "bg-[#2563EB] text-white"
+                : "text-[#2563EB] hover:text-blue-400"
                 }`}
             >
               CONSULTANTS
@@ -120,8 +120,8 @@ export default function HybridConsultingHero() {
             <button
               onClick={() => setActiveTab("jobs")}
               className={`flex-1 py-3 text-base font-semibold transition-all ${activeTab === "jobs"
-                ? "bg-[#c12129] text-white"
-                : "text-[#c12129] hover:text-red-400"
+                ? "bg-[#2563EB] text-white"
+                : "text-[#2563EB] hover:text-blue-400"
                 }`}
             >
               JOBS
@@ -146,19 +146,19 @@ export default function HybridConsultingHero() {
         >
           <Link
             href="/jobs"
-            className="text-white text-lg hover:text-[#c12129] transition"
+            className="text-white text-lg hover:text-[#2563EB] transition"
           >
             Find Projects
           </Link>
           <Link
             href="/postjobs"
-            className="text-white text-lg hover:text-[#c12129] transition"
+            className="text-white text-lg hover:text-[#2563EB] transition"
           >
             Post Projects
           </Link>
           <Link
             href="/talent"
-            className="bg-[#c12129] px-6 py-3 rounded-xl text-white text-lg hover:bg-[#a11e25] transition"
+            className="bg-[#2563EB] px-6 py-3 rounded-xl text-white text-lg hover:bg-[#a11e25] transition"
           >
             Find a Consultant
           </Link>

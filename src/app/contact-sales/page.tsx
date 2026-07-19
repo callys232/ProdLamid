@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -29,7 +29,7 @@ export default function ContactSalesPage() {
   }
 
   const inputCls =
-    "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-gray-600 transition focus:border-red-600/50 focus:outline-none";
+    "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-gray-600 transition focus:border-blue-600/50 focus:outline-none";
 
   return (
     <main className="min-h-screen bg-black pt-24 pb-20 text-white">
@@ -37,7 +37,7 @@ export default function ContactSalesPage() {
 
         {/* Header */}
         <div className="mb-12 text-center">
-          <span className="mb-4 inline-block rounded-full border border-red-600/30 bg-red-600/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-red-400">
+          <span className="mb-4 inline-block rounded-full border border-blue-600/30 bg-blue-600/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-blue-400">
             Enterprise Sales
           </span>
           <h1 className="text-4xl font-bold">Talk to our sales team</h1>
@@ -50,10 +50,10 @@ export default function ContactSalesPage() {
           {/* Left — contact info */}
           <div className="space-y-6">
             {[
-              { icon: <Mail className="h-5 w-5 text-red-500" />, label: "Email", value: "sales@lamid.io" },
-              { icon: <Phone className="h-5 w-5 text-red-500" />, label: "Phone", value: "+1 (800) LAMID-01" },
-              { icon: <Building2 className="h-5 w-5 text-red-500" />, label: "HQ", value: "Lagos, Nigeria · London, UK" },
-              { icon: <Users className="h-5 w-5 text-red-500" />, label: "Team size", value: "Serving 5+ person teams" },
+              { icon: <Mail className="h-5 w-5 text-blue-500" />, label: "Email", value: "sales@lamid.io" },
+              { icon: <Phone className="h-5 w-5 text-blue-500" />, label: "Phone", value: "+1 (800) LAMID-01" },
+              { icon: <Building2 className="h-5 w-5 text-blue-500" />, label: "HQ", value: "Lagos, Nigeria · London, UK" },
+              { icon: <Users className="h-5 w-5 text-blue-500" />, label: "Team size", value: "Serving 5+ person teams" },
             ].map((item) => (
               <div key={item.label} className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-5">
                 <div className="mt-0.5">{item.icon}</div>
@@ -93,7 +93,7 @@ export default function ContactSalesPage() {
               />
               <motion.button type="submit" disabled={sending}
                 whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-red-700 disabled:opacity-40"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-40"
               >
                 {sending ? <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" /> : <Send className="h-4 w-4" />}
                 {sending ? "Sending…" : "Send Message"}

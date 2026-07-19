@@ -14,40 +14,68 @@ export const fundEscrow = async (escrowId: string, userId: string) => {
     const user = await Users.findById(userId);
     if (!user) throw new Error("User not found");
 
-    // Initialize Paystack
-    const payment = await paystack.initialize(user.email, escrow.amount / 100); // amount is in kobo in DB? 
-    // The user said "NGN (multiply *100 for kobo)". I'll assume escrow.amount is in kobo.
-    
+    const payment = await paystack.initialize(user.email, escrow.amount / 100);
+
     escrow.paystackRef = payment.reference;
     await escrow.save();
 
-    return payment; // { authorization_url, reference }
+    return payment;
 };
 
 export const releaseEscrow = async (escrowId: string, userId: string) => {
     await connectDB();
-    const escrow = await Escrow.findById(escrowId);
+    const escrow = await Escrow.findById(escrowId) as any;
     if (!escrow) throw new Error("Escrow not found");
 
+    if (escrow.status === "released") return { success: true, alreadyReleased: true };
+
     escrow.status = "released";
+    escrow.releasedAt = new Date();
     await escrow.save();
 
-    // Stub: Credit consultant wallet
-    // await creditWallet(milestone.consultantId, escrow.amount);
+    // Credit consultant wallet
+    if (escrow.consultantId) {
+        let wallet = await Wallet.findOne({ user: escrow.consultantId });
+        if (!wallet) wallet = await Wallet.create({ user: escrow.consultantId, balance: 0, transactions: [] });
+        wallet.balance += escrow.amount;
+        wallet.transactions.push({
+            type: "credit",
+            amount: escrow.amount,
+            description: `Escrow release for project ${escrow.projectId}`,
+            status: "success",
+            date: new Date(),
+        });
+        await wallet.save();
+    }
 
     return { success: true };
 };
 
 export const cancelEscrow = async (escrowId: string, userId: string) => {
     await connectDB();
-    const escrow = await Escrow.findById(escrowId);
+    const escrow = await Escrow.findById(escrowId) as any;
     if (!escrow) throw new Error("Escrow not found");
+
+    if (escrow.status === "canceled") return { success: true, alreadyCanceled: true };
 
     escrow.status = "canceled";
     await escrow.save();
 
-    // Stub: Refund client
-    // await refundClient(userId, escrow.amount);
+    // Refund the client who funded this escrow
+    const clientId = escrow.clientId ?? userId;
+    if (clientId) {
+        let wallet = await Wallet.findOne({ user: clientId });
+        if (!wallet) wallet = await Wallet.create({ user: clientId, balance: 0, transactions: [] });
+        wallet.balance += escrow.amount;
+        wallet.transactions.push({
+            type: "credit",
+            amount: escrow.amount,
+            description: `Escrow refund for project ${escrow.projectId}`,
+            status: "success",
+            date: new Date(),
+        });
+        await wallet.save();
+    }
 
     return { success: true };
 };
@@ -59,9 +87,8 @@ export const handlePaystackWebhook = async (payload: any) => {
     if (event === "charge.success") {
         const reference  = data.reference;
         const meta       = data.metadata ?? {};
-        const amountNgn  = Math.floor(data.amount / 100); // Paystack sends kobo
+        const amountNgn  = Math.floor(data.amount / 100);
 
-        // ── Subscription activation ──────────────────────────────────
         if (meta.type === "subscription" && meta.userId) {
             const cycle: "monthly" | "quarterly" | "annual" =
                 meta.cycle ?? (
@@ -78,7 +105,6 @@ export const handlePaystackWebhook = async (payload: any) => {
             });
         }
 
-        // ── Points purchase ──────────────────────────────────────────
         if (meta.type === "points_purchase" && meta.userId && meta.points) {
             await awardPoints(
                 meta.userId,
@@ -88,7 +114,6 @@ export const handlePaystackWebhook = async (payload: any) => {
             );
         }
 
-        // ── Wallet top-up ────────────────────────────────────────────
         if (meta.type === "wallet_topup" && meta.userId) {
             let wallet = await Wallet.findOne({ user: meta.userId });
             if (!wallet) wallet = await Wallet.create({ user: meta.userId });
@@ -102,7 +127,6 @@ export const handlePaystackWebhook = async (payload: any) => {
             await wallet.save();
         }
 
-        // ── Escrow funding (atomic — prevents duplicate webhook processing) ──
         const escrowFilter = meta.escrowId
             ? { _id: meta.escrowId, status: { $in: ["initializing", "pending"] } }
             : { paystackRef: reference,   status: { $in: ["initializing", "pending"] } };
@@ -114,12 +138,10 @@ export const handlePaystackWebhook = async (payload: any) => {
         );
 
         if (escrow) {
-            // Only update milestone if escrow was successfully transitioned (not a replay)
-            await Milestone.findByIdAndUpdate(escrow.milestoneId, { status: "funded" });
+            await Milestone.findByIdAndUpdate((escrow as any).milestoneId, { status: "funded" });
         }
     }
 
-    // ── Subscription disabled / cancelled ────────────────────────────
     if (event === "subscription.disable" || event === "subscription.not_renew") {
         const customerCode = data.customer?.customer_code;
         if (customerCode) {
@@ -130,7 +152,6 @@ export const handlePaystackWebhook = async (payload: any) => {
         }
     }
 
-    // ── Subscription invoice failed ──────────────────────────────────
     if (event === "invoice.payment_failed") {
         const customerCode = data.customer?.customer_code;
         if (customerCode) {

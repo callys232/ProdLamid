@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -71,10 +71,10 @@ const Header = () => {
           aria-label="Client Transformations"
         >
           <div className="w-full flex justify-center mb-4">
-            <div className="w-16 h-1 bg-[#C12129] rounded-full animate-slide-horizontal" />
+            <div className="w-16 h-1 bg-[#2563EB] rounded-full animate-slide-horizontal" />
           </div>
           <header>
-            <h2 className="text-center text-transparent bg-clip-text bg-gradient-to-r from-[#C12129] to-[#f87171] text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mx-auto max-w-4xl px-4">
+            <h2 className="text-center text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#f87171] text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mx-auto max-w-4xl px-4">
               You do not have to re-invent the wheel, see our proven successful
               transformations.
             </h2>

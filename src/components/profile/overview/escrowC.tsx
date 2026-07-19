@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState } from "react";
 import { EscrowTransaction, Milestone } from "@/types/project";
 import { mockClients } from "@/mocks/mockClient";
@@ -68,7 +68,7 @@ export default function EscrowCard({ projectId }: { projectId: string }) {
     funded: "bg-yellow-600",
     released: "bg-green-600",
     pending: "bg-gray-600",
-    disputed: "bg-red-600",
+    disputed: "bg-blue-600",
   };
 
   // Chart data
@@ -82,12 +82,12 @@ export default function EscrowCard({ projectId }: { projectId: string }) {
     <div
       className="bg-black border border-gray-700 rounded-xl p-6 shadow-lg 
                  transition transform hover:scale-[1.02] hover:bg-gray-900 
-                 hover:border-[#c12129] relative group"
+                 hover:border-[#2563EB] relative group"
     >
       <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
         Escrow Transactions
         {error && (
-          <span className="text-xs text-red-500">(fallback data)</span>
+          <span className="text-xs text-blue-500">(fallback data)</span>
         )}
       </h3>
 
@@ -108,7 +108,7 @@ export default function EscrowCard({ projectId }: { projectId: string }) {
             <Tooltip
               contentStyle={{
                 backgroundColor: "#111",
-                border: "1px solid #c12129",
+                border: "1px solid #2563EB",
                 color: "#fff",
               }}
               formatter={(value) => [`$${value}`, "Amount"]}
@@ -119,9 +119,9 @@ export default function EscrowCard({ projectId }: { projectId: string }) {
             <Line
               type="monotone"
               dataKey="amount"
-              stroke="#c12129"
+              stroke="#2563EB"
               strokeWidth={2}
-              dot={{ r: 4, fill: "#c12129" }}
+              dot={{ r: 4, fill: "#2563EB" }}
             />
           </LineChart>
         </ResponsiveContainer>
@@ -130,7 +130,7 @@ export default function EscrowCard({ projectId }: { projectId: string }) {
       {/* Transaction table with hover popover */}
       <table className="w-full text-sm text-gray-300">
         <thead>
-          <tr className="text-[#c12129]">
+          <tr className="text-[#2563EB]">
             <th className="text-left">Date</th>
             <th className="text-right">Amount</th>
             <th className="text-center">Status</th>
@@ -141,7 +141,7 @@ export default function EscrowCard({ projectId }: { projectId: string }) {
           {escrow.map((tx) => (
             <tr
               key={tx.id}
-              className="relative hover:bg-gray-800 hover:border hover:border-[#c12129] transition group"
+              className="relative hover:bg-gray-800 hover:border hover:border-[#2563EB] transition group"
             >
               <td>{new Date(tx.createdAt).toLocaleDateString()}</td>
               <td className="text-right">${tx.amount}</td>
@@ -159,7 +159,7 @@ export default function EscrowCard({ projectId }: { projectId: string }) {
 
               {/* Hover popover */}
               <td className="absolute left-0 top-full mt-1 w-full opacity-0 group-hover:opacity-100 transition">
-                <div className="bg-[#111] border border-[#c12129] text-xs text-gray-300 rounded p-2 shadow-lg">
+                <div className="bg-[#111] border border-[#2563EB] text-xs text-gray-300 rounded p-2 shadow-lg">
                   <p>Transaction ID: {tx.id}</p>
                   <p>Created: {new Date(tx.createdAt).toLocaleString()}</p>
                   <p>Amount: ${tx.amount}</p>
@@ -178,7 +178,7 @@ export default function EscrowCard({ projectId }: { projectId: string }) {
 
       {/* Tooltip */}
       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
-        <span className="bg-[#c12129] text-white text-xs px-2 py-1 rounded shadow-md">
+        <span className="bg-[#2563EB] text-white text-xs px-2 py-1 rounded shadow-md">
           Payment and escrow details
         </span>
       </div>

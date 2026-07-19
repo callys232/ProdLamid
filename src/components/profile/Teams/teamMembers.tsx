@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { TeamMember } from "@/types/client";
@@ -22,7 +22,7 @@ export default function TeamMembers({ members }: TeamMembersProps) {
             onClick={() =>
               setSelectedMember((prev) => (prev?.id === m.id ? null : m))
             }
-            className="p-4 border rounded-lg bg-black text-white flex flex-col gap-1 cursor-pointer hover:border-[#c12129] hover:shadow-md transition"
+            className="p-4 border rounded-lg bg-black text-white flex flex-col gap-1 cursor-pointer hover:border-[#2563EB] hover:shadow-md transition"
           >
             <p className="font-semibold">{m.name}</p>
             <p className="text-sm text-gray-300">{m.role ?? "Member"}</p>
@@ -32,8 +32,8 @@ export default function TeamMembers({ members }: TeamMembersProps) {
       </div>
 
       {selectedMember && (
-        <div className="mt-4 p-4 border rounded-lg bg-black text-white shadow-inner border-[#c12129]">
-          <h4 className="font-bold text-lg text-[#c12129]">
+        <div className="mt-4 p-4 border rounded-lg bg-black text-white shadow-inner border-[#2563EB]">
+          <h4 className="font-bold text-lg text-[#2563EB]">
             {selectedMember.name}
           </h4>
           <p className="text-sm text-gray-300">Role: {selectedMember.role}</p>

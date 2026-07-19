@@ -1,4 +1,4 @@
-// components/ConsultantCard.tsx
+﻿// components/ConsultantCard.tsx
 "use client";
 
 import { Star } from "lucide-react";
@@ -41,7 +41,7 @@ export default function ConsultantCard({
     Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-4 h-4 ${i + 1 <= Math.round(rating) ? "text-red-500 fill-red-500" : "text-gray-400"}`}
+        className={`w-4 h-4 ${i + 1 <= Math.round(rating) ? "text-blue-500 fill-blue-500" : "text-gray-400"}`}
       />
     ));
 
@@ -68,7 +68,7 @@ export default function ConsultantCard({
     <>
       <div
         className="bg-gradient-to-b from-[#1a0d0d] to-[#0d0000] border border-[#2a0d0d] rounded-xl shadow-md
-                   hover:shadow-lg hover:shadow-red-700/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#1f0d0d] p-5 flex flex-col justify-between cursor-pointer"
+                   hover:shadow-lg hover:shadow-blue-700/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#1f0d0d] p-5 flex flex-col justify-between cursor-pointer"
         onClick={() => setShowModal(true)}
         role="button"
         tabIndex={0}
@@ -87,7 +87,7 @@ export default function ConsultantCard({
                 className="object-cover rounded-full"
               />
             ) : (
-              <div className="text-red-500 text-2xl font-bold">👤</div>
+              <div className="text-blue-500 text-2xl font-bold">👤</div>
             )}
           </div>
 
@@ -107,7 +107,7 @@ export default function ConsultantCard({
               {skills.slice(0, 6).map((s) => (
                 <span
                   key={s}
-                  className="px-2 py-0.5 bg-red-50 text-red-700 rounded-full text-xs font-medium truncate max-w-[8rem]"
+                  className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs font-medium truncate max-w-[8rem]"
                   title={s}
                 >
                   {s}
@@ -135,7 +135,7 @@ export default function ConsultantCard({
 
         {/* Rate */}
         <div className="text-center mb-4">
-          <p className="text-red-500 font-semibold text-sm">${rate}/hr</p>
+          <p className="text-blue-500 font-semibold text-sm">${rate}/hr</p>
         </div>
 
         {/* Buttons */}
@@ -146,7 +146,7 @@ export default function ConsultantCard({
               e.stopPropagation();
               setShowModal(true);
             }}
-            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-md shadow-sm hover:shadow-md transition-all"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded-md shadow-sm hover:shadow-md transition-all"
           >
             View Team
           </button>
@@ -154,7 +154,7 @@ export default function ConsultantCard({
           <button
             type="button"
             onClick={handleHire}
-            className="px-4 py-2 border border-red-600 text-red-400 hover:bg-red-800 hover:text-white text-xs font-medium rounded-md shadow-sm hover:shadow-md transition-all"
+            className="px-4 py-2 border border-blue-600 text-blue-400 hover:bg-blue-800 hover:text-white text-xs font-medium rounded-md shadow-sm hover:shadow-md transition-all"
           >
             Hire Now
           </button>

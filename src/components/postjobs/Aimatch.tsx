@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import SmartGate from "@/components/smartGate";
@@ -73,7 +73,7 @@ export default function AIMatchEntry({
                         <div>
                             <h3 className="font-semibold text-black flex items-center gap-2">
                                 AI Consultant Matching
-                                <span className="text-xs bg-[#c12129] text-white px-2 py-1 rounded">
+                                <span className="text-xs bg-[#2563EB] text-white px-2 py-1 rounded">
                                     PRO
                                 </span>
                             </h3>
@@ -85,7 +85,7 @@ export default function AIMatchEntry({
 
                         <button
                             type="button"
-                            className="px-4 py-2 rounded-lg border border-[#c12129] text-[#c12129] hover:bg-red-50 transition font-semibold"
+                            className="px-4 py-2 rounded-lg border border-[#2563EB] text-[#2563EB] hover:bg-blue-50 transition font-semibold"
                         >
                             Unlock AI Match
                         </button>
@@ -99,7 +99,7 @@ export default function AIMatchEntry({
                         <div>
                             <h3 className="font-semibold text-black flex items-center gap-2">
                                 AI Consultant Matching
-                                <span className="text-xs bg-[#c12129] text-white px-2 py-1 rounded">
+                                <span className="text-xs bg-[#2563EB] text-white px-2 py-1 rounded">
                                     PRO
                                 </span>
                             </h3>
@@ -115,7 +115,7 @@ export default function AIMatchEntry({
                             disabled={loading}
                             className={`px-4 py-2 rounded-lg font-semibold transition ${loading
                                 ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                                : "bg-[#c12129] text-white hover:bg-red-700"
+                                : "bg-[#2563EB] text-white hover:bg-blue-700"
                                 }`}
                         >
                             {loading ? "Matching..." : "Find Matches"}
@@ -126,7 +126,7 @@ export default function AIMatchEntry({
 
             {/* ---------------- ERROR STATE (UNCHANGED) ---------------- */}
             {error && (
-                <p className="text-xs text-red-500 mt-2">
+                <p className="text-xs text-blue-500 mt-2">
                     {error}
                 </p>
             )}

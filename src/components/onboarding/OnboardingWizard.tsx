@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,7 +19,7 @@ const TYPE_BADGE: Record<string, string> = {
   Freelancer: "bg-emerald-600/20 text-emerald-400 border-emerald-600/30",
   Enterprise: "bg-purple-600/20 text-purple-400 border-purple-600/30",
   Concierge:  "bg-amber-600/20 text-amber-400 border-amber-600/30",
-  Admin:      "bg-red-600/20 text-red-400 border-red-600/30",
+  Admin:      "bg-blue-600/20 text-blue-400 border-blue-600/30",
 };
 
 // ── Step indicator dots ───────────────────────────────────────────
@@ -31,7 +31,7 @@ function StepDots({ current }: { current: number }) {
           key={i}
           animate={{
             width:           i === current ? 24 : 8,
-            backgroundColor: i <= current ? "#C12129" : "rgba(255,255,255,0.15)",
+            backgroundColor: i <= current ? "#2563EB" : "rgba(255,255,255,0.15)",
           }}
           transition={{ duration: 0.3 }}
           className="h-2 rounded-full"
@@ -50,14 +50,14 @@ function StepWelcome({ user, onNext }: { user: AuthUser; onNext: () => void }) {
   return (
     <div className="flex flex-col items-center text-center gap-6">
       {/* Logo mark */}
-      <div className="w-16 h-16 rounded-2xl bg-[#C12129]/15 border border-[#C12129]/30 flex items-center justify-center">
-        <Sparkles className="w-8 h-8 text-[#C12129]" />
+      <div className="w-16 h-16 rounded-2xl bg-[#2563EB]/15 border border-[#2563EB]/30 flex items-center justify-center">
+        <Sparkles className="w-8 h-8 text-[#2563EB]" />
       </div>
 
       <div className="space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold text-white font-[var(--font-space-grotesk)]">
           Welcome to LAMID ONE,{" "}
-          <span className="text-[#C12129]">{firstName}</span>
+          <span className="text-[#2563EB]">{firstName}</span>
         </h1>
         <p className="text-sm text-gray-400 max-w-xs mx-auto leading-relaxed">
           Let&apos;s set up your workspace in 3 quick steps.
@@ -76,7 +76,7 @@ function StepWelcome({ user, onNext }: { user: AuthUser; onNext: () => void }) {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         onClick={onNext}
-        className="mt-2 flex items-center gap-2 px-6 py-3 rounded-xl bg-[#C12129] text-white text-sm font-semibold shadow-[0_4px_20px_rgba(193,33,41,0.4)] hover:bg-[#a01820] transition-colors"
+        className="mt-2 flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2563EB] text-white text-sm font-semibold shadow-[0_4px_20px_rgba(37,99,235,0.4)] hover:bg-[#a01820] transition-colors"
       >
         Let&apos;s go <ArrowRight className="w-4 h-4" />
       </motion.button>
@@ -142,13 +142,13 @@ function StepProfile({
                   onClick={() => toggleCategory(cat)}
                   className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium border transition-all ${
                     active
-                      ? "bg-[#C12129]/15 border-[#C12129]/50 text-white"
+                      ? "bg-[#2563EB]/15 border-[#2563EB]/50 text-white"
                       : "bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:text-white"
                   }`}
                 >
                   <span
                     className={`w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${
-                      active ? "bg-[#C12129] border-[#C12129]" : "border-white/20"
+                      active ? "bg-[#2563EB] border-[#2563EB]" : "border-white/20"
                     }`}
                   >
                     {active && (
@@ -174,7 +174,7 @@ function StepProfile({
             value={skills}
             onChange={(e) => setSkills(e.target.value)}
             placeholder="e.g. Strategy, Financial Modelling, UX Design"
-            className="w-full rounded-lg bg-white/5 border border-white/10 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#C12129]/50 transition-colors"
+            className="w-full rounded-lg bg-white/5 border border-white/10 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition-colors"
           />
           <p className="text-[11px] text-gray-600">Separate skills with commas</p>
         </div>
@@ -191,7 +191,7 @@ function StepProfile({
             value={orgName}
             onChange={(e) => setOrgName(e.target.value)}
             placeholder="e.g. Acme Corporation"
-            className="w-full rounded-lg bg-white/5 border border-white/10 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#C12129]/50 transition-colors"
+            className="w-full rounded-lg bg-white/5 border border-white/10 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition-colors"
           />
         </div>
       )}
@@ -208,7 +208,7 @@ function StepProfile({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.97 }}
           onClick={handleNext}
-          className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#C12129] text-white text-sm font-semibold hover:bg-[#a01820] transition-colors shadow-[0_4px_20px_rgba(193,33,41,0.3)]"
+          className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-[#a01820] transition-colors shadow-[0_4px_20px_rgba(37,99,235,0.3)]"
         >
           Next <ArrowRight className="w-4 h-4" />
         </motion.button>
@@ -235,21 +235,21 @@ function getActionCard(type: string | undefined): ActionCard {
   switch (type) {
     case "Freelancer":
       return {
-        icon:        <User className="w-8 h-8 text-[#C12129]" />,
+        icon:        <User className="w-8 h-8 text-[#2563EB]" />,
         title:       "Complete your profile",
         description: "Attract better clients with a complete profile",
         href:        "/profile",
       };
     case "Enterprise":
       return {
-        icon:        <Building2 className="w-8 h-8 text-[#C12129]" />,
+        icon:        <Building2 className="w-8 h-8 text-[#2563EB]" />,
         title:       "Invite your team",
         description: "Add members to your organisation",
         href:        "/enterprise",
       };
     default: // Client + Concierge + Admin
       return {
-        icon:        <Briefcase className="w-8 h-8 text-[#C12129]" />,
+        icon:        <Briefcase className="w-8 h-8 text-[#2563EB]" />,
         title:       "Post your first project",
         description: "Find the right expert for your challenge",
         href:        "/postjobs",
@@ -273,17 +273,17 @@ function StepFirstAction({ user, onNext }: { user: AuthUser; onNext: () => void 
 
       <Link href={card.href} onClick={onNext}>
         <motion.div
-          whileHover={{ scale: 1.02, borderColor: "rgba(193,33,41,0.5)" }}
+          whileHover={{ scale: 1.02, borderColor: "rgba(37,99,235,0.5)" }}
           className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-8 cursor-pointer text-center transition-colors"
         >
-          <div className="w-16 h-16 rounded-2xl bg-[#C12129]/10 border border-[#C12129]/20 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center">
             {card.icon}
           </div>
           <div>
             <p className="text-white font-semibold text-base">{card.title}</p>
             <p className="text-gray-500 text-xs mt-1">{card.description}</p>
           </div>
-          <span className="flex items-center gap-1.5 text-[#C12129] text-sm font-semibold">
+          <span className="flex items-center gap-1.5 text-[#2563EB] text-sm font-semibold">
             Go <ArrowRight className="w-4 h-4" />
           </span>
         </motion.div>
@@ -302,17 +302,17 @@ function StepFirstAction({ user, onNext }: { user: AuthUser; onNext: () => void 
 // ── Step 4 — You're Ready ────────────────────────────────────────
 const QUICK_ACCESS = [
   {
-    icon:  <Sparkles className="w-5 h-5 text-[#C12129]" />,
+    icon:  <Sparkles className="w-5 h-5 text-[#2563EB]" />,
     label: "Intelligence Hub",
     href:  "/intelligence",
   },
   {
-    icon:  <LayoutDashboard className="w-5 h-5 text-[#C12129]" />,
+    icon:  <LayoutDashboard className="w-5 h-5 text-[#2563EB]" />,
     label: "Your Dashboard",
     href:  "/dashboard",
   },
   {
-    icon:  <Users className="w-5 h-5 text-[#C12129]" />,
+    icon:  <Users className="w-5 h-5 text-[#2563EB]" />,
     label: "Browse Talent",
     href:  "/talent",
   },
@@ -321,8 +321,8 @@ const QUICK_ACCESS = [
 function StepReady({ onComplete }: { onComplete: () => void }) {
   return (
     <div className="flex flex-col items-center text-center gap-6">
-      <div className="w-16 h-16 rounded-full bg-[#C12129]/15 border border-[#C12129]/30 flex items-center justify-center">
-        <CheckCircle2 className="w-8 h-8 text-[#C12129]" />
+      <div className="w-16 h-16 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/30 flex items-center justify-center">
+        <CheckCircle2 className="w-8 h-8 text-[#2563EB]" />
       </div>
 
       <div className="space-y-2">
@@ -338,7 +338,7 @@ function StepReady({ onComplete }: { onComplete: () => void }) {
         {QUICK_ACCESS.map((item) => (
           <Link key={item.label} href={item.href} onClick={onComplete}>
             <motion.div
-              whileHover={{ scale: 1.05, borderColor: "rgba(193,33,41,0.4)" }}
+              whileHover={{ scale: 1.05, borderColor: "rgba(37,99,235,0.4)" }}
               className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3.5 cursor-pointer transition-colors"
             >
               {item.icon}
@@ -354,7 +354,7 @@ function StepReady({ onComplete }: { onComplete: () => void }) {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         onClick={onComplete}
-        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#C12129] text-white text-sm font-semibold shadow-[0_4px_20px_rgba(193,33,41,0.4)] hover:bg-[#a01820] transition-colors"
+        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2563EB] text-white text-sm font-semibold shadow-[0_4px_20px_rgba(37,99,235,0.4)] hover:bg-[#a01820] transition-colors"
       >
         Explore LAMID ONE <ArrowRight className="w-4 h-4" />
       </motion.button>
@@ -413,7 +413,7 @@ export default function OnboardingWizard({ user, onComplete }: Props) {
           className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0d0d0f] shadow-[0_32px_80px_rgba(0,0,0,0.9)] overflow-hidden"
         >
           {/* Top gradient strip */}
-          <div className="h-1 w-full bg-gradient-to-r from-[#C12129] via-[#e03040] to-[#7f0d11]" />
+          <div className="h-1 w-full bg-gradient-to-r from-[#2563EB] via-[#e03040] to-[#7f0d11]" />
 
           {/* Dismiss button */}
           <button

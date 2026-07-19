@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -21,7 +21,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
                 </h2>
                 <div
                     className="
-            h-1 w-16 bg-[#c12129] mt-2 rounded 
+            h-1 w-16 bg-[#2563EB] mt-2 rounded 
             transform scale-x-0 group-hover:scale-x-100 
             transition-transform duration-300 origin-left
           "

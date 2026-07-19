@@ -1,4 +1,4 @@
-interface TooltipProps {
+﻿interface TooltipProps {
     recommendation: string;
     source?: string;
     confidence?: number;
@@ -28,12 +28,12 @@ export default function Tooltip({
         >
             {loading ? (
                 <div className="flex items-center gap-2 text-gray-300">
-                    <span className="h-2 w-2 bg-[#c12129] rounded-full animate-pulse" />
+                    <span className="h-2 w-2 bg-[#2563EB] rounded-full animate-pulse" />
                     <span>Analyzing similar projects...</span>
                 </div>
             ) : (
                 <div className="space-y-1">
-                    <p className="font-semibold text-[#c12129]">
+                    <p className="font-semibold text-[#2563EB]">
                         AI Recommendation
                     </p>
 

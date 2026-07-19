@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
@@ -13,7 +13,7 @@ type FieldKey = "durationWeeks" | "milestones" | "urgencyLevel";
 const URGENCY_OPTS: { value: UrgencyLevel; label: string; color: string; note: string }[] = [
   { value: "low",    label: "Low",    color: "text-green-400",  note: "Flexible schedule — no rush premium." },
   { value: "medium", label: "Medium", color: "text-yellow-400", note: "Standard pace — ~10% schedule buffer." },
-  { value: "high",   label: "High",   color: "text-red-400",    note: "Rush delivery — expect +20–30% cost impact." },
+  { value: "high",   label: "High",   color: "text-blue-400",    note: "Rush delivery — expect +20–30% cost impact." },
 ];
 
 const MILESTONE_PRESETS = [

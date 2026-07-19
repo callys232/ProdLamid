@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Dropdown } from "./dropdown";
@@ -60,7 +60,7 @@ export default function DashboardTabs({
         // Badge color logic
         let badgeColor = "bg-gray-600 text-white";
         if (isMilestones) {
-          if (milestoneCounts["disputed"]) badgeColor = "bg-red-600 text-white";
+          if (milestoneCounts["disputed"]) badgeColor = "bg-blue-600 text-white";
           else if (milestoneCounts["in_progress"])
             badgeColor = "bg-yellow-500 text-black";
           else if (milestoneCounts["completed"])
@@ -80,11 +80,11 @@ export default function DashboardTabs({
               className="
                 relative
                 rounded-lg
-                bg-red-600
+                bg-blue-600
                 px-5 py-2
                 text-sm font-medium text-white
                 transition-all
-                hover:bg-red-500
+                hover:bg-blue-500
                 hover:scale-[1.05]
               "
             >

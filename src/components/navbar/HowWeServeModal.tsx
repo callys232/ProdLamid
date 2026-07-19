@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -20,7 +20,7 @@ const PREMIUM_ACCOUNT_TYPES = ["Enterprise", "Concierge", "Admin"];
 
 const TIER_BADGE: Record<string, { label: string; cls: string }> = {
   free:       { label: "Free",       cls: "text-emerald-400 bg-emerald-500/10 border border-emerald-500/25" },
-  premium:    { label: "Premium",    cls: "text-[#c21219] bg-[#c21219]/10 border border-[#c21219]/25" },
+  premium:    { label: "Premium",    cls: "text-[#2563EB] bg-[#2563EB]/10 border border-[#2563EB]/25" },
   enterprise: { label: "Enterprise", cls: "text-violet-400 bg-violet-500/10 border border-violet-500/25" },
 };
 
@@ -369,7 +369,7 @@ function ServiceRow({
       className="group w-full text-left flex items-center gap-4 py-4 px-5 rounded-xl hover:bg-white/[0.04] transition-colors duration-150 border border-transparent hover:border-white/8"
     >
       {/* Icon */}
-      <div className="shrink-0 w-10 h-10 rounded-xl bg-white/5 border border-white/8 flex items-center justify-center overflow-hidden group-hover:border-[#c21219]/30 transition-colors duration-200">
+      <div className="shrink-0 w-10 h-10 rounded-xl bg-white/5 border border-white/8 flex items-center justify-center overflow-hidden group-hover:border-[#2563EB]/30 transition-colors duration-200">
         {s.logo ? (
           <Image
             src={s.logo}
@@ -390,7 +390,7 @@ function ServiceRow({
             {s.name}
           </p>
           {s.premium && (
-            <span className="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#c21219]/12 border border-[#c21219]/25 text-[9px] font-bold text-[#c21219] uppercase tracking-wide">
+            <span className="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#2563EB]/12 border border-[#2563EB]/25 text-[9px] font-bold text-[#2563EB] uppercase tracking-wide">
               <Lock className="h-2 w-2" />
               {s.tier === "enterprise" ? "Enterprise+" : "Premium"}
             </span>
@@ -401,7 +401,7 @@ function ServiceRow({
         </p>
       </div>
 
-      <ChevronRight className="h-3.5 w-3.5 text-white/15 group-hover:text-[#c21219] transition-colors duration-200 shrink-0" />
+      <ChevronRight className="h-3.5 w-3.5 text-white/15 group-hover:text-[#2563EB] transition-colors duration-200 shrink-0" />
     </motion.button>
   );
 }
@@ -458,7 +458,7 @@ export default function HowWeServeModal({
             className="relative w-full max-w-4xl bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.7)] border border-white/8"
           >
             {/* Ambient glow */}
-            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-32 rounded-full bg-[#c21219]/8 blur-3xl pointer-events-none" />
+            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-32 rounded-full bg-[#2563EB]/8 blur-3xl pointer-events-none" />
 
             {/* ── Header ── */}
             <div className="relative z-10 flex items-center justify-between px-6 py-5 border-b border-white/6">
@@ -467,9 +467,9 @@ export default function HowWeServeModal({
                 <motion.span
                   animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
                   transition={{ repeat: Infinity, duration: 2 }}
-                  className="h-1.5 w-1.5 rounded-full bg-[#c21219]"
+                  className="h-1.5 w-1.5 rounded-full bg-[#2563EB]"
                 />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#c21219]">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">
                   How We Serve
                 </span>
               </div>
@@ -515,7 +515,7 @@ export default function HowWeServeModal({
                     {active === i && (
                       <motion.span
                         layoutId="tab-indicator"
-                        className="absolute left-0 top-1 bottom-1 w-0.5 rounded-r bg-[#c21219]"
+                        className="absolute left-0 top-1 bottom-1 w-0.5 rounded-r bg-[#2563EB]"
                         transition={{
                           type: "spring",
                           stiffness: 400,
@@ -539,7 +539,7 @@ export default function HowWeServeModal({
                       })()}
                     </div>
                     <p
-                      className={`text-[10px] mt-0.5 transition-colors duration-150 ${active === i ? "text-[#c21219]" : "text-gray-500 group-hover:text-gray-400"}`}
+                      className={`text-[10px] mt-0.5 transition-colors duration-150 ${active === i ? "text-[#2563EB]" : "text-gray-500 group-hover:text-gray-400"}`}
                     >
                       {(sec as any).benefits
                         ? `${BENEFIT_GROUPS.reduce((a, g) => a + g.items.length, 0)} benefits included`
@@ -550,7 +550,7 @@ export default function HowWeServeModal({
 
                 {/* Bottom note */}
                 <div className="mt-auto pt-4 border-t border-white/6">
-                  <p className="text-xs font-bold leading-snug px-3 text-transparent bg-clip-text bg-gradient-to-b from-[#c21219] to-white">
+                  <p className="text-xs font-bold leading-snug px-3 text-transparent bg-clip-text bg-gradient-to-b from-[#2563EB] to-white">
                     Built for Africa.
                     <br />
                     Designed for the World.
@@ -633,12 +633,12 @@ export default function HowWeServeModal({
             {/* ── Footer ── */}
             <div className="relative z-10 flex items-center justify-between px-6 py-5 border-t border-white/6 bg-white/[0.01]">
               <p className="text-xs text-gray-600 flex items-center gap-1.5">
-                <Lock className="h-3 w-3 text-[#c21219]" />
+                <Lock className="h-3 w-3 text-[#2563EB]" />
                 Premium &amp; Enterprise+ services require an upgraded plan.{" "}
                 <Link
                   href="/upgrade"
                   onClick={onClose}
-                  className="text-[#c21219] font-semibold hover:underline underline-offset-2"
+                  className="text-[#2563EB] font-semibold hover:underline underline-offset-2"
                 >
                   Upgrade →
                 </Link>
@@ -646,7 +646,7 @@ export default function HowWeServeModal({
               <Link
                 href="/portfolio"
                 onClick={onClose}
-                className="flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-[#c21219] transition-colors"
+                className="flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-[#2563EB] transition-colors"
               >
                 View Portfolio <ArrowRight className="h-3 w-3" />
               </Link>

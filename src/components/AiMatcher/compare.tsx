@@ -1,4 +1,4 @@
-import { MatchResult } from "@/types/aiMatch";
+﻿import { MatchResult } from "@/types/aiMatch";
 
 export default function ComparePanel({
     a,
@@ -37,7 +37,7 @@ export default function ComparePanel({
 
             <div className="mt-4 bg-gray-50 p-3 rounded">
                 <p className="text-sm text-black">
-                    <span className="text-[#c12129] font-semibold">
+                    <span className="text-[#2563EB] font-semibold">
                         {winner.consultant.name}
                     </span>{" "}
                     is the better overall match.

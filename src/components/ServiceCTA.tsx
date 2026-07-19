@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -69,13 +69,13 @@ const SERVICES = {
     ],
     ctaPrimary: { label: "Register for Concierge →", href: "/signup" },
     accent: "text-white",
-    tagline_: "text-red-100/80",
-    bullet_: "text-red-100/70",
+    tagline_: "text-blue-100/80",
+    bullet_: "text-blue-100/70",
     badge_: "bg-white/20 text-white",
     hoverBg: "hover:bg-white/10",
-    modalBadge: "bg-red-500/15 text-red-300",
-    modalAccent: "text-red-400",
-    modalIconBg: "bg-red-500/8 border-red-500/20",
+    modalBadge: "bg-blue-500/15 text-blue-300",
+    modalAccent: "text-blue-400",
+    modalIconBg: "bg-blue-500/8 border-blue-500/20",
     btnText: "text-white",
     btnClass: styles.btnConcierge,
     modalStripe: styles.modalStripeConcierge,

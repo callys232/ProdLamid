@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 
 const ReviewPage = ({ formData, handlePrevious, handleSubmit }) => {
   return (
@@ -8,7 +8,7 @@ const ReviewPage = ({ formData, handlePrevious, handleSubmit }) => {
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center text-center"
     >
-      <h2 className="text-2xl font-bold text-red-600 mb-4">
+      <h2 className="text-2xl font-bold text-blue-600 mb-4">
         Review Your Submission
       </h2>
       <p className="text-gray-600 mb-6">

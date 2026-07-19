@@ -1,4 +1,4 @@
-// components/ui/ToastStack.tsx
+﻿// components/ui/ToastStack.tsx
 "use client";
 import type { Toast } from "./useToast";
 
@@ -17,7 +17,7 @@ export default function ToastStack({ toasts, onDismiss }: ToastStackProps) {
             t.variant === "success"
               ? "bg-green-600"
               : t.variant === "error"
-              ? "bg-red-600"
+              ? "bg-blue-600"
               : "bg-gray-800"
           }`}
         >

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -21,7 +21,7 @@ const HIW_STEPS = [
     label: "Diagnose",
     desc: "Understand your performance, talent, and workflow needs.",
     Icon: Target,
-    hex: "#c21219",
+    hex: "#2563EB",
   },
   {
     num: "02",
@@ -74,7 +74,7 @@ const HIW_POWERS = [
     label: "Secure Cloud Workspace",
     desc: "Work from anywhere with enterprise-grade security.",
     Icon: Shield,
-    hex: "#c21219",
+    hex: "#2563EB",
   },
 ];
 
@@ -129,7 +129,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
           }}
         />
         {/* Red top glow */}
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 rounded-full bg-[#c21219]/12 blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 rounded-full bg-[#2563EB]/12 blur-3xl pointer-events-none" />
 
         {/* ── Premium Hero Header ── */}
         <div className="relative sticky top-0 z-10 overflow-hidden bg-[#080808]/95 backdrop-blur-md border-b border-white/6">
@@ -142,8 +142,8 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
               backgroundSize: "22px 22px",
             }}
           />
-          <div className="absolute -top-16 left-1/3 w-72 h-32 rounded-full bg-[#c21219]/10 blur-3xl pointer-events-none" />
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#c21219]/40 to-transparent" />
+          <div className="absolute -top-16 left-1/3 w-72 h-32 rounded-full bg-[#2563EB]/10 blur-3xl pointer-events-none" />
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#2563EB]/40 to-transparent" />
 
           {/* Top bar — badge + close */}
           <div className="flex items-center justify-between px-8 pt-5 pb-2">
@@ -158,7 +158,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
               }}
               className="flex items-center gap-2.5"
             >
-              <div className="relative flex items-center justify-center w-6 h-6 rounded-lg bg-[#c21219]/15 border border-[#c21219]/30">
+              <div className="relative flex items-center justify-center w-6 h-6 rounded-lg bg-[#2563EB]/15 border border-[#2563EB]/30">
                 <motion.span
                   animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
                   transition={{
@@ -166,10 +166,10 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                     duration: 2,
                     ease: "easeInOut",
                   }}
-                  className="h-1.5 w-1.5 rounded-full bg-[#c21219]"
+                  className="h-1.5 w-1.5 rounded-full bg-[#2563EB]"
                 />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#c21219]">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">
                 Platform Walkthrough
               </span>
             </motion.div>
@@ -192,7 +192,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 18 }}
                 onClick={onClose}
-                className="flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#c21219]/40 transition-colors"
+                className="flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#2563EB]/40 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </motion.button>
@@ -211,7 +211,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                   stiffness: 280,
                   damping: 22,
                 }}
-                className="text-2xl sm:text-3xl font-black tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] via-rose-400 to-white"
+                className="text-2xl sm:text-3xl font-black tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-rose-400 to-white"
               >
                 How It Works
               </motion.h2>
@@ -268,7 +268,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Bottom accent line */}
-          <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-[#c21219]/50 via-[#c21219]/20 to-transparent" />
+          <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-[#2563EB]/50 via-[#2563EB]/20 to-transparent" />
         </div>
 
         {/* Scrollable body — scrollbar hidden */}
@@ -285,10 +285,10 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
           <motion.div
             whileHover={{ borderColor: "rgba(194,18,25,0.45)" }}
             transition={{ duration: 0.2 }}
-            className="rounded-2xl border border-[#c21219]/15 bg-[#c21219]/[0.04] p-7 space-y-6"
+            className="rounded-2xl border border-[#2563EB]/15 bg-[#2563EB]/[0.04] p-7 space-y-6"
           >
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] to-rose-400">
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-rose-400">
                 The Process
               </p>
               <h3 className="text-xl font-bold text-white">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useRef } from "react";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import EcosystemTag from "@/components/EcosystemTag";
 const PILLARS = [
   {
     Icon: Briefcase,
-    hex: "#c21219",
+    hex: "#2563EB",
     glow: "rgba(194,18,25,0.28)",
     label: "Management",
     tags: ["Advisory", "Human Capital", "Leadership"],
@@ -43,7 +43,7 @@ const BIZ_PERKS = [
   "Expert mentorship and strategy sessions",
 ];
 
-const BIZ_WHAT_TAGS  = [{ label: "Business Clinics", hex: "#c21219" }, { label: "SME Network", hex: "#c21219" }, { label: "Growth Hub", hex: "#c21219" }];
+const BIZ_WHAT_TAGS  = [{ label: "Business Clinics", hex: "#2563EB" }, { label: "SME Network", hex: "#2563EB" }, { label: "Growth Hub", hex: "#2563EB" }];
 const BIZ_JOIN_TAGS  = [{ label: "SME Community", hex: "#3b82f6" }, { label: "Mentorship", hex: "#3b82f6" }, { label: "Strategy", hex: "#3b82f6" }];
 
 const cardVariants = {
@@ -107,7 +107,7 @@ const Section = () => {
           backgroundSize: "48px 48px",
         }}
       />
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[#c21219]/6 blur-3xl pointer-events-none z-0" />
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[#2563EB]/6 blur-3xl pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto space-y-16">
 
@@ -190,10 +190,10 @@ const Section = () => {
             </div>
             <div className="relative z-10 h-full flex flex-col justify-between p-6">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#c21219]/25 border border-[#c21219]/50">
-                  <Store className="h-4 w-4 text-[#c21219]" />
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#2563EB]/25 border border-[#2563EB]/50">
+                  <Store className="h-4 w-4 text-[#2563EB]" />
                 </div>
-                <span className="bg-[#c21219] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <span className="bg-[#2563EB] text-white text-xs font-semibold px-3 py-1 rounded-full">
                   What is Bizphare-Bizclub?
                 </span>
               </div>

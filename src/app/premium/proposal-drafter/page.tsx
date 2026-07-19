@@ -33,7 +33,7 @@ interface Proposal {
 
 /* ── Collapsible section ────────────────────────────────────────── */
 function Section({
-  icon: Icon, title, color = "text-[#c21219]", badge, children,
+  icon: Icon, title, color = "text-[#2563EB]", badge, children,
 }: {
   icon: React.ElementType; title: string; color?: string; badge?: string; children: React.ReactNode;
 }) {
@@ -73,7 +73,7 @@ function Section({
 }
 
 /* ── Pill list ──────────────────────────────────────────────────── */
-function BulletList({ items, color = "text-gray-700 dark:text-gray-300", dot = "▸", dotColor = "text-[#c21219]" }: {
+function BulletList({ items, color = "text-gray-700 dark:text-gray-300", dot = "▸", dotColor = "text-[#2563EB]" }: {
   items: string[]; color?: string; dot?: string; dotColor?: string;
 }) {
   return (
@@ -198,7 +198,7 @@ export default function ProposalDrafter() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const inputCls = "w-full rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 focus:ring-1 focus:ring-[#c21219]/20 placeholder-gray-400 dark:placeholder-gray-600 transition";
+  const inputCls = "w-full rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#2563EB]/60 focus:ring-1 focus:ring-[#2563EB]/20 placeholder-gray-400 dark:placeholder-gray-600 transition";
   const selectCls = inputCls + " appearance-none cursor-pointer bg-white dark:bg-[#0a0a0a]";
 
   return (
@@ -238,7 +238,7 @@ export default function ProposalDrafter() {
             ] as { label: string; key: string; ph: string; req?: boolean; type?: string }[]).map(({ label, key, ph, req, type }) => (
               <div key={key}>
                 <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">
-                  {label}{req && <span className="ml-0.5 text-[#c21219]">*</span>}
+                  {label}{req && <span className="ml-0.5 text-[#2563EB]">*</span>}
                 </label>
                 <input
                   type={type ?? "text"} placeholder={ph}
@@ -280,8 +280,8 @@ export default function ProposalDrafter() {
           </div>
 
           {error && (
-            <p className="text-xs text-red-400 flex items-center gap-1.5 px-1">
-              <span className="inline-block w-1 h-1 rounded-full bg-red-400" />{error}
+            <p className="text-xs text-blue-400 flex items-center gap-1.5 px-1">
+              <span className="inline-block w-1 h-1 rounded-full bg-blue-400" />{error}
             </p>
           )}
 
@@ -289,8 +289,8 @@ export default function ProposalDrafter() {
             type="button"
             onClick={generate}
             disabled={loading}
-            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#c21219] to-red-700
-                       hover:from-red-700 hover:to-red-800 text-white font-extrabold text-sm
+            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#2563EB] to-blue-700
+                       hover:from-blue-700 hover:to-blue-800 text-white font-extrabold text-sm
                        shadow-[0_8px_32px_rgba(194,18,25,0.35)]
                        disabled:opacity-50 disabled:cursor-not-allowed
                        transition flex items-center justify-center gap-2"
@@ -318,9 +318,9 @@ export default function ProposalDrafter() {
           {loading && (
             <div className="flex-1 rounded-2xl border border-white/10 bg-white/[0.02] flex flex-col items-center justify-center p-16 gap-4">
               <div className="relative w-14 h-14">
-                <div className="absolute inset-0 rounded-full border-2 border-[#c21219]/20" />
-                <div className="absolute inset-0 rounded-full border-t-2 border-[#c21219] animate-spin" />
-                <Sparkles className="absolute inset-0 m-auto w-5 h-5 text-[#c21219]" />
+                <div className="absolute inset-0 rounded-full border-2 border-[#2563EB]/20" />
+                <div className="absolute inset-0 rounded-full border-t-2 border-[#2563EB] animate-spin" />
+                <Sparkles className="absolute inset-0 m-auto w-5 h-5 text-[#2563EB]" />
               </div>
               <div className="text-center">
                 <p className="text-sm font-semibold text-gray-300">Crafting your proposal…</p>
@@ -351,7 +351,7 @@ export default function ProposalDrafter() {
                     </button>
                   ) : (
                     <Link href="/signup"
-                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-[#C12129]/40 text-[#C12129] hover:bg-[#C12129]/10 transition">
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-[#2563EB]/40 text-[#2563EB] hover:bg-[#2563EB]/10 transition">
                       <Copy className="h-3.5 w-3.5" />Sign up to save
                     </Link>
                   )}
@@ -386,8 +386,8 @@ export default function ProposalDrafter() {
                       <BulletList items={proposal.scope.included} dot="✓" dotColor="text-emerald-400" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-wider text-red-400 mb-2">Excluded</p>
-                      <BulletList items={proposal.scope.excluded} dot="✕" dotColor="text-red-400" color="text-gray-400" />
+                      <p className="text-[10px] font-black uppercase tracking-wider text-blue-400 mb-2">Excluded</p>
+                      <BulletList items={proposal.scope.excluded} dot="✕" dotColor="text-blue-400" color="text-gray-400" />
                     </div>
                   </div>
                 </Section>
@@ -450,7 +450,7 @@ export default function ProposalDrafter() {
                 </Section>
 
                 {/* 9 — Why LAMID ONE */}
-                <Section icon={Star} title="Why LAMID ONE" color="text-[#c21219]">
+                <Section icon={Star} title="Why LAMID ONE" color="text-[#2563EB]">
                   <div className="flex flex-col gap-3">
                     {(proposal.whyLamid ?? []).map((w, i) => {
                       const isObj = typeof w === "object" && w !== null;
@@ -459,12 +459,12 @@ export default function ProposalDrafter() {
                           {isObj ? (
                             <>
                               <p className="text-xs font-bold text-white mb-1 flex items-center gap-1.5">
-                                <span className="text-[#c21219]">▸</span>{(w as { point: string }).point}
+                                <span className="text-[#2563EB]">▸</span>{(w as { point: string }).point}
                               </p>
                               <p className="text-xs text-gray-400 leading-relaxed">{(w as { detail: string }).detail}</p>
                             </>
                           ) : (
-                            <p className="text-xs text-gray-300 flex gap-2"><span className="text-[#c21219] shrink-0">▸</span>{w as string}</p>
+                            <p className="text-xs text-gray-300 flex gap-2"><span className="text-[#2563EB] shrink-0">▸</span>{w as string}</p>
                           )}
                         </div>
                       );
@@ -496,10 +496,10 @@ export default function ProposalDrafter() {
                 </Section>
 
                 {/* CTA */}
-                <div className="rounded-2xl border border-[#c21219]/30 bg-gradient-to-br from-[#c21219]/[0.07] to-transparent px-6 py-5">
+                <div className="rounded-2xl border border-[#2563EB]/30 bg-gradient-to-br from-[#2563EB]/[0.07] to-transparent px-6 py-5">
                   <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-4 h-4 text-[#c21219]" />
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[#c21219]">Next Steps</p>
+                    <TrendingUp className="w-4 h-4 text-[#2563EB]" />
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#2563EB]">Next Steps</p>
                   </div>
                   <p className="text-sm text-gray-200 leading-relaxed">{proposal.callToAction}</p>
                 </div>
@@ -508,7 +508,7 @@ export default function ProposalDrafter() {
                 {!authLoading && !isAuthenticated && (
                   <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.3 }}
-                    className="rounded-2xl border border-[#C12129]/40 bg-gradient-to-br from-[#C12129]/10 via-black to-black px-6 py-6 text-center"
+                    className="rounded-2xl border border-[#2563EB]/40 bg-gradient-to-br from-[#2563EB]/10 via-black to-black px-6 py-6 text-center"
                   >
                     <p className="text-[10px] font-black uppercase tracking-widest aivora-gradient-text mb-2">Save your proposal</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to copy, share, and use this proposal.</h3>
@@ -516,7 +516,7 @@ export default function ProposalDrafter() {
                       Sign up to unlock the full copy, submit the proposal through LAMID ONE, and connect with the right consultants to deliver on it.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                      <Link href="/signup" className="px-6 py-2.5 rounded-xl text-sm font-bold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors shadow-[0_0_18px_rgba(193,33,41,0.4)]">
+                      <Link href="/signup" className="px-6 py-2.5 rounded-xl text-sm font-bold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-[0_0_18px_rgba(37,99,235,0.4)]">
                         Create Free Account
                       </Link>
                       <Link href="/signin" className="px-6 py-2.5 rounded-xl text-sm font-semibold border border-white/20 text-white/70 hover:border-white/40 hover:text-white transition-colors">

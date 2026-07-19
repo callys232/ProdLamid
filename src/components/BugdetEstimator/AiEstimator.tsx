@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import {
@@ -57,7 +57,7 @@ export default function EstimatorContent() {
     <div className="bg-[#0a0a0a] text-white">
       <header className="flex items-center justify-between border-b border-white/10 bg-black px-6 py-4">
         <div className="flex items-center gap-2">
-          <BarChart2 className="h-5 w-5 text-[#c12129]" />
+          <BarChart2 className="h-5 w-5 text-[#2563EB]" />
           <h1 className="text-lg font-bold text-white">Lamid Premium Estimator</h1>
         </div>
         <ExportOptions data={estimate} />
@@ -81,7 +81,7 @@ export default function EstimatorContent() {
           <TimelineInput />
         </Section>
 
-        <Section icon={<AlertTriangle size={16} />} title="Risk & Compliance" accent="text-red-400" border="border-red-500/20">
+        <Section icon={<AlertTriangle size={16} />} title="Risk & Compliance" accent="text-blue-400" border="border-blue-500/20">
           <RiskInput />
           <div className="mt-4 border-t border-white/10 pt-4">
             <RegulatoryInput />
@@ -112,7 +112,7 @@ export default function EstimatorContent() {
           <FinancingInput />
         </Section>
 
-        <Section icon={<Scale size={16} />} title="Estimate Summary" accent="text-[#c12129]" border="border-[#c12129]/30">
+        <Section icon={<Scale size={16} />} title="Estimate Summary" accent="text-[#2563EB]" border="border-[#2563EB]/30">
           <EstimateSummary
             estimate={estimate}
             laborTotal={0}

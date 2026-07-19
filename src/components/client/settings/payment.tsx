@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { z } from "zod";
@@ -97,7 +97,7 @@ export default function PaymentInformation({ user }: { user: any }) {
   };
 
   return (
-    <div className="w-full max-w-2xl p-6 bg-black/30 backdrop-blur-xl border border-red-900/30 rounded-xl shadow-xl text-white space-y-6">
+    <div className="w-full max-w-2xl p-6 bg-black/30 backdrop-blur-xl border border-blue-900/30 rounded-xl shadow-xl text-white space-y-6">
       <h2 className="text-xl font-semibold tracking-wide">
         PAYMENT INFORMATION
       </h2>
@@ -118,7 +118,7 @@ export default function PaymentInformation({ user }: { user: any }) {
               title="Paste your USDT wallet address"
               value={formData.walletAddress}
               onChange={handleChange}
-              className="flex-1 px-3 py-2 rounded-md bg-black/40 border border-gray-700 text-white outline-none focus:ring-2 focus:ring-[#C12129]"
+              className="flex-1 px-3 py-2 rounded-md bg-black/40 border border-gray-700 text-white outline-none focus:ring-2 focus:ring-[#2563EB]"
             />
 
             {formData.walletAddress && (
@@ -126,7 +126,7 @@ export default function PaymentInformation({ user }: { user: any }) {
                 type="button"
                 onClick={handleCopy}
                 title="Copy wallet address"
-                className="p-2 rounded-md bg-black/40 border border-gray-700 hover:bg-[#C12129] transition"
+                className="p-2 rounded-md bg-black/40 border border-gray-700 hover:bg-[#2563EB] transition"
               >
                 {copied ? <Check size={18} /> : <Copy size={18} />}
               </button>
@@ -134,7 +134,7 @@ export default function PaymentInformation({ user }: { user: any }) {
           </div>
 
           {errors.walletAddress && (
-            <p className="text-xs text-red-400">{errors.walletAddress}</p>
+            <p className="text-xs text-blue-400">{errors.walletAddress}</p>
           )}
         </div>
 
@@ -150,7 +150,7 @@ export default function PaymentInformation({ user }: { user: any }) {
             title="Select blockchain network"
             value={formData.network}
             onChange={handleChange}
-            className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700 outline-none focus:ring-2 focus:ring-[#C12129]"
+            className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700 outline-none focus:ring-2 focus:ring-[#2563EB]"
           >
             <option value="">Auto / Select</option>
             <option value="usdt_erc20">USDT ERC-20 (0x…)</option>
@@ -159,7 +159,7 @@ export default function PaymentInformation({ user }: { user: any }) {
         </div>
 
         {/* ✅ Bank Information */}
-        <div className="border border-red-900/30 rounded-lg p-4 space-y-3 bg-black/20">
+        <div className="border border-blue-900/30 rounded-lg p-4 space-y-3 bg-black/20">
           <label className="text-sm font-semibold block mb-2">
             Bank Information
           </label>
@@ -175,10 +175,10 @@ export default function PaymentInformation({ user }: { user: any }) {
               title="Enter your 10-digit bank account number"
               value={formData.bankAccount}
               onChange={handleChange}
-              className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700 focus:ring-2 focus:ring-[#C12129]"
+              className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700 focus:ring-2 focus:ring-[#2563EB]"
             />
             {errors.bankAccount && (
-              <p className="text-xs text-red-400">{errors.bankAccount}</p>
+              <p className="text-xs text-blue-400">{errors.bankAccount}</p>
             )}
           </div>
 
@@ -193,7 +193,7 @@ export default function PaymentInformation({ user }: { user: any }) {
               title="Enter your bank routing number"
               value={formData.routingNumber}
               onChange={handleChange}
-              className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700 focus:ring-2 focus:ring-[#C12129]"
+              className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700 focus:ring-2 focus:ring-[#2563EB]"
             />
           </div>
 
@@ -208,7 +208,7 @@ export default function PaymentInformation({ user }: { user: any }) {
               title="Enter bank name"
               value={formData.bankName}
               onChange={handleChange}
-              className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700 focus:ring-2 focus:ring-[#C12129]"
+              className="w-full px-3 py-2 rounded-md bg-black/40 border border-gray-700 focus:ring-2 focus:ring-[#2563EB]"
             />
           </div>
         </div>
@@ -217,7 +217,7 @@ export default function PaymentInformation({ user }: { user: any }) {
         <div className="flex gap-4 pt-3">
           <button
             type="submit"
-            className="flex-1 py-2 rounded-md bg-[#C12129] hover:bg-red-700 transition font-semibold"
+            className="flex-1 py-2 rounded-md bg-[#2563EB] hover:bg-blue-700 transition font-semibold"
           >
             SAVE
           </button>

@@ -1,4 +1,4 @@
-export interface InvoiceData {
+﻿export interface InvoiceData {
   invoiceNumber: string;
   date:          string;
   dueDate?:      string;
@@ -29,7 +29,7 @@ export function buildInvoiceHtml(data: InvoiceData): string {
 <style>
   body { font-family: Arial, sans-serif; margin: 0; padding: 40px; color: #333; }
   .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
-  .brand  { font-size: 24px; font-weight: 900; color: #c12129; }
+  .brand  { font-size: 24px; font-weight: 900; color: #2563EB; }
   .invoice-meta { text-align: right; }
   .invoice-meta h1 { font-size: 32px; color: #111; margin: 0 0 4px; }
   .invoice-meta p  { margin: 2px 0; color: #666; font-size: 13px; }
@@ -43,7 +43,7 @@ export function buildInvoiceHtml(data: InvoiceData): string {
   th:nth-child(2), td:nth-child(2) { text-align: center; }
   .totals { margin-top: 20px; text-align: right; }
   .total-row { display: flex; justify-content: flex-end; gap: 40px; padding: 6px 0; font-size: 14px; }
-  .grand-total { font-size: 20px; font-weight: 900; color: #c12129; border-top: 2px solid #111; padding-top: 8px; margin-top: 4px; }
+  .grand-total { font-size: 20px; font-weight: 900; color: #2563EB; border-top: 2px solid #111; padding-top: 8px; margin-top: 4px; }
   .notes { margin-top: 40px; padding: 16px; background: #fafafa; border-radius: 8px; font-size: 13px; color: #666; }
   .footer{ margin-top: 40px; text-align: center; font-size: 11px; color: #bbb; }
 </style>

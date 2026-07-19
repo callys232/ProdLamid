@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Building2, Users, GraduationCap, Globe } from "lucide-react";
 
 const STATS = [
-  { value: 40,     suffix: "+", label: "Enterprise Partners",           sub: "across Africa & beyond",       Icon: Building2,      hex: "#c21219" },
+  { value: 40,     suffix: "+", label: "Enterprise Partners",           sub: "across Africa & beyond",       Icon: Building2,      hex: "#2563EB" },
   { value: 10000,  suffix: "+", label: "Workers Impacted",              sub: "through skills & systems",     Icon: Users,          hex: "#3b82f6" },
   { value: 500,    suffix: "+", label: "Leaders Trained",               sub: "in transformational programs", Icon: GraduationCap,  hex: "#10b981" },
   { value: 20,     suffix: "+", label: "Community Initiatives",         sub: "supported & sustained",        Icon: Globe,          hex: "#a855f7" },
@@ -46,7 +46,7 @@ export default function StatsBar() {
     <div ref={ref} className="relative w-full overflow-hidden">
 
       {/* Top accent line */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c21219]/40 to-transparent" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#2563EB]/40 to-transparent" />
 
       <div className="relative bg-[#080808] px-6 py-8">
 
@@ -54,7 +54,7 @@ export default function StatsBar() {
         <div className="absolute inset-0 pointer-events-none"
           style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
         {/* Red glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-24 rounded-full bg-[#c21219]/8 blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-24 rounded-full bg-[#2563EB]/8 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/6">
           {STATS.map((s, i) => {
@@ -113,7 +113,7 @@ export default function StatsBar() {
       </div>
 
       {/* Bottom accent line */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c21219]/40 to-transparent" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#2563EB]/40 to-transparent" />
     </div>
   );
 }

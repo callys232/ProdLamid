@@ -1,4 +1,4 @@
-export interface CategoryColor {
+﻿export interface CategoryColor {
   bg: string;
   text: string;
   border: string;
@@ -6,7 +6,7 @@ export interface CategoryColor {
 
 export const CATEGORY_COLORS: Record<string, CategoryColor> = {
   "Job Scoping":       { bg: "bg-orange-500",  text: "text-orange-400",  border: "border-orange-500" },
-  "Disappearing Jobs": { bg: "bg-[#c21219]",   text: "text-red-400",     border: "border-[#c21219]" },
+  "Disappearing Jobs": { bg: "bg-[#2563EB]",   text: "text-blue-400",     border: "border-[#2563EB]" },
   "Reskilling":        { bg: "bg-blue-500",    text: "text-blue-400",    border: "border-blue-500" },
   Workshop:            { bg: "bg-purple-500",  text: "text-purple-400",  border: "border-purple-500" },
   Seminar:             { bg: "bg-green-500",   text: "text-green-400",   border: "border-green-500" },
@@ -16,7 +16,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColor> = {
 };
 
 const FALLBACK_BG = [
-  "bg-orange-500", "bg-[#c21219]", "bg-blue-500", "bg-green-500", "bg-purple-500",
+  "bg-orange-500", "bg-[#2563EB]", "bg-blue-500", "bg-green-500", "bg-purple-500",
 ];
 
 export function getCategoryColor(category: string | undefined, index = 0): CategoryColor {

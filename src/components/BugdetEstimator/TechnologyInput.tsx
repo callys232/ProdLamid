@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { Plus, Trash2, ChevronDown, Search } from "lucide-react";
@@ -50,7 +50,7 @@ const TOOL_CATEGORIES: { label: string; color: string; tools: string[] }[] = [
   },
   {
     label: "Security",
-    color: "text-red-400",
+    color: "text-blue-400",
     tools: ["Snyk", "SonarQube", "Auth0", "Cloudflare", "AWS WAF"],
   },
 ];
@@ -200,7 +200,7 @@ export default function TechnologyInput() {
 
             <button type="button" onClick={() => setTools((p) => p.filter((_, idx) => idx !== i))}
               disabled={tools.length === 1}
-              className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-600 transition hover:bg-red-600/10 hover:text-red-400 disabled:opacity-20"
+              className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-600 transition hover:bg-blue-600/10 hover:text-blue-400 disabled:opacity-20"
             >
               <Trash2 className="h-3.5 w-3.5" />
             </button>

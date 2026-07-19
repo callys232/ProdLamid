@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
@@ -28,8 +28,8 @@ export default function JobFilter({
     `relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
      border ${
        active === opt
-         ? "bg-[#c21219] text-white border-[#c21219] shadow-md"
-         : "bg-gray-800 text-gray-300 border-transparent hover:border-[#c21219] hover:text-[#c21219]"
+         ? "bg-[#2563EB] text-white border-[#2563EB] shadow-md"
+         : "bg-gray-800 text-gray-300 border-transparent hover:border-[#2563EB] hover:text-[#2563EB]"
      }`;
 
   const handleKeyDown = (

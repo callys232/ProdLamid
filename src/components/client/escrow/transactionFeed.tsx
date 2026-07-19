@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import type { EscrowTransaction } from "@/types/escrow";
@@ -8,7 +8,7 @@ export type ActionType = "fund" | "release" | "refund" | "dispute";
 const STATUS_BADGE: Record<string, string> = {
   funded:   "bg-yellow-600 text-black",
   released: "bg-green-600 text-white",
-  disputed: "bg-red-700 text-white",
+  disputed: "bg-blue-700 text-white",
   pending:  "bg-blue-600 text-white",
   refunded: "bg-orange-600 text-white",
 };
@@ -17,7 +17,7 @@ const ACTIONS: { type: ActionType; label: string; cls: string }[] = [
   { type: "fund",    label: "Fund",    cls: "bg-blue-600 hover:bg-blue-700" },
   { type: "release", label: "Release", cls: "bg-green-600 hover:bg-green-700" },
   { type: "refund",  label: "Refund",  cls: "bg-yellow-700 hover:bg-yellow-600" },
-  { type: "dispute", label: "Dispute", cls: "bg-red-700 hover:bg-red-800" },
+  { type: "dispute", label: "Dispute", cls: "bg-blue-700 hover:bg-blue-800" },
 ];
 
 interface TransactionFeedProps {

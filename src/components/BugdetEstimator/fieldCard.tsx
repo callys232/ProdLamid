@@ -1,4 +1,4 @@
-import Tooltip from "./tooltip";
+﻿import Tooltip from "./tooltip";
 
 interface Props {
     active: boolean;
@@ -14,7 +14,7 @@ interface Props {
 export default function FieldCard({ active, label, children, tooltip }: Props) {
     return (
         <div
-            className={`relative p-4 rounded-lg shadow transition ${active ? "bg-red-50 border border-[#c12129]" : "bg-white"
+            className={`relative p-4 rounded-lg shadow transition ${active ? "bg-blue-50 border border-[#2563EB]" : "bg-white"
                 }`}
         >
             <label className="block text-sm font-semibold mb-2">

@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -14,7 +14,7 @@ const SDQA = () => {
       <div className="container mx-auto px-4 py-8 relative">
         {/* Logo */}
         <div className="mb-8">
-          <span className="text-red-600 font-bold text-xl">NT</span>
+          <span className="text-blue-600 font-bold text-xl">NT</span>
         </div>
         
         {/* Red Arc in Top Right */}
@@ -57,7 +57,7 @@ const SDQA = () => {
                 </div>
               </div>
               <div>
-                <h3 className="text-red-600 text-lg font-semibold mb-2">Our Value and Approach</h3>
+                <h3 className="text-blue-600 text-lg font-semibold mb-2">Our Value and Approach</h3>
                 <p className="text-gray-400 text-sm">
                   Authenticity and reliability, publicity maturity.<br />
                   Sharing, engaging, building confidence and effective feedback.<br />
@@ -79,7 +79,7 @@ const SDQA = () => {
                 </div>
               </div>
               <div>
-                <h3 className="text-red-600 text-lg font-semibold mb-2">Our Pledge and Strategy</h3>
+                <h3 className="text-blue-600 text-lg font-semibold mb-2">Our Pledge and Strategy</h3>
                 <p className="text-gray-400 text-sm">
                   The job description, dynamics, as it takes care to target things <br />
                   that are within reason, in scope, in our control and genuine, never <br />
@@ -102,7 +102,7 @@ const SDQA = () => {
                 </div>
               </div>
               <div>
-                <h3 className="text-red-600 text-lg font-semibold mb-2">Building an Enduring Great Company</h3>
+                <h3 className="text-blue-600 text-lg font-semibold mb-2">Building an Enduring Great Company</h3>
                 <p className="text-gray-400 text-sm">
                   A great company can be expressed by its performance, generated <br />
                   from the core values. Trust grows and thrives upon promises kept and <br />

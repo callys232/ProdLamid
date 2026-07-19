@@ -1,4 +1,4 @@
-// components/escrow/LedgerHistory.tsx
+﻿// components/escrow/LedgerHistory.tsx
 "use client";
 import type { LedgerEntry } from "@/types/project";
 
@@ -27,7 +27,7 @@ export default function LedgerHistory({ entries }: LedgerHistoryProps) {
                   {new Date(e.createdAt).toLocaleDateString()}
                 </td>
                 <td className="py-4 font-medium text-gray-300">
-                  {e.debitAccount} <span className="text-red-500 mx-1">→</span> {e.creditAccount}
+                  {e.debitAccount} <span className="text-blue-500 mx-1">→</span> {e.creditAccount}
                 </td>
                 <td className="py-4 font-semibold text-white">
                   {e.currency} {e.amount.toLocaleString()}

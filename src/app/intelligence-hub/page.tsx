@@ -1,12 +1,12 @@
-"use client";
+﻿"use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   Network, TrendingUp, GraduationCap, Fingerprint, Compass, Link2, GitMerge,
   Activity, Zap, FileBarChart, BarChart3, Gauge, Repeat2, Settings2, ShieldAlert,
-  ClipboardCheck, Landmark, Heart, Lock, Server, Repeat, Workflow, Microscope,
+  ClipboardCheck, Landmark, Heart, Lock, Server, Repeat, Workflow, Microscope, TrendingDown,
   GitBranch, CalendarCheck, Layout, Crosshair, RefreshCw, Briefcase, Radar, Map,
-  Cpu, Search, TrendingDown, CalendarDays, Star, Users, CheckSquare, ClipboardList,
+  Cpu, Search, CalendarDays, Star, Users, CheckSquare, ClipboardList,
   Award, Shield, Scale, Waves, Music2, HeartHandshake, Sparkles, Anchor, Globe,
   Wind, Layers, Eye, Share2, AlertTriangle, Shuffle, Lightbulb, Package, Clock,
   AlignJustify, FlaskConical, Navigation, MapPin, ArrowUpRight, ChevronDown,
@@ -343,6 +343,21 @@ const SECTIONS = [
       { title: "P30 — Flow Engine",               href: "/p30-flow",                      icon: Wind },
     ],
   },
+  /* ── F-SERIES ───────────────────────────────────────────── */
+  {
+    label: "F-Series — Financial Intelligence (LAMID FINANCE)",
+    badge: "F01–F07",
+    icon: Landmark,
+    modules: [
+      { title: "F01 — Financial Visibility Engine",   href: "/f01-financial-visibility",  icon: BarChart3 },
+      { title: "F02 — Budgeting & Forecasting Engine",href: "/f02-budgeting-forecasting", icon: CalendarDays },
+      { title: "F03 — Financial KPI Engine",          href: "/f03-financial-kpi",         icon: TrendingUp },
+      { title: "F04 — Cost Optimization Engine",      href: "/f04-cost-optimization",     icon: TrendingDown },
+      { title: "F05 — Enterprise Value Engine",       href: "/f05-enterprise-value",      icon: Star },
+      { title: "F06 — Financial Governance Engine",   href: "/f06-financial-governance",  icon: ShieldAlert },
+      { title: "F07 — CFO Transformation Engine",     href: "/f07-cfo-transformation",    icon: Briefcase },
+    ],
+  },
   /* ── OPERATIONS, QUALITY & RHYTHM ──────────────────────── */
   {
     label: "Sovereign Architecture",
@@ -384,7 +399,7 @@ export default function IntelligenceHubPage() {
             </p>
             <div className="flex flex-wrap gap-2">
               {SECTIONS.map(s => (
-                <span key={s.badge} className="text-[9px] font-bold px-2 py-1 rounded-full border border-[#C12129]/20 text-[#C12129] bg-[#C12129]/6">{s.badge}</span>
+                <span key={s.badge} className="text-[9px] font-bold px-2 py-1 rounded-full border border-[#2563EB]/20 text-[#2563EB] bg-[#2563EB]/6">{s.badge}</span>
               ))}
             </div>
           </motion.div>
@@ -401,11 +416,11 @@ export default function IntelligenceHubPage() {
                     onClick={() => toggle(si)}
                     className="w-full flex items-center gap-3 mb-3 group"
                   >
-                    <section.icon className="w-4 h-4 text-[#C12129] shrink-0" strokeWidth={2.2} />
+                    <section.icon className="w-4 h-4 text-[#2563EB] shrink-0" strokeWidth={2.2} />
                     <p className="text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-white/40 flex-1 text-left group-hover:text-gray-700 dark:group-hover:text-white/60 transition-colors">
                       {section.label}
                     </p>
-                    <span className="text-[9px] font-bold text-[#C12129] bg-[#C12129]/10 px-1.5 py-0.5 rounded-full">
+                    <span className="text-[9px] font-bold text-[#2563EB] bg-[#2563EB]/10 px-1.5 py-0.5 rounded-full">
                       {section.modules.length}
                     </span>
                     <ChevronDown
@@ -420,9 +435,9 @@ export default function IntelligenceHubPage() {
                         <Link
                           key={mod.href}
                           href={mod.href}
-                          className="aivora-card border rounded-xl p-3 hover:border-[#C12129]/30 transition-colors group flex flex-col gap-1.5"
+                          className="aivora-card border rounded-xl p-3 hover:border-[#2563EB]/30 transition-colors group flex flex-col gap-1.5"
                         >
-                          <mod.icon className="w-3.5 h-3.5 text-[#C12129]" strokeWidth={2.2} />
+                          <mod.icon className="w-3.5 h-3.5 text-[#2563EB]" strokeWidth={2.2} />
                           <p className="text-[10px] font-semibold text-gray-700 dark:text-white/70 leading-snug group-hover:text-gray-900 dark:group-hover:text-white transition-colors line-clamp-2">
                             {mod.title}
                           </p>

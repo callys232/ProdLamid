@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { motion } from "framer-motion";
 
 const BusinessDocsPage = ({ formData, handleChange, handleProceed }) => {
@@ -41,7 +41,7 @@ const BusinessDocsPage = ({ formData, handleChange, handleProceed }) => {
     >
       {/* Form Frame */}
       <div className="bg-black p-6 rounded-lg shadow-lg w-full max-w-md backdrop-blur-lg border border-white/20">
-        <h2 className="text-2xl font-bold text-red-500 mb-4 text-center">
+        <h2 className="text-2xl font-bold text-blue-500 mb-4 text-center">
           Upload Business Documents
         </h2>
         <p className="text-gray-400 mb-6 text-center">
@@ -55,7 +55,7 @@ const BusinessDocsPage = ({ formData, handleChange, handleProceed }) => {
           className="w-full p-3 border border-gray-400 rounded-lg mb-4 text-black focus:ring-2 focus:ring-blue-400 hover:shadow-md transition-all duration-300 ease-in-out"
           onChange={handleFileUpload}
         />
-        {fileError && <p className="text-red-500 text-sm">{fileError}</p>}
+        {fileError && <p className="text-blue-500 text-sm">{fileError}</p>}
 
         {/* Business Selection Table */}
         <h3 className="text-lg font-semibold text-gray-400 mb-4">

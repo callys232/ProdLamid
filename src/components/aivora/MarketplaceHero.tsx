@@ -6,7 +6,7 @@ import Link from "next/link";
 const VALUE_PROPS = [
   {
     icon: "◈",
-    iconCls: "text-[#C12129]",
+    iconCls: "text-[#2563EB]",
     title: "AI-Matched Expertise",
     body: "Our intelligent matching engine analyzes your challenge, sector, and goals to surface the consultants most likely to deliver results — not just the ones who are available.",
   },
@@ -78,13 +78,13 @@ export default function MarketplaceHero() {
           >
             <Link
               href="/talent"
-              className="px-6 py-3 rounded-full text-sm font-bold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors"
+              className="px-6 py-3 rounded-full text-sm font-bold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors"
             >
               Browse Consultants →
             </Link>
             <Link
               href="/postjobs"
-              className="px-6 py-3 rounded-full text-sm font-semibold border border-white/20 text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
+              className="px-6 py-3 rounded-full text-sm font-semibold border border-white/20 text-white/70 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors"
             >
               Post a Project →
             </Link>
@@ -148,12 +148,12 @@ export default function MarketplaceHero() {
             {USE_CASES.map((uc) => (
               <span
                 key={uc.label}
-                className="px-4 py-2 rounded-full border border-white/10 text-white/60 text-xs font-medium hover:border-[#C12129]/60 hover:text-white transition-colors cursor-default"
+                className="px-4 py-2 rounded-full border border-white/10 text-white/60 text-xs font-medium hover:border-[#2563EB]/60 hover:text-white transition-colors cursor-default"
               >
                 {uc.label}
               </span>
             ))}
-            <span className="px-4 py-2 rounded-full border border-[#C12129]/30 aivora-gradient-text text-xs font-medium">
+            <span className="px-4 py-2 rounded-full border border-[#2563EB]/30 aivora-gradient-text text-xs font-medium">
               + Open Brief — any challenge
             </span>
           </div>
@@ -170,7 +170,7 @@ export default function MarketplaceHero() {
             </div>
             <Link
               href="/signup"
-              className="shrink-0 px-5 py-2.5 rounded-full text-xs font-bold border border-[#C12129]/60 text-[#C12129] hover:bg-[#C12129]/10 transition-colors"
+              className="shrink-0 px-5 py-2.5 rounded-full text-xs font-bold border border-[#2563EB]/60 text-[#2563EB] hover:bg-[#2563EB]/10 transition-colors"
             >
               Join the Ecosystem →
             </Link>

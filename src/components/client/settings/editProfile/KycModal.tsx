@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 
@@ -105,7 +105,7 @@ export default function KycModal({ open, onClose }: KycModalProps) {
                         <div className="space-y-2">
                             <video ref={videoRef} autoPlay className="w-full rounded-md" />
                             <canvas ref={canvasRef} width={320} height={240} className="hidden" />
-                            <button onClick={capturePhoto} className="bg-brand px-4 py-2 rounded-md hover:bg-red-600">
+                            <button onClick={capturePhoto} className="bg-brand px-4 py-2 rounded-md hover:bg-blue-600">
                                 Capture Photo
                             </button>
                         </div>
@@ -120,7 +120,7 @@ export default function KycModal({ open, onClose }: KycModalProps) {
                                 <span>{f.name}</span>
                                 <button
                                     onClick={() => setFiles(files.filter((_, idx) => idx !== i))}
-                                    className="text-red-500 hover:text-red-400"
+                                    className="text-blue-500 hover:text-blue-400"
                                 >
                                     remove
                                 </button>
@@ -134,7 +134,7 @@ export default function KycModal({ open, onClose }: KycModalProps) {
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-200">
                         Cancel
                     </button>
-                    <button onClick={handleSubmit} className="bg-brand px-4 py-2 rounded-md hover:bg-red-600">
+                    <button onClick={handleSubmit} className="bg-brand px-4 py-2 rounded-md hover:bg-blue-600">
                         Submit
                     </button>
                 </div>

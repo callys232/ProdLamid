@@ -1,4 +1,4 @@
-// components/profileSteps/StepVerification.tsx
+﻿// components/profileSteps/StepVerification.tsx
 "use client";
 
 import { useState } from "react";
@@ -73,7 +73,7 @@ export default function StepVerification({ }: StepVerificationProps) {
                 </h3>
                 <div
                     className={clsx(
-                        "border-2 border-dashed border-gray-600 p-6 rounded-lg flex flex-col items-center justify-center cursor-pointer transition hover:border-red-600 hover:bg-gray-900/50",
+                        "border-2 border-dashed border-gray-600 p-6 rounded-lg flex flex-col items-center justify-center cursor-pointer transition hover:border-blue-600 hover:bg-gray-900/50",
                         uploading && "opacity-50 pointer-events-none"
                     )}
                     onClick={() => {
@@ -87,7 +87,7 @@ export default function StepVerification({ }: StepVerificationProps) {
                         input.click();
                     }}
                 >
-                    <AiOutlineUpload className="text-red-600 w-10 h-10 mb-2" />
+                    <AiOutlineUpload className="text-blue-600 w-10 h-10 mb-2" />
                     <p className="text-gray-400 text-sm">{identityFile ? identityFile.name : "Drag & drop or click to upload ID"}</p>
                 </div>
             </section>
@@ -120,7 +120,7 @@ export default function StepVerification({ }: StepVerificationProps) {
                             };
                             input.click();
                         }}
-                        className="flex items-center gap-1 text-red-600 px-3 py-1 border border-red-600 rounded-md hover:bg-red-600 hover:text-white transition shadow"
+                        className="flex items-center gap-1 text-blue-600 px-3 py-1 border border-blue-600 rounded-md hover:bg-blue-600 hover:text-white transition shadow"
                     >
                         + Add
                     </button>
@@ -155,7 +155,7 @@ export default function StepVerification({ }: StepVerificationProps) {
                             };
                             input.click();
                         }}
-                        className="flex items-center gap-1 text-red-600 px-3 py-1 border border-red-600 rounded-md hover:bg-red-600 hover:text-white transition shadow"
+                        className="flex items-center gap-1 text-blue-600 px-3 py-1 border border-blue-600 rounded-md hover:bg-blue-600 hover:text-white transition shadow"
                     >
                         + Add
                     </button>

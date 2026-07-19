@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { ClientProfile } from "@/types/client";
@@ -51,7 +51,7 @@ export default function AccountDetails({
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full mt-1 p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+            className="w-full mt-1 p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
           />
         </label>
 
@@ -63,7 +63,7 @@ export default function AccountDetails({
             type="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full mt-1 p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+            className="w-full mt-1 p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
           />
         </label>
 
@@ -74,7 +74,7 @@ export default function AccountDetails({
             name="companyName"
             value={formData.companyname ?? ""}
             onChange={handleChange}
-            className="w-full mt-1 p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+            className="w-full mt-1 p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
           />
         </label>
 
@@ -85,7 +85,7 @@ export default function AccountDetails({
             name="location"
             value={formData.location ?? ""}
             onChange={handleChange}
-            className="w-full mt-1 p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+            className="w-full mt-1 p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
           />
         </label>
       </div>
@@ -95,7 +95,7 @@ export default function AccountDetails({
         <button
           type="button"
           onClick={() => onDelete(formData.id)}
-          className="px-4 py-2 bg-red-700 rounded hover:bg-red-800 text-sm font-semibold"
+          className="px-4 py-2 bg-blue-700 rounded hover:bg-blue-800 text-sm font-semibold"
         >
           Delete Account
         </button>

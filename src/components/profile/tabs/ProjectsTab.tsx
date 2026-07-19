@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -66,7 +66,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects: initialProj
             {/* Filters */}
             <motion.div
                 data-guide="client-project-display"
-                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col shadow-xl border border-red-600"
+                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 flex flex-col shadow-xl border border-blue-600"
             >
                 <div
                     data-guide="client-project-filters"
@@ -81,7 +81,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects: initialProj
                                 )
                             }
                             className={`rounded-full px-4 py-2 flex items-center gap-1 transition-colors duration-300 ${selectedType === type
-                                ? "bg-[#c12129] text-white"
+                                ? "bg-[#2563EB] text-white"
                                 : "border border-gray-600 text-gray-300 hover:bg-gray-700"
                                 }`}
                         >

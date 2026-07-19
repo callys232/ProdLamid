@@ -7,7 +7,7 @@ import type { ConsultantProfile, ProjectMatchResult } from "@/types/aiProjectmat
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 function normalizeSkills(value: unknown): string[] {
     if (!Array.isArray(value)) return [];

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Milestone, MilestoneStatus } from "@/types/project";
@@ -27,13 +27,13 @@ interface MilestoneItemProps {
 function getProgressGradient(progress: number): string {
   if (progress >= 80) return "from-green-500 via-green-400 to-emerald-500";
   if (progress >= 40) return "from-yellow-500 via-amber-400 to-orange-500";
-  return "from-red-500 via-rose-500 to-pink-500";
+  return "from-blue-500 via-rose-500 to-pink-500";
 }
 
 function getPercentColor(progress: number): string {
   if (progress >= 80) return "text-green-200";
   if (progress >= 40) return "text-yellow-200";
-  return "text-red-200";
+  return "text-blue-200";
 }
 
 function getStatusIcon(status?: MilestoneStatus) {
@@ -45,7 +45,7 @@ function getStatusIcon(status?: MilestoneStatus) {
       return <FaClock className="text-yellow-400" aria-hidden="true" />;
     case "cancelled":
     case "disputed":
-      return <FaTimesCircle className="text-red-400" aria-hidden="true" />;
+      return <FaTimesCircle className="text-blue-400" aria-hidden="true" />;
     default:
       return <FaFlag className="text-gray-400" aria-hidden="true" />;
   }
@@ -104,7 +104,7 @@ export function MilestoneItem({
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
-      className="bg-gray-800 rounded-md p-4 shadow-md ring-1 ring-gray-700 hover:ring-2 hover:ring-red-500 transition transform hover:scale-[1.01] cursor-pointer"
+      className="bg-gray-800 rounded-md p-4 shadow-md ring-1 ring-gray-700 hover:ring-2 hover:ring-blue-500 transition transform hover:scale-[1.01] cursor-pointer"
       onClick={toggleExpand}
     >
       {/* Header */}

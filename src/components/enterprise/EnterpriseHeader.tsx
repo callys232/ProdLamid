@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Building2, Users, DollarSign, FolderOpen, Bell, ShieldCheck } from "lucide-react";
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const TIER_STYLE: Record<OrgTier, string> = {
-  enterprise:      "border-[#c12129]/40 bg-[#c12129]/10 text-[#c12129]",
+  enterprise:      "border-[#2563EB]/40 bg-[#2563EB]/10 text-[#2563EB]",
   enterprise_plus: "border-purple-500/40 bg-purple-500/10 text-purple-400",
 };
 
@@ -35,10 +35,10 @@ function StatCard({ icon, label, value, sub, onClick }: StatCardProps) {
       whileHover={{ y: -2, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className={`flex-1 min-w-[130px] rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors hover:border-[#c12129]/30 hover:bg-[#c12129]/5 ${onClick ? "cursor-pointer" : ""}`}
+      className={`flex-1 min-w-[130px] rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors hover:border-[#2563EB]/30 hover:bg-[#2563EB]/5 ${onClick ? "cursor-pointer" : ""}`}
     >
       <div className="mb-2 flex items-center gap-2 text-gray-500">
-        <span className="text-[#c12129]">{icon}</span>
+        <span className="text-[#2563EB]">{icon}</span>
         <span className="text-[11px] font-semibold uppercase tracking-widest">{label}</span>
       </div>
       <p className="text-xl font-bold text-white">{value}</p>
@@ -59,7 +59,7 @@ export default function EnterpriseHeader({ org, stats, onTabChange, alertCount =
             <img src={org.logoUrl} alt="org logo" className="h-10 w-10 rounded-xl object-cover" />
           ) : (
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-              <Building2 className="h-5 w-5 text-[#c12129]" />
+              <Building2 className="h-5 w-5 text-[#2563EB]" />
             </div>
           )}
           <div>
@@ -83,11 +83,11 @@ export default function EnterpriseHeader({ org, stats, onTabChange, alertCount =
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => onTabChange("notifications")}
-            className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition hover:border-[#c12129]/30 hover:text-white"
+            className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition hover:border-[#2563EB]/30 hover:text-white"
           >
             <Bell className="h-4 w-4" />
             {alertCount > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#c12129] text-[9px] font-bold text-white">
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#2563EB] text-[9px] font-bold text-white">
                 {alertCount}
               </span>
             )}
@@ -96,7 +96,7 @@ export default function EnterpriseHeader({ org, stats, onTabChange, alertCount =
             href="/contact-sales"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="hidden rounded-lg border border-[#c12129]/30 bg-[#c12129]/10 px-4 py-2 text-xs font-semibold text-[#c12129] transition hover:bg-[#c12129]/20 sm:block"
+            className="hidden rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-2 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20 sm:block"
           >
             Talk to Sales
           </motion.a>

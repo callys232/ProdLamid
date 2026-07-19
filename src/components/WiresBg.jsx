@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 
@@ -55,7 +55,7 @@ const WiresBg = ({ className = "" }) => {
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `rgba(193, 33, 41, ${alpha * 0.55})`;
+            ctx.strokeStyle = `rgba(37,99,235, ${alpha * 0.55})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -66,7 +66,7 @@ const WiresBg = ({ className = "" }) => {
       nodes.forEach((n) => {
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(193, 33, 41, 0.85)";
+        ctx.fillStyle = "rgba(37,99,235, 0.85)";
         ctx.fill();
       });
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import Tooltip from "./tooltip";
 import { useFieldRecommendation } from "@/hooks/useField";
 
@@ -31,7 +31,7 @@ export default function SustainabilityInput() {
             {/* Carbon Offset */}
             <div
                 className={`relative p-4 rounded-lg shadow transition ${activeField === "carbonOffsetCost"
-                    ? "bg-red-50 border border-[#c12129]"
+                    ? "bg-blue-50 border border-[#2563EB]"
                     : "bg-white"
                     }`}
             >
@@ -42,7 +42,7 @@ export default function SustainabilityInput() {
                 <input
                     type="number"
                     value={sustainability.carbonOffsetCost}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] transition w-40"
+                    className="border-b-2 border-gray-300 focus:border-[#2563EB] transition w-40"
                     onFocus={() => setActiveField("carbonOffsetCost")}
                     onBlur={() => setActiveField(null)}
                     onChange={(e) =>
@@ -68,7 +68,7 @@ export default function SustainabilityInput() {
             {/* Compliance */}
             <div
                 className={`relative p-4 rounded-lg shadow transition ${activeField === "greenComplianceCost"
-                    ? "bg-red-50 border border-[#c12129]"
+                    ? "bg-blue-50 border border-[#2563EB]"
                     : "bg-white"
                     }`}
             >
@@ -79,7 +79,7 @@ export default function SustainabilityInput() {
                 <input
                     type="number"
                     value={sustainability.greenComplianceCost}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] transition w-40"
+                    className="border-b-2 border-gray-300 focus:border-[#2563EB] transition w-40"
                     onFocus={() => setActiveField("greenComplianceCost")}
                     onBlur={() => setActiveField(null)}
                     onChange={(e) =>
@@ -105,7 +105,7 @@ export default function SustainabilityInput() {
             {/* Renewable Integration */}
             <div
                 className={`relative p-4 rounded-lg shadow transition ${activeField === "renewableIntegrationBudget"
-                    ? "bg-red-50 border border-[#c12129]"
+                    ? "bg-blue-50 border border-[#2563EB]"
                     : "bg-white"
                     }`}
             >
@@ -116,7 +116,7 @@ export default function SustainabilityInput() {
                 <input
                     type="number"
                     value={sustainability.renewableIntegrationBudget}
-                    className="border-b-2 border-gray-300 focus:border-[#c12129] transition w-40"
+                    className="border-b-2 border-gray-300 focus:border-[#2563EB] transition w-40"
                     onFocus={() =>
                         setActiveField("renewableIntegrationBudget")
                     }

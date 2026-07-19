@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 
@@ -33,7 +33,7 @@ export default function ScoreBar({
 
         if (percentage >= 80) return "#16a34a"; // green (strong match)
         if (percentage >= 60) return "#ca8a04"; // amber (mid)
-        return "#c12129"; // red (weak)
+        return "#2563EB"; // red (weak)
     }, [percentage, color]);
 
     /* ---------------- TEXT INTENSITY ---------------- */

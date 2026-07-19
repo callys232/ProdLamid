@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -16,7 +16,7 @@ const STATUS_STYLE: Record<string, string> = {
   open:      "border-blue-500/30 bg-blue-500/10 text-blue-400",
   ongoing:   "border-green-500/30 bg-green-500/10 text-green-400",
   completed: "border-gray-500/30 bg-gray-500/10 text-gray-400",
-  cancelled: "border-red-500/30 bg-red-500/10 text-red-400",
+  cancelled: "border-blue-500/30 bg-blue-500/10 text-blue-400",
 };
 
 interface Props {
@@ -51,7 +51,7 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
         <motion.a
           href="/postjobs"
           whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-2 rounded-lg bg-[#c12129] px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
+          className="flex items-center gap-2 rounded-lg bg-[#2563EB] px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
         >
           <FolderPlus className="h-4 w-4" /> Post a Project
         </motion.a>
@@ -66,7 +66,7 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
           </div>
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
             <motion.div
-              className="h-full rounded-full bg-[#c12129]"
+              className="h-full rounded-full bg-[#2563EB]"
               initial={{ width: 0 }}
               animate={{ width: `${Math.min((activeCount / activeLimit) * 100, 100)}%` }}
               transition={{ duration: 0.6 }}
@@ -84,7 +84,7 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
             onClick={() => setFilter(f)}
             className={`flex-shrink-0 rounded-full border px-3 py-1 text-xs font-medium capitalize transition ${
               filter === f
-                ? "border-[#c12129]/50 bg-[#c12129]/15 text-[#c12129]"
+                ? "border-[#2563EB]/50 bg-[#2563EB]/15 text-[#2563EB]"
                 : "border-white/10 text-gray-400 hover:border-white/20 hover:text-white"
             }`}
           >
@@ -109,7 +109,7 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
             key={p._id}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4, scale: 1.015, boxShadow: "0 12px 32px rgba(0,0,0,0.45)", borderColor: "rgba(193,33,41,0.3)" }}
+            whileHover={{ y: -4, scale: 1.015, boxShadow: "0 12px 32px rgba(0,0,0,0.45)", borderColor: "rgba(37,99,235,0.3)" }}
             transition={{ delay: i * 0.04, duration: 0.18 }}
             className="group cursor-pointer rounded-xl border border-white/10 bg-white/5 p-4"
           >
@@ -155,10 +155,10 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
               >
                 <MessageSquare className="h-3 w-3" /> Messages
               </motion.button>
-              <motion.div whileHover={{ scale: 1.06, y: -1, boxShadow: "0 4px 14px rgba(193,33,41,0.3)" }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.15 }}>
+              <motion.div whileHover={{ scale: 1.06, y: -1, boxShadow: "0 4px 14px rgba(37,99,235,0.3)" }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.15 }}>
                 <Link
                   href={`/projects/${p._id}/workspace`}
-                  className="flex items-center gap-1.5 rounded-lg border border-[#c12129]/30 bg-[#c12129]/10 px-3 py-1.5 text-[11px] font-medium text-[#c12129] transition hover:bg-[#c12129]/20"
+                  className="flex items-center gap-1.5 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-3 py-1.5 text-[11px] font-medium text-[#2563EB] transition hover:bg-[#2563EB]/20"
                 >
                   Workspace <ArrowRight className="h-3 w-3" />
                 </Link>

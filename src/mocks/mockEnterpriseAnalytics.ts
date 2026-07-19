@@ -1,4 +1,4 @@
-// mocks/mockEnterpriseAnalytics.ts
+﻿// mocks/mockEnterpriseAnalytics.ts
 import type {
   EnterpriseAnalytics,
   EnterpriseAnalyticsKPI,
@@ -64,7 +64,7 @@ export const mockEnterpriseAnalytics: EnterpriseAnalytics = {
     { status: "Active",    count: 9,  color: "#3b82f6" },
     { status: "Completed", count: 5,  color: "#22c55e" },
     { status: "Paused",    count: 2,  color: "#eab308" },
-    { status: "Disputed",  count: 2,  color: "#ef4444" },
+    { status: "Disputed",  count: 2,  color: "#2563EB" },
     { status: "Draft",     count: 3,  color: "#6b7280" },
   ],
 

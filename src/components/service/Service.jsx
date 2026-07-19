@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +36,7 @@ const ServiceCard = ({ title, icon, coloredLetters, href }) => {
             alt={title}
             width={80}
             height={80}
-            className="w-28 h-24 object-contain drop-shadow-[0_0_12px_rgba(193,33,41,0.3)] group-hover:drop-shadow-[0_0_20px_rgba(193,33,41,0.55)] transition-all duration-300"
+            className="w-28 h-24 object-contain drop-shadow-[0_0_12px_rgba(37,99,235,0.3)] group-hover:drop-shadow-[0_0_20px_rgba(37,99,235,0.55)] transition-all duration-300"
           />
         </motion.div>
 
@@ -49,7 +49,7 @@ const ServiceCard = ({ title, icon, coloredLetters, href }) => {
           initial={{ width: 0 }}
           whileHover={{ width: "50%" }}
           transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
-          className="mt-3 h-0.5 rounded-full bg-gradient-to-r from-[#c21219] to-rose-400"
+          className="mt-3 h-0.5 rounded-full bg-gradient-to-r from-[#2563EB] to-rose-400"
         />
       </motion.div>
     </Link>
@@ -71,7 +71,7 @@ const ServicesSection = () => {
           y1="0"
           x2="100%"
           y2="100%"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="1"
           opacity="0.18"
         />
@@ -89,7 +89,7 @@ const ServicesSection = () => {
           y1="0"
           x2="70%"
           y2="100%"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="0.8"
           opacity="0.12"
         />
@@ -116,7 +116,7 @@ const ServicesSection = () => {
           y1="0"
           x2="25%"
           y2="100%"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="0.7"
           opacity="0.1"
         />
@@ -125,7 +125,7 @@ const ServicesSection = () => {
           y1="0"
           x2="75%"
           y2="100%"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="0.6"
           opacity="0.08"
         />
@@ -134,7 +134,7 @@ const ServicesSection = () => {
           cy="20%"
           r="80"
           fill="none"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="1.2"
           opacity="0.15"
         />
@@ -143,7 +143,7 @@ const ServicesSection = () => {
           cy="75%"
           r="110"
           fill="none"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="1"
           opacity="0.14"
         />
@@ -161,7 +161,7 @@ const ServicesSection = () => {
           cy="20%"
           r="40"
           fill="none"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="1"
           opacity="0.18"
         />
@@ -170,21 +170,21 @@ const ServicesSection = () => {
           cy="75%"
           r="55"
           fill="none"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="1"
           opacity="0.18"
         />
-        <circle cx="18%" cy="58%" r="3" fill="#c21219" opacity="0.25" />
+        <circle cx="18%" cy="58%" r="3" fill="#2563EB" opacity="0.25" />
         <circle cx="38%" cy="12%" r="2.5" fill="#ffffff" opacity="0.15" />
-        <circle cx="62%" cy="88%" r="3" fill="#c21219" opacity="0.22" />
-        <circle cx="83%" cy="30%" r="4" fill="#c21219" opacity="0.2" />
+        <circle cx="62%" cy="88%" r="3" fill="#2563EB" opacity="0.22" />
+        <circle cx="83%" cy="30%" r="4" fill="#2563EB" opacity="0.2" />
         <circle cx="47%" cy="70%" r="2" fill="#ffffff" opacity="0.12" />
-        <circle cx="72%" cy="18%" r="3" fill="#c21219" opacity="0.18" />
+        <circle cx="72%" cy="18%" r="3" fill="#2563EB" opacity="0.18" />
         <circle cx="6%" cy="82%" r="2.5" fill="#ffffff" opacity="0.12" />
         <path
           d="M 0 0 Q 140 0 140 140"
           fill="none"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="1"
           opacity="0.15"
         />
@@ -211,7 +211,7 @@ const ServicesSection = () => {
           y1="0"
           x2="100%"
           y2="7%"
-          stroke="#c21219"
+          stroke="#2563EB"
           strokeWidth="0.8"
           opacity="0.12"
         />
@@ -233,7 +233,7 @@ const ServicesSection = () => {
             We unify strategy, performance, systems, and seamless work into one
             Human-AI assisted,
           </p>
-          <p className="md:text-lg font-extrabold bg-gradient-to-r from-red-600 to-white bg-clip-text text-transparent">
+          <p className="md:text-lg font-extrabold bg-gradient-to-r from-blue-600 to-white bg-clip-text text-transparent">
             <Typewriter
               words={[
                 "Enterprise-grade Ecosystem: Talent, Marketplace, CRM, Document and Project Manager.",

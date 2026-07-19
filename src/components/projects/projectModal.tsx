@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -113,7 +113,7 @@ export default function ProjectModal({
                       <span
                         key={i}
                         className={`w-2 h-2 rounded-full transition ${
-                          i === currentImage ? "bg-[#c21219]" : "bg-gray-400"
+                          i === currentImage ? "bg-[#2563EB]" : "bg-gray-400"
                         }`}
                       />
                     ))}
@@ -138,13 +138,13 @@ export default function ProjectModal({
           <div className="flex flex-wrap gap-6 mb-8">
             {project.budget && (
               <div className="px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-md">
-                <p className="font-semibold text-[#c21219]">{project.budget}</p>
+                <p className="font-semibold text-[#2563EB]">{project.budget}</p>
                 <p className="text-sm text-gray-300">Budget</p>
               </div>
             )}
             {project.hourlyRate && (
               <div className="px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-md">
-                <p className="font-semibold text-[#c21219]">
+                <p className="font-semibold text-[#2563EB]">
                   {project.hourlyRate}
                 </p>
                 <p className="text-sm text-gray-300">Hourly Rate</p>
@@ -152,7 +152,7 @@ export default function ProjectModal({
             )}
             {project.deadline && (
               <div className="px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-md">
-                <p className="font-semibold text-[#c21219]">
+                <p className="font-semibold text-[#2563EB]">
                   {project.deadline}
                 </p>
                 <p className="text-sm text-gray-300">Deadline</p>
@@ -160,7 +160,7 @@ export default function ProjectModal({
             )}
             {project.priority && (
               <div className="px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-md">
-                <p className="font-semibold text-[#c21219]">
+                <p className="font-semibold text-[#2563EB]">
                   {project.priority}
                 </p>
                 <p className="text-sm text-gray-300">Priority</p>
@@ -177,7 +177,7 @@ export default function ProjectModal({
               <ul className="list-disc pl-5 text-gray-300 space-y-2">
                 {project.milestones.map((m: Milestone, i: number) => (
                   <li key={m.id || m._id || i}>
-                    <span className="font-semibold text-[#c21219]">
+                    <span className="font-semibold text-[#2563EB]">
                       {m.title}
                     </span>
                     {m.description && (
@@ -207,14 +207,14 @@ export default function ProjectModal({
                   typeof c === "string" ? (
                     <div
                       key={c}
-                      className="px-3 py-2 bg-white/10 backdrop-blur-sm border border-[#c21219] rounded-lg text-sm"
+                      className="px-3 py-2 bg-white/10 backdrop-blur-sm border border-[#2563EB] rounded-lg text-sm"
                     >
                       <p className="text-white font-semibold">{c}</p>
                     </div>
                   ) : (
                     <div
                       key={c.id || i}
-                      className="px-3 py-2 bg-white/10 backdrop-blur-sm border border-[#c21219] rounded-lg text-sm"
+                      className="px-3 py-2 bg-white/10 backdrop-blur-sm border border-[#2563EB] rounded-lg text-sm"
                     >
                       <p className="text-white font-semibold">{c.name}</p>
                       {c.role && <p className="text-gray-300">{c.role}</p>}
@@ -235,10 +235,10 @@ export default function ProjectModal({
                 {activity.map((log) => (
                   <li
                     key={log.id}
-                    className="p-3 bg-white/10 backdrop-blur-sm border border-[#c21219] rounded-lg shadow-md"
+                    className="p-3 bg-white/10 backdrop-blur-sm border border-[#2563EB] rounded-lg shadow-md"
                   >
                     <p className="text-sm">
-                      <span className="font-semibold text-[#c21219]">
+                      <span className="font-semibold text-[#2563EB]">
                         {log.action}
                       </span>{" "}
                       by {log.user}
@@ -271,7 +271,7 @@ export default function ProjectModal({
 
                   <div className="mt-2 w-full bg-white/10 rounded-full h-2">
                     <div
-                      className="bg-[#c21219] h-2 rounded-full transition-all"
+                      className="bg-[#2563EB] h-2 rounded-full transition-all"
                       style={{ width: `${project.milestoneProgress}%` }}
                     />
                   </div>
@@ -298,7 +298,7 @@ export default function ProjectModal({
                 onClick={() => router.push(`/projects/${project.id}/apply`)}
                 className="
                   px-6 py-2 rounded-md font-semibold
-                  bg-[#c21219]/80 hover:bg-[#c21219]
+                  bg-[#2563EB]/80 hover:bg-[#2563EB]
                   text-white shadow-lg backdrop-blur-sm border border-white/20
                   transition-colors
                 "

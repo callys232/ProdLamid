@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -99,7 +99,7 @@ export default function SecuritySettings({ user }: { user: any }) {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-2xl p-6 bg-black/30 backdrop-blur-xl border border-red-900/30 rounded-xl shadow-xl text-white space-y-6"
+      className="w-full max-w-2xl p-6 bg-black/30 backdrop-blur-xl border border-blue-900/30 rounded-xl shadow-xl text-white space-y-6"
     >
       {/* ======== 2FA Section ======== */}
       <div data-guide="security-2fa" className="space-y-3">
@@ -125,7 +125,7 @@ export default function SecuritySettings({ user }: { user: any }) {
           <button
             onClick={() => toggle2FA(false)}
             disabled={loading}
-            className="bg-red-700 hover:bg-red-800 py-2 rounded-md font-semibold disabled:opacity-50"
+            className="bg-blue-700 hover:bg-blue-800 py-2 rounded-md font-semibold disabled:opacity-50"
           >
             Disable 2FA
           </button>
@@ -161,7 +161,7 @@ export default function SecuritySettings({ user }: { user: any }) {
                 ? "text-green-400"
                 : passwordStrength === "medium"
                   ? "text-yellow-400"
-                  : "text-red-400"
+                  : "text-blue-400"
               }`}
           >
             Password strength: {passwordStrength}
@@ -176,7 +176,7 @@ export default function SecuritySettings({ user }: { user: any }) {
               !formData.newPassword ||
               formData.newPassword !== formData.confirmPassword
             }
-            className="flex-1 py-2 rounded-md bg-[#C12129] hover:bg-red-700 font-semibold"
+            className="flex-1 py-2 rounded-md bg-[#2563EB] hover:bg-blue-700 font-semibold"
           >
             Update Password
           </button>

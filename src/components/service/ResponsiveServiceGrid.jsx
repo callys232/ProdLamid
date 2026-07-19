@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const CAPABILITIES = [
 ];
 
 const PORTALS = [
-  { title: "Business Portal", sub: "For organizations & clients",  icon: "/portalLogo.png", href: "/portal", hex: "#c21219" },
+  { title: "Business Portal", sub: "For organizations & clients",  icon: "/portalLogo.png", href: "/portal", hex: "#2563EB" },
   { title: "Expert Portal",   sub: "For consultants & talent",     icon: "/portalLogo.png", href: "/talent", hex: "#9f1239" },
 ];
 

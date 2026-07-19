@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { Star, CheckCircle, Shield } from "lucide-react";
@@ -42,7 +42,7 @@ export default function ConsultantDetail({ consultant }: ConsultantDetailProps) 
       <Star
         key={i}
         className={`w-5 h-5 ${i + 1 <= Math.round(rating)
-            ? "text-red-500 fill-red-500"
+            ? "text-blue-500 fill-blue-500"
             : "text-gray-400"
           }`}
       />
@@ -94,7 +94,7 @@ export default function ConsultantDetail({ consultant }: ConsultantDetailProps) 
           <h4 className="font-semibold text-black mb-1">Skills</h4>
           <ul className="flex flex-wrap gap-2">
             {skills.map((skill) => (
-              <li key={skill} className="px-2 py-1 bg-red-100 text-red-700 rounded-md text-xs font-medium">
+              <li key={skill} className="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-medium">
                 {skill}
               </li>
             ))}

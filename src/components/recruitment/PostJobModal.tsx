@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -34,8 +34,8 @@ function Err({ msg }: { msg?: string }) {
   if (!msg) return null;
   return (
     <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
-      className="mt-1 text-[11px] text-red-400 flex items-center gap-1">
-      <span className="inline-block w-1 h-1 rounded-full bg-red-400" />{msg}
+      className="mt-1 text-[11px] text-blue-400 flex items-center gap-1">
+      <span className="inline-block w-1 h-1 rounded-full bg-blue-400" />{msg}
     </motion.p>
   );
 }
@@ -77,7 +77,7 @@ function ArrayField({
             onChange={(e) => onUpdate(i, e.target.value)} className={inputCls} />
           {items.length > 1 && (
             <button type="button" title="Remove item" onClick={() => onRemove(i)}
-              className="shrink-0 text-gray-600 hover:text-red-400 transition">
+              className="shrink-0 text-gray-600 hover:text-blue-400 transition">
               <Trash2 className="w-3.5 h-3.5" />
             </button>
           )}

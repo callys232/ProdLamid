@@ -6,7 +6,7 @@ const Header = () => {
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-stretch gap-8">
           {/* Left side - Title */}
-          <div className="w-full md:w-1/3 bg-gradient-to-br from-red-900 to-red-700 rounded-3xl p-8 flex items-center justify-center">
+          <div className="w-full md:w-1/3 bg-gradient-to-br from-blue-900 to-blue-700 rounded-3xl p-8 flex items-center justify-center">
             <h2 className="text-3xl font-bold uppercase tracking-wider">OUR STRENGTH</h2>
           </div>
 

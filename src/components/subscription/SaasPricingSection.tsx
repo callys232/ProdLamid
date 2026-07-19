@@ -124,7 +124,7 @@ const CONSULTANT_PLANS: Record<ConsultantPlan, {
 /* ── Helpers ────────────────────────────────────────────────── */
 const CYCLE_LABEL: Record<BillingCycle, string> = { monthly: "/mo", annual: "/yr" };
 
-function FeatureList({ features, accent = "text-[#c12129]", tools }: {
+function FeatureList({ features, accent = "text-[#2563EB]", tools }: {
   features: string[]; accent?: string; tools?: string[];
 }) {
   return (
@@ -140,11 +140,11 @@ function FeatureList({ features, accent = "text-[#c12129]", tools }: {
       {tools && tools.length > 0 && (
         <div className="rounded-xl border border-white/10 bg-white/5 p-3">
           <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-            <Sparkles className="h-3 w-3 text-[#c12129]" />AI Tools & Agents unlocked
+            <Sparkles className="h-3 w-3 text-[#2563EB]" />AI Tools & Agents unlocked
           </p>
           <div className="flex flex-wrap gap-1.5">
             {tools.map(t => (
-              <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-[#c12129]/10 border border-[#c12129]/20 text-[#c12129]">{t}</span>
+              <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 text-[#2563EB]">{t}</span>
             ))}
           </div>
         </div>
@@ -162,7 +162,7 @@ function InternalToggle<T extends string>({ options, value, onChange }: {
     <div className="flex rounded-xl border border-white/10 overflow-hidden mb-4 text-xs font-semibold">
       {options.map(o => (
         <button key={o.key} onClick={() => onChange(o.key)}
-          className={`flex-1 py-2 transition ${value === o.key ? "bg-[#c12129] text-white" : "text-gray-400 hover:text-white"}`}>
+          className={`flex-1 py-2 transition ${value === o.key ? "bg-[#2563EB] text-white" : "text-gray-400 hover:text-white"}`}>
           {o.label}
         </button>
       ))}
@@ -203,7 +203,7 @@ export default function SaasPricingSection() {
 
       {/* ── Header ── */}
       <div className="mx-auto max-w-5xl text-center mb-10">
-        <span className="inline-block mb-4 rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#c12129]">
+        <span className="inline-block mb-4 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#2563EB]">
           Pricing
         </span>
         <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-5">
@@ -249,7 +249,7 @@ export default function SaasPricingSection() {
         {(["monthly", "annual"] as BillingCycle[]).map(c => (
           <motion.button key={c} whileTap={{ scale: 0.95 }} onClick={() => setCycle(c)}
             className={`relative rounded-full px-5 py-2 text-sm font-semibold transition ${
-              cycle === c ? "bg-[#c12129] text-white" : "border border-white/10 text-gray-400 hover:text-white"
+              cycle === c ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-400 hover:text-white"
             }`}>
             {c === "monthly" ? "Monthly" : "Annual"}
             {c === "annual" && (
@@ -333,15 +333,15 @@ export default function SaasPricingSection() {
           whileHover={{ y: -4, scale: 1.01 }} transition={{ duration: 0.35, delay: 0.07 }}
           className={`relative flex flex-col rounded-2xl border p-6 transition-all h-full ${
             consultPlan === "premium"
-              ? "border-[#c12129]/50 bg-gradient-to-b from-[#c12129]/10 to-black shadow-[0_0_40px_rgba(193,33,41,0.15)]"
+              ? "border-[#2563EB]/50 bg-gradient-to-b from-[#2563EB]/10 to-black shadow-[0_0_40px_rgba(37,99,235,0.15)]"
               : "border-white/10 bg-white/5"
           }`}
         >
           <div className="flex items-center gap-2 mb-3">
-            <Users className="h-5 w-5 text-[#c12129]" />
-            <span className="text-xs font-semibold tracking-widest text-[#c12129] uppercase">Consultant</span>
+            <Users className="h-5 w-5 text-[#2563EB]" />
+            <span className="text-xs font-semibold tracking-widest text-[#2563EB] uppercase">Consultant</span>
             {consultPlan === "premium" && (
-              <span className="ml-auto rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-2 py-0.5 text-[9px] font-bold uppercase text-[#c12129]">Most Popular</span>
+              <span className="ml-auto rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 px-2 py-0.5 text-[9px] font-bold uppercase text-[#2563EB]">Most Popular</span>
             )}
           </div>
           <h3 className="text-xl font-bold text-white mb-1">Consultant</h3>
@@ -371,15 +371,15 @@ export default function SaasPricingSection() {
           <div className="my-4">
             {consultPlan === "freemium" ? (
               <motion.a href="/signup" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                className="block rounded-xl px-4 py-2.5 text-center text-sm font-bold bg-[#c12129] text-white hover:bg-red-700 transition">
+                className="block rounded-xl px-4 py-2.5 text-center text-sm font-bold bg-[#2563EB] text-white hover:bg-blue-700 transition">
                 Join Free
               </motion.a>
             ) : csp.planKey[cycle] ? (
               <SubscribeButton plan={csp.planKey[cycle]!} label="Upgrade to Premium"
-                className="w-full justify-center bg-[#c12129] text-white hover:bg-red-700" />
+                className="w-full justify-center bg-[#2563EB] text-white hover:bg-blue-700" />
             ) : (
               <motion.a href="/signup" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                className="block rounded-xl px-4 py-2.5 text-center text-sm font-bold bg-[#c12129] text-white hover:bg-red-700 transition">
+                className="block rounded-xl px-4 py-2.5 text-center text-sm font-bold bg-[#2563EB] text-white hover:bg-blue-700 transition">
                 Upgrade to Premium
               </motion.a>
             )}
@@ -473,8 +473,8 @@ export default function SaasPricingSection() {
       <div className="mx-auto max-w-5xl mt-20 mb-16 grid grid-cols-2 md:grid-cols-4 gap-4">
         {STATS.map(s => (
           <motion.div key={s.label} whileHover={{ y: -2 }}
-            className="rounded-xl border border-white/10 bg-white/5 p-5 text-center hover:border-[#c12129]/20 transition">
-            <p className="text-2xl font-bold text-[#c12129]">{s.value}</p>
+            className="rounded-xl border border-white/10 bg-white/5 p-5 text-center hover:border-[#2563EB]/20 transition">
+            <p className="text-2xl font-bold text-[#2563EB]">{s.value}</p>
             <p className="text-xs text-gray-400 mt-1">{s.label}</p>
           </motion.div>
         ))}
@@ -489,10 +489,10 @@ export default function SaasPricingSection() {
             <motion.div key={f.title}
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -3, borderColor: "rgba(193,33,41,0.4)" }}
+              whileHover={{ y: -3, borderColor: "rgba(37,99,235,0.4)" }}
               transition={{ duration: 0.35 }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-[#c12129]/5">
-              <div className="mb-3 text-[#c12129] text-xl">{f.icon}</div>
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-all hover:bg-[#2563EB]/5">
+              <div className="mb-3 text-[#2563EB] text-xl">{f.icon}</div>
               <h4 className="font-semibold text-white text-sm mb-1.5">{f.title}</h4>
               <p className="text-gray-500 text-xs leading-relaxed">{f.desc}</p>
             </motion.div>
@@ -506,7 +506,7 @@ export default function SaasPricingSection() {
           Trusted by government agencies, Fortune 500 divisions, NGOs, and high-growth startups across 24 countries.
         </p>
         <motion.a href="/contact-sales" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-          className="inline-flex items-center gap-2 rounded-full bg-[#c12129] hover:bg-red-700 px-10 py-4 text-base font-bold text-white transition-all">
+          className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] hover:bg-blue-700 px-10 py-4 text-base font-bold text-white transition-all">
           Talk to Sales <ArrowRight className="h-4 w-4" />
         </motion.a>
       </div>

@@ -1755,6 +1755,64 @@ export const MODULE_REGISTRY: Record<string, ModuleConfig> = {
     correctionProtocols: ["Flow Stabilisation","Flow Synchronisation","Flow Amplification","Friction Elimination","Flow Elevation","Flow Sealing"],
     backHref: "/p29-synchronization", backLabel: "Synchronization", nextHref: "/operations-intelligence", nextLabel: "Operations Intelligence",
   },
+
+  /* ── F-SERIES — Financial Intelligence (LAMID FINANCE) ─── */
+  F01: {
+    id: "F01", seriesName: "F-Series — Financial Intelligence", engineName: "Financial Visibility Engine",
+    purpose: "Provides a unified, real-time view of the enterprise's financial truth — revenue, cost, margin, cash flow, financial KPIs, and financial risk — across every realm and site. The single source of financial truth.",
+    dimensionLabels: ["Revenue Clarity", "Cost Transparency", "Margin Visibility", "Cash Flow Intelligence"],
+    driverContext: "Financial visibility is governed by Structural Drivers (systems, processes, reporting architecture) and Identity Drivers (what the enterprise believes about its own financial position). Temporal Drivers determine how current the financial truth is.",
+    correctionProtocols: ["Visibility Installation","Dashboard Deployment","Data Unification","Blind Spot Elimination","Visibility Elevation","Financial Truth Sealing"],
+    backHref: "/finance-dashboard", backLabel: "Finance Dashboard", nextHref: "/f02-budgeting-forecasting", nextLabel: "Budgeting & Forecasting Engine",
+  },
+  F02: {
+    id: "F02", seriesName: "F-Series — Financial Intelligence", engineName: "Budgeting & Forecasting Engine",
+    purpose: "Replaces guesswork with AI-assisted intelligence — deploying budgeting templates, forecasting models, scenario planning engines, cash flow projections, and margin modelling to create a predictable financial future.",
+    dimensionLabels: ["Forecasting Accuracy", "Budget Discipline", "Scenario Planning Depth", "Cash Flow Foresight"],
+    driverContext: "Temporal Drivers govern forecasting quality — the enterprise's relationship with time determines how far ahead it can see with accuracy. Identity Drivers set the budgeting discipline baseline. Market Drivers introduce the variables that test scenario planning.",
+    correctionProtocols: ["Forecasting Engine Installation","Budget Template Deployment","Scenario Matrix Activation","Cash Flow Intelligence","Forecasting Elevation","Financial Foresight Sealing"],
+    backHref: "/f01-financial-visibility", backLabel: "Financial Visibility Engine", nextHref: "/f03-financial-kpi", nextLabel: "Financial KPI Engine",
+  },
+  F03: {
+    id: "F03", seriesName: "F-Series — Financial Intelligence", engineName: "Financial KPI Engine",
+    purpose: "Links operational KPIs to revenue, digital KPIs to growth, talent KPIs to productivity, and leadership KPIs to margin — creating the sovereign KPI-to-financial linkage that ensures every performance metric translates into a measurable financial outcome.",
+    dimensionLabels: ["Operational KPI–Revenue Linkage", "Digital KPI–Growth Linkage", "Talent KPI–Productivity Linkage", "Leadership KPI–Margin Linkage"],
+    driverContext: "All four realms (CORE, GROW, TALENT, FINANCE) feed KPI intelligence. Identity Drivers determine which KPIs the enterprise genuinely tracks vs. performs. Market Drivers create the external KPI pressure points.",
+    correctionProtocols: ["KPI Mapping","KPI–Financial Linkage","KPI Governance Ritual","KPI Accountability","KPI Elevation","KPI–Value Sealing"],
+    backHref: "/f02-budgeting-forecasting", backLabel: "Budgeting & Forecasting Engine", nextHref: "/f04-cost-optimization", nextLabel: "Cost Optimization Engine",
+  },
+  F04: {
+    id: "F04", seriesName: "F-Series — Financial Intelligence", engineName: "Cost Optimization Engine",
+    purpose: "Identifies waste, inefficiency, cost leakage, and productivity gaps across the enterprise. Improves margin without reducing capability through synergy-based cost reduction and targeted productivity uplift.",
+    dimensionLabels: ["Cost Leakage Index", "Productivity Gap Score", "Margin Improvement Potential", "Synergy Cost Reduction"],
+    driverContext: "Structural Drivers create the conditions where cost leakage hides — in processes, systems, and operational structures. Cultural Drivers determine whether cost discipline is behavioural or episodic. Identity Drivers set the tolerance for inefficiency.",
+    correctionProtocols: ["Cost Mapping","Leakage Elimination","Productivity Uplift","Synergy-Based Reduction","Margin Improvement","Cost Sovereignty Sealing"],
+    backHref: "/f03-financial-kpi", backLabel: "Financial KPI Engine", nextHref: "/f05-enterprise-value", nextLabel: "Enterprise Value Engine",
+  },
+  F05: {
+    id: "F05", seriesName: "F-Series — Financial Intelligence", engineName: "Enterprise Value Engine",
+    purpose: "Tracks valuation drivers, licensing ROI, synergy ROI, realm ROI, and destiny curve financial trajectory — revealing the financial inevitability of LAMID ONE and showing investors the compounding value path of the enterprise.",
+    dimensionLabels: ["Valuation Driver Index", "Licensing ROI Score", "Synergy ROI Score", "Destiny Curve Alignment"],
+    driverContext: "Destiny Drivers are supreme in this module — they encode the ultimate financial trajectory of the enterprise. Identity Drivers determine whether the enterprise is building genuine value or performing valuation metrics. Market Drivers set the external multiplier environment.",
+    correctionProtocols: ["Valuation Driver Mapping","Licensing ROI Tracking","Synergy ROI Measurement","Destiny Curve Alignment","Enterprise Value Elevation","Value Sovereignty Sealing"],
+    backHref: "/f04-cost-optimization", backLabel: "Cost Optimization Engine", nextHref: "/f06-financial-governance", nextLabel: "Financial Governance Engine",
+  },
+  F06: {
+    id: "F06", seriesName: "F-Series — Financial Intelligence", engineName: "Financial Governance Engine",
+    purpose: "Installs nine sovereign governance rituals — weekly, monthly, quarterly, and annual — creating the financial discipline, controls, reporting cadence, and compliance architecture that ensures enterprise value keeps rising predictably over time.",
+    dimensionLabels: ["Governance Ritual Activation", "Financial Control Strength", "Reporting Cadence Score", "Compliance Architecture Maturity"],
+    driverContext: "Cultural Drivers determine whether governance becomes behavioural. Structural Drivers create the systems that enforce governance. Identity Drivers determine whether governance is authentic or performative.",
+    correctionProtocols: ["Ritual Installation","Control Architecture","Reporting Cadence","Compliance Framework","Governance Elevation","Financial Discipline Sealing"],
+    backHref: "/f05-enterprise-value", backLabel: "Enterprise Value Engine", nextHref: "/f07-cfo-transformation", nextLabel: "CFO Transformation Engine",
+  },
+  F07: {
+    id: "F07", seriesName: "F-Series — Financial Intelligence", engineName: "CFO Transformation Engine",
+    purpose: "Transforms finance teams, CFO capability, and financial culture — elevating finance from a reporting and compliance function into a strategic engine of enterprise value. The leadership layer of financial sovereignty.",
+    dimensionLabels: ["CFO Capability Score", "Financial Leadership Maturity", "Dashboard Mastery Index", "Strategic Finance Contribution"],
+    driverContext: "Identity Drivers determine the CFO's authentic financial leadership capacity. Human Drivers govern the capability development trajectory. Cultural Drivers determine whether financial leadership is celebrated or sidelined.",
+    correctionProtocols: ["CFO Capability Assessment","Dashboard Mastery","Forecasting Mastery","Enterprise Value Mastery","Leadership Elevation","CFO Sovereignty Sealing"],
+    backHref: "/f06-financial-governance", backLabel: "Financial Governance Engine", nextHref: "/finance-dashboard", nextLabel: "Finance Dashboard",
+  },
 };
 
 /* Get config with fallback for any unregistered module */
@@ -1775,6 +1833,7 @@ export function buildFallbackConfig(moduleId: string, seriesName: string, engine
     C: "LAMID CORE Intelligence",
     G: "LAMID GROW Intelligence",
     A: "LAMID TALENT Intelligence",
+    F: "F-Series — Financial Intelligence",
   }[series] ?? seriesName;
 
   return {

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
@@ -96,8 +96,8 @@ export default function SignInPage() {
             onChange={handleChange}
             required
             className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300
-                       border border-transparent focus:border-[#c12129] focus:ring-2 focus:ring-[#c12129]/60
-                       focus:shadow-[0_0_10px_#c12129aa] outline-none transition"
+                       border border-transparent focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/60
+                       focus:shadow-[0_0_10px_#2563EBaa] outline-none transition"
           />
           <input
             type="password"
@@ -107,16 +107,16 @@ export default function SignInPage() {
             onChange={handleChange}
             required
             className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300
-                       border border-transparent focus:border-[#c12129] focus:ring-2 focus:ring-[#c12129]/60
-                       focus:shadow-[0_0_10px_#c12129aa] outline-none transition"
+                       border border-transparent focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/60
+                       focus:shadow-[0_0_10px_#2563EBaa] outline-none transition"
           />
 
           {/* Forgot password + Sign up */}
           <div className="flex justify-between text-sm text-gray-400 mt-1">
-            <a href="/forgotpassword" className="hover:text-[#c12129] transition">
+            <a href="/forgotpassword" className="hover:text-[#2563EB] transition">
               Forgot Password?
             </a>
-            <a href="/signup" className="hover:text-[#c12129] transition">
+            <a href="/signup" className="hover:text-[#2563EB] transition">
               Create Account
             </a>
           </div>
@@ -126,7 +126,7 @@ export default function SignInPage() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-red-500 text-sm text-center"
+              className="text-blue-500 text-sm text-center"
             >
               {error}
             </motion.p>
@@ -136,7 +136,7 @@ export default function SignInPage() {
             whileTap={{ scale: 0.96 }}
             type="submit"
             disabled={loading}
-            className="bg-gradient-to-r from-[#c12129] to-[#8b1118] text-white font-semibold py-3 rounded-xl
+            className="bg-gradient-to-r from-[#2563EB] to-[#8b1118] text-white font-semibold py-3 rounded-xl
                        hover:opacity-90 transition disabled:opacity-60 mt-4 flex items-center justify-center"
           >
             {loading ? (
@@ -160,7 +160,7 @@ export default function SignInPage() {
           whileTap={{ scale: 0.97 }}
           aria-label="Sign in with Google"
           className="w-full flex items-center justify-center gap-3 bg-white text-black py-3 rounded-xl
-                     font-medium hover:bg-gray-100 transition focus:ring-2 focus:ring-[#c12129] focus:ring-offset-2"
+                     font-medium hover:bg-gray-100 transition focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
         >
           <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
           Sign in with Google

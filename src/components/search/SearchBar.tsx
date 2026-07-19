@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -74,7 +74,7 @@ export default function SearchBar({ placeholder = "Search projects or consultant
 
   return (
     <div ref={wrapRef} className={`relative ${className}`}>
-      <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 transition focus-within:border-[#c12129]/40">
+      <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 transition focus-within:border-[#2563EB]/40">
         {loading ? <Loader2 className="h-4 w-4 flex-shrink-0 animate-spin text-gray-500" /> : <Search className="h-4 w-4 flex-shrink-0 text-gray-500" />}
         <input
           value={query}
@@ -111,7 +111,7 @@ export default function SearchBar({ placeholder = "Search projects or consultant
                 className="flex items-center gap-3 px-4 py-3 transition hover:bg-white/5"
               >
                 <div className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg ${
-                  r.type === "project" ? "bg-blue-500/10 text-blue-400" : "bg-[#c12129]/10 text-[#c12129]"
+                  r.type === "project" ? "bg-blue-500/10 text-blue-400" : "bg-[#2563EB]/10 text-[#2563EB]"
                 }`}>
                   {r.type === "project" ? <FolderOpen className="h-3.5 w-3.5" /> : <Users className="h-3.5 w-3.5" />}
                 </div>

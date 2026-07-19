@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
@@ -10,7 +10,7 @@ interface BidMeterProps {
 
 const getConfidenceLevel = (bid: number, min: number, max: number) => {
   if (bid < min * 0.8)
-    return { label: "Too Low", color: "bg-red-500", score: 20 };
+    return { label: "Too Low", color: "bg-blue-500", score: 20 };
   if (bid >= min && bid <= max)
     return { label: "Competitive", color: "bg-green-500", score: 80 };
   if (bid > max * 1.2)

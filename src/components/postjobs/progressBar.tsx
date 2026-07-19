@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -27,8 +27,8 @@ export default function ProgressBar({ steps, currentStep }: ProgressBarProps) {
                   className={[
                     "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold",
                     "transition-all duration-300 ease-out",
-                    isCompleted ? "bg-[#c21219] text-white shadow-md"                                : "",
-                    isActive    ? "bg-[#c21219] text-white shadow-lg ring-4 ring-red-100 scale-110" : "",
+                    isCompleted ? "bg-[#2563EB] text-white shadow-md"                                : "",
+                    isActive    ? "bg-[#2563EB] text-white shadow-lg ring-4 ring-blue-100 scale-110" : "",
                     !isCompleted && !isActive ? "bg-white border-2 border-gray-200 text-gray-400"   : "",
                   ].join(" ")}
                 >
@@ -44,7 +44,7 @@ export default function ProgressBar({ steps, currentStep }: ProgressBarProps) {
                 <span
                   className={[
                     "mt-1.5 text-xs font-semibold transition-colors duration-200 whitespace-nowrap",
-                    isActive || isCompleted ? "text-[#c21219]" : "text-gray-400",
+                    isActive || isCompleted ? "text-[#2563EB]" : "text-gray-400",
                   ].join(" ")}
                 >
                   {step.label}
@@ -57,7 +57,7 @@ export default function ProgressBar({ steps, currentStep }: ProgressBarProps) {
                   <div
                     className={[
                       "h-full rounded-full transition-all duration-500 ease-out",
-                      index < currentStep ? "w-full bg-[#c21219]" : "w-0",
+                      index < currentStep ? "w-full bg-[#2563EB]" : "w-0",
                     ].join(" ")}
                   />
                 </div>

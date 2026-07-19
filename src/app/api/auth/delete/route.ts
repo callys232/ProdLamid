@@ -1,86 +1,42 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/middleware/auth";
 import { Users } from "@/lib/models/User";
-import { Profile } from "@/lib/models/Profile";
-import { Wallet } from "@/lib/models/Wallet";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
-
-/* -------- PREVENT BUILD EXECUTION -------- */
 
 export const dynamic = "force-dynamic";
 
-/* -------- ENV -------- */
-
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
-
-/* -------- DELETE ACCOUNT -------- */
-
+// DELETE — submits an account deletion request for admin review.
+// Immediate hard-deletion is disabled; only admins can approve deletions.
 export async function DELETE(request: NextRequest) {
     try {
-        /* -------- CONNECT DATABASE -------- */
-
         await connectDB();
+        const auth = await requireAuth(request);
+        if (auth instanceof NextResponse) return auth;
 
-        /* -------- GET TOKEN FROM COOKIE -------- */
-
-        const cookieStore = await cookies();
-        const tokenCookie = cookieStore.get("token");
-        let token = tokenCookie?.value;
-
-        /* -------- FALLBACK: AUTH HEADER -------- */
-
-        if (!token) {
-            const authHeader = request.headers.get("Authorization");
-
-            if (authHeader && authHeader.startsWith("Bearer ")) {
-                token = authHeader.split(" ")[1];
-            }
+        const user = await Users.findById(auth.userId).select("deletionRequest");
+        if (!user) {
+            return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
         }
 
-        /* -------- AUTH VALIDATION -------- */
-
-        if (!token) {
-            return NextResponse.json(
-                { success: false, message: "Unauthorized" },
-                { status: 401 }
-            );
+        if (user.deletionRequest?.status === "pending") {
+            return NextResponse.json({
+                success: false,
+                message: "A deletion request is already pending. Our team will review it within 48 hours.",
+            }, { status: 409 });
         }
 
-        /* -------- VERIFY TOKEN -------- */
+        await Users.findByIdAndUpdate(auth.userId, {
+            "deletionRequest.requested":   true,
+            "deletionRequest.requestedAt": new Date(),
+            "deletionRequest.status":      "pending",
+        });
 
-        const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-        const userId = decoded.userId;
-
-        /* -------- DELETE USER DATA -------- */
-
-        await Users.findByIdAndDelete(userId);
-        await Profile.findOneAndDelete({ user: userId });
-        await Wallet.findOneAndDelete({ user: userId });
-
-        /* -------- CLEAR COOKIE -------- */
-
-        const response = NextResponse.json({
+        return NextResponse.json({
             success: true,
-            message: "Account deleted successfully",
+            message: "Account deletion request submitted. Our team will review and process it within 48 hours.",
         });
-
-        response.cookies.set("token", "", {
-            expires: new Date(0),
-            path: "/",
-        });
-
-        return response;
-
     } catch (error) {
         console.error("Delete account error:", error);
-
-        return NextResponse.json(
-            {
-                success: false,
-                message: "Failed to delete account",
-            },
-            { status: 500 }
-        );
+        return NextResponse.json({ success: false, message: "Failed to submit deletion request" }, { status: 500 });
     }
 }

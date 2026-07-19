@@ -5,18 +5,18 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 const STEPS = [
-  { num: 1, title: "Define Your Challenge",  body: "Tell us what you need — strategy, growth, compliance, or innovation.",          href: "/premium/business-diagnostic", accent: "#C12129" },
-  { num: 2, title: "AI Matches Experts",     body: "Our engine analyzes 120+ experts to find your ideal match in minutes.",          href: "/talent",                      accent: "#C12129" },
-  { num: 3, title: "Engage & Collaborate",   body: "Work seamlessly with your expert through our integrated ecosystem.",              href: "/premium/proposal-drafter",    accent: "#C12129" },
-  { num: 4, title: "AI-Augmented Delivery",  body: "Get real-time insights, automated reports, and data-driven strategy.",           href: "/client",                      accent: "#C12129" },
-  { num: 5, title: "Measure & Scale",        body: "Track impact with dashboards and scale what works across your org.",              href: "/hcd",                         accent: "#C12129" },
+  { num: 1, title: "Diagnose",  body: "Take the Enterprise Diagnostic. Tell us where you are across Strategy, Growth, People, and Finance.",   href: "/premium/business-diagnostic", accent: "#2563EB" },
+  { num: 2, title: "Reveal",    body: "See your real score. LAMID ONE surfaces the gaps and strengths across all four pillars — honestly.",      href: "/ecosystem",                   accent: "#2563EB" },
+  { num: 3, title: "Unlock",    body: "Get personalized recommendations matched to your scale, sector, and situation — not a generic report.",   href: "/premium/proposal-drafter",    accent: "#2563EB" },
+  { num: 4, title: "Act",       body: "Engage the suite, the experts, or the tools your score says you need most. One ecosystem, one entry point.", href: "/client",                   accent: "#2563EB" },
+  { num: 5, title: "Grow",      body: "Track progress. Refine your position. See your organization evolve in real time — quarter by quarter.",   href: "/ecosystem",                   accent: "#2563EB" },
 ];
 
 const QUICK_TOOLS = [
-  { label: "Business Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
-  { label: "Proposal Drafter",    href: "/premium/proposal-drafter",    icon: "◈" },
-  { label: "Budget Estimator",    href: "/postjobs?tool=estimator",     icon: "▣" },
-  { label: "Expert Advisor",      href: "/concierge",                   icon: "✦" },
+  { label: "Enterprise Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
+  { label: "LAMID CORE",            href: "/core",                        icon: "◈" },
+  { label: "LAMID GROW",            href: "/grow",                        icon: "▣" },
+  { label: "LAMID TALENT",          href: "/talent",                      icon: "✦" },
 ];
 
 export default function HowItWorks() {
@@ -32,7 +32,7 @@ export default function HowItWorks() {
           "M-60 200 C200 80 400 320 700 160 C950 40 1200 280 1450 150",
           "M-60 260 C200 140 400 380 700 220 C950 100 1200 340 1450 210",
         ].map((d, i) => (
-          <motion.path key={i} d={d} fill="none" stroke="#C12129" strokeWidth="0.6"
+          <motion.path key={i} d={d} fill="none" stroke="#2563EB" strokeWidth="0.6"
             strokeOpacity="0.08" strokeDasharray="12 20"
             animate={{ strokeDashoffset: [0, -100], opacity: [0.05, 0.18, 0.05] }}
             transition={{ duration: 20 + i * 4, repeat: Infinity, ease: "linear", delay: i * 4 }}
@@ -54,7 +54,7 @@ export default function HowItWorks() {
             How It Works
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug">
-            <span className="aivora-gradient-text">Five Steps to Clarity</span>
+            <span className="aivora-gradient-text">From Diagnostic to Growth.</span>
           </h2>
         </motion.div>
 
@@ -63,7 +63,7 @@ export default function HowItWorks() {
           {/* Connecting line */}
           <motion.div
             className="absolute top-[28px] left-[10%] right-[10%] h-[2px]"
-            style={{ background: "linear-gradient(to right, #C12129, #3b82f6, #7c3aed, #f59e0b, #10b981)" }}
+            style={{ background: "linear-gradient(to right, #2563EB, #3b82f6, #7c3aed, #f59e0b, #10b981)" }}
             initial={{ scaleX: 0, originX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
@@ -158,10 +158,10 @@ export default function HowItWorks() {
           {QUICK_TOOLS.map((tool) => (
             <motion.button key={tool.label} type="button"
               onClick={() => router.push(tool.href)}
-              whileHover={{ scale: 1.08, borderColor: "#C12129", color: "#C12129", boxShadow: "0 0 22px rgba(193,33,41,0.65)" }}
+              whileHover={{ scale: 1.08, borderColor: "#2563EB", color: "#2563EB", boxShadow: "0 0 22px rgba(37,99,235,0.65)" }}
               whileTap={{ scale: 0.96 }}
               transition={{ duration: 0.16 }}
-              className="flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-medium border border-[#C12129]/30 text-gray-600 dark:text-white/60 cursor-pointer transition-colors shadow-[0_0_10px_rgba(193,33,41,0.2)]"
+              className="flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-medium border border-[#2563EB]/30 text-gray-600 dark:text-white/60 cursor-pointer transition-colors shadow-[0_0_10px_rgba(37,99,235,0.2)]"
             >
               <span className="aivora-gradient-text">{tool.icon}</span>{tool.label}
             </motion.button>

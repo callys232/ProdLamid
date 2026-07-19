@@ -54,9 +54,9 @@ function Err({ msg }: { msg?: string }) {
     <motion.p
       initial={{ opacity: 0, y: -4 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-1 text-[11px] text-red-400 flex items-center gap-1"
+      className="mt-1 text-[11px] text-blue-400 flex items-center gap-1"
     >
-      <span className="inline-block w-1 h-1 rounded-full bg-red-400" />{msg}
+      <span className="inline-block w-1 h-1 rounded-full bg-blue-400" />{msg}
     </motion.p>
   );
 }

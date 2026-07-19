@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import type { EscrowTransaction } from "@/types/escrow";
@@ -9,7 +9,7 @@ function statusBadge(status: string) {
     const map: Record<string, string> = {
         funded: "bg-yellow-600 text-black",
         released: "bg-green-600 text-white",
-        disputed: "bg-red-700 text-white",
+        disputed: "bg-blue-700 text-white",
         pending: "bg-blue-600 text-white",
     };
     return map[status] ?? "bg-gray-600 text-white";
@@ -39,7 +39,7 @@ export default function TransactionFeed({ transactions, onAction }: TransactionF
 
                         <div className="flex flex-col gap-2">
                             <button onClick={() => onAction("release", tx)} className="px-2 py-1 rounded-md bg-green-600 text-xs text-white">Release</button>
-                            <button onClick={() => onAction("dispute", tx)} className="px-2 py-1 rounded-md bg-red-700 text-xs text-white">Dispute</button>
+                            <button onClick={() => onAction("dispute", tx)} className="px-2 py-1 rounded-md bg-blue-700 text-xs text-white">Dispute</button>
                         </div>
                     </div>
                 ))}

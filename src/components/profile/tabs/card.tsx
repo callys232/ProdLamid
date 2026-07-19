@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 
@@ -29,7 +29,7 @@ const PremiumCard: React.FC<CardProps> = ({
         status === "Paid"
             ? "bg-green-700"
             : status === "Pending"
-                ? "bg-[#c12129]"
+                ? "bg-[#2563EB]"
                 : "bg-blue-700";
 
     return (
@@ -38,7 +38,7 @@ const PremiumCard: React.FC<CardProps> = ({
             className="
         cursor-pointer border border-gray-700 rounded-lg p-4 bg-black 
         shadow-lg transition-transform duration-300 ease-out 
-        hover:shadow-2xl hover:scale-105 hover:border-[#c12129]
+        hover:shadow-2xl hover:scale-105 hover:border-[#2563EB]
       "
         >
             <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
@@ -58,7 +58,7 @@ const PremiumCard: React.FC<CardProps> = ({
             {uploadedFile && (
                 <iframe
                     src={uploadedFile}
-                    className="w-full h-40 border border-[#c12129] rounded-md animate-fadeIn"
+                    className="w-full h-40 border border-[#2563EB] rounded-md animate-fadeIn"
                     title="Document Preview"
                     loading="lazy"
                 />
@@ -68,10 +68,10 @@ const PremiumCard: React.FC<CardProps> = ({
                     href={docUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-[#c12129] hover:underline mt-2 block relative overflow-hidden"
+                    className="text-sm text-[#2563EB] hover:underline mt-2 block relative overflow-hidden"
                 >
                     <span className="relative z-10">Open in Google Docs</span>
-                    <span className="absolute inset-0 bg-[#c12129]/20 opacity-0 hover:opacity-100 transition-opacity" />
+                    <span className="absolute inset-0 bg-[#2563EB]/20 opacity-0 hover:opacity-100 transition-opacity" />
                 </a>
             )}
 
@@ -89,7 +89,7 @@ const PremiumCard: React.FC<CardProps> = ({
                                     e.stopPropagation();
                                     window.location.href = `/projects/${projectId}/workspace`;
                                 }}
-                                className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold transition-all"
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold transition-all"
                             >
                                 Go to Workspace
                             </button>

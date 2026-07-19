@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -44,13 +44,13 @@ export default function ProfileCompletionBar({ profile, dashboardPath }: Props) 
   const { pct, missing } = calcCompletion(profile);
   if (pct === 100) return null;
 
-  const color = pct < 40 ? "bg-red-500" : pct < 75 ? "bg-yellow-500" : "bg-green-500";
+  const color = pct < 40 ? "bg-blue-500" : pct < 75 ? "bg-yellow-500" : "bg-green-500";
 
   return (
     <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-4">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-xs font-semibold text-white">Profile {pct}% complete</span>
-        <Link href={`${dashboardPath}?tab=settings`} className="text-xs text-[#c12129] hover:underline">
+        <Link href={`${dashboardPath}?tab=settings`} className="text-xs text-[#2563EB] hover:underline">
           Complete →
         </Link>
       </div>

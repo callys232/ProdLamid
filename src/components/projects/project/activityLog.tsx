@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { formatDistanceToNow } from "date-fns";
 
@@ -15,7 +15,7 @@ interface ActivityLogProps {
 }
 
 const cardClass =
-  "bg-[#1a0d0d] border border-red-600 rounded-lg p-6 shadow-md transition transform hover:-translate-y-1 hover:shadow-red-700/40 hover:border-red-500 hover:bg-[#2a0d0d]";
+  "bg-[#1a0d0d] border border-blue-600 rounded-lg p-6 shadow-md transition transform hover:-translate-y-1 hover:shadow-blue-700/40 hover:border-blue-500 hover:bg-[#2a0d0d]";
 
 export default function ActivityLog({ items }: ActivityLogProps) {
   return (
@@ -30,7 +30,7 @@ export default function ActivityLog({ items }: ActivityLogProps) {
               key={item.id}
               className="bg-[#0c0000] p-4 rounded-md border border-[#3a1919]"
             >
-              <p className="font-semibold text-red-400">{item.action}</p>
+              <p className="font-semibold text-blue-400">{item.action}</p>
               {item.user && (
                 <p className="text-sm text-gray-300">By: {item.user}</p>
               )}

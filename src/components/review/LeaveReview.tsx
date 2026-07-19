@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -81,10 +81,10 @@ export default function LeaveReview({ projectId, revieweeId, revieweeName, role,
           onChange={e => setComment(e.target.value)}
           rows={3}
           placeholder="Share your experience (optional)…"
-          className="w-full resize-none rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:border-[#c12129]/40 focus:outline-none"
+          className="w-full resize-none rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:border-[#2563EB]/40 focus:outline-none"
         />
         <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} type="submit" disabled={loading}
-          className="flex items-center gap-2 rounded-lg bg-[#c12129] px-4 py-2 text-xs font-bold text-white transition hover:bg-red-700 disabled:opacity-50">
+          className="flex items-center gap-2 rounded-lg bg-[#2563EB] px-4 py-2 text-xs font-bold text-white transition hover:bg-blue-700 disabled:opacity-50">
           {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
           {loading ? "Submitting…" : "Submit Review"}
         </motion.button>

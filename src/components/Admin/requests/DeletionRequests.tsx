@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -20,7 +20,7 @@ interface DeletionRequest {
 const STATUS_CONFIG = {
   pending:  { color: "text-yellow-400 bg-yellow-500/10 border-yellow-500/30", icon: Clock },
   approved: { color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30", icon: CheckCircle2 },
-  rejected: { color: "text-red-400 bg-red-500/10 border-red-500/30", icon: XCircle },
+  rejected: { color: "text-blue-400 bg-blue-500/10 border-blue-500/30", icon: XCircle },
 };
 
 export default function DeletionRequests() {
@@ -68,10 +68,10 @@ export default function DeletionRequests() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <Trash2 className="h-5 w-5 text-red-400" />
+        <Trash2 className="h-5 w-5 text-blue-400" />
         <h2 className="text-lg font-bold text-white">Account Deletion Requests</h2>
         {pending.length > 0 && (
-          <span className="ml-auto text-xs font-bold px-2.5 py-1 rounded-full bg-red-500/20 text-red-400 border border-red-500/30">
+          <span className="ml-auto text-xs font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
             {pending.length} pending
           </span>
         )}
@@ -112,7 +112,7 @@ export default function DeletionRequests() {
 
                   <div className="flex gap-3">
                     <button onClick={() => act(r._id, "approve")} disabled={acting === r._id}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs font-semibold transition disabled:opacity-50">
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold transition disabled:opacity-50">
                       {acting === r._id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />}
                       Delete Account
                     </button>

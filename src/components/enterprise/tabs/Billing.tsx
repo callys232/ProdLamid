@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -15,7 +15,7 @@ interface Props { tier: OrgTier; orgStatus: string }
 const STATUS_STYLE: Record<string, string> = {
   paid:    "border-green-500/30 bg-green-500/10 text-green-400",
   pending: "border-yellow-500/30 bg-yellow-500/10 text-yellow-400",
-  failed:  "border-red-500/30 bg-red-500/10 text-red-400",
+  failed:  "border-blue-500/30 bg-blue-500/10 text-blue-400",
 };
 
 export default function Billing({ tier, orgStatus }: Props) {
@@ -57,7 +57,7 @@ export default function Billing({ tier, orgStatus }: Props) {
             onClick={() => setCycle(c)}
             className={`rounded-full px-4 py-1.5 text-xs font-semibold capitalize transition ${
               cycle === c
-                ? "bg-[#c12129] text-white"
+                ? "bg-[#2563EB] text-white"
                 : "border border-white/10 text-gray-400 hover:text-white"
             }`}
           >
@@ -73,13 +73,13 @@ export default function Billing({ tier, orgStatus }: Props) {
         <motion.div
           whileHover={{ y: -3, boxShadow: "0 12px 32px rgba(0,0,0,0.4)" }}
           className={`rounded-xl border p-5 transition ${
-            tier === "enterprise" ? "border-[#c12129]/40 bg-[#c12129]/5" : "border-white/10 bg-white/5"
+            tier === "enterprise" ? "border-[#2563EB]/40 bg-[#2563EB]/5" : "border-white/10 bg-white/5"
           }`}
         >
           <div className="mb-1 flex items-center justify-between">
             <h3 className="font-bold text-white">Enterprise</h3>
             {tier === "enterprise" && (
-              <span className="rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-2 py-0.5 text-[10px] font-bold text-[#c12129]">
+              <span className="rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 px-2 py-0.5 text-[10px] font-bold text-[#2563EB]">
                 Current Plan
               </span>
             )}
@@ -91,12 +91,12 @@ export default function Billing({ tier, orgStatus }: Props) {
           <ul className="mb-5 space-y-2">
             {enterpriseFeatures.map(f => (
               <li key={f} className="flex items-center gap-2 text-xs text-gray-400">
-                <CheckCircle className="h-3.5 w-3.5 flex-shrink-0 text-[#c12129]" />{f}
+                <CheckCircle className="h-3.5 w-3.5 flex-shrink-0 text-[#2563EB]" />{f}
               </li>
             ))}
           </ul>
           {tier !== "enterprise" && (
-            <a href="/contact-sales" className="block w-full rounded-lg border border-[#c12129]/30 py-2.5 text-center text-sm font-semibold text-[#c12129] transition hover:bg-[#c12129]/10">
+            <a href="/contact-sales" className="block w-full rounded-lg border border-[#2563EB]/30 py-2.5 text-center text-sm font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/10">
               Downgrade
             </a>
           )}
@@ -133,7 +133,7 @@ export default function Billing({ tier, orgStatus }: Props) {
           <motion.a
             href="/contact-sales"
             whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#c12129] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-red-700"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#2563EB] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-blue-700"
           >
             Talk to Sales <ArrowRight className="h-3.5 w-3.5" />
           </motion.a>

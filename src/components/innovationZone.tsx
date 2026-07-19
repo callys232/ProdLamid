@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { FC } from "react";
 import Image from "next/image";
@@ -39,8 +39,8 @@ const stages: PipelineStage[] = [
     description: "Rapid prototyping to test and refine ideas.",
     icon: "/icons/prototype.png",
     href: "/innovazion/prototype",
-    bg: "bg-red-600",
-    border: "border-red-400",
+    bg: "bg-blue-600",
+    border: "border-blue-400",
   },
   {
     description: "Access elite talent for execution.",
@@ -83,7 +83,7 @@ const InnovazionZone: FC = () => {
               className={`w-[160px] h-[240px] rounded-xl ${stage.bg} ${stage.border} border 
                           shadow-md transition-all duration-300 
                           flex flex-col items-center justify-start text-center p-5
-                          hover:brightness-60 hover:border-red-500`}
+                          hover:brightness-60 hover:border-blue-500`}
             >
               {/* Icon */}
               <div className="w-12 h-12 mb-6">
@@ -103,7 +103,7 @@ const InnovazionZone: FC = () => {
                   viewBox="0 0 50 50"
                   width="36"
                   height="36"
-                  className="text-red-500 mx-auto"
+                  className="text-blue-500 mx-auto"
                 >
                   <path
                     d="M25 5 C25 20, 5 20, 25 35 L25 45"
@@ -134,7 +134,7 @@ const InnovazionZone: FC = () => {
       <p className="mt-12 text-center text-[15px] text-gray-300">
         Over <span className="text-yellow-400 font-bold">3000</span> start-ups
         created and accelerated.{" "}
-        <span className="text-red-500 font-semibold">
+        <span className="text-blue-500 font-semibold">
           Be the next raving success!
         </span>
       </p>

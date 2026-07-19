@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import ScoreBar from "./scoreBar";
@@ -44,7 +44,7 @@ export default function ProjectResultCard({
         const pct = score.total * 100;
         if (pct >= 80) return "text-green-600";
         if (pct >= 60) return "text-amber-600";
-        return "text-[#c12129]";
+        return "text-[#2563EB]";
     };
 
     /* ---------------- MATCH LABEL ---------------- */
@@ -63,7 +63,7 @@ export default function ProjectResultCard({
                 group cursor-pointer border rounded-xl p-5 bg-white
                 transition-all duration-300
                 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.01]
-                ${selected ? "ring-2 ring-[#c12129]" : ""}
+                ${selected ? "ring-2 ring-[#2563EB]" : ""}
             `}
         >
             {/* HEADER */}
@@ -85,7 +85,7 @@ export default function ProjectResultCard({
             <p className="text-xs text-gray-500 mt-2 line-clamp-3">{project.description}</p>
 
             {/* META TAGS */}
-            <div className="flex text-red-500 flex-wrap gap-2 mt-3 text-xs">
+            <div className="flex text-blue-500 flex-wrap gap-2 mt-3 text-xs">
                 {project.budget && (
                     <span className="bg-gray-100 px-2 py-1 rounded font-medium">
                         ₦{project.budget.toLocaleString()}
@@ -121,7 +121,7 @@ export default function ProjectResultCard({
                         ? "bg-green-600 text-white shadow-inner"
                         : applying
                             ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                            : "bg-[#c12129] text-white hover:bg-red-700 hover:shadow-lg hover:-translate-y-[1px]"
+                            : "bg-[#2563EB] text-white hover:bg-blue-700 hover:shadow-lg hover:-translate-y-[1px]"
                     }
                 `}
             >
@@ -134,7 +134,7 @@ export default function ProjectResultCard({
                     e.stopPropagation();
                     setShowExplain((prev) => !prev);
                 }}
-                className="mt-3 text-xs text-red-400 hover:text-[#c12129] transition"
+                className="mt-3 text-xs text-blue-400 hover:text-[#2563EB] transition"
             >
                 {showExplain ? "Hide AI Insight" : "Why this match?"}
             </button>

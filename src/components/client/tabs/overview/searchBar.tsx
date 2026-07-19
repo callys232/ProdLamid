@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Search } from "lucide-react";
@@ -24,7 +24,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
                 value={query}
                 onChange={handleChange}
                 placeholder="Search projects by goals, phases, or status..."
-                className="px-3 py-2 rounded-lg bg-black border border-gray-700 text-white w-full focus:ring-2 focus:ring-[#c12129] focus:outline-none transition hover:bg-[#1a1a1a]"
+                className="px-3 py-2 rounded-lg bg-black border border-gray-700 text-white w-full focus:ring-2 focus:ring-[#2563EB] focus:outline-none transition hover:bg-[#1a1a1a]"
             />
         </div>
     );

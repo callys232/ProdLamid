@@ -1,4 +1,4 @@
-/* ── Left showcase card ── */
+﻿/* ── Left showcase card ── */
 .leftCard {
   border: 1px solid rgba(251, 146, 60, 0.25);
 }
@@ -24,7 +24,7 @@
 
 /* ── Get Notified button ── */
 .notifyBtn {
-  background: linear-gradient(135deg, #c21219, #8b0f14);
+  background: linear-gradient(135deg, #2563EB, #8b0f14);
   box-shadow: 0 6px 20px rgba(194, 18, 25, 0.35);
 }
 

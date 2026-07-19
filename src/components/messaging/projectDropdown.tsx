@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import type { Escrow } from "@/types/escrow";
@@ -47,7 +47,7 @@ export default function ProjectDocumentsDropdown({
   if (!isOpen) return null;
 
   return (
-    <div className="p-4 w-72 rounded-lg border border-red-600/40 bg-black/90 shadow-lg">
+    <div className="p-4 w-72 rounded-lg border border-blue-600/40 bg-black/90 shadow-lg">
       <h3 className="text-white text-sm font-semibold mb-3">
         Project Documents
       </h3>
@@ -60,10 +60,10 @@ export default function ProjectDocumentsDropdown({
           {documents.map((doc) => (
             <li
               key={doc.id}
-              className="flex flex-col rounded-md border border-gray-700 p-2 hover:border-[#c12129] transition"
+              className="flex flex-col rounded-md border border-gray-700 p-2 hover:border-[#2563EB] transition"
             >
               <div className="flex justify-between items-center">
-                <span className="text-xs font-medium text-red-400">
+                <span className="text-xs font-medium text-blue-400">
                   {doc.name}
                 </span>
                 <span className="text-[10px] text-gray-500">

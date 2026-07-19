@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -59,7 +59,7 @@ export default function ProjectCard({ project, onClick, compact = false }: Props
     return (
         <motion.div
             whileHover={{ scale: 1.03 }}
-            className="group relative bg-gray-800 border border-gray-700 rounded-lg p-4 cursor-pointer hover:border-red-500 overflow-hidden"
+            className="group relative bg-gray-800 border border-gray-700 rounded-lg p-4 cursor-pointer hover:border-blue-500 overflow-hidden"
             onClick={onClick}
             role="button"
             tabIndex={0}
@@ -84,7 +84,7 @@ export default function ProjectCard({ project, onClick, compact = false }: Props
             {/* Progress */}
             <div className="h-2 bg-gray-700 rounded-full overflow-hidden mt-3">
                 <motion.div
-                    className="bg-red-600 h-full"
+                    className="bg-blue-600 h-full"
                     style={{ width: `${completionRate}%` }}
                     initial={{ width: 0 }}
                     animate={{ width: `${completionRate}%` }}
@@ -181,7 +181,7 @@ export default function ProjectCard({ project, onClick, compact = false }: Props
                                     e.stopPropagation();
                                     window.location.href = `/projects/${project._id || project.id}/workspace`;
                                 }}
-                                className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold transition-all"
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold transition-all"
                             >
                                 Go to Workspace
                             </button>

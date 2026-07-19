@@ -1,4 +1,4 @@
-export const metadata = { title: "Privacy Policy — Lamid" };
+﻿export const metadata = { title: "Privacy Policy — Lamid" };
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="mb-8">
@@ -12,7 +12,7 @@ export default function PrivacyPage() {
     <main className="min-h-screen bg-black px-4 py-24 text-white">
       <div className="mx-auto max-w-3xl">
         <div className="mb-10">
-          <span className="mb-3 inline-block rounded-full border border-[#c12129]/40 bg-[#c12129]/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#c12129]">Legal</span>
+          <span className="mb-3 inline-block rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#2563EB]">Legal</span>
           <h1 className="text-3xl font-bold">Privacy Policy</h1>
           <p className="mt-2 text-sm text-gray-500">Last updated: May 2026</p>
         </div>
@@ -36,12 +36,12 @@ export default function PrivacyPage() {
         </Section>
 
         <Section title="4. Data Retention">
-          <p>We retain account data for the duration of your account and up to 2 years after deletion, unless a longer period is required by law. You may request earlier deletion via your account settings or at <a href="mailto:privacy@lamid.io" className="text-[#c12129] hover:underline">privacy@lamid.io</a>.</p>
+          <p>We retain account data for the duration of your account and up to 2 years after deletion, unless a longer period is required by law. You may request earlier deletion via your account settings or at <a href="mailto:privacy@lamid.io" className="text-[#2563EB] hover:underline">privacy@lamid.io</a>.</p>
         </Section>
 
         <Section title="5. Your Rights (GDPR)">
           <p>If you are in the EU or UK, you have the right to: access your data; correct inaccurate data; request deletion; restrict processing; data portability; and object to processing.</p>
-          <p>To exercise these rights, use the <a href="/client?tab=settings" className="text-[#c12129] hover:underline">data export</a> feature in your settings or contact <a href="mailto:privacy@lamid.io" className="text-[#c12129] hover:underline">privacy@lamid.io</a>.</p>
+          <p>To exercise these rights, use the <a href="/client?tab=settings" className="text-[#2563EB] hover:underline">data export</a> feature in your settings or contact <a href="mailto:privacy@lamid.io" className="text-[#2563EB] hover:underline">privacy@lamid.io</a>.</p>
         </Section>
 
         <Section title="6. Cookies">
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
 
         <Section title="8. Contact">
           <p>Data controller: Lamid Ltd · Lagos, Nigeria · London, UK<br/>
-          Privacy enquiries: <a href="mailto:privacy@lamid.io" className="text-[#c12129] hover:underline">privacy@lamid.io</a></p>
+          Privacy enquiries: <a href="mailto:privacy@lamid.io" className="text-[#2563EB] hover:underline">privacy@lamid.io</a></p>
         </Section>
       </div>
     </main>

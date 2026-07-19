@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -31,7 +31,7 @@ const MILESTONE_STATUS: Record<string, { label: string; color: string; icon: Rea
   in_progress: { label: "In Progress", color: "bg-yellow-500/20 text-yellow-400", icon: <Clock className="h-3 w-3" /> },
   funded:      { label: "Funded",      color: "bg-blue-500/20 text-blue-400",    icon: <DollarSign className="h-3 w-3" /> },
   completed:   { label: "Completed",   color: "bg-green-500/20 text-green-400",  icon: <CheckCheck className="h-3 w-3" /> },
-  disputed:    { label: "Disputed",    color: "bg-red-500/20 text-red-400",      icon: <AlertCircle className="h-3 w-3" /> },
+  disputed:    { label: "Disputed",    color: "bg-blue-500/20 text-blue-400",      icon: <AlertCircle className="h-3 w-3" /> },
   released:    { label: "Released",    color: "bg-emerald-500/20 text-emerald-400", icon: <CheckCircle2 className="h-3 w-3" /> },
 };
 
@@ -162,7 +162,7 @@ export default function JobModal({
                     {images.map((_, i) => (
                       <motion.button key={i}
                         onClick={() => { setImageDir(i > currentImage ? 1 : -1); setCurrentImage(i); }}
-                        animate={{ width: i === currentImage ? 16 : 6, backgroundColor: i === currentImage ? "#c21219" : "rgba(255,255,255,0.4)" }}
+                        animate={{ width: i === currentImage ? 16 : 6, backgroundColor: i === currentImage ? "#2563EB" : "rgba(255,255,255,0.4)" }}
                         transition={spring} className="h-1.5 rounded-full"
                       />
                     ))}
@@ -201,11 +201,11 @@ export default function JobModal({
               <motion.div
                 animate={isUrgent && !deadlinePassed ? { scale: [1, 1.025, 1] } : {}}
                 transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
-                className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold ${deadlinePassed ? "bg-red-700 text-white" : "border border-white/20 bg-white/10 text-gray-200"}`}
+                className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold ${deadlinePassed ? "bg-blue-700 text-white" : "border border-white/20 bg-white/10 text-gray-200"}`}
               >
-                <CalendarClock className={`h-4 w-4 ${isUrgent && !deadlinePassed ? "text-red-400" : ""}`} />
+                <CalendarClock className={`h-4 w-4 ${isUrgent && !deadlinePassed ? "text-blue-400" : ""}`} />
                 <span>Time Left:</span>
-                <span className={isUrgent && !deadlinePassed ? "text-red-400 font-bold" : "text-white"}>{timeLeft}</span>
+                <span className={isUrgent && !deadlinePassed ? "text-blue-400 font-bold" : "text-white"}>{timeLeft}</span>
               </motion.div>
             )}
           </div>
@@ -231,7 +231,7 @@ export default function JobModal({
                 whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(194,18,25,0.25)" }}
                 className="flex items-start gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-4 shadow-md cursor-default"
               >
-                <span className="mt-0.5 text-[#c21219]">{m.icon}</span>
+                <span className="mt-0.5 text-[#2563EB]">{m.icon}</span>
                 <div>
                   <p className="text-base font-semibold text-white">{m.value}</p>
                   <p className="text-xs text-gray-400">{m.label}</p>
@@ -267,8 +267,8 @@ export default function JobModal({
                 {job.skills.map((skill) => (
                   <motion.span key={skill}
                     variants={{ hidden: { opacity: 0, scale: 0.8 }, show: { opacity: 1, scale: 1 } }}
-                    whileHover={{ scale: 1.1, backgroundColor: "rgba(185,28,28,0.35)" }} transition={spring}
-                    className="cursor-default rounded-full bg-red-900/30 px-3 py-1 text-xs font-semibold text-red-400">
+                    whileHover={{ scale: 1.1, backgroundColor: "rgba(29,78,216,0.35)" }} transition={spring}
+                    className="cursor-default rounded-full bg-blue-900/30 px-3 py-1 text-xs font-semibold text-blue-400">
                     {skill}
                   </motion.span>
                 ))}
@@ -303,7 +303,7 @@ export default function JobModal({
                     transition={{ ...spring, delay: idx * 0.06 }}
                     className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3"
                   >
-                    <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-red-600/20 text-xs font-bold text-red-400">
+                    <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-blue-600/20 text-xs font-bold text-blue-400">
                       {idx + 1}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -366,7 +366,7 @@ export default function JobModal({
                           </div>
                           <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
                             <motion.div
-                              className="h-full rounded-full bg-[#c21219]"
+                              className="h-full rounded-full bg-[#2563EB]"
                               initial={{ width: 0 }}
                               animate={{ width: `${ms.progress}%` }}
                               transition={{ duration: 0.8, ease: "easeOut", delay: idx * 0.08 }}
@@ -417,7 +417,7 @@ export default function JobModal({
             >
               <div className="flex items-center gap-4">
                 <motion.div whileHover={{ scale: 1.08 }} transition={spring}
-                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-red-600/30 bg-red-600/10 text-lg font-bold text-red-400">
+                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-blue-600/30 bg-blue-600/10 text-lg font-bold text-blue-400">
                   {(job.organization ?? "?")[0].toUpperCase()}
                 </motion.div>
                 <div className="min-w-0 flex-1">
@@ -476,12 +476,12 @@ export default function JobModal({
                   <motion.button onClick={handleBidSubmit}
                     whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }} transition={spring}
                     disabled={!bidAmount}
-                    className="rounded-lg bg-[#c21219] px-4 py-2 text-sm font-semibold text-white disabled:opacity-40 hover:bg-red-700">
+                    className="rounded-lg bg-[#2563EB] px-4 py-2 text-sm font-semibold text-white disabled:opacity-40 hover:bg-blue-700">
                     Place Bid
                   </motion.button>
                 </motion.div>
               ) : (
-                <p className="mb-4 font-semibold text-red-400">Bidding is closed — deadline has passed.</p>
+                <p className="mb-4 font-semibold text-blue-400">Bidding is closed — deadline has passed.</p>
               )}
               <div className="space-y-3">
                 <AnimatePresence>
@@ -509,7 +509,7 @@ export default function JobModal({
               whileTap={!deadlinePassed ? { scale: 0.96 } : {}}
               transition={spring}
               onClick={() => !deadlinePassed && setShowApplyModal(true)}
-              className={`flex items-center gap-2 rounded-xl px-6 py-3 font-semibold shadow-lg transition ${deadlinePassed ? "cursor-not-allowed bg-gray-600 text-gray-300" : "bg-[#c21219] text-white hover:bg-red-700"}`}
+              className={`flex items-center gap-2 rounded-xl px-6 py-3 font-semibold shadow-lg transition ${deadlinePassed ? "cursor-not-allowed bg-gray-600 text-gray-300" : "bg-[#2563EB] text-white hover:bg-blue-700"}`}
             >
               {deadlinePassed ? "Deadline Passed" : (
                 <>

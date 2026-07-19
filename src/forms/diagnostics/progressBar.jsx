@@ -1,4 +1,4 @@
-// const ProgressBar = ({ step, totalSteps }) => {
+﻿// const ProgressBar = ({ step, totalSteps }) => {
 //   const progressPercentage = (step / totalSteps) * 100;
 
 //   return (
@@ -13,7 +13,7 @@
 //         {/* Animated Progress Bar */}
 //         <div
 //           style={{
-//             background: "linear-gradient(to right, #ef4444, #b91c1c)",
+//             background: "linear-gradient(to right, #2563EB, #1D4ED8)",
 //             height: "16px",
 //             borderRadius: "999px",
 //             transition: "width 0.5s ease-in-out",

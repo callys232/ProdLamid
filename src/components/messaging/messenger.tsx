@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import type { Escrow, Message } from "@/types/escrow";
@@ -55,7 +55,7 @@ export default function MessageBar({ escrow, setMessages }: MessageBarProps) {
   }
 
   return (
-    <div className="flex items-center bg-gray-900 border-t border-gray-700 p-3 hover:border-[#c12129] transition">
+    <div className="flex items-center bg-gray-900 border-t border-gray-700 p-3 hover:border-[#2563EB] transition">
       {/* Input field */}
       <input
         type="text"
@@ -69,7 +69,7 @@ export default function MessageBar({ escrow, setMessages }: MessageBarProps) {
       <button
         aria-label="send"
         onClick={handleSend}
-        className="ml-3 bg-red-600 hover:bg-red-700 text-white p-3 rounded-full transition border-2 border-transparent hover:border-[#c12129]"
+        className="ml-3 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full transition border-2 border-transparent hover:border-[#2563EB]"
       >
         <FiSend className="h-5 w-5" />
       </button>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const SuccessPage = ({ setShowForm, setShowModal }) => {
@@ -34,7 +34,7 @@ const SuccessPage = ({ setShowForm, setShowModal }) => {
     >
       {/* Success Page Frame */}
       <div className="bg-black p-6 rounded-lg shadow-lg w-full max-w-md backdrop-blur-lg border border-white/20 text-white text-center">
-        <span className="text-5xl mb-2 text-red-500">🎉</span>
+        <span className="text-5xl mb-2 text-blue-500">🎉</span>
         <h2 className="text-3xl font-bold mb-3">Success!</h2>
         <p className="text-gray-400 mb-6">
           Your form has been submitted successfully.
@@ -43,7 +43,7 @@ const SuccessPage = ({ setShowForm, setShowModal }) => {
         {/* Exit Timer Indicator */}
         <div className="w-full bg-gray-700 rounded-full h-4 overflow-hidden mt-4">
           <motion.div
-            className="bg-gradient-to-r from-red-500 to-red-700 h-4 rounded-full transition-all duration-500 ease-in-out"
+            className="bg-gradient-to-r from-blue-500 to-blue-700 h-4 rounded-full transition-all duration-500 ease-in-out"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 5 }} // Progress bar fills in 5 seconds

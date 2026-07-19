@@ -1,4 +1,4 @@
-import { notificationTransporter } from "@/lib/mailer";
+﻿import { notificationTransporter } from "@/lib/mailer";
 import { Users } from "@/lib/models/User";
 
 const BASE = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
@@ -13,14 +13,14 @@ async function getEmail(userId: string): Promise<string | null> {
 
 function card(content: string) {
   return `<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;background:#0a0a0a;color:#fff;border-radius:12px;padding:32px;">
-    <div style="margin-bottom:24px;"><span style="color:#c12129;font-size:20px;font-weight:bold;">Lamid</span></div>
+    <div style="margin-bottom:24px;"><span style="color:#2563EB;font-size:20px;font-weight:bold;">Lamid</span></div>
     ${content}
     <p style="color:#555;font-size:11px;margin-top:32px;">Manage notifications at <a href="${BASE}/client?tab=settings" style="color:#666;">${BASE}</a></p>
   </div>`;
 }
 
 function btn(label: string, href: string) {
-  return `<a href="${href}" style="display:inline-block;background:#c12129;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;margin-top:20px;">${label}</a>`;
+  return `<a href="${href}" style="display:inline-block;background:#2563EB;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;margin-top:20px;">${label}</a>`;
 }
 
 // ── Bid accepted ─────────────────────────────────────────────────────────────
@@ -53,7 +53,7 @@ export async function emailConsultantHired(params: { consultantId: string; clien
       html: card(`
         <h2 style="font-size:18px;font-weight:600;">You have been hired! 🚀</h2>
         <p style="color:#aaa;font-size:14px;">You have been formally hired for <strong style="color:#fff;">${params.projectTitle}</strong>.</p>
-        ${params.clientMessage ? `<blockquote style="border-left:3px solid #c12129;padding-left:12px;color:#aaa;font-style:italic;">"${params.clientMessage}"</blockquote>` : ""}
+        ${params.clientMessage ? `<blockquote style="border-left:3px solid #2563EB;padding-left:12px;color:#aaa;font-style:italic;">"${params.clientMessage}"</blockquote>` : ""}
         ${btn("Open Project Workspace", `${BASE}/projects/${params.projectId}/workspace`)}
       `),
     }).catch(console.error);
@@ -82,7 +82,7 @@ export async function emailMilestoneApproved(params: { consultantId: string; mil
     html: card(`
       <h2 style="font-size:18px;font-weight:600;">Milestone approved ✅</h2>
       <p style="color:#aaa;font-size:14px;">The client approved <strong style="color:#fff;">${params.milestoneTitle}</strong> on <em>${params.projectTitle}</em>.</p>
-      <p style="color:#aaa;font-size:14px;">Amount: <strong style="color:#c12129;">$${params.amount.toLocaleString()}</strong></p>
+      <p style="color:#aaa;font-size:14px;">Amount: <strong style="color:#2563EB;">$${params.amount.toLocaleString()}</strong></p>
       ${btn("View Project", `${BASE}/projects/${params.projectId}/workspace`)}
     `),
   }).catch(console.error);
@@ -97,7 +97,7 @@ export async function emailPaymentReleased(params: { consultantId: string; amoun
     subject: `Payment released — $${params.amount.toLocaleString()}`,
     html: card(`
       <h2 style="font-size:18px;font-weight:600;">Payment released 💸</h2>
-      <p style="color:#aaa;font-size:14px;">A payment of <strong style="color:#c12129;">$${params.amount.toLocaleString()}</strong> for <em>${params.projectTitle}</em> has been released to your account.</p>
+      <p style="color:#aaa;font-size:14px;">A payment of <strong style="color:#2563EB;">$${params.amount.toLocaleString()}</strong> for <em>${params.projectTitle}</em> has been released to your account.</p>
       ${params.reference ? `<p style="color:#555;font-size:12px;">Reference: ${params.reference}</p>` : ""}
       ${btn("View Wallet", `${BASE}/profile?tab=escrow`)}
     `),

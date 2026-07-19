@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "./../../utils/motionVaraints";
 
@@ -36,8 +36,8 @@ const skills = [
   {
     text: "MARKETING",
     tip: "Creating value and connecting with audiences",
-    color: "bg-red-500",
-    hover: "bg-red-700",
+    color: "bg-blue-500",
+    hover: "bg-blue-700",
   },
   {
     text: "SALES",

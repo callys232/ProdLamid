@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   BarChart,
   Bar,
@@ -17,7 +17,7 @@ interface Props {
 
 export default function FreelancerGrowthChart({
   consultants,
-  accent = "#c12129",
+  accent = "#2563EB",
 }: Props) {
   const data = (consultants || []).map((c, i) => ({
     month: `M${i + 1}`,

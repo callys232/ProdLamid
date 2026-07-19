@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -87,12 +87,12 @@ export default function CoreDashboardPage() {
           {KPIS.map((kpi) => (
             <motion.div
               key={kpi.label}
-              whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(0,0,0,0.07), 0 2px 6px rgba(193,33,41,0.06)" }}
+              whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(0,0,0,0.07), 0 2px 6px rgba(37,99,235,0.06)" }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
               className="aivora-card border rounded-2xl p-5 cursor-default"
             >
-              <kpi.icon className="w-4 h-4 text-[#C12129] mb-3" strokeWidth={2.2} />
+              <kpi.icon className="w-4 h-4 text-[#2563EB] mb-3" strokeWidth={2.2} />
               <p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1.5">{kpi.value}</p>
               <p className="text-xs text-gray-500 dark:text-white/45">{kpi.label}</p>
               <p className="text-[10px] text-gray-400 dark:text-white/30 mt-1">{kpi.trend}</p>
@@ -109,11 +109,11 @@ export default function CoreDashboardPage() {
               {insights.map((item) => (
                 <motion.div
                   key={item.title}
-                  whileHover={{ x: 3, backgroundColor: "rgba(193,33,41,0.02)" }}
+                  whileHover={{ x: 3, backgroundColor: "rgba(37,99,235,0.02)" }}
                   transition={{ duration: 0.14 }}
                   className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0 rounded-lg px-1 -mx-1"
                 >
-                  <AlertTriangle className={`w-4 h-4 mt-0.5 shrink-0 ${item.severity === "High" ? "text-[#C12129]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
+                  <AlertTriangle className={`w-4 h-4 mt-0.5 shrink-0 ${item.severity === "High" ? "text-[#2563EB]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
                   <div>
                     <p className="text-sm text-gray-900 dark:text-white leading-snug">{item.title}</p>
                     <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5">{item.action}</p>
@@ -130,7 +130,7 @@ export default function CoreDashboardPage() {
               {workflows.map((wf) => (
                 <motion.div
                   key={wf.name}
-                  whileHover={{ x: 3, backgroundColor: "rgba(193,33,41,0.02)" }}
+                  whileHover={{ x: 3, backgroundColor: "rgba(37,99,235,0.02)" }}
                   transition={{ duration: 0.14 }}
                   className="flex items-center justify-between gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0 rounded-lg px-1 -mx-1"
                 >
@@ -140,7 +140,7 @@ export default function CoreDashboardPage() {
                   </div>
                   <span className={`text-[10px] font-semibold px-2 py-1 rounded-full shrink-0 ${
                     wf.status === "At risk"
-                      ? "bg-[#C12129]/10 text-[#C12129]"
+                      ? "bg-[#2563EB]/10 text-[#2563EB]"
                       : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                   }`}>
                     {wf.status}
@@ -169,8 +169,8 @@ export default function CoreDashboardPage() {
                 key={m.href}
                 href={m.href}
                 className="group aivora-card border rounded-xl px-4 py-3 text-xs font-semibold text-gray-700 dark:text-white/70
-                           hover:text-[#C12129] hover:border-[#C12129]/30 hover:-translate-y-[3px]
-                           hover:shadow-[0_6px_20px_rgba(193,33,41,0.10)] active:scale-[0.97]
+                           hover:text-[#2563EB] hover:border-[#2563EB]/30 hover:-translate-y-[3px]
+                           hover:shadow-[0_6px_20px_rgba(37,99,235,0.10)] active:scale-[0.97]
                            transition-all duration-200 inline-flex items-center justify-between gap-1"
               >
                 {m.title}
@@ -179,13 +179,13 @@ export default function CoreDashboardPage() {
             ))}
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/talent" className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition-colors shadow-[0_0_14px_rgba(193,33,41,0.35)] inline-flex items-center gap-1.5">
+            <Link href="/talent" className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_14px_rgba(37,99,235,0.35)] inline-flex items-center gap-1.5">
               Match a Consultant <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
-            <Link href="/postjobs" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#C12129]/25 text-[#C12129] hover:bg-[#C12129]/8 transition-colors">
+            <Link href="/postjobs" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors">
               Post a Project
             </Link>
-            <Link href="/intelligence-hub" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40 hover:border-[#C12129]/30 hover:text-[#C12129] transition-colors">
+            <Link href="/intelligence-hub" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition-colors">
               Intelligence Hub
             </Link>
           </div>

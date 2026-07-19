@@ -1,4 +1,4 @@
-// components/profileSteps/StepReview.tsx
+﻿// components/profileSteps/StepReview.tsx
 "use client";
 
 import { useState } from "react";
@@ -92,7 +92,7 @@ export default function StepReview({ data, onJumpToStep }: StepProps) {
                         className={clsx(
                             "bg-black/50 p-5 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-xl border",
                             hoverSection === section.key
-                                ? "border-[#c12129] ring-2 ring-[#c12129]/30"
+                                ? "border-[#2563EB] ring-2 ring-[#2563EB]/30"
                                 : "border-gray-700"
                         )}
                     >
@@ -100,14 +100,14 @@ export default function StepReview({ data, onJumpToStep }: StepProps) {
                             <h3 className="font-semibold text-white flex items-center gap-2">
                                 {section.label}
                                 <FaInfoCircle
-                                    className="text-gray-400 hover:text-[#c12129] cursor-pointer transition"
+                                    className="text-gray-400 hover:text-[#2563EB] cursor-pointer transition"
                                     title={`Edit ${section.label}`}
                                 />
                             </h3>
                             <button
                                 type="button"
                                 onClick={() => onJumpToStep(section.step)}
-                                className="text-sm text-[#c12129] hover:text-red-500 flex items-center gap-1 transition"
+                                className="text-sm text-[#2563EB] hover:text-blue-500 flex items-center gap-1 transition"
                             >
                                 <FaEdit /> Edit
                             </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 
 interface AdminControlsProps {
@@ -18,19 +18,19 @@ export default function AdminControls({
       <div className="flex flex-wrap gap-3">
         <button
           onClick={onCustomizeTemplates}
-          className="px-4 py-2 bg-[#c21229] text-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-red-700"
+          className="px-4 py-2 bg-[#c21229] text-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-blue-700"
         >
           ✏️ Customize Templates
         </button>
         <button
           onClick={onSetThresholds}
-          className="px-4 py-2 bg-[#c21229] text-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-red-700"
+          className="px-4 py-2 bg-[#c21229] text-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-blue-700"
         >
           📊 Set Escalation Thresholds
         </button>
         <button
           onClick={onBroadcast}
-          className="px-4 py-2 bg-[#c21229] text-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-red-700"
+          className="px-4 py-2 bg-[#c21229] text-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-blue-700"
         >
           📢 Broadcast Announcement
         </button>

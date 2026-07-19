@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -110,8 +110,8 @@ export default function ConciergeDashboard() {
       >
         {/* Logo */}
         <div className={`flex items-center border-b border-white/10 px-3 py-4 ${collapsed ? "justify-center" : "gap-2 px-5"}`}>
-          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#c21219]/20">
-            <Star className="h-4 w-4 text-[#c21219]" />
+          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#2563EB]/20">
+            <Star className="h-4 w-4 text-[#2563EB]" />
           </div>
           <AnimatePresence initial={false}>
             {!collapsed && (
@@ -146,11 +146,11 @@ export default function ConciergeDashboard() {
                 title={collapsed ? label : undefined}
                 className={`w-full flex items-center gap-3 px-2.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                   active
-                    ? "bg-[#c21219]/15 text-[#c21219] border border-[#c21219]/30"
+                    ? "bg-[#2563EB]/15 text-[#2563EB] border border-[#2563EB]/30"
                     : "text-gray-400 hover:text-white border border-transparent"
                 } ${collapsed ? "justify-center" : ""}`}
               >
-                <Icon className={`h-4 w-4 flex-shrink-0 ${active ? "text-[#c21219]" : ""}`} />
+                <Icon className={`h-4 w-4 flex-shrink-0 ${active ? "text-[#2563EB]" : ""}`} />
                 <AnimatePresence initial={false}>
                   {!collapsed && (
                     <motion.span
@@ -169,7 +169,7 @@ export default function ConciergeDashboard() {
                   <motion.span
                     animate={{ scale: [1, 1.08, 1] }}
                     transition={{ repeat: Infinity, duration: 2.5 }}
-                    className="ml-auto text-[9px] bg-[#c21219] text-white px-1.5 py-0.5 rounded-full flex-shrink-0"
+                    className="ml-auto text-[9px] bg-[#2563EB] text-white px-1.5 py-0.5 rounded-full flex-shrink-0"
                   >24/7</motion.span>
                 )}
               </motion.button>
@@ -188,8 +188,8 @@ export default function ConciergeDashboard() {
               transition={{ duration: 0.2 }}
               className="px-5 py-4 border-t border-white/10 overflow-hidden"
             >
-              <div className="rounded-xl bg-[#c21219]/10 border border-[#c21219]/20 px-3 py-2 text-center">
-                <p className="text-[10px] text-[#c21219] font-semibold uppercase tracking-widest">Concierge Tier</p>
+              <div className="rounded-xl bg-[#2563EB]/10 border border-[#2563EB]/20 px-3 py-2 text-center">
+                <p className="text-[10px] text-[#2563EB] font-semibold uppercase tracking-widest">Concierge Tier</p>
                 <p className="text-[10px] text-gray-500 mt-0.5">Dedicated PM · Priority Support</p>
               </div>
             </motion.div>
@@ -209,7 +209,7 @@ export default function ConciergeDashboard() {
               <motion.button
                 whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                 onClick={() => setShowGuide(true)}
-                className="w-full rounded-lg border border-[#c21219]/20 bg-[#c21219]/5 py-1.5 text-[11px] font-medium text-[#c21219]/70 transition hover:bg-[#c21219]/15 hover:text-[#c21219]"
+                className="w-full rounded-lg border border-[#2563EB]/20 bg-[#2563EB]/5 py-1.5 text-[11px] font-medium text-[#2563EB]/70 transition hover:bg-[#2563EB]/15 hover:text-[#2563EB]"
               >
                 Portal Guide
               </motion.button>
@@ -247,8 +247,8 @@ export default function ConciergeDashboard() {
               className="fixed inset-y-0 left-0 z-40 w-64 bg-black border-r border-white/10 flex flex-col md:hidden"
             >
               <div className="flex items-center gap-2 px-5 py-4 border-b border-white/10">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#c21219]/20">
-                  <Star className="h-4 w-4 text-[#c21219]" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2563EB]/20">
+                  <Star className="h-4 w-4 text-[#2563EB]" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">Lamid Concierge</p>
@@ -265,11 +265,11 @@ export default function ConciergeDashboard() {
                       onClick={() => switchTab(key)}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                         active
-                          ? "bg-[#c21219]/15 text-[#c21219] border border-[#c21219]/30"
+                          ? "bg-[#2563EB]/15 text-[#2563EB] border border-[#2563EB]/30"
                           : "text-gray-400 hover:bg-white/5 hover:text-white border border-transparent"
                       }`}
                     >
-                      <Icon className={`h-4 w-4 flex-shrink-0 ${active ? "text-[#c21219]" : ""}`} />
+                      <Icon className={`h-4 w-4 flex-shrink-0 ${active ? "text-[#2563EB]" : ""}`} />
                       {label}
                     </button>
                   );
@@ -301,7 +301,7 @@ export default function ConciergeDashboard() {
           <motion.span
             whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(194,18,25,0.3)" }}
             transition={{ duration: 0.2 }}
-            className="text-xs text-[#c21219] bg-[#c21219]/10 border border-[#c21219]/20 px-2.5 py-1 rounded-full font-semibold cursor-default"
+            className="text-xs text-[#2563EB] bg-[#2563EB]/10 border border-[#2563EB]/20 px-2.5 py-1 rounded-full font-semibold cursor-default"
           >
             ★ Concierge
           </motion.span>

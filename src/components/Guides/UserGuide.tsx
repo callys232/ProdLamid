@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -123,7 +123,7 @@ export function UserGuide({
                 {/* Spotlight */}
                 {targetRect && (
                     <div
-                        className="fixed z-50 border-2 border-red-500 rounded-xl pointer-events-none transition-all duration-200"
+                        className="fixed z-50 border-2 border-blue-500 rounded-xl pointer-events-none transition-all duration-200"
                         style={{
                             top: targetRect.top,
                             left: targetRect.left,
@@ -136,7 +136,7 @@ export function UserGuide({
                 {/* Arrow */}
                 {targetRect && (
                     <div
-                        className="fixed z-50 w-4 h-4 bg-red-600 rotate-45"
+                        className="fixed z-50 w-4 h-4 bg-blue-600 rotate-45"
                         style={{
                             top: targetRect.bottom + 8,
                             left: targetRect.left + 24,
@@ -171,7 +171,7 @@ export function UserGuide({
 
                         <button
                             onClick={() => closeGuide()}
-                            className="text-gray-400 hover:text-red-500 text-sm"
+                            className="text-gray-400 hover:text-blue-500 text-sm"
                         >
                             Skip
                         </button>
@@ -192,14 +192,14 @@ export function UserGuide({
                         <button
                             onClick={previous}
                             disabled={currentStep === 0}
-                            className="px-4 py-2 text-sm border border-gray-600 rounded-lg disabled:opacity-30 hover:border-red-500 transition"
+                            className="px-4 py-2 text-sm border border-gray-600 rounded-lg disabled:opacity-30 hover:border-blue-500 transition"
                         >
                             Previous
                         </button>
 
                         <button
                             onClick={next}
-                            className="px-4 py-2 text-sm bg-red-600 hover:bg-red-700 rounded-lg transition"
+                            className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 rounded-lg transition"
                         >
                             {currentStep === steps.length - 1
                                 ? "Finish"

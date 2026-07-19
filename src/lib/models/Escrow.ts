@@ -19,6 +19,7 @@ const EscrowSchema = new mongoose.Schema({
     fundedAt:         { type: Date },
     releasedAt:       { type: Date },
     consultantId:     { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+    clientId:         { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
     projectId:        { type: mongoose.Schema.Types.ObjectId, ref: "Project" },
 }, { timestamps: true });
 

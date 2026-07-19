@@ -50,11 +50,11 @@ function SectionBg() {
       >
         {/* ── Hexagon cluster — top right ── */}
         <polygon points="1020,14 1100,14 1140,83 1100,152 1020,152 980,83"
-          stroke="rgba(193,33,41,0.12)" strokeWidth="1" />
+          stroke="rgba(37,99,235,0.12)" strokeWidth="1" />
         <polygon points="1035,40 1085,40 1110,83 1085,126 1035,126 1010,83"
-          stroke="rgba(193,33,41,0.07)" strokeWidth="0.8" />
-        <circle cx="1060" cy="83" r="3" fill="rgba(193,33,41,0.20)" />
-        <circle cx="1060" cy="83" r="7" stroke="rgba(193,33,41,0.10)" strokeWidth="0.8" />
+          stroke="rgba(37,99,235,0.07)" strokeWidth="0.8" />
+        <circle cx="1060" cy="83" r="3" fill="rgba(37,99,235,0.20)" />
+        <circle cx="1060" cy="83" r="7" stroke="rgba(37,99,235,0.10)" strokeWidth="0.8" />
 
         {/* ── Hexagon — bottom left ── */}
         <polygon points="60,390 120,390 150,442 120,494 60,494 30,442"
@@ -63,22 +63,22 @@ function SectionBg() {
 
         {/* ── Diamond accent — upper left ── */}
         <polygon points="110,60 158,105 110,150 62,105"
-          stroke="rgba(193,33,41,0.10)" strokeWidth="0.9" />
+          stroke="rgba(37,99,235,0.10)" strokeWidth="0.9" />
         <polygon points="110,82 136,105 110,128 84,105"
-          stroke="rgba(193,33,41,0.06)" strokeWidth="0.7" />
+          stroke="rgba(37,99,235,0.06)" strokeWidth="0.7" />
 
         {/* ── Large sweeping arc — right edge ── */}
         <path d="M 1250 50 A 260 260 0 0 1 1250 510"
-          stroke="rgba(193,33,41,0.09)" strokeWidth="0.9" strokeDasharray="8 16" />
+          stroke="rgba(37,99,235,0.09)" strokeWidth="0.9" strokeDasharray="8 16" />
         <path d="M 1230 100 A 200 200 0 0 1 1230 460"
-          stroke="rgba(193,33,41,0.05)" strokeWidth="0.7" strokeDasharray="5 18" />
+          stroke="rgba(37,99,235,0.05)" strokeWidth="0.7" strokeDasharray="5 18" />
 
         {/* ── Circuit path — bottom left ── */}
         <path d="M 0 500 L 60 500 L 60 440 L 160 440 L 160 480 L 280 480 L 280 510 L 380 510"
-          stroke="rgba(193,33,41,0.13)" strokeWidth="1" />
-        <circle cx="60"  cy="500" r="2" fill="rgba(193,33,41,0.22)" />
-        <circle cx="160" cy="440" r="2" fill="rgba(193,33,41,0.18)" />
-        <circle cx="280" cy="480" r="2" fill="rgba(193,33,41,0.18)" />
+          stroke="rgba(37,99,235,0.13)" strokeWidth="1" />
+        <circle cx="60"  cy="500" r="2" fill="rgba(37,99,235,0.22)" />
+        <circle cx="160" cy="440" r="2" fill="rgba(37,99,235,0.18)" />
+        <circle cx="280" cy="480" r="2" fill="rgba(37,99,235,0.18)" />
 
         {/* ── Circuit path — top centre ── */}
         <path d="M 420 0 L 420 40 L 520 40 L 520 18 L 680 18 L 680 40 L 760 40"
@@ -88,9 +88,9 @@ function SectionBg() {
 
         {/* ── Diagonal dashed lines ── */}
         <line x1="0"    y1="200" x2="320" y2="560"
-          stroke="rgba(193,33,41,0.06)" strokeWidth="0.8" strokeDasharray="6 18" />
+          stroke="rgba(37,99,235,0.06)" strokeWidth="0.8" strokeDasharray="6 18" />
         <line x1="900"  y1="0"   x2="640" y2="560"
-          stroke="rgba(193,33,41,0.05)" strokeWidth="0.7" strokeDasharray="5 20" />
+          stroke="rgba(37,99,235,0.05)" strokeWidth="0.7" strokeDasharray="5 20" />
 
         {/* ── Corner brackets ── */}
         <path d="M 24 28 L 24 6 L 46 6"
@@ -98,16 +98,16 @@ function SectionBg() {
         <path d="M 1256 532 L 1256 554 L 1234 554"
           stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
         <path d="M 1256 6 L 1256 28 L 1234 28"
-          stroke="rgba(193,33,41,0.12)" strokeWidth="1" />
+          stroke="rgba(37,99,235,0.12)" strokeWidth="1" />
         <path d="M 24 532 L 24 554 L 46 554"
-          stroke="rgba(193,33,41,0.10)" strokeWidth="1" />
+          stroke="rgba(37,99,235,0.10)" strokeWidth="1" />
 
         {/* ── Scattered node dots ── */}
-        <circle cx="340" cy="90"  r="1.5" fill="rgba(193,33,41,0.18)" />
+        <circle cx="340" cy="90"  r="1.5" fill="rgba(37,99,235,0.18)" />
         <circle cx="560" cy="300" r="1.5" fill="rgba(255,255,255,0.09)" />
-        <circle cx="780" cy="180" r="1.5" fill="rgba(193,33,41,0.14)" />
+        <circle cx="780" cy="180" r="1.5" fill="rgba(37,99,235,0.14)" />
         <circle cx="920" cy="400" r="1.5" fill="rgba(255,255,255,0.08)" />
-        <circle cx="200" cy="260" r="1.5" fill="rgba(193,33,41,0.12)" />
+        <circle cx="200" cy="260" r="1.5" fill="rgba(37,99,235,0.12)" />
       </svg>
     </div>
   );
@@ -140,7 +140,7 @@ const PROBLEM = {
     },
   ],
   full: "LAMID ONE eliminates friction — unifying expert consulting, business intelligence, and talent development into one HumanAI ecosystem built for scale.",
-  hex: "#c21219",
+  hex: "#2563EB",
   glow: "rgba(194,18,25,0.25)",
 };
 
@@ -155,11 +155,11 @@ const SERVICE_CARDS = [
       "Vetted experts across every sector",
       "72-hr kickoff, measurable outcomes",
     ],
-    borderCls: "border-l-2 border-[#C12129]/35 hover:border-[#C12129]/70",
-    serviceCls: "text-[#C12129]/70",
+    borderCls: "border-l-2 border-[#2563EB]/35 hover:border-[#2563EB]/70",
+    serviceCls: "text-[#2563EB]/70",
     areaCls:    "text-rose-300",
-    dotCls:     "bg-[#C12129]",
-    hoverBg:    "hover:bg-[#C12129]/[0.05]",
+    dotCls:     "bg-[#2563EB]",
+    hoverBg:    "hover:bg-[#2563EB]/[0.05]",
   },
   {
     service: "LAMID GROW",
@@ -322,7 +322,7 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
           className="relative w-full max-w-2xl bg-[#080808] border border-white/8 rounded-2xl overflow-hidden shadow-[0_0_100px_rgba(194,18,25,0.16)]"
         >
           {/* Top glow line */}
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#c21219]/50 to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#2563EB]/50 to-transparent" />
           {/* Dot bg */}
           <div className="absolute inset-0 pointer-events-none [background-image:radial-gradient(circle,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:26px_26px]" />
 
@@ -330,15 +330,15 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
           <div className="relative px-6 pt-6 pb-4 border-b border-white/6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <span className="inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-[0.18em] px-2.5 py-1 rounded-full border border-[#c21219]/30 bg-[#c21219]/8 text-[#c21219] mb-3">
+                <span className="inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-[0.18em] px-2.5 py-1 rounded-full border border-[#2563EB]/30 bg-[#2563EB]/8 text-[#2563EB] mb-3">
                   <motion.span
                     animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
                     transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-                    className="h-1 w-1 rounded-full bg-[#c21219]"
+                    className="h-1 w-1 rounded-full bg-[#2563EB]"
                   />
                   Why Businesses Stall
                 </span>
-                <h2 className="text-lg sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-[#c21219] leading-tight">
+                <h2 className="text-lg sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-[#2563EB] leading-tight">
                   The silent drain of fragmented work
                 </h2>
                 <p className="text-xs text-gray-500 mt-1.5 leading-relaxed max-w-md">
@@ -350,7 +350,7 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 18 }}
                 onClick={onClose}
-                className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#c21219]/40 transition-colors"
+                className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#2563EB]/40 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </motion.button>
@@ -365,11 +365,11 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.07, type: "spring", stiffness: 300, damping: 24 }}
-                className="group flex flex-col gap-2 rounded-xl border border-[#c21219]/12 bg-[#c21219]/[0.04] hover:border-[#c21219]/28 hover:bg-[#c21219]/[0.07] p-4 transition-all duration-200"
+                className="group flex flex-col gap-2 rounded-xl border border-[#2563EB]/12 bg-[#2563EB]/[0.04] hover:border-[#2563EB]/28 hover:bg-[#2563EB]/[0.07] p-4 transition-all duration-200"
               >
                 <div className="flex items-center gap-2">
                   <span className="text-base leading-none">{p.icon}</span>
-                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-[#c21219]/80">{p.label}</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-[#2563EB]/80">{p.label}</span>
                 </div>
                 <p className="text-[12.5px] font-semibold text-white leading-snug">{p.text}</p>
                 <p className="text-[11px] text-gray-500 leading-relaxed">{p.detail}</p>
@@ -383,7 +383,7 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
               whileHover={{ scale: 1.02, boxShadow: "0 0 28px rgba(194,18,25,0.55)" }}
               whileTap={{ scale: 0.97 }}
               onClick={() => { onClose(); onReveal(); }}
-              className="group relative w-full inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#c21219] via-red-700 to-rose-800 px-5 py-3 text-sm font-bold text-white overflow-hidden shadow-[0_0_18px_rgba(194,18,25,0.35)]"
+              className="group relative w-full inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-blue-700 to-rose-800 px-5 py-3 text-sm font-bold text-white overflow-hidden shadow-[0_0_18px_rgba(194,18,25,0.35)]"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none" />
               <span className="relative z-10">See How LAMID ONE Solves This</span>
@@ -422,7 +422,7 @@ export default function AISystemSection() {
     <>
       <section className="relative w-full bg-black text-white px-4 md:px-10 py-6 overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="relative rounded-2xl border border-[#c21219]/30 bg-[#0d0d0d] overflow-hidden">
+          <div className="relative rounded-2xl border border-[#2563EB]/30 bg-[#0d0d0d] overflow-hidden">
             {/* Creative theme background */}
             <SectionBg />
 
@@ -435,7 +435,7 @@ export default function AISystemSection() {
               <motion.span
                 animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
                 transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                className="h-1.5 w-1.5 rounded-full bg-[#c21219] flex-shrink-0"
+                className="h-1.5 w-1.5 rounded-full bg-[#2563EB] flex-shrink-0"
               />
               <p className="text-xs text-gray-400 leading-snug">
                 LAMID ONE — The HumanAI Consulting Ecosystem. Expert matching, AI-powered intelligence, and talent development in one unified platform.
@@ -463,16 +463,16 @@ export default function AISystemSection() {
                           <motion.div
                             whileHover={{ rotate: [0, -8, 8, 0], scale: 1.1 }}
                             transition={{ duration: 0.4 }}
-                            className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#c21219]/15 border border-[#c21219]/30"
+                            className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2563EB]/15 border border-[#2563EB]/30"
                           >
-                            <Zap className="h-4 w-4 text-[#c21219]" />
+                            <Zap className="h-4 w-4 text-[#2563EB]" />
                           </motion.div>
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-[#c21219]">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">
                             Powering Enterprise Transformation Seamlessly
                           </span>
                         </motion.div>
 
-                        <h2 className="text-xl md:text-2xl font-extrabold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#c21219] via-rose-400 to-white">
+                        <h2 className="text-xl md:text-2xl font-extrabold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-rose-400 to-white">
                           {PROBLEM.title}
                         </h2>
 
@@ -486,19 +486,19 @@ export default function AISystemSection() {
                           <motion.span
                             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
                             transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-                            className="h-1 w-1 rounded-full bg-[#c21219] shrink-0"
+                            className="h-1 w-1 rounded-full bg-[#2563EB] shrink-0"
                           />
                           <motion.span
                             variants={{ hover: { x: 3 } }}
                             transition={{ type: "spring", stiffness: 380, damping: 22 }}
-                            className="text-[11px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 group-hover:from-[#c21219] group-hover:via-rose-300 group-hover:to-white"
+                            className="text-[11px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 group-hover:from-[#2563EB] group-hover:via-rose-300 group-hover:to-white"
                           >
                             {PROBLEM.subtitle}
                           </motion.span>
                           <motion.span
                             variants={{ hover: { x: 5, opacity: 1 } }}
                             initial={{ opacity: 0.45 }}
-                            className="text-[11px] text-[#c21219] font-bold"
+                            className="text-[11px] text-[#2563EB] font-bold"
                           >
                             →
                           </motion.span>
@@ -511,7 +511,7 @@ export default function AISystemSection() {
                             whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(194,18,25,0.5)" }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setRevealed(true)}
-                            className="group inline-flex items-center gap-2.5 rounded-xl bg-[#c21219] hover:bg-red-700 px-5 py-2.5 text-xs font-bold text-white transition-colors w-fit shadow-[0_0_16px_rgba(193,33,41,0.3)]"
+                            className="group inline-flex items-center gap-2.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 px-5 py-2.5 text-xs font-bold text-white transition-colors w-fit shadow-[0_0_16px_rgba(37,99,235,0.3)]"
                           >
                             Explore Our Solutions
                             <motion.span
@@ -599,10 +599,10 @@ export default function AISystemSection() {
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ type: "spring", stiffness: 380, damping: 16 }}
-                            className="h-1.5 w-1.5 rounded-full bg-[#c21219] animate-pulse"
+                            className="h-1.5 w-1.5 rounded-full bg-[#2563EB] animate-pulse"
                           />
                           <div>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-red-500 mb-0.5">Our Solution</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-blue-500 mb-0.5">Our Solution</p>
                             <h3 className="text-xl font-bold text-white leading-tight">One Integrated Ecosystem — Built for Every Outcome</h3>
                           </div>
                         </div>
@@ -689,7 +689,7 @@ export default function AISystemSection() {
                           whileHover={{ scale: 1.04, boxShadow: "0 0 28px rgba(194,18,25,0.65)" }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => setHowItWorksOpen(true)}
-                          className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white overflow-hidden bg-gradient-to-r from-[#c21219] via-rose-600 to-rose-500 shadow-[0_0_16px_rgba(194,18,25,0.4)]"
+                          className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white overflow-hidden bg-gradient-to-r from-[#2563EB] via-rose-600 to-rose-500 shadow-[0_0_16px_rgba(194,18,25,0.4)]"
                         >
                           <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
                           <span className="relative z-10">How it Works!</span>

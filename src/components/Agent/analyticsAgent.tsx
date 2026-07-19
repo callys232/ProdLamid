@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -124,9 +124,9 @@ export default function AnalyticsAgent() {
       )}
 
       {error && (
-        <div className="flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2.5">
-          <AlertTriangle className="h-4 w-4 text-red-400 flex-shrink-0 mt-0.5" />
-          <p className="text-xs text-red-300">{error}</p>
+        <div className="flex items-start gap-2 rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-2.5">
+          <AlertTriangle className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5" />
+          <p className="text-xs text-blue-300">{error}</p>
         </div>
       )}
 
@@ -143,11 +143,11 @@ export default function AnalyticsAgent() {
           {data.bottleneck && (
             <motion.div
               initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-[#1a1a1a] p-4 rounded-lg border border-red-500/40 space-y-1.5"
+              className="bg-[#1a1a1a] p-4 rounded-lg border border-blue-500/40 space-y-1.5"
             >
               <div className="flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 text-red-400 flex-shrink-0" />
-                <h4 className="text-xs font-semibold text-red-300">Bottleneck Detected</h4>
+                <AlertTriangle className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                <h4 className="text-xs font-semibold text-blue-300">Bottleneck Detected</h4>
               </div>
               <p className="text-xs text-gray-400">{data.bottleneck}</p>
               {data.recommendation && (

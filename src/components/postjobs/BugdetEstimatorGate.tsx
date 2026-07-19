@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { Sparkles, TrendingUp, DollarSign, Clock, MapPin, ChevronRight, Lock } from "lucide-react";
@@ -178,18 +178,18 @@ export default function BudgetEstimatorGate({ project, isPremiumUser = true, onR
     <div className="space-y-4">
 
       {/* ── AI / Market Estimate ───────────────────────────────── */}
-      <div className={`rounded-xl border p-5 ${source === "ai" ? "border-red-600/30 bg-red-600/5" : "border-blue-600/20 bg-blue-600/5"}`}>
+      <div className={`rounded-xl border p-5 ${source === "ai" ? "border-blue-600/30 bg-blue-600/5" : "border-blue-600/20 bg-blue-600/5"}`}>
         <div className="mb-4 flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-red-500" />
+          <Sparkles className="h-4 w-4 text-blue-500" />
           <h3 className="text-sm font-semibold text-white">
             {source === "ai" ? "AI Budget Estimate" : "Market Estimate"}
           </h3>
           {loading && (
-            <div className="ml-auto h-3.5 w-3.5 animate-spin rounded-full border-2 border-red-500 border-t-transparent" />
+            <div className="ml-auto h-3.5 w-3.5 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
           )}
           {source && !loading && (
             <span className={`ml-auto rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider ${
-              source === "ai" ? "bg-red-600/20 text-red-400" : "bg-blue-600/20 text-blue-400"
+              source === "ai" ? "bg-blue-600/20 text-blue-400" : "bg-blue-600/20 text-blue-400"
             }`}>
               {source === "ai" ? "AI powered" : "from platform data"}
             </span>
@@ -314,7 +314,7 @@ export default function BudgetEstimatorGate({ project, isPremiumUser = true, onR
           </div>
           <a
             href="/subscription"
-            className="mt-3 flex items-center justify-center gap-1.5 rounded-lg bg-[#c21219] px-4 py-2 text-xs font-semibold text-white transition hover:bg-red-700 active:scale-95"
+            className="mt-3 flex items-center justify-center gap-1.5 rounded-lg bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700 active:scale-95"
           >
             Upgrade to Premium <ChevronRight className="h-3.5 w-3.5" />
           </a>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -73,7 +73,7 @@ export default function ProjectMatchEntry({
                                 transition-all duration-300 flex items-center gap-2
                                 ${loading
                             ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                            : "bg-[#c12129] text-white hover:bg-red-700 hover:shadow-md active:scale-[0.97]"
+                            : "bg-[#2563EB] text-white hover:bg-blue-700 hover:shadow-md active:scale-[0.97]"
                         }`}
                 >
                     {loading && (
@@ -88,8 +88,8 @@ export default function ProjectMatchEntry({
                 <button
                     onClick={handleUpgrade}
                     className="px-5 py-2.5 rounded-lg text-sm font-semibold
-                               border border-[#c12129] text-[#c12129]
-                               hover:bg-[#c12129]/5 hover:shadow-sm
+                               border border-[#2563EB] text-[#2563EB]
+                               hover:bg-[#2563EB]/5 hover:shadow-sm
                                active:scale-[0.97] transition-all"
                 >
                     Unlock AI and Upgrade
@@ -114,7 +114,7 @@ export default function ProjectMatchEntry({
     const renderError = () => {
         if (error) {
             return (
-                <div className="mt-3 text-xs text-red-500 bg-red-50 border border-red-200
+                <div className="mt-3 text-xs text-blue-500 bg-blue-50 border border-blue-200
                                 px-3 py-2 rounded-md">
                     {error}
                 </div>
@@ -129,7 +129,7 @@ export default function ProjectMatchEntry({
                         shadow-sm hover:shadow-lg transition-all duration-300
                         hover:-translate-y-[2px] group">
             {/* Subtle hover glow */}
-            <div className="absolute inset-0 rounded-2xl bg-[#c12129]/5
+            <div className="absolute inset-0 rounded-2xl bg-[#2563EB]/5
                             opacity-0 group-hover:opacity-100 transition-all duration-300" />
 
             <div className="relative flex flex-col sm:flex-row sm:items-center
@@ -139,7 +139,7 @@ export default function ProjectMatchEntry({
                 <div className="space-y-1">
                     <h3 className="font-semibold text-black flex items-center gap-2">
                         AI and Personal Advisor Matching
-                        <span className="text-[10px] tracking-wide bg-[#c12129] text-white
+                        <span className="text-[10px] tracking-wide bg-[#2563EB] text-white
                                          px-2 py-[2px] rounded-md shadow-sm">
                             PRO
                         </span>

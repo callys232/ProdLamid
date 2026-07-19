@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -52,7 +52,7 @@ export default function AgentShell() {
               style={{
                 backgroundColor: active ? "rgba(194,18,25,0.12)" : "transparent",
                 color:           active ? "#fff" : "#6b7280",
-                borderLeft:      active ? "2px solid #c21219" : "2px solid transparent",
+                borderLeft:      active ? "2px solid #2563EB" : "2px solid transparent",
               }}
             >
               <span>{item.emoji}</span>

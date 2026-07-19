@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
@@ -110,7 +110,7 @@ export default function StepBasicInfo({ data, onChange }: Props) {
         if (!isSubmitted && !watch(field)) return null;
 
         return (
-            <p className="text-xs text-red-500 mt-1 animate-fadeIn">
+            <p className="text-xs text-blue-500 mt-1 animate-fadeIn">
                 {error.message as string}
             </p>
         );
@@ -130,8 +130,8 @@ export default function StepBasicInfo({ data, onChange }: Props) {
           h-36 border-2 border-dashed rounded-xl cursor-pointer
           transition-all duration-300 ease-out
           ${dragging
-                        ? "border-[#c12129] bg-[#c12129]/10 scale-[1.02] shadow-lg"
-                        : "border-gray-700 hover:border-[#c12129] hover:scale-[1.01] hover:shadow-md"
+                        ? "border-[#2563EB] bg-[#2563EB]/10 scale-[1.02] shadow-lg"
+                        : "border-gray-700 hover:border-[#2563EB] hover:scale-[1.01] hover:shadow-md"
                     }
         `}
             >
@@ -148,7 +148,7 @@ export default function StepBasicInfo({ data, onChange }: Props) {
                         alt="Preview"
                         className="
               w-24 h-24 object-cover rounded-full
-              border-2 border-[#c12129]
+              border-2 border-[#2563EB]
               shadow-md
               transition-transform duration-300
               hover:scale-105
@@ -175,7 +175,7 @@ export default function StepBasicInfo({ data, onChange }: Props) {
                         })}
                         className="
               w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-              focus:ring-2 focus:ring-[#c12129] outline-none transition
+              focus:ring-2 focus:ring-[#2563EB] outline-none transition
               group-hover:shadow-md hover:scale-[1.01]
             "
                         placeholder="John"
@@ -195,7 +195,7 @@ export default function StepBasicInfo({ data, onChange }: Props) {
                         })}
                         className="
               w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-              focus:ring-2 focus:ring-[#c12129] outline-none transition
+              focus:ring-2 focus:ring-[#2563EB] outline-none transition
               group-hover:shadow-md hover:scale-[1.01]
             "
                         placeholder="Doe"
@@ -217,7 +217,7 @@ export default function StepBasicInfo({ data, onChange }: Props) {
                     })}
                     className="
             w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-            focus:ring-2 focus:ring-[#c12129] outline-none transition
+            focus:ring-2 focus:ring-[#2563EB] outline-none transition
             group-hover:shadow-md hover:scale-[1.01]
           "
                     placeholder="Lagos, Nigeria"
@@ -238,7 +238,7 @@ export default function StepBasicInfo({ data, onChange }: Props) {
                     })}
                     className="
             w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-            focus:ring-2 focus:ring-[#c12129] outline-none transition
+            focus:ring-2 focus:ring-[#2563EB] outline-none transition
             group-hover:shadow-md hover:scale-[1.01]
           "
                     placeholder="Software Engineer"
@@ -264,7 +264,7 @@ export default function StepBasicInfo({ data, onChange }: Props) {
                     rows={4}
                     className="
             w-full bg-gray-900 border border-gray-700 px-3 py-2 rounded-md
-            focus:ring-2 focus:ring-[#c12129] outline-none resize-none transition
+            focus:ring-2 focus:ring-[#2563EB] outline-none resize-none transition
             group-hover:shadow-md hover:scale-[1.01]
           "
                     placeholder="Describe your expertise, experience, and what you bring..."

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -15,7 +15,7 @@ const SDTestimonialandRest = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
           {/* Left Column - Text Testimonials */}
           <div>
-            <h2 className="text-xl font-bold text-red-500 mb-6">Testimonials</h2>
+            <h2 className="text-xl font-bold text-blue-500 mb-6">Testimonials</h2>
             <div className="space-y-4">
               <p className="text-sm text-gray-300">
                 <span className="text-white">"</span>The programs helped in the effective management and motivation of staff to 
@@ -40,7 +40,7 @@ const SDTestimonialandRest = () => {
           </div>
           
           {/* Right Column - Empty Box with Red Border */}
-          <div className="border border-red-700 rounded-3xl h-48 md:h-64 p-4">
+          <div className="border border-blue-700 rounded-3xl h-48 md:h-64 p-4">
             {/* This is the empty box with just the red border */}
           </div>
         </div>

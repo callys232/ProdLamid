@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ const BizPhere: React.FC = () => {
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-orange-900/10 blur-[100px]" />
-        <div className="absolute right-0 top-0 w-80 h-80 rounded-full bg-[#c21219]/8 blur-[80px]" />
+        <div className="absolute right-0 top-0 w-80 h-80 rounded-full bg-[#2563EB]/8 blur-[80px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">

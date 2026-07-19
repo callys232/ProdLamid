@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import { Project, Consultant, MatchResult } from "@/types/aiMatch";
@@ -103,7 +103,7 @@ export default function AIConsultantMatcher({
             {loading ? (
                 <p className="text-gray-500">Analyzing consultants...</p>
             ) : error ? (
-                <p className="text-red-600">{error}</p>
+                <p className="text-blue-600">{error}</p>
             ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {results.map((r) => (

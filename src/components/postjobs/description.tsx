@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { Project } from "@/types/project";
 
@@ -66,8 +66,8 @@ export default function DescriptionStep({
           <button
             type="button"
             onClick={addSkill}
-            className="px-4 py-2 bg-[#c21219] text-white text-sm font-semibold rounded-lg
-                       transition-all duration-150 hover:bg-red-700 hover:shadow-md active:scale-95 whitespace-nowrap"
+            className="px-4 py-2 bg-[#2563EB] text-white text-sm font-semibold rounded-lg
+                       transition-all duration-150 hover:bg-blue-700 hover:shadow-md active:scale-95 whitespace-nowrap"
           >
             + Add
           </button>
@@ -79,14 +79,14 @@ export default function DescriptionStep({
                 key={idx}
                 className="pj-tag-enter inline-flex items-center gap-1.5 px-3 py-1.5
                            bg-white border border-gray-200 text-gray-700 rounded-full text-xs font-medium
-                           transition-all duration-150 hover:border-red-300 hover:text-[#c21219] hover:scale-105"
+                           transition-all duration-150 hover:border-blue-300 hover:text-[#2563EB] hover:scale-105"
               >
                 {skill}
                 <button
                   type="button"
                   onClick={() => removeSkill(idx)}
                   className="w-3.5 h-3.5 flex items-center justify-center rounded-full
-                             text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors duration-150 text-base leading-none"
+                             text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-colors duration-150 text-base leading-none"
                 >
                   ×
                 </button>
@@ -111,8 +111,8 @@ export default function DescriptionStep({
           <button
             type="button"
             onClick={addMilestone}
-            className="px-4 py-2 bg-[#c21219] text-white text-sm font-semibold rounded-lg
-                       transition-all duration-150 hover:bg-red-700 hover:shadow-md active:scale-95 whitespace-nowrap"
+            className="px-4 py-2 bg-[#2563EB] text-white text-sm font-semibold rounded-lg
+                       transition-all duration-150 hover:bg-blue-700 hover:shadow-md active:scale-95 whitespace-nowrap"
           >
             + Add
           </button>
@@ -124,12 +124,12 @@ export default function DescriptionStep({
                 key={idx}
                 className="pj-tag-enter flex items-center justify-between px-4 py-2.5
                            bg-white border border-gray-200 rounded-lg text-sm text-gray-700
-                           transition-all duration-150 hover:border-red-200 hover:shadow-sm group/ms"
+                           transition-all duration-150 hover:border-blue-200 hover:shadow-sm group/ms"
               >
                 <span className="flex items-center gap-2.5">
                   <span className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center
                                    text-xs font-bold text-gray-500
-                                   group-hover/ms:bg-red-50 group-hover/ms:text-[#c21219] transition-colors duration-150">
+                                   group-hover/ms:bg-blue-50 group-hover/ms:text-[#2563EB] transition-colors duration-150">
                     {idx + 1}
                   </span>
                   {m.title}
@@ -137,7 +137,7 @@ export default function DescriptionStep({
                 <button
                   type="button"
                   onClick={() => removeMilestone(idx)}
-                  className="text-gray-300 hover:text-red-500 transition-colors duration-150 text-xl leading-none"
+                  className="text-gray-300 hover:text-blue-500 transition-colors duration-150 text-xl leading-none"
                 >
                   ×
                 </button>

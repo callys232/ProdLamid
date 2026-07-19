@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { motion } from "framer-motion";
 
 const TablePage = ({ formData, handleChange, handleProceed }) => {
@@ -26,7 +26,7 @@ const TablePage = ({ formData, handleChange, handleProceed }) => {
     >
       {/* Form Frame */}
       <div className="bg-black p-6 rounded-lg shadow-lg w-full max-w-md backdrop-blur-lg border border-white/20">
-        <h2 className="text-2xl font-bold text-red-600 mb-4 text-center">Table Data Entry</h2>
+        <h2 className="text-2xl font-bold text-blue-600 mb-4 text-center">Table Data Entry</h2>
         <p className="text-gray-400 mb-6 text-center">Fill in the table below. Click "Add Row" to expand.</p>
 
         {/* Table Styling */}
@@ -49,7 +49,7 @@ const TablePage = ({ formData, handleChange, handleProceed }) => {
                       type="text"
                       value={cell}
                       onChange={(e) => handleTableChange(e, rowIndex, colIndex)}
-                      className="w-full p-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-red-400 hover:shadow-md transition-all duration-300 ease-in-out"
+                      className="w-full p-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-400 hover:shadow-md transition-all duration-300 ease-in-out"
                     />
                   </td>
                 ))}
@@ -61,7 +61,7 @@ const TablePage = ({ formData, handleChange, handleProceed }) => {
         {/* Add Row Button */}
         <button
           onClick={addRow}
-          className="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg text-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-red-700 hover:scale-105 hover:ring-2 hover:ring-red-400"
+          className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg text-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-blue-700 hover:scale-105 hover:ring-2 hover:ring-blue-400"
         >
           Add Row +
         </button>

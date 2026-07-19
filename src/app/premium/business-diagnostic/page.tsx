@@ -45,7 +45,7 @@ function scoreColor(score: number) {
   if (score >= 80) return { text: "text-emerald-400", stroke: "#10b981", badge: "bg-emerald-500/15 border-emerald-500/30 text-emerald-400" };
   if (score >= 65) return { text: "text-amber-400",   stroke: "#f59e0b", badge: "bg-amber-500/15 border-amber-500/30 text-amber-400" };
   if (score >= 50) return { text: "text-orange-400",  stroke: "#f97316", badge: "bg-orange-500/15 border-orange-500/30 text-orange-400" };
-  return           { text: "text-red-400",            stroke: "#ef4444", badge: "bg-red-500/15 border-red-500/30 text-red-400" };
+  return           { text: "text-blue-400",            stroke: "#2563EB", badge: "bg-blue-500/15 border-blue-500/30 text-blue-400" };
 }
 
 function statusCls(status: string) {
@@ -53,7 +53,7 @@ function statusCls(status: string) {
     case "strong":   return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
     case "moderate": return "bg-amber-500/15 text-amber-400 border-amber-500/30";
     case "weak":     return "bg-orange-500/15 text-orange-400 border-orange-500/30";
-    default:         return "bg-red-500/15 text-red-400 border-red-500/30";
+    default:         return "bg-blue-500/15 text-blue-400 border-blue-500/30";
   }
 }
 
@@ -61,13 +61,13 @@ function levelCls(level: string) {
   switch (level) {
     case "low":    return "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
     case "medium": return "text-amber-400 bg-amber-500/10 border-amber-500/20";
-    default:       return "text-red-400 bg-red-500/10 border-red-500/20";
+    default:       return "text-blue-400 bg-blue-500/10 border-blue-500/20";
   }
 }
 
 function urgencyCls(u: string) {
   switch (u) {
-    case "high":   return "bg-red-500/15 text-red-400 border-red-500/30";
+    case "high":   return "bg-blue-500/15 text-blue-400 border-blue-500/30";
     case "medium": return "bg-amber-500/15 text-amber-400 border-amber-500/30";
     default:       return "bg-gray-500/15 text-gray-400 border-gray-500/30";
   }
@@ -106,7 +106,7 @@ function ScoreRing({ score }: { score: number }) {
 }
 
 /* ── Collapsible Section ────────────────────────────────────────── */
-function Section({ icon: Icon, title, color = "text-[#c21219]", badge, children }: {
+function Section({ icon: Icon, title, color = "text-[#2563EB]", badge, children }: {
   icon: React.ElementType; title: string; color?: string; badge?: string; children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(true);
@@ -240,7 +240,7 @@ export default function BusinessDiagnostic() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const inputCls  = "w-full rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 focus:ring-1 focus:ring-[#c21219]/20 placeholder-gray-400 dark:placeholder-gray-600 transition";
+  const inputCls  = "w-full rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#2563EB]/60 focus:ring-1 focus:ring-[#2563EB]/20 placeholder-gray-400 dark:placeholder-gray-600 transition";
   const selectCls = inputCls + " appearance-none cursor-pointer bg-white dark:bg-[#111111]";
   const textaCls  = inputCls + " resize-none";
 
@@ -270,7 +270,7 @@ export default function BusinessDiagnostic() {
           <div className="flex items-center gap-3">
             <div className="flex-1 h-1 rounded-full bg-gray-200 dark:bg-white/10 overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-[#c21219] to-red-500 rounded-full"
+                className="h-full bg-gradient-to-r from-[#2563EB] to-blue-500 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.4 }}
@@ -285,7 +285,7 @@ export default function BusinessDiagnostic() {
 
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">
-                Business Name <span className="text-[#c21219]">*</span>
+                Business Name <span className="text-[#2563EB]">*</span>
               </label>
               <input value={form.businessName} onChange={set("businessName")}
                 placeholder="e.g. Apex Logistics Ltd" className={inputCls} />
@@ -369,7 +369,7 @@ export default function BusinessDiagnostic() {
 
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">
-                Key Challenges <span className="text-[#c21219]">*</span>
+                Key Challenges <span className="text-[#2563EB]">*</span>
               </label>
               <textarea rows={3} value={form.challenges} onChange={set("challenges")}
                 placeholder="What are the 2–3 biggest challenges holding your business back right now?"
@@ -378,7 +378,7 @@ export default function BusinessDiagnostic() {
 
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">
-                Strategic Goals <span className="text-[#c21219]">*</span>
+                Strategic Goals <span className="text-[#2563EB]">*</span>
               </label>
               <textarea rows={3} value={form.goals} onChange={set("goals")}
                 placeholder="What does success look like in the next 12 months?"
@@ -406,8 +406,8 @@ export default function BusinessDiagnostic() {
           </div>
 
           {error && (
-            <p className="text-xs text-red-400 flex items-center gap-1.5 px-1">
-              <span className="inline-block w-1 h-1 rounded-full bg-red-400 shrink-0" />{error}
+            <p className="text-xs text-blue-400 flex items-center gap-1.5 px-1">
+              <span className="inline-block w-1 h-1 rounded-full bg-blue-400 shrink-0" />{error}
             </p>
           )}
 
@@ -415,8 +415,8 @@ export default function BusinessDiagnostic() {
             type="button"
             onClick={run}
             disabled={loading}
-            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#c21219] to-red-700
-                       hover:from-red-700 hover:to-red-800 text-white font-extrabold text-sm
+            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#2563EB] to-blue-700
+                       hover:from-blue-700 hover:to-blue-800 text-white font-extrabold text-sm
                        shadow-[0_8px_32px_rgba(194,18,25,0.35)]
                        disabled:opacity-50 disabled:cursor-not-allowed
                        transition flex items-center justify-center gap-2"
@@ -447,9 +447,9 @@ export default function BusinessDiagnostic() {
           {loading && (
             <div className="flex-1 rounded-2xl border border-white/10 bg-white/[0.02] flex flex-col items-center justify-center p-16 gap-4">
               <div className="relative w-14 h-14">
-                <div className="absolute inset-0 rounded-full border-2 border-[#c21219]/20" />
-                <div className="absolute inset-0 rounded-full border-t-2 border-[#c21219] animate-spin" />
-                <Activity className="absolute inset-0 m-auto w-5 h-5 text-[#c21219]" />
+                <div className="absolute inset-0 rounded-full border-2 border-[#2563EB]/20" />
+                <div className="absolute inset-0 rounded-full border-t-2 border-[#2563EB] animate-spin" />
+                <Activity className="absolute inset-0 m-auto w-5 h-5 text-[#2563EB]" />
               </div>
               <div className="text-center">
                 <p className="text-sm font-semibold text-gray-300">Analysing your business…</p>
@@ -481,7 +481,7 @@ export default function BusinessDiagnostic() {
                     </button>
                   ) : (
                     <Link href="/signup"
-                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-[#C12129]/40 text-[#C12129] hover:bg-[#C12129]/10 transition">
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-[#2563EB]/40 text-[#2563EB] hover:bg-[#2563EB]/10 transition">
                       <Copy className="h-3.5 w-3.5" />Sign up to save results
                     </Link>
                   )}
@@ -588,13 +588,13 @@ export default function BusinessDiagnostic() {
                 </Section>
 
                 {/* ── Recommendations ── */}
-                <Section icon={Target} title="Priority Recommendations" color="text-[#c21219]">
+                <Section icon={Target} title="Priority Recommendations" color="text-[#2563EB]">
                   <div className="flex flex-col gap-3">
                     {report.recommendations.map((r, i) => (
                       <div key={i} className="rounded-xl bg-white/[0.03] border border-white/[0.07] px-4 py-3">
                         <div className="flex items-start justify-between gap-2 mb-1.5">
                           <p className="text-xs font-semibold text-white flex items-center gap-1.5">
-                            <span className="text-[#c21219] shrink-0">▸</span>{r.title}
+                            <span className="text-[#2563EB] shrink-0">▸</span>{r.title}
                           </p>
                           <span className="text-[9px] text-gray-500 bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">
                             {r.timeframe}
@@ -637,11 +637,11 @@ export default function BusinessDiagnostic() {
                 </Section>
 
                 {/* ── Recommended Services ── */}
-                <Section icon={Star} title="Recommended LAMID ONE Services" color="text-[#c21219]">
+                <Section icon={Star} title="Recommended LAMID ONE Services" color="text-[#2563EB]">
                   <div className="flex flex-col gap-3">
                     {report.recommendedServices.map((s, i) => (
                       <div key={i} className="rounded-xl bg-white/[0.03] border border-white/[0.07] px-4 py-3 flex items-start gap-3">
-                        <span className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-lg bg-[#c21219]/15 text-[#c21219] border border-[#c21219]/30 shrink-0">
+                        <span className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-lg bg-[#2563EB]/15 text-[#2563EB] border border-[#2563EB]/30 shrink-0">
                           {s.service}
                         </span>
                         <div>
@@ -665,10 +665,10 @@ export default function BusinessDiagnostic() {
                 )}
 
                 {/* ── CTA ── */}
-                <div className="rounded-2xl border border-[#c21219]/30 bg-gradient-to-br from-[#c21219]/[0.07] to-transparent px-6 py-5">
+                <div className="rounded-2xl border border-[#2563EB]/30 bg-gradient-to-br from-[#2563EB]/[0.07] to-transparent px-6 py-5">
                   <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-4 h-4 text-[#c21219]" />
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[#c21219]">Next Steps</p>
+                    <TrendingUp className="w-4 h-4 text-[#2563EB]" />
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#2563EB]">Next Steps</p>
                   </div>
                   <p className="text-sm text-gray-200 leading-relaxed">{report.callToAction}</p>
                 </div>
@@ -677,7 +677,7 @@ export default function BusinessDiagnostic() {
                 {!authLoading && !isAuthenticated && (
                   <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.3 }}
-                    className="rounded-2xl border border-[#C12129]/40 bg-gradient-to-br from-[#C12129]/10 via-black to-black px-6 py-6 text-center"
+                    className="rounded-2xl border border-[#2563EB]/40 bg-gradient-to-br from-[#2563EB]/10 via-black to-black px-6 py-6 text-center"
                   >
                     <p className="text-[10px] font-black uppercase tracking-widest aivora-gradient-text mb-2">Save your results</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to save, share, and act on this report.</h3>
@@ -685,7 +685,7 @@ export default function BusinessDiagnostic() {
                       Sign up to copy your full report, track your progress over time, and connect with the right consultants to close your gaps.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                      <Link href="/signup" className="px-6 py-2.5 rounded-xl text-sm font-bold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors shadow-[0_0_18px_rgba(193,33,41,0.4)]">
+                      <Link href="/signup" className="px-6 py-2.5 rounded-xl text-sm font-bold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-[0_0_18px_rgba(37,99,235,0.4)]">
                         Create Free Account
                       </Link>
                       <Link href="/signin" className="px-6 py-2.5 rounded-xl text-sm font-semibold border border-white/20 text-white/70 hover:border-white/40 hover:text-white transition-colors">

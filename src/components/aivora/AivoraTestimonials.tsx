@@ -5,22 +5,28 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const TESTIMONIALS = [
   {
-    pillar: "grow",
-    quote: "LAMID GROW gives our board real-time visibility we never had. It's like having a strategic command center at our fingertips.",
-    name: "Marcus Williams",
-    role: "CEO, Horizon Capital Group",
+    pillar: "core",
+    quote: "We had dashboards before. We didn't have clarity. LAMID ONE showed us — in one view — exactly where our strategy was drifting and what to do about it.",
+    name: "Chief Strategy Officer",
+    role: "Horizon Capital Group",
   },
   {
-    pillar: "core",
-    quote: "LAMID CORE connected us with the right consultant in 48 hours. The project delivered in half the time we expected.",
-    name: "Chief Operating Officer",
-    role: "Financial Services Firm, UAE",
+    pillar: "grow",
+    quote: "The diagnostic took 20 minutes. The alignment it created across our leadership team would have taken us years to achieve before.",
+    name: "Chief Executive Officer",
+    role: "NovaTech Solutions",
   },
   {
     pillar: "talent",
-    quote: "LAMID TALENT transformed how we approach capability building. Our teams are developing skills 3× faster, and they're actually engaged.",
+    quote: "We used to debate which system to trust. Now we have one source of truth across strategy, people, and finance — and our leadership meetings have fundamentally changed.",
     name: "Chief People Officer",
-    role: "Healthcare Organization, UK",
+    role: "Meridian Group",
+  },
+  {
+    pillar: "finance",
+    quote: "LAMID FINANCE didn't just give us visibility — it showed us where our capital was working and where it wasn't, in real time. That changes how you lead.",
+    name: "Chief Financial Officer",
+    role: "Atlas Logistics",
   },
 ];
 
@@ -55,7 +61,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
           "M-100 400 Q350 100 700 350 Q1050 600 1450 200",
           "M-100 250 Q400 500 750 200 Q1100 -100 1450 350",
         ].map((d, i) => (
-          <motion.path key={i} d={d} fill="none" stroke="#C12129" strokeWidth="0.5"
+          <motion.path key={i} d={d} fill="none" stroke="#2563EB" strokeWidth="0.5"
             strokeOpacity="0.07" strokeDasharray="14 28"
             animate={{ strokeDashoffset: [0, -150] }}
             transition={{ duration: 22 + i * 4, repeat: Infinity, ease: "linear", delay: i * 5 }}
@@ -77,7 +83,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
             Testimonials
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-            What Leaders Say
+            What Leaders Are Saying
           </h2>
         </motion.div>
 
@@ -92,7 +98,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
               exit={{ opacity: 0, x: dir * -56 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
               className="aivora-card border rounded-3xl px-14 py-16 text-center mx-auto max-w-3xl"
-              style={{ borderColor: "rgba(193,33,41,0.15)" }}
+              style={{ borderColor: "rgba(37,99,235,0.15)" }}
             >
               {/* Large quote marks */}
               <span className="text-6xl font-serif text-gray-200 dark:text-white/10 leading-none select-none block mb-8">
@@ -105,7 +111,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
               </p>
 
               {/* Divider */}
-              <div className="w-10 h-px bg-[#C12129]/30 mx-auto mb-8" />
+              <div className="w-10 h-px bg-[#2563EB]/30 mx-auto mb-8" />
 
               {/* Attribution */}
               <p className="text-sm font-bold text-gray-900 dark:text-white tracking-wide">
@@ -129,7 +135,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
                 aria-label={`Testimonial ${i + 1}`}
                 className={`rounded-full transition-all duration-300 cursor-pointer ${
                   i === active
-                    ? "w-10 h-2 bg-[#C12129]"
+                    ? "w-10 h-2 bg-[#2563EB]"
                     : "w-2 h-2 bg-gray-300 dark:bg-white/20 hover:bg-gray-400 dark:hover:bg-white/40"
                 }`}
               />

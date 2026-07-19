@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -78,8 +78,8 @@ function TwoFASetup({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#c12129]/15 border border-[#c12129]/25">
-              <Shield className="h-5 w-5 text-[#c12129]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2563EB]/15 border border-[#2563EB]/25">
+              <Shield className="h-5 w-5 text-[#2563EB]" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-white">
@@ -111,7 +111,7 @@ function TwoFASetup({
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-5"
               >
-                <div className="rounded-xl border border-[#c12129]/20 bg-[#c12129]/5 px-4 py-4">
+                <div className="rounded-xl border border-[#2563EB]/20 bg-[#2563EB]/5 px-4 py-4">
                   <p className="text-sm font-semibold text-white mb-1">
                     We strongly recommend enabling 2FA
                   </p>
@@ -124,12 +124,12 @@ function TwoFASetup({
                   <motion.button
                     whileHover={{
                       scale: 1.02,
-                      boxShadow: "0 6px 20px rgba(193,33,41,0.35)",
+                      boxShadow: "0 6px 20px rgba(37,99,235,0.35)",
                     }}
                     whileTap={{ scale: 0.97 }}
                     disabled={loading}
                     onClick={sendCode}
-                    className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#c12129] py-3 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
+                    className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#2563EB] py-3 text-sm font-semibold text-white hover:bg-blue-700 transition disabled:opacity-50"
                   >
                     {loading ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -157,8 +157,8 @@ function TwoFASetup({
                 className="space-y-5"
               >
                 <div className="text-center">
-                  <div className="flex h-14 w-14 mx-auto items-center justify-center rounded-2xl bg-[#c12129]/15 border border-[#c12129]/25 mb-3">
-                    <Mail className="h-6 w-6 text-[#c12129]" />
+                  <div className="flex h-14 w-14 mx-auto items-center justify-center rounded-2xl bg-[#2563EB]/15 border border-[#2563EB]/25 mb-3">
+                    <Mail className="h-6 w-6 text-[#2563EB]" />
                   </div>
                   <p className="text-sm font-semibold text-white">
                     Check your email
@@ -176,17 +176,17 @@ function TwoFASetup({
                     setCode(e.target.value.replace(/\D/g, "").slice(0, 6))
                   }
                   placeholder="000000"
-                  className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-center text-2xl font-mono tracking-[0.4em] text-white placeholder-gray-700 focus:outline-none focus:border-[#c12129]/60 transition"
+                  className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-center text-2xl font-mono tracking-[0.4em] text-white placeholder-gray-700 focus:outline-none focus:border-[#2563EB]/60 transition"
                 />
                 <motion.button
                   whileHover={{
                     scale: 1.02,
-                    boxShadow: "0 6px 20px rgba(193,33,41,0.35)",
+                    boxShadow: "0 6px 20px rgba(37,99,235,0.35)",
                   }}
                   whileTap={{ scale: 0.97 }}
                   disabled={loading || code.length !== 6}
                   onClick={verifyCode}
-                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#c12129] py-3 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
+                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#2563EB] py-3 text-sm font-semibold text-white hover:bg-blue-700 transition disabled:opacity-50"
                 >
                   {loading ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -253,21 +253,21 @@ const TYPES = [
   {
     value: "Freelancer",
     label: "Freelancer",
-    accent: "#c12129",
+    accent: "#2563EB",
     badge: null as string | null,
     desc: "Consultants seeking projects. Create invoices, track payments, and showcase your services to potential clients.",
   },
   {
     value: "Client",
     label: "Client",
-    accent: "#c12129",
+    accent: "#2563EB",
     badge: null,
     desc: "Organisations hiring consultants. Post jobs, manage contracts, and securely pay for completed work.",
   },
   {
     value: "Enterprise",
     label: "Enterprise",
-    accent: "#c12129",
+    accent: "#2563EB",
     badge: "New",
     desc: "Large organisations with multi-user workspaces. Up to 50 members, dedicated dashboard, escrow management, and analytics.",
   },
@@ -438,12 +438,12 @@ export default function AccountTypePage() {
             <motion.button
               whileHover={{
                 scale: 1.02,
-                boxShadow: "0 8px 24px rgba(193,33,41,0.4)",
+                boxShadow: "0 8px 24px rgba(37,99,235,0.4)",
               }}
               whileTap={{ scale: 0.97 }}
               type="submit"
               disabled={loading || !accountType}
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#c12129] to-[#8b1118] text-white font-semibold py-3.5 rounded-xl hover:opacity-90 transition disabled:opacity-50 mt-4 shadow-lg"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#2563EB] to-[#8b1118] text-white font-semibold py-3.5 rounded-xl hover:opacity-90 transition disabled:opacity-50 mt-4 shadow-lg"
             >
               {loading ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
@@ -475,11 +475,11 @@ export default function AccountTypePage() {
       </AnimatePresence>
       <style jsx>{`
         .account-type-card {
-          --accent: #c12129;
-          --accent-bg: rgba(193, 33, 41, 0.06);
-          --badge-border: rgba(193, 33, 41, 0.31);
-          --badge-color: #c12129;
-          --badge-bg: rgba(193, 33, 41, 0.09);
+          --accent: #2563EB;
+          --accent-bg: rgba(37,99,235, 0.06);
+          --badge-border: rgba(37,99,235, 0.31);
+          --badge-color: #2563EB;
+          --badge-bg: rgba(37,99,235, 0.09);
         }
 
         .account-type-card.accent-yellow {

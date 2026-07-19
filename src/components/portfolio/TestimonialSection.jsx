@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,7 +11,7 @@ const TESTIMONIALS = [
     role: "CEO, African Growth Company",
     initial: "A",
     tag: "Workforce Transformation",
-    hex: "#c21219",
+    hex: "#2563EB",
   },
   {
     quote: "We went from fragmented tools and broken pipelines to one intelligent platform. LAMID didn't just fix our operations — it changed how our people think about work.",
@@ -89,18 +89,18 @@ export default function TestimonialSection() {
       {/* Vector bg */}
       <svg aria-hidden="true" className="pointer-events-none absolute inset-0 w-full h-full z-0"
         xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <line x1="0" y1="0" x2="100%" y2="100%" stroke="#c21219" strokeWidth="0.8" opacity="0.06" />
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="#2563EB" strokeWidth="0.8" opacity="0.06" />
         <line x1="100%" y1="0" x2="0" y2="100%" stroke="#fff" strokeWidth="0.5" opacity="0.03" />
-        <circle cx="0%"   cy="50%" r="220" fill="none" stroke="#c21219" strokeWidth="1" opacity="0.08" />
-        <circle cx="100%" cy="50%" r="220" fill="none" stroke="#c21219" strokeWidth="1" opacity="0.08" />
-        <circle cx="0%"   cy="50%" r="110" fill="none" stroke="#c21219" strokeWidth="1" opacity="0.1"  />
-        <circle cx="100%" cy="50%" r="110" fill="none" stroke="#c21219" strokeWidth="1" opacity="0.1"  />
-        <circle cx="15%"  cy="15%" r="3"   fill="#c21219" opacity="0.22" />
-        <circle cx="85%"  cy="85%" r="3"   fill="#c21219" opacity="0.22" />
+        <circle cx="0%"   cy="50%" r="220" fill="none" stroke="#2563EB" strokeWidth="1" opacity="0.08" />
+        <circle cx="100%" cy="50%" r="220" fill="none" stroke="#2563EB" strokeWidth="1" opacity="0.08" />
+        <circle cx="0%"   cy="50%" r="110" fill="none" stroke="#2563EB" strokeWidth="1" opacity="0.1"  />
+        <circle cx="100%" cy="50%" r="110" fill="none" stroke="#2563EB" strokeWidth="1" opacity="0.1"  />
+        <circle cx="15%"  cy="15%" r="3"   fill="#2563EB" opacity="0.22" />
+        <circle cx="85%"  cy="85%" r="3"   fill="#2563EB" opacity="0.22" />
         <circle cx="78%"  cy="18%" r="2"   fill="#fff"    opacity="0.08" />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-        <div className="w-[600px] h-40 rounded-full bg-[#c21219]/7 blur-3xl" />
+        <div className="w-[600px] h-40 rounded-full bg-[#2563EB]/7 blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto">
@@ -110,8 +110,8 @@ export default function TestimonialSection() {
           className="flex items-center gap-2.5 mb-5">
           <motion.span animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ repeat: Infinity, duration: 2 }}
-            className="h-1.5 w-1.5 rounded-full bg-[#c21219]" />
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[#c21219]">Partner Testimonials</span>
+            className="h-1.5 w-1.5 rounded-full bg-[#2563EB]" />
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">Partner Testimonials</span>
           <span className="ml-auto text-[10px] text-gray-600 tabular-nums">{index + 1} / {total}</span>
         </motion.div>
 
@@ -159,7 +159,7 @@ export default function TestimonialSection() {
             <motion.div
               animate={{ width: paused ? "64px" : "32px" }}
               transition={{ duration: 0.4 }}
-              className="h-px bg-gradient-to-r from-[#c21219] to-transparent mb-5"
+              className="h-px bg-gradient-to-r from-[#2563EB] to-transparent mb-5"
             />
 
             {/* Bottom row */}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -76,7 +76,7 @@ const EventList = () => {
                   <div className="bg-gray-700 aspect-video rounded animate-pulse"></div>
                 </>
               ) : error ? (
-                <div className="col-span-4 text-center text-red-400 py-8">
+                <div className="col-span-4 text-center text-blue-400 py-8">
                   <p className="mb-4">{error}</p>
                   <button
                     onClick={() => window.location.reload()}

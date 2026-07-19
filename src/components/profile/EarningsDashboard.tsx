@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 
@@ -167,7 +167,7 @@ export default function EarningsDashboard({ userId }: Props) {
   if (error) {
     return (
       <div className="p-6">
-        <div className="bg-red-900/30 border border-red-700 rounded-2xl p-6 text-red-400">{error}</div>
+        <div className="bg-blue-900/30 border border-blue-700 rounded-2xl p-6 text-blue-400">{error}</div>
       </div>
     );
   }
@@ -205,7 +205,7 @@ export default function EarningsDashboard({ userId }: Props) {
                   {fmt(total)}
                 </div>
                 <div
-                  className="w-full bg-[#C12129] rounded-t-md transition-all"
+                  className="w-full bg-[#2563EB] rounded-t-md transition-all"
                   style={{ height: heightPct > 0 ? `${heightPct}%` : "4px", minHeight: "4px" }}
                 />
                 <span className="text-xs text-gray-400">{label}</span>
@@ -266,7 +266,7 @@ export default function EarningsDashboard({ userId }: Props) {
               const isPending = txn.status === "pending";
               const isDebit = txn.type === "debit";
               const icon = isPending ? "⏳" : isDebit ? "⬆️" : "💰";
-              const amountColor = isDebit ? "text-red-400" : isPending ? "text-amber-400" : "text-emerald-400";
+              const amountColor = isDebit ? "text-blue-400" : isPending ? "text-amber-400" : "text-emerald-400";
               const sign = isDebit ? "-" : "+";
               const date = new Date(txn.date ?? txn.createdAt ?? Date.now());
               return (
@@ -313,7 +313,7 @@ export default function EarningsDashboard({ userId }: Props) {
 
         {withdrawMsg && (
           <div className={`mb-4 px-4 py-2 rounded-xl text-sm font-medium ${
-            withdrawMsg.type === "ok" ? "bg-emerald-900/30 text-emerald-400 border border-emerald-800" : "bg-red-900/30 text-red-400 border border-red-800"
+            withdrawMsg.type === "ok" ? "bg-emerald-900/30 text-emerald-400 border border-emerald-800" : "bg-blue-900/30 text-blue-400 border border-blue-800"
           }`}>
             {withdrawMsg.text}
           </div>
@@ -324,7 +324,7 @@ export default function EarningsDashboard({ userId }: Props) {
             type="button"
             disabled={withdrawing || available <= 0}
             onClick={() => handleWithdraw(available)}
-            className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#C12129] text-white hover:bg-red-700 disabled:opacity-50 transition"
+            className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#2563EB] text-white hover:bg-blue-700 disabled:opacity-50 transition"
           >
             {withdrawing ? "Processing…" : "Withdraw All"}
           </button>
@@ -346,13 +346,13 @@ export default function EarningsDashboard({ userId }: Props) {
               value={withdrawAmount}
               onChange={(e) => setWithdrawAmount(e.target.value)}
               placeholder="Enter amount"
-              className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#C12129]"
+              className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
             />
             <button
               type="button"
               disabled={withdrawing}
               onClick={() => handleWithdraw(Number(withdrawAmount))}
-              className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#C12129] text-white hover:bg-red-700 disabled:opacity-50 transition"
+              className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#2563EB] text-white hover:bg-blue-700 disabled:opacity-50 transition"
             >
               {withdrawing ? "…" : "Withdraw"}
             </button>

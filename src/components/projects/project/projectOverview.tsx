@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 import type { Project } from "@/types/project";
@@ -29,7 +29,7 @@ export default function ProjectOverview({
 
   const sectionClass =
     variant === "thumbnail"
-      ? "bg-black/80 border border-[#c21219] rounded-lg p-4 text-white space-y-4"
+      ? "bg-black/80 border border-[#2563EB] rounded-lg p-4 text-white space-y-4"
       : "max-w-6xl mx-auto p-8 text-white space-y-8";
 
   // ✅ Memoize imported mock data so they remain stable

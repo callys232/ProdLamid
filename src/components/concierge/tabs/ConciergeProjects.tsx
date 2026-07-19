@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -31,7 +31,7 @@ const normaliseMilestoneStatus = (raw: string): MilestoneStatus => {
 const M_CFG: Record<string, { card: string; badge: string; dot: string; bar: string; pct: string; shadow: string }> = {
   completed:   { card: "border-green-500/30  bg-green-500/8",   badge: "text-green-400  border-green-500/30  bg-green-500/10",   dot: "bg-green-400",   bar: "bg-green-500",   pct: "text-green-400",   shadow: "0 6px 20px rgba(34,197,94,0.2)"  },
   in_progress: { card: "border-yellow-500/30 bg-yellow-500/8",  badge: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",  dot: "bg-yellow-400",  bar: "bg-yellow-500",  pct: "text-yellow-400",  shadow: "0 6px 20px rgba(234,179,8,0.2)"  },
-  disputed:    { card: "border-red-500/40    bg-red-500/10",    badge: "text-red-400    border-red-500/30    bg-red-500/10",     dot: "bg-red-400",     bar: "bg-red-500",     pct: "text-red-400",     shadow: "0 6px 20px rgba(239,68,68,0.2)"  },
+  disputed:    { card: "border-blue-500/40    bg-blue-500/10",    badge: "text-blue-400    border-blue-500/30    bg-blue-500/10",     dot: "bg-blue-400",     bar: "bg-blue-500",     pct: "text-blue-400",     shadow: "0 6px 20px rgba(37,99,235,0.2)"  },
   funded:      { card: "border-purple-500/30 bg-purple-500/8",  badge: "text-purple-400 border-purple-500/30 bg-purple-500/10",  dot: "bg-purple-400",  bar: "bg-purple-500",  pct: "text-purple-400",  shadow: "0 6px 20px rgba(168,85,247,0.2)" },
   released:    { card: "border-blue-500/30   bg-blue-500/8",    badge: "text-blue-400   border-blue-500/30   bg-blue-500/10",   dot: "bg-blue-400",    bar: "bg-blue-500",    pct: "text-blue-400",    shadow: "0 6px 20px rgba(59,130,246,0.2)"  },
   pending:     { card: "border-white/10      bg-white/5",        badge: "text-gray-400   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",    bar: "bg-gray-600",    pct: "text-gray-400",    shadow: "0 6px 20px rgba(0,0,0,0.3)"      },
@@ -50,7 +50,7 @@ const ACTIVITY_DOT: Record<string, string> = {
   success: "bg-emerald-500",
   info:    "bg-blue-500",
   warning: "bg-yellow-500",
-  dispute: "bg-red-500",
+  dispute: "bg-blue-500",
 };
 
 interface Props {
@@ -132,7 +132,7 @@ export default function ConciergeProjects({ onOpenMessaging, onOpenEscrow }: Pro
             whileHover={{ scale: 1.05, y: -2, boxShadow: "0 6px 20px rgba(194,18,25,0.25)" }} whileTap={{ scale: 0.96 }}
             transition={{ duration: 0.15 }}
             onClick={onOpenEscrow}
-            className="flex items-center gap-2 rounded-lg border border-[#c21219]/30 bg-[#c21219]/10 px-4 py-2 text-xs font-semibold text-[#c21219] transition hover:bg-[#c21219]/20"
+            className="flex items-center gap-2 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-2 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20"
           >
             <Lock className="h-3.5 w-3.5" /> Escrow & Payments
           </motion.button>
@@ -156,14 +156,14 @@ export default function ConciergeProjects({ onOpenMessaging, onOpenEscrow }: Pro
               <motion.button
                 key={proj.id}
                 initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}
-                whileHover={{ scale: 1.01, y: -2, boxShadow: "0 8px 24px rgba(0,0,0,0.35)", borderColor: hasDispute ? "rgba(239,68,68,0.4)" : "rgba(255,255,255,0.2)" }}
+                whileHover={{ scale: 1.01, y: -2, boxShadow: "0 8px 24px rgba(0,0,0,0.35)", borderColor: hasDispute ? "rgba(37,99,235,0.4)" : "rgba(255,255,255,0.2)" }}
                 whileTap={{ scale: 0.99 }}
                 onClick={() => setSelected(proj)}
-                className={`w-full rounded-xl border bg-white/5 p-5 text-left ${hasDispute ? "border-red-500/25" : "border-white/10"}`}
+                className={`w-full rounded-xl border bg-white/5 p-5 text-left ${hasDispute ? "border-blue-500/25" : "border-white/10"}`}
               >
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <FolderKanban className={`h-5 w-5 flex-shrink-0 ${hasDispute ? "text-red-400" : "text-[#c21219]"}`} />
+                    <FolderKanban className={`h-5 w-5 flex-shrink-0 ${hasDispute ? "text-blue-400" : "text-[#2563EB]"}`} />
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-white truncate">{proj.title}</p>
                       <p className="text-xs text-gray-500">PM: {proj.pm} · Due: {proj.deadline}</p>
@@ -171,7 +171,7 @@ export default function ConciergeProjects({ onOpenMessaging, onOpenEscrow }: Pro
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     {hasDispute && (
-                      <span className="flex items-center gap-1 text-[10px] text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-0.5 rounded-full">
+                      <span className="flex items-center gap-1 text-[10px] text-blue-400 border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 rounded-full">
                         <AlertTriangle className="h-2.5 w-2.5" /> Dispute
                       </span>
                     )}
@@ -188,7 +188,7 @@ export default function ConciergeProjects({ onOpenMessaging, onOpenEscrow }: Pro
                   </div>
                   <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
                     <motion.div
-                      className={`h-full rounded-full ${hasDispute ? "bg-red-500" : "bg-[#c21219]"}`}
+                      className={`h-full rounded-full ${hasDispute ? "bg-blue-500" : "bg-[#2563EB]"}`}
                       initial={{ width: 0 }} animate={{ width: `${proj.progress}%` }}
                       transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.1 }}
                     />
@@ -268,7 +268,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
           <div className="flex items-start justify-between gap-4 mb-4">
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2.5 flex-wrap mb-1">
-                <FolderKanban className={`h-5 w-5 flex-shrink-0 ${hasDispute ? "text-red-400" : "text-[#c21219]"}`} />
+                <FolderKanban className={`h-5 w-5 flex-shrink-0 ${hasDispute ? "text-blue-400" : "text-[#2563EB]"}`} />
                 <h2 className="text-base font-bold text-white leading-snug">{p.title}</h2>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
@@ -276,7 +276,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                   <StatusIcon className="h-3 w-3" />{cfg.label}
                 </span>
                 {hasDispute && (
-                  <span className="flex items-center gap-1 text-[10px] text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-0.5 rounded-full">
+                  <span className="flex items-center gap-1 text-[10px] text-blue-400 border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 rounded-full">
                     <ShieldAlert className="h-3 w-3" /> {disputes.length} Dispute{disputes.length > 1 ? "s" : ""}
                   </span>
                 )}
@@ -303,7 +303,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                 onClick={() => setTab(key)}
                 className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold border-b-2 transition-colors ${
                   tab === key
-                    ? "border-[#c21219] text-white"
+                    ? "border-[#2563EB] text-white"
                     : "border-transparent text-gray-500 hover:text-gray-300"
                 }`}
               >
@@ -322,11 +322,11 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
               {/* Dispute banner */}
               {hasDispute && (
                 <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
-                  className="flex items-start gap-3 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3.5">
-                  <ShieldAlert className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  className="flex items-start gap-3 rounded-xl border border-blue-500/40 bg-blue-500/10 px-4 py-3.5">
+                  <ShieldAlert className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm font-semibold text-red-300">{disputes.length} Active Dispute{disputes.length > 1 ? "s" : ""}</p>
-                    <p className="text-xs text-red-400/80 mt-0.5">Mediation team has been notified. See Milestones tab for details.</p>
+                    <p className="text-sm font-semibold text-blue-300">{disputes.length} Active Dispute{disputes.length > 1 ? "s" : ""}</p>
+                    <p className="text-xs text-blue-400/80 mt-0.5">Mediation team has been notified. See Milestones tab for details.</p>
                   </div>
                 </motion.div>
               )}
@@ -375,7 +375,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                 <p className="text-[11px] uppercase tracking-widest text-gray-500 mb-2">Skills & Expertise</p>
                 <div className="flex flex-wrap gap-2">
                   {p.skills.map(s => (
-                    <span key={s} className="rounded-full border border-[#c21219]/30 bg-[#c21219]/10 px-3 py-0.5 text-[11px] text-[#c21219]">{s}</span>
+                    <span key={s} className="rounded-full border border-[#2563EB]/30 bg-[#2563EB]/10 px-3 py-0.5 text-[11px] text-[#2563EB]">{s}</span>
                   ))}
                 </div>
               </div>
@@ -388,7 +388,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                     <motion.div key={i}
                       initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}
                       className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/5 px-4 py-2.5">
-                      <div className="h-8 w-8 rounded-full bg-[#c21219]/15 border border-[#c21219]/20 flex items-center justify-center text-xs font-bold text-[#c21219] flex-shrink-0">
+                      <div className="h-8 w-8 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/20 flex items-center justify-center text-xs font-bold text-[#2563EB] flex-shrink-0">
                         {c.name[0]}
                       </div>
                       <div>
@@ -410,7 +410,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                   </div>
                   <div className="h-2.5 w-full rounded-full bg-white/10 overflow-hidden">
                     <motion.div
-                      className={`h-full rounded-full ${hasDispute ? "bg-red-500" : "bg-[#c21219]"}`}
+                      className={`h-full rounded-full ${hasDispute ? "bg-blue-500" : "bg-[#2563EB]"}`}
                       initial={{ width: 0 }} animate={{ width: `${p.progress}%` }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
                     />
@@ -428,7 +428,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                   {completedM} of {p.milestones.length} complete
                 </p>
                 {hasDispute && (
-                  <span className="flex items-center gap-1 text-[10px] text-red-400">
+                  <span className="flex items-center gap-1 text-[10px] text-blue-400">
                     <ShieldAlert className="h-3.5 w-3.5" /> {disputes.length} disputed
                   </span>
                 )}
@@ -438,16 +438,16 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
               {disputes.map((m, i) => (
                 <motion.div key={m.id}
                   initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.07 }}
-                  className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3.5">
+                  className="rounded-xl border border-blue-500/40 bg-blue-500/10 px-4 py-3.5">
                   <div className="flex items-start gap-2 mb-1">
-                    <AlertTriangle className="h-4 w-4 text-red-400 flex-shrink-0 mt-0.5" />
+                    <AlertTriangle className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-sm font-semibold text-red-300">{m.title}</p>
-                      <p className="text-[11px] text-red-400/70">Disputed milestone</p>
+                      <p className="text-sm font-semibold text-blue-300">{m.title}</p>
+                      <p className="text-[11px] text-blue-400/70">Disputed milestone</p>
                     </div>
                   </div>
                   {m.disputeReason && (
-                    <p className="text-xs text-red-300/80 leading-relaxed mt-1 pl-6">{m.disputeReason}</p>
+                    <p className="text-xs text-blue-300/80 leading-relaxed mt-1 pl-6">{m.disputeReason}</p>
                   )}
                 </motion.div>
               ))}
@@ -504,7 +504,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                 <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-4 space-y-3">
                   {[
                     { label: "Total Budget",  value: p.budget,           color: "bg-white/20",      pct: 100         },
-                    { label: "Spent to Date", value: p.spent,            color: "bg-[#c21219]",     pct: spentPct    },
+                    { label: "Spent to Date", value: p.spent,            color: "bg-[#2563EB]",     pct: spentPct    },
                     { label: "Remaining",     value: remaining,          color: "bg-emerald-500",   pct: 100 - spentPct },
                   ].map(({ label, value, color, pct }) => (
                     <div key={label}>
@@ -523,7 +523,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
                   ))}
                   <div className="pt-1 border-t border-white/8 flex justify-between text-xs">
                     <span className="text-gray-500">Budget utilisation</span>
-                    <span className={`font-bold ${spentPct > 90 ? "text-red-400" : spentPct > 70 ? "text-yellow-400" : "text-emerald-400"}`}>
+                    <span className={`font-bold ${spentPct > 90 ? "text-blue-400" : spentPct > 70 ? "text-yellow-400" : "text-emerald-400"}`}>
                       {spentPct}%
                     </span>
                   </div>
@@ -580,7 +580,7 @@ function ProjectDetailModal({ project: p, onClose, onOpenMessaging, onOpenEscrow
           <motion.div whileHover={{ scale: 1.05, y: -1, boxShadow: "0 6px 20px rgba(194,18,25,0.3)" }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
             <Link
               href={`/projects/${p.id}/workspace`}
-              className="flex items-center gap-2 rounded-xl border border-[#c21219]/30 bg-[#c21219]/10 px-4 py-2.5 text-xs font-semibold text-[#c21219] transition hover:bg-[#c21219]/20"
+              className="flex items-center gap-2 rounded-xl border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-2.5 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20"
             >
               Open Workspace <ExternalLink className="h-3.5 w-3.5" />
             </Link>

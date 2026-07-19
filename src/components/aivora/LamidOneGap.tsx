@@ -1,0 +1,135 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+
+const STATS = [
+  {
+    value: "4 tools",
+    label: "The average organization uses four separate platforms to manage strategy, growth, people, and finance — with zero shared signal between them",
+    authHref: "/premium/business-diagnostic",
+    accent: "#2563EB",
+  },
+  {
+    value: "68%",
+    label: "Of leaders say their biggest decisions are made without a unified view of the organization",
+    authHref: "/ecosystem",
+    accent: "#0891B2",
+  },
+  {
+    value: "3× slower",
+    label: "Organizations with fragmented intelligence move three times slower than those with a unified diagnostic layer",
+    authHref: "/ecosystem",
+    accent: "#CA8A04",
+  },
+];
+
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } };
+const cardVariant = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
+
+export default function LamidOneGap() {
+  const [hovered, setHovered] = useState<number | null>(null);
+  const router = useRouter();
+
+  return (
+    <section className="relative aivora-section py-10 px-4 overflow-hidden">
+
+      {/* Subtle vertical column lines */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+        {[200, 500, 800, 1100].map((x, i) => (
+          <motion.line key={i} x1={x} y1="-20" x2={x} y2="120%"
+            stroke="#2563EB" strokeWidth="0.5" strokeOpacity="0.07" strokeDasharray="4 28"
+            animate={{ strokeDashoffset: [0, -80], opacity: [0.04, 0.14, 0.04] }}
+            transition={{ duration: 18 + i * 4, repeat: Infinity, ease: "linear", delay: i * 2 }}
+          />
+        ))}
+      </svg>
+
+      <div className="relative z-10 max-w-5xl mx-auto">
+
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+          className="text-center mb-7"
+        >
+          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+            The Signal Gap
+          </p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
+            <span className="aivora-gradient-text">Every Tool Sees One Piece.</span>
+          </h2>
+          <p className="text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            Most organizations have data. What they lack is a unified signal — one view that
+            connects strategy, growth, people, and finance so decisions are grounded in the
+            full picture, not just the loudest number.
+          </p>
+        </motion.div>
+
+        {/* Stat cards */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-5"
+        >
+          {STATS.map((stat, i) => {
+            const isHov = hovered === i;
+            return (
+              <motion.div
+                key={stat.label}
+                variants={cardVariant}
+                onHoverStart={() => setHovered(i)}
+                onHoverEnd={() => setHovered(null)}
+                onClick={() => router.push(stat.authHref)}
+                whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(37,99,235,0.2)" }}
+                whileTap={{ scale: 0.98 }}
+                className="relative aivora-card border rounded-2xl p-8 overflow-hidden cursor-pointer transition-colors duration-300"
+                style={{ borderColor: isHov ? "rgba(37,99,235,0.45)" : undefined }}
+              >
+                {/* Top accent bar */}
+                <motion.div
+                  className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
+                  style={{ background: `linear-gradient(to right, ${stat.accent}, transparent)` }}
+                  animate={{ scaleX: isHov ? 1 : 0, originX: 0 }}
+                  transition={{ duration: 0.28 }}
+                />
+
+                {/* Glow */}
+                <motion.div
+                  className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+                  style={{ background: stat.accent }}
+                  animate={{ opacity: isHov ? 0.12 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+
+                <motion.p
+                  className="text-4xl sm:text-5xl font-extrabold mb-3 text-transparent bg-clip-text bg-gradient-to-br from-[#1D4ED8] via-[#2563EB] to-[#60A5FA] dark:to-white"
+                  animate={{ scale: isHov ? 1.06 : 1 }}
+                  transition={{ type: "spring", stiffness: 280, damping: 18 }}
+                >
+                  {stat.value}
+                </motion.p>
+                <p className="text-gray-600 dark:text-white/65 text-sm leading-relaxed">
+                  {stat.label}
+                </p>
+
+                <motion.span
+                  className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
+                  animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
+                  transition={{ duration: 0.16 }}
+                >
+                  Explore solution →
+                </motion.span>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </div>
+    </section>
+  );
+}

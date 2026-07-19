@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -48,7 +48,7 @@ export default function ProjectComparePanel({ selected }: any) {
                   ${i % 2 === 0 ? "bg-gray-50" : "bg-white"}
 
                   ${isWinner
-                                        ? "border border-[#c12129] shadow-[0_0_15px_rgba(193,33,41,0.2)]"
+                                        ? "border border-[#2563EB] shadow-[0_0_15px_rgba(37,99,235,0.2)]"
                                         : "border border-gray-200"}
                 `}
                             >
@@ -62,12 +62,12 @@ export default function ProjectComparePanel({ selected }: any) {
                                 </div>
 
                                 <div className="text-right">
-                                    <p className="text-sm font-semibold text-[#c12129]">
+                                    <p className="text-sm font-semibold text-[#2563EB]">
                                         {(item.score.total * 100).toFixed(1)}%
                                     </p>
 
                                     {isWinner && (
-                                        <span className="text-xs text-[#c12129] font-medium">
+                                        <span className="text-xs text-[#2563EB] font-medium">
                                             Best Choice
                                         </span>
                                     )}

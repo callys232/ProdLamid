@@ -37,7 +37,7 @@ const services: PortalService[] = [
     ],
     cta: "Browse Consultants",
     href: "/talent",
-    accent: "#C12129",
+    accent: "#2563EB",
   },
   {
     id: "projects",
@@ -190,7 +190,7 @@ const PortalServicesSlide: React.FC = () => {
             key={i}
             d={v.d}
             fill="none"
-            stroke="#C12129"
+            stroke="#2563EB"
             strokeWidth="0.6"
             strokeOpacity="0.18"
             filter="url(#glow-vec)"
@@ -231,7 +231,7 @@ const PortalServicesSlide: React.FC = () => {
             cx={dot.cx}
             cy={dot.cy}
             r={dot.r}
-            fill="#C12129"
+            fill="#2563EB"
             animate={{
               cy: [
                 `${parseFloat(dot.cy as string)}%`,
@@ -275,7 +275,7 @@ const PortalServicesSlide: React.FC = () => {
           </p>
 
           {/* Divider */}
-          <div className="mt-8 h-px bg-gradient-to-r from-[#C12129]/50 via-white/10 to-transparent" />
+          <div className="mt-8 h-px bg-gradient-to-r from-[#2563EB]/50 via-white/10 to-transparent" />
         </motion.div>
 
         {/* ── Centralized CTAs ── */}
@@ -288,20 +288,20 @@ const PortalServicesSlide: React.FC = () => {
         >
           <Link
             href="/pricing"
-            className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[#C12129] text-white hover:bg-[#a01a20] transition-colors"
+            className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors"
           >
             Flexible Plans →
           </Link>
           <button
             type="button"
             onClick={() => setShowAccountTypes(true)}
-            className="px-5 py-2.5 rounded-full text-xs font-semibold border border-white/20 text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
+            className="px-5 py-2.5 rounded-full text-xs font-semibold border border-white/20 text-white/70 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors"
           >
             Account Types
           </button>
           <Link
             href="/talent"
-            className="px-5 py-2.5 rounded-full text-xs font-semibold border border-white/20 text-white/70 hover:border-[#C12129] hover:text-[#C12129] transition-colors"
+            className="px-5 py-2.5 rounded-full text-xs font-semibold border border-white/20 text-white/70 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors"
           >
             Browse Consultants →
           </Link>
@@ -525,7 +525,7 @@ const PortalServicesSlide: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
               className="relative bg-[#0d0d0d] border border-white/10 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden"
             >
-              <div className="h-[3px] w-full bg-gradient-to-r from-[#C12129] to-transparent" />
+              <div className="h-[3px] w-full bg-gradient-to-r from-[#2563EB] to-transparent" />
 
               <div className="p-7">
                 <button
@@ -548,7 +548,7 @@ const PortalServicesSlide: React.FC = () => {
 
                 <div className="space-y-3 mb-6">
                   {[
-                    { type: "Client",     icon: "▣", iconCls: "text-[#C12129]",  barCls: "bg-[#C12129]",  glowCls: "bg-[#C12129]",  sweepCls: "from-[#C12129]",  hoverBorderCls: "border-[#C12129]/50",  badge: "",               badgeCls: "",                                desc: "Post projects, browse vetted consultants, manage delivery, and track milestones with escrow-backed payments." },
+                    { type: "Client",     icon: "▣", iconCls: "text-[#2563EB]",  barCls: "bg-[#2563EB]",  glowCls: "bg-[#2563EB]",  sweepCls: "from-[#2563EB]",  hoverBorderCls: "border-[#2563EB]/50",  badge: "",               badgeCls: "",                                desc: "Post projects, browse vetted consultants, manage delivery, and track milestones with escrow-backed payments." },
                     { type: "Freelancer", icon: "◈", iconCls: "text-blue-400",   barCls: "bg-blue-500",   glowCls: "bg-blue-500",   sweepCls: "from-blue-500",   hoverBorderCls: "border-blue-500/50",   badge: "",               badgeCls: "",                                desc: "Build your consultant profile, get AI-matched to projects, deliver work inside the platform, and build your reputation." },
                     { type: "Enterprise", icon: "⬡", iconCls: "text-violet-400", barCls: "bg-violet-500", glowCls: "bg-violet-500", sweepCls: "from-violet-500", hoverBorderCls: "border-violet-500/50", badge: "New",            badgeCls: "bg-violet-500/20 text-violet-400", desc: "Manage multiple projects, build internal teams, access advanced dashboards, and integrate with your existing systems." },
                     { type: "Concierge",  icon: "✦", iconCls: "text-amber-400",  barCls: "bg-amber-500",  glowCls: "bg-amber-500",  sweepCls: "from-amber-500",  hoverBorderCls: "border-amber-500/50",  badge: "Admin Approval", badgeCls: "bg-amber-500/20 text-amber-400",   desc: "High-touch, white-glove service for government agencies, UN bodies, large NGOs, and corporations. Dedicated project managers included." },
@@ -633,7 +633,7 @@ const PortalServicesSlide: React.FC = () => {
                   <Link
                     href={dest("/account-type")}
                     onClick={() => setShowAccountTypes(false)}
-                    className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#C12129] hover:bg-[#a01a20] transition"
+                    className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition"
                   >
                     {!loading && isAuthenticated ? "Manage Account" : "Get Started Free"}
                   </Link>

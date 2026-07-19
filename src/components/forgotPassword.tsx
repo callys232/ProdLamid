@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -45,7 +45,7 @@ export default function ForgotPassword() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-red-900">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-blue-900">
             <div className="bg-black/70 p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-800">
                 <h2 className="text-2xl font-bold text-white mb-4 text-center">Forgot Password</h2>
                 <p className="text-gray-400 text-sm mb-6 text-center">
@@ -58,7 +58,7 @@ export default function ForgotPassword() {
                         type="button"
                         onClick={() => setMethod("email")}
                         className={`px-4 py-2 rounded-md text-sm ${method === "email"
-                                ? "bg-red-600 text-white"
+                                ? "bg-blue-600 text-white"
                                 : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                             }`}
                     >
@@ -68,7 +68,7 @@ export default function ForgotPassword() {
                         type="button"
                         onClick={() => setMethod("phone")}
                         className={`px-4 py-2 rounded-md text-sm ${method === "phone"
-                                ? "bg-red-600 text-white"
+                                ? "bg-blue-600 text-white"
                                 : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                             }`}
                     >
@@ -78,7 +78,7 @@ export default function ForgotPassword() {
                         type="button"
                         onClick={() => setMethod("authApp")}
                         className={`px-4 py-2 rounded-md text-sm ${method === "authApp"
-                                ? "bg-red-600 text-white"
+                                ? "bg-blue-600 text-white"
                                 : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                             }`}
                     >
@@ -99,7 +99,7 @@ export default function ForgotPassword() {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="you@example.com"
                             />
                         </div>
@@ -116,7 +116,7 @@ export default function ForgotPassword() {
                                 required
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
-                                className="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="+234 801 234 5678"
                             />
                         </div>
@@ -133,7 +133,7 @@ export default function ForgotPassword() {
                                 required
                                 value={authCode}
                                 onChange={(e) => setAuthCode(e.target.value)}
-                                className="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                className="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter 6-digit code"
                             />
                             <p className="text-xs text-gray-400 mt-1">
@@ -145,7 +145,7 @@ export default function ForgotPassword() {
                     <button
                         type="submit"
                         disabled={status === "loading"}
-                        className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md transition disabled:opacity-50"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition disabled:opacity-50"
                     >
                         {status === "loading"
                             ? "Verifying..."
@@ -168,7 +168,7 @@ export default function ForgotPassword() {
                     </p>
                 )}
                 {status === "error" && (
-                    <p className="mt-4 text-red-400 text-sm text-center">
+                    <p className="mt-4 text-blue-400 text-sm text-center">
                         ❌ Something went wrong. Please try again.
                     </p>
                 )}

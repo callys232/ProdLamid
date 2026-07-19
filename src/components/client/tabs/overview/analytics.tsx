@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Pie } from "react-chartjs-2";
 import {
@@ -31,7 +31,7 @@ export function AnalyticsSection({ analytics }: AnalyticsSectionProps) {
                     analytics.workphrase,
                 ],
                 backgroundColor: [
-                    "#c12129", // red accent
+                    "#2563EB", // red accent
                     "#1a1a1a", // dark gray
                     "#444",    // medium gray
                     "#888",    // light gray
@@ -55,7 +55,7 @@ export function AnalyticsSection({ analytics }: AnalyticsSectionProps) {
 
     return (
         <section className="bg-[#111] border border-white/20 rounded-xl p-6 shadow-md hover:shadow-lg transition">
-            <h2 className="text-2xl font-bold text-[#c12129] mb-6">Analytics project Overview</h2>
+            <h2 className="text-2xl font-bold text-[#2563EB] mb-6">Analytics project Overview</h2>
             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                 <div className="w-64 h-64">
                     <Pie data={data} options={options} />

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -51,7 +51,7 @@ export default function ProjectCard({
         {/* Card */}
         <div
           className="
-            relative bg-black border border-[#c21219] rounded-xl overflow-hidden 
+            relative bg-black border border-[#2563EB] rounded-xl overflow-hidden 
             shadow-md transition-all duration-300 flex flex-col
             hover:shadow-xl hover:scale-[1.02]
           "
@@ -77,7 +77,7 @@ export default function ProjectCard({
             <div className="mb-3 space-y-1">
               <h3
                 onClick={() => setShowModal(true)}
-                className="font-semibold text-lg text-white leading-snug cursor-pointer hover:text-[#c21219] transition"
+                className="font-semibold text-lg text-white leading-snug cursor-pointer hover:text-[#2563EB] transition"
               >
                 {project.title}
               </h3>
@@ -106,7 +106,7 @@ export default function ProjectCard({
               <button
                 onClick={() => setShowModal(true)}
                 aria-label="View project details"
-                className="flex-1 bg-[#c21219] hover:bg-red-700 text-white text-xs px-3 py-2 rounded-md font-semibold transition-colors shadow-sm hover:shadow-md"
+                className="flex-1 bg-[#2563EB] hover:bg-blue-700 text-white text-xs px-3 py-2 rounded-md font-semibold transition-colors shadow-sm hover:shadow-md"
               >
                 View Details
               </button>
@@ -117,7 +117,7 @@ export default function ProjectCard({
                 className={`flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-md text-xs font-semibold transition ${
                   isSaved
                     ? "bg-green-600 hover:bg-green-700 text-white"
-                    : "bg-black border border-gray-500 hover:border-[#c21219] hover:text-[#c21219]"
+                    : "bg-black border border-gray-500 hover:border-[#2563EB] hover:text-[#2563EB]"
                 }`}
               >
                 {isSaved ? "✓ Saved" : "♡ Save"}

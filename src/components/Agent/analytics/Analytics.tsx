@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import AnalyticsFlow from "./analyticsFlow";
@@ -114,7 +114,7 @@ export default function AnalyticsAgent({ projectId }: { projectId: string }) {
                         ),
                       })
                     }
-                    className="text-red-400 text-xs hover:underline"
+                    className="text-blue-400 text-xs hover:underline"
                   >
                     Remove
                   </button>

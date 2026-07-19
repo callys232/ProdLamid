@@ -1,4 +1,4 @@
-// components/EcosystemLedger.tsx
+﻿// components/EcosystemLedger.tsx
 "use client";
 
 import React from "react";
@@ -54,7 +54,7 @@ export default function EcosystemLedger() {
 
   return (
     <section className="bg-black text-white border-t border-white/10 px-6 pb-12">
-      <h2 className="text-3xl font-bold text-[#c12129] text-center mb-10">
+      <h2 className="text-3xl font-bold text-[#2563EB] text-center mb-10">
         Ecosystem Color Ledger
       </h2>
 
@@ -73,7 +73,7 @@ export default function EcosystemLedger() {
                 className="w-14 h-14 rounded-full mb-4 shadow-lg ring-2 ring-white/10"
                 style={{ backgroundColor: item.color }}
               />
-              <item.Icon className="h-9 w-9 mb-3 text-[#c12129]" />
+              <item.Icon className="h-9 w-9 mb-3 text-[#2563EB]" />
               <h3 className="text-base font-semibold text-white">{item.title}</h3>
               <p className="text-sm text-gray-400 mt-1">{item.tagline}</p>
               <div className="mt-4 flex items-center gap-2 text-xs text-gray-500 font-mono">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -14,7 +14,7 @@ const Serv = () => {
 
   return (
     <motion.div
-      className="bg-cover bg-center flex w-full h-[450px] items-end justify-end border-[2px] border-[#C12129] rounded-bl-3xl"
+      className="bg-cover bg-center flex w-full h-[450px] items-end justify-end border-[2px] border-[#2563EB] rounded-bl-3xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}

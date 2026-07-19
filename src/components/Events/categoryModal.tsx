@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -36,7 +36,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-orange-500 hover:text-[#c21219] text-2xl font-bold transition-colors"
+              className="absolute top-4 right-4 text-orange-500 hover:text-[#2563EB] text-2xl font-bold transition-colors"
               aria-label="Close"
             >
               ×

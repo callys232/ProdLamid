@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 
@@ -47,7 +47,7 @@ export default function ClientNotificationPage({
       case "review":
         return "text-blue-400";
       case "deadline":
-        return "text-red-400";
+        return "text-blue-400";
       case "payment":
         return "text-green-400";
       case "invitation":
@@ -99,7 +99,7 @@ export default function ClientNotificationPage({
                         : n.status === "approved"
                         ? "bg-green-600 text-white"
                         : n.status === "overdue"
-                        ? "bg-red-600 text-white"
+                        ? "bg-blue-600 text-white"
                         : n.status === "resolved"
                         ? "bg-blue-600 text-white"
                         : "bg-gray-700 text-gray-300"

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from 'react';
 import Image from 'next/image';
@@ -46,7 +46,7 @@ const BizPT = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header with red button */}
           <div className="flex justify-center mb-6">
-            <div className="bg-[#C12129] rounded-md px-6 py-2 text-white text-center font-semibold">
+            <div className="bg-[#2563EB] rounded-md px-6 py-2 text-white text-center font-semibold">
               READY TO ADOPT BIZ PROTO-TYPES
             </div>
           </div>
@@ -57,7 +57,7 @@ const BizPT = () => {
             <div className="flex mb-6 max-w-lg mx-auto">
               <button
                 onClick={() => setSearchTerm("")}
-                className="bg-[#C12129] text-white px-4 py-2 rounded-l-md flex items-center"
+                className="bg-[#2563EB] text-white px-4 py-2 rounded-l-md flex items-center"
               >
                 <span className="mr-2">×</span>
                 <span>Filter</span>
@@ -103,10 +103,10 @@ const BizPT = () => {
                     </div>
                     
                     <div className="mt-auto flex space-x-2 pt-2">
-                      <button className="bg-[#C12129] text-white text-xs rounded px-2 py-1 flex-1">
+                      <button className="bg-[#2563EB] text-white text-xs rounded px-2 py-1 flex-1">
                         ADOPT
                       </button>
-                      <button className="bg-transparent border border-[#C12129] text-white text-xs rounded px-2 py-1 flex-1">
+                      <button className="bg-transparent border border-[#2563EB] text-white text-xs rounded px-2 py-1 flex-1">
                         DETAILS
                       </button>
                     </div>
@@ -136,13 +136,13 @@ const BizPT = () => {
               <p className="text-white text-base md:text-lg">
                 To obtain an invitation to our much sought-after business clinic, 
                 and get a chance to win a free diagnostic care, 
-                <Link href="#" className="text-[#C12129] hover:underline ml-1">Click here</Link>.
+                <Link href="#" className="text-[#2563EB] hover:underline ml-1">Click here</Link>.
               </p>
             </div>
           </div>
           
           {/* Counter */}
-          <div className="mt-8 text-[#C12129] text-2xl md:text-3xl font-bold">
+          <div className="mt-8 text-[#2563EB] text-2xl md:text-3xl font-bold">
             3000+ SMES CREATED
           </div>
         </div>

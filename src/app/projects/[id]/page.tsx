@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MapPin, Clock, DollarSign, Tag, ArrowRight } from "lucide-react";
@@ -56,7 +56,7 @@ export default async function ProjectPage({ params }: Props) {
             </div>
             {isOpen && (
               <Link href={`/postjobs?apply=${id}`}
-                className="flex items-center gap-2 rounded-xl bg-[#c12129] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-700">
+                className="flex items-center gap-2 rounded-xl bg-[#2563EB] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700">
                 Apply Now <ArrowRight className="h-4 w-4" />
               </Link>
             )}
@@ -93,13 +93,13 @@ export default async function ProjectPage({ params }: Props) {
 
           <div className="space-y-5">
             {isOpen && (
-              <div className="rounded-xl border border-[#c12129]/20 bg-[#c12129]/5 p-5 text-center">
+              <div className="rounded-xl border border-[#2563EB]/20 bg-[#2563EB]/5 p-5 text-center">
                 <p className="mb-3 text-sm font-semibold text-white">Interested in this project?</p>
                 <Link href={`/signup`}
-                  className="block w-full rounded-xl bg-[#c12129] py-2.5 text-sm font-bold text-white transition hover:bg-red-700">
+                  className="block w-full rounded-xl bg-[#2563EB] py-2.5 text-sm font-bold text-white transition hover:bg-blue-700">
                   Sign up &amp; Apply
                 </Link>
-                <p className="mt-2 text-[11px] text-gray-600">Already have an account? <Link href={`/signin`} className="text-[#c12129] hover:underline">Sign in</Link></p>
+                <p className="mt-2 text-[11px] text-gray-600">Already have an account? <Link href={`/signin`} className="text-[#2563EB] hover:underline">Sign in</Link></p>
               </div>
             )}
             <div className="rounded-xl border border-white/10 bg-white/5 p-5">

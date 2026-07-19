@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -219,7 +219,7 @@ export default function ApplyModal({
                       value={coverLetter}
                       onChange={(e) => setCoverLetter(e.target.value)}
                       rows={5}
-                      className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#c21219]"
+                      className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
                       placeholder="Explain why you're a great fit for this project..."
                     />
                   </FieldSection>
@@ -253,7 +253,7 @@ export default function ApplyModal({
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       rows={4}
-                      className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#c21219]"
+                      className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
                       placeholder="Share how you would approach this work, methodology, timeline, or key ideas..."
                     />
                   </FieldSection>
@@ -267,7 +267,7 @@ export default function ApplyModal({
                       value={comments}
                       onChange={(e) => setComments(e.target.value)}
                       rows={3}
-                      className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#c21219]"
+                      className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
                       placeholder="Any constraints, assumptions, or additional notes you'd like the client to know?"
                     />
                   </FieldSection>
@@ -307,7 +307,7 @@ export default function ApplyModal({
                                 className={`text-xs px-2 py-1 rounded-full ${
                                   ok
                                     ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                                    : "bg-red-500/10 text-red-300 border border-red-500/30"
+                                    : "bg-blue-500/10 text-blue-300 border border-blue-500/30"
                                 }`}
                               >
                                 {ok ? "Matched" : "Not in profile"}
@@ -485,7 +485,7 @@ export default function ApplyModal({
                                 className={`inline-block w-2 h-2 rounded-full ${
                                   meetsSkill(skill)
                                     ? "bg-emerald-400"
-                                    : "bg-red-400"
+                                    : "bg-blue-400"
                                 }`}
                               />
                               <span className="text-gray-200">{skill}</span>
@@ -592,7 +592,7 @@ export default function ApplyModal({
                     className={`px-5 py-2 rounded-lg text-sm font-semibold transition shadow-md ${
                       submitting
                         ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-                        : "bg-[#c21219] hover:bg-red-700 text-white"
+                        : "bg-[#2563EB] hover:bg-blue-700 text-white"
                     }`}
                   >
                     {submitting ? "Submitting..." : "Submit application"}
@@ -625,11 +625,11 @@ function FieldSection({
       <div className="flex items-center gap-2">
         <h3 className="text-sm font-semibold text-white">{title}</h3>
         {required && (
-          <span className="text-xs text-red-400 font-medium">*</span>
+          <span className="text-xs text-blue-400 font-medium">*</span>
         )}
       </div>
       {children}
-      {error && <p className="text-xs text-red-400 mt-1">{error}</p>}
+      {error && <p className="text-xs text-blue-400 mt-1">{error}</p>}
     </div>
   );
 }

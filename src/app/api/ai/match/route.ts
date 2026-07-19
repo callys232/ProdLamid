@@ -3,11 +3,8 @@ import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/User";
 import { scoreConsultant } from "@/lib/ai/matcher";
 import type { Consultant, MatchResult, Project } from "@/types/aiMatch";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
+import { requireAuth } from "@/lib/middleware/auth";
 import { userHasFeature } from "@/lib/services/tierService";
-
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
 
 function toNumber(value: unknown, fallback = 0) {
     if (typeof value === "number" && Number.isFinite(value)) return value;
@@ -56,40 +53,23 @@ function buildConsultantFromUser(user: any): Consultant {
     };
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
         await connectDB();
 
+        const auth = await requireAuth(req);
+        if (auth instanceof NextResponse) return auth;
+
+        const allowed = await userHasFeature(auth.userId, "ai_matching");
+        if (!allowed) {
+            return NextResponse.json(
+                { error: "Premium required for AI matching", code: "UPGRADE_REQUIRED" },
+                { status: 403 }
+            );
+        }
+
         const body = await req.json();
         const project = buildProjectFromBody(body);
-
-        const cookieStore = await cookies();
-        let token = cookieStore.get("token")?.value;
-
-        if (!token) {
-            const authHeader = req.headers.get("Authorization");
-            if (authHeader && authHeader.startsWith("Bearer ")) {
-                token = authHeader.split(" ")[1];
-            }
-        }
-
-        if (token) {
-            try {
-                const decoded: any = jwt.verify(token, JWT_SECRET);
-                if (decoded?.userId) {
-                    const requester: any = await Users.findById(decoded.userId).lean();
-                    if (requester) {
-                        const allowed = await userHasFeature(decoded.userId, "ai_matching");
-                        if (!allowed) {
-                            return NextResponse.json(
-                                { error: "Premium required for AI matching", code: "UPGRADE_REQUIRED" },
-                                { status: 403 }
-                            );
-                        }
-                    }
-                }
-            } catch { }
-        }
 
         const consultantUsers = await Users.find({
             role: "seller",

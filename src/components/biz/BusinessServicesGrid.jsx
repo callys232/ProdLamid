@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 
 const ServiceCard = ({ image, text, position = "left" }) => {
@@ -73,7 +73,7 @@ const BusinessServicesGrid = () => {
       text: (
         <span>
           Use technology to{" "}
-          <span className="text-red-500 font-bold">connect</span> to clients to
+          <span className="text-blue-500 font-bold">connect</span> to clients to
           deliver and track value.
         </span>
       ),

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -51,7 +51,7 @@ export default function NotificationPreferences() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <Bell className="h-4 w-4 text-[#c12129]" />
+        <Bell className="h-4 w-4 text-[#2563EB]" />
         <h2 className="text-base font-bold text-white">Notification Preferences</h2>
       </div>
 
@@ -66,7 +66,7 @@ export default function NotificationPreferences() {
               whileTap={{ scale: 0.9 }}
               onClick={() => setPrefs(p => ({ ...p, [key]: !p[key] }))}
               className={`relative mt-0.5 inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center rounded-full transition-colors ${
-                prefs[key] ? "bg-[#c12129]" : "bg-white/20"
+                prefs[key] ? "bg-[#2563EB]" : "bg-white/20"
               }`}
             >
               <motion.span
@@ -81,7 +81,7 @@ export default function NotificationPreferences() {
       <motion.button
         whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
         onClick={handleSave} disabled={saving}
-        className="flex items-center gap-2 rounded-xl bg-[#c12129] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-700 disabled:opacity-50"
+        className="flex items-center gap-2 rounded-xl bg-[#2563EB] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700 disabled:opacity-50"
       >
         {saving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
         {saving ? "Saving…" : "Save Preferences"}

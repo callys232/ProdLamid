@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -30,7 +30,7 @@ export default function OnboardingAssistant() {
             <div
               key={i}
               className={`h-2 flex-1 rounded ${
-                i <= step ? "bg-red-600" : "bg-gray-700"
+                i <= step ? "bg-blue-600" : "bg-gray-700"
               }`}
             ></div>
           ))}
@@ -45,7 +45,7 @@ export default function OnboardingAssistant() {
 
       <button
         onClick={next}
-        className="mt-6 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md"
+        className="mt-6 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md"
       >
         {step === steps.length - 1 ? "Finish" : "Continue"}
       </button>

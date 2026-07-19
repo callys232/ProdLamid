@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import bcryptjs from "bcryptjs";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 export async function POST(request: Request) {
     try {

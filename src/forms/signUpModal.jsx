@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 
@@ -127,7 +127,7 @@ const SignupModal = ({ isOpen, onClose, event }) => {
         >
           <button
             onClick={onClose}
-            className="absolute top-2 right-2 text-white hover:text-red-500 text-xl"
+            className="absolute top-2 right-2 text-white hover:text-blue-500 text-xl"
             aria-label="Close signup modal"
           >
             &times;
@@ -162,7 +162,7 @@ const SignupModal = ({ isOpen, onClose, event }) => {
                   className="w-full px-4 py-2 rounded border border-white/30 bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 {errors[name] && (
-                  <p className="text-red-400 text-sm">{errors[name]}</p>
+                  <p className="text-blue-400 text-sm">{errors[name]}</p>
                 )}
               </div>
             ))}
@@ -179,7 +179,7 @@ const SignupModal = ({ isOpen, onClose, event }) => {
               <option value="Day 3">Day 3</option>
             </select>
             {errors["entry.1753222212"] && (
-              <p className="text-red-400 text-sm">
+              <p className="text-blue-400 text-sm">
                 {errors["entry.1753222212"]}
               </p>
             )}
@@ -198,7 +198,7 @@ const SignupModal = ({ isOpen, onClose, event }) => {
               <option value="Other">Other</option>
             </select>
             {errors["entry.588393791"] && (
-              <p className="text-red-400 text-sm">
+              <p className="text-blue-400 text-sm">
                 {errors["entry.588393791"]}
               </p>
             )}
@@ -213,13 +213,13 @@ const SignupModal = ({ isOpen, onClose, event }) => {
               <option value="Yes">Yes</option>
             </select>
             {errors["entry.2109138769"] && (
-              <p className="text-red-400 text-sm">
+              <p className="text-blue-400 text-sm">
                 {errors["entry.2109138769"]}
               </p>
             )}
 
             {errors.submit && (
-              <p className="text-red-400 text-sm text-center">
+              <p className="text-blue-400 text-sm text-center">
                 {errors.submit}
               </p>
             )}

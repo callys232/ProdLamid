@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState } from "react";
 import { Milestone } from "@/types/project";
 import { Consultant } from "@/types/client";
@@ -74,14 +74,14 @@ export default function AnalyticsCards({ projectId }: { projectId: string }) {
     avgCompletion >= 50 ? (
       <span className="text-green-400 ml-1">▲</span>
     ) : (
-      <span className="text-red-400 ml-1">▼</span>
+      <span className="text-blue-400 ml-1">▼</span>
     );
 
   const growthTrend =
     growthRate > 0 ? (
       <span className="text-green-400 ml-1">▲</span>
     ) : (
-      <span className="text-red-400 ml-1">▼</span>
+      <span className="text-blue-400 ml-1">▼</span>
     );
 
   const Card = ({
@@ -96,17 +96,17 @@ export default function AnalyticsCards({ projectId }: { projectId: string }) {
     <div
       className="bg-black border border-gray-700 rounded-xl p-6 shadow-lg 
                  transition transform hover:scale-[1.02] hover:bg-gray-900 
-                 hover:border-[#c12129] relative group"
+                 hover:border-[#2563EB] relative group"
     >
       <h3 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
         {title}
         {error && (
-          <span className="text-xs text-red-500">(fallback data)</span>
+          <span className="text-xs text-blue-500">(fallback data)</span>
         )}
       </h3>
       {children}
       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
-        <span className="bg-[#c12129] text-white text-xs px-2 py-1 rounded shadow-md">
+        <span className="bg-[#2563EB] text-white text-xs px-2 py-1 rounded shadow-md">
           {tooltip}
         </span>
       </div>
@@ -126,7 +126,7 @@ export default function AnalyticsCards({ projectId }: { projectId: string }) {
             Next Due: <span className="text-white">{nextDue}</span>
           </span>
         </div>
-        <CompletionSpeedChart milestones={milestones} accent="#c12129" />
+        <CompletionSpeedChart milestones={milestones} accent="#2563EB" />
       </Card>
 
       <Card title="Freelancer Growth" tooltip="Growth of freelancers over time">
@@ -141,7 +141,7 @@ export default function AnalyticsCards({ projectId }: { projectId: string }) {
             {growthTrend}
           </span>
         </div>
-        <FreelancerGrowthChart consultants={consultants} accent="#c12129" />
+        <FreelancerGrowthChart consultants={consultants} accent="#2563EB" />
       </Card>
     </div>
   );

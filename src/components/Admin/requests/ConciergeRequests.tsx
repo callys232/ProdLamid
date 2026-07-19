@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -162,7 +162,7 @@ export default function ConciergeRequests() {
                   <span className={`text-xs px-2.5 py-1 rounded-full border capitalize ${
                     r.conciergeRequest.status === "approved"
                       ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/30"
-                      : "text-red-400 bg-red-500/10 border-red-500/30"
+                      : "text-blue-400 bg-blue-500/10 border-blue-500/30"
                   }`}>{r.conciergeRequest.status}</span>
                 </div>
               ))}

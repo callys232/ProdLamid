@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -48,7 +48,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
       </select>
 
       {error && (
-        <p id={`${selectId}-error`} className="text-red-400 text-sm mt-1">
+        <p id={`${selectId}-error`} className="text-blue-400 text-sm mt-1">
           {error}
         </p>
       )}

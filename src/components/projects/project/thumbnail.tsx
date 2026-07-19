@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Project } from "@/types/project";
 
@@ -17,7 +17,7 @@ export default function ProjectThumbnailPreview({
         absolute -top-28 left-1/2 transform -translate-x-1/2
         w-[85%]
         bg-gradient-to-br from-black via-[#1a0d0d] to-black
-        border border-[#c21219] rounded-xl shadow-lg
+        border border-[#2563EB] rounded-xl shadow-lg
         opacity-0 group-hover:opacity-100
         transition-all duration-300 ease-out
         p-4
@@ -30,7 +30,7 @@ export default function ProjectThumbnailPreview({
         <img
           src={project.image}
           alt={project.title}
-          className="w-20 h-20 object-cover rounded-lg border border-[#c21219] flex-shrink-0"
+          className="w-20 h-20 object-cover rounded-lg border border-[#2563EB] flex-shrink-0"
         />
       )}
 
@@ -45,7 +45,7 @@ export default function ProjectThumbnailPreview({
 
         {/* Budget */}
         {project.budget && (
-          <p className="text-sm font-semibold text-[#c21219] truncate max-w-full">
+          <p className="text-sm font-semibold text-[#2563EB] truncate max-w-full">
             Budget: {project.budget}
           </p>
         )}

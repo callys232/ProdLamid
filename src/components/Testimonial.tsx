@@ -36,7 +36,7 @@ const Testimonial: React.FC = () => {
             variants={{ hidden: { opacity: 0, y: -16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
           >
             <div
-              className="relative aspect-video rounded-2xl overflow-hidden border border-[#C12129]/30 bg-black cursor-pointer group"
+              className="relative aspect-video rounded-2xl overflow-hidden border border-[#2563EB]/30 bg-black cursor-pointer group"
               onClick={() => setVideoPlaying(!videoPlaying)}
             >
               {!videoPlaying ? (
@@ -44,7 +44,7 @@ const Testimonial: React.FC = () => {
                   <motion.div
                     whileHover={{ scale: 1.12 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-14 h-14 rounded-full bg-[#C12129] flex items-center justify-center shadow-[0_0_24px_rgba(193,33,41,0.6)]"
+                    className="w-14 h-14 rounded-full bg-[#2563EB] flex items-center justify-center shadow-[0_0_24px_rgba(37,99,235,0.6)]"
                   >
                     <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
                   </motion.div>
@@ -75,7 +75,7 @@ const Testimonial: React.FC = () => {
                   transition={{ delay: i * 0.1, duration: 0.4 }}
                   className="aivora-card border rounded-2xl p-6 flex flex-col gap-3"
                 >
-                  <span className="text-3xl text-[#C12129]/20 font-serif leading-none select-none">&ldquo;</span>
+                  <span className="text-3xl text-[#2563EB]/20 font-serif leading-none select-none">&ldquo;</span>
                   <p className="text-sm text-gray-600 dark:text-white/65 leading-relaxed italic flex-1">{q.text}</p>
                   <div className="pt-3 border-t border-gray-100 dark:border-white/6">
                     <p className="text-xs font-semibold text-gray-900 dark:text-white">{q.role}</p>

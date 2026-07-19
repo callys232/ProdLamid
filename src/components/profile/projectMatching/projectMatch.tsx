@@ -1,4 +1,4 @@
-// ProjectsSection.tsx
+﻿// ProjectsSection.tsx
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -264,7 +264,7 @@ export default function ProjectsSection({
                 {/* HEADER + SEARCH + AI */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
                     <div>
-                        <h2 className="text-2xl font-bold text-red-500">Browse Projects</h2>
+                        <h2 className="text-2xl font-bold text-blue-500">Browse Projects</h2>
                         <p className="text-sm text-gray-500">
                             Explore available projects and use AI to find the best matches.
                         </p>
@@ -279,7 +279,7 @@ export default function ProjectsSection({
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             placeholder="Search projects, categories, tech..."
-                            className="px-3 py-2 border rounded-md border-gray-200 focus:ring-2 focus:ring-[#c12129] focus:outline-none"
+                            className="px-3 py-2 border rounded-md border-gray-200 focus:ring-2 focus:ring-[#2563EB] focus:outline-none"
                         /> */}
                         <AIProjectEntry
                             isPremiumUser={isPremiumUser}
@@ -370,11 +370,11 @@ export default function ProjectsSection({
                             </>
                         ) : (
                             <div className="text-center text-gray-400 mt-10">
-                                {error && <p className="text-red-500 mb-4">{error}</p>}
+                                {error && <p className="text-blue-500 mb-4">{error}</p>}
                                 <p>No projects found matching your filters.</p>
                                 <button
                                     onClick={clearFilters}
-                                    className="mt-4 bg-red-600 px-4 py-2 rounded-md font-semibold hover:bg-red-700"
+                                    className="mt-4 bg-blue-600 px-4 py-2 rounded-md font-semibold hover:bg-blue-700"
                                 >
                                     Clear Filters
                                 </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Scale } from "lucide-react";
 import { StatusBadge } from "./statusBadge";
@@ -14,8 +14,8 @@ export function EscrowHeader({
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center gap-2">
-        <Scale className="h-5 w-5 text-red-500" />
-        <span className="text-sm font-semibold uppercase tracking-wide text-red-500">
+        <Scale className="h-5 w-5 text-blue-500" />
+        <span className="text-sm font-semibold uppercase tracking-wide text-blue-500">
           Escrow
         </span>
 

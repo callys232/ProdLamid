@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import ScoreBar from "./scoreBar";
@@ -26,16 +26,16 @@ export default function ProjectMatchingCard({
         shadow-[0_4px_12px_rgba(0,0,0,0.05)]
         hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)]
 
-        ${selected ? "ring-2 ring-[#c12129] shadow-[0_0_0_3px_rgba(193,33,41,0.15)]" : ""}
+        ${selected ? "ring-2 ring-[#2563EB] shadow-[0_0_0_3px_rgba(37,99,235,0.15)]" : ""}
       `}
         >
             {/* HEADER */}
             <div className="flex justify-between items-start">
-                <h3 className="font-semibold text-black group-hover:text-[#c12129] transition">
+                <h3 className="font-semibold text-black group-hover:text-[#2563EB] transition">
                     {project.title}
                 </h3>
 
-                <span className="text-xs text-red-400 group-hover:text-[#c12129] transition">
+                <span className="text-xs text-blue-400 group-hover:text-[#2563EB] transition">
                     {project.location}
                 </span>
             </div>
@@ -47,7 +47,7 @@ export default function ProjectMatchingCard({
 
             {/* MARKET SIGNALS */}
             <div className="flex justify-between mt-3 text-xs">
-                <span className="px-2 py-1 rounded bg-gray-100 group-hover:bg-red-50 transition">
+                <span className="px-2 py-1 rounded bg-gray-100 group-hover:bg-blue-50 transition">
                     🔥 {project.urgency || "Normal"}
                 </span>
                 <span className="px-2 py-1 rounded bg-gray-100 group-hover:bg-black/5 transition">
@@ -72,9 +72,9 @@ export default function ProjectMatchingCard({
                 }}
                 className="
           mt-5 w-full py-2 rounded-lg font-semibold
-          bg-[#c12129] text-red-500
+          bg-[#2563EB] text-blue-500
           shadow-sm
-          hover:bg-red-700 hover:shadow-md
+          hover:bg-blue-700 hover:shadow-md
           transition-all
         "
             >

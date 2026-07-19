@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -45,7 +45,7 @@ const PrototypeModal: React.FC<PrototypeModalProps> = ({
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-3 right-4 text-white/90 hover:text-[#c21219] text-xl"
+              className="absolute top-3 right-4 text-white/90 hover:text-[#2563EB] text-xl"
             >
               ✕
             </button>
@@ -64,7 +64,7 @@ const PrototypeModal: React.FC<PrototypeModalProps> = ({
             <h3 className="text-2xl font-bold text-center text-white">
               {name}
             </h3>
-            <p className="mt-2 text-lg font-bold text-center text-[#c21219]">
+            <p className="mt-2 text-lg font-bold text-center text-[#2563EB]">
               ${price.toFixed(2)}
             </p>
 
@@ -86,7 +86,7 @@ const PrototypeModal: React.FC<PrototypeModalProps> = ({
                   });
                   onClose();
                 }}
-                className="rounded-lg px-4 py-2 font-medium text-white bg-[#c21219] hover:bg-[#a50f15] transition"
+                className="rounded-lg px-4 py-2 font-medium text-white bg-[#2563EB] hover:bg-[#a50f15] transition"
               >
                 Confirm purchase
               </button>

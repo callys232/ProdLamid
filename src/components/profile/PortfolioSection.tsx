@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useRef } from "react";
 
@@ -31,7 +31,7 @@ const CATEGORIES = [
 ];
 
 const GRADIENT_PLACEHOLDERS = [
-  "from-[#C12129] to-gray-900",
+  "from-[#2563EB] to-gray-900",
   "from-purple-900 to-gray-900",
   "from-blue-900 to-gray-900",
   "from-emerald-900 to-gray-900",
@@ -208,7 +208,7 @@ export default function PortfolioSection({ userId }: Props) {
           <button
             type="button"
             onClick={openAdd}
-            className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#C12129] text-white hover:bg-red-700 transition"
+            className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#2563EB] text-white hover:bg-blue-700 transition"
           >
             + Add Portfolio Item
           </button>
@@ -258,7 +258,7 @@ export default function PortfolioSection({ userId }: Props) {
               <button
                 type="button"
                 onClick={() => handleDelete(deleteConfirm)}
-                className="rounded-xl px-4 py-2 text-sm font-semibold bg-red-700 text-white hover:bg-red-600 transition"
+                className="rounded-xl px-4 py-2 text-sm font-semibold bg-blue-700 text-white hover:bg-blue-600 transition"
               >
                 Remove
               </button>
@@ -282,7 +282,7 @@ export default function PortfolioSection({ userId }: Props) {
               <div>
                 <label className="text-xs text-gray-400 block mb-1">Title *</label>
                 <input
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#C12129]"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
                   placeholder="e.g. E-commerce platform redesign"
                   value={form.title}
                   onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
@@ -294,7 +294,7 @@ export default function PortfolioSection({ userId }: Props) {
                 <label className="text-xs text-gray-400 block mb-1">Description</label>
                 <textarea
                   rows={3}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#C12129] resize-none"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB] resize-none"
                   placeholder="Describe what you built, your role, and the impact…"
                   value={form.description}
                   onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
@@ -305,7 +305,7 @@ export default function PortfolioSection({ userId }: Props) {
               <div>
                 <label className="text-xs text-gray-400 block mb-1">Category</label>
                 <select
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#C12129]"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                   value={form.category}
                   onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
                 >
@@ -318,7 +318,7 @@ export default function PortfolioSection({ userId }: Props) {
                 <label className="text-xs text-gray-400 block mb-1">Tags</label>
                 <div className="flex gap-2">
                   <input
-                    className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#C12129]"
+                    className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
                     placeholder="Add a tag and press Enter"
                     value={tagInput}
                     onChange={(e) => setTagInput(e.target.value)}
@@ -333,7 +333,7 @@ export default function PortfolioSection({ userId }: Props) {
                     {form.tags.map((tag) => (
                       <span key={tag} className="flex items-center gap-1 text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full">
                         {tag}
-                        <button type="button" onClick={() => removeTag(tag)} className="text-gray-500 hover:text-red-400 ml-1">×</button>
+                        <button type="button" onClick={() => removeTag(tag)} className="text-gray-500 hover:text-blue-400 ml-1">×</button>
                       </span>
                     ))}
                   </div>
@@ -344,7 +344,7 @@ export default function PortfolioSection({ userId }: Props) {
               <div>
                 <label className="text-xs text-gray-400 block mb-1">Image URL (optional)</label>
                 <input
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#C12129]"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
                   placeholder="https://…"
                   value={form.imageUrl ?? ""}
                   onChange={(e) => setForm((f) => ({ ...f, imageUrl: e.target.value }))}
@@ -355,7 +355,7 @@ export default function PortfolioSection({ userId }: Props) {
               <div>
                 <label className="text-xs text-gray-400 block mb-1">Project URL (optional)</label>
                 <input
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#C12129]"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
                   placeholder="https://…"
                   value={form.projectUrl ?? ""}
                   onChange={(e) => setForm((f) => ({ ...f, projectUrl: e.target.value }))}
@@ -366,7 +366,7 @@ export default function PortfolioSection({ userId }: Props) {
               <div>
                 <label className="text-xs text-gray-400 block mb-1">Client Name (optional)</label>
                 <input
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#C12129]"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
                   placeholder="e.g. Acme Corp"
                   value={form.clientName ?? ""}
                   onChange={(e) => setForm((f) => ({ ...f, clientName: e.target.value }))}
@@ -378,7 +378,7 @@ export default function PortfolioSection({ userId }: Props) {
                 <label className="text-xs text-gray-400 block mb-1">Completed Date</label>
                 <input
                   type="date"
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#C12129]"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                   value={form.completedAt}
                   onChange={(e) => setForm((f) => ({ ...f, completedAt: e.target.value }))}
                 />
@@ -397,7 +397,7 @@ export default function PortfolioSection({ userId }: Props) {
                 type="button"
                 onClick={handleSave}
                 disabled={!form.title.trim()}
-                className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#C12129] text-white hover:bg-red-700 disabled:opacity-50 transition"
+                className="rounded-xl px-4 py-2 text-sm font-semibold bg-[#2563EB] text-white hover:bg-blue-700 disabled:opacity-50 transition"
               >
                 {editId ? "Save Changes" : "Add Item"}
               </button>
@@ -474,7 +474,7 @@ function PortfolioCard({
           <button
             type="button"
             onClick={onDelete}
-            className="rounded-xl px-3 py-1.5 text-xs font-semibold bg-gray-800 text-red-400 hover:text-red-300 transition"
+            className="rounded-xl px-3 py-1.5 text-xs font-semibold bg-gray-800 text-blue-400 hover:text-blue-300 transition"
           >
             ✕
           </button>

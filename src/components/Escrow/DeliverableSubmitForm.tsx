@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -42,7 +42,7 @@ export default function DeliverableSubmitForm({
         />
         <button
           type="button"
-          className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white"
+          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white"
         >
           Submit Deliverable
         </button>

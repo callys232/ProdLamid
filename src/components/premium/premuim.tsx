@@ -1,4 +1,4 @@
-// app/premium/page.tsx
+﻿// app/premium/page.tsx
 "use client";
 import Link from "next/link";
 
@@ -43,7 +43,7 @@ export default function PremiumPage() {
   return (
     <section className="min-h-screen bg-black py-12 px-6">
       <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg p-10">
-        <h1 className="text-4xl font-bold text-[#c12129] mb-6">Premium Plan</h1>
+        <h1 className="text-4xl font-bold text-[#2563EB] mb-6">Premium Plan</h1>
         <p className="text-gray-700 mb-8">
           Unlock advanced features, personalized support, and exclusive benefits
           with the Premium plan.
@@ -56,7 +56,7 @@ export default function PremiumPage() {
           {premiumServices.map((svc, idx) => (
             <li
               key={idx}
-              className="flex items-center gap-3 border-b border-gray-200 pb-2 cursor-pointer hover:text-[#c12129]"
+              className="flex items-center gap-3 border-b border-gray-200 pb-2 cursor-pointer hover:text-[#2563EB]"
               onClick={() => setSelectedService(svc)}
             >
               <TickingBullet />
@@ -79,10 +79,10 @@ export default function PremiumPage() {
         <div className="mt-10">
           <h2 className="text-2xl font-semibold text-black mb-4">Cost</h2>
           <p className="text-gray-800">
-            <span className="font-bold text-[#c12129]">quaterly:</span> $49
+            <span className="font-bold text-[#2563EB]">quaterly:</span> $49
           </p>
           <p className="text-gray-800">
-            <span className="font-bold text-[#c12129]">Annual:</span> $499 /
+            <span className="font-bold text-[#2563EB]">Annual:</span> $499 /
             year (save 8%)
           </p>
         </div>
@@ -90,13 +90,13 @@ export default function PremiumPage() {
         <div className="mt-12 flex flex-col sm:flex-row gap-4">
           <Link
             href="#"
-            className="flex-1 text-center bg-[#c12129] text-white py-3 rounded hover:bg-black transition"
+            className="flex-1 text-center bg-[#2563EB] text-white py-3 rounded hover:bg-black transition"
           >
             Upgrade Monthly
           </Link>
           <Link
             href="#"
-            className="flex-1 text-center bg-[#c12129] text-white py-3 rounded hover:bg-black transition"
+            className="flex-1 text-center bg-[#2563EB] text-white py-3 rounded hover:bg-black transition"
           >
             Upgrade Annually
           </Link>

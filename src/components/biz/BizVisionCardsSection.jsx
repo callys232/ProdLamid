@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -36,12 +36,12 @@ const BizVisionCardsSection = () => {
             className="w-full"
             aria-label="View Lamid Tech portfolio"
           >
-            <div className="card-glare relative border border-red-500 rounded-md p-6 pt-6 bg-black bg-opacity-70 group transition duration-500 transform hover:scale-105 hover:-translate-y-1 hover:border-red-700 hover:shadow-[0_0_25px_rgba(255,0,0,0.4)] cursor-pointer h-full min-h-[250px] flex flex-col justify-between overflow-hidden">
+            <div className="card-glare relative border border-blue-500 rounded-md p-6 pt-6 bg-black bg-opacity-70 group transition duration-500 transform hover:scale-105 hover:-translate-y-1 hover:border-blue-700 hover:shadow-[0_0_25px_rgba(255,0,0,0.4)] cursor-pointer h-full min-h-[250px] flex flex-col justify-between overflow-hidden">
               {/* Title Banner */}
-              <div className="mb-4 px-4 py-1 border border-red-500 rounded bg-black group-hover:bg-red-500 group-hover:text-black transition duration-300">
+              <div className="mb-4 px-4 py-1 border border-blue-500 rounded bg-black group-hover:bg-blue-500 group-hover:text-black transition duration-300">
                 <div className="flex items-center gap-2">
-                  <FaHandshake className="text-red-500 group-hover:text-black" />
-                  <h3 className="text-red-500 font-bold group-hover:text-black text-sm sm:text-base">
+                  <FaHandshake className="text-blue-500 group-hover:text-black" />
+                  <h3 className="text-blue-500 font-bold group-hover:text-black text-sm sm:text-base">
                     Lamid Tech
                   </h3>
                 </div>
@@ -49,7 +49,7 @@ const BizVisionCardsSection = () => {
 
               {/* Card Content */}
               <div className="z-10">
-                <p className="text-sm sm:text-base text-red-500 group-hover:text-white">
+                <p className="text-sm sm:text-base text-blue-500 group-hover:text-white">
                   The exclusive small business online networking marketplace,
                   where sellers meet buyers, and announce and exchange services
                   and products.
@@ -98,7 +98,7 @@ const BizVisionCardsSection = () => {
       {/* CTA Button */}
       <div className="relative z-10 mt-10 text-center px-4">
         <Link href="/portfolio">
-          <div className="group bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 sm:px-8 rounded transition duration-300 inline-flex items-center gap-2 cursor-pointer text-sm sm:text-base">
+          <div className="group bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 sm:px-8 rounded transition duration-300 inline-flex items-center gap-2 cursor-pointer text-sm sm:text-base">
             Our Portfolio
             <FaArrowRight className="transform group-hover:translate-x-1 transition duration-300" />
           </div>

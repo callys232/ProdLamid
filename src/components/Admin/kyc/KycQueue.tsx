@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,7 +18,7 @@ interface KycUser {
 const STATUS_STYLE: Record<string, string> = {
   pending:  "border-yellow-500/30 bg-yellow-500/10 text-yellow-400",
   approved: "border-green-500/30 bg-green-500/10 text-green-400",
-  rejected: "border-red-500/30 bg-red-500/10 text-red-400",
+  rejected: "border-blue-500/30 bg-blue-500/10 text-blue-400",
 };
 
 export default function KycQueue() {
@@ -66,7 +66,7 @@ export default function KycQueue() {
             <motion.button key={s} whileTap={{ scale: 0.95 }}
               onClick={() => { setFilter(s); setPage(1); }}
               className={`rounded-full px-3 py-1 text-xs font-semibold capitalize transition ${
-                filter === s ? "bg-[#c12129] text-white" : "border border-white/10 text-gray-400 hover:text-white"
+                filter === s ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-400 hover:text-white"
               }`}>
               {s}
             </motion.button>
@@ -122,7 +122,7 @@ export default function KycQueue() {
                     <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                       disabled={acting === u._id}
                       onClick={() => handleDecision(u._id, "rejected")}
-                      className="flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-semibold text-red-400 hover:bg-red-500/20 disabled:opacity-50">
+                      className="flex items-center gap-1.5 rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-2 text-xs font-semibold text-blue-400 hover:bg-blue-500/20 disabled:opacity-50">
                       <ShieldX className="h-3.5 w-3.5" /> Reject
                     </motion.button>
                   </div>

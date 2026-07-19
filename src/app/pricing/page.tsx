@@ -141,7 +141,7 @@ export default function PricingPage() {
               value={currency}
               onChange={e => setCurrency(e.target.value)}
               aria-label="Currency"
-              className="aivora-card border rounded-xl px-4 py-2.5 pr-8 text-sm font-medium text-gray-700 dark:text-white/80 appearance-none cursor-pointer focus:outline-none focus:border-[#C12129]/50 transition-colors"
+              className="aivora-card border rounded-xl px-4 py-2.5 pr-8 text-sm font-medium text-gray-700 dark:text-white/80 appearance-none cursor-pointer focus:outline-none focus:border-[#2563EB]/50 transition-colors"
             >
               {CURRENCIES.map(c => (
                 <option key={c.code} value={c.code}>{c.symbol} {c.code} — {c.label}</option>
@@ -158,9 +158,9 @@ export default function PricingPage() {
             </button>
             <button type="button" onClick={() => setAnnual(v => !v)}
               aria-label={annual ? "Switch to monthly billing" : "Switch to annual billing"}
-              className="relative w-10 h-5 rounded-full border border-[#C12129]/30 bg-[#C12129]/10 cursor-pointer flex items-center"
+              className="relative w-10 h-5 rounded-full border border-[#2563EB]/30 bg-[#2563EB]/10 cursor-pointer flex items-center"
             >
-              <motion.span className="absolute w-3.5 h-3.5 rounded-full bg-[#C12129] shadow-[0_0_6px_rgba(193,33,41,0.5)]"
+              <motion.span className="absolute w-3.5 h-3.5 rounded-full bg-[#2563EB] shadow-[0_0_6px_rgba(37,99,235,0.5)]"
                 animate={{ left: annual ? "calc(100% - 1.1rem)" : "0.15rem" }}
                 transition={{ type: "spring", stiffness: 400, damping: 26 }}
               />
@@ -168,7 +168,7 @@ export default function PricingPage() {
             <button type="button" onClick={() => setAnnual(true)}
               className={`text-sm font-semibold cursor-pointer transition-colors flex items-center gap-1.5 ${annual ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-white/35"}`}>
               Annual
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#C12129]/12 border border-[#C12129]/25 aivora-gradient-text">
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#2563EB]/12 border border-[#2563EB]/25 aivora-gradient-text">
                 Save {savings}%
               </span>
             </button>
@@ -186,11 +186,11 @@ export default function PricingPage() {
             transition={{ delay: i * 0.1, duration: 0.45 }}
             className={`relative flex flex-col rounded-2xl border p-7 aivora-card
               ${plan.highlight
-                ? "border-[#C12129]/40 shadow-[0_0_40px_rgba(193,33,41,0.12)]"
+                ? "border-[#2563EB]/40 shadow-[0_0_40px_rgba(37,99,235,0.12)]"
                 : "border-gray-200 dark:border-white/8"}`}
           >
             {plan.highlight && (
-              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-gradient-to-r from-[#C12129] to-red-400" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-gradient-to-r from-[#2563EB] to-blue-400" />
             )}
 
             {/* Name */}
@@ -224,8 +224,8 @@ export default function PricingPage() {
             <Link href={plan.href}
               className={`block text-center py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer mb-7
                 ${plan.highlight
-                  ? "bg-[#C12129] text-white hover:bg-[#a01a20] shadow-[0_0_14px_rgba(193,33,41,0.4)]"
-                  : "border border-gray-200 dark:border-white/15 text-gray-700 dark:text-white/70 hover:border-[#C12129]/40 hover:text-[#C12129]"}`}>
+                  ? "bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_0_14px_rgba(37,99,235,0.4)]"
+                  : "border border-gray-200 dark:border-white/15 text-gray-700 dark:text-white/70 hover:border-[#2563EB]/40 hover:text-[#2563EB]"}`}>
               {plan.cta}
             </Link>
 
@@ -255,7 +255,7 @@ export default function PricingPage() {
               initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: i * 0.06, duration: 0.35 }}
               className={`aivora-card border rounded-2xl overflow-hidden transition-all duration-200
-                ${open === i ? "border-[#C12129]/30" : "border-gray-200 dark:border-white/8"}`}
+                ${open === i ? "border-[#2563EB]/30" : "border-gray-200 dark:border-white/8"}`}
             >
               <button type="button" onClick={() => setOpen(open === i ? null : i)}
                 className="w-full flex items-center justify-between gap-4 px-6 py-4 text-left cursor-pointer">

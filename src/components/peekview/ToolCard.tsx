@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
@@ -173,9 +173,9 @@ export const TOOLS: Tool[] = [
     fallbackEmoji: "⚡",
     href:          "/intelligence-hub",
     accent:        "red",
-    accentHex:     "#c21219",
+    accentHex:     "#2563EB",
     badge:         "Premium",
-    badgeColor:    "bg-[#c21219]/20 text-[#c21219]",
+    badgeColor:    "bg-[#2563EB]/20 text-[#2563EB]",
     premium:       true,
   },
   /* ── Enterprise tools — requires Enterprise/Concierge/Admin ── */

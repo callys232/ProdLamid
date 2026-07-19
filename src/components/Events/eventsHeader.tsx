@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -9,7 +9,7 @@ const EventHeader: React.FC = () => {
     ["INNOVATE", "BUILD", "GROW"],
     [
       "bg-gradient-to-r from-blue-400 to-white",
-      "bg-gradient-to-r from-red-500 to-white",
+      "bg-gradient-to-r from-blue-500 to-white",
       "bg-gradient-to-r from-green-400 to-white",
     ],
     120,
@@ -71,7 +71,7 @@ const EventHeader: React.FC = () => {
 
         {/* Supporting tagline */}
         <div className="w-full mt-6 space-y-2">
-          <p className="text-[#C12129] text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-center mx-auto max-w-4xl px-4">
+          <p className="text-[#2563EB] text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-center mx-auto max-w-4xl px-4">
             Driving transformation through innovation and growth.
           </p>
           <p className="text-gray-300 text-base sm:text-lg md:text-xl text-center mx-auto max-w-3xl px-4 italic">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -130,7 +130,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
         {/* ── Header ──────────────────────────────────────────── */}
         <div className="flex-shrink-0 flex items-center gap-4 border-b border-white/10 bg-[#0d1117]/95 px-5 py-4">
           <div className="relative flex-shrink-0">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#c21219]/15 border border-[#c21219]/25 text-sm font-bold text-[#c21219]">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#2563EB]/15 border border-[#2563EB]/25 text-sm font-bold text-[#2563EB]">
               {pm.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
             </div>
             <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 border-2 border-[#0d1117]" />
@@ -177,7 +177,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
                   >
                     {/* Avatar */}
                     {!mine && (
-                      <div className="flex-shrink-0 h-7 w-7 rounded-full bg-[#c21219]/15 border border-[#c21219]/25 flex items-center justify-center text-[10px] font-bold text-[#c21219] mt-1">
+                      <div className="flex-shrink-0 h-7 w-7 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/25 flex items-center justify-center text-[10px] font-bold text-[#2563EB] mt-1">
                         {pm.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
                       </div>
                     )}
@@ -185,7 +185,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
                     <div className={`flex flex-col gap-1 max-w-[75%] ${mine ? "items-end" : "items-start"}`}>
                       <div className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                         mine
-                          ? "bg-[#c21219] text-white rounded-tr-sm"
+                          ? "bg-[#2563EB] text-white rounded-tr-sm"
                           : "bg-white/8 border border-white/10 text-gray-200 rounded-tl-sm"
                       }`}>
                         {m.message}
@@ -198,7 +198,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
                           <Loader2 className="h-2.5 w-2.5 animate-spin text-gray-600" />
                         )}
                         {mine && m.status === "failed" && (
-                          <AlertCircle className="h-2.5 w-2.5 text-red-400" />
+                          <AlertCircle className="h-2.5 w-2.5 text-blue-400" />
                         )}
                       </div>
                     </div>
@@ -220,7 +220,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
               onChange={e => setText(e.target.value)}
               onKeyDown={handleKey}
               placeholder={`Message ${pm.name.split(" ")[0]}…`}
-              className="flex-1 resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50 transition max-h-28 overflow-y-auto"
+              className="flex-1 resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition max-h-28 overflow-y-auto"
               style={{ lineHeight: "1.5" }}
             />
             <motion.button
@@ -228,7 +228,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
               whileTap={{ scale: 0.93 }}
               onClick={sendMessage}
               disabled={!text.trim() || sending}
-              className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-[#c21219] text-white transition hover:bg-red-700 disabled:opacity-40"
+              className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-[#2563EB] text-white transition hover:bg-blue-700 disabled:opacity-40"
             >
               {sending
                 ? <Loader2 className="h-4 w-4 animate-spin" />
@@ -309,16 +309,16 @@ export default function ConciergePM() {
         {/* ── PM Card ──────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl border border-[#c21219]/30 bg-[#c21219]/5 p-4"
+          className="rounded-2xl border border-[#2563EB]/30 bg-[#2563EB]/5 p-4"
         >
           <div className="flex items-start gap-5">
             <div className="w-16 h-16 rounded-xl border border-white/10 bg-black/40 flex items-center justify-center flex-shrink-0">
-              <UserCheck className="h-8 w-8 text-[#c21219]" />
+              <UserCheck className="h-8 w-8 text-[#2563EB]" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <p className="text-lg font-bold text-white">{pm.name}</p>
-                <span className="text-xs bg-[#c21219]/20 text-[#c21219] border border-[#c21219]/30 px-2 py-0.5 rounded-full">Your PM</span>
+                <span className="text-xs bg-[#2563EB]/20 text-[#2563EB] border border-[#2563EB]/30 px-2 py-0.5 rounded-full">Your PM</span>
                 <span className="flex items-center gap-1 text-[10px] text-emerald-400">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Online
                 </span>
@@ -339,7 +339,7 @@ export default function ConciergePM() {
               whileHover={{ scale: 1.03, boxShadow: "0 4px 16px rgba(0,0,0,0.3)" }}
               className="flex items-center gap-2 rounded-xl bg-black/30 border border-white/10 px-3 py-2.5 hover:border-white/20 transition"
             >
-              <Mail className="h-3.5 w-3.5 text-[#c21219] flex-shrink-0" />
+              <Mail className="h-3.5 w-3.5 text-[#2563EB] flex-shrink-0" />
               <p className="text-xs text-gray-300 truncate">{pm.email}</p>
             </motion.a>
             <motion.a
@@ -347,14 +347,14 @@ export default function ConciergePM() {
               whileHover={{ scale: 1.03, boxShadow: "0 4px 16px rgba(0,0,0,0.3)" }}
               className="flex items-center gap-2 rounded-xl bg-black/30 border border-white/10 px-3 py-2.5 hover:border-white/20 transition"
             >
-              <Phone className="h-3.5 w-3.5 text-[#c21219] flex-shrink-0" />
+              <Phone className="h-3.5 w-3.5 text-[#2563EB] flex-shrink-0" />
               <p className="text-xs text-gray-300 truncate">{pm.phone}</p>
             </motion.a>
             <motion.div
               whileHover={{ scale: 1.03 }}
               className="flex items-center gap-2 rounded-xl bg-black/30 border border-white/10 px-3 py-2.5 cursor-default"
             >
-              <Clock className="h-3.5 w-3.5 text-[#c21219] flex-shrink-0" />
+              <Clock className="h-3.5 w-3.5 text-[#2563EB] flex-shrink-0" />
               <p className="text-xs text-gray-300 truncate">{pm.availability}</p>
             </motion.div>
           </div>
@@ -375,7 +375,7 @@ export default function ConciergePM() {
               whileHover={{ scale: 1.04, boxShadow: "0 6px 20px rgba(194,18,25,0.4)" }}
               whileTap={{ scale: 0.96 }}
               onClick={() => setShowChat(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#c21219] hover:bg-red-700 text-white text-sm font-semibold transition"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-sm font-semibold transition"
             >
               <MessageSquare className="h-4 w-4" /> Message PM
             </motion.button>
@@ -408,7 +408,7 @@ export default function ConciergePM() {
           <ul className="space-y-2">
             {pm.currentProjects.map((p, i) => (
               <li key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#c21219] flex-shrink-0" />{p}
+                <span className="h-1.5 w-1.5 rounded-full bg-[#2563EB] flex-shrink-0" />{p}
               </li>
             ))}
           </ul>
@@ -475,8 +475,8 @@ export default function ConciergePM() {
             >
               <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#c21219]/15 border border-[#c21219]/25">
-                    <Calendar className="h-4 w-4 text-[#c21219]" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2563EB]/15 border border-[#2563EB]/25">
+                    <Calendar className="h-4 w-4 text-[#2563EB]" />
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-white">Book a Call</h3>
@@ -514,7 +514,7 @@ export default function ConciergePM() {
                     <motion.button
                       whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                       onClick={() => setShowBooking(false)}
-                      className="mt-2 px-6 py-2 rounded-xl bg-[#c21219] text-sm font-semibold text-white hover:bg-red-700 transition"
+                      className="mt-2 px-6 py-2 rounded-xl bg-[#2563EB] text-sm font-semibold text-white hover:bg-blue-700 transition"
                     >
                       Done
                     </motion.button>
@@ -536,7 +536,7 @@ export default function ConciergePM() {
                         value={note}
                         onChange={e => setNote(e.target.value)}
                         placeholder="What would you like to discuss?"
-                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c21219]/50 resize-none transition"
+                        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 resize-none transition"
                       />
                     </div>
                     <p className="text-[11px] text-gray-600">A calendar invite will be sent to your email. If our scheduler is unavailable, your email client will open.</p>
@@ -546,7 +546,7 @@ export default function ConciergePM() {
                         whileHover={{ scale: 1.04, boxShadow: "0 4px 16px rgba(194,18,25,0.35)" }} whileTap={{ scale: 0.96 }}
                         disabled={booking}
                         onClick={confirmBooking}
-                        className="flex items-center gap-2 rounded-xl bg-[#c21219] px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
+                        className="flex items-center gap-2 rounded-xl bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition disabled:opacity-50"
                       >
                         {booking ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
                         {booking ? "Booking…" : "Confirm"}

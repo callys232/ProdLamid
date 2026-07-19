@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState } from "react";
 import { Milestone } from "@/types/project";
 import { mockClients } from "@/mocks/mockClient";
@@ -63,20 +63,20 @@ export default function MilestonesCard({ projectId }: { projectId: string }) {
     funded: "bg-blue-600",
     released: "bg-purple-600",
     completed: "bg-green-600",
-    cancelled: "bg-red-600",
-    disputed: "bg-red-800",
+    cancelled: "bg-blue-600",
+    disputed: "bg-blue-800",
   };
 
   return (
     <div
       className="bg-black border border-gray-700 rounded-xl p-6 shadow-lg 
                  transition transform hover:scale-[1.02] hover:bg-gray-900 
-                 hover:border-[#c12129] relative group"
+                 hover:border-[#2563EB] relative group"
     >
       <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
         Milestones
         {error && (
-          <span className="text-xs text-red-500">(fallback data)</span>
+          <span className="text-xs text-blue-500">(fallback data)</span>
         )}
       </h3>
 
@@ -93,7 +93,7 @@ export default function MilestonesCard({ projectId }: { projectId: string }) {
           <li
             key={m.id || m._id}
             className="relative flex justify-between items-center bg-gray-900 p-3 rounded-md 
-                       border border-transparent hover:border-[#c12129] hover:bg-gray-800 transition group"
+                       border border-transparent hover:border-[#2563EB] hover:bg-gray-800 transition group"
           >
             <div>
               <span className="text-white block">{m.title}</span>
@@ -112,7 +112,7 @@ export default function MilestonesCard({ projectId }: { projectId: string }) {
 
             {/* Hover popover */}
             <div className="absolute left-0 top-full mt-1 w-full opacity-0 group-hover:opacity-100 transition">
-              <div className="bg-[#111] border border-[#c12129] text-xs text-gray-300 rounded p-2 shadow-lg">
+              <div className="bg-[#111] border border-[#2563EB] text-xs text-gray-300 rounded p-2 shadow-lg">
                 {m.description && <p className="mb-1">Desc: {m.description}</p>}
                 {m.acceptanceCriteria && (
                   <p className="mb-1">Criteria: {m.acceptanceCriteria}</p>
@@ -128,7 +128,7 @@ export default function MilestonesCard({ projectId }: { projectId: string }) {
 
       {/* Tooltip */}
       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
-        <span className="bg-[#c12129] text-white text-xs px-2 py-1 rounded shadow-md">
+        <span className="bg-[#2563EB] text-white text-xs px-2 py-1 rounded shadow-md">
           Project milestones overview
         </span>
       </div>

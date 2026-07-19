@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -51,7 +51,7 @@ export default function UploadResume({ user }: { user: any }) {
       {existingResumeUrl && (
         <div className="mb-6 p-4 border border-green-600/30 bg-green-900/10 rounded-md">
           <p className="text-sm text-gray-300">Existing Resume detected:</p>
-          <a href={existingResumeUrl} target="_blank" rel="noopener noreferrer" className="text-red-500 hover:underline text-sm font-medium">
+          <a href={existingResumeUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline text-sm font-medium">
             View current resume
           </a>
         </div>
@@ -72,8 +72,8 @@ export default function UploadResume({ user }: { user: any }) {
           className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4
                      file:rounded-md file:border-0
                      file:text-sm file:font-semibold
-                     file:bg-red-600 file:text-white
-                     hover:file:bg-red-700 disabled:opacity-50"
+                     file:bg-blue-600 file:text-white
+                     hover:file:bg-blue-700 disabled:opacity-50"
           disabled={loading}
         />
 
@@ -92,7 +92,7 @@ export default function UploadResume({ user }: { user: any }) {
           <button
             type="submit"
             disabled={loading || !file}
-            className="px-6 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 transition"
+            className="px-6 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition"
           >
             {loading ? "Uploading..." : "Save"}
           </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCheckCircle } from "react-icons/fa";
@@ -45,7 +45,7 @@ export default function ApplySuccess({
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             className="flex justify-center mb-6"
           >
-            <FaCheckCircle className="text-6xl text-[#c21219] drop-shadow-lg" />
+            <FaCheckCircle className="text-6xl text-[#2563EB] drop-shadow-lg" />
           </motion.div>
 
           {/* Title */}
@@ -84,7 +84,7 @@ export default function ApplySuccess({
           <div className="flex justify-center gap-4">
             <button
               onClick={onClose}
-              className="px-6 py-2 rounded-md font-semibold bg-[#c21219]/80 hover:bg-[#c21219] text-white shadow-lg transition"
+              className="px-6 py-2 rounded-md font-semibold bg-[#2563EB]/80 hover:bg-[#2563EB] text-white shadow-lg transition"
             >
               Close
             </button>

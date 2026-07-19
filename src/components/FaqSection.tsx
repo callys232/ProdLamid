@@ -1,4 +1,4 @@
-// components/FAQSection.tsx
+﻿// components/FAQSection.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -36,7 +36,7 @@ export default function FAQSection() {
 
   return (
     <section className="bg-white rounded-xl shadow-lg p-10 mb-12">
-      <h2 className="text-3xl font-bold text-[#c12129] mb-8">
+      <h2 className="text-3xl font-bold text-[#2563EB] mb-8">
         Hybrid Consulting – Frequently Asked Questions
       </h2>
       <ul className="space-y-6">
@@ -47,7 +47,7 @@ export default function FAQSection() {
               className="w-full text-left flex justify-between items-center gap-4"
             >
               <span className="text-base font-semibold text-black">{faq.question}</span>
-              <span className="text-[#c12129]">
+              <span className="text-[#2563EB]">
                 {openIndex === idx ? "-" : "+"}
               </span>
             </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { FaLinkedin, FaGlobe, FaTwitter, FaGithub, FaCheckCircle, FaStar } from "react-icons/fa";
@@ -141,7 +141,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
     { name: "LinkedIn", icon: <FaLinkedin size={24} />, url: user?.profile?.linkedin || "#", hover: "hover:text-blue-600" },
     { name: "Website", icon: <FaGlobe size={24} />, url: user?.profile?.website || "#", hover: "hover:text-green-400" },
     { name: "Twitter", icon: <FaTwitter size={24} />, url: user?.profile?.twitter || "#", hover: "hover:text-blue-400" },
-    { name: "GitHub", icon: <FaGithub size={24} />, url: user?.profile?.github || "#", hover: "hover:text-red-600" },
+    { name: "GitHub", icon: <FaGithub size={24} />, url: user?.profile?.github || "#", hover: "hover:text-blue-600" },
   ];
 
   // -----------------------------
@@ -151,7 +151,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
     <motion.div
       className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900
                  border-b border-gray-700 p-6 md:p-8 rounded-lg shadow-lg overflow-hidden
-                 ring-1 ring-gray-700 hover:ring-red-500 transition"
+                 ring-1 ring-gray-700 hover:ring-blue-500 transition"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -159,7 +159,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
       {/* Premium Ribbon */}
       {user?.profile?.premium && (
         <motion.div
-          className="absolute top-4 left-0 bg-red-600 text-white text-xs font-semibold px-4 py-1 rounded-r-lg shadow-md flex items-center gap-1 animate-pulse"
+          className="absolute top-4 left-0 bg-blue-600 text-white text-xs font-semibold px-4 py-1 rounded-r-lg shadow-md flex items-center gap-1 animate-pulse"
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
         >
@@ -185,7 +185,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
           <img
             src={user?.profile?.photoUrl || "/freelancer-placeholder.png"}
             alt="Freelancer Photo"
-            className="w-20 h-20 rounded-full border-4 border-red-500 shadow-md object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-500 shadow-md object-cover"
           />
           <div>
             <div className="flex items-center gap-2">
@@ -204,7 +204,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
             <div className="flex-1">
               <div className="w-full bg-gray-700 rounded-full h-2">
                 <div
-                  className="bg-red-500 h-2 rounded-full transition-all"
+                  className="bg-blue-500 h-2 rounded-full transition-all"
                   style={{ width: `${completion}%` }}
                 />
               </div>
@@ -214,7 +214,7 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
           <div className="mt-2">
             <button
               onClick={() => router.push("/editConsultant")}
-              className="text-xs text-red-500 hover:text-white underline"
+              className="text-xs text-blue-500 hover:text-white underline"
             >
               Complete Profile
             </button>
@@ -240,12 +240,12 @@ export default function ConsultantProfileHeader({ user }: { user: any }) {
       <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start" data-guide="consultant-alerts">
         <button
           onClick={() => setShowPopup(true)}
-          className="relative px-6 py-2 border border-gray-600 hover:border-red-500
+          className="relative px-6 py-2 border border-gray-600 hover:border-blue-500
                      text-gray-300 hover:text-white font-medium rounded-lg shadow-md"
         >
           View Alerts
           {badgeCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
+            <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
               {badgeCount}
             </span>
           )}

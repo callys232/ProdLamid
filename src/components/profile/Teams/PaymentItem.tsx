@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useEffect, useState } from "react";
 import { FaCheckCircle, FaClock } from "react-icons/fa";
 
@@ -50,7 +50,7 @@ export function PaymentItem({
   // Progress bar color
   const barColor =
     progressPercent >= 80
-      ? "bg-red-500"
+      ? "bg-blue-500"
       : progressPercent >= 40
       ? "bg-yellow-500"
       : "bg-green-500";
@@ -59,7 +59,7 @@ export function PaymentItem({
     <li
       role="listitem"
       className="flex flex-col gap-2 bg-gray-800 px-4 py-3 rounded-lg 
-                 ring-1 ring-gray-700 hover:ring-2 hover:ring-red-500 
+                 ring-1 ring-gray-700 hover:ring-2 hover:ring-blue-500 
                  transition transform hover:scale-[1.02] shadow-sm"
     >
       {/* Top row: icon + label + status */}
@@ -117,8 +117,8 @@ export function PaymentItem({
             />
             <span
               className={`absolute inset-0 flex items-center justify-center text-[10px] font-semibold ${
-                barColor === "bg-red-500"
-                  ? "text-red-200"
+                barColor === "bg-blue-500"
+                  ? "text-blue-200"
                   : barColor === "bg-yellow-500"
                   ? "text-yellow-200"
                   : "text-green-200"

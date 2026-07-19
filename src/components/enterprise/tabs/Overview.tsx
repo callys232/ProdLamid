@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -39,7 +39,7 @@ const MOCK_CONSULTANTS = [
 const MILESTONE_CONFIG: Record<string, { card: string; badge: string; dot: string; bar: string; pct: string; shadow: string }> = {
   completed:   { card: "border-green-500/30  bg-green-500/8",   badge: "text-green-400  border-green-500/30  bg-green-500/10",   dot: "bg-green-400",   bar: "bg-green-500",   pct: "text-green-400",   shadow: "0 6px 20px rgba(34,197,94,0.2)"   },
   in_progress: { card: "border-yellow-500/30 bg-yellow-500/8",  badge: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",  dot: "bg-yellow-400",  bar: "bg-yellow-500",  pct: "text-yellow-400",  shadow: "0 6px 20px rgba(234,179,8,0.2)"   },
-  disputed:    { card: "border-red-500/30    bg-red-500/8",     badge: "text-red-400    border-red-500/30    bg-red-500/10",     dot: "bg-red-400",     bar: "bg-red-500",     pct: "text-red-400",     shadow: "0 6px 20px rgba(239,68,68,0.2)"   },
+  disputed:    { card: "border-blue-500/30    bg-blue-500/8",     badge: "text-blue-400    border-blue-500/30    bg-blue-500/10",     dot: "bg-blue-400",     bar: "bg-blue-500",     pct: "text-blue-400",     shadow: "0 6px 20px rgba(37,99,235,0.2)"   },
   funded:      { card: "border-purple-500/30 bg-purple-500/8",  badge: "text-purple-400 border-purple-500/30 bg-purple-500/10",  dot: "bg-purple-400",  bar: "bg-purple-500",  pct: "text-purple-400",  shadow: "0 6px 20px rgba(168,85,247,0.2)"  },
   pending:     { card: "border-white/10      bg-white/5",        badge: "text-gray-400   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",    bar: "bg-gray-600",    pct: "text-gray-400",    shadow: "0 6px 20px rgba(0,0,0,0.3)"       },
   cancelled:   { card: "border-white/8       bg-white/3",        badge: "text-gray-500   border-gray-600/20   bg-gray-600/10",   dot: "bg-gray-600",    bar: "bg-gray-700",    pct: "text-gray-500",    shadow: "0 6px 20px rgba(0,0,0,0.2)"       },
@@ -109,7 +109,7 @@ const STATUS_ICON: Record<string, React.ReactNode> = {
   joined:    <CheckCircle className="h-3.5 w-3.5 text-green-400" />,
   completed: <CheckCircle className="h-3.5 w-3.5 text-green-400" />,
   pending:   <Clock       className="h-3.5 w-3.5 text-yellow-400" />,
-  paid:      <CheckCircle className="h-3.5 w-3.5 text-[#c12129]" />,
+  paid:      <CheckCircle className="h-3.5 w-3.5 text-[#2563EB]" />,
 };
 
 const card = "rounded-xl border border-white/10 bg-white/5 p-5";
@@ -126,7 +126,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-xl border border-[#c12129]/20 bg-[#c12129]/5 px-5 py-4"
+        className="rounded-xl border border-[#2563EB]/20 bg-[#2563EB]/5 px-5 py-4"
       >
         <h2 className="text-base font-semibold text-white">Welcome back, {orgName}</h2>
         <p className="mt-0.5 text-sm text-gray-400">
@@ -147,16 +147,16 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
             whileHover={{ y: -2, scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onTabChange(tab)}
-            className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 text-left transition hover:border-[#c12129]/30 hover:bg-[#c12129]/5"
+            className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 text-left transition hover:border-[#2563EB]/30 hover:bg-[#2563EB]/5"
           >
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black group-hover:border-[#c12129]/30 group-hover:bg-[#c12129]/10">
-              <Icon className="h-5 w-5 text-[#c12129]" />
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black group-hover:border-[#2563EB]/30 group-hover:bg-[#2563EB]/10">
+              <Icon className="h-5 w-5 text-[#2563EB]" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-semibold text-white">{label}</p>
               <p className="text-xs text-gray-500">{desc}</p>
             </div>
-            <ArrowRight className="h-4 w-4 flex-shrink-0 text-gray-600 transition group-hover:translate-x-0.5 group-hover:text-[#c12129]" />
+            <ArrowRight className="h-4 w-4 flex-shrink-0 text-gray-600 transition group-hover:translate-x-0.5 group-hover:text-[#2563EB]" />
           </motion.button>
         ))}
       </div>
@@ -165,11 +165,11 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
       <div>
         <div className="mb-3 flex items-center justify-between">
           <h3 className="flex items-center gap-2 text-sm font-semibold text-white">
-            <FolderKanban className="h-4 w-4 text-[#c12129]" /> Active Projects
+            <FolderKanban className="h-4 w-4 text-[#2563EB]" /> Active Projects
           </h3>
           <button
             onClick={() => onTabChange("projects")}
-            className="text-[11px] text-[#c12129] hover:underline"
+            className="text-[11px] text-[#2563EB] hover:underline"
           >
             View all →
           </button>
@@ -186,7 +186,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
                 key={p.id}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                whileHover={{ boxShadow: "0 8px 32px rgba(0,0,0,0.45)", borderColor: open ? "rgba(193,33,41,0.4)" : "rgba(255,255,255,0.18)" }}
+                whileHover={{ boxShadow: "0 8px 32px rgba(0,0,0,0.45)", borderColor: open ? "rgba(37,99,235,0.4)" : "rgba(255,255,255,0.18)" }}
                 transition={{ delay: i * 0.06, duration: 0.2 }}
                 className="rounded-xl border border-white/10 bg-white/5 overflow-hidden"
               >
@@ -215,7 +215,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
                       </div>
                       <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
                         <motion.div
-                          className="h-full rounded-full bg-[#c12129]"
+                          className="h-full rounded-full bg-[#2563EB]"
                           initial={{ width: 0 }}
                           animate={{ width: `${overallPct}%` }}
                           transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.08 }}
@@ -249,7 +249,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
                         {/* Skills */}
                         <div className="flex flex-wrap gap-2">
                           {p.skills.map(s => (
-                            <span key={s} className="rounded-full border border-[#c12129]/30 bg-[#c12129]/10 px-3 py-0.5 text-[11px] text-[#c12129]">
+                            <span key={s} className="rounded-full border border-[#2563EB]/30 bg-[#2563EB]/10 px-3 py-0.5 text-[11px] text-[#2563EB]">
                               {s}
                             </span>
                           ))}
@@ -308,10 +308,10 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
 
                         {/* Action row */}
                         <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-white/10">
-                          <motion.div whileHover={{ scale: 1.05, y: -2, boxShadow: "0 6px 20px rgba(193,33,41,0.25)" }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
+                          <motion.div whileHover={{ scale: 1.05, y: -2, boxShadow: "0 6px 20px rgba(37,99,235,0.25)" }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
                             <Link
                               href={`/projects/${p.id}/workspace`}
-                              className="flex items-center gap-1.5 rounded-lg border border-[#c12129]/30 bg-[#c12129]/10 px-4 py-2 text-xs font-semibold text-[#c12129] transition hover:bg-[#c12129]/20"
+                              className="flex items-center gap-1.5 rounded-lg border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-2 text-xs font-semibold text-[#2563EB] transition hover:bg-[#2563EB]/20"
                             >
                               Open Workspace <ArrowRight className="h-3.5 w-3.5" />
                             </Link>
@@ -380,7 +380,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
                 transition={{ delay: i * 0.07, duration: 0.15 }}
                 className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/5 px-3 py-2.5 cursor-default"
               >
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#c12129]/10 text-xs font-bold text-[#c12129]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#2563EB]/10 text-xs font-bold text-[#2563EB]">
                   {c.name[0]}
                 </div>
                 <div className="min-w-0 flex-1">

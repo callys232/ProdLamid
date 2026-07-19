@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { User } from "@/types/user";
@@ -145,7 +145,7 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
             className="w-full px-4 py-2 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
           />
           {errors[key as keyof TrainingFormData] && (
-            <p className="text-red-400 text-sm">
+            <p className="text-blue-400 text-sm">
               {errors[key as keyof TrainingFormData]}
             </p>
           )}
@@ -167,7 +167,7 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
         <option value="Digital Transformation">Digital Transformation</option>
       </select>
       {errors.trainingTrack && (
-        <p className="text-red-400 text-sm">{errors.trainingTrack}</p>
+        <p className="text-blue-400 text-sm">{errors.trainingTrack}</p>
       )}
 
       {/* Preferred Date */}
@@ -180,7 +180,7 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
         className="w-full px-4 py-2 rounded-lg border border-white/30 bg-white/10 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
       />
       {errors.preferredDate && (
-        <p className="text-red-400 text-sm">{errors.preferredDate}</p>
+        <p className="text-blue-400 text-sm">{errors.preferredDate}</p>
       )}
 
       {/* Mode of Attendance */}
@@ -197,7 +197,7 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
         <option value="Hybrid">Hybrid</option> */}
       </select>
       {errors.modeOfAttendance && (
-        <p className="text-red-400 text-sm">{errors.modeOfAttendance}</p>
+        <p className="text-blue-400 text-sm">{errors.modeOfAttendance}</p>
       )}
 
       {/* Payment Agreement */}
@@ -217,7 +217,7 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
         </option>
       </select>
       {errors.paymentAgreement && (
-        <p className="text-red-400 text-sm">{errors.paymentAgreement}</p>
+        <p className="text-blue-400 text-sm">{errors.paymentAgreement}</p>
       )}
 
       {/* Consent */}
@@ -233,7 +233,7 @@ export default function TrainingForm({ closeModal, user }: TrainingFormProps) {
         <option value="No">No, I do not consent</option>
       </select>
       {errors.consent && (
-        <p className="text-red-400 text-sm">{errors.consent}</p>
+        <p className="text-blue-400 text-sm">{errors.consent}</p>
       )}
 
       {/* Comments */}

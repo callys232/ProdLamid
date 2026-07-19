@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -90,7 +90,7 @@ export default function EscrowDashboard({
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center p-12 space-y-4">
-        <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
         <p className="text-gray-400 font-medium">Loading your financial dashboard...</p>
       </div>
     );
@@ -132,7 +132,7 @@ export default function EscrowDashboard({
           <select
             value={selectedProjectId}
             onChange={(e) => handleProjectChange(e.target.value)}
-            className="w-full md:w-64 bg-gray-900 text-white border border-gray-800 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-red-600 transition"
+            className="w-full md:w-64 bg-gray-900 text-white border border-gray-800 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-600 transition"
           >
             {projects.map(p => (
               <option key={p._id || p.id} value={p._id || p.id}>{p.title}</option>
@@ -170,7 +170,7 @@ export default function EscrowDashboard({
               <div className="space-y-2">
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Project Role</p>
                 <div className="flex items-center gap-2">
-                  <span className={`w-3 h-3 rounded-full ${isClient ? 'bg-blue-500' : isFreelancer ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                  <span className={`w-3 h-3 rounded-full ${isClient ? 'bg-blue-500' : isFreelancer ? 'bg-green-500' : 'bg-blue-500'}`}></span>
                   <span className="text-white capitalize font-medium">{isClient ? 'Client' : isFreelancer ? 'Freelancer' : isAdmin ? 'Admin' : 'Participant'}</span>
                 </div>
               </div>

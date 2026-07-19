@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -81,9 +81,9 @@ export default function ConciergeSupport({ onStartChat }: Props) {
       {/* SLA badge */}
       <motion.div
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-        className="rounded-xl border border-[#c21219]/30 bg-[#c21219]/5 px-5 py-4 flex items-center gap-4"
+        className="rounded-xl border border-[#2563EB]/30 bg-[#2563EB]/5 px-5 py-4 flex items-center gap-4"
       >
-        <HeadphonesIcon className="h-8 w-8 text-[#c21219] flex-shrink-0" />
+        <HeadphonesIcon className="h-8 w-8 text-[#2563EB] flex-shrink-0" />
         <div>
           <p className="text-sm font-bold text-white">Priority Support — 24/7</p>
           <p className="text-xs text-gray-400">Response SLA: &lt;2 hours for critical · &lt;8 hours for standard</p>
@@ -172,12 +172,12 @@ export default function ConciergeSupport({ onStartChat }: Props) {
               value={subject}
               onChange={e => setSubject(e.target.value)}
               placeholder="Subject"
-              className="w-full rounded-xl bg-black border border-white/10 text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 placeholder-gray-600 transition"
+              className="w-full rounded-xl bg-black border border-white/10 text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#2563EB]/60 placeholder-gray-600 transition"
             />
             <select
               value={priority}
               onChange={e => setPriority(e.target.value)}
-              className="w-full rounded-xl bg-black border border-white/10 text-gray-300 text-sm px-3 py-2.5 focus:outline-none focus:border-[#c21219]/60 transition"
+              className="w-full rounded-xl bg-black border border-white/10 text-gray-300 text-sm px-3 py-2.5 focus:outline-none focus:border-[#2563EB]/60 transition"
             >
               <option value="low">Low priority</option>
               <option value="medium">Medium priority</option>
@@ -189,14 +189,14 @@ export default function ConciergeSupport({ onStartChat }: Props) {
               value={message}
               onChange={e => setMessage(e.target.value)}
               placeholder="Describe your issue…"
-              className="w-full rounded-xl bg-black border border-white/10 text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#c21219]/60 resize-none placeholder-gray-600 transition"
+              className="w-full rounded-xl bg-black border border-white/10 text-white text-sm px-4 py-2.5 focus:outline-none focus:border-[#2563EB]/60 resize-none placeholder-gray-600 transition"
             />
             <motion.button
               whileHover={{ scale: 1.03, boxShadow: "0 4px 16px rgba(194,18,25,0.35)" }}
               whileTap={{ scale: 0.97 }}
               onClick={submit}
               disabled={!subject.trim() || !message.trim() || submitting}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#c21219] hover:bg-red-700 text-white text-sm font-semibold transition disabled:opacity-40"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-sm font-semibold transition disabled:opacity-40"
             >
               {submitting ? <><Loader2 className="h-4 w-4 animate-spin" />Submitting…</> : "Submit Ticket"}
             </motion.button>

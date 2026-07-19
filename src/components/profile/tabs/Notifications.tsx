@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { getActivities, getMessages, getAlerts } from "@/lib/api/notificationApi";
@@ -64,10 +64,10 @@ export default function Notifications() {
   if (error)
     return (
       <div className="p-6 text-center">
-        <p className="text-red-400 mb-4">{error}</p>
+        <p className="text-blue-400 mb-4">{error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+          className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
         >
           Retry
         </button>
@@ -132,7 +132,7 @@ export default function Notifications() {
                 <span
                   className={
                     al.severity === "High"
-                      ? "text-red-400"
+                      ? "text-blue-400"
                       : al.severity === "Medium"
                         ? "text-yellow-400"
                         : al.type === "payment"

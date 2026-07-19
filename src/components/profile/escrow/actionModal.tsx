@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import type { EscrowTransaction } from "@/types/escrow";
@@ -47,7 +47,7 @@ export default function ActionModal({ type, tx, onClose, onConfirm, isPremium = 
 
                 <div className="mt-6 flex justify-end gap-2">
                     <button onClick={onClose} className="px-3 py-2 rounded-md bg-gray-700 text-white">Cancel</button>
-                    <button onClick={() => onConfirm({ notes, approver })} className="px-3 py-2 rounded-md bg-red-600 text-white">
+                    <button onClick={() => onConfirm({ notes, approver })} className="px-3 py-2 rounded-md bg-blue-600 text-white">
                         {type === "release" ? "Confirm Release" : type === "refund" ? "Confirm Refund" : "Submit Dispute"}
                     </button>
                 </div>

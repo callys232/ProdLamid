@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import BidMeter from "./bidMeter";
@@ -34,7 +34,7 @@ export default function ApplyForm({ project, onSubmit }: ApplyFormProps) {
 
   const getConfidenceLevel = (bid: number) => {
     if (bid < min * 0.8)
-      return { label: "Too Low", color: "bg-red-500", score: 20 };
+      return { label: "Too Low", color: "bg-blue-500", score: 20 };
     if (bid >= min && bid <= max)
       return { label: "Competitive", color: "bg-green-500", score: 80 };
     if (bid > max * 1.2)
@@ -60,33 +60,33 @@ export default function ApplyForm({ project, onSubmit }: ApplyFormProps) {
     >
       {/* Name */}
       <div className="flex items-center gap-3">
-        <FaUser className="text-[#c21219]" />
+        <FaUser className="text-[#2563EB]" />
         <input
           type="text"
           placeholder="Full Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="flex-1 bg-transparent border-b border-gray-500 focus:border-[#c21219] outline-none py-2"
+          className="flex-1 bg-transparent border-b border-gray-500 focus:border-[#2563EB] outline-none py-2"
           required
         />
       </div>
 
       {/* Email */}
       <div className="flex items-center gap-3">
-        <FaEnvelope className="text-[#c21219]" />
+        <FaEnvelope className="text-[#2563EB]" />
         <input
           type="email"
           placeholder="Email Address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 bg-transparent border-b border-gray-500 focus:border-[#c21219] outline-none py-2"
+          className="flex-1 bg-transparent border-b border-gray-500 focus:border-[#2563EB] outline-none py-2"
           required
         />
       </div>
 
       {/* CV Upload */}
       <div className="flex items-center gap-3">
-        <FaFileUpload className="text-[#c21219]" />
+        <FaFileUpload className="text-[#2563EB]" />
         <input
           aria-label="file"
           type="file"
@@ -97,26 +97,26 @@ export default function ApplyForm({ project, onSubmit }: ApplyFormProps) {
 
       {/* Bid Amount */}
       <div className="flex items-center gap-3">
-        <FaDollarSign className="text-[#c21219]" />
+        <FaDollarSign className="text-[#2563EB]" />
         <input
           type="number"
           placeholder="Your Bid Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="flex-1 bg-transparent border-b border-gray-500 focus:border-[#c21219] outline-none py-2"
+          className="flex-1 bg-transparent border-b border-gray-500 focus:border-[#2563EB] outline-none py-2"
           required
         />
       </div>
 
       {/* Timeline */}
       <div className="flex items-center gap-3">
-        <FaClock className="text-[#c21219]" />
+        <FaClock className="text-[#2563EB]" />
         <input
           type="text"
           placeholder="Proposed Timeline (e.g. 3 weeks)"
           value={timeline}
           onChange={(e) => setTimeline(e.target.value)}
-          className="flex-1 bg-transparent border-b border-gray-500 focus:border-[#c21219] outline-none py-2"
+          className="flex-1 bg-transparent border-b border-gray-500 focus:border-[#2563EB] outline-none py-2"
           required
         />
       </div>
@@ -127,7 +127,7 @@ export default function ApplyForm({ project, onSubmit }: ApplyFormProps) {
       {/* Submit */}
       <button
         type="submit"
-        className="w-full py-3 rounded-lg bg-[#c21219]/80 hover:bg-[#c21219] text-white font-semibold shadow-lg transition"
+        className="w-full py-3 rounded-lg bg-[#2563EB]/80 hover:bg-[#2563EB] text-white font-semibold shadow-lg transition"
       >
         {loading ? "Submitting..." : "Submit Application"}
       </button>

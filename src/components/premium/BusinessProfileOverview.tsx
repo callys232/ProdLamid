@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 interface BusinessProfileOverviewProps {
   companyName: string;
@@ -22,7 +22,7 @@ export default function BusinessProfileOverview({
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-white">Profile Overview</h2>
-        <span className="px-2 py-1 text-xs rounded bg-red-600 text-white">
+        <span className="px-2 py-1 text-xs rounded bg-blue-600 text-white">
           Premium
         </span>
       </div>
@@ -48,7 +48,7 @@ export default function BusinessProfileOverview({
               href={website}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-red-500 hover:underline"
+              className="text-blue-500 hover:underline"
             >
               {website}
             </a>

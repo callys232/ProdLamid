@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
@@ -117,17 +117,17 @@ export default function SignUpPage() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input type="text" name="UserName" placeholder="UserName" value={formData.UserName} onChange={handleChange} required
-            className="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[#c12129] transition-all duration-300" />
+            className="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[#2563EB] transition-all duration-300" />
 
           <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required
-            className="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[#c12129] transition-all duration-300" />
+            className="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[#2563EB] transition-all duration-300" />
 
           {/* Password with show/hide toggle */}
           <div className="flex flex-col gap-2">
             <div className="relative">
               <input type={showPassword ? "text" : "password"} name="password" placeholder="Password"
                 value={formData.password} onChange={handleChange} required
-                className="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[#c12129] transition-all duration-300" />
+                className="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[#2563EB] transition-all duration-300" />
               <button type="button" onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-3 text-gray-400 hover:text-white text-sm">
                 {showPassword ? "Hide" : "Show"}
@@ -137,7 +137,7 @@ export default function SignUpPage() {
             {/* Strength meter */}
             {formData.password.length > 0 && (
               <div className="w-full bg-gray-700 rounded-full h-2 mt-2">
-                <div className={`h-2 rounded-full transition-all duration-300 ${passwordStrength === "Weak" ? "bg-red-500 w-1/3" :
+                <div className={`h-2 rounded-full transition-all duration-300 ${passwordStrength === "Weak" ? "bg-blue-500 w-1/3" :
                   passwordStrength === "Medium" ? "bg-yellow-400 w-2/3" :
                     passwordStrength === "Strong" ? "bg-green-500 w-full" : "w-0"
                   }`} />
@@ -149,12 +149,12 @@ export default function SignUpPage() {
               <div className="text-xs text-gray-400 mt-2 space-y-1">
                 <p>Requirements:</p>
                 <ul className="list-disc list-inside space-y-1">
-                  {!rules.length && <li className="text-red-500">❌ At least 12 characters</li>}
-                  {!rules.upper && <li className="text-red-500">❌ One uppercase (A–Z)</li>}
-                  {!rules.lower && <li className="text-red-500">❌ One lowercase (a–z)</li>}
-                  {!rules.number && <li className="text-red-500">❌ One number (0–9)</li>}
-                  {!rules.special && <li className="text-red-500">❌ One special character (!@#$%^&*)</li>}
-                  {rules.whitespace && <li className="text-red-500">❌ No spaces allowed</li>}
+                  {!rules.length && <li className="text-blue-500">❌ At least 12 characters</li>}
+                  {!rules.upper && <li className="text-blue-500">❌ One uppercase (A–Z)</li>}
+                  {!rules.lower && <li className="text-blue-500">❌ One lowercase (a–z)</li>}
+                  {!rules.number && <li className="text-blue-500">❌ One number (0–9)</li>}
+                  {!rules.special && <li className="text-blue-500">❌ One special character (!@#$%^&*)</li>}
+                  {rules.whitespace && <li className="text-blue-500">❌ No spaces allowed</li>}
                 </ul>
               </div>
             )}
@@ -162,13 +162,13 @@ export default function SignUpPage() {
 
           <input type="password" name="confirmPassword" placeholder="Confirm Password"
             value={formData.confirmPassword} onChange={handleChange} required
-            className="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[#c12129] transition-all duration-300" />
+            className="w-full px-4 py-3 rounded-xl bg-black border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[#2563EB] transition-all duration-300" />
 
           <motion.button
             whileTap={{ scale: 0.96 }}
             type="submit"
             disabled={loading}
-            className="bg-gradient-to-r from-[#c12129] to-[#8b1118] text-white font-semibold py-3 rounded-xl hover:opacity-90 hover:scale-105 transition disabled:opacity-60 mt-2 flex items-center justify-center shadow-lg"
+            className="bg-gradient-to-r from-[#2563EB] to-[#8b1118] text-white font-semibold py-3 rounded-xl hover:opacity-90 hover:scale-105 transition disabled:opacity-60 mt-2 flex items-center justify-center shadow-lg"
           >
             {loading ? (
               <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -200,7 +200,7 @@ export default function SignUpPage() {
 
         <p className="mt-4 text-center text-xs text-gray-600">
           Already have an account?{" "}
-          <a href="/signin" className="text-[#c12129] hover:underline">Sign in</a>
+          <a href="/signin" className="text-[#2563EB] hover:underline">Sign in</a>
         </p>
       </motion.div>
     </section>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, ChangeEvent } from "react";
 
@@ -58,7 +58,7 @@ export default function AIPreferences() {
     <div className="p-6 bg-gray-950 rounded-xl max-w-2xl border border-gray-800 shadow-lg">
       <h2 className="text-2xl font-bold mb-2 text-white">AI Preferences</h2>
       <p className="text-gray-400 mb-6 text-sm">
-        Fine-tune how <span className="text-red-500 font-medium">Lamid AI</span>{" "}
+        Fine-tune how <span className="text-blue-500 font-medium">Lamid AI</span>{" "}
         assists your workflow.
       </p>
 
@@ -72,7 +72,7 @@ export default function AIPreferences() {
             aria-label="Communication Tone"
             value={aiSettings.communicationTone}
             onChange={handleToneChange}
-            className="w-full bg-gray-900 text-white border border-gray-700 px-3 py-2 rounded-md focus:ring-2 focus:ring-red-500 transition"
+            className="w-full bg-gray-900 text-white border border-gray-700 px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-500 transition"
           >
             <option value="professional">Professional</option>
             <option value="friendly">Friendly</option>
@@ -89,7 +89,7 @@ export default function AIPreferences() {
             aria-label="Automation Level"
             value={aiSettings.automationLevel}
             onChange={handleAutomationChange}
-            className="w-full bg-gray-900 text-white border border-gray-700 px-3 py-2 rounded-md focus:ring-2 focus:ring-red-500 transition"
+            className="w-full bg-gray-900 text-white border border-gray-700 px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-500 transition"
           >
             <option value="low">Low – Minimal AI involvement</option>
             <option value="moderate">Moderate – Balanced automation</option>
@@ -102,7 +102,7 @@ export default function AIPreferences() {
           {switches.map(({ label, key }) => (
             <div
               key={key}
-              className="flex justify-between items-center bg-gray-900 px-4 py-3 rounded-md border border-gray-800 hover:border-red-500 transition"
+              className="flex justify-between items-center bg-gray-900 px-4 py-3 rounded-md border border-gray-800 hover:border-blue-500 transition"
             >
               <span className="text-gray-300 text-sm">{label}</span>
               <button
@@ -110,7 +110,7 @@ export default function AIPreferences() {
                 onClick={() => toggle(key)}
                 className={`w-12 h-6 flex items-center rounded-full p-1 transition ${
                   aiSettings[key]
-                    ? "bg-red-600 justify-end"
+                    ? "bg-blue-600 justify-end"
                     : "bg-gray-700 justify-start"
                 }`}
               >
@@ -121,7 +121,7 @@ export default function AIPreferences() {
         </div>
 
         {/* Save Button */}
-        <button className="w-full mt-6 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 px-4 py-2 rounded-md font-medium text-white shadow-md transition">
+        <button className="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 px-4 py-2 rounded-md font-medium text-white shadow-md transition">
           Save Preferences
         </button>
       </div>

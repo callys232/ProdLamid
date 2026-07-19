@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { ClientProfile, Consultant, Invitation } from "@/types/client";
@@ -92,7 +92,7 @@ export function InvitationsSection({
 
     return (
         <section className="bg-[#111] border border-white/20 rounded-xl p-6 space-y-6 shadow-md hover:shadow-lg transition">
-            <h2 className="text-2xl font-bold text-[#c12129]">Consultant Invitations</h2>
+            <h2 className="text-2xl font-bold text-[#2563EB]">Consultant Invitations</h2>
 
             {/* Invite by Email */}
             <div className="space-y-3">
@@ -103,11 +103,11 @@ export function InvitationsSection({
                         placeholder="Enter email address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="flex-1 px-3 py-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#c12129] hover:bg-[#1a1a1a]"
+                        className="flex-1 px-3 py-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#2563EB] hover:bg-[#1a1a1a]"
                     />
                     <button
                         onClick={handleEmailInvite}
-                        className="px-4 py-2 bg-[#c12129] rounded hover:bg-red-700 text-white transition transform hover:scale-105"
+                        className="px-4 py-2 bg-[#2563EB] rounded hover:bg-blue-700 text-white transition transform hover:scale-105"
                     >
                         Send
                     </button>
@@ -122,7 +122,7 @@ export function InvitationsSection({
                         aria-label="Select Consultant"
                         value={selectedConsultant}
                         onChange={(e) => setSelectedConsultant(e.target.value)}
-                        className="flex-1 px-3 py-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#c12129] hover:bg-[#1a1a1a]"
+                        className="flex-1 px-3 py-2 rounded bg-black text-white border border-gray-700 focus:ring-2 focus:ring-[#2563EB] hover:bg-[#1a1a1a]"
                     >
                         <option value="">-- Choose Consultant --</option>
                         {consultants.map((c) => (
@@ -133,7 +133,7 @@ export function InvitationsSection({
                     </select>
                     <button
                         onClick={handleConsultantInvite}
-                        className="px-4 py-2 bg-[#c12129] rounded hover:bg-red-700 text-white transition transform hover:scale-105"
+                        className="px-4 py-2 bg-[#2563EB] rounded hover:bg-blue-700 text-white transition transform hover:scale-105"
                     >
                         Invite
                     </button>
@@ -189,7 +189,7 @@ export function InvitationsSection({
                     placeholder="Filter invitations..."
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
-                    className="px-3 py-1 rounded bg-black text-white border border-gray-700 w-full text-sm focus:ring-2 focus:ring-[#c12129] hover:bg-[#1a1a1a]"
+                    className="px-3 py-1 rounded bg-black text-white border border-gray-700 w-full text-sm focus:ring-2 focus:ring-[#2563EB] hover:bg-[#1a1a1a]"
                 />
                 <ul className="space-y-2 mt-2">
                     {filteredInvitations.map((inv) => {
@@ -214,7 +214,7 @@ export function InvitationsSection({
                                         </button>
                                         <button
                                             onClick={() => handleCancel(inv.id)}
-                                            className="text-xs bg-[#c12129] px-2 py-1 rounded text-white hover:bg-red-800"
+                                            className="text-xs bg-[#2563EB] px-2 py-1 rounded text-white hover:bg-blue-800"
                                         >
                                             Cancel
                                         </button>

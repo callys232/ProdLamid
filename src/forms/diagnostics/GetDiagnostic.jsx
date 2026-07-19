@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import PersonalInfo from "./PersonalInfo";
 import Portfolio from "./portfolio";
@@ -101,7 +101,7 @@ const GetDiagnostics = () => {
       className="w-full flex flex-col"
     >
       <div className="p-6 w-full">
-        {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+        {error && <p className="text-blue-600 text-center mb-4">{error}</p>}
         {step === 1 && <PersonalInfo handleChange={validateInputs} />}
         {step === 2 && (
           <Portfolio formData={formData} handleChange={validateInputs} />
@@ -126,7 +126,7 @@ const GetDiagnostics = () => {
           {step > 1 && step < 6 && (
             <button
               onClick={handlePrevious}
-              className="bg-red-700 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-red-800 hover:scale-105"
+              className="bg-blue-700 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-blue-800 hover:scale-105"
               disabled={step <= 1}
               aria-label="Go to previous step"
             >
@@ -137,7 +137,7 @@ const GetDiagnostics = () => {
           {step < 6 && (
             <button
               onClick={handleProceed}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-red-700 hover:scale-105"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:bg-blue-700 hover:scale-105"
               disabled={step >= 6}
               aria-label={step === 5 ? "Submit form" : "Proceed to next step"}
             >

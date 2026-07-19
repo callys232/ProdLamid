@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -27,7 +27,7 @@ const STATUS_COLOR: Record<string, string> = {
   active:    "text-blue-400  border-blue-500/30  bg-blue-500/10",
   completed: "text-green-400 border-green-500/30 bg-green-500/10",
   paused:    "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",
-  disputed:  "text-red-400   border-red-500/30   bg-red-500/10",
+  disputed:  "text-blue-400   border-blue-500/30   bg-blue-500/10",
 };
 
 export default function ConciergeAnalytics() {
@@ -46,8 +46,8 @@ export default function ConciergeAnalytics() {
 
       {/* ── Section label ── */}
       <motion.div {...fadeUp(0)} className="flex items-center gap-2">
-        <BarChart3 className="h-4 w-4 text-[#c21219]" />
-        <span className="text-xs font-semibold uppercase tracking-widest text-[#c21219]">Concierge Analytics</span>
+        <BarChart3 className="h-4 w-4 text-[#2563EB]" />
+        <span className="text-xs font-semibold uppercase tracking-widest text-[#2563EB]">Concierge Analytics</span>
       </motion.div>
 
       {/* ── KPI grid ── */}
@@ -58,7 +58,7 @@ export default function ConciergeAnalytics() {
           { label: "Remaining",         value: fmt(kpi.totalRemaining),     icon: Target,       color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20"},
           { label: "Active Projects",   value: kpi.activeProjects,          icon: FolderKanban, color: "text-blue-400",    bg: "bg-blue-500/10",    border: "border-blue-500/20"   },
           { label: "Milestones Done",   value: `${kpi.completedMilestones}/${kpi.totalMilestones}`, icon: CheckCircle2, color: "text-green-400", bg: "bg-green-500/10", border: "border-green-500/20" },
-          { label: "Open Disputes",     value: kpi.openDisputes,            icon: AlertTriangle,color: "text-red-400",     bg: "bg-red-500/10",     border: "border-red-500/20"    },
+          { label: "Open Disputes",     value: kpi.openDisputes,            icon: AlertTriangle,color: "text-blue-400",     bg: "bg-blue-500/10",     border: "border-blue-500/20"    },
           { label: "Avg Progress",      value: `${kpi.avgProgress}%`,       icon: BarChart3,    color: "text-purple-400",  bg: "bg-purple-500/10",  border: "border-purple-500/20" },
           { label: "Team Size",         value: kpi.teamSize,                icon: Users,        color: "text-cyan-400",    bg: "bg-cyan-500/10",    border: "border-cyan-500/20"   },
         ].map(({ label, value, icon: Icon, color, bg, border }, i) => (
@@ -81,13 +81,13 @@ export default function ConciergeAnalytics() {
       <motion.div {...fadeUp(9)} className="rounded-xl border border-white/10 bg-white/5 p-5">
         <div className="flex items-center justify-between mb-3">
           <p className="text-xs font-semibold text-white">Budget Utilisation</p>
-          <span className={`text-xs font-bold ${budgetPct > 85 ? "text-red-400" : budgetPct > 65 ? "text-yellow-400" : "text-emerald-400"}`}>
+          <span className={`text-xs font-bold ${budgetPct > 85 ? "text-blue-400" : budgetPct > 65 ? "text-yellow-400" : "text-emerald-400"}`}>
             {budgetPct}%
           </span>
         </div>
         <div className="h-2.5 w-full rounded-full bg-white/10 overflow-hidden mb-1.5">
           <motion.div
-            className={`h-full rounded-full ${budgetPct > 85 ? "bg-red-500" : budgetPct > 65 ? "bg-yellow-500" : "bg-emerald-500"}`}
+            className={`h-full rounded-full ${budgetPct > 85 ? "bg-blue-500" : budgetPct > 65 ? "bg-yellow-500" : "bg-emerald-500"}`}
             initial={{ width: 0 }} animate={{ width: `${budgetPct}%` }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
           />
@@ -117,7 +117,7 @@ export default function ConciergeAnalytics() {
                   />
                   {/* Spent bar */}
                   <motion.div
-                    className="flex-1 rounded-t-sm bg-[#c21219]"
+                    className="flex-1 rounded-t-sm bg-[#2563EB]"
                     initial={{ height: 0 }}
                     animate={{ height: `${(m.spent / maxSpend) * 100}%` }}
                     transition={{ duration: 0.7, delay: i * 0.08 + 0.1, ease: "easeOut" }}
@@ -129,7 +129,7 @@ export default function ConciergeAnalytics() {
           </div>
           <div className="flex items-center gap-4 mt-3">
             <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-white/20 inline-block" />Budget</span>
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-[#c21219] inline-block" />Spent</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-[#2563EB] inline-block" />Spent</span>
           </div>
         </motion.div>
 
@@ -259,7 +259,7 @@ export default function ConciergeAnalytics() {
                 <div className="flex items-center gap-3">
                   <div className="flex-1 h-1 rounded-full bg-white/10 overflow-hidden">
                     <motion.div
-                      className="h-full rounded-full bg-[#c21219]"
+                      className="h-full rounded-full bg-[#2563EB]"
                       initial={{ width: 0 }}
                       animate={{ width: `${p.progress}%` }}
                       transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 + i * 0.06 }}
@@ -267,7 +267,7 @@ export default function ConciergeAnalytics() {
                   </div>
                   <span className="text-[10px] text-gray-400 w-8 text-right">{p.progress}%</span>
                   <span className="text-[10px] text-gray-500">{fmt(p.spent)}/{fmt(p.budget)}</span>
-                  <span className={`text-[10px] font-semibold ${spentPct > 90 ? "text-red-400" : "text-gray-500"}`}>
+                  <span className={`text-[10px] font-semibold ${spentPct > 90 ? "text-blue-400" : "text-gray-500"}`}>
                     {spentPct}% used
                   </span>
                 </div>

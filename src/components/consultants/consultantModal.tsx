@@ -1,4 +1,4 @@
-// components/ConsultantModal.tsx
+﻿// components/ConsultantModal.tsx
 "use client";
 
 import Image from "next/image";
@@ -101,7 +101,7 @@ export default function ConsultantModal({
 
   const renderStars = (r: number) =>
     Array.from({ length: 5 }, (_, i) => (
-      <Star key={i} className={`w-4 h-4 ${i + 1 <= Math.round(r) ? "text-red-500 fill-red-500" : "text-gray-300"}`} />
+      <Star key={i} className={`w-4 h-4 ${i + 1 <= Math.round(r) ? "text-blue-500 fill-blue-500" : "text-gray-300"}`} />
     ));
 
   const handleHire = async () => {
@@ -149,13 +149,13 @@ export default function ConsultantModal({
           <aside className="col-span-12 sm:col-span-4 space-y-4">
             {/* Premium block */}
             <div
-              className="p-3 rounded-md border border-dashed border-red-200 bg-red-50
-                         hover:shadow-lg hover:bg-red-100/30 hover:border-red-300
+              className="p-3 rounded-md border border-dashed border-blue-200 bg-blue-50
+                         hover:shadow-lg hover:bg-blue-100/30 hover:border-blue-300
                          transition-all duration-200 ease-in-out cursor-default"
             >
               <div className="flex items-center justify-between">
                 <h4 className="font-semibold text-gray-900 flex items-center gap-2 text-sm">
-                  <Lock className="w-4 h-4 text-red-600" />
+                  <Lock className="w-4 h-4 text-blue-600" />
                   Premium
                 </h4>
               </div>
@@ -166,15 +166,15 @@ export default function ConsultantModal({
                 {isPremiumUser ? (
                   <div className="space-y-2">
                     <div className="text-sm text-gray-800 font-medium">Success Rate</div>
-                    <div className="text-lg text-red-600 font-semibold">{successRate ?? "—"}%</div>
+                    <div className="text-lg text-blue-600 font-semibold">{successRate ?? "—"}%</div>
 
                     <div className="text-sm text-gray-800 font-medium">AI Match</div>
-                    <div className="text-lg text-red-600 font-semibold">{aiMatchScore ?? "—"}%</div>
+                    <div className="text-lg text-blue-600 font-semibold">{aiMatchScore ?? "—"}%</div>
                   </div>
                 ) : (
                   <div className="space-y-2">
                     <p className="text-sm text-gray-700">Unlock predictive scoring, trend charts, and risk alerts.</p>
-                    <Link href="/pricing" className="block w-full text-center px-3 py-2 bg-red-600 text-white rounded-md text-sm">
+                    <Link href="/pricing" className="block w-full text-center px-3 py-2 bg-blue-600 text-white rounded-md text-sm">
                       Upgrade to Premium
                     </Link>
                   </div>
@@ -260,7 +260,7 @@ export default function ConsultantModal({
 
                   <div className="text-right">
                     <p className="text-sm text-gray-500">Rate</p>
-                    <p className="text-red-600 font-semibold text-lg">${rate}/hr</p>
+                    <p className="text-blue-600 font-semibold text-lg">${rate}/hr</p>
                   </div>
                 </div>
               </div>
@@ -319,7 +319,7 @@ export default function ConsultantModal({
                   type="button"
                   onClick={handleHire}
                   disabled={!selectedProjectId || selectedProjectId === "__none" || loadingHire}
-                  className={`px-5 py-2 rounded-md text-sm font-semibold shadow-sm transition ${loadingHire ? "bg-gray-400 text-white cursor-not-allowed" : "bg-red-600 text-white hover:bg-red-700"
+                  className={`px-5 py-2 rounded-md text-sm font-semibold shadow-sm transition ${loadingHire ? "bg-gray-400 text-white cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"
                     }`}
                 >
                   {loadingHire ? "Processing..." : "Confirm Hire"}

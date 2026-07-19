@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -23,7 +23,7 @@ const AGENTS: {
   { id: "analytics",     name: "Analytics",     description: "Performance & reports",     emoji: "📊", hex: "#10b981" },
   { id: "communication", name: "Comms",         description: "Alerts & notifications",    emoji: "📢", hex: "#8b5cf6" },
   { id: "learning",      name: "Learning",      description: "Boost knowledge fast",      emoji: "📘", hex: "#06b6d4", locked: true },
-  { id: "support",       name: "Support",       description: "Fix issues instantly",      emoji: "🛠️", hex: "#ef4444", locked: true },
+  { id: "support",       name: "Support",       description: "Fix issues instantly",      emoji: "🛠️", hex: "#2563EB", locked: true },
   { id: "creative",      name: "Creative",      description: "Design & brainstorm",       emoji: "🎨", hex: "#a855f7" },
   { id: "productivity",  name: "Productivity",  description: "Organize tasks & time",     emoji: "⏰", hex: "#eab308", locked: true },
   { id: "shopping",      name: "Shopping",      description: "Find business tools",       emoji: "🛒", hex: "#22c55e", locked: true },

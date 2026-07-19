@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Tooltip from "./tooltip";
@@ -9,11 +9,11 @@ type RiskLevel = "low" | "medium" | "high" | "";
 const RISK_OPTS: { value: RiskLevel; label: string; color: string }[] = [
   { value: "low",    label: "Low",    color: "text-green-400" },
   { value: "medium", label: "Medium", color: "text-yellow-400" },
-  { value: "high",   label: "High",   color: "text-red-400" },
+  { value: "high",   label: "High",   color: "text-blue-400" },
 ];
 
-const inputCls = "w-full rounded-lg border border-gray-700 bg-black/60 px-3 py-2 text-sm text-white transition focus:border-red-500/60 focus:outline-none";
-const cardBase = (active: boolean) => `relative rounded-xl border p-4 transition ${active ? "border-red-500/50 bg-red-500/5 shadow-[0_0_10px_rgba(239,68,68,0.1)]" : "border-gray-800 bg-black/40 hover:border-gray-700"}`;
+const inputCls = "w-full rounded-lg border border-gray-700 bg-black/60 px-3 py-2 text-sm text-white transition focus:border-blue-500/60 focus:outline-none";
+const cardBase = (active: boolean) => `relative rounded-xl border p-4 transition ${active ? "border-blue-500/50 bg-blue-500/5 shadow-[0_0_10px_rgba(37,99,235,0.1)]" : "border-gray-800 bg-black/40 hover:border-gray-700"}`;
 const label = (color: string) => `mb-1.5 block text-xs font-semibold uppercase tracking-widest ${color}`;
 
 export default function RiskInput() {
@@ -33,7 +33,7 @@ export default function RiskInput() {
     <div className="space-y-3">
       {/* Risk Level */}
       <div className={cardBase(activeField === "riskLevel")}>
-        <label className={label("text-red-400")}>Risk Level</label>
+        <label className={label("text-blue-400")}>Risk Level</label>
         <div className="flex gap-2 mt-2">
           {RISK_OPTS.map((o) => (
             <button key={o.value} type="button"
@@ -67,7 +67,7 @@ export default function RiskInput() {
           <input type="range" min={0} max={50} value={risk.contingencyPercent}
             onFocus={() => setActiveField("contingencyPercent")} onBlur={() => setActiveField(null)}
             onChange={(e) => setRisk((p) => ({ ...p, contingencyPercent: Number(e.target.value) }))}
-            className="flex-1 accent-[#c12129]"
+            className="flex-1 accent-[#2563EB]"
           />
           <span className="w-12 text-right text-sm font-bold text-orange-400">{risk.contingencyPercent}%</span>
         </div>

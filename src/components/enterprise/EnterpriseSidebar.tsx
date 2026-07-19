@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -51,7 +51,7 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
     >
       {/* ── Collapse toggle ─────────────────────────────────── */}
       <motion.button
-        whileHover={{ scale: 1.15, backgroundColor: "rgba(193,33,41,0.15)" }}
+        whileHover={{ scale: 1.15, backgroundColor: "rgba(37,99,235,0.15)" }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setCollapsed(c => !c)}
         title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -72,17 +72,17 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
               data-guide={guide}
               whileHover={{ backgroundColor: active ? undefined : "rgba(255,255,255,0.04)" }}
               whileTap={{ scale: 0.97 }}
-              animate={active ? { boxShadow: "0 0 14px rgba(193,33,41,0.18)" } : { boxShadow: "none" }}
+              animate={active ? { boxShadow: "0 0 14px rgba(37,99,235,0.18)" } : { boxShadow: "none" }}
               transition={{ duration: 0.15 }}
               onClick={() => onTabChange(key)}
               title={collapsed ? label : undefined}
               className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-2.5 text-sm font-medium transition-colors ${
                 active
-                  ? "border border-[#c12129]/30 bg-[#c12129]/10 text-white"
+                  ? "border border-[#2563EB]/30 bg-[#2563EB]/10 text-white"
                   : "border border-transparent text-gray-400 hover:text-white"
               } ${collapsed ? "justify-center" : ""}`}
             >
-              <Icon className={`h-4 w-4 flex-shrink-0 transition-colors ${active ? "text-[#c12129]" : ""}`} />
+              <Icon className={`h-4 w-4 flex-shrink-0 transition-colors ${active ? "text-[#2563EB]" : ""}`} />
 
               <AnimatePresence initial={false}>
                 {!collapsed && (
@@ -130,14 +130,14 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
               <motion.div
-                className={`h-full rounded-full ${pct > 80 ? "bg-[#c12129]" : "bg-white/30"}`}
+                className={`h-full rounded-full ${pct > 80 ? "bg-[#2563EB]" : "bg-white/30"}`}
                 initial={{ width: 0 }}
                 animate={{ width: `${pct}%` }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               />
             </div>
             {pct > 80 && (
-              <p className="mt-1.5 text-[10px] text-[#c12129]">Near limit — consider upgrading</p>
+              <p className="mt-1.5 text-[10px] text-[#2563EB]">Near limit — consider upgrading</p>
             )}
           </motion.div>
         )}
@@ -203,7 +203,7 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
             <motion.button
               whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
               onClick={() => setShowGuide(true)}
-              className="w-full rounded-lg border border-white/10 bg-white/5 py-1.5 text-[11px] font-medium text-gray-500 transition hover:border-[#c12129]/30 hover:text-[#c12129]"
+              className="w-full rounded-lg border border-white/10 bg-white/5 py-1.5 text-[11px] font-medium text-gray-500 transition hover:border-[#2563EB]/30 hover:text-[#2563EB]"
             >
               Workspace Guide
             </motion.button>

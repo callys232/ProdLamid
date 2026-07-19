@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { ReactNode } from "react";
 import {
   FaExclamationCircle,
@@ -17,8 +17,8 @@ const alertConfig: Record<
   { icon: ReactNode; style: string }
 > = {
   overdue: {
-    icon: <FaExclamationCircle className="text-red-400" aria-hidden="true" />,
-    style: "border-red-600 bg-red-900/40 text-red-100",
+    icon: <FaExclamationCircle className="text-blue-400" aria-hidden="true" />,
+    style: "border-blue-600 bg-blue-900/40 text-blue-100",
   },
   upcoming: {
     icon: <FaClock className="text-yellow-400" aria-hidden="true" />,

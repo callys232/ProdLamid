@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { Project } from "@/types/project";
@@ -15,8 +15,8 @@ export default function JobCard({ job, onClick, isActive }: JobCardProps) {
       className={`bg-black/10 backdrop-blur-sm border rounded-xl p-4 text-gray-100 shadow-md transition-all duration-200 cursor-pointer
         ${
           isActive
-            ? "border-[#c21219] shadow-lg ring-2 ring-[#c21219]"
-            : "border-white/20 hover:border-[#c21219] hover:shadow-lg"
+            ? "border-[#2563EB] shadow-lg ring-2 ring-[#2563EB]"
+            : "border-white/20 hover:border-[#2563EB] hover:shadow-lg"
         }`}
       onClick={() => onClick(job)}
     >
@@ -32,7 +32,7 @@ export default function JobCard({ job, onClick, isActive }: JobCardProps) {
 
       <h3
         className={`text-lg font-semibold transition-colors duration-200 ${
-          isActive ? "text-[#c21219]" : "text-white hover:text-[#c21219]"
+          isActive ? "text-[#2563EB]" : "text-white hover:text-[#2563EB]"
         }`}
       >
         {job.title}
@@ -49,13 +49,13 @@ export default function JobCard({ job, onClick, isActive }: JobCardProps) {
         {job.budget && (
           <span className="px-2 py-1 bg-white/10 rounded-md border border-white/20">
             Budget:{" "}
-            <span className="text-[#c21219] font-semibold">{job.budget}</span>
+            <span className="text-[#2563EB] font-semibold">{job.budget}</span>
           </span>
         )}
         {job.hourlyRate && (
           <span className="px-2 py-1 bg-white/10 rounded-md border border-white/20">
             Rate:{" "}
-            <span className="text-[#c21219] font-semibold">
+            <span className="text-[#2563EB] font-semibold">
               {job.hourlyRate}
             </span>
           </span>
