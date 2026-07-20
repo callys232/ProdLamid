@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
+import HeroStickmen from "@/components/HeroStickmen";
 
 const VALUES = [
   { icon: "🎯", title: "Radical Accessibility",  body: "Great expertise should not be a privilege of the few." },
@@ -29,16 +30,19 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto">
 
         {/* ── Hero ── */}
-        <motion.div {...fadeUp(0)} className="text-center mb-8">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">About LAMID ONE</p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-6">
-            Our Origin Story
-          </h1>
-          <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            LAMID ONE was born from a simple observation: the world&apos;s best expertise is locked behind outdated gatekeepers.
-            We set out to build an ecosystem where AI amplifies human wisdom, making world-class consulting accessible
-            to every organisation — not just those who can afford the Big Four.
-          </p>
+        <motion.div {...fadeUp(0)} className="relative text-center mb-8 overflow-hidden rounded-2xl py-14 px-4">
+          <HeroStickmen />
+          <div className="relative z-10">
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">About LAMID ONE</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-6">
+              Our Origin Story
+            </h1>
+            <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+              LAMID ONE was born from a simple observation: the world&apos;s best expertise is locked behind outdated gatekeepers.
+              We set out to build an ecosystem where AI amplifies human wisdom, making world-class consulting accessible
+              to every organisation — not just those who can afford the Big Four.
+            </p>
+          </div>
         </motion.div>
 
         {/* ── Mission & Vision ── */}
