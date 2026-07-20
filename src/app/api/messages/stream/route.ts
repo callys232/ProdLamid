@@ -18,6 +18,10 @@ export function notifyProject(projectId: string, payload: object) {
 export async function GET(req: NextRequest) {
   const auth = await verifyAuth(req);
   if (!auth) return new Response("Unauthorized", { status: 401 });
+  if (auth.accountType === "Engine") return new Response(
+    JSON.stringify({ success: false, message: "Upgrade to a membership plan to access this feature.", code: "ENGINE_ONLY" }),
+    { status: 403, headers: { "Content-Type": "application/json" } }
+  );
 
   const projectId = new URL(req.url).searchParams.get("projectId");
   if (!projectId) return new Response("projectId required", { status: 400 });

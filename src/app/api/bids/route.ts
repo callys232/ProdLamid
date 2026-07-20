@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Bid } from "@/lib/models/Bid";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { deductPoints, POINT_COSTS } from "@/lib/services/pointsService";
 
 export async function GET(request: NextRequest) {
@@ -28,6 +29,8 @@ export async function POST(request: NextRequest) {
 
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         // Deduct points for placing a bid
         const pointsResult = await deductPoints(

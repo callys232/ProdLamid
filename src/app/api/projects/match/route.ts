@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Project } from "@/lib/models/Project";
 import { Profile } from "@/lib/models/Profile";
 import { scoreProject } from "@/lib/ai/projectMatcher";
@@ -13,6 +14,8 @@ export async function GET(request: NextRequest) {
 
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     // Fetch the consultant's profile for scoring context
     const profile = await Profile.findOne({ user: auth.userId }).lean() as any;

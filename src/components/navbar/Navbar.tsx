@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Network, TrendingUp, GraduationCap, Landmark } from "lucide-react";
+import { Network, TrendingUp, GraduationCap, Landmark, Menu, X } from "lucide-react";
 import AccountMenu from "./Account";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
@@ -75,12 +75,13 @@ function EnginesPanel({ onClose }: { onClose: () => void }) {
           <p className="text-[9px] text-white/45 mt-0.5">Four unified engines</p>
         </div>
         <motion.button
+          type="button"
           whileTap={{ scale: 0.9 }}
           onClick={onClose}
-          className="ml-auto text-white/45 hover:text-white/70 transition-colors text-xs leading-none cursor-pointer"
-          aria-label="Close"
+          className="ml-auto text-white/45 hover:text-white/70 transition-colors cursor-pointer"
+          aria-label="Close engines menu"
         >
-          ✕
+          <X className="w-3.5 h-3.5" />
         </motion.button>
       </div>
 
@@ -295,13 +296,18 @@ const Navbar: React.FC = () => {
             <motion.button
               type="button"
               whileTap={{ scale: 0.92 }}
-              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg border border-white/15 dark:border-white/15 border-gray-200 text-gray-600 dark:text-white/70 hover:border-[#2563EB]/50 hover:text-[#2563EB] transition-colors duration-200 cursor-pointer"
+              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 dark:border-white/15 text-gray-600 dark:text-white/70 hover:border-[#2563EB]/50 hover:text-[#2563EB] transition-colors duration-200 cursor-pointer"
               onClick={() => setIsOpen((v) => !v)}
               aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu-panel"
             >
-              <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="text-base leading-none select-none">
-                {isOpen ? "✕" : "☰"}
-              </motion.span>
+              <AnimatePresence mode="wait" initial={false}>
+                {isOpen
+                  ? <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}><X className="w-4 h-4" /></motion.span>
+                  : <motion.span key="open"  initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}><Menu className="w-4 h-4" /></motion.span>
+                }
+              </AnimatePresence>
             </motion.button>
           </div>
         </div>
@@ -310,11 +316,12 @@ const Navbar: React.FC = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              id="mobile-menu-panel"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.22 }}
-              className="lg:hidden border-t border-white/8 dark:border-white/8 border-gray-200 overflow-hidden"
+              className="lg:hidden border-t border-gray-200 dark:border-white/8 overflow-hidden"
               style={{ background: "var(--navbar-bg)" }}
             >
               <div className="px-4 py-4 flex flex-col gap-1">

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import * as milestoneController from "@/controllers/milestoneController";
 import { MilestoneSchemaValidator } from "@/lib/validation/validators";
 import { Project } from "@/lib/models/Project";
@@ -15,6 +16,8 @@ export async function GET(
         
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         // Check project authorization
         const project = await Project.findById(id).lean();
@@ -41,6 +44,8 @@ export async function POST(
     try {
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const { id } = await params;
         const body = await request.json();

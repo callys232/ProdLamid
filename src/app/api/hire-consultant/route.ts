@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { createNotification } from "@/lib/services/notificationService";
 import { getConsultantById } from "@/lib/services/consultantService";
 import { Project } from "@/lib/models/Project";
@@ -17,6 +18,8 @@ export async function POST(request: NextRequest) {
         if (auth instanceof NextResponse) {
             return auth; // Return 401 response
         }
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const body = await request.json();
         const { consultantId, projectId, bidId, clientMessage } = body;

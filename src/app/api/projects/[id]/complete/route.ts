@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Project } from "@/lib/models/Project";
 import { Notification } from "@/lib/models/Notification";
 
@@ -12,6 +13,8 @@ export async function POST(req: NextRequest, { params }: { params: Params }) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const { id } = await params;
     const project = await Project.findById(id).lean() as any;

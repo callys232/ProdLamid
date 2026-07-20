@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Escrow } from "@/lib/models/Escrow";
 import { Users } from "@/lib/models/User";
 import { initializePayment } from "@/lib/paystack";
@@ -11,6 +12,8 @@ export async function POST(request: NextRequest) {
     await connectDB();
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     // Rate limit: 5 payment initiations per minute per user
     const rl = await rateLimit(`escrow:fund:${auth.userId}`, { windowMs: 60_000, max: 5 });

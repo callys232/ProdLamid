@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import cloudinary from "@/lib/cloudinary";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key_change_me";
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 export async function POST(request: Request) {
     try {
@@ -29,6 +29,9 @@ export async function POST(request: Request) {
 
         const decoded: any = jwt.verify(token, JWT_SECRET);
         const userId = decoded.userId;
+        if (decoded.accountType === "Engine") {
+            return NextResponse.json({ success: false, message: "Upgrade to a membership plan to access this feature.", code: "ENGINE_ONLY" }, { status: 403 });
+        }
 
         const formData = await request.formData();
         const file = formData.get("file") as File;

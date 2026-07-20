@@ -8,6 +8,91 @@ import { rateLimit } from "@/lib/rateLimit";
 
 const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
+// ── Hardcoded demo accounts ─────────────────────────────────────────────────
+// Active when NODE_ENV !== "production" OR DEMO_MODE=true.
+// These never touch the database.
+const DEMO_CREDENTIALS: Record<string, {
+  password:           string;
+  userId:             string;
+  email:              string;
+  username:           string;
+  name:               string;
+  role:               string;
+  accountType:        string;
+  tier:               string;
+  isPremium:          boolean;
+  subscriptionStatus: string;
+  orgUserCount?:      number;
+  orgRole?:           string;
+}> = {
+  "demo.freelancer@lamidone.com": {
+    password:           "Demo@Freelancer1",
+    userId:             "demo-freelancer-000000000001",
+    email:              "demo.freelancer@lamidone.com",
+    username:           "demo_freelancer",
+    name:               "Freelancer Demo",
+    role:               "seller",
+    accountType:        "Freelancer",
+    tier:               "premium",
+    isPremium:          true,
+    subscriptionStatus: "active",
+  },
+  "demo.client@lamidone.com": {
+    password:           "Demo@Client1",
+    userId:             "demo-client-000000000002",
+    email:              "demo.client@lamidone.com",
+    username:           "demo_client",
+    name:               "Client Demo",
+    role:               "client",
+    accountType:        "Client",
+    tier:               "premium",
+    isPremium:          true,
+    subscriptionStatus: "active",
+  },
+  "demo.enterprise@lamidone.com": {
+    password:           "Demo@Enterprise1",
+    userId:             "demo-enterprise-000000000003",
+    email:              "demo.enterprise@lamidone.com",
+    username:           "demo_enterprise",
+    name:               "Enterprise Demo",
+    role:               "client",
+    accountType:        "Enterprise",
+    tier:               "enterprise",
+    isPremium:          true,
+    subscriptionStatus: "active",
+    orgUserCount:       30,
+    orgRole:            "org_admin",
+  },
+  "demo.concierge@lamidone.com": {
+    password:           "Demo@Concierge1",
+    userId:             "demo-concierge-000000000004",
+    email:              "demo.concierge@lamidone.com",
+    username:           "demo_concierge",
+    name:               "Concierge Demo",
+    role:               "client",
+    accountType:        "Concierge",
+    tier:               "enterprise",
+    isPremium:          true,
+    subscriptionStatus: "active",
+  },
+  "demo.engine@lamidone.com": {
+    password:           "Demo@Engine1",
+    userId:             "demo-engine-000000000005",
+    email:              "demo.engine@lamidone.com",
+    username:           "demo_engine",
+    name:               "Engine Demo",
+    role:               "client",
+    accountType:        "Engine",
+    tier:               "free",
+    isPremium:          false,
+    subscriptionStatus: "inactive",
+  },
+};
+
+const DEMO_ENABLED =
+  process.env.NODE_ENV !== "production" ||
+  process.env.DEMO_MODE === "true";
+
 export async function POST(request: NextRequest) {
     try {
         const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
@@ -19,7 +104,6 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        await connectDB();
         const { email, password } = await request.json();
 
         if (!email || !password) {
@@ -28,6 +112,45 @@ export async function POST(request: NextRequest) {
                 { status: 400 }
             );
         }
+
+        // ── Demo account short-circuit ──────────────────────────────────────
+        if (DEMO_ENABLED) {
+            const demo = DEMO_CREDENTIALS[email.toLowerCase().trim()];
+            if (demo) {
+                if (password !== demo.password) {
+                    return NextResponse.json(
+                        { success: false, message: "Invalid credentials" },
+                        { status: 401 }
+                    );
+                }
+
+                const { password: _pw, ...payload } = demo;
+                const token = jwt.sign({ ...payload, dev: true }, JWT_SECRET, { expiresIn: "2h" });
+
+                const response = NextResponse.json(
+                    { success: true, data: { user: payload, token } },
+                    { status: 200 }
+                );
+                response.cookies.set("token", token, {
+                    httpOnly: true,
+                    secure:   process.env.NODE_ENV === "production",
+                    sameSite: "lax",
+                    maxAge:   2 * 60 * 60,
+                    path:     "/",
+                });
+                response.cookies.set("user_role", demo.role, {
+                    httpOnly: false,
+                    secure:   process.env.NODE_ENV === "production",
+                    sameSite: "lax",
+                    maxAge:   2 * 60 * 60,
+                    path:     "/",
+                });
+                return response;
+            }
+        }
+        // ────────────────────────────────────────────────────────────────────
+
+        await connectDB();
 
         // Find User
         const user = await Users.findOne({ email });
@@ -61,8 +184,12 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Include orgId/orgRole in token if enterprise user
-        const tokenPayload: Record<string, unknown> = { userId: user._id, role: user.role };
+        // Include accountType, orgId, orgRole in token for route-level gating without DB hits
+        const tokenPayload: Record<string, unknown> = {
+            userId:      user._id,
+            role:        user.role,
+            accountType: (user as any).accountType ?? "Client",
+        };
         if ((user as any).orgId)   tokenPayload.orgId   = String((user as any).orgId);
         if ((user as any).orgRole) tokenPayload.orgRole = (user as any).orgRole;
 

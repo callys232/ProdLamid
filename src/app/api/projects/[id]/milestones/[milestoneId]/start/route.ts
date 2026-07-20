@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import * as milestoneController from "@/controllers/milestoneController";
 
 type Params = Promise<{ id: string; milestoneId: string }>;
@@ -11,6 +12,8 @@ export async function PATCH(
     try {
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const { milestoneId } = await params;
         const milestone = await milestoneController.startMilestone(milestoneId, auth.userId);

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import cloudinary from "@/lib/cloudinary";
 import { Users } from "@/lib/models/User";
 
@@ -11,6 +12,8 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const formData = await req.formData();
     const files = formData.getAll("files") as File[];
@@ -67,6 +70,8 @@ export async function GET(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const user = await Users.findById(auth.userId).select("kycStatus kycDocuments").lean() as any;
     return NextResponse.json({ success: true, data: { status: user?.kycStatus ?? "not_submitted", documents: user?.kycDocuments ?? [] } });

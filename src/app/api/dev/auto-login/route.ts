@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "dev_secret_key_lamid";
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 /* Payloads match JwtAccessTokenPayload — sub + type:"access" are required for verifyAccessToken */
 const DEV_ACCOUNTS: Record<string, object> = {

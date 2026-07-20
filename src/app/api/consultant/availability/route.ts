@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Profile } from "@/lib/models/Profile";
 import { cache, CacheKeys, TTL } from "@/lib/cache";
 import { z } from "zod";
@@ -17,6 +18,8 @@ export async function PATCH(request: NextRequest) {
     await connectDB();
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const body   = await request.json();
     const parsed = AvailabilitySchema.safeParse(body);

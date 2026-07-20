@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Project } from "@/lib/models/Project";
 import { Milestone } from "@/lib/models/Milestone";
 
@@ -12,6 +13,8 @@ export async function GET(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     // Fetch user's projects
     const projects = await Project.find({ ownerId: auth.userId }).lean() as any[];

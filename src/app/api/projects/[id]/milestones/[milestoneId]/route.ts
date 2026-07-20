@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as milestoneController from "@/controllers/milestoneController";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Project } from "@/lib/models/Project";
 import connectDB from "@/lib/db";
 
@@ -13,6 +14,8 @@ export async function GET(
     try {
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         await connectDB();
         const { id: projectId, milestoneId } = await params;

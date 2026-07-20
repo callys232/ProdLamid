@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Team } from "@/lib/models/Team";
 import { Users } from "@/lib/models/User";
 
@@ -13,6 +14,8 @@ export async function POST(req: NextRequest, { params }: { params: Params }) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
     const { id } = await params;
     const { email, role } = await req.json();
 
@@ -46,6 +49,8 @@ export async function DELETE(req: NextRequest, { params }: { params: Params }) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
     const { id } = await params;
     const { userId } = await req.json();
 

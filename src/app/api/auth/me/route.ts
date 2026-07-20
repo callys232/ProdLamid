@@ -47,23 +47,25 @@ export async function GET(request: Request) {
             );
         }
 
-        /* ── Dev token short-circuit — no DB touch ── */
-        if (decoded.dev === true && process.env.NODE_ENV !== "production") {
+        /* ── Dev / demo token short-circuit — no DB touch ── */
+        const demoEnabled = process.env.NODE_ENV !== "production" || process.env.DEMO_MODE === "true";
+        if (decoded.dev === true && demoEnabled) {
             return NextResponse.json({
                 success: true,
                 data: {
                     _id:                decoded.userId,
                     id:                 decoded.userId,
-                    email:              decoded.email      ?? "",
-                    username:           decoded.username   ?? "",
-                    name:               decoded.name       ?? "Dev User",
-                    role:               decoded.role       ?? "client",
-                    accountType:        decoded.accountType ?? "Client",
-                    isPremium:          decoded.isPremium  ?? false,
+                    email:              decoded.email              ?? "",
+                    username:           decoded.username           ?? "",
+                    name:               decoded.name               ?? "Demo User",
+                    role:               decoded.role               ?? "client",
+                    accountType:        decoded.accountType        ?? "Client",
+                    tier:               decoded.tier               ?? "free",
+                    isPremium:          decoded.isPremium          ?? false,
                     subscriptionStatus: decoded.subscriptionStatus ?? "inactive",
                     isVerified:         true,
                     status:             "active",
-                    profile:            { firstName: decoded.name?.split(" ")[0] ?? "Dev", lastName: decoded.name?.split(" ")[1] ?? "User" },
+                    profile:            { firstName: decoded.name?.split(" ")[0] ?? "Demo", lastName: decoded.name?.split(" ")[1] ?? "User" },
                 },
             });
         }

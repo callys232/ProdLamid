@@ -8,6 +8,8 @@ const ROLE_DESTINATIONS: Record<string, string> = {
   Client:     "/client",
   Enterprise: "/enterprise",
   Admin:      "/admin",
+  Concierge:  "/concierge",
+  Engine:     "/engines",
 };
 
 export default function Dashboard() {

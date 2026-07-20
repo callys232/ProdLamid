@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Team } from "@/lib/models/Team";
 
 export const dynamic = "force-dynamic";
@@ -12,6 +13,8 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
     const { id } = await params;
 
     const team = await Team.findById(id)
@@ -30,6 +33,8 @@ export async function PATCH(req: NextRequest, { params }: { params: Params }) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
     const { id } = await params;
     const { name, description } = await req.json();
 
@@ -52,6 +57,8 @@ export async function PUT(req: NextRequest, { params }: { params: Params }) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
     const { id } = await params;
     const body = await req.json();
 
@@ -71,6 +78,8 @@ export async function DELETE(req: NextRequest, { params }: { params: Params }) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
     const { id } = await params;
 
     const team = await Team.findOneAndDelete({ _id: id, ownerId: auth.userId });

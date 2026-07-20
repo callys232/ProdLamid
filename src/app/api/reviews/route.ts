@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { getReviews, createReview } from "@/lib/services/reviewService";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 
 // GET /api/reviews - Get reviews with optional filters
 export async function GET(request: NextRequest) {
@@ -48,6 +49,8 @@ export async function POST(request: NextRequest) {
         if (auth instanceof NextResponse) {
             return auth; // Return 401 response
         }
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const body = await request.json();
         // Accept both legacy `consultantId` and new `revieweeId` field names

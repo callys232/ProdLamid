@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { deductPoints, POINT_COSTS } from "@/lib/services/pointsService";
 import { Users } from "@/lib/models/User";
 
 export const dynamic = "force-dynamic";
@@ -42,6 +43,14 @@ export async function POST(req: NextRequest) {
 
   try {
     await connectDB();
+
+    const pointsResult = await deductPoints(auth.userId, POINT_COSTS.AI_MENTORSHIP_MATCH, "Mentorship Matching");
+    if (!pointsResult.success) {
+      return NextResponse.json(
+        { success: false, message: pointsResult.message, code: "INSUFFICIENT_POINTS", balance: pointsResult.balance },
+        { status: 402 }
+      );
+    }
     const body = await req.json();
     const { goals, currentSkills, skillsToGrow, industryFocus, preferredFormat } = body;
 

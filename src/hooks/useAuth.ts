@@ -11,7 +11,7 @@ export interface AuthUser {
   username: string;
   email: string;
   role: "client" | "seller" | "admin";
-  accountType?: "Client" | "Freelancer" | "Enterprise" | "Concierge" | "Admin";
+  accountType?: "Client" | "Freelancer" | "Enterprise" | "Concierge" | "Admin" | "Engine";
   isPremium?: boolean;
   subscriptionStatus?: string;
   orgId?: string;
@@ -62,6 +62,7 @@ function getDashboardHref(user: AuthUser): string {
   if (user.accountType === "Freelancer" || user.role === "seller") return "/profile";
   if (user.accountType === "Enterprise" || user.orgId)             return "/enterprise";
   if (user.accountType === "Concierge")                            return "/concierge";
+  if (user.accountType === "Engine")                               return "/engines";
   return "/client";
 }
 

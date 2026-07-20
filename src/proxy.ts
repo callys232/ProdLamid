@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 // Routes that require authentication — redirect to /signin if no token
 const PROTECTED = [
   "/client", "/profile", "/enterprise", "/admin",
-  "/postjobs", "/escrow", "/projects", "/dashboard", "/concierge",
+  "/postjobs", "/escrow", "/projects", "/dashboard", "/concierge", "/engines",
 ];
 
 // Role → correct dashboard (from user_role cookie set at login)

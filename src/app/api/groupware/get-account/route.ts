@@ -2,13 +2,38 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
 import { Users } from "@/lib/models/User";
+import jwt from "jsonwebtoken";
 
 export const dynamic = "force-dynamic";
+
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const DEMO_ENABLED =
+  process.env.NODE_ENV !== "production" ||
+  process.env.DEMO_MODE === "true";
 
 // GET /api/groupware/get-account
 // Used by dashboard.tsx to resolve which dashboard to redirect to after login.
 export async function GET(req: NextRequest) {
   try {
+    // Dev/demo token short-circuit — no DB touch
+    if (DEMO_ENABLED) {
+      const raw = req.cookies.get("token")?.value;
+      if (raw) {
+        try {
+          const decoded: any = jwt.verify(raw, JWT_SECRET);
+          if (decoded?.dev === true) {
+            return NextResponse.json({
+              success:     true,
+              accountType: decoded.accountType ?? "Client",
+              role:        decoded.role        ?? "client",
+              orgId:       null,
+              orgRole:     null,
+            });
+          }
+        } catch {}
+      }
+    }
+
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
@@ -32,6 +57,7 @@ export async function GET(req: NextRequest) {
       user.role === "admin"                  ? "Admin"       :
       user.role === "seller"                 ? "Freelancer"  :
       user.accountType === "Concierge"       ? "Concierge"   :
+      user.accountType === "Engine"          ? "Engine"      :
                                                "Client";
 
     return NextResponse.json({

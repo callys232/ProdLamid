@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Users } from "@/lib/models/User";
 import { initializePayment } from "@/lib/paystack";
 
@@ -10,6 +11,8 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const { amount } = await req.json();
     if (!amount || amount < 100) return NextResponse.json({ success: false, message: "Minimum top-up is ₦100" }, { status: 400 });

@@ -24,8 +24,11 @@ export async function GET(
 
         // Require authentication for private details
         const { requireAuth } = await import("@/lib/middleware/auth");
+        const { denyEngineUsers } = await import("@/lib/middleware/engineGuard");
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const isOwner = project.ownerId.toString() === auth.userId;
         const isConsultant = project.consultants.some((c: any) => 

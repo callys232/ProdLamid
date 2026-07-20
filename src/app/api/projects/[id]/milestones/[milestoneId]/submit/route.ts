@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Milestone } from "@/lib/models/Milestone";
 import { Project } from "@/lib/models/Project";
 import { runDeliverableCheck } from "@/app/api/ai/deliverable-check/route";
@@ -16,6 +17,8 @@ export async function POST(
   try {
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     if (auth.userRole !== "seller") {
       return NextResponse.json(

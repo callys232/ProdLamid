@@ -5,12 +5,13 @@ import { isRevoked } from "@/lib/tokenBlocklist";
 const JWT_SECRET = process.env.JWT_SECRET ?? "";
 
 export interface AuthResult {
-    userId:   string;
-    userRole: string;
-    token:    string;   // raw token (needed for revocation on logout)
-    exp:      number;   // expiry seconds (needed for blocklist TTL)
-    orgId?:   string;
-    orgRole?: string;
+    userId:      string;
+    userRole:    string;
+    token:       string;   // raw token (needed for revocation on logout)
+    exp:         number;   // expiry seconds (needed for blocklist TTL)
+    accountType?: string;
+    orgId?:      string;
+    orgRole?:    string;
 }
 
 export interface AuthenticatedRequest extends NextRequest {
@@ -37,12 +38,13 @@ export async function verifyAuth(request: NextRequest): Promise<AuthResult | nul
         if (await isRevoked(token)) return null;
 
         const decoded = jwt.verify(token, JWT_SECRET) as {
-            userId?: string;
-            sub?:    string;
-            role?:   string;
-            orgId?:  string;
-            orgRole?: string;
-            exp?:    number;
+            userId?:      string;
+            sub?:         string;
+            role?:        string;
+            accountType?: string;
+            orgId?:       string;
+            orgRole?:     string;
+            exp?:         number;
         };
 
         const userId = decoded.userId || decoded.sub;
@@ -50,11 +52,12 @@ export async function verifyAuth(request: NextRequest): Promise<AuthResult | nul
 
         return {
             userId,
-            userRole: decoded.role ?? "client",
+            userRole:    decoded.role ?? "client",
             token,
-            exp:      decoded.exp ?? Math.floor(Date.now() / 1000) + 7 * 86400,
-            ...(decoded.orgId   && { orgId:   decoded.orgId }),
-            ...(decoded.orgRole && { orgRole: decoded.orgRole }),
+            exp:         decoded.exp ?? Math.floor(Date.now() / 1000) + 7 * 86400,
+            ...(decoded.accountType && { accountType: decoded.accountType }),
+            ...(decoded.orgId       && { orgId:       decoded.orgId }),
+            ...(decoded.orgRole     && { orgRole:     decoded.orgRole }),
         };
     } catch {
         return null;

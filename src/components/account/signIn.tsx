@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface FormData {
@@ -16,10 +16,13 @@ const ACCOUNT_TYPE_ROUTES: Record<string, string> = {
   Admin:      "/admin",
   Concierge:  "/concierge",
   Client:     "/client",
+  Engine:     "/engines",
 };
 
 export default function SignInPage() {
-  const router = useRouter();
+  const router       = useRouter();
+  const searchParams = useSearchParams();
+
   const [formData, setFormData] = useState<FormData>({ email: "", password: "" });
   const [loading,  setLoading]  = useState(false);
   const [error,    setError]    = useState<string | null>(null);
@@ -42,8 +45,7 @@ export default function SignInPage() {
       const result = await res.json();
 
       if (!res.ok || !result.success) {
-        const msg = result.message || "Invalid email or password";
-        setError(msg);
+        setError(result.message || "Invalid email or password");
         return;
       }
 
@@ -53,12 +55,16 @@ export default function SignInPage() {
       const accountRes  = await fetch("/api/groupware/get-account");
       const accountData = accountRes.ok ? await accountRes.json() : null;
       const accountType = accountData?.accountType ?? "";
-      const dest        = ACCOUNT_TYPE_ROUTES[accountType] ?? "/client";
 
-      // Persist accountType so the dashboard can verify without extra API call
       try { localStorage.setItem("account_type", accountType); } catch {}
 
       toast.success(`Welcome back${user.username ? `, ${user.username}` : ""}!`);
+
+      // Respect ?next= redirect — only allow relative paths to prevent open-redirect attacks
+      const rawNext = searchParams.get("next");
+      const safeNext = rawNext?.startsWith("/") && !rawNext.startsWith("//") ? rawNext : null;
+      const dest = safeNext ?? ACCOUNT_TYPE_ROUTES[accountType] ?? "/client";
+
       router.replace(dest);
 
     } catch {
@@ -69,18 +75,17 @@ export default function SignInPage() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-[#0b0b0b] to-[#1a1a1a] px-4">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-black dark:via-[#0b0b0b] dark:to-[#1a1a1a] px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-sm sm:max-w-md bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-8 shadow-2xl"
+        className="w-full max-w-sm sm:max-w-md bg-white dark:bg-white/10 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/20 p-8 shadow-2xl"
       >
-        <h2 className="text-2xl font-serif font-bold text-center mb-6 text-white">
+        <h2 className="text-2xl font-serif font-bold text-center mb-6 text-gray-900 dark:text-white">
           Sign In
         </h2>
 
-        {/* Email + Password Form */}
         <motion.form
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -95,8 +100,8 @@ export default function SignInPage() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300
-                       border border-transparent focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/60
+            className="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-white/20 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-300
+                       border border-gray-200 dark:border-transparent focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/60
                        focus:shadow-[0_0_10px_#2563EBaa] outline-none transition"
           />
           <input
@@ -106,13 +111,12 @@ export default function SignInPage() {
             value={formData.password}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300
-                       border border-transparent focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/60
+            className="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-white/20 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-300
+                       border border-gray-200 dark:border-transparent focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/60
                        focus:shadow-[0_0_10px_#2563EBaa] outline-none transition"
           />
 
-          {/* Forgot password + Sign up */}
-          <div className="flex justify-between text-sm text-gray-400 mt-1">
+          <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 mt-1">
             <a href="/forgotpassword" className="hover:text-[#2563EB] transition">
               Forgot Password?
             </a>
@@ -121,12 +125,12 @@ export default function SignInPage() {
             </a>
           </div>
 
-          {/* Error message */}
           {error && (
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-blue-500 text-sm text-center"
+              role="alert"
+              className="text-red-500 text-sm text-center"
             >
               {error}
             </motion.p>
@@ -147,20 +151,18 @@ export default function SignInPage() {
           </motion.button>
         </motion.form>
 
-        {/* Divider */}
         <div className="flex items-center my-6">
-          <div className="flex-grow h-px bg-gray-600" />
-          <span className="px-3 text-gray-400 text-sm">OR</span>
-          <div className="flex-grow h-px bg-gray-600" />
+          <div className="flex-grow h-px bg-gray-200 dark:bg-gray-600" />
+          <span className="px-3 text-gray-500 dark:text-gray-400 text-sm">OR</span>
+          <div className="flex-grow h-px bg-gray-200 dark:bg-gray-600" />
         </div>
 
-        {/* Google Sign In */}
         <motion.a
           href="/api/auth/google"
           whileTap={{ scale: 0.97 }}
           aria-label="Sign in with Google"
           className="w-full flex items-center justify-center gap-3 bg-white text-black py-3 rounded-xl
-                     font-medium hover:bg-gray-100 transition focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                     font-medium hover:bg-gray-100 transition border border-gray-200 focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
         >
           <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
           Sign in with Google

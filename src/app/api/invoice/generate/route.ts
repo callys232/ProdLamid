@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { buildInvoiceHtml, InvoiceData } from "@/lib/pdf/invoiceTemplate";
 import { Users } from "@/lib/models/User";
 import { Profile } from "@/lib/models/Profile";
@@ -11,6 +12,8 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const body = await req.json();
     const { toUserId, items, notes, currency = "$" } = body;

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Users } from "@/lib/models/User";
 import { Profile } from "@/lib/models/Profile";
 
@@ -12,6 +13,8 @@ export async function GET(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const user = await Users.findById(auth.userId).lean() as any;
     if (!user) return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
@@ -62,6 +65,8 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const { slot, note } = await req.json();
 

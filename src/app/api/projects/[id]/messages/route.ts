@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import * as messageController from "@/controllers/messageController";
 import { MessageSchemaValidator } from "@/lib/validation/validators";
 
@@ -12,6 +13,8 @@ export async function GET(
     try {
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const { id } = await params;
 
@@ -44,6 +47,8 @@ export async function POST(
     try {
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const { id } = await params;
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Message } from "@/lib/models/Message";
 import { Notification } from "@/lib/models/Notification";
 import { Users } from "@/lib/models/User";
@@ -15,6 +16,8 @@ export async function GET(request: NextRequest) {
 
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const { searchParams } = new URL(request.url);
     const projectId = searchParams.get("projectId") ?? searchParams.get("escrowId");
@@ -67,6 +70,8 @@ export async function POST(request: NextRequest) {
 
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const body = await request.json();
     // Support both projectId and escrowId (escrowId = project._id in this app)

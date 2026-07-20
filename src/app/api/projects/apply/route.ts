@@ -4,6 +4,7 @@ import { Bid } from "@/lib/models/Bid";
 import { Project } from "@/lib/models/Project";
 import { Notification } from "@/lib/models/Notification";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 
 export async function POST(request: NextRequest) {
     try {
@@ -12,6 +13,8 @@ export async function POST(request: NextRequest) {
         // Require authentication
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const body = await request.json();
         const { projectId, amount, coverLetter, timeline } = body;

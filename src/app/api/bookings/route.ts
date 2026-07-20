@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
+import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Profile } from "@/lib/models/Profile";
 
 export async function POST(req: NextRequest) {
   try {
     await dbConnect();
+
+    const auth = await requireAuth(req);
+    if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
+
     const { consultantId, clientId, day, hour, serviceType, notes } = await req.json();
 
     if (!consultantId || !clientId || !day || hour == null) {

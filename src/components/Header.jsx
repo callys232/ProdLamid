@@ -17,16 +17,17 @@ export default function Header() {
         ].join(", "),
       }}
     >
-
       <HeroStickmen />
 
       {/* Accent glow ring — sits behind content */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        aria-hidden="true"
+      >
         <div className="w-[560px] h-[260px] rounded-full bg-[#2563EB]/10 blur-[80px]" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-7 py-14 md:py-12">
-
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: -14 }}
@@ -35,7 +36,9 @@ export default function Header() {
         >
           <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
-            <span className="aivora-gradient-text">Human Insight. AI Precision. One Ecosystem.</span>
+            <span className="aivora-gradient-text">
+              Human Insight. AI Precision. One Ecosystem.
+            </span>
           </span>
         </motion.div>
 
@@ -47,11 +50,16 @@ export default function Header() {
           className="text-2xl sm:text-3xl md:text-5xl font-bold leading-[1.18] tracking-tight"
           style={{ fontFamily: "var(--font-space-grotesk)" }}
         >
-          <span className="text-gray-900 dark:text-white">The{" "}</span>
+          <span className="text-gray-900 dark:text-white">The </span>
           <span className="aivora-gradient-text">HumanAI</span>
-          <span className="text-gray-900 dark:text-white">{" "}Operating System</span>
+          <span className="text-gray-900 dark:text-white">
+            {" "}
+            Operating System
+          </span>
           <br />
-          <span className="text-gray-900 dark:text-white">for Enterprise Growth.</span>
+          <span className="text-gray-900 dark:text-white">
+            for Enterprise Growth.
+          </span>
         </motion.h1>
 
         {/* Accent divider */}
@@ -80,12 +88,18 @@ export default function Header() {
           transition={{ duration: 0.5, delay: 0.36 }}
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
         >
-          {/* Primary — Explore the Ecosystem */}
           <motion.button
-            whileHover={{ scale: 1.04, boxShadow: "0 0 38px rgba(37,99,235,0.88)" }}
+            type="button"
+            aria-label="Explore the LAMID ONE ecosystem"
+            whileHover={{
+              scale: 1.04,
+              boxShadow: "0 0 38px rgba(37,99,235,0.88)",
+            }}
             whileTap={{ scale: 0.97 }}
             onClick={() =>
-              document.getElementById("ecosystem")?.scrollIntoView({ behavior: "smooth" })
+              document
+                .getElementById("ecosystem")
+                ?.scrollIntoView({ behavior: "smooth" })
             }
             className="group relative inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full font-semibold text-white text-sm overflow-hidden cursor-pointer bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.52)]"
           >
@@ -93,7 +107,6 @@ export default function Header() {
             <span className="relative z-10">Explore the Ecosystem</span>
           </motion.button>
 
-          {/* Secondary — Book a Demo */}
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Link
               href="/contact"

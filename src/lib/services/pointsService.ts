@@ -15,11 +15,14 @@ export const SIGNUP_BONUS: Record<string, number> = {
 };
 
 export const POINT_COSTS = {
-  POST_PROJECT:        50,   // client: costs per project posted
-  PLACE_BID:           20,   // consultant: costs per bid placed
-  BOOST_BID:           60,   // consultant premium only: boosted bid visibility
-  AI_MATCH_REQUEST:    30,   // client premium: manual AI match trigger
-  AI_DIAGNOSTIC:       40,   // client: run business diagnostic
+  POST_PROJECT:              50,   // client: costs per project posted
+  PLACE_BID:                 20,   // consultant: costs per bid placed
+  BOOST_BID:                 60,   // consultant premium only: boosted bid visibility
+  AI_MATCH_REQUEST:          30,   // client premium: manual AI match trigger
+  AI_DIAGNOSTIC:             40,   // client: run business diagnostic
+  AI_CAPABILITY_DIAGNOSTIC:  40,   // all users: talent capability assessment (pay-per-use)
+  AI_MENTORSHIP_MATCH:       25,   // all users: mentorship matching (pay-per-use)
+  AI_WORKFORCE_ANALYTICS:    40,   // all users: workforce analytics report (pay-per-use)
 } as const;
 
 export const POINT_PACKAGES = [

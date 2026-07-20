@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Project } from "@/lib/models/Project";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 
 type Params = Promise<{ id: string }>;
 
@@ -28,6 +29,8 @@ export async function GET(
         // Require authentication for private details
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const isOwner = (project as any).ownerId.toString() === auth.userId;
         const isConsultant = (project as any).consultants.some((c: any) =>
@@ -61,6 +64,8 @@ export async function PUT(
         // Require authentication
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         const { id } = await params;
         const body = await request.json();
@@ -107,6 +112,8 @@ export async function DELETE(
         // Require authentication
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock2 = denyEngineUsers(auth);
+        if (engineBlock2) return engineBlock2;
 
         const { id } = await params;
 

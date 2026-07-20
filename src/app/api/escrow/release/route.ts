@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Escrow } from "@/lib/models/Escrow";
 import { Users } from "@/lib/models/User";
 import { Profile } from "@/lib/models/Profile";
@@ -14,6 +15,8 @@ export async function POST(request: NextRequest) {
     await connectDB();
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     /* Rate-limit: 2 release attempts per user per minute */
     const rl = await rateLimit(`escrow:release:${auth.userId}`, { windowMs: 60_000, max: 2 });

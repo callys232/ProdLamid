@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Project } from "@/lib/models/Project";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { deductPoints, POINT_COSTS } from "@/lib/services/pointsService";
 
 export async function GET(request: NextRequest) {
@@ -23,6 +24,8 @@ export async function GET(request: NextRequest) {
             // Other scopes require authentication
             const auth = await requireAuth(request);
             if (auth instanceof NextResponse) return auth;
+            const engineBlock = denyEngineUsers(auth);
+            if (engineBlock) return engineBlock;
 
             if (role === "owner") {
                 query.ownerId = auth.userId;
@@ -73,6 +76,8 @@ export async function POST(request: NextRequest) {
         // Require authentication
         const auth = await requireAuth(request);
         if (auth instanceof NextResponse) return auth;
+        const engineBlock = denyEngineUsers(auth);
+        if (engineBlock) return engineBlock;
 
         // Deduct points for posting
         const pointsResult = await deductPoints(

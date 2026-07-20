@@ -53,7 +53,7 @@ const UserSchema = new mongoose.Schema({
   // Account type — resolves to the correct dashboard
   accountType: {
     type: String,
-    enum: ["Client", "Freelancer", "Enterprise", "Concierge", "Admin"],
+    enum: ["Client", "Freelancer", "Enterprise", "Concierge", "Admin", "Engine"],
     default: null,
   },
 

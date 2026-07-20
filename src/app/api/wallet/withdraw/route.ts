@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Wallet } from "@/lib/models/Wallet";
 import { initiatePaystackTransfer } from "@/lib/paystack";
 
@@ -10,6 +11,8 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const { amount, name, account_number, bank_code } = await req.json();
     if (!amount || !name || !account_number || !bank_code)

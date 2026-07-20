@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
+import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Team } from "@/lib/models/Team";
 
 export const dynamic = "force-dynamic";
@@ -11,6 +12,8 @@ export async function GET(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const { searchParams } = new URL(req.url);
     const ownerId = searchParams.get("ownerId") ?? auth.userId;
@@ -32,6 +35,8 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const auth = await requireAuth(req);
     if (auth instanceof NextResponse) return auth;
+    const engineBlock = denyEngineUsers(auth);
+    if (engineBlock) return engineBlock;
 
     const { name, description, ownerId } = await req.json();
     if (!name?.trim()) {
