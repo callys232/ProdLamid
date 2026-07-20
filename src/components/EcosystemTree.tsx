@@ -1,247 +1,269 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
-const CYCLE_MS = 9000; // full draw + hold + fade, then restart
+type Ctx = CanvasRenderingContext2D;
 
-const ENGINES = [
-  { id: "CORE",    label: "CORE",    sub: "Strategy & Execution", cx: 85,  cy: 165, color: "#2563EB", delay: 2.0 },
-  { id: "GROW",    label: "GROW",    sub: "Customer & Digital",   cx: 320, cy: 145, color: "#3B82F6", delay: 2.3 },
-  { id: "TALENT",  label: "TALENT",  sub: "People Intelligence",  cx: 68,  cy: 295, color: "#2563EB", delay: 2.6 },
-  { id: "FINANCE", label: "FINANCE", sub: "Financial Clarity",    cx: 342, cy: 275, color: "#F59E0B", delay: 2.9 },
-];
+const CYCLE_MS = 9000;
+const BLUE  = "#2563EB";
+const LB    = "#93c5fd";
+const GOLD  = "#F59E0B";
+const TBLUE = "#3B82F6";
 
-const TRUNK = "M 200 475 C 200 430 200 370 200 288";
+// SVG viewBox dimensions — all coordinates are in this space
+const VW = 400, VH = 540;
 
-const BRANCHES = [
-  { id: "CORE",    d: "M 200 288 C 190 265 140 218 85 165",  delay: 1.1 },
-  { id: "GROW",    d: "M 200 288 C 210 262 272 208 320 145", delay: 1.4 },
-  { id: "TALENT",  d: "M 200 312 C 178 312 118 306 68 295",  delay: 1.7 },
-  { id: "FINANCE", d: "M 200 312 C 222 312 288 298 342 275", delay: 2.0 },
-];
+function bz(t: number, a: number, b: number, c: number, d: number) {
+  const s = 1 - t;
+  return s*s*s*a + 3*s*s*t*b + 3*s*t*t*c + t*t*t*d;
+}
 
-const ROOTS = [
-  { d: "M 200 475 C 170 490 128 498 88 508",  delay: 0.1, dur: 1.4 },
-  { d: "M 200 475 C 185 493 162 500 138 512", delay: 0.2, dur: 1.3 },
-  { d: "M 200 475 C 200 492 200 502 200 518", delay: 0.0, dur: 1.2 },
-  { d: "M 200 475 C 215 493 238 500 262 512", delay: 0.2, dur: 1.3 },
-  { d: "M 200 475 C 230 490 272 498 312 508", delay: 0.1, dur: 1.4 },
-  { d: "M 88 508  C 68 514 48 512 28 516",    delay: 0.5, dur: 1.0 },
-  { d: "M 312 508 C 332 514 352 512 372 516", delay: 0.5, dur: 1.0 },
-];
+function eio(t: number) {
+  return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+}
 
-const TWIGS = [
-  { d: "M 85 165  C 65 148 52 138 38 126",    delay: 2.4, dur: 0.7 },
-  { d: "M 85 165  C 72 146 62 134 48 120",    delay: 2.5, dur: 0.7 },
-  { d: "M 320 145 C 340 126 352 116 366 104", delay: 2.7, dur: 0.7 },
-  { d: "M 320 145 C 334 128 346 118 362 110", delay: 2.8, dur: 0.7 },
-  { d: "M 68 295  C 46 288 28 282 12 276",    delay: 3.0, dur: 0.7 },
-  { d: "M 342 275 C 362 266 376 258 392 250", delay: 3.2, dur: 0.7 },
-];
+function prog(elapsed: number, startMs: number, endMs: number) {
+  return eio(Math.min(1, Math.max(0, (elapsed - startMs) / (endMs - startMs))));
+}
 
-// Right-to-left flowing lines: horizontal streams, diagonals, cross-node links
-const FLOWS = [
-  // Horizontal streams at various heights
-  { d: "M 400 48  C 330 44  265 54  200 49  C 140 44  68 52  0 47",    delay: 0.2, dur: 2.4, op: 0.18 },
-  { d: "M 400 115 C 310 108 238 120 165 115 C 100 110 48 118 0 113",   delay: 0.7, dur: 2.7, op: 0.15 },
-  { d: "M 400 190 C 335 187 268 196 200 191 C 135 186 65 194 0 189",   delay: 0.5, dur: 2.6, op: 0.16 },
-  { d: "M 400 270 C 318 266 248 275 182 270 C 118 265 54 273 0 268",   delay: 1.1, dur: 2.8, op: 0.14 },
-  { d: "M 400 350 C 335 347 270 356 200 351 C 132 346 62 354 0 349",   delay: 0.9, dur: 2.9, op: 0.18 },
-  { d: "M 400 395 C 345 388 285 398 225 393 C 165 388 90 396 0 391",   delay: 1.4, dur: 3.0, op: 0.16 },
-  { d: "M 400 450 C 340 447 278 455 215 450 C 150 445 78 453 0 448",   delay: 1.2, dur: 3.1, op: 0.15 },
-  // Diagonals — top-right to lower-left and bottom-right to upper-left
-  { d: "M 400 30  C 340 65  278 110 215 155 C 155 195 88 228 0 265",   delay: 0.4, dur: 3.4, op: 0.12 },
-  { d: "M 400 460 C 340 428 278 390 215 352 C 155 318 88 282 0 245",   delay: 0.8, dur: 3.6, op: 0.12 },
-  // Cross-connections linking right engine nodes to left engine nodes
-  { d: "M 320 145 C 268 148 218 154 168 158 C 130 161 106 163 85 165", delay: 1.7, dur: 1.8, op: 0.30 },
-  { d: "M 342 275 C 288 278 232 284 176 288 C 132 291 106 293 68 295", delay: 2.1, dur: 1.8, op: 0.30 },
-  // Extra wide arcs spanning full width
-  { d: "M 400 82  C 320 76  248 88  178 82  C 112 76  50 84  0 80",    delay: 0.3, dur: 2.5, op: 0.13 },
-  { d: "M 400 320 C 322 315 252 324 184 318 C 118 312 50 320 0 315",   delay: 1.6, dur: 3.2, op: 0.14 },
-];
+// Draw a cubic bezier 0..progress. Coords are in SVG space.
+function dbez(
+  ctx: Ctx, SX: number, SY: number,
+  pts: number[], // [x0,y0,cx1,cy1,cx2,cy2,x3,y3]
+  pr: number, w: number, color: string, alpha: number,
+) {
+  if (pr <= 0 || alpha <= 0) return;
+  const [x0,y0,x1,y1,x2,y2,x3,y3] = pts;
+  ctx.save();
+  ctx.globalAlpha *= alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = w;
+  ctx.beginPath();
+  const n = 40;
+  for (let i = 0; i <= n; i++) {
+    const t = (i / n) * Math.min(pr, 1);
+    const x = bz(t, x0, x1, x2, x3) * SX;
+    const y = bz(t, y0, y1, y2, y3) * SY;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
 
-const MID_DOTS = [
-  { cx: 142, cy: 226, color: "#2563EB", delay: 2.2 },
-  { cx: 260, cy: 216, color: "#3B82F6", delay: 2.5 },
-  { cx: 134, cy: 303, color: "#2563EB", delay: 2.8 },
-  { cx: 271, cy: 294, color: "#F59E0B", delay: 3.1 },
-];
-
-function AP({
-  d, delay, dur = 1.2, w = 2, color = "#2563EB", opacity = 1,
-}: {
-  d: string; delay: number; dur?: number; w?: number; color?: string; opacity?: number;
-}) {
-  return (
-    <motion.path
-      d={d}
-      stroke={color}
-      strokeWidth={w}
-      fill="none"
-      strokeLinecap="round"
-      initial={{ pathLength: 0 }}
-      animate={{ pathLength: 1 }}
-      transition={{ duration: dur, delay, ease: "easeInOut" }}
-      style={{ opacity }}
-    />
-  );
+// Two-segment bezier (flows that span full width)
+function dbez2(
+  ctx: Ctx, SX: number, SY: number,
+  s1: number[], s2: number[], // each [x0,y0,cx1,cy1,cx2,cy2,x3,y3]
+  pr: number, w: number, color: string, alpha: number,
+) {
+  const p1 = Math.min(pr * 2, 1);
+  const p2 = Math.max(pr * 2 - 1, 0);
+  dbez(ctx, SX, SY, s1, p1, w, color, alpha);
+  if (p2 > 0) dbez(ctx, SX, SY, s2, p2, w, color, alpha);
 }
 
 export default function EcosystemTree({ className }: { className?: string }) {
-  const [cycle, setCycle] = useState(0);
+  const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const id = setTimeout(() => setCycle((c) => c + 1), CYCLE_MS);
-    return () => clearTimeout(id);
-  }, [cycle]);
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let raf: number;
+    let CW = 0, CH = 0;
+
+    const sync = () => {
+      const dpr = window.devicePixelRatio || 1;
+      CW = canvas.offsetWidth;
+      CH = canvas.offsetHeight;
+      canvas.width  = CW * dpr;
+      canvas.height = CH * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    sync();
+    const ro = new ResizeObserver(sync);
+    ro.observe(canvas);
+
+    const startTime = Date.now();
+
+    const loop = () => {
+      if (!CW || !CH) { raf = requestAnimationFrame(loop); return; }
+
+      const elapsed = (Date.now() - startTime) % CYCLE_MS;
+      const t = elapsed / CYCLE_MS;
+
+      // Global fade envelope: in 0-6%, hold 6-84%, out 84-100%
+      const fade = t < 0.06 ? t / 0.06 : t > 0.84 ? 1 - (t - 0.84) / 0.16 : 1;
+
+      ctx.clearRect(0, 0, CW, CH);
+      if (fade <= 0) { raf = requestAnimationFrame(loop); return; }
+
+      ctx.save();
+      ctx.globalAlpha = fade;
+      ctx.lineCap  = "round";
+      ctx.lineJoin = "round";
+
+      const SX = CW / VW;
+      const SY = CH / VH;
+
+      // ── RIGHT-TO-LEFT FLOWS (background layer) ──
+      const flows: { s1:number[]; s2:number[]; start:number; end:number; op:number; w:number }[] = [
+        { s1:[400,48,  330,44,  265,54,  200,49 ], s2:[200,49,  140,44,  68,52,   0,47  ], start:180,  end:2400, op:0.18, w:0.9 },
+        { s1:[400,82,  320,76,  248,88,  178,82 ], s2:[178,82,  112,76,  50,84,   0,80  ], start:270,  end:2500, op:0.13, w:0.9 },
+        { s1:[400,115, 310,108, 238,120, 165,115], s2:[165,115, 100,110, 48,118,  0,113 ], start:630,  end:2700, op:0.15, w:0.9 },
+        { s1:[400,190, 335,187, 268,196, 200,191], s2:[200,191, 135,186, 65,194,  0,189 ], start:450,  end:2600, op:0.16, w:0.9 },
+        { s1:[400,270, 318,266, 248,275, 182,270], s2:[182,270, 118,265, 54,273,  0,268 ], start:990,  end:2800, op:0.14, w:0.9 },
+        { s1:[400,320, 322,315, 252,324, 184,318], s2:[184,318, 118,312, 50,320,  0,315 ], start:1440, end:3200, op:0.14, w:0.9 },
+        { s1:[400,350, 335,347, 270,356, 200,351], s2:[200,351, 132,346, 62,354,  0,349 ], start:810,  end:2900, op:0.18, w:0.9 },
+        { s1:[400,395, 345,388, 285,398, 225,393], s2:[225,393, 165,388, 90,396,  0,391 ], start:1260, end:3000, op:0.16, w:0.9 },
+        { s1:[400,450, 340,447, 278,455, 215,450], s2:[215,450, 150,445, 78,453,  0,448 ], start:1080, end:3100, op:0.15, w:0.9 },
+        // Diagonals
+        { s1:[400,30,  340,65,  278,110, 215,155], s2:[215,155, 155,195, 88,228,  0,265 ], start:360,  end:3400, op:0.12, w:0.8 },
+        { s1:[400,460, 340,428, 278,390, 215,352], s2:[215,352, 155,318, 88,282,  0,245 ], start:720,  end:3600, op:0.12, w:0.8 },
+      ];
+
+      for (const f of flows) {
+        dbez2(ctx, SX, SY, f.s1, f.s2, prog(elapsed, f.start, f.end), f.w, BLUE, f.op);
+      }
+
+      // ── CROSS-CONNECTIONS between engine nodes ──
+      dbez(ctx, SX, SY, [320,145, 268,148, 218,154, 85,165],  prog(elapsed,1530,3330), 1.0, BLUE, 0.30);
+      dbez(ctx, SX, SY, [342,275, 288,278, 232,284, 68,295],  prog(elapsed,1890,3690), 1.0, BLUE, 0.30);
+
+      // ── ROOTS ──
+      ctx.save(); ctx.globalAlpha *= 0.38;
+      const roots = [
+        { pts:[200,475, 170,490, 128,498, 88,508 ], s:90,  e:1400 },
+        { pts:[200,475, 185,493, 162,500, 138,512], s:180, e:1300 },
+        { pts:[200,475, 200,492, 200,502, 200,518], s:0,   e:1200 },
+        { pts:[200,475, 215,493, 238,500, 262,512], s:180, e:1300 },
+        { pts:[200,475, 230,490, 272,498, 312,508], s:90,  e:1400 },
+        { pts:[88, 508, 68, 514, 48, 512, 28, 516], s:450, e:1000 },
+        { pts:[312,508, 332,514, 352,512, 372,516], s:450, e:1000 },
+      ];
+      for (const r of roots) dbez(ctx, SX, SY, r.pts, prog(elapsed,r.s,r.e), 1.2, BLUE, 1);
+      ctx.restore();
+
+      // ── TRUNK ──
+      const trunkP = prog(elapsed, 450, 2250);
+      dbez(ctx, SX, SY, [200,475, 200,430, 200,370, 200,288], trunkP, 14,  BLUE, 0.07);
+      dbez(ctx, SX, SY, [200,475, 200,430, 200,370, 200,288], trunkP, 3.5, BLUE, 1);
+
+      // ── BRANCHES ──
+      const branches = [
+        { pts:[200,288, 190,265, 140,218, 85,165 ], s:990,  e:2250 },
+        { pts:[200,288, 210,262, 272,208, 320,145], s:1260, e:2610 },
+        { pts:[200,312, 178,312, 118,306, 68,295 ], s:1530, e:2970 },
+        { pts:[200,312, 222,312, 288,298, 342,275], s:1800, e:3330 },
+      ];
+      for (const b of branches) {
+        const p = prog(elapsed, b.s, b.e);
+        dbez(ctx, SX, SY, b.pts, prog(elapsed, b.s - 90, b.e), 9,   LB,   0.08);
+        dbez(ctx, SX, SY, b.pts, p,                              2,   BLUE, 1);
+      }
+
+      // ── TWIGS ──
+      ctx.save(); ctx.globalAlpha *= 0.42;
+      const twigs = [
+        { pts:[85,165,  65,148,  52,138, 38,126 ], s:2160, e:2790 },
+        { pts:[85,165,  72,146,  62,134, 48,120 ], s:2250, e:2880 },
+        { pts:[320,145, 340,126, 352,116,366,104], s:2430, e:3060 },
+        { pts:[320,145, 334,128, 346,118,362,110], s:2520, e:3150 },
+        { pts:[68,295,  46,288,  28,282, 12,276 ], s:2700, e:3330 },
+        { pts:[342,275, 362,266, 376,258,392,250], s:2880, e:3510 },
+      ];
+      for (const tw of twigs) dbez(ctx, SX, SY, tw.pts, prog(elapsed,tw.s,tw.e), 1, TBLUE, 1);
+      ctx.restore();
+
+      // ── ENGINE NODES ──
+      const nodes = [
+        { cx:85,  cy:165, color:BLUE,  label:"CORE",    sub:"Strategy & Execution", ms:1800 },
+        { cx:320, cy:145, color:TBLUE, label:"GROW",    sub:"Customer & Digital",   ms:2070 },
+        { cx:68,  cy:295, color:BLUE,  label:"TALENT",  sub:"People Intelligence",  ms:2340 },
+        { cx:342, cy:275, color:GOLD,  label:"FINANCE", sub:"Financial Clarity",    ms:2610 },
+      ];
+
+      const SC = Math.min(SX, SY);
+      const R  = 15 * SC;
+
+      for (const n of nodes) {
+        const np = prog(elapsed, n.ms, n.ms + 500);
+        if (np <= 0) continue;
+        const cx = n.cx * SX, cy = n.cy * SY;
+
+        ctx.save();
+        ctx.globalAlpha *= np;
+
+        // Pulsing ring
+        const pulse = 0.5 + 0.5 * Math.sin(elapsed / 600 + n.ms * 0.002);
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * (1.35 + 0.55 * pulse), 0, Math.PI * 2);
+        ctx.strokeStyle = n.color;
+        ctx.lineWidth = 1;
+        ctx.globalAlpha *= (0.04 + 0.24 * (1 - pulse));
+        ctx.stroke();
+        ctx.globalAlpha /= (0.04 + 0.24 * (1 - pulse));
+
+        // Circle fill
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
+        ctx.fillStyle   = n.color + "18";
+        ctx.strokeStyle = n.color;
+        ctx.lineWidth   = 1.5;
+        ctx.fill();
+        ctx.stroke();
+
+        // Inner dot
+        ctx.beginPath();
+        ctx.arc(cx, cy, 3.5 * SC, 0, Math.PI * 2);
+        ctx.fillStyle = n.color;
+        ctx.globalAlpha *= 0.85;
+        ctx.fill();
+        ctx.globalAlpha /= 0.85;
+
+        // Label
+        ctx.textAlign    = "center";
+        ctx.textBaseline = "middle";
+        ctx.font         = `700 ${Math.max(7, 8.5 * SC)}px monospace`;
+        ctx.fillStyle    = n.color;
+        ctx.fillText(n.label, cx, cy - R - 9 * SC);
+
+        // Sub label
+        ctx.font      = `${Math.max(5.5, 6.5 * SC)}px system-ui, sans-serif`;
+        ctx.fillStyle = "rgba(148,163,184,0.60)";
+        ctx.fillText(n.sub, cx, cy + R + 13 * SC);
+
+        ctx.restore();
+      }
+
+      // ── LAMID ONE LABEL ──
+      const lp = prog(elapsed, 1440, 2250);
+      if (lp > 0) {
+        ctx.save();
+        ctx.globalAlpha  *= lp * 0.48;
+        ctx.fillStyle     = LB;
+        ctx.font          = `700 ${Math.max(6, 7.5 * SC)}px monospace`;
+        ctx.textAlign     = "center";
+        ctx.textBaseline  = "middle";
+        ctx.fillText("LAMID  ONE", 215 * SX, 276 * SY);
+        ctx.restore();
+      }
+
+      ctx.restore();
+      raf = requestAnimationFrame(loop);
+    };
+
+    loop();
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+  }, []);
 
   return (
-    <div
-      className={`relative select-none ${className ?? "w-full max-w-sm lg:max-w-[380px] xl:max-w-[420px]"} [&>svg]:block`}
+    <canvas
+      ref={ref}
       aria-hidden="true"
-    >
-      <svg
-        viewBox="0 -10 400 540"
-        width="100%"
-        height="100%"
-        preserveAspectRatio="xMidYMid meet"
-        className="overflow-visible [filter:drop-shadow(0_0_22px_rgba(37,99,235,0.18))]"
-      >
-        {/* Entire drawing re-mounts each cycle — fades in, holds, fades out */}
-        <motion.g
-          key={cycle}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 1, 1, 0] }}
-          transition={{
-            duration: CYCLE_MS / 1000,
-            times: [0, 0.06, 0.84, 1],
-            ease: "easeInOut",
-          }}
-        >
-          {/* ── Right-to-left ecosystem flows ── */}
-          <g>
-            {FLOWS.map((f, i) => (
-              <AP key={i} d={f.d} delay={f.delay} dur={f.dur} w={0.9} color="#2563EB" opacity={f.op} />
-            ))}
-          </g>
-
-          {/* ── Roots ── */}
-          <g opacity={0.38}>
-            {ROOTS.map((r, i) => (
-              <AP key={i} d={r.d} delay={r.delay} dur={r.dur} w={1.2} />
-            ))}
-          </g>
-
-          {/* ── Trunk glow + core ── */}
-          <AP d={TRUNK} delay={0.5} dur={1.8} w={14} color="#2563EB" opacity={0.07} />
-          <AP d={TRUNK} delay={0.5} dur={1.8} w={3.5} />
-
-          {/* ── Branches ── */}
-          {BRANCHES.map((b) => (
-            <g key={b.id}>
-              <AP d={b.d} delay={b.delay - 0.1} dur={1.2} w={9}   color="#93c5fd" opacity={0.08} />
-              <AP d={b.d} delay={b.delay}        dur={1.2} w={2} />
-            </g>
-          ))}
-
-          {/* ── Twigs ── */}
-          <g opacity={0.42}>
-            {TWIGS.map((t, i) => (
-              <AP key={i} d={t.d} delay={t.delay} dur={t.dur} w={1} color="#3B82F6" />
-            ))}
-          </g>
-
-          {/* ── Mid-branch pulsing dots ── */}
-          {MID_DOTS.map((dot, i) => (
-            <motion.circle
-              key={i}
-              cx={dot.cx}
-              cy={dot.cy}
-              r={3}
-              fill={dot.color}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: [0, 0.75, 0.4, 0.75], scale: 1 }}
-              transition={{
-                opacity: {
-                  duration: 2.6,
-                  delay: dot.delay,
-                  repeat: Infinity,
-                  repeatType: "mirror",
-                  ease: "easeInOut",
-                },
-                scale: { duration: 0.4, delay: dot.delay },
-              }}
-              style={{ transformOrigin: `${dot.cx}px ${dot.cy}px` }}
-            />
-          ))}
-
-          {/* ── LAMID ONE trunk label ── */}
-          <motion.text
-            x={215}
-            y={276}
-            fill="rgba(147,197,253,0.48)"
-            fontSize={7.5}
-            fontWeight="700"
-            fontFamily="monospace"
-            letterSpacing="0.18em"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.6, duration: 0.9 }}
-          >
-            LAMID ONE
-          </motion.text>
-
-          {/* ── Engine nodes ── */}
-          {ENGINES.map((e) => (
-            <motion.g
-              key={e.id}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.55, delay: e.delay, ease: [0.22, 1, 0.36, 1] }}
-              style={{ transformOrigin: `${e.cx}px ${e.cy}px` }}
-            >
-              {/* Pulsing outer ring */}
-              <motion.circle
-                cx={e.cx}
-                cy={e.cy}
-                fill="none"
-                stroke={e.color}
-                strokeWidth={1}
-                animate={{ r: [20, 30, 20], opacity: [0.28, 0.05, 0.28] }}
-                transition={{
-                  duration: 3.2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: e.delay + 0.6,
-                }}
-              />
-              <circle cx={e.cx} cy={e.cy} r={15} fill={`${e.color}14`} stroke={e.color} strokeWidth={1.5} />
-              <circle cx={e.cx} cy={e.cy} r={3.5} fill={e.color} opacity={0.85} />
-              <text
-                x={e.cx} y={e.cy - 23}
-                textAnchor="middle"
-                fill={e.color}
-                fontSize={8.5}
-                fontWeight="700"
-                fontFamily="monospace"
-                letterSpacing="0.12em"
-              >
-                {e.label}
-              </text>
-              <text
-                x={e.cx} y={e.cy + 30}
-                textAnchor="middle"
-                fill="rgba(148,163,184,0.58)"
-                fontSize={6.5}
-                fontFamily="system-ui, sans-serif"
-              >
-                {e.sub}
-              </text>
-            </motion.g>
-          ))}
-        </motion.g>
-      </svg>
-    </div>
+      className={className ?? "w-full max-w-sm lg:max-w-[380px] xl:max-w-[420px]"}
+    />
   );
 }
