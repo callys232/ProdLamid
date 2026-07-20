@@ -119,10 +119,8 @@ export default function Header() {
       }}
     >
       {/* Looping ecosystem tree — right-side background */}
-      <div className="absolute right-0 inset-y-0 pointer-events-none overflow-hidden opacity-40">
-        <div className="absolute top-1/2 -translate-y-1/2 h-[115%]">
-          <EcosystemTree className="h-full" />
-        </div>
+      <div className="absolute right-0 top-0 bottom-0 w-[520px] pointer-events-none opacity-40">
+        <EcosystemTree className="w-full h-full" />
       </div>
 
       {/* Accent glow ring */}

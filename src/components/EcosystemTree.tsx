@@ -40,6 +40,27 @@ const TWIGS = [
   { d: "M 342 275 C 362 266 376 258 392 250", delay: 3.2, dur: 0.7 },
 ];
 
+// Right-to-left flowing lines: horizontal streams, diagonals, cross-node links
+const FLOWS = [
+  // Horizontal streams at various heights
+  { d: "M 400 48  C 330 44  265 54  200 49  C 140 44  68 52  0 47",    delay: 0.2, dur: 2.4, op: 0.18 },
+  { d: "M 400 115 C 310 108 238 120 165 115 C 100 110 48 118 0 113",   delay: 0.7, dur: 2.7, op: 0.15 },
+  { d: "M 400 190 C 335 187 268 196 200 191 C 135 186 65 194 0 189",   delay: 0.5, dur: 2.6, op: 0.16 },
+  { d: "M 400 270 C 318 266 248 275 182 270 C 118 265 54 273 0 268",   delay: 1.1, dur: 2.8, op: 0.14 },
+  { d: "M 400 350 C 335 347 270 356 200 351 C 132 346 62 354 0 349",   delay: 0.9, dur: 2.9, op: 0.18 },
+  { d: "M 400 395 C 345 388 285 398 225 393 C 165 388 90 396 0 391",   delay: 1.4, dur: 3.0, op: 0.16 },
+  { d: "M 400 450 C 340 447 278 455 215 450 C 150 445 78 453 0 448",   delay: 1.2, dur: 3.1, op: 0.15 },
+  // Diagonals — top-right to lower-left and bottom-right to upper-left
+  { d: "M 400 30  C 340 65  278 110 215 155 C 155 195 88 228 0 265",   delay: 0.4, dur: 3.4, op: 0.12 },
+  { d: "M 400 460 C 340 428 278 390 215 352 C 155 318 88 282 0 245",   delay: 0.8, dur: 3.6, op: 0.12 },
+  // Cross-connections linking right engine nodes to left engine nodes
+  { d: "M 320 145 C 268 148 218 154 168 158 C 130 161 106 163 85 165", delay: 1.7, dur: 1.8, op: 0.30 },
+  { d: "M 342 275 C 288 278 232 284 176 288 C 132 291 106 293 68 295", delay: 2.1, dur: 1.8, op: 0.30 },
+  // Extra wide arcs spanning full width
+  { d: "M 400 82  C 320 76  248 88  178 82  C 112 76  50 84  0 80",    delay: 0.3, dur: 2.5, op: 0.13 },
+  { d: "M 400 320 C 322 315 252 324 184 318 C 118 312 50 320 0 315",   delay: 1.6, dur: 3.2, op: 0.14 },
+];
+
 const MID_DOTS = [
   { cx: 142, cy: 226, color: "#2563EB", delay: 2.2 },
   { cx: 260, cy: 216, color: "#3B82F6", delay: 2.5 },
@@ -77,12 +98,15 @@ export default function EcosystemTree({ className }: { className?: string }) {
 
   return (
     <div
-      className={`relative select-none ${className ?? "w-full max-w-sm lg:max-w-[380px] xl:max-w-[420px]"}`}
+      className={`relative select-none ${className ?? "w-full max-w-sm lg:max-w-[380px] xl:max-w-[420px]"} [&>svg]:block`}
       aria-hidden="true"
     >
       <svg
         viewBox="0 -10 400 540"
-        className="h-full w-auto aspect-[400/540] overflow-visible [filter:drop-shadow(0_0_22px_rgba(37,99,235,0.18))]"
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid meet"
+        className="overflow-visible [filter:drop-shadow(0_0_22px_rgba(37,99,235,0.18))]"
       >
         {/* Entire drawing re-mounts each cycle — fades in, holds, fades out */}
         <motion.g
@@ -95,6 +119,13 @@ export default function EcosystemTree({ className }: { className?: string }) {
             ease: "easeInOut",
           }}
         >
+          {/* ── Right-to-left ecosystem flows ── */}
+          <g>
+            {FLOWS.map((f, i) => (
+              <AP key={i} d={f.d} delay={f.delay} dur={f.dur} w={0.9} color="#2563EB" opacity={f.op} />
+            ))}
+          </g>
+
           {/* ── Roots ── */}
           <g opacity={0.38}>
             {ROOTS.map((r, i) => (
