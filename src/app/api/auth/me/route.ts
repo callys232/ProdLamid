@@ -48,7 +48,7 @@ export async function GET(request: Request) {
         }
 
         /* ── Dev / demo token short-circuit — no DB touch ── */
-        const demoEnabled = process.env.NODE_ENV !== "production" || process.env.DEMO_MODE === "true";
+        const demoEnabled = process.env.DEMO_MODE !== "false";
         if (decoded.dev === true && demoEnabled) {
             return NextResponse.json({
                 success: true,

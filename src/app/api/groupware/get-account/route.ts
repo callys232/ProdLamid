@@ -7,9 +7,8 @@ import jwt from "jsonwebtoken";
 export const dynamic = "force-dynamic";
 
 const JWT_SECRET = process.env.JWT_SECRET ?? "";
-const DEMO_ENABLED =
-  process.env.NODE_ENV !== "production" ||
-  process.env.DEMO_MODE === "true";
+// Demo short-circuit enabled everywhere unless explicitly turned off
+const DEMO_ENABLED = process.env.DEMO_MODE !== "false";
 
 // GET /api/groupware/get-account
 // Used by dashboard.tsx to resolve which dashboard to redirect to after login.
