@@ -92,30 +92,45 @@ const FAQ = [
   },
 ];
 
+/* ── Fallback rates (approximate) used if live fetch fails ── */
+const FALLBACK_RATES: Record<string, number> = {
+  USD: 1, GBP: 0.79, EUR: 0.92, NGN: 1450, GHS: 15.4,
+  KES: 129, ZAR: 18.7, CAD: 1.37, AED: 3.67,
+};
+
 export default function PricingPage() {
-  const [annual,   setAnnual]   = useState(false);
-  const [open,     setOpen]     = useState<number | null>(null);
-  const [currency, setCurrency] = useState("USD");
-  const [rates,    setRates]    = useState<Record<string, number>>({});
-  const [rateLoad, setRateLoad] = useState(false);
+  const [annual,      setAnnual]      = useState(false);
+  const [open,        setOpen]        = useState<number | null>(null);
+  const [currency,    setCurrency]    = useState("USD");
+  const [rates,       setRates]       = useState<Record<string, number>>(FALLBACK_RATES);
+  const [rateLoad,    setRateLoad]    = useState(true);
+  const [usingFallback, setUsingFallback] = useState(false);
 
   const savings = Math.round((1 - 119 / 149) * 100);
 
-  /* Fetch exchange rates once */
+  /* Fetch live exchange rates on mount */
   useEffect(() => {
-    setRateLoad(true);
-    fetch("https://api.exchangerate-api.com/v4/latest/USD")
+    fetch("https://open.er-api.com/v6/latest/USD")
       .then(r => r.json())
-      .then(d => { if (d.rates) setRates(d.rates); })
-      .catch(() => {})
+      .then(d => {
+        if (d.result === "success" && d.rates) {
+          setRates(d.rates);
+          setUsingFallback(false);
+        } else {
+          setUsingFallback(true);
+        }
+      })
+      .catch(() => setUsingFallback(true))
       .finally(() => setRateLoad(false));
   }, []);
 
-  const cur      = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
-  const rate     = rates[currency] ?? 1;
-  const convert  = (usd: number) => {
+  const cur     = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
+  const rate    = rates[currency] ?? FALLBACK_RATES[currency] ?? 1;
+  const convert = (usd: number) => {
     const val = usd * rate;
-    return val >= 1000 ? val.toLocaleString("en", { maximumFractionDigits: 0 }) : val.toFixed(0);
+    return val >= 1000
+      ? val.toLocaleString("en", { maximumFractionDigits: 0 })
+      : val.toFixed(2).replace(/\.00$/, "");
   };
 
   return (
@@ -175,7 +190,12 @@ export default function PricingPage() {
           </div>
         </div>
 
-        {rateLoad && <p className="text-[10px] aivora-text-muted mt-2">Loading exchange rates…</p>}
+        {rateLoad && (
+          <p className="text-[10px] text-gray-400 dark:text-white/30 mt-2">Loading live exchange rates…</p>
+        )}
+        {!rateLoad && usingFallback && currency !== "USD" && (
+          <p className="text-[10px] text-amber-500/80 mt-2">Using estimated rates — live rates unavailable</p>
+        )}
       </motion.div>
 
       {/* ── Plan cards ── */}

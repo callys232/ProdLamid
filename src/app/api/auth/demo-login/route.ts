@@ -41,9 +41,8 @@ const DEMO_ACCOUNTS = {
 
 type DemoTier = keyof typeof DEMO_ACCOUNTS;
 
-const DEMO_ENABLED =
-  process.env.NODE_ENV !== "production" ||
-  process.env.DEMO_MODE === "true";
+// Demo accounts are a product feature — enabled everywhere unless explicitly turned off
+const DEMO_ENABLED = process.env.DEMO_MODE !== "false";
 
 export async function GET(req: NextRequest) {
   if (!DEMO_ENABLED) {
