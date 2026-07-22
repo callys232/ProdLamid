@@ -55,7 +55,7 @@ export default function ClosingCta() {
                 className="group relative inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm overflow-hidden bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
               >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/18 to-transparent skew-x-12 pointer-events-none" />
-                <span className="relative z-10">Take the Diagnostic</span>
+                <span className="relative z-10">Take your Lamid One Diagnostic</span>
               </Link>
             </motion.div>
 

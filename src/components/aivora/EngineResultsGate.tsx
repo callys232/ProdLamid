@@ -44,7 +44,7 @@ export default function EngineResultsGate({ isAuthenticated, children }: EngineR
                 Sign up to see your results
               </h3>
               <p className="text-sm text-white/50 leading-relaxed mb-7">
-                Create a free Engine account to access AI insights, diagnostics, and recommendations across CORE, GROW, and TALENT.
+                Create a free Engine account to access AI insights, diagnostics, and recommendations across Lamid Core, Lamid Grow, and Lamid Talent.
               </p>
 
               <div className="flex flex-col gap-3">

@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function Z15Page() {
-  const config = MODULE_REGISTRY["Z15"] ?? buildFallbackConfig("Z15", "Z-Series — Singularity Intelligence", "Consciousness Flow Engine");
+  const config = MODULE_REGISTRY["Z15"] ?? buildFallbackConfig("Z15", "Z-Series — Transformation Intelligence", "Organizational Insight Tracker Engine");
   return (
-    <DashboardTierGate pillar="Z15 — Consciousness Flow Engine" backHref="/z14-consciousness-coherence" backLabel="Consciousness Coherence">
+    <DashboardTierGate pillar="Z15 — Organizational Insight Tracker Engine" backHref="/z14-consciousness-coherence" backLabel="Organizational Insight Consistency">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

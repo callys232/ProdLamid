@@ -24,7 +24,7 @@ const TESTIMONIALS = [
   },
   {
     pillar: "finance",
-    quote: "LAMID FINANCE didn't just give us visibility — it showed us where our capital was working and where it wasn't, in real time. That changes how you lead.",
+    quote: "Lamid Finance didn't just give us visibility — it showed us where our capital was working and where it wasn't, in real time. That changes how you lead.",
     name: "Chief Financial Officer",
     role: "Atlas Logistics",
   },

@@ -51,18 +51,18 @@ const CORE_TOOLS = [
 ];
 
 const STRATEGIC_TOOLS = [
-  { label: "Strategic Identity",   href: "/s01-strategic-identity" },
-  { label: "Strategic Direction",  href: "/s02-strategic-direction" },
-  { label: "Strategic Coherence",  href: "/s03-strategic-coherence" },
-  { label: "Strategic Convergence", href: "/s04-strategic-convergence" },
-  { label: "Strategic Rhythm",     href: "/s05-strategic-rhythm" },
-  { label: "Strategic Flow",       href: "/s06-strategic-flow" },
-  { label: "Strategic Field",      href: "/s07-strategic-field" },
-  { label: "Strategic Force",      href: "/s08-strategic-force" },
-  { label: "Strategic Gravity",    href: "/s09-strategic-gravity" },
-  { label: "Strategic Orbit",      href: "/s10-strategic-orbit" },
-  { label: "Strategic Wave",       href: "/s11-strategic-wave" },
-  { label: "Strategic Horizon",    href: "/s12-strategic-horizon" },
+  { label: "Strategic Identity Statement",      href: "/s01-strategic-identity" },
+  { label: "Strategic Direction Setter",        href: "/s02-strategic-direction" },
+  { label: "Strategy Consistency Check",        href: "/s03-strategic-coherence" },
+  { label: "Cross-Function Strategy Alignment", href: "/s04-strategic-convergence" },
+  { label: "Strategic Execution Cadence",       href: "/s05-strategic-rhythm" },
+  { label: "Strategy Execution Tracker",        href: "/s06-strategic-flow" },
+  { label: "Strategic Cadence Impact Map",      href: "/s07-strategic-field" },
+  { label: "Strategic Momentum Score",          href: "/s08-strategic-force" },
+  { label: "Strategic Priority Weighting",      href: "/s09-strategic-gravity" },
+  { label: "Strategic Focus Areas",             href: "/s10-strategic-orbit" },
+  { label: "Market Trend Response Tracker",     href: "/s11-strategic-wave" },
+  { label: "Long-Term Strategic Outlook",       href: "/s12-strategic-horizon" },
 ];
 
 const WHY = [
@@ -323,7 +323,7 @@ export default function CorePage() {
             <Link href="/premium/business-diagnostic"
               className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
             >
-              Take the Diagnostic
+              Take your Lamid One Diagnostic
             </Link>
           </motion.div>
         </div>

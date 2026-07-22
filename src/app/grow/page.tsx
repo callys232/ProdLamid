@@ -48,41 +48,41 @@ const GROW_TOOLS = [
   { label: "Advisory Console",       href: "/grow-advisory-console" },
   { label: "Executive Report",       href: "/grow-executive-report" },
   { label: "Grow Dashboard",         href: "/grow-dashboard" },
-  { label: "Rhythm Intelligence",    href: "/rhythm-intelligence" },
+  { label: "Cadence Intelligence",    href: "/rhythm-intelligence" },
   { label: "Operations Intelligence", href: "/operations-intelligence" },
 ];
 
 const RHYTHM_TOOLS = [
-  { label: "Rhythm Mapping",         href: "/r01-rhythm-mapping" },
-  { label: "Rhythm Velocity",        href: "/r02-rhythm-velocity" },
-  { label: "Rhythm Drift",           href: "/r03-rhythm-drift" },
-  { label: "Rhythm Stability",       href: "/r04-rhythm-stability" },
-  { label: "Rhythm Balance",         href: "/r05-rhythm-balance" },
-  { label: "Rhythm Harmony",         href: "/r06-rhythm-harmony" },
-  { label: "Rhythm Coherence",       href: "/r07-rhythm-coherence" },
-  { label: "Rhythm Integration",     href: "/r08-rhythm-integration" },
-  { label: "Rhythm Alignment",       href: "/r09-rhythm-alignment" },
-  { label: "Rhythm Convergence",     href: "/r10-rhythm-convergence" },
-  { label: "Rhythm Synchronization", href: "/r11-rhythm-synchronization" },
-  { label: "Rhythm Flow",            href: "/r12-rhythm-flow" },
-  { label: "Rhythm Resonance",       href: "/r13-rhythm-resonance" },
-  { label: "Rhythm Pulse",           href: "/r14-rhythm-pulse" },
-  { label: "Rhythm Signature",       href: "/r15-rhythm-signature" },
-  { label: "Rhythm Identity",        href: "/r16-rhythm-identity" },
-  { label: "Rhythm Essence",         href: "/r17-rhythm-essence" },
-  { label: "Rhythm Spirit",          href: "/r18-rhythm-spirit" },
-  { label: "Rhythm Field",           href: "/r19-rhythm-field" },
-  { label: "Rhythm Domain",          href: "/r20-rhythm-domain" },
-  { label: "Rhythm Realm",           href: "/r21-rhythm-realm" },
-  { label: "Rhythm Universe",        href: "/r22-rhythm-universe" },
-  { label: "Rhythm Infinity",        href: "/r23-rhythm-infinity" },
-  { label: "Rhythm Continuum",       href: "/r24-rhythm-continuum" },
-  { label: "Rhythm Origin",          href: "/r25-rhythm-origin" },
-  { label: "Rhythm Source",          href: "/r26-rhythm-source" },
-  { label: "Rhythm Apex",            href: "/r27-rhythm-apex" },
-  { label: "Rhythm Sovereign",       href: "/r28-rhythm-sovereign" },
-  { label: "Rhythm Crown",           href: "/r29-rhythm-crown" },
-  { label: "Rhythm Totality",        href: "/r30-rhythm-totality" },
+  { label: "Cadence Mapping",                   href: "/r01-rhythm-mapping" },
+  { label: "Pace of Execution",                 href: "/r02-rhythm-velocity" },
+  { label: "Cadence Drift Alert",               href: "/r03-rhythm-drift" },
+  { label: "Cadence Stability Score",           href: "/r04-rhythm-stability" },
+  { label: "Workload Balance Monitor",          href: "/r05-rhythm-balance" },
+  { label: "Cross-Team Cadence Fit",            href: "/r06-rhythm-harmony" },
+  { label: "Cadence Consistency Check",         href: "/r07-rhythm-coherence" },
+  { label: "Cadence Integration Across Teams",  href: "/r08-rhythm-integration" },
+  { label: "Strategy-to-Execution Alignment",   href: "/r09-rhythm-alignment" },
+  { label: "Multi-Team Cadence Sync",           href: "/r10-rhythm-convergence" },
+  { label: "Real-Time Cadence Sync",            href: "/r11-rhythm-synchronization" },
+  { label: "Operational Flow Tracker",          href: "/r12-rhythm-flow" },
+  { label: "Team Cadence Engagement Score",     href: "/r13-rhythm-resonance" },
+  { label: "Real-Time Cadence Pulse",           href: "/r14-rhythm-pulse" },
+  { label: "Organisational Cadence Profile",    href: "/r15-rhythm-signature" },
+  { label: "Cadence Pattern Report",            href: "/r16-rhythm-identity" },
+  { label: "Core Cadence Drivers",              href: "/r17-rhythm-essence" },
+  { label: "Cultural Cadence Fit",              href: "/r18-rhythm-spirit" },
+  { label: "Cadence Impact Area",               href: "/r19-rhythm-field" },
+  { label: "Department Cadence View",           href: "/r20-rhythm-domain" },
+  { label: "Business Unit Cadence View",        href: "/r21-rhythm-realm" },
+  { label: "Enterprise-Wide Cadence View",      href: "/r22-rhythm-universe" },
+  { label: "Long-Term Cadence Trends",          href: "/r23-rhythm-infinity" },
+  { label: "Historical Cadence Tracking",       href: "/r24-rhythm-continuum" },
+  { label: "Root Cause of Cadence Issues",      href: "/r25-rhythm-origin" },
+  { label: "Cadence Data Sources",              href: "/r26-rhythm-source" },
+  { label: "Peak Performance Cadence",          href: "/r27-rhythm-apex" },
+  { label: "Cadence Governance Console",        href: "/r28-rhythm-sovereign" },
+  { label: "Executive Cadence Report",          href: "/r29-rhythm-crown" },
+  { label: "Enterprise Cadence Overview",       href: "/r30-rhythm-totality" },
 ];
 
 const WHY = [
@@ -314,7 +314,7 @@ export default function GrowPage() {
               ))}
             </div>
             <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-4 text-center text-gray-400 dark:text-white/30">
-              Rhythm Framework
+              Cadence Intelligence Framework
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               {RHYTHM_TOOLS.map((tool) => (
@@ -346,7 +346,7 @@ export default function GrowPage() {
             <Link href="/premium/business-diagnostic"
               className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
             >
-              Take the Diagnostic
+              Take your Lamid One Diagnostic
             </Link>
           </motion.div>
         </div>

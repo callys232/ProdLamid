@@ -6,7 +6,7 @@ import { Activity, Clock, Waves, Shuffle, AlertCircle, ArrowUpRight } from "luci
 import DashboardTierGate from "@/components/aivora/DashboardTierGate";
 
 const KPIS = [
-  { icon: Activity, label: "Rhythm Health Index",    value: "76%",    trend: "Stable for 45 days" },
+  { icon: Activity, label: "Cadence Health Index",    value: "76%",    trend: "Stable for 45 days" },
   { icon: Clock,    label: "Cadence Velocity",        value: "Medium", trend: "3 cycle delays detected" },
   { icon: Waves,    label: "Drift Level",              value: "Low",    trend: "No critical drift" },
   { icon: Shuffle,  label: "Synchronisation Score",   value: "81%",    trend: "Teams moving in cadence" },
@@ -19,26 +19,26 @@ const SIGNALS = [
 ];
 
 const DIMENSIONS = [
-  { label: "Strategic Rhythm",    value: 82 },
-  { label: "Operational Cadence", value: 74 },
-  { label: "Customer Flow",       value: 71 },
-  { label: "Delivery Sync",       value: 85 },
-  { label: "Leadership Rhythm",   value: 78 },
+  { label: "Strategic Cadence",    value: 82 },
+  { label: "Operational Cadence",  value: 74 },
+  { label: "Customer Flow",        value: 71 },
+  { label: "Delivery Sync",        value: 85 },
+  { label: "Leadership Cadence",   value: 78 },
 ];
 
 const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.45, delay: d } });
 
 export default function RhythmIntelligencePage() {
   return (
-    <DashboardTierGate pillar="R-Series — Rhythm Intelligence" backHref="/quality-intelligence" backLabel="Back to Quality Intelligence">
+    <DashboardTierGate pillar="R-Series — Cadence Intelligence" backHref="/quality-intelligence" backLabel="Back to Quality Intelligence">
       <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
         <div className="max-w-6xl mx-auto">
 
           <motion.div {...fadeUp(0)} className="mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">R-Series · Rhythm Intelligence</p>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Rhythm Intelligence</h1>
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">R-Series · Cadence Intelligence</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Cadence Intelligence</h1>
             <p className="text-gray-500 dark:text-white/45 text-sm max-w-xl">
-              The enterprise heartbeat. Map timing, detect cadence drift, and synchronise every dimension of organisational rhythm.
+              The enterprise heartbeat. Map timing, detect cadence drift, and synchronise every dimension of organisational cadence.
             </p>
           </motion.div>
 
@@ -56,7 +56,7 @@ export default function RhythmIntelligencePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Rhythm Signals</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Cadence Signals</p>
               <div className="flex flex-col gap-3">
                 {SIGNALS.map((s) => (
                   <div key={s.title} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
@@ -71,7 +71,7 @@ export default function RhythmIntelligencePage() {
             </motion.div>
 
             <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Rhythm Dimensions</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Cadence Dimensions</p>
               <div className="flex flex-col gap-4">
                 {DIMENSIONS.map((d) => (
                   <div key={d.label}>

@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function Z13Page() {
-  const config = MODULE_REGISTRY["Z13"] ?? buildFallbackConfig("Z13", "Z-Series — Singularity Intelligence", "Enterprise Consciousness Engine");
+  const config = MODULE_REGISTRY["Z13"] ?? buildFallbackConfig("Z13", "Z-Series — Transformation Intelligence", "Enterprise Insight Index Engine");
   return (
-    <DashboardTierGate pillar="Z13 — Enterprise Consciousness Engine" backHref="/z12-cosmic-renewal" backLabel="Cosmic Renewal">
+    <DashboardTierGate pillar="Z13 — Enterprise Insight Index Engine" backHref="/z12-cosmic-renewal" backLabel="Enterprise Renewal Cycle">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

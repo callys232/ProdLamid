@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function R04Page() {
-  const config = MODULE_REGISTRY["R04"] ?? buildFallbackConfig("R04", "R-Series — Rhythm Intelligence", "Rhythm Stability Engine");
+  const config = MODULE_REGISTRY["R04"] ?? buildFallbackConfig("R04", "R-Series — Cadence Intelligence", "Cadence Stability Score Engine");
   return (
-    <DashboardTierGate pillar="R04 — Rhythm Stability Engine" backHref="/r03-rhythm-drift" backLabel="Rhythm Drift">
+    <DashboardTierGate pillar="R04 — Cadence Stability Score Engine" backHref="/r03-rhythm-drift" backLabel="Cadence Drift Alert">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

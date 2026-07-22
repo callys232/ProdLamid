@@ -14,9 +14,9 @@ const STEPS = [
 
 const QUICK_TOOLS = [
   { label: "Enterprise Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
-  { label: "LAMID CORE",            href: "/core",                        icon: "◈" },
-  { label: "LAMID GROW",            href: "/grow",                        icon: "▣" },
-  { label: "LAMID TALENT",          href: "/talent",                      icon: "✦" },
+  { label: "Lamid Core",   href: "/core",   icon: "◈" },
+  { label: "Lamid Grow",   href: "/grow",   icon: "▣" },
+  { label: "Lamid Talent", href: "/talent", icon: "✦" },
 ];
 
 export default function HowItWorks() {

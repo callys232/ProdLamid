@@ -30,7 +30,7 @@ const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opac
 
 export default function OperationsIntelligencePage() {
   return (
-    <DashboardTierGate pillar="P-Series — Operations Intelligence" backHref="/rhythm-intelligence" backLabel="Back to Rhythm Intelligence">
+    <DashboardTierGate pillar="P-Series — Operations Intelligence" backHref="/rhythm-intelligence" backLabel="Back to Cadence Intelligence">
       <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
         <div className="max-w-6xl mx-auto">
 

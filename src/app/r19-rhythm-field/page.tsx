@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function R19Page() {
-  const config = MODULE_REGISTRY["R19"] ?? buildFallbackConfig("R19", "R-Series — Rhythm Intelligence", "Rhythm Field Engine");
+  const config = MODULE_REGISTRY["R19"] ?? buildFallbackConfig("R19", "R-Series — Cadence Intelligence", "Cadence Impact Area Engine");
   return (
-    <DashboardTierGate pillar="R19 — Rhythm Field Engine" backHref="/r18-rhythm-spirit" backLabel="Rhythm Spirit">
+    <DashboardTierGate pillar="R19 — Cadence Impact Area Engine" backHref="/r18-rhythm-spirit" backLabel="Cultural Cadence Fit">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

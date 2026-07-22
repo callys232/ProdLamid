@@ -14,7 +14,7 @@ const ENGINES = [
     tagline: "Strategy That Never Goes Stale.",
     body: "Continuous diagnostics, real-time coherence checks, and early-warning signals — so your strategy stays aligned with what's actually happening in your organization.",
     href: "/core",
-    cta: "Explore CORE",
+    cta: "Explore Lamid Core",
   },
   {
     id: "grow",
@@ -24,7 +24,7 @@ const ENGINES = [
     tagline: "Growth That Reads the Market in Real Time.",
     body: "Market timing intelligence, localized advisory for Africa and emerging markets, and a digital transformation pathway built for where your business is going, not just where it's been.",
     href: "/grow",
-    cta: "Explore GROW",
+    cta: "Explore Lamid Grow",
   },
   {
     id: "talent",
@@ -34,7 +34,7 @@ const ENGINES = [
     tagline: "The Right Person, the Right Role, Every Time.",
     body: "A 40+ signal matching engine that goes beyond CVs — AI-assisted capability diagnostics, LMS-driven learning acceleration, and workforce intelligence that compounds over time.",
     href: "/talent",
-    cta: "Explore TALENT",
+    cta: "Explore Lamid Talent",
   },
   {
     id: "finance",
@@ -44,7 +44,7 @@ const ENGINES = [
     tagline: "Finance That Drives Decisions, Not Just Reports Them.",
     body: "Real-time financial visibility, CFO-grade intelligence, budget-to-strategy linkage, and cost optimization signals — so capital works as hard as the rest of your organization.",
     href: "/finance",
-    cta: "Explore FINANCE",
+    cta: "Explore Lamid Finance",
   },
 ];
 
@@ -133,7 +133,7 @@ export default function EcosystemPage() {
                 className="group relative inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm overflow-hidden bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
               >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/18 to-transparent skew-x-12 pointer-events-none" />
-                <span className="relative z-10">Take the Diagnostic</span>
+                <span className="relative z-10">Take your Lamid One Diagnostic</span>
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
@@ -269,7 +269,7 @@ export default function EcosystemPage() {
             <Link href="/premium/business-diagnostic"
               className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
             >
-              Take the Diagnostic
+              Take your Lamid One Diagnostic
             </Link>
           </motion.div>
         </div>

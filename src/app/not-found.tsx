@@ -12,10 +12,12 @@ export default function NotFound() {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2563EB]">404</p>
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2563EB]">
+          404
+        </p>
         <h1 className="mb-4 text-5xl font-black text-white">Page not found</h1>
         <p className="mb-10 max-w-md text-base text-gray-400">
-          The page you're looking for doesn't exist or has been moved.
+          This page is a work in progress.
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link

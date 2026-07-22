@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function Q68Page() {
-  const config = MODULE_REGISTRY["Q68"] ?? buildFallbackConfig("Q68", "Q-Series — Quantum Decision Intelligence", "Quantum Infinity Engine");
+  const config = MODULE_REGISTRY["Q68"] ?? buildFallbackConfig("Q68", "Q-Series — Decision Intelligence", "Long-Term Scenario Planner Engine");
   return (
-    <DashboardTierGate pillar="Q68 — Quantum Infinity Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Q68 — Long-Term Scenario Planner Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function R10Page() {
-  const config = MODULE_REGISTRY["R10"] ?? buildFallbackConfig("R10", "R-Series — Rhythm Intelligence", "Rhythm Convergence Engine");
+  const config = MODULE_REGISTRY["R10"] ?? buildFallbackConfig("R10", "R-Series — Cadence Intelligence", "Multi-Team Cadence Sync Engine");
   return (
-    <DashboardTierGate pillar="R10 — Rhythm Convergence Engine" backHref="/r09-rhythm-alignment" backLabel="Rhythm Alignment">
+    <DashboardTierGate pillar="R10 — Multi-Team Cadence Sync Engine" backHref="/r09-rhythm-alignment" backLabel="Strategy-to-Execution Alignment">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

@@ -70,6 +70,51 @@ export default function AboutPage() {
           ))}
         </div>
 
+        {/* ── The Promise ── */}
+        <motion.div {...fadeUp(0)} className="mb-10">
+          <div className="text-center mb-8">
+            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">
+              The Promise
+            </p>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+              Three things every leader deserves.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              {
+                word: "Clarity",
+                icon: "◎",
+                desc: "One unified view across strategy, growth, people, and finance — so leaders stop guessing and start deciding with confidence.",
+              },
+              {
+                word: "Growth",
+                icon: "▲",
+                desc: "Market timing intelligence, digital pathways, and customer insights that move with your business in real time.",
+              },
+              {
+                word: "Value",
+                icon: "◈",
+                desc: "Every recommendation connects to outcome — not a report left on a shelf, but a system that tracks what happens next.",
+              },
+            ].map((p, i) => (
+              <motion.div
+                key={p.word}
+                {...fadeUp(i * 0.08)}
+                whileHover={{ y: -5, boxShadow: "0 20px 44px rgba(37,99,235,0.13)" }}
+                className="group aivora-card border rounded-2xl p-7 text-center hover:border-[#2563EB]/30 transition-all duration-200"
+              >
+                <span className="text-2xl aivora-gradient-text block mb-4 select-none group-hover:scale-110 transition-transform duration-200 inline-block">
+                  {p.icon}
+                </span>
+                <h3 className="text-base font-bold aivora-gradient-text mb-3">{p.word}</h3>
+                <p className="text-xs text-gray-500 dark:text-white/50 leading-relaxed">{p.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* ── Core Values ── */}
         <motion.div {...fadeUp(0)} className="mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-10">

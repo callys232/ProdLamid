@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function Z03Page() {
-  const config = MODULE_REGISTRY["Z03"] ?? buildFallbackConfig("Z03", "Z-Series — Singularity Intelligence", "Singularity Drift Engine");
+  const config = MODULE_REGISTRY["Z03"] ?? buildFallbackConfig("Z03", "Z-Series — Transformation Intelligence", "Transformation Drift Alert Engine");
   return (
-    <DashboardTierGate pillar="Z03 — Singularity Drift Engine" backHref="/z02-singularity-velocity" backLabel="Singularity Velocity">
+    <DashboardTierGate pillar="Z03 — Transformation Drift Alert Engine" backHref="/z02-singularity-velocity" backLabel="Pace of Transformation">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

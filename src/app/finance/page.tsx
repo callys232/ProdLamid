@@ -360,7 +360,7 @@ export default function FinancePage() {
           <motion.div {...fadeUp(0.15)} className="flex flex-wrap justify-center gap-3">
             <Link href="/premium/business-diagnostic"
               className="px-7 py-3.5 rounded-full text-sm font-extrabold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-[0_0_28px_rgba(37,99,235,0.4)] inline-flex items-center gap-2">
-              Take the Diagnostic
+              Take your Lamid One Diagnostic
             </Link>
             <Link href="/contact"
               className="px-7 py-3.5 rounded-full text-sm font-semibold border border-[#2563EB]/30 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors">

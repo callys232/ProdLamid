@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function Q18Page() {
-  const config = MODULE_REGISTRY["Q18"] ?? buildFallbackConfig("Q18", "Q-Series — Quantum Decision Intelligence", "Quantum Decision Harmonic Engine");
+  const config = MODULE_REGISTRY["Q18"] ?? buildFallbackConfig("Q18", "Q-Series — Decision Intelligence", "Cross-Team Consistency Check Engine");
   return (
-    <DashboardTierGate pillar="Q18 — Quantum Decision Harmonic Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Q18 — Cross-Team Consistency Check Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

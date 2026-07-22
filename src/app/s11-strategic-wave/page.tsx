@@ -6,7 +6,7 @@ import { MODULE_REGISTRY } from "@/lib/intelligence/moduleRegistry";
 export default function S11Page() {
   const config = MODULE_REGISTRY["S11"]!;
   return (
-    <DashboardTierGate pillar="S11 — Strategic Wave Engine" backHref="/s10-strategic-orbit" backLabel="Back to Strategic Orbit">
+    <DashboardTierGate pillar="S11 — Market Trend Response Tracker Engine" backHref="/s10-strategic-orbit" backLabel="Back to Strategic Focus Areas">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

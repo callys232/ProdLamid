@@ -4,9 +4,9 @@ import IntelligenceModule from "@/components/aivora/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function Q93Page() {
-  const config = MODULE_REGISTRY["Q93"] ?? buildFallbackConfig("Q93", "Q-Series — Quantum Decision Intelligence", "Sovereign Charter Engine");
+  const config = MODULE_REGISTRY["Q93"] ?? buildFallbackConfig("Q93", "Q-Series — Decision Intelligence", "Enterprise Charter & Bylaws Engine");
   return (
-    <DashboardTierGate pillar="Q93 — Sovereign Charter Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Q93 — Enterprise Charter & Bylaws Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );
