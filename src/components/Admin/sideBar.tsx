@@ -4,6 +4,7 @@ import React from "react";
 /* ---------- Tab Names ---------- */
 export type TabName =
   | "Overview"
+  | "Ecosystem"
   | "Analytics Agent"
   | "Outreach & SEO Agent"
   | "Communication Agent"
@@ -22,6 +23,7 @@ interface SidebarProps {
 /* ---------- Tabs ---------- */
 const tabs: TabName[] = [
   "Overview",
+  "Ecosystem",
   "Analytics Agent",
   "Outreach & SEO Agent",
   "Communication Agent",

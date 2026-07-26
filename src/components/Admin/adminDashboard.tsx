@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AdminSidebar, { TabName } from "./sideBar"; // ✅ import TabName type
+import Ecosystem from "./ecosystem/Ecosystem";
 import Overview from "./overview/Overview";
 import AnalyticsAgent from "./analytic/analytic";
 import OutreachAgent from "./aiagents/outreach/outreachAgent";
@@ -57,6 +58,8 @@ export default function AdminDashboard() {
     switch (activeTab) {
       case "Overview":
         return <Overview />;
+      case "Ecosystem":
+        return <Ecosystem />;
       case "Analytics Agent":
         return <AnalyticsAgent />;
       case "Outreach & SEO Agent":
