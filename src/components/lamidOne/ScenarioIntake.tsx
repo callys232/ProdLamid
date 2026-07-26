@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Loader2, Plus, Trash2, TriangleAlert, Trophy, Shield } from "lucide-react";
 import type { ScenarioOption } from "@/lib/intelligence/scenario";
 import { computeScenarios, scenariosToPrompt } from "@/lib/intelligence/scenario";
+import type { ScenarioSummary } from "@/lib/intelligence/scenario";
 
 const ACCENT = "#2563EB";
 
@@ -30,7 +31,7 @@ export default function ScenarioIntake({
   engineName, onSubmit, loading,
 }: {
   engineName: string;
-  onSubmit: (payload: { context: Record<string, string>; measured: string }) => void;
+  onSubmit: (payload: { context: Record<string, string>; measured: string; summary: ScenarioSummary }) => void;
   loading: boolean;
 }) {
   const [orgName, setOrgName] = useState("");
@@ -185,6 +186,7 @@ export default function ScenarioIntake({
             goal: "Choose the option with the best risk-adjusted outcome",
           },
           measured: scenariosToPrompt(summary),
+          summary,
         })}
         className="w-full rounded-2xl py-3.5 text-sm font-extrabold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
         style={{ background: ACCENT }}>

@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q16Page() {
   const config = MODULE_REGISTRY["Q16"] ?? buildFallbackConfig("Q16", "Q-Series — Decision Intelligence", "Decision Recurrence Tracker Engine");
   return (
-    <DashboardTierGate pillar="Q16 — Decision Recurrence Tracker Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Decision Recurrence Tracker Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function X07Page() {
   const config = MODULE_REGISTRY["X07"] ?? buildFallbackConfig("X07", "X-Series — Protection Intelligence", "Continuity Intelligence Engine");
   return (
-    <DashboardTierGate pillar="X07 — Continuity Intelligence Engine" backHref="/x06-resilience" backLabel="Resilience Intelligence">
+    <DashboardTierGate pillar="Continuity Intelligence Engine" backHref="/x06-resilience" backLabel="Resilience Intelligence">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

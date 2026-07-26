@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q32Page() {
   const config = MODULE_REGISTRY["Q32"] ?? buildFallbackConfig("Q32", "Q-Series — Decision Intelligence", "Team Decision Capability Score Engine");
   return (
-    <DashboardTierGate pillar="Q32 — Team Decision Capability Score Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Team Decision Capability Score Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

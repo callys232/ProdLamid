@@ -12,7 +12,7 @@ const TABS = [
     description:
       "Live diagnostic scores, alignment signals, and the correction priorities your leadership team should act on first.",
     href: "/core",
-    src: "/screenshots/core-dashboard.png" as string | null,
+    src: "/screenshots/q46-foresight.png" as string | null,
     accent: "#2563EB",
     url: "lamidone.com/q46-predictive-foresight",
   },
@@ -23,7 +23,7 @@ const TABS = [
     description:
       "Engagement trends, funnel health, and digital performance — refreshing as the data lands, not a month later.",
     href: "/grow",
-    src: "/screenshots/grow-dashboard.png" as string | null,
+    src: "/screenshots/r14-cadence.png" as string | null,
     accent: "#3B82F6",
     url: "lamidone.com/r14-real-time-cadence-pulse",
   },
@@ -34,9 +34,9 @@ const TABS = [
     description:
       "Capability maps, culture health scores, and readiness gaps — surfaced before they turn into vacancies.",
     href: "/talent",
-    src: "/screenshots/talent-dashboard.png" as string | null,
+    src: "/screenshots/a25-career.png" as string | null,
     accent: "#2563EB",
-    url: "lamidone.com/a26-workforce-forecasting",
+    url: "lamidone.com/a25-career-pathing",
   },
   {
     id: "finance",
@@ -45,7 +45,7 @@ const TABS = [
     description:
       "Rolling forecasts, burn tracking, and value modelling that update with the business instead of trailing it.",
     href: "/finance",
-    src: "/screenshots/finance-dashboard.png" as string | null,
+    src: "/screenshots/f02-budgeting.png" as string | null,
     accent: "#F59E0B",
     url: "lamidone.com/f02-budgeting-forecasting",
   },

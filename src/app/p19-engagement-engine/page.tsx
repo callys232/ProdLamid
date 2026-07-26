@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function P19Page() {
   const config = MODULE_REGISTRY["P19"] ?? buildFallbackConfig("P19", "P-Series — Enterprise Productivity", "Engagement Engine");
   return (
-    <DashboardTierGate pillar="P19 — Engagement Engine" backHref="/p18-communication-engine" backLabel="Communication Engine">
+    <DashboardTierGate pillar="Engagement Engine" backHref="/p18-communication-engine" backLabel="Communication Engine">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

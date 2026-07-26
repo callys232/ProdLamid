@@ -1,148 +1,254 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { Sparkles, Network, TrendingUp, GraduationCap, Landmark, Check, ArrowRight } from "lucide-react";
+import { Sparkles, Network, TrendingUp, GraduationCap, Landmark, Check, ArrowRight, Wrench } from "lucide-react";
+import FreeToolsModal from "./FreeToolsModal";
+import type { LucideIcon } from "lucide-react";
 
-const HUBS = [
+/* Two captions: one for the pillars, one for the engines. Wording is taken from
+   the approved Website Content v2 deck — "Outcomes Not Reports" is one of its
+   four Why LAMID ONE pillars, and "what's real, not what's assumed" is from the
+   homepage subheadline. No new marketing language invented here. */
+const CAPTIONS = {
+  pillars: {
+    eyebrow: "Human Insight. AI Precision. One Ecosystem.",
+    lead:    "One Platform.",
+    accent:  "Every Layer",
+    tail:    "of Your Business.",
+    body:    "Your strategy, growth, people, and finance — unified into one signal, so every decision you make is grounded in what's real, not what's assumed.",
+  },
+  engines: {
+    eyebrow: "Outcomes, Not Reports.",
+    lead:    "Every Number",
+    accent:  "Computed",
+    tail:    "From Yours.",
+    body:    "These engines take the figures you enter and do the arithmetic in front of you. Nothing is estimated, nothing is generated — you see the working, and you can export it.",
+  },
+} as const;
+
+/**
+ * The ecosystem grid: four pillars followed by the five engines that compute
+ * their answers in TypeScript rather than asking a model for them.
+ *
+ * Nine cards scroll past a pitch pinned on the left. Every bullet states what
+ * the reader gets, not what the software contains.
+ */
+
+type Card = {
+  id:      string;
+  title:   string;
+  /** Omitted on the free-tools card, which opens a modal instead of navigating. */
+  href?:   string;
+  color:   string;
+  points:  string[];
+  cta:     string;
+  /** Pillars carry an icon; engines carry their module code instead. */
+  Icon?:   LucideIcon;
+  code?:   string;
+  pillar?: string;
+  /** Opens the free-tools browser rather than following a link. */
+  opensModal?: boolean;
+};
+
+const CARDS: Card[] = [
+  /* ── The four pillars ── */
   {
-    id: "core",
-    Icon: Network,
-    label: "LAMID CORE",
-    href: "/core",
-    color: "#2563EB",
+    id: "core", title: "LAMID CORE", href: "/core", color: "#2563EB", Icon: Network,
+    cta: "Learn more",
     points: [
       "See where strategy is stalling and what needs to move first.",
       "Align leadership around one view of execution and performance.",
     ],
   },
   {
-    id: "grow",
-    Icon: TrendingUp,
-    label: "LAMID GROW",
-    href: "/grow",
-    color: "#047857",
+    id: "grow", title: "LAMID GROW", href: "/grow", color: "#047857", Icon: TrendingUp,
+    cta: "Learn more",
     points: [
       "Track customer engagement and digital performance in real time.",
       "Spot where growth is compounding — and where it's leaking.",
     ],
   },
   {
-    id: "talent",
-    Icon: GraduationCap,
-    label: "LAMID TALENT",
-    href: "/talent",
-    color: "#6D28D9",
+    id: "talent", title: "LAMID TALENT", href: "/talent", color: "#6D28D9", Icon: GraduationCap,
+    cta: "Learn more",
     points: [
       "Put the right people in the right roles.",
       "Track capability, culture health, and hiring readiness in one place.",
     ],
   },
   {
-    id: "finance",
-    Icon: Landmark,
-    label: "LAMID FINANCE",
-    href: "/finance",
-    color: "#B45309",
+    id: "finance", title: "LAMID FINANCE", href: "/finance", color: "#B45309", Icon: Landmark,
+    cta: "Learn more",
     points: [
       "See cost, cash, and enterprise value in real time.",
       "Forecast with numbers that move as fast as the business does.",
     ],
   },
+
+  /* ── The five engines. Every claim below is backed by the compute layer:
+        lib/budget/compute.ts, lib/intelligence/financial.ts, inputSpec.ts,
+        roster.ts and scenario.ts. ── */
+  {
+    id: "f02", code: "F02", pillar: "LAMID FINANCE",
+    title: "Budgeting & Forecasting", href: "/f02-budgeting-forecasting",
+    color: "#B45309", cta: "Open engine",
+    points: [
+      "Build a costed budget for any project type in minutes.",
+      "Watch overhead, contingency and tax recalculate as you edit.",
+      "Track every line against what you actually spent.",
+    ],
+  },
+  {
+    id: "f04", code: "F04", pillar: "LAMID FINANCE",
+    title: "Cost Optimization", href: "/f04-cost-optimization",
+    color: "#B45309", cta: "Open engine",
+    points: [
+      "See margin move period by period, on your own figures.",
+      "Find the cost line growing faster than revenue.",
+      "Know when operating cost passes what revenue can carry.",
+    ],
+  },
+  {
+    id: "r14", code: "R14", pillar: "LAMID GROW",
+    title: "Real-Time Cadence Pulse", href: "/r14-real-time-cadence-pulse",
+    color: "#047857", cta: "Open engine",
+    points: [
+      "Measure delivery against a target you set yourself.",
+      "See trend and swing across six periods at a glance.",
+      "Get told when a metric is too volatile to call a trend.",
+    ],
+  },
+  {
+    id: "a25", code: "A25", pillar: "LAMID TALENT",
+    title: "Career Pathing", href: "/a25-career-pathing",
+    color: "#6D28D9", cta: "Open engine",
+    points: [
+      "Map capability across every role and headcount.",
+      "See which critical roles have nobody ready behind them.",
+      "Weight capability by team size, not by role count.",
+    ],
+  },
+  {
+    id: "q46", code: "Q46", pillar: "LAMID CORE",
+    title: "Predictive Foresight", href: "/q46-predictive-foresight",
+    color: "#2563EB", cta: "Open engine",
+    points: [
+      "Compare options by expected value, net of what each costs.",
+      "See the highest-value option and the safest one separately.",
+      "Know the probability at which the ranking flips.",
+    ],
+  },
+
+  /* Tenth card — opens the free-tools browser rather than navigating. */
+  {
+    id: "free", title: "Free Tools", color: "#2563EB", opensModal: true, Icon: Wrench,
+    cta: "Browse free tools",
+    points: [
+      "Run every engine free once you have an account.",
+      "Start with the budget engine, then work across the suites.",
+      "No trial window and no card required.",
+    ],
+  },
 ];
 
-/** One flagship tool per pillar — the deepest engine in each. */
-const FEATURED = [
-  {
-    code:  "F02",
-    pillar:"LAMID FINANCE",
-    name:  "Budgeting & Forecasting Engine",
-    href:  "/f02-budgeting-forecasting",
-    color: "#B45309",
-    tag:   "Builds a real budget",
-    features: [
-      "Itemised line-item budgets across 12 project types",
-      "Overhead, contingency, tax and phasing computed automatically",
-      "Edit any line — totals recalculate instantly, export to CSV",
-    ],
-  },
-  {
-    code:  "R14",
-    pillar:"LAMID GROW",
-    name:  "Real-Time Cadence Pulse",
-    href:  "/r14-real-time-cadence-pulse",
-    color: "#047857",
-    tag:   "Takes your data",
-    features: [
-      "Track cycle time, on-time rate and meeting load period by period",
-      "Trend and volatility computed from your own numbers",
-      "Strategic, operational, financial and cultural pulse scored",
-    ],
-  },
-  {
-    code:  "Q46",
-    pillar:"LAMID CORE",
-    name:  "Predictive Foresight Engine",
-    href:  "/q46-predictive-foresight",
-    color: "#2563EB",
-    tag:   "Decision modelling",
-    features: [
-      "Model decisions across four time horizons before committing",
-      "Near-term, medium-term, long-range and long-term horizons scored",
-      "Surfaces consequences and scenarios ahead of the decision",
-    ],
-  },
-  {
-    code:  "A32",
-    pillar:"LAMID TALENT",
-    name:  "ETOS — Enterprise Talent OS",
-    href:  "/a32-etos",
-    color: "#6D28D9",
-    tag:   "Unifies 31 engines",
-    features: [
-      "Integrates every talent engine into one operating layer",
-      "OS stability, intelligence routing health and governance",
-      "Operating velocity across the whole workforce",
-    ],
-  },
-];
+/** Index of the first engine card — where the caption switches. */
+const FIRST_ENGINE = CARDS.findIndex((c) => Boolean(c.code));
 
 const cardV = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const } },
 };
-const container = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } };
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.07 } } };
 
 export default function EcosystemHubs() {
-  return (
-    <section id="ecosystem" className="relative lamidone-section py-20 px-4 overflow-hidden">
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-12 lg:gap-16 items-center">
+  const [onEngines, setOnEngines] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const sentinel  = useRef<HTMLDivElement | null>(null);
+  const scroller  = useRef<HTMLDivElement | null>(null);
+  const reduceMotion = useReducedMotion();
 
-          {/* ── LEFT — sticky pitch ── */}
+  /* The cards scroll inside their own pane, so the caption tracks that pane's
+     scroll rather than the window's. It flips once the first engine card passes
+     the upper-middle of the pane, and flips back on the way up. */
+  useEffect(() => {
+    const node = sentinel.current;
+    const box  = scroller.current;
+    if (!node) return;
+
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const cardTop = node.getBoundingClientRect().top;
+      // Below the lg breakpoint the pane is not scrollable, so fall back to the viewport.
+      const isPaneScrolling = box && box.scrollHeight > box.clientHeight + 1;
+      const bounds = isPaneScrolling
+        ? box.getBoundingClientRect()
+        : { top: 0, height: window.innerHeight };
+      setOnEngines(cardTop < bounds.top + bounds.height * 0.45);
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(measure);
+    };
+
+    measure();
+    box?.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      box?.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  const caption = onEngines ? CAPTIONS.engines : CAPTIONS.pillars;
+
+  return (
+    <section id="ecosystem" className="relative bg-black dark:bg-white py-20 px-4">
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-12 lg:gap-16 items-start">
+
+          {/* ── LEFT — pitch, pinned while the cards scroll past ── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            className="lg:sticky lg:top-28 lg:self-start"
           >
-            {/* Eyebrow pill */}
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/12 bg-white/70 dark:bg-white/[0.04] mb-8">
-              <Sparkles className="w-4 h-4 text-[#2563EB]" strokeWidth={2} />
-              <span className="text-gray-700 dark:text-white/75">Powered by HumanAI</span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border border-white/12 dark:border-gray-200 bg-white/[0.04] dark:bg-white/70 mb-8">
+              <Sparkles className="w-4 h-4 text-[#60A5FA] dark:text-[#2563EB]" strokeWidth={2} />
+              <span className="text-white/75 dark:text-gray-700">{caption.eyebrow}</span>
             </span>
 
-            <h2 className="text-3xl sm:text-4xl md:text-[2.75rem] font-bold text-gray-900 dark:text-white leading-[1.12] tracking-tight mb-6">
-              One Platform.{" "}
-              <span className="lamidone-gradient-text">Four Engines.</span>
-              <br className="hidden sm:block" />
-              Every Layer of Your Business.
-            </h2>
+            {/* Reserved height so the CTAs never shift as the caption swaps */}
+            <div className="lg:min-h-[290px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={caption.eyebrow}
+                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <h2 className="text-3xl sm:text-4xl md:text-[2.75rem] font-bold text-white dark:text-gray-900 leading-[1.12] tracking-tight mb-6">
+                    {caption.lead}{" "}
+                    <span className="text-[#60A5FA] dark:text-[#1D4ED8]">{caption.accent}</span>
+                    <br className="hidden sm:block" />
+                    {caption.tail}
+                  </h2>
 
-            <p className="text-gray-500 dark:text-white/55 text-base leading-relaxed mb-9 max-w-md">
-              LAMID ONE shows leaders what is actually happening in their business,
-              where their people need support, and what to move on first.
-            </p>
+                  <p className="text-white/55 dark:text-gray-500 text-base leading-relaxed max-w-md">
+                    {caption.body}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="mb-9" />
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
@@ -153,145 +259,115 @@ export default function EcosystemHubs() {
               </Link>
               <Link
                 href="/ecosystem"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold border border-[#2563EB]/30 text-[#2563EB] bg-[#2563EB]/[0.06] hover:bg-[#2563EB]/12 transition-colors"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold border border-[#60A5FA]/40 text-[#60A5FA] bg-[#60A5FA]/[0.08] hover:bg-[#60A5FA]/15 dark:border-[#2563EB]/30 dark:text-[#2563EB] dark:bg-[#2563EB]/[0.06] dark:hover:bg-[#2563EB]/12 transition-colors"
               >
                 Explore the Ecosystem
               </Link>
             </div>
           </motion.div>
 
-          {/* ── RIGHT — 2×2 hub cards ── */}
+          {/* ── RIGHT — four cards in view, the rest scroll inside the pane ──
+              Fixed height on desktop so exactly two rows sit in the window and
+              the fifth card peeks in, signalling there is more below. Below the
+              lg breakpoint the height is released and all nine simply stack. */}
           <motion.div
+            ref={scroller}
             variants={container}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+            className="no-scrollbar grid grid-cols-1 sm:grid-cols-2 gap-5 lg:h-[620px] lg:overflow-y-auto"
           >
-            {HUBS.map((hub) => (
-              <motion.div key={hub.id} variants={cardV}>
-                <Link
-                  href={hub.href}
-                  className="group h-full flex flex-col rounded-2xl border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.03] p-6 transition-all duration-200 hover:border-[#2563EB]/40 hover:shadow-[0_12px_36px_rgba(37,99,235,0.12)] hover:-translate-y-1"
-                >
-                  {/* Icon + name */}
+            {CARDS.map((card, i) => {
+              /* One shell, two behaviours: nine cards navigate, the free-tools
+                 card opens the browser. Rendered as a real <button> so it is
+                 keyboard-operable and never a link to nowhere. */
+              const shell =
+                "group h-full w-full text-left flex flex-col rounded-2xl border border-white/10 dark:border-gray-200 bg-white/[0.03] dark:bg-white p-6 shadow-none dark:shadow-[0_1px_3px_rgba(16,24,40,0.05)] transition-all duration-200 hover:border-[#2563EB]/40 hover:shadow-[0_12px_36px_rgba(37,99,235,0.12)] hover:-translate-y-1";
+
+              const body = (
+                <>
+                  {/* Icon for a pillar, module code for an engine */}
                   <div className="flex items-center gap-2.5 mb-4">
-                    <hub.Icon
-                      className="w-5 h-5 shrink-0"
-                      strokeWidth={2}
-                      style={{ color: hub.color }}
-                    />
-                    <h3 className="text-base font-bold text-gray-900 dark:text-white tracking-tight">
-                      {hub.label}
+                    {card.Icon ? (
+                      <card.Icon className="w-5 h-5 shrink-0" strokeWidth={2} style={{ color: card.color }} />
+                    ) : (
+                      /* Engines have no icon; a coloured dot keeps the header
+                         rhythm without exposing the internal module code. */
+                      <span
+                        className="h-2.5 w-2.5 shrink-0 rounded-full"
+                        style={{ background: card.color }}
+                        aria-hidden="true"
+                      />
+                    )}
+                    <h3 className="text-base font-bold text-white dark:text-gray-900 tracking-tight leading-tight">
+                      {card.title}
                     </h3>
                   </div>
 
-                  <div className="h-px bg-gray-100 dark:bg-white/8 mb-4" />
+                  {card.pillar && (
+                    <p className="-mt-2.5 mb-3.5 text-[9px] font-bold uppercase tracking-wider text-white/40 dark:text-gray-500">
+                      {card.pillar}
+                    </p>
+                  )}
 
-                  {/* Checkmark bullets */}
+                  <div className="h-px bg-white/8 dark:bg-gray-100 mb-4" />
+
                   <ul className="flex flex-col gap-3 flex-1">
-                    {hub.points.map((point) => (
+                    {card.points.map((point) => (
                       <li key={point} className="flex items-start gap-2.5">
-                        <Check
-                          className="w-4 h-4 shrink-0 mt-0.5"
-                          strokeWidth={2.5}
-                          style={{ color: hub.color }}
-                        />
-                        <span className="text-sm text-gray-600 dark:text-white/60 leading-snug">
+                        <Check className="w-4 h-4 shrink-0 mt-0.5" strokeWidth={2.5} style={{ color: card.color }} />
+                        <span className="text-sm text-white/60 dark:text-gray-600 leading-snug">
                           {point}
                         </span>
                       </li>
                     ))}
                   </ul>
 
-                  <div className="h-px bg-gray-100 dark:bg-white/8 mt-5 mb-4" />
+                  <div className="h-px bg-white/8 dark:bg-gray-100 mt-5 mb-4" />
 
-                  {/* Learn more */}
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 dark:text-white">
-                    Learn more
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white dark:text-gray-900">
+                    {card.cta}
                     <ArrowRight
                       className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
                       strokeWidth={2}
-                      style={{ color: hub.color }}
+                      style={{ color: card.color }}
                     />
                   </span>
-                </Link>
-              </motion.div>
-            ))}
+                </>
+              );
+
+              return (
+                <motion.div
+                  key={card.id}
+                  variants={cardV}
+                  /* The first engine card is the sentinel: once it clears the
+                     upper-middle of the pane, the caption swaps to the engines. */
+                  ref={i === FIRST_ENGINE ? sentinel : undefined}
+                >
+                  {card.opensModal ? (
+                    <button
+                      type="button"
+                      onClick={() => setToolsOpen(true)}
+                      aria-haspopup="dialog"
+                      className={shell}
+                    >
+                      {body}
+                    </button>
+                  ) : (
+                    <Link href={card.href!} className={shell}>
+                      {body}
+                    </Link>
+                  )}
+                </motion.div>
+              );
+            })}
           </motion.div>
 
         </div>
-
-        {/* ── Flagship tool from each pillar ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
-          className="mt-20"
-        >
-          <div className="mb-8">
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.4em] lamidone-gradient-text">
-              Start Here
-            </p>
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-              The flagship engine from each pillar.
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {FEATURED.map((t) => (
-              <Link
-                key={t.code}
-                href={t.href}
-                className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[#2563EB]/40 hover:shadow-[0_12px_36px_rgba(37,99,235,0.12)] dark:border-white/10 dark:bg-white/[0.03]"
-              >
-                <div className="mb-3 flex items-center gap-2">
-                  <span
-                    className="rounded-md px-2 py-1 font-mono text-[10px] font-bold"
-                    style={{ background: `${t.color}14`, color: t.color }}
-                  >
-                    {t.code}
-                  </span>
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500 dark:text-white/40">
-                    {t.pillar}
-                  </span>
-                </div>
-
-                <h4 className="mb-2 text-sm font-bold leading-snug text-gray-900 dark:text-white">
-                  {t.name}
-                </h4>
-
-                <span
-                  className="mb-4 self-start rounded-full px-2.5 py-1 text-[10px] font-bold"
-                  style={{ background: `${t.color}12`, color: t.color }}
-                >
-                  {t.tag}
-                </span>
-
-                <ul className="flex flex-1 flex-col gap-2.5">
-                  {t.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0" strokeWidth={2.5} style={{ color: t.color }} />
-                      <span className="text-[11px] leading-relaxed text-gray-600 dark:text-white/55">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 dark:text-white">
-                  Open engine
-                  <ArrowRight
-                    className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1"
-                    strokeWidth={2}
-                    style={{ color: t.color }}
-                  />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-
       </div>
+
+      <FreeToolsModal open={toolsOpen} onClose={() => setToolsOpen(false)} />
     </section>
   );
 }

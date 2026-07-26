@@ -2,9 +2,9 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Loader2, TriangleAlert } from "lucide-react";
-import type { FinancialInputs, FinancialSummary } from "@/lib/intelligence/financial";
-import { computeFinancials } from "@/lib/intelligence/financial";
+import { Loader2, TriangleAlert, ChevronDown, ChevronUp } from "lucide-react";
+import type { FinancialInputs, FinancialSummary, OpexBreakdown } from "@/lib/intelligence/financial";
+import { computeFinancials, OPEX_CATEGORIES } from "@/lib/intelligence/financial";
 
 const ACCENT = "#2563EB";
 
@@ -52,16 +52,48 @@ export default function FinancialIntake({
     opex:    Array(defaultPeriods).fill(0),
   }));
 
+  /* Optional cost split. Without it the engine can report total operating cost
+     and nothing more — you cannot locate waste inside a single number. */
+  const [showSplit, setShowSplit] = useState(false);
+  const [split, setSplit] = useState<Record<string, number[]>>(() => {
+    const init: Record<string, number[]> = {};
+    for (const c of OPEX_CATEGORIES) init[c] = Array(defaultPeriods).fill(0);
+    return init;
+  });
+
   const inputs: FinancialInputs = useMemo(() => ({
     currency, periodLabel,
     cashBalance: cash,
     headcount,
-    periods: Array.from({ length: count }, (_, i) => ({
-      revenue: rows.revenue?.[i] ?? 0,
-      cogs:    rows.cogs?.[i]    ?? 0,
-      opex:    rows.opex?.[i]    ?? 0,
-    })),
-  }), [currency, periodLabel, cash, headcount, count, rows]);
+    periods: Array.from({ length: count }, (_, i) => {
+      const breakdown: OpexBreakdown = {};
+      if (showSplit) {
+        for (const c of OPEX_CATEGORIES) {
+          const v = split[c]?.[i] ?? 0;
+          if (v > 0) breakdown[c] = v;
+        }
+      }
+      return {
+        revenue: rows.revenue?.[i] ?? 0,
+        cogs:    rows.cogs?.[i]    ?? 0,
+        opex:    rows.opex?.[i]    ?? 0,
+        ...(Object.keys(breakdown).length ? { opexBreakdown: breakdown } : {}),
+      };
+    }),
+  }), [currency, periodLabel, cash, headcount, count, rows, showSplit, split]);
+
+  /* A split that does not reconcile to the opex total is worse than none —
+     every percentage downstream would be measured against the wrong base. */
+  const splitMismatch = useMemo(() => {
+    if (!showSplit) return [] as number[];
+    const off: number[] = [];
+    for (let i = 0; i < count; i++) {
+      const total = OPEX_CATEGORIES.reduce((a, c) => a + (split[c]?.[i] ?? 0), 0);
+      const opex  = rows.opex?.[i] ?? 0;
+      if (total > 0 && Math.abs(total - opex) > Math.max(1, opex * 0.01)) off.push(i + 1);
+    }
+    return off;
+  }, [showSplit, split, rows, count]);
 
   const summary = useMemo(() => computeFinancials(inputs), [inputs]);
 
@@ -199,6 +231,107 @@ export default function FinancialIntake({
           </table>
         </div>
       </div>
+
+      {/* ── Optional operating-cost split ──
+          Total opex tells you how much. Only the split tells you where. */}
+      <div className="rounded-2xl border border-gray-200 dark:border-white/15">
+        <button
+          type="button"
+          onClick={() => setShowSplit((v) => !v)}
+          className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
+        >
+          <span>
+            <span className="text-sm font-bold text-black dark:text-white">
+              Break down operating costs
+            </span>
+            <span className="ml-2 rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 dark:bg-white/10 dark:text-white/50">
+              optional
+            </span>
+            <span className="mt-0.5 block text-[11px] text-gray-600 dark:text-white/45">
+              Required to rank cost lines, measure concentration, and see which costs outgrow revenue.
+            </span>
+          </span>
+          {showSplit
+            ? <ChevronUp className="h-4 w-4 shrink-0 text-gray-500" />
+            : <ChevronDown className="h-4 w-4 shrink-0 text-gray-500" />}
+        </button>
+
+        {showSplit && (
+          <div className="border-t border-gray-200 dark:border-white/15">
+            {splitMismatch.length > 0 && (
+              <p className="flex items-start gap-2 px-4 pt-3 text-[11px] text-amber-700 dark:text-amber-300/90">
+                <TriangleAlert className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                The split does not add up to operating expenses in {periodLabel.toLowerCase()}{" "}
+                {splitMismatch.join(", ")}. Percentages will be measured against the wrong base.
+              </p>
+            )}
+            <div className="overflow-x-auto p-2">
+              <table className="w-full text-sm">
+                <tbody>
+                  {OPEX_CATEGORIES.map((cat) => (
+                    <tr key={cat} className="border-b border-gray-100 last:border-0 dark:border-white/8">
+                      <td className="min-w-[180px] px-2 py-2 text-xs text-black dark:text-white">{cat}</td>
+                      {Array.from({ length: count }, (_, i) => (
+                        <td key={i} className="w-24 px-1.5 py-1.5">
+                          <input
+                            type="number" min={0} className={cellCls}
+                            aria-label={`${cat} — ${periodLabel} ${i + 1}`}
+                            value={split[cat]?.[i] ?? 0}
+                            onChange={(e) => {
+                              const v = Number(e.target.value);
+                              setSplit((s) => {
+                                const next = [...(s[cat] ?? Array(count).fill(0))];
+                                next[i] = Number.isFinite(v) ? v : 0;
+                                return { ...s, [cat]: next };
+                              });
+                            }}
+                          />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Cost lines — ranked, only once a split exists */}
+      {summary.opexLines.length > 0 && (
+        <div className="rounded-2xl border border-gray-200 p-4 dark:border-white/15">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-white/50">
+            Operating cost by line · {summary.concentrationPct}% in the largest
+          </p>
+          <ul className="flex flex-col gap-2">
+            {summary.opexLines.map((l) => (
+              <li key={l.category} className="flex items-center gap-3">
+                <span className="w-44 shrink-0 truncate text-xs text-black dark:text-white">{l.category}</span>
+                <span className="h-2 flex-1 overflow-hidden rounded-full bg-gray-100 dark:bg-white/10">
+                  <span
+                    className="block h-full rounded-full"
+                    style={{ width: `${Math.min(100, l.pctOfOpex)}%`, background: ACCENT }}
+                  />
+                </span>
+                <span className="w-14 shrink-0 text-right text-[11px] font-semibold tabular-nums text-black dark:text-white">
+                  {l.pctOfOpex}%
+                </span>
+                <span
+                  className="w-16 shrink-0 text-right text-[11px] font-semibold tabular-nums"
+                  style={{ color: l.outpacingRevenue ? "#B45309" : "#6B7280" }}
+                >
+                  {l.growthPct >= 0 ? "+" : ""}{l.growthPct}%
+                </span>
+              </li>
+            ))}
+          </ul>
+          {summary.outpacingLines.length > 0 && (
+            <p className="mt-3 text-[11px] text-amber-700 dark:text-amber-300/90">
+              Growing faster than revenue: {summary.outpacingLines.join(", ")}.
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Derived KPIs */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">

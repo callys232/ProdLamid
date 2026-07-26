@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q19Page() {
   const config = MODULE_REGISTRY["Q19"] ?? buildFallbackConfig("Q19", "Q-Series — Decision Intelligence", "Sentiment-Adjusted Assessment");
   return (
-    <DashboardTierGate pillar="Q19 — Sentiment-Adjusted Assessment" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Sentiment-Adjusted Assessment" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

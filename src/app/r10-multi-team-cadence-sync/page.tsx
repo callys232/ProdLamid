@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function R10Page() {
   const config = MODULE_REGISTRY["R10"] ?? buildFallbackConfig("R10", "R-Series — Cadence Intelligence", "Multi-Team Cadence Sync Engine");
   return (
-    <DashboardTierGate pillar="R10 — Multi-Team Cadence Sync Engine" backHref="/r09-strategy-to-execution-alignment" backLabel="Strategy-to-Execution Alignment">
+    <DashboardTierGate pillar="Multi-Team Cadence Sync Engine" backHref="/r09-strategy-to-execution-alignment" backLabel="Strategy-to-Execution Alignment">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

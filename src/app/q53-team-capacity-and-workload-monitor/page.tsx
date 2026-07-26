@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q53Page() {
   const config = MODULE_REGISTRY["Q53"] ?? buildFallbackConfig("Q53", "Q-Series — Decision Intelligence", "Team Capacity & Workload Monitor Engine");
   return (
-    <DashboardTierGate pillar="Q53 — Team Capacity & Workload Monitor Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Team Capacity & Workload Monitor Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

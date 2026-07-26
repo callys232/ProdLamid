@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function R24Page() {
   const config = MODULE_REGISTRY["R24"] ?? buildFallbackConfig("R24", "R-Series — Cadence Intelligence", "Historical Cadence Tracking Engine");
   return (
-    <DashboardTierGate pillar="R24 — Historical Cadence Tracking Engine" backHref="/r23-long-term-cadence-trends" backLabel="Long-Term Cadence Trends">
+    <DashboardTierGate pillar="Historical Cadence Tracking Engine" backHref="/r23-long-term-cadence-trends" backLabel="Long-Term Cadence Trends">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

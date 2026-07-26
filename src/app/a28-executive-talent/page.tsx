@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function A28Page() {
   const config = MODULE_REGISTRY["A28"] ?? buildFallbackConfig("A28", "A-Series — TALENT Intelligence", "Executive Talent Intelligence Engine");
   return (
-    <DashboardTierGate pillar="A28 — Executive Talent Intelligence Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Executive Talent Intelligence Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

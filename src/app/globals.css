@@ -300,6 +300,18 @@ body.scroll-bg-active .lamidone-section {
   scrollbar-color: #2563EB #f5f5f5;
 }
 
+/* Scrollable, but with no visible scrollbar — the content itself signals
+   there is more below. Still keyboard and wheel scrollable. */
+.no-scrollbar {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* legacy Edge */
+}
+.no-scrollbar::-webkit-scrollbar { /* Chrome, Safari */
+  width: 0;
+  height: 0;
+  display: none;
+}
+
 select option {
   background-color: white;
   color: #111;

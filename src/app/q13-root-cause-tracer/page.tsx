@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q13Page() {
   const config = MODULE_REGISTRY["Q13"] ?? buildFallbackConfig("Q13", "Q-Series — Decision Intelligence", "Root Cause Tracer Engine");
   return (
-    <DashboardTierGate pillar="Q13 — Root Cause Tracer Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Root Cause Tracer Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

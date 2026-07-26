@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function CoreWorkflowPage() {
   const config = MODULE_REGISTRY["C02"] ?? buildFallbackConfig("C02", "LAMID CORE — Consulting Intelligence", "Workflow Engine");
   return (
-    <DashboardTierGate pillar="C02 — Workflow Engine" backHref="/core-dashboard" backLabel="CORE Dashboard">
+    <DashboardTierGate pillar="Workflow Engine" backHref="/core-dashboard" backLabel="CORE Dashboard">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

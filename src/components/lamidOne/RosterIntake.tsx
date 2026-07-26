@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Loader2, Plus, Trash2, TriangleAlert } from "lucide-react";
 import type { RoleRow } from "@/lib/intelligence/roster";
 import { computeRoster, rosterToPrompt } from "@/lib/intelligence/roster";
+import type { RosterSummary } from "@/lib/intelligence/roster";
 
 const ACCENT = "#2563EB";
 
@@ -30,7 +31,7 @@ export default function RosterIntake({
   engineName, onSubmit, loading,
 }: {
   engineName: string;
-  onSubmit: (payload: { context: Record<string, string>; measured: string }) => void;
+  onSubmit: (payload: { context: Record<string, string>; measured: string; summary: RosterSummary }) => void;
   loading: boolean;
 }) {
   const [orgName, setOrgName]   = useState("");
@@ -171,6 +172,7 @@ export default function RosterIntake({
             goal: "Strengthen capability, succession and retention",
           },
           measured: rosterToPrompt(summary),
+          summary,
         })}
         className="w-full rounded-2xl py-3.5 text-sm font-extrabold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
         style={{ background: ACCENT }}>

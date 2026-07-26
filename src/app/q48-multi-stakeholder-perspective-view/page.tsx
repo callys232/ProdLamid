@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q48Page() {
   const config = MODULE_REGISTRY["Q48"] ?? buildFallbackConfig("Q48", "Q-Series — Decision Intelligence", "Multi-Stakeholder Perspective View Engine");
   return (
-    <DashboardTierGate pillar="Q48 — Multi-Stakeholder Perspective View Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Multi-Stakeholder Perspective View Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

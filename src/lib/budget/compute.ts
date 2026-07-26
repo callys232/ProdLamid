@@ -1,6 +1,7 @@
 import type {
   LineItem, BudgetSettings, ComputedBudget, CategoryRollup,
   BudgetTotals, PeriodBreakdown, CostCategory,
+  LineVariance, VarianceSummary,
 } from "./types";
 import { COST_CATEGORIES } from "./types";
 
@@ -113,7 +114,83 @@ export function computeBudget(lineItems: LineItem[], settings: BudgetSettings): 
     warnings.push(`${top.category} is ${top.pctOfDirect}% of direct cost — concentration risk worth reviewing.`);
   }
 
-  return { settings, lineItems, categories, totals, periods: periodBreakdown, warnings };
+  /* ── Plan versus actual ── */
+  const variance = computeVariance(lineItems, grandTotal, directCosts);
+  if (variance.tracked) {
+    if (variance.variancePct > 10) {
+      warnings.push(
+        `Tracked spend is ${variance.variancePct}% over budget on ${variance.linesTracked} line${variance.linesTracked > 1 ? "s" : ""}.`
+      );
+    }
+    if (variance.overruns.length > 0) {
+      const worst = variance.overruns[0];
+      warnings.push(`Largest overrun: ${worst.name} at ${worst.variancePct}% above plan.`);
+    }
+    if (variance.projectedTotal !== null && variance.projectedTotal > grandTotal) {
+      warnings.push(
+        `At the current overrun rate the project lands near ${Math.round(variance.projectedTotal).toLocaleString()} against a ${Math.round(grandTotal).toLocaleString()} budget.`
+      );
+    }
+  }
+
+  return { settings, lineItems, categories, totals, periods: periodBreakdown, variance, warnings };
+}
+
+/**
+ * Compares budgeted against actual for every line carrying an actual.
+ *
+ * Lines without an actual are excluded rather than counted as zero spent —
+ * "not started" and "spent nothing" are different states and conflating them
+ * would understate the overrun.
+ */
+function computeVariance(
+  lineItems:   LineItem[],
+  grandTotal:  number,
+  directCosts: number,
+): VarianceSummary {
+  const tracked = lineItems.filter((li) => typeof li.actual === "number" && Number.isFinite(li.actual));
+
+  if (tracked.length === 0) {
+    return {
+      tracked: false, linesTracked: 0, budgetedToDate: 0, actualToDate: 0,
+      variance: 0, variancePct: 0, overruns: [], lines: [], projectedTotal: null,
+    };
+  }
+
+  const lines: LineVariance[] = tracked
+    .map((li) => {
+      const budgeted = lineTotal(li);
+      const actual   = safe(li.actual);
+      const variance = round2(actual - budgeted);
+      const variancePct = budgeted !== 0 ? round2((variance / budgeted) * 100) : 0;
+      return {
+        id: li.id, name: li.name, category: li.category,
+        budgeted, actual, variance, variancePct,
+        // A 2% swing either way is noise, not a signal worth flagging.
+        status: variancePct > 2 ? "over" : variancePct < -2 ? "under" : "on-track",
+      } as LineVariance;
+    })
+    .sort((a, b) => b.variance - a.variance);
+
+  const budgetedToDate = round2(lines.reduce((s, l) => s + l.budgeted, 0));
+  const actualToDate   = round2(lines.reduce((s, l) => s + l.actual, 0));
+  const variance       = round2(actualToDate - budgetedToDate);
+  const variancePct    = budgetedToDate !== 0 ? round2((variance / budgetedToDate) * 100) : 0;
+
+  /* Projecting from a tiny sample is worse than not projecting. Require a
+     quarter of direct cost to be tracked before extrapolating. */
+  const coverage = directCosts > 0 ? budgetedToDate / directCosts : 0;
+  const projectedTotal =
+    coverage >= 0.25 ? round2(grandTotal * (1 + variancePct / 100)) : null;
+
+  return {
+    tracked: true,
+    linesTracked: lines.length,
+    budgetedToDate, actualToDate, variance, variancePct,
+    overruns: lines.filter((l) => l.status === "over"),
+    lines,
+    projectedTotal,
+  };
 }
 
 /** Currency formatter with graceful fallback for unusual ISO codes. */
@@ -142,12 +219,15 @@ export function budgetToCSV(b: ComputedBudget): string {
   rows.push(esc(`Project type,${s.projectType}`));
   rows.push(`Currency,${esc(s.currency)}`);
   rows.push("");
-  rows.push(["Category", "Item", "Qty", "Unit", "Unit Cost", "Total", s.periodLabel, "Notes"].map(esc).join(","));
+  rows.push(["Category", "Item", "Qty", "Unit", "Unit Cost", "Total", "Actual", "Variance", "Variance %", s.periodLabel, "Notes"].map(esc).join(","));
 
   for (const li of b.lineItems) {
+    const v = b.variance.lines.find((l) => l.id === li.id);
     rows.push([
       li.category, li.name, li.quantity, li.unit,
-      li.unitCost, lineTotal(li), li.period ?? "", li.notes ?? "",
+      li.unitCost, lineTotal(li),
+      v ? v.actual : "", v ? v.variance : "", v ? `${v.variancePct}%` : "",
+      li.period ?? "", li.notes ?? "",
     ].map(esc).join(","));
   }
 
@@ -163,6 +243,16 @@ export function budgetToCSV(b: ComputedBudget): string {
   rows.push(`Contingency (${s.contingencyPct}%),,,,,${t.contingency}`);
   rows.push(`Tax (${s.taxPct}%),,,,,${t.tax}`);
   rows.push(`GRAND TOTAL,,,,,${t.grandTotal}`);
+
+  if (b.variance.tracked) {
+    rows.push("");
+    rows.push(`Budgeted to date,,,,,${b.variance.budgetedToDate}`);
+    rows.push(`Actual to date,,,,,${b.variance.actualToDate}`);
+    rows.push(`Variance,,,,,${b.variance.variance},${b.variance.variancePct}%`);
+    if (b.variance.projectedTotal !== null) {
+      rows.push(`Projected total at current rate,,,,,${b.variance.projectedTotal}`);
+    }
+  }
 
   rows.push("");
   rows.push([s.periodLabel, "Direct", "Loaded"].map(esc).join(","));

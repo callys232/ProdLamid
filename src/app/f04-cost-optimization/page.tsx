@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function F04Page() {
   const config = MODULE_REGISTRY["F04"] ?? buildFallbackConfig("F04", "F-Series — Financial Intelligence", "Cost Optimization Diagnostic");
   return (
-    <DashboardTierGate pillar="F04 — Cost Optimization Diagnostic" backHref="/finance-dashboard" backLabel="Finance Dashboard">
+    <DashboardTierGate pillar="Cost Optimization Diagnostic" backHref="/finance-dashboard" backLabel="Finance Dashboard">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

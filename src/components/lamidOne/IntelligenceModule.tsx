@@ -18,6 +18,10 @@ import ScenarioIntake from "./ScenarioIntake";
 import { financialsToPrompt } from "@/lib/intelligence/financial";
 import type { SeriesStats } from "@/lib/intelligence/inputSpec";
 import { seriesStatsToPrompt } from "@/lib/intelligence/inputSpec";
+import type { ComputedDimension } from "@/lib/intelligence/dimensions";
+import {
+  seriesDimensions, financialDimensions, rosterDimensions, scenarioDimensions,
+} from "@/lib/intelligence/dimensions";
 
 /* ── Types ────────────────────────────────────────────────── */
 interface KPI        { label: string; value: string; trend: string }
@@ -98,7 +102,7 @@ function IntakeForm({ config, onSubmit, loading }: {
     <motion.div {...fadeUp(0)} className="max-w-2xl mx-auto">
       {/* Module intro */}
       <div className="rounded-2xl border border-gray-200 dark:border-white/15 bg-white dark:bg-black p-6 mb-6">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] mb-2">{config.seriesName} · {config.id}</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] mb-2">{config.seriesName}</p>
         <h2 className="text-base font-bold text-black dark:text-white mb-2">{config.engineName}</h2>
         <p className="text-sm text-gray-600 dark:text-white/60 leading-relaxed">{config.purpose}</p>
       </div>
@@ -138,7 +142,7 @@ function IntakeForm({ config, onSubmit, loading }: {
               Primary Challenge <span className="text-[#2563EB]">*</span>
             </label>
             <textarea rows={2} value={form.challenge} onChange={set("challenge")}
-              placeholder={`What is your main challenge in this ${config.id} dimension?`}
+              placeholder={`What is your main challenge in this area?`}
               className={inputCls + " resize-none"} />
           </div>
 
@@ -194,7 +198,7 @@ function ResultDisplay({ result, config, onReset, orgName, baseline }: {
     ? Math.round(result.dimensions.reduce((sum, d) => sum + d.value, 0) / result.dimensions.length)
     : 0;
 
-  const slug = `${config.id}-${orgName || "assessment"}`.replace(/\s+/g, "-").toLowerCase();
+  const slug = `${config.engineName}-${orgName || "assessment"}`.replace(/\s+/g, "-").toLowerCase();
 
   /** CSV — the format that opens in Excel and gets forwarded. */
   const exportCSV = () => {
@@ -204,7 +208,7 @@ function ResultDisplay({ result, config, onReset, orgName, baseline }: {
     };
     const rows: string[] = [
       esc(`${config.engineName} — ${orgName}`),
-      esc(`Module,${config.id}`),
+      esc(`Series,${config.seriesName}`),
       esc(`Overall score,${overallScore}`),
       esc(`Distortion,${result.distortionIndex}`),
       "",
@@ -276,7 +280,7 @@ function ResultDisplay({ result, config, onReset, orgName, baseline }: {
       {/* Report toolbar */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] mb-0.5">{config.id} · {config.seriesName}</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] mb-0.5">{config.seriesName}</p>
           <h2 className="text-lg font-bold text-black dark:text-white">{orgName} — {config.engineName}</h2>
         </div>
         <div className="flex items-center gap-2 print:hidden">
@@ -573,13 +577,17 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
 
   /**
    * @param stats            Archetype B — time-series statistics
-   * @param measuredOverride Archetype C — pre-formatted financial summary
-   * Both arrive already computed; the model never calculates.
+   * @param measuredOverride Archetype C/E/F — pre-formatted deterministic summary
+   * @param computedDims     Dimension scores derived from the compute layer.
+   *   When present these replace whatever the model returned, so the four
+   *   headline scores are the same arithmetic the tables below them show.
+   *   Narrative modules pass nothing and keep the model's dimensions.
    */
   const run = async (
     context: Record<string, string>,
     stats?: SeriesStats[],
     measuredOverride?: string,
+    computedDims?: ComputedDimension[],
   ) => {
     setOrgName(context.organisationName);
 
@@ -621,7 +629,15 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
       const data = await res.json();
       if (res.status === 429) throw new Error(data.message + " Create a free account for higher limits.");
       if (!res.ok) throw new Error(data.message ?? "Assessment failed. Please try again.");
-      setResult(data.result);
+
+      /* The model writes the narrative; TypeScript owns the numbers. Where a
+         compute layer ran, its dimensions win — including in the stored
+         history, so a past run never redisplays a model-invented score. */
+      const finalResult: IntelligenceResult = computedDims?.length
+        ? { ...data.result, dimensions: computedDims }
+        : data.result;
+
+      setResult(finalResult);
 
       // Record the run against this member's tool history — fire and forget
       fetch("/api/tools/usage", {
@@ -633,7 +649,7 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
           engineName:       config.engineName,
           seriesName:       config.seriesName,
           organisationName: context.organisationName,
-          result:           data.result,
+          result:           finalResult,
           href:             typeof window !== "undefined" ? window.location.pathname : undefined,
         }),
       }).catch(() => {});
@@ -651,7 +667,7 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
         {/* Module header */}
         <motion.div {...fadeUp(0)} className="mb-10">
           <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">
-            {config.seriesName} · {config.id}
+            {config.seriesName}
           </p>
           <h1 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-2">{config.engineName}</h1>
           <p className="text-gray-600 dark:text-white/60 text-sm max-w-xl">{config.purpose}</p>
@@ -712,7 +728,9 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
                   spec={config.inputs}
                   engineName={config.engineName}
                   loading={loading}
-                  onSubmit={({ context, stats }) => run(context, stats)}
+                  onSubmit={({ context, stats }) =>
+                    run(context, stats, undefined, seriesDimensions(stats))
+                  }
                 />
               ) : config.inputs?.kind === "financial" ? (
                 <FinancialIntake
@@ -721,20 +739,24 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
                   engineName={config.engineName}
                   loading={loading}
                   onSubmit={({ context, summary }) =>
-                    run(context, undefined, financialsToPrompt(summary))
+                    run(context, undefined, financialsToPrompt(summary), financialDimensions(summary))
                   }
                 />
               ) : config.inputs?.kind === "roster" ? (
                 <RosterIntake
                   engineName={config.engineName}
                   loading={loading}
-                  onSubmit={({ context, measured }) => run(context, undefined, measured)}
+                  onSubmit={({ context, measured, summary }) =>
+                    run(context, undefined, measured, rosterDimensions(summary))
+                  }
                 />
               ) : config.inputs?.kind === "scenario" ? (
                 <ScenarioIntake
                   engineName={config.engineName}
                   loading={loading}
-                  onSubmit={({ context, measured }) => run(context, undefined, measured)}
+                  onSubmit={({ context, measured, summary }) =>
+                    run(context, undefined, measured, scenarioDimensions(summary))
+                  }
                 />
               ) : (
                 <IntakeForm config={config} onSubmit={run} loading={loading} />

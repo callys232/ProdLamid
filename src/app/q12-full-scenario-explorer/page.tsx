@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q12Page() {
   const config = MODULE_REGISTRY["Q12"] ?? buildFallbackConfig("Q12", "Q-Series — Decision Intelligence", "Full Scenario Explorer Engine");
   return (
-    <DashboardTierGate pillar="Q12 — Full Scenario Explorer Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Full Scenario Explorer Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

@@ -60,7 +60,7 @@ export default function ModuleBrowser() {
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search by name, code, or what it does…"
+            placeholder="Search by name or what it does…"
             aria-label="Search intelligence modules"
             className="w-full rounded-xl border border-gray-300 bg-white py-3 pl-11 pr-10 text-sm text-black transition placeholder-gray-500 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]/30 dark:border-white/20 dark:bg-black dark:text-white dark:placeholder-white/40"
           />
@@ -117,9 +117,10 @@ export default function ModuleBrowser() {
               <Link key={m.id} href={m.href!}
                 className="group flex flex-col rounded-xl border border-gray-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-[#2563EB]/50 hover:shadow-[0_8px_24px_rgba(37,99,235,0.10)] dark:border-white/15 dark:bg-black">
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="rounded-md px-1.5 py-0.5 font-mono text-[10px] font-bold"
+                  {/* The series, not the module code — codes are an internal key. */}
+                  <span className="rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                     style={{ background: `${ACCENT}14`, color: ACCENT }}>
-                    {m.id}
+                    {m.series.split(" — ")[0]}
                   </span>
                   {m.typed && (
                     <span className="rounded-md bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">

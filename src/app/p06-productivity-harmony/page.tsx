@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function P06Page() {
   const config = MODULE_REGISTRY["P06"] ?? buildFallbackConfig("P06", "P-Series — Enterprise Productivity", "Productivity Harmony Engine");
   return (
-    <DashboardTierGate pillar="P06 — Productivity Harmony Engine" backHref="/p05-productivity-balance" backLabel="Productivity Balance">
+    <DashboardTierGate pillar="Productivity Harmony Engine" backHref="/p05-productivity-balance" backLabel="Productivity Balance">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

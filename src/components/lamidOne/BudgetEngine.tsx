@@ -10,6 +10,7 @@ import {
 import { PROJECT_TYPES, COST_CATEGORIES } from "@/lib/budget/types";
 import type { LineItem, BudgetSettings, CostCategory, ProjectType } from "@/lib/budget/types";
 import { computeBudget, formatMoney, budgetToCSV, lineTotal } from "@/lib/budget/compute";
+import { budgetDimensions } from "@/lib/intelligence/dimensions";
 import EngineResultsGate from "./EngineResultsGate";
 
 const ACCENT = "#2563EB";
@@ -123,7 +124,7 @@ export default function BudgetEngine() {
           transition={{ duration: 0.45 }} className="mb-10"
         >
           <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">
-            F-Series · F02
+            F-Series · Financial Intelligence
           </p>
           <h1 className="text-2xl sm:text-3xl font-bold mb-2" style={{ color: ACCENT }}>
             Budgeting &amp; Forecasting Engine
@@ -287,6 +288,89 @@ export default function BudgetEngine() {
                 </div>
               </section>
 
+              {/* Scorecard — every value here is arithmetic from the table above,
+                  not a model's opinion of the budget. */}
+              {lineItems.length > 0 && (
+                <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+                  {budgetDimensions(budget).map((d) => (
+                    <div key={d.label} className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-white/15 dark:bg-black">
+                      <div className="mb-2 flex items-baseline justify-between gap-2">
+                        <p className="text-[11px] font-semibold text-gray-600 dark:text-white/50">{d.label}</p>
+                        <p className="text-lg font-bold tabular-nums text-black dark:text-white">{d.value}</p>
+                      </div>
+                      <div className="mb-2 h-1.5 overflow-hidden rounded-full bg-gray-100 dark:bg-white/10">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{ width: `${d.value}%`, background: ACCENT }}
+                        />
+                      </div>
+                      <p className="text-[11px] leading-relaxed text-gray-600 dark:text-white/45">{d.insight}</p>
+                    </div>
+                  ))}
+                </section>
+              )}
+
+              {/* Plan versus actual — a budget nobody tracks against is a calculator */}
+              {budget.variance.tracked && (
+                <section className="rounded-2xl border border-gray-200 dark:border-white/15 bg-white dark:bg-black p-5">
+                  <p className="mb-4 text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-white/50">
+                    Plan vs actual · {budget.variance.linesTracked} of {lineItems.length} lines tracked
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                    {[
+                      { label: "Budgeted to date", value: money(budget.variance.budgetedToDate), colour: undefined as string | undefined },
+                      { label: "Actual to date",   value: money(budget.variance.actualToDate),   colour: undefined },
+                      {
+                        label:  budget.variance.variance >= 0 ? "Over budget" : "Under budget",
+                        value:  `${budget.variance.variance >= 0 ? "+" : ""}${budget.variance.variancePct}%`,
+                        colour: budget.variance.variance > 0 ? "#DC2626" : "#059669",
+                      },
+                      {
+                        label:  "Projected total",
+                        value:  budget.variance.projectedTotal !== null
+                          ? money(budget.variance.projectedTotal)
+                          : "Not enough tracked",
+                        colour: budget.variance.projectedTotal !== null && budget.variance.projectedTotal > budget.totals.grandTotal
+                          ? "#DC2626" : undefined,
+                      },
+                    ].map((t) => (
+                      <div key={t.label}>
+                        <p
+                          className="mb-1 text-lg font-bold leading-none tabular-nums text-black dark:text-white"
+                          style={t.colour ? { color: t.colour } : undefined}
+                        >
+                          {t.value}
+                        </p>
+                        <p className="text-[11px] text-gray-600 dark:text-white/50">{t.label}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {budget.variance.overruns.length > 0 && (
+                    <div className="mt-4 border-t border-gray-100 pt-3 dark:border-white/8">
+                      <p className="mb-2 text-[11px] font-semibold text-gray-600 dark:text-white/50">
+                        Lines over plan, worst first
+                      </p>
+                      <ul className="flex flex-col gap-1.5">
+                        {budget.variance.overruns.slice(0, 5).map((l) => (
+                          <li key={l.id} className="flex items-center gap-3 text-xs">
+                            <span className="min-w-0 flex-1 truncate text-black dark:text-white">
+                              {l.name || "Untitled line"}
+                            </span>
+                            <span className="shrink-0 tabular-nums text-gray-600 dark:text-white/45">
+                              {money(l.budgeted)} → {money(l.actual)}
+                            </span>
+                            <span className="w-16 shrink-0 text-right font-semibold tabular-nums text-red-600">
+                              +{l.variancePct}%
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </section>
+              )}
+
               {/* Warnings */}
               {budget.warnings.length > 0 && (
                 <section className="rounded-2xl border border-amber-400/40 bg-amber-50 dark:bg-amber-950/20 p-5">
@@ -314,8 +398,8 @@ export default function BudgetEngine() {
                   <table className="w-full min-w-[860px] text-sm">
                     <thead>
                       <tr className="border-b border-gray-200 dark:border-white/15">
-                        {["Category", "Item", "Qty", "Unit", "Unit Cost", "Total", settings.periodLabel, ""].map((h, i) => (
-                          <th key={h + i} className={`px-3 py-2.5 text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-white/50 ${i >= 2 && i <= 5 ? "text-right" : "text-left"}`}>
+                        {["Category", "Item", "Qty", "Unit", "Unit Cost", "Total", "Actual", "Variance", settings.periodLabel, ""].map((h, i) => (
+                          <th key={h + i} className={`px-3 py-2.5 text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-white/50 ${i >= 2 && i <= 7 ? "text-right" : "text-left"}`}>
                             {h}
                           </th>
                         ))}
@@ -348,6 +432,28 @@ export default function BudgetEngine() {
                           </td>
                           <td className="px-3 py-1.5 text-right font-semibold tabular-nums text-black dark:text-white whitespace-nowrap">
                             {money(lineTotal(li))}
+                          </td>
+                          {/* Actual spend. Left blank the line is untracked — which is
+                              not the same as nothing spent, so it stays out of variance. */}
+                          <td className="px-3 py-1.5 w-32">
+                            <input aria-label="Actual spend" type="number" min={0} step="0.01"
+                              className={cellCls + " text-right tabular-nums"}
+                              value={li.actual ?? ""} placeholder="—"
+                              onChange={(e) => updateItem(li.id, {
+                                actual: e.target.value === "" ? undefined : Number(e.target.value) || 0,
+                              })} />
+                          </td>
+                          <td className="px-3 py-1.5 text-right text-xs font-semibold tabular-nums whitespace-nowrap">
+                            {(() => {
+                              const v = budget.variance.lines.find((l) => l.id === li.id);
+                              if (!v) return <span className="text-gray-400 dark:text-white/25">—</span>;
+                              const colour = v.status === "over" ? "#DC2626" : v.status === "under" ? "#059669" : "#6B7280";
+                              return (
+                                <span style={{ color: colour }}>
+                                  {v.variance >= 0 ? "+" : ""}{v.variancePct}%
+                                </span>
+                              );
+                            })()}
                           </td>
                           <td className="px-3 py-1.5 w-20">
                             <input aria-label="Period" type="number" min={1} max={settings.periods} className={cellCls + " text-right tabular-nums"}

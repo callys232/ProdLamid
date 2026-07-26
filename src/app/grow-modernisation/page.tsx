@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function GrowModernisationPage() {
   const config = MODULE_REGISTRY["G04"] ?? buildFallbackConfig("G04", "LAMID GROW — Growth Intelligence", "Modernisation Readiness Engine");
   return (
-    <DashboardTierGate pillar="G04 — Modernisation Readiness Engine" backHref="/grow-pathways" backLabel="Growth Pathways">
+    <DashboardTierGate pillar="Modernisation Readiness Engine" backHref="/grow-pathways" backLabel="Growth Pathways">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

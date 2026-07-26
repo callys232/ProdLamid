@@ -15,6 +15,13 @@ export interface SeriesMetric {
   hint?:  string;
   /** Sensible starting values so the form is never empty on first load. */
   sample?: number[];
+  /**
+   * Which direction is good. Without this a trend is only a description —
+   * "cycle time rising" and "on-time rate rising" mean opposite things.
+   */
+  betterWhen: "higher" | "lower";
+  /** Default target, editable per run. A trend with no target cannot be judged. */
+  target?: number;
 }
 
 export interface TimeSeriesInputSpec {
@@ -76,19 +83,43 @@ export interface SeriesStats {
   /** Mean absolute period-over-period swing, as % of mean. */
   volatility: number;
   trend:      SeriesTrend;
+
+  /* ── Target comparison. Present only when a target was supplied. ── */
+  betterWhen: "higher" | "lower";
+  target:     number | null;
+  /** Signed distance from target as a percentage. Positive = better than target. */
+  targetGapPct: number | null;
+  /** True when the latest value is on the right side of the target. */
+  onTarget:   boolean | null;
+  /**
+   * 0–100 attainment against the target, direction-aware. Null without a target.
+   * Capped at 100 — beating a target does not earn more than full marks.
+   */
+  attainment: number | null;
 }
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
 
-export function computeSeriesStats(metric: SeriesMetric, values: number[]): SeriesStats {
+export function computeSeriesStats(
+  metric: SeriesMetric,
+  values: number[],
+  /** Overrides metric.target for this run. */
+  targetOverride?: number | null,
+): SeriesStats {
   const clean = values.filter((v) => Number.isFinite(v));
   const n = clean.length;
+  const target =
+    targetOverride !== undefined && targetOverride !== null && Number.isFinite(targetOverride)
+      ? targetOverride
+      : metric.target ?? null;
 
   if (n === 0) {
     return {
       key: metric.key, label: metric.label, unit: metric.unit, values: [],
       first: 0, last: 0, min: 0, max: 0, mean: 0,
       changePct: 0, volatility: 0, trend: "flat",
+      betterWhen: metric.betterWhen, target,
+      targetGapPct: null, onTarget: null, attainment: null,
     };
   }
 
@@ -113,10 +144,28 @@ export function computeSeriesStats(metric: SeriesMetric, values: number[]): Seri
   else if (changePct < -5)    trend = "falling";
   else                        trend = "flat";
 
+  /* ── Target attainment, direction-aware ──
+     For "higher is better", attainment is last/target. For "lower is better"
+     it inverts: hitting 10 days against a 12-day target scores above 100 and
+     is capped. A zero target is meaningless, so it is treated as absent. */
+  let targetGapPct: number | null = null;
+  let onTarget:     boolean | null = null;
+  let attainment:   number | null = null;
+
+  if (target !== null && target !== 0) {
+    const raw = metric.betterWhen === "higher" ? last / target : target / last;
+    if (Number.isFinite(raw)) {
+      attainment   = round1(Math.max(0, Math.min(100, raw * 100)));
+      onTarget     = metric.betterWhen === "higher" ? last >= target : last <= target;
+      targetGapPct = round1(((last - target) / Math.abs(target)) * 100 * (metric.betterWhen === "higher" ? 1 : -1));
+    }
+  }
+
   return {
     key: metric.key, label: metric.label, unit: metric.unit,
     values: clean, first, last, min, max,
     mean: round1(mean), changePct, volatility, trend,
+    betterWhen: metric.betterWhen, target, targetGapPct, onTarget, attainment,
   };
 }
 
@@ -129,7 +178,11 @@ export function seriesStatsToPrompt(stats: SeriesStats[], periodLabel: string): 
         s.trend === "falling"  ? `down ${Math.abs(s.changePct)}%` :
         s.trend === "volatile" ? `volatile (${s.volatility}% mean swing)` :
                                  "flat";
-      return `• ${s.label}: ${s.first}${s.unit} → ${s.last}${s.unit} over ${s.values.length} ${periodLabel.toLowerCase()}s — ${dir}. Range ${s.min}–${s.max}${s.unit}, mean ${s.mean}${s.unit}.`;
+      const vsTarget =
+        s.target !== null && s.attainment !== null
+          ? ` Target ${s.target}${s.unit} — currently ${s.onTarget ? "met" : "missed"} (${s.attainment}% attainment, ${s.targetGapPct! >= 0 ? "+" : ""}${s.targetGapPct}% vs target).`
+          : "";
+      return `• ${s.label}: ${s.first}${s.unit} → ${s.last}${s.unit} over ${s.values.length} ${periodLabel.toLowerCase()}s — ${dir}. Range ${s.min}–${s.max}${s.unit}, mean ${s.mean}${s.unit}.${vsTarget}`;
     })
     .join("\n");
 }
@@ -138,14 +191,15 @@ export function seriesStatsToPrompt(stats: SeriesStats[], periodLabel: string): 
 
 /** R-Series — cadence, rhythm, operating tempo. */
 export const CADENCE_METRICS: SeriesMetric[] = [
-  { key: "cycleTime",   label: "Delivery cycle time",     unit: " days", hint: "Idea to shipped",             sample: [14, 13, 15, 12, 11, 12] },
-  { key: "onTimeRate",  label: "On-time completion rate", unit: "%",     hint: "Committed work delivered",    sample: [72, 75, 71, 78, 82, 80] },
-  { key: "meetingLoad", label: "Hours in meetings / person / week", unit: " hrs", hint: "Coordination overhead", sample: [12, 13, 15, 14, 16, 17] },
+  { key: "cycleTime",   label: "Delivery cycle time",     unit: " days", hint: "Idea to shipped",             sample: [14, 13, 15, 12, 11, 12], betterWhen: "lower",  target: 10 },
+  { key: "onTimeRate",  label: "On-time completion rate", unit: "%",     hint: "Committed work delivered",    sample: [72, 75, 71, 78, 82, 80], betterWhen: "higher", target: 85 },
+  { key: "meetingLoad", label: "Hours in meetings / person / week", unit: " hrs", hint: "Coordination overhead", sample: [12, 13, 15, 14, 16, 17], betterWhen: "lower", target: 10 },
 ];
 
 /** P-Series — throughput, productivity, flow. */
 export const PRODUCTIVITY_METRICS: SeriesMetric[] = [
-  { key: "throughput",  label: "Completed units of work", unit: " items", hint: "Tickets, deliverables, cases", sample: [42, 45, 41, 48, 52, 50] },
-  { key: "reworkRate",  label: "Rework / defect rate",    unit: "%",      hint: "Work redone after delivery",   sample: [18, 16, 19, 14, 12, 13] },
-  { key: "utilisation", label: "Capacity utilisation",    unit: "%",      hint: "Productive vs available time", sample: [68, 71, 74, 79, 84, 88] },
+  { key: "throughput",  label: "Completed units of work", unit: " items", hint: "Tickets, deliverables, cases", sample: [42, 45, 41, 48, 52, 50], betterWhen: "higher", target: 55 },
+  { key: "reworkRate",  label: "Rework / defect rate",    unit: "%",      hint: "Work redone after delivery",   sample: [18, 16, 19, 14, 12, 13], betterWhen: "lower",  target: 10 },
+  // Utilisation above ~85% queues work rather than completing it, so the target is a band, not a maximum.
+  { key: "utilisation", label: "Capacity utilisation",    unit: "%",      hint: "Productive vs available time", sample: [68, 71, 74, 79, 84, 88], betterWhen: "higher", target: 85 },
 ];

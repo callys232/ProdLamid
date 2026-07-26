@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function TalentCapabilityPage() {
   const config = MODULE_REGISTRY["A02"] ?? buildFallbackConfig("A02", "LAMID TALENT — Workforce Intelligence", "Capability Intelligence Engine");
   return (
-    <DashboardTierGate pillar="A02 — Capability Intelligence Engine" backHref="/talent-dashboard" backLabel="TALENT Dashboard">
+    <DashboardTierGate pillar="Capability Intelligence Engine" backHref="/talent-dashboard" backLabel="TALENT Dashboard">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

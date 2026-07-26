@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function F03Page() {
   const config = MODULE_REGISTRY["F03"] ?? buildFallbackConfig("F03", "F-Series — Financial Intelligence", "Financial KPI Linkage Diagnostic");
   return (
-    <DashboardTierGate pillar="F03 — Financial KPI Linkage Diagnostic" backHref="/finance-dashboard" backLabel="Finance Dashboard">
+    <DashboardTierGate pillar="Financial KPI Linkage Diagnostic" backHref="/finance-dashboard" backLabel="Finance Dashboard">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

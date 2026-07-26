@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q08Page() {
   const config = MODULE_REGISTRY["Q08"] ?? buildFallbackConfig("Q08", "Q-Series — Decision Intelligence", "Decision Finalization Engine");
   return (
-    <DashboardTierGate pillar="Q08 — Decision Finalization Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Decision Finalization Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q86Page() {
   const config = MODULE_REGISTRY["Q86"] ?? buildFallbackConfig("Q86", "Q-Series — Decision Intelligence", "Business Continuity Status Engine");
   return (
-    <DashboardTierGate pillar="Q86 — Business Continuity Status Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Business Continuity Status Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

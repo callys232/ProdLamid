@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+/* Labels match the heading above them — "Clarity. Confidence. Growth." — and
+   each states a specific outcome rather than a quality any consultancy claims. */
 const PROMISES = [
-  { label: "Clarity",  body: "See your business clearly." },
-  { label: "Growth",   body: "Move faster with confidence." },
-  { label: "Value",    body: "Build an enterprise that lasts." },
+  { label: "Clarity",    body: "See where the business stands today, not where last quarter's report left it." },
+  { label: "Confidence", body: "Decide on numbers computed in front of you, with the working shown." },
+  { label: "Growth",     body: "Act on what the signals show while there is still time to change the outcome." },
 ];
 
 const BENEFITS = [
@@ -36,8 +38,8 @@ const ENGINES = [
   },
   {
     id: "Lamid Talent",
-    tagline: "Better teams, better culture, better performance.",
-    desc: "Better teams, better culture, better performance.",
+    tagline: "Put the right people in the right roles.",
+    desc: "Capability, culture health, and hiring readiness in one place.",
     textCls: "text-[#2563EB]",
     bgCls:   "bg-[#2563EB]",
     href: "/talent",

@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Loader2, TrendingUp, TrendingDown, Minus, Activity } from "lucide-react";
-import type { TimeSeriesInputSpec, SeriesStats } from "@/lib/intelligence/inputSpec";
+import type { TimeSeriesInputSpec, SeriesStats, SeriesTrend } from "@/lib/intelligence/inputSpec";
 import { computeSeriesStats } from "@/lib/intelligence/inputSpec";
 
 const ACCENT = "#2563EB";
@@ -20,11 +20,28 @@ const cellCls =
   "focus:outline-none focus:border-[#2563EB] transition";
 
 const TREND_META = {
-  rising:   { Icon: TrendingUp,   color: "#059669", label: "Rising"   },
-  falling:  { Icon: TrendingDown, color: "#DC2626", label: "Falling"  },
-  flat:     { Icon: Minus,        color: "#6B7280", label: "Flat"     },
-  volatile: { Icon: Activity,     color: "#D97706", label: "Volatile" },
+  rising:   { Icon: TrendingUp,   label: "Rising"   },
+  falling:  { Icon: TrendingDown, label: "Falling"  },
+  flat:     { Icon: Minus,        label: "Flat"     },
+  volatile: { Icon: Activity,     label: "Volatile" },
 } as const;
+
+const GOOD = "#059669";
+const BAD  = "#DC2626";
+const NEUTRAL = "#6B7280";
+const WARN = "#D97706";
+
+/**
+ * Direction alone does not say whether a trend is good.
+ * Cycle time falling is progress; meeting load rising is not. Colour follows
+ * the metric's own polarity rather than the direction of the line.
+ */
+function trendColour(trend: SeriesTrend, betterWhen: "higher" | "lower"): string {
+  if (trend === "volatile") return WARN;
+  if (trend === "flat")     return NEUTRAL;
+  const improving = betterWhen === "higher" ? trend === "rising" : trend === "falling";
+  return improving ? GOOD : BAD;
+}
 
 /** Sparkline over the entered values — no library, just a polyline. */
 function Spark({ values, color }: { values: number[]; color: string }) {
@@ -64,9 +81,19 @@ export default function TimeSeriesIntake({
     return init;
   });
 
+  /* Targets seed from the metric defaults and are editable per run — a trend
+     with nothing to measure against can be described but not judged. */
+  const [targets, setTargets] = useState<Record<string, number | null>>(() => {
+    const init: Record<string, number | null> = {};
+    for (const m of spec.metrics) init[m.key] = m.target ?? null;
+    return init;
+  });
+
   const stats = useMemo(
-    () => spec.metrics.map((m) => computeSeriesStats(m, (data[m.key] ?? []).slice(0, periods))),
-    [spec.metrics, data, periods],
+    () => spec.metrics.map((m) =>
+      computeSeriesStats(m, (data[m.key] ?? []).slice(0, periods), targets[m.key])
+    ),
+    [spec.metrics, data, periods, targets],
   );
 
   const setCell = (key: string, idx: number, raw: string) => {
@@ -190,25 +217,56 @@ export default function TimeSeriesIntake({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {stats.map((s) => {
           const meta = TREND_META[s.trend];
+          const colour = trendColour(s.trend, s.betterWhen);
           return (
             <div key={s.key} className="rounded-2xl border border-gray-200 dark:border-white/15 bg-white dark:bg-black p-5">
               <div className="mb-2 flex items-start justify-between gap-2">
                 <p className="text-[11px] font-semibold text-gray-700 dark:text-white/60 leading-snug">{s.label}</p>
                 <span className="inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold"
-                  style={{ color: meta.color, background: `${meta.color}14` }}>
+                  style={{ color: colour, background: `${colour}14` }}>
                   <meta.Icon className="h-3 w-3" />{meta.label}
                 </span>
               </div>
               <p className="mb-1 text-xl font-bold tabular-nums text-black dark:text-white">
                 {s.last}{s.unit}
-                <span className="ml-2 text-xs font-semibold" style={{ color: meta.color }}>
+                <span className="ml-2 text-xs font-semibold" style={{ color: colour }}>
                   {s.changePct > 0 ? "+" : ""}{s.changePct}%
                 </span>
               </p>
-              <Spark values={s.values} color={meta.color} />
+              <Spark values={s.values} color={colour} />
               <p className="mt-1 text-[10px] text-gray-600 dark:text-white/40 tabular-nums">
                 range {s.min}–{s.max}{s.unit} · mean {s.mean}{s.unit}
               </p>
+
+              {/* Target — editable, and the only thing that turns a trend into a verdict */}
+              <label className="mt-2 flex items-center gap-1.5 border-t border-gray-100 pt-2 dark:border-white/8">
+                <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-600 dark:text-white/40">
+                  Target
+                </span>
+                <input
+                  type="number"
+                  value={targets[s.key] ?? ""}
+                  placeholder="none"
+                  onChange={(e) =>
+                    setTargets((t) => ({
+                      ...t,
+                      [s.key]: e.target.value === "" ? null : Number(e.target.value),
+                    }))
+                  }
+                  className="w-14 rounded border border-gray-200 bg-white px-1.5 py-0.5 text-[11px] tabular-nums text-black outline-none focus:border-[#2563EB] dark:border-white/15 dark:bg-black dark:text-white"
+                />
+                {s.attainment !== null && (
+                  <span
+                    className="ml-auto rounded px-1.5 py-0.5 text-[10px] font-bold tabular-nums"
+                    style={{
+                      background: s.onTarget ? "#04785715" : "#B4530915",
+                      color:      s.onTarget ? "#047857"   : "#B45309",
+                    }}
+                  >
+                    {s.onTarget ? "met" : "missed"} · {s.attainment}%
+                  </span>
+                )}
+              </label>
             </div>
           );
         })}

@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function R19Page() {
   const config = MODULE_REGISTRY["R19"] ?? buildFallbackConfig("R19", "R-Series — Cadence Intelligence", "Cadence Impact Area Engine");
   return (
-    <DashboardTierGate pillar="R19 — Cadence Impact Area Engine" backHref="/r18-cultural-cadence-fit" backLabel="Cultural Cadence Fit">
+    <DashboardTierGate pillar="Cadence Impact Area Engine" backHref="/r18-cultural-cadence-fit" backLabel="Cultural Cadence Fit">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q21Page() {
   const config = MODULE_REGISTRY["Q21"] ?? buildFallbackConfig("Q21", "Q-Series — Decision Intelligence", "Decision Framework Builder Engine");
   return (
-    <DashboardTierGate pillar="Q21 — Decision Framework Builder Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Decision Framework Builder Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

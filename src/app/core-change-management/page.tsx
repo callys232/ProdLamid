@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function CoreChangeManagementPage() {
   const config = MODULE_REGISTRY["C08"] ?? buildFallbackConfig("C08", "LAMID CORE — Consulting Intelligence", "Change Management Engine");
   return (
-    <DashboardTierGate pillar="C08 — Change Management Engine" backHref="/core-strategic-alignment" backLabel="Strategic Alignment Engine">
+    <DashboardTierGate pillar="Change Management Engine" backHref="/core-strategic-alignment" backLabel="Strategic Alignment Engine">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );
