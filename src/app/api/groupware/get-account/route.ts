@@ -3,10 +3,11 @@ import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
 import { Users } from "@/lib/models/User";
 import jwt from "jsonwebtoken";
+import { getJwtSecret } from "@/lib/jwt";
 
 export const dynamic = "force-dynamic";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 // Demo short-circuit enabled everywhere unless explicitly turned off
 const DEMO_ENABLED = process.env.DEMO_MODE !== "false";
 

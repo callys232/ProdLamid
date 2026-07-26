@@ -1,8 +1,9 @@
 // ⚠️ DEV ONLY — zero database dependency, self-contained JWT
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 /* Payloads match JwtAccessTokenPayload — sub + type:"access" are required for verifyAccessToken */
 const DEV_ACCOUNTS: Record<string, object> = {

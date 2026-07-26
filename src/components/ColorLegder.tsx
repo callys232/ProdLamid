@@ -9,7 +9,7 @@ export default function EcosystemLedger() {
       color: "#1E3A8A",
       label: "Blue",
       title: "Business Innovation Zone (BIZ)",
-      tagline: "Driving innovation and entrepreneurship",
+      tagline: "Where new ventures get built.",
       Icon: (props: { className?: string }) => (
         <svg
           className={props.className}
@@ -24,7 +24,7 @@ export default function EcosystemLedger() {
       color: "#F97316",
       label: "Orange",
       title: "Talent Development (TD)",
-      tagline: "Empowering people and skills",
+      tagline: "People and skills that compound.",
       Icon: (props: { className?: string }) => (
         <svg
           className={props.className}
@@ -39,7 +39,7 @@ export default function EcosystemLedger() {
       color: "#16A34A",
       label: "Green",
       title: "Sustainable Development (SD)",
-      tagline: "Building a resilient future",
+      tagline: "Growth that outlasts the cycle.",
       Icon: (props: { className?: string }) => (
         <svg
           className={props.className}

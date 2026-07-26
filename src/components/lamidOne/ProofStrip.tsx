@@ -23,7 +23,7 @@ const ITEMS = [
 
 export default function ProofStrip() {
   return (
-    <section className="relative aivora-section border-y border-white/8 dark:border-white/8 border-gray-200 py-4 overflow-hidden">
+    <section className="relative lamidone-section border-y border-white/8 dark:border-white/8 border-gray-200 py-4 overflow-hidden">
       <div className="max-w-5xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 6 }}
@@ -37,7 +37,7 @@ export default function ProofStrip() {
               <span className="flex items-center gap-2">
                 <item.Icon className="w-4 h-4 shrink-0 text-[#2563EB]" strokeWidth={1.5} />
                 <span className="text-xs sm:text-sm text-gray-500 dark:text-white/50 font-medium">
-                  <strong className="font-bold aivora-gradient-text">{item.bold}</strong>
+                  <strong className="font-bold lamidone-gradient-text">{item.bold}</strong>
                   {" "}{item.text}
                 </span>
               </span>

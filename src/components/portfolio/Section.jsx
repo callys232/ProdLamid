@@ -21,8 +21,8 @@ const PILLARS = [
     hex: "#3b82f6",
     glow: "rgba(59,130,246,0.28)",
     label: "Vision",
-    tags: ["4,000 Talents", "25% Growth", "Africa Focus"],
-    bold: 'Vision 2025: "To nurture 4,000 more of Africa\'s best talents to deliver excellence, grow and in-creating profitability and providing sustainable businesses by 2025. With client-focused and customized organizational growth and development models and support, because we commit to a shared outcome."',
+    tags: ["4,000 Talents", "25% Growth", "Global Reach"],
+    bold: 'Vision 2025: "To nurture 4,000 more of the world\'s best talents to deliver excellence, grow and in-creating profitability and providing sustainable businesses by 2025. With client-focused and customized organizational growth and development models and support, because we commit to a shared outcome."',
     body: " Creating a growth of 25% annually.",
   },
   {

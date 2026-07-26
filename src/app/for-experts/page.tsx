@@ -27,7 +27,7 @@ const BENEFITS = [
   {
     icon: "▣",
     title: "Premium Compensation",
-    body: "Set your own rates. Get paid on time, every time. LAMID ONE handles invoicing and collections seamlessly.",
+    body: "Set your own rates. Get paid on time, every time. LAMID ONE handles invoicing and collections for you.",
     href: "/signup",
   },
 ];
@@ -61,7 +61,7 @@ export default function ForExpertsPage() {
   const router = useRouter();
 
   return (
-    <div className="aivora-section min-h-screen">
+    <div className="lamidone-section min-h-screen">
 
       {/* ── Hero ── */}
       <section className="relative px-4 pt-28 pb-10 text-center overflow-hidden">
@@ -75,11 +75,11 @@ export default function ForExpertsPage() {
         </svg>
 
         <motion.div {...fadeUp(0)} className="relative z-10 max-w-3xl mx-auto">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             For Experts
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-            <span className="aivora-gradient-text">Amplify Your Expertise</span>
+            <span className="lamidone-gradient-text">Amplify Your Expertise</span>
           </h1>
           <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
             Join the LAMID ONE ecosystem and get matched with high-value engagements.
@@ -116,7 +116,7 @@ export default function ForExpertsPage() {
                   onClick={() => router.push(b.href)}
                   whileHover={{ y: -5, boxShadow: "0 14px 34px rgba(37,99,235,0.16)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="aivora-card border rounded-2xl p-7 cursor-pointer"
+                  className="lamidone-card border rounded-2xl p-7 cursor-pointer"
                   style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
                   <motion.div
@@ -124,12 +124,12 @@ export default function ForExpertsPage() {
                     animate={{ scale: isHov ? 1.1 : 1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 18 }}
                   >
-                    <span className="text-base aivora-gradient-text">{b.icon}</span>
+                    <span className="text-base lamidone-gradient-text">{b.icon}</span>
                   </motion.div>
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{b.title}</h3>
                   <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{b.body}</p>
                   <motion.span
-                    className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
+                    className="text-[10px] font-semibold mt-3 block lamidone-gradient-text"
                     animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                     transition={{ duration: 0.15 }}
                   >
@@ -147,7 +147,7 @@ export default function ForExpertsPage() {
         <div className="max-w-4xl mx-auto">
           <motion.div
             {...fadeUp(0)}
-            className="aivora-card border rounded-2xl p-8"
+            className="lamidone-card border rounded-2xl p-8"
           >
             <h2 className="text-lg font-bold text-gray-900 dark:text-white text-center mb-8">
               Eligibility Requirements
@@ -183,7 +183,7 @@ export default function ForExpertsPage() {
                   onClick={() => router.push(step.href)}
                   whileHover={{ y: -6, boxShadow: "0 14px 34px rgba(37,99,235,0.16)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="aivora-card border rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer"
+                  className="lamidone-card border rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer"
                   style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
                   <motion.div

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 const DEMO_ACCOUNTS = {
   starter: {

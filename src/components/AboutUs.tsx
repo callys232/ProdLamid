@@ -149,9 +149,9 @@ const AboutUs = ({ showArrow = true }: { showArrow?: boolean }) => {
                           Our Mission
                         </h2>
                         <p className="text-sm leading-relaxed text-white">
-                          To empower businesses and experts with the systems,
-                          tools, and intelligence they need to grow sustainably
-                          and transform meaningfully.
+                          Give businesses and experts the systems, tools, and
+                          intelligence to grow without breaking what already
+                          works.
                         </p>
                         {showArrow && (
                           <motion.div

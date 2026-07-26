@@ -167,8 +167,8 @@ const BusinessInnovationZone = () => {
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           whileHover={{ scale: 1.02, color: "#ffffff" }}
         >
-          We help Organizations continously innovate around the client and adapt
-          to the digital age for efficiency and competitiveness.
+          Innovate around the client. Adapt to the digital age with the
+          efficiency and competitiveness it demands.
         </motion.p>
         {/* BEST Section */}
         <motion.div {...fadeUp(0.2)} className="mb-4">

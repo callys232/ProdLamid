@@ -4,11 +4,35 @@ import { Milestone } from "@/lib/models/Milestone";
 import { Escrow } from "@/lib/models/Escrow";
 import { Project } from "@/lib/models/Project";
 import { Notification } from "@/lib/models/Notification";
+import { verifyAuth } from "@/lib/middleware/auth";
+import { rateLimit } from "@/lib/rateLimit";
 
 // GET /api/escrow/auto-release
-// Called by a cron job or on workspace load — no user auth required.
+// Called by a cron job (x-cron-secret header) or by a signed-in user on
+// workspace load. Previously open to anyone — it only releases milestones that
+// are already ai_certified and past their deadline, but leaving an unauthenticated
+// endpoint that moves money and does unbounded DB writes is not acceptable.
 export async function GET(request: NextRequest) {
   try {
+    const cronSecret = process.env.CRON_SECRET;
+    const isCron =
+      !!cronSecret && request.headers.get("x-cron-secret") === cronSecret;
+
+    if (!isCron) {
+      const auth = await verifyAuth(request);
+      if (!auth?.userId) {
+        return NextResponse.json({ message: "Unauthorised." }, { status: 401 });
+      }
+      // Throttle user-triggered sweeps; cron is exempt.
+      const limit = await rateLimit(`escrow-autorelease:${auth.userId}`, {
+        windowMs: 60_000,
+        max: 5,
+      });
+      if (!limit.allowed) {
+        return NextResponse.json({ message: "Too many requests." }, { status: 429 });
+      }
+    }
+
     await connectDB();
 
     const now = new Date();

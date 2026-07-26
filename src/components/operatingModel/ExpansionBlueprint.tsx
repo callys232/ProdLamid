@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import type { ExpansionVector } from "@/mocks/sovereign";
+import type { ExpansionVector } from "@/mocks/operatingModel";
 
 interface Props { vectors: ExpansionVector[] }
 const g = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: d } });
@@ -13,11 +13,11 @@ export default function ExpansionBlueprint({ vectors }: Props) {
           <div>
             <p className="text-[9px] tracking-[0.4em] uppercase text-[#C9A84C]/70 mb-1">Phase II — Expansion Architecture</p>
             <h2 className="text-xl font-bold text-[#E8E0CC]" style={{ fontFamily: "Georgia, serif" }}>Enterprise Expansion Blueprint</h2>
-            <p className="text-xs text-[#E8E0CC]/40 mt-1">Four sovereign growth vectors — horizontal, vertical, alliance, and digital</p>
+            <p className="text-xs text-[#E8E0CC]/40 mt-1">Four operating model growth vectors — horizontal, vertical, alliance, and digital</p>
           </div>
           <button type="button" className="flex items-center gap-2 border border-[#C9A84C]/25 bg-[#C9A84C]/6 px-4 py-2 text-[10px] font-bold tracking-[0.2em] uppercase text-[#C9A84C] hover:bg-[#C9A84C]/12 transition-colors">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l-4 4 4 3-4 1 5 2V5l3-2z" fill="#C9A84C" /></svg>
-            Expansion Chancellor
+            Head of Expansion
           </button>
         </motion.div>
 
@@ -38,8 +38,8 @@ export default function ExpansionBlueprint({ vectors }: Props) {
 
         <motion.div {...g(0.45)} className="mt-4 border border-[#C9A84C]/10 bg-[#0d1422] px-5 py-3 text-[10px] text-[#E8E0CC]/40">
           <span className="text-[#E8E0CC]/60 font-semibold">Authorization Required:</span> All expansion vectors require{" "}
-          <span className="text-[#C9A84C]">Expansion Chancellor authorization</span> and{" "}
-          <span className="text-[#C9A84C]">Sovereign Council ratification</span> prior to deployment.
+          <span className="text-[#C9A84C]">Head of Expansion authorization</span> and{" "}
+          <span className="text-[#C9A84C]">Executive Council ratification</span> prior to deployment.
         </motion.div>
       </div>
     </section>

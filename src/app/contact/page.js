@@ -68,10 +68,10 @@ export default function ContactPage() {
     }
   };
 
-  const inputCls = "w-full px-4 py-2.5 rounded-xl text-sm aivora-card border text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/25 focus:outline-none focus:border-[#2563EB]/50 transition-colors";
+  const inputCls = "w-full px-4 py-2.5 rounded-xl text-sm lamidone-card border text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/25 focus:outline-none focus:border-[#2563EB]/50 transition-colors";
 
   return (
-    <main className="aivora-section min-h-screen pt-24 pb-8 px-4">
+    <main className="lamidone-section min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
 
         {/* ── Hero ── */}
@@ -91,10 +91,10 @@ export default function ContactPage() {
             return (
               <motion.div key={card.title} {...fadeUp(i * 0.08)}
                 onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-                className="aivora-card border rounded-2xl p-6 flex flex-col gap-4 transition-all duration-200"
+                className="lamidone-card border rounded-2xl p-6 flex flex-col gap-4 transition-all duration-200"
                 style={{ borderColor: hov ? "rgba(37,99,235,0.4)" : undefined }}>
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#2563EB]/12 border border-[#2563EB]/25">
-                  <span className="text-base aivora-gradient-text">{card.icon}</span>
+                  <span className="text-base lamidone-gradient-text">{card.icon}</span>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{card.title}</h3>
@@ -102,7 +102,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <Link href={card.href}
-                    className="text-xs font-semibold aivora-gradient-text hover:opacity-70 transition-opacity">
+                    className="text-xs font-semibold lamidone-gradient-text hover:opacity-70 transition-opacity">
                     {card.cta} →
                   </Link>
                   {card.sub && <span className="text-[10px] text-gray-400 dark:text-white/25">{card.sub}</span>}
@@ -117,11 +117,11 @@ export default function ContactPage() {
           <h2 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-8">Send us a message.</h2>
 
           {sent ? (
-            <div className="aivora-card border border-emerald-500/30 rounded-2xl p-10 text-center">
+            <div className="lamidone-card border border-emerald-500/30 rounded-2xl p-10 text-center">
               <p className="text-emerald-400 font-semibold mb-2">Message received.</p>
               <p className="text-sm text-gray-500 dark:text-white/50 leading-relaxed">
                 We&apos;ll respond within 2 business hours. If urgent, email us at{" "}
-                <a href="mailto:hello@lamid.io" className="aivora-gradient-text hover:opacity-70 transition-opacity">hello@lamid.io</a>
+                <a href="mailto:hello@lamid.io" className="lamidone-gradient-text hover:opacity-70 transition-opacity">hello@lamid.io</a>
               </p>
             </div>
           ) : (

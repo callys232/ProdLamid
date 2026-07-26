@@ -28,8 +28,8 @@ interface Props {
 const STORAGE_KEY_THRESHOLD = "lamid_approval_threshold";
 const STORAGE_KEY_HISTORY   = "lamid_approval_history";
 
-const fmt = (n: number) =>
-  new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
+const fmt = (n: number, currency = "USD") =>
+  new Intl.NumberFormat(undefined, { style: "currency", currency, maximumFractionDigits: 0 }).format(n);
 
 const fadeUp = (i = 0) => ({
   initial:    { opacity: 0, y: 12 },

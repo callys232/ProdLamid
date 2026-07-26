@@ -75,7 +75,7 @@ const container = { hidden: {}, show: { transition: { staggerChildren: 0.08, del
 
 export default function SolutionsPage() {
   return (
-    <main className="min-h-screen aivora-section">
+    <main className="min-h-screen lamidone-section">
 
       {/* Hero */}
       <section className="relative py-28 px-4 text-center overflow-hidden">
@@ -97,7 +97,7 @@ export default function SolutionsPage() {
           <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.48 }}>
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8 mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
-              <span className="aivora-gradient-text">Built for Your Role. Built for Your Scale.</span>
+              <span className="lamidone-gradient-text">Built for Your Role. Built for Your Scale.</span>
             </span>
           </motion.div>
 
@@ -108,7 +108,7 @@ export default function SolutionsPage() {
             className="text-3xl sm:text-4xl md:text-6xl font-bold leading-[1.12] tracking-tight text-gray-900 dark:text-white mb-6"
           >
             The right solution{" "}
-            <span className="aivora-gradient-text">for where you are.</span>
+            <span className="lamidone-gradient-text">for where you are.</span>
           </motion.h1>
 
           <motion.p
@@ -132,7 +132,7 @@ export default function SolutionsPage() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
               By Role
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
@@ -152,7 +152,7 @@ export default function SolutionsPage() {
                 key={sol.role}
                 variants={cardV}
                 whileHover={{ y: -5, boxShadow: "0 16px 40px rgba(37,99,235,0.18)" }}
-                className="aivora-card border rounded-2xl p-7 flex flex-col"
+                className="lamidone-card border rounded-2xl p-7 flex flex-col"
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-[#2563EB]/25 bg-[#2563EB]/10">
                   <sol.Icon className="w-6 h-6 text-[#2563EB]" strokeWidth={1.75} />
@@ -174,7 +174,7 @@ export default function SolutionsPage() {
                 </div>
 
                 <Link href={sol.ctaHref}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold aivora-gradient-text hover:opacity-80 transition-opacity"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold lamidone-gradient-text hover:opacity-80 transition-opacity"
                 >
                   {sol.cta} →
                 </Link>

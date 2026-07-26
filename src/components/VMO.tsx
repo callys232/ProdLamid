@@ -13,8 +13,8 @@ const CARDS = [
     dropdownBorderCls: "border-green-600/25",
     learnMoreCls: "text-green-500 hover:text-green-400",
     preview:
-      "To build Africa's most trusted digital ecosystem for enterprise performance, talent acceleration, and seamless work.",
-    full: "To build Africa's most trusted digital ecosystem for enterprise performance, talent acceleration, and seamless work. We exist to close the gap between ambition and execution — giving every business, professional, and community the infrastructure to grow with confidence, clarity, and purpose.",
+      "To build the world's most trusted digital ecosystem for enterprise performance, talent acceleration, and work that runs cleanly.",
+    full: "To build the world's most trusted digital ecosystem for enterprise performance, talent acceleration, and work that runs cleanly. We exist to close the gap between ambition and execution — giving every business, professional, and community the infrastructure to grow with confidence, clarity, and purpose.",
     href: "/portfolio",
   },
   {
@@ -25,8 +25,8 @@ const CARDS = [
     dropdownBorderCls: "border-blue-600/25",
     learnMoreCls: "text-blue-400 hover:text-blue-300",
     preview:
-      "To empower businesses and experts with the systems, tools, and intelligence they need to grow sustainably and transform meaningfully.",
-    full: "To empower businesses and experts with the systems, tools, and intelligence they need to grow sustainably and transform meaningfully. Through AI-enabled technology, marketplace infrastructure, and enterprise-grade consulting, we make world-class capability accessible across Africa and beyond.",
+      "Give businesses and experts the systems, tools, and intelligence they need to grow sustainably and transform meaningfully.",
+    full: "Give businesses and experts the systems, tools, and intelligence they need to grow sustainably and transform meaningfully. Through AI-enabled technology, marketplace infrastructure, and enterprise-grade consulting, we put expert capability within reach in every market we serve.",
     href: "/portfolio",
   },
   {

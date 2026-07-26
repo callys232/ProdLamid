@@ -25,6 +25,7 @@ import SLATracker           from "./SLATracker";
 import ConciergeKPIs        from "./ConciergeKPIs";
 import { UserGuide } from "@/components/Guides/UserGuide";
 import { conciergeGuide } from "@/lib/UserGuide/conciergeGuide";
+import ToolUsageHistory from "@/components/lamidOne/ToolUsageHistory";
 
 /* ── Nav items ─────────────────────────────────────────────────── */
 const NAV = [
@@ -74,7 +75,12 @@ export default function ConciergeDashboard() {
 
   const renderTab = () => {
     switch (activeTab) {
-      case "overview":      return <Overview />;
+      case "overview":      return (
+        <div className="space-y-6">
+          <Overview />
+          <ToolUsageHistory />
+        </div>
+      );
       case "projects":      return (
         <ConciergeProjects
           onOpenMessaging={() => switchTab("messaging")}

@@ -1,12 +1,12 @@
 "use client";
-import DashboardTierGate from "@/components/aivora/DashboardTierGate";
-import IntelligenceModule from "@/components/aivora/IntelligenceModule";
+import DashboardTierGate from "@/components/lamidOne/DashboardTierGate";
+import IntelligenceModule from "@/components/lamidOne/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function R14Page() {
   const config = MODULE_REGISTRY["R14"] ?? buildFallbackConfig("R14", "R-Series — Cadence Intelligence", "Real-Time Cadence Pulse Engine");
   return (
-    <DashboardTierGate pillar="R14 — Real-Time Cadence Pulse Engine" backHref="/r13-rhythm-resonance" backLabel="Team Cadence Engagement Score">
+    <DashboardTierGate pillar="R14 — Real-Time Cadence Pulse Engine" backHref="/r13-team-cadence-engagement-score" backLabel="Team Cadence Engagement Score">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

@@ -7,7 +7,7 @@ const SDTestimonialandRest = () => {
     <div className="bg-black text-white min-h-screen">
       <Head>
         <title>Training & Testimonials</title>
-        <meta name="description" content="World-class training programs and testimonials" />
+        <meta name="description" content="Training programmes and client results" />
       </Head>
       
       <div className="container mx-auto px-4 py-12">
@@ -19,7 +19,7 @@ const SDTestimonialandRest = () => {
             <div className="space-y-4">
               <p className="text-sm text-gray-300">
                 <span className="text-white">"</span>The programs helped in the effective management and motivation of staff to 
-                enable them leverage their intellectual capability, to transform business 
+                help them apply their intellectual capability, to transform business 
                 challenges into results.<span className="text-white">"</span>
               </p>
               
@@ -57,9 +57,9 @@ const SDTestimonialandRest = () => {
             />
           </div>
           
-          {/* Building world-class talents */}
+          {/* Building strong talent */}
           <div>
-            <h3 className="text-xl font-semibold text-orange-500 mb-4">Building world-class talents</h3>
+            <h3 className="text-xl font-semibold text-orange-500 mb-4">Building strong talent</h3>
             <p className="text-sm text-gray-300 mb-6">
               Our training events have a distinct signature for being adaptable 
               and unique throughout to obtain the desired outcome and 

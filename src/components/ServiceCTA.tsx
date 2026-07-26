@@ -57,7 +57,7 @@ const SERVICES = {
 
   concierge: {
     title: "Lamid Concierge",
-    tagline: "Your dedicated business execution partner.",
+    tagline: "Bespoke execution for enterprise leadership.",
     badge: "On-Demand",
     description:
       "Lamid Concierge connects you with a dedicated advisor who handles the operational, strategic and administrative tasks that slow your business down. From sourcing partners to managing workflows — we execute so you can lead.",

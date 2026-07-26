@@ -115,7 +115,7 @@ function CopyButton({ value }: { value: string }) {
 
 export default function DemoPage() {
   return (
-    <main className="min-h-screen aivora-section">
+    <main className="min-h-screen lamidone-section">
 
       {/* Hero */}
       <section className="relative py-24 px-4 overflow-hidden">
@@ -141,7 +141,7 @@ export default function DemoPage() {
           >
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
-              <span className="aivora-gradient-text">Live demo — no sign-up needed</span>
+              <span className="lamidone-gradient-text">Live demo — no sign-up needed</span>
             </span>
           </motion.div>
 
@@ -152,7 +152,7 @@ export default function DemoPage() {
             className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-gray-900 dark:text-white mb-5"
           >
             Explore the ecosystem{" "}
-            <span className="aivora-gradient-text">as any role.</span>
+            <span className="lamidone-gradient-text">as any role.</span>
           </motion.h1>
 
           <motion.p
@@ -162,7 +162,7 @@ export default function DemoPage() {
             className="text-gray-500 dark:text-white/60 text-base leading-relaxed max-w-xl mx-auto"
           >
             Pick an account type, copy the credentials, and sign in on the{" "}
-            <Link href="/signin" className="aivora-gradient-text hover:opacity-80">login page</Link>.
+            <Link href="/signin" className="lamidone-gradient-text hover:opacity-80">login page</Link>.
             Each demo gives you a real 2-hour session.
           </motion.p>
         </div>
@@ -182,7 +182,7 @@ export default function DemoPage() {
               <motion.div
                 key={account.type}
                 variants={cardV}
-                className={`relative flex flex-col aivora-card border rounded-2xl p-7 overflow-hidden ${
+                className={`relative flex flex-col lamidone-card border rounded-2xl p-7 overflow-hidden ${
                   account.highlight
                     ? "border-[#2563EB]/50 shadow-[0_0_40px_rgba(37,99,235,0.16)]"
                     : "border-[#2563EB]/12"
@@ -259,7 +259,7 @@ export default function DemoPage() {
           className="text-center text-[11px] text-gray-400 dark:text-white/25 mt-10 max-w-lg mx-auto"
         >
           Demo sessions expire after 2 hours. Data shown is illustrative.{" "}
-          <Link href="/signup" className="aivora-gradient-text hover:opacity-80">
+          <Link href="/signup" className="lamidone-gradient-text hover:opacity-80">
             Create a real account →
           </Link>
         </motion.p>
@@ -267,7 +267,7 @@ export default function DemoPage() {
 
       {/* Back */}
       <div className="pb-12 text-center">
-        <Link href="/ecosystem" className="inline-flex items-center gap-2 text-sm font-medium aivora-gradient-text hover:opacity-80 transition-opacity">
+        <Link href="/ecosystem" className="inline-flex items-center gap-2 text-sm font-medium lamidone-gradient-text hover:opacity-80 transition-opacity">
           ← Back to the Ecosystem
         </Link>
       </div>

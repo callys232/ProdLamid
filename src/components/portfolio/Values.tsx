@@ -48,7 +48,7 @@ const VALUES = [
   {
     num: "06",
     title: "Innovation",
-    desc: "We create solutions that scale across borders.",
+    desc: "We build what doesn't exist yet, then make it work at scale.",
     Icon: Target,
     hex: "#f59e0b",
     glow: "rgba(245,158,11,0.35)",

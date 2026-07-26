@@ -58,7 +58,7 @@ const PILLARS = [
     icon: "⬟",
     number: "03",
     title: "Talent Lifecycle Integration",
-    tagline: "A seamless, end-to-end talent engine.",
+    tagline: "One talent engine, end to end.",
     iconCls: "text-emerald-400",
     openBorderCls: "border-emerald-500/35",
     closedBorderCls: "border-white/8",
@@ -120,7 +120,7 @@ export default function TalentPillars() {
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
             Four Pillars of a{" "}
-            <span className="text-orange-400">World-Class Talent System.</span>
+            <span className="text-orange-400">Complete Talent System.</span>
           </h2>
           <p className="mt-2 text-white/50 text-sm max-w-lg leading-relaxed">
             Training, assessments, and learning pathways enhanced by trusted expertise and advanced AI.

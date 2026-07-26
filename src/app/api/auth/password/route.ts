@@ -5,8 +5,9 @@ import { Users } from "@/lib/models/User";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import bcryptjs from "bcryptjs";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 export async function POST(request: Request) {
     try {

@@ -22,6 +22,7 @@ import ApprovalWorkflow  from "./ApprovalWorkflow";
 import OrgAuditLog       from "./OrgAuditLog";
 
 import type { Organization, EnterpriseDashboardStats, OrgTier, OrgRole } from "@/types/enterprise";
+import ToolUsageHistory from "@/components/lamidOne/ToolUsageHistory";
 
 const MOCK_ORG: Organization = {
   _id: "org-mock-001",
@@ -160,7 +161,12 @@ export default function EnterpriseDashboard() {
 
   function renderTab() {
     switch (activeTab) {
-      case "overview":      return <Overview       stats={stats} tier={tier} orgName={org?.name ?? ""} onTabChange={handleTabChange} />;
+      case "overview":      return (
+        <div className="space-y-6">
+          <Overview stats={stats} tier={tier} orgName={org?.name ?? ""} onTabChange={handleTabChange} />
+          <ToolUsageHistory />
+        </div>
+      );
       case "members":       return <Members        orgId={org?._id ?? ""} orgRole={orgRole} memberCount={count} maxMembers={max} tier={tier} />;
       case "teams":         return <EnterpriseTeams orgId={org?._id ?? ""} />;
       case "invitations":   return <EnterpriseInvitations orgId={org?._id ?? ""} />;

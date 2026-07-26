@@ -98,7 +98,7 @@ const HIW_OUTCOMES = [
   "Better collaboration",
   "Fewer silos",
   "Higher productivity",
-  "Seamless remote & hybrid work",
+  "Remote and hybrid work that runs cleanly",
 ];
 
 export default function HowItWorksModal({ onClose }: { onClose: () => void }) {

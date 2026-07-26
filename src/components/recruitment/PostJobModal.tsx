@@ -232,7 +232,7 @@ export default function PostJobModal({ open, onClose, onSuccess }: PostJobModalP
                   </div>
                   <div>
                     <Label>Location</Label>
-                    <input value={form.location} onChange={set("location")} placeholder="Lagos, Nigeria" className={inputCls} />
+                    <input value={form.location} onChange={set("location")} placeholder="City, Country" className={inputCls} />
                   </div>
                   <div>
                     <Label>Application Deadline</Label>

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Activity, Clock, Waves, Shuffle, AlertCircle, ArrowUpRight } from "lucide-react";
-import DashboardTierGate from "@/components/aivora/DashboardTierGate";
+import DashboardTierGate from "@/components/lamidOne/DashboardTierGate";
 
 const KPIS = [
   { icon: Activity, label: "Cadence Health Index",    value: "76%",    trend: "Stable for 45 days" },
@@ -31,11 +31,11 @@ const fadeUp = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opac
 export default function RhythmIntelligencePage() {
   return (
     <DashboardTierGate pillar="R-Series — Cadence Intelligence" backHref="/quality-intelligence" backLabel="Back to Quality Intelligence">
-      <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+      <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
         <div className="max-w-6xl mx-auto">
 
           <motion.div {...fadeUp(0)} className="mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">R-Series · Cadence Intelligence</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">R-Series · Cadence Intelligence</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Cadence Intelligence</h1>
             <p className="text-gray-500 dark:text-white/45 text-sm max-w-xl">
               The enterprise heartbeat. Map timing, detect cadence drift, and synchronise every dimension of organisational cadence.
@@ -44,7 +44,7 @@ export default function RhythmIntelligencePage() {
 
           <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
             {KPIS.map((kpi) => (
-              <div key={kpi.label} className="aivora-card border rounded-2xl p-5">
+              <div key={kpi.label} className="lamidone-card border rounded-2xl p-5">
                 <kpi.icon className="w-4 h-4 text-[#2563EB] mb-3" strokeWidth={2.2} />
                 <p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1.5">{kpi.value}</p>
                 <p className="text-xs text-gray-500 dark:text-white/45">{kpi.label}</p>
@@ -55,7 +55,7 @@ export default function RhythmIntelligencePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-            <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6">
+            <motion.div {...fadeUp(0.1)} className="lamidone-card border rounded-2xl p-6">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Cadence Signals</p>
               <div className="flex flex-col gap-3">
                 {SIGNALS.map((s) => (
@@ -70,7 +70,7 @@ export default function RhythmIntelligencePage() {
               </div>
             </motion.div>
 
-            <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
+            <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Cadence Dimensions</p>
               <div className="flex flex-col gap-4">
                 {DIMENSIONS.map((d) => (

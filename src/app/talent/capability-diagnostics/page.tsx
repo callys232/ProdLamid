@@ -7,7 +7,7 @@ import {
   Brain, Plus, Trash2, AlertCircle, ArrowUpRight,
   ChevronRight, CheckCircle2, Loader2, BookOpen,
 } from "lucide-react";
-import DashboardTierGate from "@/components/aivora/DashboardTierGate";
+import DashboardTierGate from "@/components/lamidOne/DashboardTierGate";
 
 type Skill = { name: string; currentLevel: number; targetLevel: number };
 type PageState = "form" | "loading" | "result";
@@ -86,7 +86,7 @@ function ScoreRing({ score }: { score: number }) {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-3xl font-extrabold aivora-gradient-text leading-none">{score}</span>
+        <span className="text-3xl font-extrabold lamidone-gradient-text leading-none">{score}</span>
         <span className="text-[9px] text-gray-400 dark:text-white/35 tracking-wide mt-0.5">/ 100</span>
       </div>
     </div>
@@ -136,7 +136,7 @@ function CapabilityContent() {
   /* ── Loading ── */
   if (state === "loading") {
     return (
-      <main className="aivora-section min-h-screen flex items-center justify-center">
+      <main className="lamidone-section min-h-screen flex items-center justify-center">
         <motion.div {...fadeUp()} className="flex flex-col items-center gap-4 text-center">
           <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/25 flex items-center justify-center">
             <Loader2 className="w-6 h-6 text-[#2563EB] animate-spin" strokeWidth={2} />
@@ -151,21 +151,21 @@ function CapabilityContent() {
   /* ── Results ── */
   if (state === "result" && result) {
     return (
-      <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+      <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeUp(0)} className="mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Capability Diagnostics</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Capability Diagnostics</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Your Diagnostic Report</h1>
             <p className="text-sm text-gray-500 dark:text-white/45">{result.executiveSummary}</p>
           </motion.div>
 
           {/* Score + readiness */}
           <motion.div {...fadeUp(0.05)} className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
-            <div className="aivora-card border rounded-2xl p-6 flex flex-col items-center justify-center gap-3">
+            <div className="lamidone-card border rounded-2xl p-6 flex flex-col items-center justify-center gap-3">
               <ScoreRing score={result.overallScore ?? 0} />
               <p className="text-xs text-gray-500 dark:text-white/40">Capability Score</p>
             </div>
-            <div className="aivora-card border rounded-2xl p-6 flex flex-col justify-center gap-2">
+            <div className="lamidone-card border rounded-2xl p-6 flex flex-col justify-center gap-2">
               <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-white/30">Readiness Level</p>
               <p className="text-xl font-bold text-gray-900 dark:text-white">{result.readinessLevel}</p>
               {result.strengths?.map((s: string, i: number) => (
@@ -175,7 +175,7 @@ function CapabilityContent() {
                 </div>
               ))}
             </div>
-            <div className="aivora-card border rounded-2xl p-6 flex flex-col justify-center gap-2">
+            <div className="lamidone-card border rounded-2xl p-6 flex flex-col justify-center gap-2">
               <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-white/30">Well-suited For</p>
               {result.recommendedRoles?.map((r: string, i: number) => (
                 <p key={i} className="text-sm text-gray-800 dark:text-white/80 leading-snug">→ {r}</p>
@@ -185,7 +185,7 @@ function CapabilityContent() {
 
           {/* Skill scores */}
           {result.skillScores?.length > 0 && (
-            <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6 mb-6">
+            <motion.div {...fadeUp(0.1)} className="lamidone-card border rounded-2xl p-6 mb-6">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Skill Scores</p>
               <div className="flex flex-col gap-4">
                 {result.skillScores.map((s: any) => (
@@ -215,7 +215,7 @@ function CapabilityContent() {
           {/* Top gaps + plans */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {result.topGaps?.length > 0 && (
-              <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
+              <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
                 <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Priority Gaps</p>
                 <div className="flex flex-col gap-3">
                   {result.topGaps.map((g: any) => (
@@ -232,7 +232,7 @@ function CapabilityContent() {
               </motion.div>
             )}
 
-            <motion.div {...fadeUp(0.2)} className="aivora-card border rounded-2xl p-6">
+            <motion.div {...fadeUp(0.2)} className="lamidone-card border rounded-2xl p-6">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Action Plans</p>
               {result.thirtyDayPlan?.length > 0 && (
                 <div className="mb-4">
@@ -279,10 +279,10 @@ function CapabilityContent() {
 
   /* ── Form ── */
   return (
-    <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+    <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-2xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-10">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · A1</p>
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · A1</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Capability Diagnostics Engine</h1>
           <p className="text-sm text-gray-500 dark:text-white/45 max-w-lg">
             Map your current skills against your target levels. Our AI identifies gaps and builds you a personalised development plan.
@@ -296,7 +296,7 @@ function CapabilityContent() {
           </motion.div>
         )}
 
-        <motion.div {...fadeUp(0.05)} className="aivora-card border rounded-2xl p-6 flex flex-col gap-5">
+        <motion.div {...fadeUp(0.05)} className="lamidone-card border rounded-2xl p-6 flex flex-col gap-5">
 
           {/* Role & industry */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

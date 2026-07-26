@@ -175,7 +175,7 @@ const TalentClubForm: React.FC<TalentClubProps> = ({ closeModal }) => {
         </div>
         <div>
           <Label required>Country</Label>
-          <input value={form.country} onChange={set("country")} placeholder="Nigeria" className={inputCls} />
+          <input value={form.country} onChange={set("country")} placeholder="Country" className={inputCls} />
           <Err msg={errors.country} />
         </div>
         <Full>

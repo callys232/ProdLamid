@@ -41,7 +41,7 @@ export default function DetailsStep({ project, handleChange, errors }: DetailsSt
           type="text"
           value={project.location}
           onChange={(e) => handleChange("location", e.target.value)}
-          placeholder="e.g. Lagos, Remote, Hybrid"
+          placeholder="e.g. City, Remote, Hybrid"
           className="pj-field"
         />
       </div>

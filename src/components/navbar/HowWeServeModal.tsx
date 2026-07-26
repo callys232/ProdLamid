@@ -46,7 +46,7 @@ const SECTIONS = [
       },
       {
         name: "Human Capital Development",
-        desc: "Talent sourcing, leadership training, and HR solutions for world-class teams.",
+        desc: "Talent sourcing, leadership training, and HR systems that build teams who deliver.",
         href: "/hcd",
         logo: "/hcdLogo.png",
         premium: false,
@@ -551,7 +551,7 @@ export default function HowWeServeModal({
                 {/* Bottom note */}
                 <div className="mt-auto pt-4 border-t border-white/6">
                   <p className="text-xs font-bold leading-snug px-3 text-transparent bg-clip-text bg-gradient-to-b from-[#2563EB] to-white">
-                    Built for Africa.
+                    Built for every market.
                     <br />
                     Designed for the World.
                   </p>

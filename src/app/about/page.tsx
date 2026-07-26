@@ -26,21 +26,21 @@ const fadeUp = (d = 0) => ({
 
 export default function AboutPage() {
   return (
-    <main className="aivora-section min-h-screen pt-24 pb-8 px-4">
+    <main className="lamidone-section min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
 
         {/* ── Hero ── */}
         <motion.div {...fadeUp(0)} className="relative text-center mb-8 overflow-hidden rounded-2xl py-14 px-4">
           <HeroStickmen />
           <div className="relative z-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">About LAMID ONE</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">About LAMID ONE</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-6">
               Our Origin Story
             </h1>
             <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
               LAMID ONE was born from a simple observation: the world&apos;s best expertise is locked behind outdated gatekeepers.
-              We set out to build an ecosystem where AI amplifies human wisdom, making world-class consulting accessible
-              to every organisation — not just those who can afford the Big Four.
+              So we built an ecosystem where AI amplifies human judgement, and expert consulting reaches every organisation —
+              not just the ones who can afford the Big Four.
             </p>
           </div>
         </motion.div>
@@ -51,18 +51,18 @@ export default function AboutPage() {
             {
               icon: "◈",
               title: "Our Mission",
-              body: "To democratize access to world-class expertise by building an AI-powered ecosystem that connects organisations with the right human talent, at the right time, augmented by intelligent technology.",
+              body: "Put expert-level consulting within reach of any organisation. We connect you to the right specialist at the right time, with AI doing the analysis underneath.",
             },
             {
               icon: "⬡",
               title: "Our Vision",
-              body: "A world where every organisation — from startups to governments — can access the intelligence they need to thrive, powered by the seamless synergy of human expertise and artificial intelligence.",
+              body: "Every organisation — startup to government — gets the intelligence it needs to make good decisions. Human judgement and AI, working the same problem.",
             },
           ].map((item, i) => (
             <motion.div key={item.title} {...fadeUp(i * 0.08)}
-              className="aivora-card border rounded-2xl p-7">
+              className="lamidone-card border rounded-2xl p-7">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 bg-[#2563EB]/12 border border-[#2563EB]/25">
-                <span className="text-base aivora-gradient-text">{item.icon}</span>
+                <span className="text-base lamidone-gradient-text">{item.icon}</span>
               </div>
               <h2 className="text-base font-bold text-gray-900 dark:text-white mb-3">{item.title}</h2>
               <p className="text-xs text-gray-500 dark:text-white/50 leading-relaxed">{item.body}</p>
@@ -73,7 +73,7 @@ export default function AboutPage() {
         {/* ── The Promise ── */}
         <motion.div {...fadeUp(0)} className="mb-10">
           <div className="text-center mb-8">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">
               The Promise
             </p>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
@@ -103,12 +103,12 @@ export default function AboutPage() {
                 key={p.word}
                 {...fadeUp(i * 0.08)}
                 whileHover={{ y: -5, boxShadow: "0 20px 44px rgba(37,99,235,0.13)" }}
-                className="group aivora-card border rounded-2xl p-7 text-center hover:border-[#2563EB]/30 transition-all duration-200"
+                className="group lamidone-card border rounded-2xl p-7 text-center hover:border-[#2563EB]/30 transition-all duration-200"
               >
-                <span className="text-2xl aivora-gradient-text block mb-4 select-none group-hover:scale-110 transition-transform duration-200 inline-block">
+                <span className="text-2xl lamidone-gradient-text block mb-4 select-none group-hover:scale-110 transition-transform duration-200 inline-block">
                   {p.icon}
                 </span>
-                <h3 className="text-base font-bold aivora-gradient-text mb-3">{p.word}</h3>
+                <h3 className="text-base font-bold lamidone-gradient-text mb-3">{p.word}</h3>
                 <p className="text-xs text-gray-500 dark:text-white/50 leading-relaxed">{p.desc}</p>
               </motion.div>
             ))}
@@ -123,7 +123,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map((v, i) => (
               <motion.div key={v.title} {...fadeUp(i * 0.07)}
-                className="aivora-card border rounded-2xl p-6 text-center hover:border-[#2563EB]/30 transition-colors duration-200">
+                className="lamidone-card border rounded-2xl p-6 text-center hover:border-[#2563EB]/30 transition-colors duration-200">
                 <div className="text-2xl mb-4">{v.icon}</div>
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{v.title}</h3>
                 <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{v.body}</p>
@@ -141,8 +141,8 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {STATS.map((s, i) => (
               <motion.div key={s.label} {...fadeUp(i * 0.07)}
-                className="aivora-card border rounded-2xl p-6 text-center hover:border-[#2563EB]/25 transition-colors duration-200">
-                <p className="text-3xl font-extrabold aivora-gradient-text mb-1">{s.value}</p>
+                className="lamidone-card border rounded-2xl p-6 text-center hover:border-[#2563EB]/25 transition-colors duration-200">
+                <p className="text-3xl font-extrabold lamidone-gradient-text mb-1">{s.value}</p>
                 <p className="text-xs text-gray-500 dark:text-white/40">{s.label}</p>
               </motion.div>
             ))}

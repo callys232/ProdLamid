@@ -19,7 +19,7 @@ const networkItems: EventItem[] = [
     description: "Explore how job roles are evolving and how to stay ahead.",
     date: "Aug 12, 2025",
     time: "10:00 AM - 12:00 PM",
-    location: "Lagos Innovation Hub",
+    location: "Innovation Hub — Virtual",
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ const networkItems: EventItem[] = [
     description: "Learn the latest strategies for workforce reskilling.",
     date: "Aug 15, 2025",
     time: "2:00 PM - 4:00 PM",
-    location: "Abuja Tech Center",
+    location: "Tech Center — Virtual",
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const networkItems: EventItem[] = [
     description: "Understand which roles are fading and what's replacing them.",
     date: "Aug 20, 2025",
     time: "1:00 PM - 3:00 PM",
-    location: "Port Harcourt Business School",
+    location: "Business School — Virtual",
   },
   {
     id: 4,

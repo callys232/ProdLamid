@@ -52,7 +52,7 @@ export default function ContactSalesPage() {
             {[
               { icon: <Mail className="h-5 w-5 text-blue-500" />, label: "Email", value: "sales@lamid.io" },
               { icon: <Phone className="h-5 w-5 text-blue-500" />, label: "Phone", value: "+1 (800) LAMID-01" },
-              { icon: <Building2 className="h-5 w-5 text-blue-500" />, label: "HQ", value: "Lagos, Nigeria · London, UK" },
+              { icon: <Building2 className="h-5 w-5 text-blue-500" />, label: "Coverage", value: "Global — teams across six continents" },
               { icon: <Users className="h-5 w-5 text-blue-500" />, label: "Team size", value: "Serving 5+ person teams" },
             ].map((item) => (
               <div key={item.label} className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-5">

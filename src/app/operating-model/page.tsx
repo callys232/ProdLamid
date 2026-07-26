@@ -2,23 +2,23 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import DashboardTierGate from "@/components/aivora/DashboardTierGate";
-import SovereignHero         from "@/components/sovereign/SovereignHero";
-import CommandOverview       from "@/components/sovereign/CommandOverview";
-import ArtifactsPanel        from "@/components/sovereign/ArtifactsPanel";
-import ThroneMatrix          from "@/components/sovereign/ThroneMatrix";
-import GovernanceMatrix      from "@/components/sovereign/GovernanceMatrix";
-import RealmTimeline         from "@/components/sovereign/RealmTimeline";
-import IntegrationPipeline   from "@/components/sovereign/IntegrationPipeline";
-import ExpansionBlueprint    from "@/components/sovereign/ExpansionBlueprint";
-import OperationalFrameworks from "@/components/sovereign/OperationalFrameworks";
-import DecisionMatrix        from "@/components/sovereign/DecisionMatrix";
-import MilestonesPanel       from "@/components/sovereign/MilestonesPanel";
-import SovereignIntake       from "@/components/sovereign/SovereignIntake";
-import { SOVEREIGN_MOCK, type SovereignAssessment } from "@/mocks/sovereign";
+import DashboardTierGate from "@/components/lamidOne/DashboardTierGate";
+import OperatingModelHero         from "@/components/operatingModel/OperatingModelHero";
+import CommandOverview       from "@/components/operatingModel/CommandOverview";
+import ArtifactsPanel        from "@/components/operatingModel/ArtifactsPanel";
+import RoleSystemMatrix          from "@/components/operatingModel/RoleSystemMatrix";
+import GovernanceMatrix      from "@/components/operatingModel/GovernanceMatrix";
+import PhaseTimeline         from "@/components/operatingModel/PhaseTimeline";
+import IntegrationPipeline   from "@/components/operatingModel/IntegrationPipeline";
+import ExpansionBlueprint    from "@/components/operatingModel/ExpansionBlueprint";
+import OperationalFrameworks from "@/components/operatingModel/OperationalFrameworks";
+import DecisionMatrix        from "@/components/operatingModel/DecisionMatrix";
+import MilestonesPanel       from "@/components/operatingModel/MilestonesPanel";
+import OperatingModelIntake       from "@/components/operatingModel/OperatingModelIntake";
+import { OPERATING_MODEL_MOCK, type OperatingModelAssessment } from "@/mocks/operatingModel";
 
-export default function SovereignPage() {
-  const [assessment, setAssessment] = useState<SovereignAssessment | null>(null);
+export default function OperatingModelPage() {
+  const [assessment, setAssessment] = useState<OperatingModelAssessment | null>(null);
   const [loading,    setLoading]    = useState(false);
   const [error,      setError]      = useState("");
   const [showIntake, setShowIntake] = useState(false);
@@ -27,7 +27,7 @@ export default function SovereignPage() {
     setLoading(true);
     setError("");
     try {
-      const res  = await fetch("/api/ai/sovereign", {
+      const res  = await fetch("/api/ai/operating-model", {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify(context),
@@ -45,15 +45,15 @@ export default function SovereignPage() {
   };
 
   const useMock = () => {
-    setAssessment(SOVEREIGN_MOCK);
+    setAssessment(OPERATING_MODEL_MOCK);
     setShowIntake(false);
   };
 
-  const data = assessment ?? SOVEREIGN_MOCK;
+  const data = assessment ?? OPERATING_MODEL_MOCK;
   const hasRealData = assessment !== null;
 
   return (
-    <DashboardTierGate pillar="Sovereign Architecture" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Enterprise Operating Model" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <div style={{ background: "#070b14", minHeight: "100vh" }}>
 
         {/* Error banner */}
@@ -66,15 +66,15 @@ export default function SovereignPage() {
         <AnimatePresence mode="wait">
           {showIntake ? (
             <motion.div key="intake" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <SovereignIntake onSubmit={runAssessment} loading={loading} onUseMock={useMock} />
+              <OperatingModelIntake onSubmit={runAssessment} loading={loading} onUseMock={useMock} />
             </motion.div>
           ) : (
             <motion.div key="dashboard" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
 
               {/* Hero */}
-              <SovereignHero
+              <OperatingModelHero
                 enterprise={data.enterprise}
-                sealScore={data.soverignSealScore}
+                sealScore={data.operatingModelScore}
                 onAssess={() => setShowIntake(true)}
                 hasData={hasRealData}
               />
@@ -85,7 +85,7 @@ export default function SovereignPage() {
                   style={{ background: "#0a0e1a" }}>
                   <div className="flex items-center gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] animate-pulse" />
-                    <p className="text-[10px] text-[#E8E0CC]/50">Showing demo data — run your own Sovereign Assessment to see personalised results</p>
+                    <p className="text-[10px] text-[#E8E0CC]/50">Showing demo data — run your own Operating Model Assessment to see personalised results</p>
                   </div>
                   <button type="button" onClick={() => setShowIntake(true)}
                     className="text-[10px] font-bold tracking-widest uppercase border border-[#C9A84C]/25 text-[#C9A84C] px-4 py-1.5 hover:bg-[#C9A84C]/8 transition-colors">
@@ -99,7 +99,7 @@ export default function SovereignPage() {
                 <div className="border-b border-[#C9A84C]/10 px-6 py-3 flex items-center gap-4 flex-wrap"
                   style={{ background: "#0a0e1a" }}>
                   <div className="w-1.5 h-1.5 rounded-full bg-[#7BC98C] animate-pulse" />
-                  <p className="text-[10px] text-[#C9A84C]">Next sovereign action:</p>
+                  <p className="text-[10px] text-[#C9A84C]">Next operating model action:</p>
                   <p className="text-[10px] text-[#E8E0CC]/60 flex-1">{data.nextAction}</p>
                   <button type="button" onClick={() => setShowIntake(true)}
                     className="text-[10px] text-[#E8E0CC]/35 hover:text-[#E8E0CC]/60 transition-colors underline underline-offset-2">
@@ -112,15 +112,15 @@ export default function SovereignPage() {
               <CommandOverview       data={data.commandOverview} />
               <ArtifactsPanel        artifacts={data.artifacts} />
               <OperationalFrameworks frameworks={data.frameworks} />
-              <ThroneMatrix          thrones={data.thrones} />
+              <RoleSystemMatrix          leadershipRoles={data.leadershipRoles} />
               <GovernanceMatrix      tiers={data.governanceTiers} />
               <DecisionMatrix        decisions={data.decisionTypes} />
-              <RealmTimeline         realms={data.realms} />
+              <PhaseTimeline         rolloutPhases={data.rolloutPhases} />
               <IntegrationPipeline   stages={data.integrationStages} />
               <ExpansionBlueprint    vectors={data.expansionVectors} />
               <MilestonesPanel       milestones={data.milestones} />
 
-              {/* Footer seal */}
+              {/* Footer mark */}
               <div className="border-t border-[#C9A84C]/10 px-6 py-8 text-center" style={{ background: "#070b14" }}>
                 <div className="flex justify-center mb-3">
                   <svg width="28" height="22" viewBox="0 0 28 22" fill="none">
@@ -129,7 +129,7 @@ export default function SovereignPage() {
                   </svg>
                 </div>
                 <p className="text-[9px] tracking-[0.5em] uppercase text-[#E8E0CC]/20">
-                  One Enterprise · Seven Pillars · One Throne · Eternal Sovereignty
+                  One Enterprise · Seven Pillars · Seven Systems · One Operating Model
                 </p>
               </div>
 

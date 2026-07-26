@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revokeToken } from "@/lib/tokenBlocklist";
 import jwt from "jsonwebtoken";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 const COOKIE_CLEAR = {
   httpOnly: true,

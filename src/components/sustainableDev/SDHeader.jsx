@@ -48,7 +48,7 @@ const SDHeader = () => {
               </h1>
 
               <p className="text-sm sm:text-base md:text-lg text-gray-300 animate-glitchPulse [animation-delay:3s]text-xs sm:text-sm  text-gray-300 animate-glitchPulse [animation-delay:3s]">
-                Growing groups to world-class communities with sustainable
+                Growing groups into self-sustaining communities with
                 development
               </p>
             </div>

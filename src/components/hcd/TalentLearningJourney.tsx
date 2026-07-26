@@ -30,7 +30,7 @@ const STEPS = [
     icon: "⚡",
     iconCls: "text-emerald-400",
     borderCls: "border-emerald-500/30",
-    body: "Earn globally recognized LAMID ONE certifications. Download your credential, share on LinkedIn, and unlock your updated capability profile.",
+    body: "Earn globally recognized LAMID ONE certifications. Download your credential, share it on LinkedIn, and see your updated capability profile.",
     cta: "View Certifications",
     href: "/hcd/recruitment",
   },

@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Users, Workflow, Gauge, CheckCircle2, AlertTriangle, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import DashboardAuthGate from "@/components/aivora/DashboardAuthGate";
+import { GateProvider } from "@/contexts/GateContext";
+import EngineResultsGate from "@/components/lamidOne/EngineResultsGate";
 
 const DEFAULT_INSIGHTS = [
   { severity: "High",   title: "Consultant capacity tight in Compliance & Risk", action: "Open vetting for 3 new specialists" },
@@ -66,21 +67,24 @@ export default function CoreDashboardPage() {
     { icon: CheckCircle2, label: "Workflow Completion",    value: loading ? "—" : `${stats.completion}%`,    trend: "On-track engagements" },
   ];
 
-  if (authLoading) return <main className="aivora-section min-h-screen" />;
-  if (!isAuthenticated) return <DashboardAuthGate pillar="LAMID CORE" backHref="/talent" backLabel="Back to LAMID CORE" />;
+  if (authLoading) return <main className="lamidone-section min-h-screen" />;
 
   return (
-    <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+    <GateProvider value={{ mode: isAuthenticated ? "full" : "preview-auth" }}>
+    <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <motion.div {...fadeUp(0)} className="mb-10">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID CORE</p>
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID CORE</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Consulting Dashboard</h1>
           <p className="text-gray-500 dark:text-white/45 text-sm max-w-xl">
             Engagements, matching, and delivery — at a glance.
           </p>
         </motion.div>
+
+        {/* Results — gated for non-members */}
+        <EngineResultsGate>
 
         {/* KPI row */}
         <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
@@ -90,7 +94,7 @@ export default function CoreDashboardPage() {
               whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(0,0,0,0.07), 0 2px 6px rgba(37,99,235,0.06)" }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="aivora-card border rounded-2xl p-5 cursor-default"
+              className="lamidone-card border rounded-2xl p-5 cursor-default"
             >
               <kpi.icon className="w-4 h-4 text-[#2563EB] mb-3" strokeWidth={2.2} />
               <p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1.5">{kpi.value}</p>
@@ -103,7 +107,7 @@ export default function CoreDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
           {/* Intelligence feed */}
-          <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6">
+          <motion.div {...fadeUp(0.1)} className="lamidone-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Intelligence Feed</p>
             <div className="flex flex-col gap-3">
               {insights.map((item) => (
@@ -124,7 +128,7 @@ export default function CoreDashboardPage() {
           </motion.div>
 
           {/* Workflow status */}
-          <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
+          <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Workflow Status</p>
             <div className="flex flex-col gap-3">
               {workflows.map((wf) => (
@@ -151,6 +155,8 @@ export default function CoreDashboardPage() {
           </motion.div>
         </div>
 
+        </EngineResultsGate>
+
         {/* Sub-module navigation */}
         <motion.div {...fadeUp(0.2)} className="mt-10">
           <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">CORE Intelligence Modules</p>
@@ -168,7 +174,7 @@ export default function CoreDashboardPage() {
               <Link
                 key={m.href}
                 href={m.href}
-                className="group aivora-card border rounded-xl px-4 py-3 text-xs font-semibold text-gray-700 dark:text-white/70
+                className="group lamidone-card border rounded-xl px-4 py-3 text-xs font-semibold text-gray-700 dark:text-white/70
                            hover:text-[#2563EB] hover:border-[#2563EB]/30 hover:-translate-y-[3px]
                            hover:shadow-[0_6px_20px_rgba(37,99,235,0.10)] active:scale-[0.97]
                            transition-all duration-200 inline-flex items-center justify-between gap-1"
@@ -193,5 +199,6 @@ export default function CoreDashboardPage() {
 
       </div>
     </main>
+    </GateProvider>
   );
 }

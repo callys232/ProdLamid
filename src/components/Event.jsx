@@ -70,7 +70,7 @@ const Events = ({
         <meta name="lamid" content="Lamid Consulting" />
         <meta
           property="og:title"
-          content="Events | Empowering Communities Through Innovation & Collaboration"
+          content="Events | Building Communities Through Innovation & Collaboration"
         />
         <meta
           property="og:description"

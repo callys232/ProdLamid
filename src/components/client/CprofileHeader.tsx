@@ -66,7 +66,7 @@ export default function ClientProfileHeader({
   /* ── Derived display values ────────────────────────────────────── */
   const displayName     = client.business?.companyName ?? client.companyname ?? client.name;
   const displayIndustry = client.business?.industry    ?? client.industry    ?? "Industry not set";
-  const displayLocation = client.business?.location    ?? client.location    ?? "Lagos, Nigeria";
+  const displayLocation = client.business?.location    ?? client.location    ?? "Location not set";
 
   const completion = calculateCompletion({
     logoUploaded:           !!client.avatar,

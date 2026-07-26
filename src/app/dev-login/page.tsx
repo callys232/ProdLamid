@@ -110,7 +110,7 @@ export default function DevLoginPage() {
               { label: "GROW Dashboard",  href: "/grow-dashboard"    },
               { label: "TALENT Dashboard",href: "/talent-dashboard"  },
               { label: "Intelligence Hub",href: "/intelligence-hub"  },
-              { label: "Sovereign",       href: "/sovereign"         },
+              { label: "Operating Model",       href: "/operating-model"         },
             ].map((l) => (
               <Link
                 key={l.href}

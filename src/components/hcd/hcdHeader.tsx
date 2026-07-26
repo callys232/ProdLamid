@@ -64,14 +64,14 @@ const HcdHeader: React.FC = () => {
           name="keywords"
           content="Talent Development, Leadership, AI Coaching, Recruitment, Workforce, Capability Building, LMS"
         />
-        <meta name="aivora" content="LAMID ONE — Smarter. Faster. Accessible." />
+        <meta name="lamidOne" content="LAMID ONE — Smarter. Faster. Accessible." />
         <meta
           property="og:title"
           content="Talent Development | Build the Organization That Builds the Future"
         />
         <meta
           property="og:description"
-          content="We build visionary leaders to drive innovation and disruption for client advantage."
+          content="Build visionary leaders who drive innovation and disruption — and win on client advantage."
         />
         <meta property="og:image" content="/LD3.jpg" />
         <meta property="og:type" content="website" />

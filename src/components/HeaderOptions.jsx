@@ -11,7 +11,7 @@ const HeaderOption1 = () => {
         {/* Text Content */}
         <div className="w-full md:w-1/2 px-4 sm:px-6 lg:px-8 flex items-center">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center md:text-left max-w-xl mx-auto md:mx-0">
-            We build and grow world-class organizations
+            Build and grow organizations that last.
           </h1>
         </div>
 
@@ -49,7 +49,7 @@ const HeaderOption2 = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            We build and grow world-class organizations
+            Build and grow organizations that last.
           </motion.h1>
         </motion.div>
 
@@ -113,7 +113,7 @@ const HeaderOption3 = () => {
       {/* Text Content */}
       <div className="relative h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center max-w-xl">
-          We build and grow world-class organizations
+          Build and grow organizations that last.
         </h1>
       </div>
     </header>

@@ -17,7 +17,7 @@ const FEATURES = [
   },
   {
     Icon: Globe,
-    title: "Localized Advisory for Africa & Emerging Markets",
+    title: "Localized Advisory for Every Market You Operate In",
     body: "Growth intelligence built for where you actually operate — nuanced, ground-level insight into markets that global platforms don't understand.",
     href: "/grow-advisory-console",
     cta: "Open Advisory Console →",
@@ -48,48 +48,48 @@ const GROW_TOOLS = [
   { label: "Advisory Console",       href: "/grow-advisory-console" },
   { label: "Executive Report",       href: "/grow-executive-report" },
   { label: "Grow Dashboard",         href: "/grow-dashboard" },
-  { label: "Cadence Intelligence",    href: "/rhythm-intelligence" },
+  { label: "Cadence Intelligence",    href: "/cadence-intelligence" },
   { label: "Operations Intelligence", href: "/operations-intelligence" },
 ];
 
 const RHYTHM_TOOLS = [
-  { label: "Cadence Mapping",                   href: "/r01-rhythm-mapping" },
-  { label: "Pace of Execution",                 href: "/r02-rhythm-velocity" },
-  { label: "Cadence Drift Alert",               href: "/r03-rhythm-drift" },
-  { label: "Cadence Stability Score",           href: "/r04-rhythm-stability" },
-  { label: "Workload Balance Monitor",          href: "/r05-rhythm-balance" },
-  { label: "Cross-Team Cadence Fit",            href: "/r06-rhythm-harmony" },
-  { label: "Cadence Consistency Check",         href: "/r07-rhythm-coherence" },
-  { label: "Cadence Integration Across Teams",  href: "/r08-rhythm-integration" },
-  { label: "Strategy-to-Execution Alignment",   href: "/r09-rhythm-alignment" },
-  { label: "Multi-Team Cadence Sync",           href: "/r10-rhythm-convergence" },
-  { label: "Real-Time Cadence Sync",            href: "/r11-rhythm-synchronization" },
-  { label: "Operational Flow Tracker",          href: "/r12-rhythm-flow" },
-  { label: "Team Cadence Engagement Score",     href: "/r13-rhythm-resonance" },
-  { label: "Real-Time Cadence Pulse",           href: "/r14-rhythm-pulse" },
-  { label: "Organisational Cadence Profile",    href: "/r15-rhythm-signature" },
-  { label: "Cadence Pattern Report",            href: "/r16-rhythm-identity" },
-  { label: "Core Cadence Drivers",              href: "/r17-rhythm-essence" },
-  { label: "Cultural Cadence Fit",              href: "/r18-rhythm-spirit" },
-  { label: "Cadence Impact Area",               href: "/r19-rhythm-field" },
-  { label: "Department Cadence View",           href: "/r20-rhythm-domain" },
-  { label: "Business Unit Cadence View",        href: "/r21-rhythm-realm" },
-  { label: "Enterprise-Wide Cadence View",      href: "/r22-rhythm-universe" },
-  { label: "Long-Term Cadence Trends",          href: "/r23-rhythm-infinity" },
-  { label: "Historical Cadence Tracking",       href: "/r24-rhythm-continuum" },
-  { label: "Root Cause of Cadence Issues",      href: "/r25-rhythm-origin" },
-  { label: "Cadence Data Sources",              href: "/r26-rhythm-source" },
-  { label: "Peak Performance Cadence",          href: "/r27-rhythm-apex" },
-  { label: "Cadence Governance Console",        href: "/r28-rhythm-sovereign" },
-  { label: "Executive Cadence Report",          href: "/r29-rhythm-crown" },
-  { label: "Enterprise Cadence Overview",       href: "/r30-rhythm-totality" },
+  { label: "Cadence Mapping",                   href: "/r01-cadence-mapping" },
+  { label: "Pace of Execution",                 href: "/r02-pace-of-execution" },
+  { label: "Cadence Drift Alert",               href: "/r03-cadence-drift-alert" },
+  { label: "Cadence Stability Score",           href: "/r04-cadence-stability-score" },
+  { label: "Workload Balance Monitor",          href: "/r05-workload-balance-monitor" },
+  { label: "Cross-Team Cadence Fit",            href: "/r06-cross-team-cadence-fit" },
+  { label: "Cadence Consistency Check",         href: "/r07-cadence-consistency-check" },
+  { label: "Cadence Integration Across Teams",  href: "/r08-cadence-integration" },
+  { label: "Strategy-to-Execution Alignment",   href: "/r09-strategy-to-execution-alignment" },
+  { label: "Multi-Team Cadence Sync",           href: "/r10-multi-team-cadence-sync" },
+  { label: "Real-Time Cadence Sync",            href: "/r11-real-time-cadence-sync" },
+  { label: "Operational Flow Tracker",          href: "/r12-operational-flow-tracker" },
+  { label: "Team Cadence Engagement Score",     href: "/r13-team-cadence-engagement-score" },
+  { label: "Real-Time Cadence Pulse",           href: "/r14-real-time-cadence-pulse" },
+  { label: "Organisational Cadence Profile",    href: "/r15-organisational-cadence-profile" },
+  { label: "Cadence Pattern Report",            href: "/r16-cadence-pattern-report" },
+  { label: "Core Cadence Drivers",              href: "/r17-core-cadence-drivers" },
+  { label: "Cultural Cadence Fit",              href: "/r18-cultural-cadence-fit" },
+  { label: "Cadence Impact Area",               href: "/r19-cadence-impact-area" },
+  { label: "Department Cadence View",           href: "/r20-department-cadence-view" },
+  { label: "Business Unit Cadence View",        href: "/r21-business-unit-cadence-view" },
+  { label: "Enterprise-Wide Cadence View",      href: "/r22-enterprise-wide-cadence-view" },
+  { label: "Long-Term Cadence Trends",          href: "/r23-long-term-cadence-trends" },
+  { label: "Historical Cadence Tracking",       href: "/r24-historical-cadence-tracking" },
+  { label: "Root Cause of Cadence Issues",      href: "/r25-root-cause-of-cadence-issues" },
+  { label: "Cadence Data Sources",              href: "/r26-cadence-data-sources" },
+  { label: "Peak Performance Cadence",          href: "/r27-peak-performance-cadence" },
+  { label: "Cadence Governance Console",        href: "/r28-cadence-governance-console" },
+  { label: "Executive Cadence Report",          href: "/r29-executive-cadence-report" },
+  { label: "Enterprise Cadence Overview",       href: "/r30-enterprise-cadence-overview" },
 ];
 
 const WHY = [
   "Market timing that turns uncertainty into advantage",
   "Customer insights that drive real revenue, not just awareness",
   "Digital pathways built for where your business is going",
-  "Africa and emerging market intelligence no one else provides",
+  "Local market intelligence in every region you operate",
 ];
 
 const cardV = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.42 } } };
@@ -100,7 +100,7 @@ export default function GrowPage() {
   const [hovered, setHovered] = useState<number | null>(null);
   const router = useRouter();
   return (
-    <main className="min-h-screen aivora-section">
+    <main className="min-h-screen lamidone-section">
 
       {/* Hero */}
       <section data-scroll-section data-bg-from-dark="#1456A0" data-bg-to-dark="#040A1E" data-bg-from-light="#B8CCFF" data-bg-to-light="#F5F3FF" className="relative py-28 px-4 overflow-hidden">
@@ -130,7 +130,7 @@ export default function GrowPage() {
           >
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
-              <span className="aivora-gradient-text">Customer & Digital Performance Engine</span>
+              <span className="lamidone-gradient-text">Customer & Digital Performance Engine</span>
             </span>
           </motion.div>
 
@@ -140,7 +140,7 @@ export default function GrowPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
-                className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4"
+                className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4"
               >
                 LAMID GROW
               </motion.p>
@@ -152,7 +152,7 @@ export default function GrowPage() {
                 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-gray-900 dark:text-white mb-6"
               >
                 Customer clarity.{" "}
-                <span className="aivora-gradient-text">Digital confidence.</span>
+                <span className="lamidone-gradient-text">Digital confidence.</span>
               </motion.h1>
 
               <motion.p
@@ -170,7 +170,7 @@ export default function GrowPage() {
                 transition={{ duration: 0.5, delay: 0.32 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
-                <Link href="/premium/business-diagnostic"
+                <Link href="/grow-dashboard"
                   className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-white text-sm overflow-hidden bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
                 >
                   <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/18 to-transparent skew-x-12 pointer-events-none" />
@@ -189,9 +189,9 @@ export default function GrowPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="aivora-card border rounded-2xl p-8"
+              className="lamidone-card border rounded-2xl p-8"
             >
-              <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-5">
+              <p className="lamidone-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-5">
                 Why It Matters
               </p>
               <ul className="space-y-4">
@@ -219,9 +219,9 @@ export default function GrowPage() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">What You Get</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">What You Get</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-              Growth intelligence that <span className="aivora-gradient-text">moves with your market.</span>
+              Growth intelligence that <span className="lamidone-gradient-text">moves with your market.</span>
             </h2>
           </motion.div>
 
@@ -241,7 +241,7 @@ export default function GrowPage() {
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
                 onClick={() => router.push(feat.href)}
-                className="group relative aivora-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
+                className="group relative lamidone-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
                 style={{ borderColor: hovered === i ? "rgba(37,99,235,0.45)" : undefined }}
               >
                 {/* Left accent bar */}
@@ -301,7 +301,7 @@ export default function GrowPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6 text-center">
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6 text-center">
               All Tools in LAMID GROW
             </p>
             <div className="flex flex-wrap gap-3 justify-center mb-8">
@@ -337,9 +337,9 @@ export default function GrowPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="aivora-card border rounded-2xl p-10 text-center"
+            className="lamidone-card border rounded-2xl p-10 text-center"
           >
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Who It&apos;s For</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Who It&apos;s For</p>
             <p className="text-gray-700 dark:text-white/70 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-8">
               LAMID GROW is built for Chief Marketing Officers, Chief Commercial Officers, and growth leaders who need market intelligence that is timely, localized, and connected to real strategic decisions — not generic trend reports.
             </p>
@@ -354,7 +354,7 @@ export default function GrowPage() {
 
       {/* Back to Ecosystem */}
       <section data-scroll-section data-bg-from-dark="#0D6E8A" data-bg-to-dark="#04111F" data-bg-from-light="#BFE3FF" data-bg-to-light="#F8FAFF" className="py-10 px-4 text-center">
-        <Link href="/ecosystem" className="inline-flex items-center gap-2 text-sm font-medium aivora-gradient-text hover:opacity-80 transition-opacity">
+        <Link href="/ecosystem" className="inline-flex items-center gap-2 text-sm font-medium lamidone-gradient-text hover:opacity-80 transition-opacity">
           ← Back to the Ecosystem
         </Link>
       </section>

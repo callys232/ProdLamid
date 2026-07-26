@@ -1,26 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import { Users } from "@/lib/models/User";
-import { verifyAccessToken } from "@/lib/jwt";
+import { verifyAuth } from "@/lib/middleware/auth";
 
 export async function POST(req: NextRequest) {
   try {
     await dbConnect();
 
-    const token = req.cookies.get("token")?.value;
-    if (!token) return NextResponse.json({ message: "Unauthorised." }, { status: 401 });
-
-    const payload = verifyAccessToken(token);
-    if (!payload?.sub) return NextResponse.json({ message: "Invalid token." }, { status: 401 });
+    /* verifyAuth accepts both token shapes in circulation; verifyAccessToken
+       required a `type:"access"` claim that /api/auth/login never emits, so
+       this route rejected every real session. */
+    const auth = await verifyAuth(req);
+    if (!auth?.userId) return NextResponse.json({ message: "Unauthorised." }, { status: 401 });
 
     const { reason } = await req.json();
     if (!reason?.trim()) return NextResponse.json({ message: "Reason is required." }, { status: 400 });
 
-    const user = await Users.findById(payload.sub).select("email username name");
+    const user = await Users.findById(auth.userId).select("email username name");
     if (!user) return NextResponse.json({ message: "User not found." }, { status: 404 });
 
     // Flag the account as deletion-requested (admin can review in dashboard)
-    await Users.findByIdAndUpdate(payload.sub, {
+    await Users.findByIdAndUpdate(auth.userId, {
       "deletionRequest": {
         requested: true,
         reason: reason.trim(),

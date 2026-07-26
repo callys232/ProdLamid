@@ -45,7 +45,7 @@ interface Invoice {
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-function fmt(n: number, currency = "NGN") {
+function fmt(n: number, currency = "USD") {
   return new Intl.NumberFormat("en-NG", { style: "currency", currency, maximumFractionDigits: 0 }).format(n);
 }
 

@@ -20,7 +20,7 @@ export function ThemeToggle() {
       aria-label={isDark ? "Switch to day mode" : "Switch to night mode"}
       whileTap={{ scale: 0.9 }}
       title={isDark ? "Day mode" : "Night mode"}
-      className="relative flex items-center justify-center w-8 h-8 rounded-lg border transition-colors duration-200 hover:border-[#2563EB]/60 cursor-pointer aivora-card"
+      className="relative flex items-center justify-center w-8 h-8 rounded-lg border transition-colors duration-200 hover:border-[#2563EB]/60 cursor-pointer lamidone-card"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span

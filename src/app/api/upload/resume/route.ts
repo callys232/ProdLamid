@@ -5,8 +5,9 @@ import { Profile } from "@/lib/models/Profile";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import cloudinary from "@/lib/cloudinary";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 export async function POST(request: Request) {
     try {

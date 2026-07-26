@@ -43,13 +43,13 @@ export default function MarketplaceHero() {
   return (
     <>
       {/* Hero */}
-      <section className="aivora-section pt-20 pb-10 px-4">
+      <section className="lamidone-section pt-20 pb-10 px-4">
         <div className="max-w-5xl mx-auto text-center">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
+            className="lamidone-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
           >
             Lamid Core
           </motion.p>
@@ -60,7 +60,7 @@ export default function MarketplaceHero() {
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-snug mb-4"
           >
             Find the Right Expert.{" "}
-            <span className="aivora-gradient-text">Start Today.</span>
+            <span className="lamidone-gradient-text">Start Today.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -93,7 +93,7 @@ export default function MarketplaceHero() {
       </section>
 
       {/* How matching works */}
-      <section className="aivora-section py-6 px-4 border-y border-white/8 dark:border-white/8 border-gray-200">
+      <section className="lamidone-section py-6 px-4 border-y border-white/8 dark:border-white/8 border-gray-200">
         <div className="max-w-5xl mx-auto">
           <p className="text-center text-gray-400 dark:text-white/40 text-xs uppercase tracking-widest mb-6">
             How Matching Works
@@ -108,7 +108,7 @@ export default function MarketplaceHero() {
                 transition={{ delay: i * 0.1 }}
                 className="text-center"
               >
-                <span className="text-2xl font-bold aivora-gradient-text block">{item.value}</span>
+                <span className="text-2xl font-bold lamidone-gradient-text block">{item.value}</span>
                 <span className="text-gray-500 dark:text-white/50 text-xs mt-1 block">{item.label}</span>
               </motion.div>
             ))}
@@ -117,7 +117,7 @@ export default function MarketplaceHero() {
       </section>
 
       {/* Value props */}
-      <section className="aivora-section py-10 px-4">
+      <section className="lamidone-section py-10 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {VALUE_PROPS.map((vp, i) => (
@@ -139,9 +139,9 @@ export default function MarketplaceHero() {
       </section>
 
       {/* Use cases */}
-      <section className="aivora-section py-8 px-4">
+      <section className="lamidone-section py-8 px-4">
         <div className="max-w-5xl mx-auto">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-6 text-center">
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-6 text-center">
             Sectors We Cover
           </p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -153,7 +153,7 @@ export default function MarketplaceHero() {
                 {uc.label}
               </span>
             ))}
-            <span className="px-4 py-2 rounded-full border border-[#2563EB]/30 aivora-gradient-text text-xs font-medium">
+            <span className="px-4 py-2 rounded-full border border-[#2563EB]/30 lamidone-gradient-text text-xs font-medium">
               + Open Brief — any challenge
             </span>
           </div>
@@ -161,7 +161,7 @@ export default function MarketplaceHero() {
       </section>
 
       {/* For Expert Partners banner */}
-      <section className="aivora-section py-8 px-4">
+      <section className="lamidone-section py-8 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/[0.03] border border-white/8 rounded-2xl px-7 py-5">
             <div>

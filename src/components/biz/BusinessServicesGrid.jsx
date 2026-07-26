@@ -81,7 +81,7 @@ const BusinessServicesGrid = () => {
     },
     {
       image: images.gear,
-      text: "Set up state-of-the art systems for positive returns.",
+      text: "Set up modern systems that return more than they cost.",
       position: "right",
     },
     {

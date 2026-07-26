@@ -2,7 +2,7 @@ export const profileSidebarGuide = [
     {
         title: "Profile Navigation",
         description:
-            "This sidebar allows you to navigate between major sections of your profile workspace.",
+            "Navigate between the major sections of your profile workspace.",
     },
     {
         title: "Overview",

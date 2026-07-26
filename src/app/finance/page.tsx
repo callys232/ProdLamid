@@ -4,14 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
+import LamidOneTestimonials from "@/components/lamidOne/LamidOneTestimonials";
 import { useScrollBackground } from "@/hooks/useScrollBackground";
 
 const PAIN_POINTS = [
   {
     icon: "⚡",
     title: "Enterprises are flying blind financially",
-    body: "Fragmented spreadsheets, delayed reporting, and disconnected systems mean most finance teams work with last month's truth. LAMID FINANCE installs real-time financial visibility across across your organization.",
+    body: "Fragmented spreadsheets, delayed reporting, and disconnected systems mean most finance teams work with last month's truth. LAMID FINANCE installs real-time financial visibility across your organization.",
   },
   {
     icon: "◈",
@@ -34,7 +34,7 @@ const PILLARS = [
   {
     icon: "⚡",
     title: "Financial Visibility Engine",
-    body: "Unified dashboards for revenue, cost, margin, cash flow, financial KPIs, and risk — across across your organization and site. The single source of financial truth.",
+    body: "Unified dashboards for revenue, cost, margin, cash flow, financial KPIs, and risk — across your organization and site. The single source of financial truth.",
     href: "/f01-financial-visibility",
   },
   {
@@ -45,20 +45,20 @@ const PILLARS = [
   },
   {
     icon: "⬡",
-    title: "Financial KPI Engine",
-    body: "Links operational KPIs to revenue, digital KPIs to growth, talent KPIs to productivity, and leadership KPIs to margin — the sovereign KPI-to-financial linkage.",
+    title: "Financial KPI Linkage Diagnostic",
+    body: "Links operational KPIs to revenue, digital KPIs to growth, talent KPIs to productivity, and leadership KPIs to margin — so every operating metric traces to a financial outcome.",
     href: "/f03-financial-kpi",
   },
   {
     icon: "⬟",
-    title: "Cost Optimization Engine",
+    title: "Cost Optimization Diagnostic",
     body: "Identifies waste, inefficiency, cost leakage, and productivity gaps. Improves margin without reducing capability. Synergy-based cost reduction at enterprise scale.",
     href: "/f04-cost-optimization",
   },
   {
     icon: "▣",
     title: "Enterprise Value Engine",
-    body: "Tracks valuation drivers, licensing ROI, synergy ROI, engine ROI, and destiny curve financial trajectory. Shows investors the financial inevitability of LAMID ONE.",
+    body: "Tracks valuation drivers, licensing ROI, synergy ROI, engine ROI, and long-term value trajectory — the numbers investors ask for, in one place.",
     href: "/f05-enterprise-value",
   },
   {
@@ -70,7 +70,7 @@ const PILLARS = [
   {
     icon: "◇",
     title: "CFO Transformation Engine",
-    body: "Transforms finance teams, CFO capability, and financial culture. Elevates finance from support to strategy. The leadership layer of financial sovereignty.",
+    body: "Transforms finance teams, CFO capability, and financial culture. Moves finance from reporting on the business to shaping it.",
     href: "/f07-cfo-transformation",
   },
   {
@@ -99,7 +99,7 @@ const STAGES = [
   { num: 3, title: "Forecasting Engine Setup", body: "Implement budgeting templates, forecasting models, and scenario planning tools." },
   { num: 4, title: "KPI Integration",          body: "Link operational, digital, and talent KPIs directly to financial outcomes." },
   { num: 5, title: "Cost Optimization",        body: "Identify cost leakage, productivity gaps, and synergy-based savings." },
-  { num: 6, title: "Enterprise Value Engine",  body: "Map valuation drivers, licensing ROI, synergy ROI, and destiny curve projections." },
+  { num: 6, title: "Enterprise Value Engine",  body: "Map valuation drivers, licensing ROI, synergy ROI, and long-term value projections." },
   { num: 7, title: "Financial Governance",     body: "Install financial rituals, controls, reporting cadence, and CFO leadership systems." },
 ];
 
@@ -117,7 +117,7 @@ export default function FinancePage() {
   const router = useRouter();
 
   return (
-    <main className="aivora-section min-h-screen">
+    <main className="lamidone-section min-h-screen">
 
       {/* ── Hero ── */}
       <section data-scroll-section data-bg-from-dark="#0D6E8A" data-bg-to-dark="#04111F" data-bg-from-light="#BFE3FF" data-bg-to-light="#F8FAFF" className="relative pt-28 pb-16 px-4 overflow-hidden">
@@ -135,18 +135,18 @@ export default function FinancePage() {
         </svg>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <motion.p {...fadeUp(0)} className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+          <motion.p {...fadeUp(0)} className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             LAMID FINANCE
           </motion.p>
           <motion.h1 {...fadeUp(0.05)} className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-snug mb-5">
             Financial clarity for{" "}
-            <span className="aivora-gradient-text">every leader.</span>
+            <span className="lamidone-gradient-text">every leader.</span>
           </motion.h1>
           <motion.p {...fadeUp(0.1)} className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-8">
             LAMID FINANCE helps leaders see numbers clearly and forecast with confidence.
           </motion.p>
           <motion.div {...fadeUp(0.15)} className="flex flex-wrap justify-center gap-3">
-            <Link href="/premium/business-diagnostic"
+            <Link href="/finance-dashboard"
               className="px-6 py-3 rounded-full text-sm font-bold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-[0_0_22px_rgba(37,99,235,0.35)]">
               See FINANCE in Action
             </Link>
@@ -163,7 +163,7 @@ export default function FinancePage() {
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-10">
           {STATS.map((s, i) => (
             <motion.div key={s.label} {...fadeUp(i * 0.1)} className="text-center">
-              <span className="text-2xl font-bold aivora-gradient-text block">{s.value}</span>
+              <span className="text-2xl font-bold lamidone-gradient-text block">{s.value}</span>
               <span className="text-gray-500 dark:text-white/50 text-xs mt-1 block max-w-[180px] leading-snug">{s.label}</span>
             </motion.div>
           ))}
@@ -174,17 +174,17 @@ export default function FinancePage() {
       <section data-scroll-section data-bg-from-dark="#0A8090" data-bg-to-dark="#030C14" data-bg-from-light="#FDDCB0" data-bg-to-light="#FEF9F0" className="py-14 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div {...fadeUp(0)} className="text-center mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">The Problem</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">The Problem</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
               Most enterprises are{" "}
-              <span className="aivora-gradient-text">flying blind</span>
+              <span className="lamidone-gradient-text">flying blind</span>
             </h2>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {PAIN_POINTS.map((p, i) => (
               <motion.div key={p.title} {...fadeUp(i * 0.08)}
-                className="aivora-card border rounded-2xl p-7">
-                <span className="aivora-gradient-text text-2xl block mb-4">{p.icon}</span>
+                className="lamidone-card border rounded-2xl p-7">
+                <span className="lamidone-gradient-text text-2xl block mb-4">{p.icon}</span>
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{p.title}</h3>
                 <p className="text-gray-600 dark:text-white/55 text-xs leading-relaxed">{p.body}</p>
               </motion.div>
@@ -197,13 +197,13 @@ export default function FinancePage() {
       <section data-scroll-section data-bg-from-dark="#3D1070" data-bg-to-dark="#0A041E" data-bg-from-light="#E8D8C0" data-bg-to-light="#FFFFF0" className="py-14 px-4 border-t border-gray-100 dark:border-white/8">
         <div className="max-w-6xl mx-auto">
           <motion.div {...fadeUp(0)} className="text-center mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">The Financial Management Engine</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">The Financial Management Engine</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-              Seven Sovereign{" "}
-              <span className="aivora-gradient-text">Financial Powers</span>
+              Seven{" "}
+              <span className="lamidone-gradient-text">Financial Engines</span>
             </h2>
             <p className="text-gray-500 dark:text-white/50 text-sm max-w-xl mx-auto mt-3 leading-relaxed">
-              Each component solves a distinct financial problem. Together, they create financial sovereignty inside every enterprise.
+              Each component solves a distinct financial problem. Together they give finance full control of the numbers.
             </p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -218,7 +218,7 @@ export default function FinancePage() {
                   onClick={() => router.push(pillar.href)}
                   whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(37,99,235,0.18)" }}
                   whileTap={{ scale: 0.98 }}
-                  className="relative aivora-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
+                  className="relative lamidone-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
                   style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
                   <motion.div
@@ -231,11 +231,11 @@ export default function FinancePage() {
                     animate={{ opacity: isHov ? 0.1 : 0 }}
                     transition={{ duration: 0.3 }}
                   />
-                  <span className="aivora-gradient-text text-2xl block mb-4">{pillar.icon}</span>
+                  <span className="lamidone-gradient-text text-2xl block mb-4">{pillar.icon}</span>
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{pillar.title}</h3>
                   <p className="text-gray-600 dark:text-white/55 text-xs leading-relaxed mb-4">{pillar.body}</p>
                   <motion.span
-                    className="text-[10px] font-semibold aivora-gradient-text"
+                    className="text-[10px] font-semibold lamidone-gradient-text"
                     animate={{ opacity: isHov ? 1 : 0.5, x: isHov ? 3 : 0 }}
                     transition={{ duration: 0.15 }}
                   >
@@ -252,10 +252,10 @@ export default function FinancePage() {
       <section data-scroll-section data-bg-from-dark="#0A6078" data-bg-to-dark="#030E18" data-bg-from-light="#B0DCFF" data-bg-to-light="#F0F9FF" className="py-14 px-4 border-t border-gray-100 dark:border-white/8">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeUp(0)} className="text-center mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">How We Deploy</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">How We Deploy</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
               Seven Stages to{" "}
-              <span className="aivora-gradient-text">Financial Sovereignty</span>
+              <span className="lamidone-gradient-text">Financial Control</span>
             </h2>
           </motion.div>
           <div className="flex flex-col gap-3">
@@ -265,7 +265,7 @@ export default function FinancePage() {
                 <motion.div
                   key={stage.title}
                   {...fadeUp(i * 0.06)}
-                  className="aivora-card border rounded-2xl overflow-hidden cursor-pointer"
+                  className="lamidone-card border rounded-2xl overflow-hidden cursor-pointer"
                   style={{ borderColor: isOpen ? "rgba(37,99,235,0.3)" : undefined }}
                   onClick={() => setActiveStage(isOpen ? null : i)}
                   whileHover={{ x: 3 }}
@@ -312,10 +312,10 @@ export default function FinancePage() {
       <section data-scroll-section data-bg-from-dark="#1A2880" data-bg-to-dark="#020508" data-bg-from-light="#B0C4FF" data-bg-to-light="#E8EEFF" className="py-14 px-4 border-t border-gray-100 dark:border-white/8">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeUp(0)} className="text-center mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Four-Engine Synergy</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Four-Engine Synergy</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
               FINANCE integrates with{" "}
-              <span className="aivora-gradient-text">every engine</span>
+              <span className="lamidone-gradient-text">every engine</span>
             </h2>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -323,9 +323,9 @@ export default function FinancePage() {
               { from: "CORE", arrow: "FINANCE", desc: "Transformation outcomes → financial ROI. Consulting delivery → financial clarity and discipline." },
               { from: "GROW", arrow: "FINANCE", desc: "Digital KPIs → revenue acceleration. Advisory insights → cost reduction and margin improvement." },
               { from: "TALENT", arrow: "FINANCE", desc: "Workforce intelligence → productivity uplift. Leadership capability → financial discipline across teams." },
-              { from: "FINANCE", arrow: "ALL REALMS", desc: "Financial dashboards → licensing value. Financial ROI → licensing renewal. Synergy ROI → enterprise value." },
+              { from: "FINANCE", arrow: "ALL ENGINES", desc: "Financial dashboards → licensing value. Financial ROI → licensing renewal. Synergy ROI → enterprise value." },
             ].map((row, i) => (
-              <motion.div key={row.from} {...fadeUp(i * 0.08)} className="aivora-card border rounded-2xl p-6">
+              <motion.div key={row.from} {...fadeUp(i * 0.08)} className="lamidone-card border rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-xs font-black text-[#2563EB] bg-[#2563EB]/10 px-2.5 py-1 rounded-full border border-[#2563EB]/20">
                     {row.from}
@@ -343,12 +343,12 @@ export default function FinancePage() {
       </section>
 
       {/* ── Testimonials ── */}
-      <AivoraTestimonials />
+      <LamidOneTestimonials />
 
       {/* ── CTA ── */}
       <section data-scroll-section data-bg-from-dark="#0D6E8A" data-bg-to-dark="#04111F" data-bg-from-light="#BFE3FF" data-bg-to-light="#F8FAFF" className="py-16 px-4 border-t border-gray-100 dark:border-white/8">
         <div className="max-w-3xl mx-auto text-center">
-          <motion.p {...fadeUp(0)} className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+          <motion.p {...fadeUp(0)} className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             Ready to Begin
           </motion.p>
           <motion.h2 {...fadeUp(0.05)} className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">

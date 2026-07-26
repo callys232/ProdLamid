@@ -142,7 +142,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
                           {[
                             { key: "company",   label: "Company *",     placeholder: "Acme Corp"         },
                             { key: "role",      label: "Role / Title *", placeholder: "Senior Consultant" },
-                            { key: "location",  label: "Location",       placeholder: "Remote / Lagos"    },
+                            { key: "location",  label: "Location",       placeholder: "Remote / City"    },
                           ].map(({ key, label, placeholder }) => (
                             <div key={key}>
                               <label className="mb-1.5 block text-xs font-medium text-gray-400">{label}</label>

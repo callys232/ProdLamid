@@ -7,7 +7,7 @@ const faqs = [
   {
     question: "Why do we need Hybrid Consulting if we already do hybrid work?",
     answer:
-      "Even if your current hybrid strategy seems effective, Hybrid Consulting helps identify hidden risks, measure long-term benefits, and ensure your approach is future-proof. We provide readiness assessments and tailored strategies to strengthen your hybrid model.",
+      "Even a hybrid strategy that seems effective can carry hidden risks. Hybrid Consulting surfaces those risks, measures long-term benefits, and future-proofs your approach — with readiness assessments and tailored strategies that strengthen your model.",
   },
   {
     question: "What is your track record in hybrid work?",

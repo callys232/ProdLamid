@@ -6,6 +6,7 @@ import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/User";
 import { Profile } from "@/lib/models/Profile";
 import { SsoCode } from "@/lib/models/SsoCode";
+import { getJwtSecret } from "@/lib/jwt";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,7 @@ export default async function LmsRedirectPage() {
   let accountType: string;
 
   try {
-    const decoded: any = jwt.verify(token, process.env.JWT_SECRET ?? "");
+    const decoded: any = jwt.verify(token, getJwtSecret());
     userId      = String(decoded.userId);
     accountType = String(decoded.accountType ?? "Engine");
   } catch {

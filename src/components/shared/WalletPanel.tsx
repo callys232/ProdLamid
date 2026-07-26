@@ -505,7 +505,7 @@ export default function WalletPanel({ userId, role }: Props) {
           </div>
           <h3 className="text-white font-semibold mb-1">Set Up Your Wallet</h3>
           <p className="text-sm text-gray-400 mb-4">
-            Your LAMID wallet lets you receive payments, pay for services, and manage your funds — all in one place.
+            Receive payments, pay for services, and manage your funds — all in one place.
           </p>
           <button
             onClick={fetchWallet}

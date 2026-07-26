@@ -3,6 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+const PROMISES = [
+  { label: "Clarity",  body: "See your business clearly." },
+  { label: "Growth",   body: "Move faster with confidence." },
+  { label: "Value",    body: "Build an enterprise that lasts." },
+];
+
 const BENEFITS = [
   "Make better decisions",
   "Strengthen your teams",
@@ -14,32 +20,32 @@ const BENEFITS = [
 const ENGINES = [
   {
     id: "Lamid Core",
-    tagline: "Your consulting operating system",
-    desc: "Clear plans, better decisions, and smoother execution — strategy made operational.",
+    tagline: "Strategy, execution, and alignment — in one view.",
+    desc: "Clear plans, better decisions, smoother execution.",
     textCls: "text-[#2563EB]",
     bgCls:   "bg-[#2563EB]",
     href: "/core",
   },
   {
     id: "Lamid Grow",
-    tagline: "Your customer & digital performance engine",
-    desc: "Modern insights on customer engagement and digital growth, updated in real time.",
+    tagline: "Know where growth is happening — and where it's being lost.",
+    desc: "Track how customers engage — and act on what the signals show.",
     textCls: "text-[#3B82F6]",
     bgCls:   "bg-[#3B82F6]",
     href: "/grow",
   },
   {
     id: "Lamid Talent",
-    tagline: "Your people intelligence engine",
-    desc: "Better teams, stronger culture, higher performance — powered by data and human expertise.",
+    tagline: "Better teams, better culture, better performance.",
+    desc: "Better teams, better culture, better performance.",
     textCls: "text-[#2563EB]",
     bgCls:   "bg-[#2563EB]",
     href: "/talent",
   },
   {
     id: "Lamid Finance",
-    tagline: "Your financial intelligence engine",
-    desc: "Real-time visibility, cost clarity, and forecasting — know exactly where your business stands.",
+    tagline: "Every financial decision, grounded in the full picture.",
+    desc: "Real-time visibility, forecasting, cost clarity, enterprise value.",
     textCls: "text-[#F59E0B]",
     bgCls:   "bg-[#F59E0B]",
     href: "/finance",
@@ -89,8 +95,37 @@ const cardItem = {
 
 export default function ThreePromises() {
   return (
-    <section className="aivora-section py-10 px-4">
+    <section className="lamidone-section py-10 px-4">
       <div className="max-w-5xl mx-auto">
+
+        {/* ── THREE PROMISES ── */}
+        <motion.div {...fadeUp(0)} className="text-center mb-8">
+          <p className="text-[10px] tracking-[0.42em] uppercase font-bold lamidone-gradient-text mb-3">
+            The Promise
+          </p>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            Clarity. Confidence. Growth.
+          </h2>
+        </motion.div>
+
+        <motion.div
+          variants={cardContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12"
+        >
+          {PROMISES.map((p) => (
+            <motion.div
+              key={p.label}
+              variants={cardItem}
+              className="lamidone-card border rounded-2xl p-7 text-center hover:border-[#2563EB]/30 transition-colors duration-200"
+            >
+              <p className={`font-bold text-base mb-2 lamidone-gradient-text`}>{p.label}</p>
+              <p className="text-sm text-gray-500 dark:text-white/55 leading-relaxed">{p.body}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* ── WHY LAMID ONE — glass panel ── */}
         <div className="relative mb-12 rounded-2xl overflow-hidden
@@ -110,7 +145,7 @@ export default function ThreePromises() {
           {/* Left — Statement */}
           <div>
             <motion.p {...fadeUp(0)}
-              className="text-[10px] tracking-[0.42em] uppercase font-bold aivora-gradient-text mb-4"
+              className="text-[10px] tracking-[0.42em] uppercase font-bold lamidone-gradient-text mb-4"
             >
               Why LAMID ONE
             </motion.p>
@@ -125,11 +160,11 @@ export default function ThreePromises() {
               className="text-gray-500 dark:text-white/55 text-sm leading-relaxed mb-4"
             >
               They need clarity, intelligence, and a system that brings everything together.
-              LAMID ONE blends human expertise with AI precision to deliver outcomes — not just reports.
+              LAMID ONE puts human expertise and AI precision in one place — so you grow with confidence.
             </motion.p>
 
             <motion.p {...fadeUp(0.14)}
-              className="text-[11px] font-semibold aivora-gradient-text tracking-wide"
+              className="text-[11px] font-semibold lamidone-gradient-text tracking-wide"
             >
               One ecosystem. Four engines. Endless possibilities.
             </motion.p>
@@ -240,7 +275,7 @@ export default function ThreePromises() {
                   variants={textV}
                   className="text-[11px] text-gray-400 dark:text-white/28 italic pl-12 pt-2"
                 >
-                  All in one seamless ecosystem.
+                  All in one place.
                 </motion.p>
               </motion.div>
             </div>
@@ -254,14 +289,14 @@ export default function ThreePromises() {
         {/* ── THE FOUR ENGINES ── */}
         <div>
           <motion.div {...fadeUp(0)} className="text-center mb-10">
-            <p className="text-[10px] tracking-[0.42em] uppercase font-bold aivora-gradient-text mb-3">
+            <p className="text-[10px] tracking-[0.42em] uppercase font-bold lamidone-gradient-text mb-3">
               The Four Engines
             </p>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Meet the operating system behind modern enterprise growth.
             </h2>
             <p className="text-gray-500 dark:text-white/45 text-sm">
-              Four specialised engines. One connected platform.
+              One Platform. Four Engines. Every Layer of Your Business.
             </p>
           </motion.div>
 
@@ -282,7 +317,7 @@ export default function ThreePromises() {
                   boxShadow: "0 24px 52px rgba(37,99,235,0.16)",
                 }}
                 transition={{ type: "spring", stiffness: 340, damping: 24 }}
-                className="group aivora-card border rounded-2xl p-6 flex flex-col gap-3
+                className="group lamidone-card border rounded-2xl p-6 flex flex-col gap-3
                            hover:border-[#2563EB]/30 transition-colors duration-200"
               >
                 {/* Top accent bar — grows wider on hover */}

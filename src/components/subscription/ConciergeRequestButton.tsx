@@ -125,7 +125,7 @@ export default function ConciergeRequestButton({ label = "Request Concierge Acce
                     {[
                       { label: "Full Name *", key: "name", placeholder: "e.g. Dr. Amaka Okafor" },
                       { label: "Email *", key: "email", placeholder: "official@organisation.org", type: "email" },
-                      { label: "Organisation *", key: "organisation", placeholder: "e.g. UNDP Nigeria" },
+                      { label: "Organisation *", key: "organisation", placeholder: "e.g. UNDP, or your organisation" },
                     ].map(({ label, key, placeholder, type }) => (
                       <div key={key}>
                         <label className="text-xs text-gray-400 mb-1 block">{label}</label>

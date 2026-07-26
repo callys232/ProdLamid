@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { Building2, Users, GraduationCap, Globe } from "lucide-react";
 
 const STATS = [
-  { value: 40,     suffix: "+", label: "Enterprise Partners",           sub: "across Africa & beyond",       Icon: Building2,      hex: "#2563EB" },
+  { value: 40,     suffix: "+", label: "Enterprise Partners",           sub: "across six continents",       Icon: Building2,      hex: "#2563EB" },
   { value: 10000,  suffix: "+", label: "Workers Impacted",              sub: "through skills & systems",     Icon: Users,          hex: "#3b82f6" },
   { value: 500,    suffix: "+", label: "Leaders Trained",               sub: "in transformational programs", Icon: GraduationCap,  hex: "#10b981" },
   { value: 20,     suffix: "+", label: "Community Initiatives",         sub: "supported & sustained",        Icon: Globe,          hex: "#a855f7" },

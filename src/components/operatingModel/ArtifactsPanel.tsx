@@ -1,12 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-import type { SovereignArtifact } from "@/mocks/sovereign";
+import type { OperatingArtifact } from "@/mocks/operatingModel";
 
-interface Props { artifacts: SovereignArtifact[] }
+interface Props { artifacts: OperatingArtifact[] }
 const g = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: d } });
 
 const statusLabel: Record<string, { label: string; color: string }> = {
-  sealed:      { label: "Sealed",       color: "#C9A84C" },
+  approved:    { label: "Approved",     color: "#C9A84C" },
   translating: { label: "Translating",  color: "#7BC98C" },
   pending:     { label: "Pending",      color: "#7B9EC9" },
 };

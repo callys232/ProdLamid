@@ -75,7 +75,7 @@ const EventHeader: React.FC = () => {
             Driving transformation through innovation and growth.
           </p>
           <p className="text-gray-300 text-base sm:text-lg md:text-xl text-center mx-auto max-w-3xl px-4 italic">
-            Empowering ideas to become reality, and reality to inspire the
+            Turning ideas into reality, and reality into what inspires the
             future.
           </p>
         </div>

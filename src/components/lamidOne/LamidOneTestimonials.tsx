@@ -30,7 +30,7 @@ const TESTIMONIALS = [
   },
 ];
 
-export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow" | "talent" }) {
+export default function LamidOneTestimonials({ pillar }: { pillar?: "core" | "grow" | "talent" }) {
   const ITEMS = pillar ? TESTIMONIALS.filter(t => t.pillar === pillar) : TESTIMONIALS;
   const [active, setActive] = useState(0);
   const [dir,    setDir]    = useState(1);
@@ -53,7 +53,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
   };
 
   return (
-    <section className="relative aivora-section py-32 px-4 overflow-hidden">
+    <section className="relative lamidone-section py-32 px-4 overflow-hidden">
 
       {/* Subtle arc bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -79,11 +79,11 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
           transition={{ duration: 0.5 }}
           className="text-center mb-20"
         >
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-5">
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-5">
             Testimonials
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-            What Leaders Are Saying
+            Results leaders are seeing.
           </h2>
         </motion.div>
 
@@ -97,7 +97,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: dir * -56 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
-              className="aivora-card border rounded-3xl px-14 py-16 text-center mx-auto max-w-3xl"
+              className="lamidone-card border rounded-3xl px-14 py-16 text-center mx-auto max-w-3xl"
               style={{ borderColor: "rgba(37,99,235,0.15)" }}
             >
               {/* Large quote marks */}
@@ -117,7 +117,7 @@ export default function AivoraTestimonials({ pillar }: { pillar?: "core" | "grow
               <p className="text-sm font-bold text-gray-900 dark:text-white tracking-wide">
                 {ITEMS[active].name}
               </p>
-              <p className="text-sm aivora-gradient-text mt-2">
+              <p className="text-sm lamidone-gradient-text mt-2">
                 {ITEMS[active].role}
               </p>
             </motion.div>

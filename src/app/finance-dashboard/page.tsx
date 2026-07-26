@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Landmark, TrendingUp, BarChart3, ShieldCheck, DollarSign, AlertCircle, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import DashboardAuthGate from "@/components/aivora/DashboardAuthGate";
+import { GateProvider } from "@/contexts/GateContext";
+import EngineResultsGate from "@/components/lamidOne/EngineResultsGate";
 
 const PLACEHOLDER_SIGNALS = [
-  { severity: "High"   as const, title: "Cost leakage detected in Operations division",  action: "Run Cost Optimization Engine" },
+  { severity: "High"   as const, title: "Cost leakage detected in Operations division",  action: "Run Cost Optimization Diagnostic" },
   { severity: "Medium" as const, title: "Forecasting accuracy below 70% target",         action: "Activate Budgeting & Forecasting Engine" },
   { severity: "Low"    as const, title: "Licensing ROI trending up — Q3 on track",       action: "No action needed" },
 ];
@@ -65,16 +66,16 @@ export default function FinanceDashboardPage() {
     { icon: Landmark,   label: "Enterprise Value Score", value: fmt(stats.enterpriseValue), trend: seeded ? "Live from your data" : "Awaiting financial data" },
   ];
 
-  if (authLoading) return <main className="aivora-section min-h-screen" />;
-  if (!isAuthenticated) return <DashboardAuthGate pillar="LAMID FINANCE" backHref="/finance" backLabel="Back to LAMID FINANCE" />;
+  if (authLoading) return <main className="lamidone-section min-h-screen" />;
 
   return (
-    <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+    <GateProvider value={{ mode: isAuthenticated ? "full" : "preview-auth" }}>
+    <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <motion.div {...fadeUp(0)} className="mb-10">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID FINANCE</p>
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID FINANCE</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Finance Dashboard</h1>
           <p className="text-gray-500 dark:text-white/45 text-sm max-w-xl">
             Revenue health, margin, cash flow, and enterprise value — unified in one view.
@@ -94,6 +95,9 @@ export default function FinanceDashboardPage() {
           </motion.div>
         )}
 
+        {/* Results — gated for non-members */}
+        <EngineResultsGate>
+
         {/* KPI row */}
         <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {KPIS.map(kpi => (
@@ -102,7 +106,7 @@ export default function FinanceDashboardPage() {
               whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(0,0,0,0.07), 0 2px 6px rgba(37,99,235,0.06)" }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="aivora-card border rounded-2xl p-5 cursor-default"
+              className="lamidone-card border rounded-2xl p-5 cursor-default"
             >
               <kpi.icon className="w-4 h-4 text-[#2563EB] mb-3" strokeWidth={2.2} />
               <p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1.5">{kpi.value}</p>
@@ -115,7 +119,7 @@ export default function FinanceDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
           {/* Financial Signals */}
-          <motion.div {...fadeUp(0.1)} className="aivora-card border rounded-2xl p-6">
+          <motion.div {...fadeUp(0.1)} className="lamidone-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Financial Signals</p>
             <div className="flex flex-col gap-3">
               {signals.map(item => (
@@ -136,7 +140,7 @@ export default function FinanceDashboardPage() {
           </motion.div>
 
           {/* Budget Progress */}
-          <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
+          <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Financial Health Progress</p>
             <div className="flex flex-col gap-4">
               {budget.map(b => (
@@ -160,6 +164,8 @@ export default function FinanceDashboardPage() {
           </motion.div>
         </div>
 
+        </EngineResultsGate>
+
         {/* F-Series module navigation */}
         <motion.div {...fadeUp(0.2)} className="mt-10">
           <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">FINANCE Intelligence Modules</p>
@@ -167,7 +173,7 @@ export default function FinanceDashboardPage() {
             {[
               { title: "Financial Visibility",     href: "/f01-financial-visibility" },
               { title: "Budgeting & Forecasting",  href: "/f02-budgeting-forecasting" },
-              { title: "Financial KPI Engine",     href: "/f03-financial-kpi" },
+              { title: "Financial KPI Linkage Diagnostic",     href: "/f03-financial-kpi" },
               { title: "Cost Optimization",        href: "/f04-cost-optimization" },
               { title: "Enterprise Value",         href: "/f05-enterprise-value" },
               { title: "Financial Governance",     href: "/f06-financial-governance" },
@@ -176,7 +182,7 @@ export default function FinanceDashboardPage() {
               <Link
                 key={m.href}
                 href={m.href}
-                className="group aivora-card border rounded-xl px-4 py-3 text-xs font-semibold text-gray-700 dark:text-white/70
+                className="group lamidone-card border rounded-xl px-4 py-3 text-xs font-semibold text-gray-700 dark:text-white/70
                            hover:text-[#2563EB] hover:border-[#2563EB]/30 hover:-translate-y-[3px]
                            hover:shadow-[0_6px_20px_rgba(37,99,235,0.10)] active:scale-[0.97]
                            transition-all duration-200 inline-flex items-center justify-between gap-1"
@@ -201,5 +207,6 @@ export default function FinanceDashboardPage() {
 
       </div>
     </main>
+    </GateProvider>
   );
 }

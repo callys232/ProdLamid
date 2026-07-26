@@ -31,7 +31,7 @@ export default function HomepageQuickActions() {
 
   return (
     <>
-      <div className="aivora-section py-10 px-4">
+      <div className="lamidone-section py-10 px-4">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row gap-4 relative z-10">
           <Link href="/biz" className={btnCls}>
             Build Right — Avoid costly trial and error
@@ -73,7 +73,7 @@ export default function HomepageQuickActions() {
                   className="absolute top-5 right-5 text-white/30 hover:text-white transition text-xl leading-none cursor-pointer">
                   ✕
                 </button>
-                <p className="aivora-gradient-text text-[10px] tracking-[0.3em] uppercase font-bold mb-1">No credit card needed</p>
+                <p className="lamidone-gradient-text text-[10px] tracking-[0.3em] uppercase font-bold mb-1">No credit card needed</p>
                 <h2 className="text-xl font-bold text-white mb-1">All Free Tools</h2>
                 <p className="text-white/45 text-xs mb-6">Use any tool instantly. Sign up to save your results.</p>
                 <div className="h-px bg-white/8 mb-5" />
@@ -92,7 +92,7 @@ export default function HomepageQuickActions() {
                           <motion.div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl origin-top"
                             animate={{ scaleY: isHov ? 1 : 0, backgroundColor: tool.accent }}
                             transition={{ duration: 0.18 }} />
-                          <span className="text-lg shrink-0 mt-0.5 aivora-gradient-text">{tool.icon}</span>
+                          <span className="text-lg shrink-0 mt-0.5 lamidone-gradient-text">{tool.icon}</span>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold text-white leading-tight">{tool.title}</p>
                             <p className="text-white/75 text-xs mt-0.5 leading-snug">{tool.desc}</p>

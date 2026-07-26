@@ -20,6 +20,7 @@ import WalletPanel from "@/components/shared/WalletPanel";
 import EarningsDashboard from "./EarningsDashboard";
 import PortfolioSection from "./PortfolioSection";
 import ProfileCompletionScore from "./ProfileCompletionScore";
+import ToolUsageHistory from "@/components/lamidOne/ToolUsageHistory";
 
 export default function ProfileDashboard({
   params,
@@ -102,6 +103,7 @@ export default function ProfileDashboard({
               hasCompletedProject={hasCompletedProject}
             />
             <Overview projectId={selectedProjectId} />
+            <ToolUsageHistory />
           </div>
         );
       case "projects":
@@ -134,6 +136,7 @@ export default function ProfileDashboard({
               hasCompletedProject={hasCompletedProject}
             />
             <Overview projectId={selectedProjectId} />
+            <ToolUsageHistory />
           </div>
         );
     }

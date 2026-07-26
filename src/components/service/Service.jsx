@@ -226,11 +226,11 @@ const ServicesSection = () => {
 
         <div className="mb-6">
           <p className="mb-2 md:text-lg">
-            We help you scale with intelligence, agility, and measurable impact
+            Scale with intelligence, agility, and measurable impact.
             — across every layer.
           </p>
           <p className="md:text-lg ">
-            We unify strategy, performance, systems, and seamless work into one
+            We unify strategy, performance, systems, and day-to-day work into one
             Human-AI assisted,
           </p>
           <p className="md:text-lg font-extrabold bg-gradient-to-r from-blue-600 to-white bg-clip-text text-transparent">

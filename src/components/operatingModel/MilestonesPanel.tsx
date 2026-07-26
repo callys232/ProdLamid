@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import type { GovernanceMilestone } from "@/mocks/sovereign";
+import type { GovernanceMilestone } from "@/mocks/operatingModel";
 
 interface Props { milestones: GovernanceMilestone[] }
 const g = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: d } });
@@ -9,7 +9,7 @@ const statusConfig: Record<string, { label: string; color: string; barColor: str
   initiated:  { label: "Initiated",         color: "#C9A84C", barColor: "#C9A84C" },
   scheduled:  { label: "Scheduled",         color: "#7BC98C", barColor: "#7BC98C" },
   pending:    { label: "Pending",           color: "#7B9EC9", barColor: "#7B9EC9" },
-  complete:   { label: "Sovereign Complete", color: "#C9A84C", barColor: "#C9A84C" },
+  complete:   { label: "Operating Model Complete", color: "#C9A84C", barColor: "#C9A84C" },
 };
 
 const MILESTONE_ICON: Record<string, React.ReactNode> = {
@@ -24,7 +24,7 @@ export default function MilestonesPanel({ milestones }: Props) {
     <section className="px-6 py-12 border-t border-[#C9A84C]/10" style={{ background: "#0a0e1a" }}>
       <div className="max-w-6xl mx-auto">
         <motion.div {...g(0)} className="mb-8">
-          <p className="text-[9px] tracking-[0.4em] uppercase text-[#C9A84C]/70 mb-1">Sovereign Architecture — Phase II</p>
+          <p className="text-[9px] tracking-[0.4em] uppercase text-[#C9A84C]/70 mb-1">Enterprise Operating Model — Phase II</p>
           <h2 className="text-xl font-bold text-[#E8E0CC]" style={{ fontFamily: "Georgia, serif" }}>Phase II Governance Milestones</h2>
           <p className="text-xs text-[#E8E0CC]/40 mt-1">Four quarters — four transformation checkpoints</p>
         </motion.div>
@@ -84,7 +84,7 @@ export default function MilestonesPanel({ milestones }: Props) {
         </div>
 
         <motion.div {...g(0.45)} className="flex items-center justify-between mt-4 text-[9px] text-[#E8E0CC]/25 tracking-widest flex-wrap gap-2">
-          <span>Sovereign Architecture — Phase II</span>
+          <span>Enterprise Operating Model — Phase II</span>
           <span>Governance Milestone Map · Q3 2026 — Q2 2027</span>
           <span>Classified — Phase II Operations</span>
         </motion.div>

@@ -100,12 +100,12 @@ export default function ExpertMatchModal({ open, onClose }: Props) {
             animate={{ opacity: 1,  scale: 1,    y: 0 }}
             exit={{    opacity: 0,  scale: 0.96, y: 16 }}
             transition={{ duration: 0.22, ease: [0.33, 1, 0.68, 1] }}
-            className="fixed inset-x-4 top-[5vh] bottom-[5vh] sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[560px] sm:top-[8vh] sm:bottom-auto sm:max-h-[84vh] z-50 flex flex-col aivora-section border border-gray-200 dark:border-white/10 rounded-3xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.4)]"
+            className="fixed inset-x-4 top-[5vh] bottom-[5vh] sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[560px] sm:top-[8vh] sm:bottom-auto sm:max-h-[84vh] z-50 flex flex-col lamidone-section border border-gray-200 dark:border-white/10 rounded-3xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.4)]"
           >
             {/* Header */}
             <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100 dark:border-white/8 flex-shrink-0">
               <div className="flex-1 min-w-0">
-                <p className="aivora-gradient-text text-[10px] tracking-[0.3em] uppercase font-bold mb-0.5">LAMID CORE</p>
+                <p className="lamidone-gradient-text text-[10px] tracking-[0.3em] uppercase font-bold mb-0.5">LAMID CORE</p>
                 <h2 className="text-base font-bold text-gray-900 dark:text-white leading-tight">AI Expert Match</h2>
               </div>
               <button
@@ -169,7 +169,7 @@ export default function ExpertMatchModal({ open, onClose }: Props) {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
-                  className="aivora-card border rounded-2xl p-4 flex items-start gap-3 hover:border-[#2563EB]/25 transition-colors group"
+                  className="lamidone-card border rounded-2xl p-4 flex items-start gap-3 hover:border-[#2563EB]/25 transition-colors group"
                 >
                   {/* Avatar */}
                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#2563EB]/12 border border-[#2563EB]/20">

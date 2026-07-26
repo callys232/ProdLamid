@@ -6,7 +6,7 @@ import { Play } from "lucide-react";
 
 const QUOTES = [
   {
-    text: "The programs helped in the effective management and motivation of staff to enable them leverage their intellectual capability, transforming business challenges into real opportunities.",
+    text: "The programs helped in the effective management and motivation of staff to help them apply their intellectual capability, turning business challenges into real opportunities.",
     role: "Chief People Officer",
     org: "Enterprise Client",
   },
@@ -21,7 +21,7 @@ const Testimonial: React.FC = () => {
   const [videoPlaying, setVideoPlaying] = useState(false);
 
   return (
-    <section className="aivora-section py-14 px-4">
+    <section className="lamidone-section py-14 px-4">
       <div className="max-w-5xl mx-auto">
         <motion.div
           className="flex flex-col md:flex-row gap-10 items-start"
@@ -60,7 +60,7 @@ const Testimonial: React.FC = () => {
             className="w-full"
             variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
           >
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Client Voices</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Client Voices</p>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-8 leading-snug">
               What Leaders Say
             </h2>
@@ -73,7 +73,7 @@ const Testimonial: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.4 }}
-                  className="aivora-card border rounded-2xl p-6 flex flex-col gap-3"
+                  className="lamidone-card border rounded-2xl p-6 flex flex-col gap-3"
                 >
                   <span className="text-3xl text-[#2563EB]/20 font-serif leading-none select-none">&ldquo;</span>
                   <p className="text-sm text-gray-600 dark:text-white/65 leading-relaxed italic flex-1">{q.text}</p>

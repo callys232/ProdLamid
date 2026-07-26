@@ -23,7 +23,7 @@ export default function CtaBanner() {
   const [secondaryHov, setSecondaryHov] = useState(false);
 
   return (
-    <section className="relative aivora-section py-10 px-4 overflow-hidden">
+    <section className="relative lamidone-section py-10 px-4 overflow-hidden">
 
       {/* Diamond burst bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -72,7 +72,7 @@ export default function CtaBanner() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4 relative z-10"
+            className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4 relative z-10"
           >
             LAMID ONE — Smarter. Faster. Accessible.
           </motion.p>

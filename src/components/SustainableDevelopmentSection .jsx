@@ -102,7 +102,7 @@ const SustainableDevelopmentSection = () => {
 
                 <div className="inline-block border border-emerald-400 rounded-xl px-6 py-2 bg-black/60 backdrop-blur-sm hover:bg-emerald-500 hover:text-black transition duration-300">
                   <p className="text-xs md:text-sm">
-                    Growing groups to world-class communities with sustainable
+                    Growing groups into self-sustaining communities with
                     development
                   </p>
                 </div>

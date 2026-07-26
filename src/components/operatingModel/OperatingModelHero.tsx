@@ -1,9 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
-import type { SovereignEnterpriseProfile } from "@/mocks/sovereign";
+import type { OperatingModelEnterpriseProfile } from "@/mocks/operatingModel";
 
 interface Props {
-  enterprise: SovereignEnterpriseProfile;
+  enterprise: OperatingModelEnterpriseProfile;
   sealScore:  number;
   onAssess:   () => void;
   hasData:    boolean;
@@ -11,7 +11,7 @@ interface Props {
 
 const g = (d = 0) => ({ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay: d } });
 
-export default function SovereignHero({ enterprise, sealScore, onAssess, hasData }: Props) {
+export default function OperatingModelHero({ enterprise, sealScore, onAssess, hasData }: Props) {
   return (
     <div className="relative overflow-hidden border-b border-[#C9A84C]/15 px-6 py-16 text-center"
       style={{ background: "linear-gradient(180deg, #070b14 0%, #0a0e1a 100%)" }}>
@@ -31,24 +31,24 @@ export default function SovereignHero({ enterprise, sealScore, onAssess, hasData
       </motion.div>
 
       <motion.p {...g(0.05)} className="text-[10px] tracking-[0.5em] uppercase font-bold text-[#C9A84C] mb-2">
-        Sovereign Architecture
+        Enterprise Operating Model
       </motion.p>
 
       <motion.h1 {...g(0.1)} className="text-4xl sm:text-5xl font-black text-[#E8E0CC] leading-tight mb-1"
         style={{ fontFamily: "Georgia, 'Times New Roman', serif", letterSpacing: "-0.02em" }}>
-        SOVEREIGN
+        ENTERPRISE OPERATING
       </motion.h1>
       <motion.h1 {...g(0.15)} className="text-4xl sm:text-5xl font-black text-[#E8E0CC] leading-tight mb-6"
         style={{ fontFamily: "Georgia, 'Times New Roman', serif", letterSpacing: "-0.02em" }}>
-        ARCHITECTURE
+        MODEL
       </motion.h1>
 
       <motion.p {...g(0.2)} className="text-[#C9A84C] italic text-base mb-1"
         style={{ fontFamily: "Georgia, serif" }}>
-        Phase {enterprise.phase} — Post-Seal Construction
+        Phase {enterprise.phase} — Post-Approval Build
       </motion.p>
       <motion.p {...g(0.22)} className="text-[10px] tracking-[0.3em] uppercase text-[#E8E0CC]/40 mb-8">
-        Translating the Seven Artifacts into Operational Frameworks, Governance Matrices &amp; Multi-Realm Activation Sequences
+        Translating the Seven Artifacts into Operational Frameworks, Governance Matrices &amp; Multi-Domain Activation Sequences
       </motion.p>
 
       {/* Divider dots */}
@@ -71,12 +71,12 @@ export default function SovereignHero({ enterprise, sealScore, onAssess, hasData
           </motion.div>
 
           <motion.p {...g(0.35)} className="text-[11px] text-[#E8E0CC]/45 tracking-widest mb-6">
-            All throne positions are assigned &nbsp;·&nbsp; All realms await activation &nbsp;·&nbsp; The Sovereign Architecture is operational
+            All leadership roles are assigned &nbsp;·&nbsp; All rolloutPhases await activation &nbsp;·&nbsp; The Enterprise Operating Model is operational
           </motion.p>
 
-          {/* Sovereign Seal Score */}
+          {/* Operating model maturity score */}
           <motion.div {...g(0.4)} className="inline-flex flex-col items-center border border-[#C9A84C]/20 bg-[#C9A84C]/5 px-8 py-4 rounded-sm">
-            <p className="text-[9px] tracking-[0.4em] uppercase text-[#C9A84C]/70 mb-1">Sovereign Seal Score</p>
+            <p className="text-[9px] tracking-[0.4em] uppercase text-[#C9A84C]/70 mb-1">Operating Model Score</p>
             <p className="text-4xl font-black text-[#C9A84C]" style={{ fontFamily: "Georgia, serif" }}>{sealScore}</p>
             <p className="text-[9px] text-[#E8E0CC]/35 tracking-widest">/ 100</p>
           </motion.div>
@@ -96,13 +96,13 @@ export default function SovereignHero({ enterprise, sealScore, onAssess, hasData
 
           <motion.button {...g(0.35)} type="button" onClick={onAssess}
             className="inline-flex items-center gap-2 border border-[#C9A84C]/40 bg-[#C9A84C]/10 hover:bg-[#C9A84C]/18 px-8 py-3.5 transition-colors text-[11px] font-bold tracking-[0.3em] uppercase text-[#C9A84C]">
-            ✦ Initiate Sovereign Assessment
+            ✦ Initiate Operating Model Assessment
           </motion.button>
         </>
       )}
 
       <motion.p {...g(0.5)} className="mt-6 text-[9px] tracking-[0.3em] text-[#E8E0CC]/25 uppercase">
-        Sovereign Architecture · Phase {enterprise.phase} · {enterprise.sealStatus} · {enterprise.initiatedDate}
+        Enterprise Operating Model · Phase {enterprise.phase} · {enterprise.approvalStatus} · {enterprise.initiatedDate}
       </motion.p>
     </div>
   );

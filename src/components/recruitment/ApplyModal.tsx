@@ -196,7 +196,7 @@ export default function ApplyModal({ job, onClose, onSuccess }: ApplyModalProps)
                 </div>
                 <div>
                   <Label>Country</Label>
-                  <input value={form.country} onChange={set("country")} placeholder="Nigeria" className={inputCls} />
+                  <input value={form.country} onChange={set("country")} placeholder="Country" className={inputCls} />
                 </div>
                 <Full>
                   <Label>LinkedIn URL</Label>

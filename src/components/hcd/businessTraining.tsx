@@ -24,7 +24,7 @@ const BusinessTraining: React.FC = () => {
           {/* Middle - Training description and options */}
           <div className="w-full md:w-1/3 space-y-3">
             <p className="text-gray-200 text-sm mb-3 hover:text-white transition-colors duration-300">
-              Use cutting-edge tools to secure top-tier talent for permanent,
+              Use current tooling to secure top-tier talent for permanent,
               temporary, and contract roles.
             </p>
 

@@ -100,7 +100,7 @@ const BizToolbox = () => {
             <div className="absolute -left-4 top-1/2 -translate-y-1/2 h-8 w-8 bg-gray-900 border-2 border-blue-500 rotate-45 z-10"></div>
             <ul className="space-y-2 text-sm md:text-base relative z-10">
               <li>Opportunities' Discovery</li>
-              <li>Develop state-of-the-art services</li>
+              <li>Build services that hold up</li>
               <li>Set up robust financial, operational and control systems</li>
               <li>Innovate and re-position for sustainable margins</li>
               <li>Connect to, and harness diverse talents</li>

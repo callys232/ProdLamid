@@ -4,7 +4,7 @@ import { useState, KeyboardEvent } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Users, X, Plus, Star, AlertCircle, ArrowUpRight, Loader2, BookOpen } from "lucide-react";
-import DashboardTierGate from "@/components/aivora/DashboardTierGate";
+import DashboardTierGate from "@/components/lamidOne/DashboardTierGate";
 
 type PageState = "form" | "loading" | "result";
 
@@ -78,7 +78,7 @@ function MentorCard({ match, delay }: { match: any; delay: number }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, delay }}
-      className="aivora-card border rounded-2xl p-5 flex flex-col gap-4"
+      className="lamidone-card border rounded-2xl p-5 flex flex-col gap-4"
     >
       {/* Header */}
       <div className="flex items-start gap-3">
@@ -86,7 +86,7 @@ function MentorCard({ match, delay }: { match: any; delay: number }) {
           {mentor.avatar
             // eslint-disable-next-line @next/next/no-img-element
             ? <img src={mentor.avatar} alt={mentor.name} className="w-full h-full object-cover" />
-            : <span className="text-sm font-bold aivora-gradient-text">{initials}</span>}
+            : <span className="text-sm font-bold lamidone-gradient-text">{initials}</span>}
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-tight line-clamp-1">{mentor.name}</h3>
@@ -94,7 +94,7 @@ function MentorCard({ match, delay }: { match: any; delay: number }) {
         </div>
         {/* Score badge */}
         <div className="shrink-0 flex flex-col items-center">
-          <span className="text-lg font-extrabold aivora-gradient-text leading-none">{score}%</span>
+          <span className="text-lg font-extrabold lamidone-gradient-text leading-none">{score}%</span>
           <span className="text-[9px] text-gray-400 dark:text-white/30">match</span>
         </div>
       </div>
@@ -130,7 +130,7 @@ function MentorCard({ match, delay }: { match: any; delay: number }) {
         <div className="flex flex-col gap-1">
           {matchReasons.map((r: string, i: number) => (
             <div key={i} className="flex items-start gap-1.5">
-              <span className="aivora-gradient-text text-xs shrink-0 mt-0.5">✓</span>
+              <span className="lamidone-gradient-text text-xs shrink-0 mt-0.5">✓</span>
               <p className="text-[11px] text-gray-600 dark:text-white/55 leading-snug">{r}</p>
             </div>
           ))}
@@ -180,7 +180,7 @@ function MentorshipContent() {
 
   if (state === "loading") {
     return (
-      <main className="aivora-section min-h-screen flex items-center justify-center">
+      <main className="lamidone-section min-h-screen flex items-center justify-center">
         <motion.div {...fadeUp()} className="flex flex-col items-center gap-4 text-center">
           <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/25 flex items-center justify-center">
             <Loader2 className="w-6 h-6 text-[#2563EB] animate-spin" />
@@ -194,10 +194,10 @@ function MentorshipContent() {
 
   if (state === "result") {
     return (
-      <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+      <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeUp(0)} className="mb-8">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Mentorship Matching</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Mentorship Matching</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Your Mentor Matches</h1>
             <p className="text-sm text-gray-500 dark:text-white/45">
               {matches.length > 0
@@ -211,7 +211,7 @@ function MentorshipContent() {
               {matches.map((m, i) => <MentorCard key={m.mentor.id} match={m} delay={i * 0.05} />)}
             </div>
           ) : (
-            <motion.div {...fadeUp(0.05)} className="aivora-card border rounded-2xl p-10 text-center mb-8">
+            <motion.div {...fadeUp(0.05)} className="lamidone-card border rounded-2xl p-10 text-center mb-8">
               <Users className="w-10 h-10 text-[#2563EB]/40 mx-auto mb-3" />
               <p className="text-sm text-gray-500 dark:text-white/40">No mentors matched your criteria yet.</p>
               <p className="text-xs text-gray-400 dark:text-white/25 mt-1">Try broadening your skill list or adjusting your industry focus.</p>
@@ -233,10 +233,10 @@ function MentorshipContent() {
   }
 
   return (
-    <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+    <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-2xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-10">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Mentorship</p>
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Mentorship</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Mentorship Matching Engine</h1>
           <p className="text-sm text-gray-500 dark:text-white/45 max-w-lg">
             Tell us your growth goals and we'll match you with experts from the LAMID network who can accelerate your development.
@@ -250,7 +250,7 @@ function MentorshipContent() {
           </motion.div>
         )}
 
-        <motion.div {...fadeUp(0.05)} className="aivora-card border rounded-2xl p-6 flex flex-col gap-5">
+        <motion.div {...fadeUp(0.05)} className="lamidone-card border rounded-2xl p-6 flex flex-col gap-5">
           <div>
             <label className="text-xs font-semibold text-gray-600 dark:text-white/60 mb-1.5 block">Development Goals *</label>
             <textarea

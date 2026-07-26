@@ -13,7 +13,7 @@ const Header = () => {
           {/* Right side - Content */}
           <div className="w-full md:w-2/3 flex items-center">
             <p className="text-sm md:text-base lg:text-lg leading-relaxed">
-              For over three decades, we have worked globally across industries, communities, and boardrooms. We have seen the gaps. We have seen the potential — and we built LAMID ONE to bridge both. A unified ecosystem where trusted expertise and advanced AI work together to deliver consulting, training, and business growth in one seamless digital environment.
+              For over three decades, we have worked globally across industries, communities, and boardrooms. We have seen the gaps. We have seen the potential — and we built LAMID ONE to bridge both. A unified ecosystem where trusted expertise and advanced AI work together to deliver consulting, training, and business growth in one digital environment.
             </p>
           </div>
         </div>

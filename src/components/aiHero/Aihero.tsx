@@ -246,7 +246,7 @@ const SOLUTIONS = [
       "Structured project intake with smart allocation",
       "Budgeting, resource planning & time tracking",
       "Payment processing & escrow",
-      "Transparent, seamless end-to-end delivery",
+      "Transparent delivery, end to end",
     ],
     Icon: BarChart2,
     hex: "#f97316",
@@ -468,7 +468,7 @@ export default function AISystemSection() {
                             <Zap className="h-4 w-4 text-[#2563EB]" />
                           </motion.div>
                           <span className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">
-                            Powering Enterprise Transformation Seamlessly
+                            Powering Enterprise Transformation
                           </span>
                         </motion.div>
 

@@ -21,11 +21,9 @@ const SDBusinessPrototype = () => {
             <div>
               <h1 className="text-2xl font-bold text-blue-500 mb-2">Job and Wealth Creation</h1>
               <p className="text-sm text-gray-300">
-                <span className="text-blue-500">Sustainable Development</span> is dedicated to bridging the wealth creation 
-                gap utilizing the principles of green economy for sustainable capital, while building 
-                capacity for high value and creativity for sustainable livelihood. We leverage 
-                global partnerships aimed at sustainability, ensuring resource and financial 
-                stability.
+                <span className="text-blue-500">Sustainable Development</span> closes the wealth creation
+                gap using the principles of the green economy — building capacity for high-value work
+                and livelihoods that last. Global partnerships keep resources and financing stable.
               </p>
             </div>
             
@@ -35,12 +33,9 @@ const SDBusinessPrototype = () => {
             
             <div>
               <p className="text-sm text-gray-300">
-                Members are equipped with skills as the first step in preparing and training 
-                to move them to sustainable business models, digital access, and financing, 
-                as well as access to national and global markets, collaborative partnerships, and 
-                a micro fund that can strengthen entrepreneurship. <span className="text-blue-500">CALEB THIS IS TO 
-                BE CUSTOMIZED BUT PUT SOMETHING HERE SO ANYONE CHECKING WILL SEE 
-                SOMETHING.</span>
+                Skills training comes first. From there, members move into sustainable business
+                models, digital access, and financing — plus national and global markets,
+                collaborative partnerships, and a micro fund that strengthens entrepreneurship.
               </p>
             </div>
             
@@ -54,14 +49,11 @@ const SDBusinessPrototype = () => {
             </div>
             
             <div>
-              <p className="text-blue-500 text-sm mb-2">CALEB THIS PART NEEDS TO BE UNDER SUSTAINABLE DEVELOPMENT</p>
+              <p className="text-blue-500 text-sm mb-2">INCLUSIVE CAPACITY BUILDING</p>
               <p className="text-sm text-gray-300">
-                We provided transitional threshold skills training securely dispersed wealth to 
-                ensure there was optimal coverage. That focus promotes solid communities, 
-                wealth distribution, and quality-centered progressive and structured long-term 
-                objectives. Our comprehensive focus on key vocational capacity recognizes 
-                refugee internalizations is OKAY but about places not moving. It recognizes 
-                places hiring particular skills is normal mix and regionally as REFUGEES.
+                Vocational training reaches the people regional hiring overlooks — including
+                displaced and refugee communities. Skills map to where the work actually exists,
+                so wealth spreads across communities instead of concentrating in a few.
               </p>
             </div>
           </div>

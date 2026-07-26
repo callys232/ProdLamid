@@ -24,7 +24,7 @@ export default function HowItWorks() {
   const router = useRouter();
 
   return (
-    <section id="how-it-works" className="relative aivora-section py-10 px-4 overflow-hidden">
+    <section id="how-it-works" className="relative lamidone-section py-10 px-4 overflow-hidden">
 
       {/* Wave bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -50,11 +50,11 @@ export default function HowItWorks() {
           transition={{ duration: 0.5 }}
           className="text-center mb-6"
         >
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             How It Works
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug">
-            <span className="aivora-gradient-text">From Diagnostic to Growth.</span>
+            <span className="lamidone-gradient-text">From Diagnostic to Growth.</span>
           </h2>
         </motion.div>
 
@@ -132,7 +132,7 @@ export default function HowItWorks() {
                 onClick={() => router.push(step.href)}
                 whileHover={{ x: 4 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex items-start gap-4 aivora-card border rounded-2xl p-5 cursor-pointer text-left"
+                className="flex items-start gap-4 lamidone-card border rounded-2xl p-5 cursor-pointer text-left"
                 style={{ borderColor: isHov ? `${step.accent}50` : undefined }}
               >
                 <motion.div
@@ -154,7 +154,7 @@ export default function HowItWorks() {
 
         {/* Quick tools — repositioned here below steps */}
         <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
-          <span className="text-[10px] aivora-text-muted tracking-wider uppercase shrink-0 w-full text-center mb-2">Quick access</span>
+          <span className="text-[10px] lamidone-text-muted tracking-wider uppercase shrink-0 w-full text-center mb-2">Quick access</span>
           {QUICK_TOOLS.map((tool) => (
             <motion.button key={tool.label} type="button"
               onClick={() => router.push(tool.href)}
@@ -163,7 +163,7 @@ export default function HowItWorks() {
               transition={{ duration: 0.16 }}
               className="flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-medium border border-[#2563EB]/30 text-gray-600 dark:text-white/60 cursor-pointer transition-colors shadow-[0_0_10px_rgba(37,99,235,0.2)]"
             >
-              <span className="aivora-gradient-text">{tool.icon}</span>{tool.label}
+              <span className="lamidone-gradient-text">{tool.icon}</span>{tool.label}
             </motion.button>
           ))}
         </div>

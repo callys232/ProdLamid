@@ -10,8 +10,9 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import mongoose from "mongoose";
 import { isRevoked } from "@/lib/tokenBlocklist";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 export async function GET(request: Request) {
     try {

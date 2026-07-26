@@ -82,7 +82,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
       <Head>
         <meta
           name="description"
-          content="Discover our transformative training programs and strategic recruitment services designed to equip teams with global best practices and top-tier talent."
+          content="Training programs and strategic recruitment that equip teams with global best practices and top-tier talent."
         />
         <meta
           name="keywords"
@@ -91,11 +91,11 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
         <meta name="lamid" content="Lamid Consulting" />
         <meta
           property="og:title"
-          content="Training & Recruitment | Empowering Talent for the Future"
+          content="Training & Recruitment | Building Talent for What Comes Next"
         />
         <meta
           property="og:description"
-          content="We deliver hands-on training and strategic recruitment to help organizations adapt, grow, and lead."
+          content="Hands-on training and strategic recruitment. Adapt faster, grow stronger, lead further."
         />
         <meta property="og:image" content="/training-recruitment-banner.jpg" />
         <meta property="og:type" content="website" />
@@ -354,15 +354,15 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                     </h2>
 
                     <p className="text-sm text-gray-300 leading-relaxed">
-                      We are leaders in providing far-reaching range of programs
-                      suited to meet the challenges of todays rapid changes.
+                      A far-reaching range of programs, built to meet the
+                      challenges of today&apos;s rapid change.
                     </p>
 
                     <p className="text-sm text-gray-400 leading-relaxed">
-                      We match clients unique circumstances with customized
-                      solutions that help them adapt to global best practices.
+                      Customized solutions matched to your circumstances, so
+                      teams adopt global best practices faster.
                       You achieve knowledge transfer and behavioral
-                      transformation in ways that seamlessly integrate your team
+                      transformation in ways that integrate cleanly with your team
                       back to the workplace, using hands-on methodologies.
                     </p>
 
@@ -487,7 +487,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                     {/* P1 — two sentences; show first, dropdown reveals second */}
                     <div>
                       <p className="text-sm text-gray-300 leading-relaxed">
-                        Leveraging cutting-edge tools, conduct executive
+                        Using current tooling, conduct executive
                         searches and headhunts to identify and secure top-tier
                         talent for permanent, temporary, and contract positions.
                         {expandedP1 && (
@@ -495,7 +495,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                             {" "}
                             Our approaches ensure organizations attract the
                             brightest and most dedicated professionals,
-                            empowering them to succeed and thrive.
+                            so they can do the work well.
                           </span>
                         )}
                       </p>
@@ -522,7 +522,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                     <div>
                       <p className="text-sm text-gray-400 leading-relaxed">
                         We support the effective pairing, management and
-                        retention of cutting-edge expertise as a pool of
+                        retention of specialist expertise as a pool of
                         accessible peer mentors and leaders
                         {expandedP3 && (
                           <span>

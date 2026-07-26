@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
+import LamidOneTestimonials from "@/components/lamidOne/LamidOneTestimonials";
 
 /* ── Learning journey steps ── */
 const JOURNEY = [
@@ -83,7 +83,7 @@ export default function HCDPage() {
   const router = useRouter();
 
   return (
-    <div className="aivora-section min-h-screen">
+    <div className="lamidone-section min-h-screen">
 
       {/* ── Hero ── */}
       <section className="relative px-4 pt-28 pb-10 text-center overflow-hidden">
@@ -95,9 +95,9 @@ export default function HCDPage() {
           />
         </svg>
         <motion.div {...fadeUp(0)} className="relative z-10 max-w-3xl mx-auto">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">LAMID TALENT</p>
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">LAMID TALENT</p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-            <span className="aivora-gradient-text">Your AI-Powered Career Engine</span>
+            <span className="lamidone-gradient-text">AI-Powered Career Intelligence</span>
           </h1>
           <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Personalised learning paths, micro-certifications, and career development powered by AI — built for the modern professional.
@@ -126,7 +126,7 @@ export default function HCDPage() {
                   onHoverStart={() => setHoveredStep(i)} onHoverEnd={() => setHoveredStep(null)}
                   onClick={() => router.push(step.href)}
                   whileHover={{ y: -6, boxShadow: "0 16px 36px rgba(37,99,235,0.18)" }} whileTap={{ scale: 0.97 }}
-                  className="aivora-card border rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer"
+                  className="lamidone-card border rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer"
                   style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
                   <motion.div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl mb-5 bg-[#2563EB] relative z-10"
@@ -149,7 +149,7 @@ export default function HCDPage() {
                   onHoverStart={() => setHoveredStep(i + 10)} onHoverEnd={() => setHoveredStep(null)}
                   onClick={() => router.push(step.href)}
                   whileHover={{ x: 4 }} whileTap={{ scale: 0.98 }}
-                  className="aivora-card border rounded-2xl p-5 flex items-start gap-4 cursor-pointer"
+                  className="lamidone-card border rounded-2xl p-5 flex items-start gap-4 cursor-pointer"
                   style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}>
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold bg-[#2563EB] shrink-0">{step.num}</div>
                   <div>
@@ -173,15 +173,15 @@ export default function HCDPage() {
                 onHoverStart={() => setHoveredFeature(i)} onHoverEnd={() => setHoveredFeature(null)}
                 onClick={() => router.push(f.href)}
                 whileHover={{ y: -5, boxShadow: "0 14px 34px rgba(37,99,235,0.16)" }} whileTap={{ scale: 0.97 }}
-                className="aivora-card border rounded-2xl p-6 cursor-pointer"
+                className="lamidone-card border rounded-2xl p-6 cursor-pointer"
                 style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}>
                 <motion.div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-[#2563EB]/12 border border-[#2563EB]/25"
                   animate={{ scale: isHov ? 1.1 : 1 }} transition={{ type: "spring", stiffness: 300, damping: 18 }}>
-                  <span className="text-base aivora-gradient-text">{f.icon}</span>
+                  <span className="text-base lamidone-gradient-text">{f.icon}</span>
                 </motion.div>
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{f.title}</h3>
                 <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{f.body}</p>
-                <motion.span className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
+                <motion.span className="text-[10px] font-semibold mt-3 block lamidone-gradient-text"
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }} transition={{ duration: 0.15 }}>
                   Open →
                 </motion.span>
@@ -197,8 +197,8 @@ export default function HCDPage() {
           {STATS.map((s, i) => (
             <motion.div key={s.label} {...fadeUp(i * 0.1)}
               whileHover={{ y: -4, boxShadow: "0 12px 30px rgba(37,99,235,0.15)" }}
-              className="aivora-card border rounded-2xl p-8 text-center">
-              <p className="text-4xl sm:text-5xl font-extrabold aivora-gradient-text mb-3">{s.value}</p>
+              className="lamidone-card border rounded-2xl p-8 text-center">
+              <p className="text-4xl sm:text-5xl font-extrabold lamidone-gradient-text mb-3">{s.value}</p>
               <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{s.label}</p>
             </motion.div>
           ))}
@@ -209,7 +209,7 @@ export default function HCDPage() {
       <section className="px-4 pb-12">
         <motion.div {...fadeUp(0)}
           className="max-w-4xl mx-auto rounded-2xl border border-[#2563EB]/30 bg-gradient-to-br from-[#2563EB]/8 via-transparent to-transparent p-10 text-center">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">For Teams</p>
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">For Teams</p>
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
             Transform your entire organisation — not just individuals.
           </h2>
@@ -262,7 +262,7 @@ export default function HCDPage() {
                 {/* Header */}
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <div>
-                    <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-2">Program Categories</p>
+                    <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-2">Program Categories</p>
                     <h2 className="text-xl font-bold text-white leading-snug">
                       Build the capability your organisation needs.
                     </h2>
@@ -312,7 +312,7 @@ export default function HCDPage() {
                         <div className="flex-1 min-w-0">
                           <h3 className="text-sm font-bold text-white leading-snug mb-1.5">{prog.title}</h3>
                           <p className="text-white/50 text-[11px] leading-relaxed italic">{prog.outcome}</p>
-                          <motion.span className="text-[10px] font-semibold mt-2 block aivora-gradient-text"
+                          <motion.span className="text-[10px] font-semibold mt-2 block lamidone-gradient-text"
                             animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }} transition={{ duration: 0.15 }}>
                             Explore this program →
                           </motion.span>
@@ -336,7 +336,7 @@ export default function HCDPage() {
         )}
       </AnimatePresence>
 
-      <AivoraTestimonials pillar="talent" />
+      <LamidOneTestimonials pillar="talent" />
 
       {/* ── Subtle CTA at bottom ── */}
       <section className="px-4 pb-12">

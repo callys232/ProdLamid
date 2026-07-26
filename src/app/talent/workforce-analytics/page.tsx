@@ -7,7 +7,7 @@ import {
   BarChart3, X, Plus, AlertCircle, ArrowUpRight,
   Loader2, TrendingUp, ShieldAlert, Users,
 } from "lucide-react";
-import DashboardTierGate from "@/components/aivora/DashboardTierGate";
+import DashboardTierGate from "@/components/lamidOne/DashboardTierGate";
 
 type PageState = "form" | "loading" | "result";
 
@@ -55,7 +55,7 @@ function ScoreCard({ label, value, icon: Icon, invert }: { label: string; value:
     : value > 66 ? "text-emerald-500" : value > 33 ? "text-amber-500" : "text-[#2563EB]";
 
   return (
-    <div className="aivora-card border rounded-2xl p-5 flex flex-col gap-2">
+    <div className="lamidone-card border rounded-2xl p-5 flex flex-col gap-2">
       <Icon className="w-4 h-4 text-[#2563EB]" strokeWidth={2} />
       <div className="flex items-end gap-1">
         <span className={`text-2xl font-extrabold leading-none ${color}`}>{value}</span>
@@ -120,7 +120,7 @@ function WorkforceContent() {
 
   if (state === "loading") {
     return (
-      <main className="aivora-section min-h-screen flex items-center justify-center">
+      <main className="lamidone-section min-h-screen flex items-center justify-center">
         <motion.div {...fadeUp()} className="flex flex-col items-center gap-4 text-center">
           <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/25 flex items-center justify-center">
             <Loader2 className="w-6 h-6 text-[#2563EB] animate-spin" />
@@ -134,10 +134,10 @@ function WorkforceContent() {
 
   if (state === "result" && result) {
     return (
-      <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+      <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeUp(0)} className="mb-10">
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Workforce Analytics</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Workforce Analytics</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Workforce Health Report</h1>
             <p className="text-sm text-gray-500 dark:text-white/45 max-w-2xl">{result.executiveSummary}</p>
           </motion.div>
@@ -154,7 +154,7 @@ function WorkforceContent() {
           {result.kpis?.length > 0 && (
             <motion.div {...fadeUp(0.1)} className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
               {result.kpis.map((k: any, i: number) => (
-                <div key={i} className="aivora-card border rounded-2xl p-4">
+                <div key={i} className="lamidone-card border rounded-2xl p-4">
                   <p className="text-lg font-bold text-gray-900 dark:text-white leading-none">{k.value}</p>
                   <p className="text-xs text-gray-500 dark:text-white/40 mt-1">{k.label}</p>
                   {k.trend && <p className="text-[10px] text-gray-400 dark:text-white/25 mt-1 leading-snug">{k.trend}</p>}
@@ -166,7 +166,7 @@ function WorkforceContent() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {/* Signals */}
             {result.signals?.length > 0 && (
-              <motion.div {...fadeUp(0.12)} className="aivora-card border rounded-2xl p-6">
+              <motion.div {...fadeUp(0.12)} className="lamidone-card border rounded-2xl p-6">
                 <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Workforce Signals</p>
                 <div className="flex flex-col gap-3">
                   {result.signals.map((s: any, i: number) => (
@@ -184,7 +184,7 @@ function WorkforceContent() {
 
             {/* Critical gaps */}
             {result.criticalGaps?.length > 0 && (
-              <motion.div {...fadeUp(0.15)} className="aivora-card border rounded-2xl p-6">
+              <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
                 <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Critical Capability Gaps</p>
                 <div className="flex flex-col gap-3">
                   {result.criticalGaps.map((g: any, i: number) => (
@@ -202,7 +202,7 @@ function WorkforceContent() {
           {/* Plans + hiring */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             {result.thirtyDayPlan?.length > 0 && (
-              <motion.div {...fadeUp(0.18)} className="aivora-card border rounded-2xl p-5">
+              <motion.div {...fadeUp(0.18)} className="lamidone-card border rounded-2xl p-5">
                 <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-3">30-Day Actions</p>
                 <ol className="flex flex-col gap-2 list-decimal list-inside">
                   {result.thirtyDayPlan.map((a: string, i: number) => <li key={i} className="text-xs text-gray-700 dark:text-white/70 leading-snug">{a}</li>)}
@@ -210,7 +210,7 @@ function WorkforceContent() {
               </motion.div>
             )}
             {result.ninetyDayPlan?.length > 0 && (
-              <motion.div {...fadeUp(0.2)} className="aivora-card border rounded-2xl p-5">
+              <motion.div {...fadeUp(0.2)} className="lamidone-card border rounded-2xl p-5">
                 <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-3">90-Day Actions</p>
                 <ol className="flex flex-col gap-2 list-decimal list-inside">
                   {result.ninetyDayPlan.map((a: string, i: number) => <li key={i} className="text-xs text-gray-700 dark:text-white/70 leading-snug">{a}</li>)}
@@ -218,12 +218,12 @@ function WorkforceContent() {
               </motion.div>
             )}
             {result.hiringRecommendations?.length > 0 && (
-              <motion.div {...fadeUp(0.22)} className="aivora-card border rounded-2xl p-5">
+              <motion.div {...fadeUp(0.22)} className="lamidone-card border rounded-2xl p-5">
                 <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-3">Hiring Priorities</p>
                 <div className="flex flex-col gap-2">
                   {result.hiringRecommendations.map((r: string, i: number) => (
                     <div key={i} className="flex items-start gap-2">
-                      <span className="aivora-gradient-text text-xs shrink-0 mt-0.5">+</span>
+                      <span className="lamidone-gradient-text text-xs shrink-0 mt-0.5">+</span>
                       <p className="text-xs text-gray-700 dark:text-white/70 leading-snug">{r}</p>
                     </div>
                   ))}
@@ -250,10 +250,10 @@ function WorkforceContent() {
   }
 
   return (
-    <main className="aivora-section min-h-screen pt-24 pb-16 px-4">
+    <main className="lamidone-section min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-2xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-10">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Workforce Analytics</p>
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Workforce Analytics</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Workforce Analytics Engine</h1>
           <p className="text-sm text-gray-500 dark:text-white/45 max-w-lg">
             Input your organisation's workforce composition and our AI delivers a full health analysis — skill coverage, talent risks, and a strategic hiring plan.
@@ -267,7 +267,7 @@ function WorkforceContent() {
           </motion.div>
         )}
 
-        <motion.div {...fadeUp(0.05)} className="aivora-card border rounded-2xl p-6 flex flex-col gap-5">
+        <motion.div {...fadeUp(0.05)} className="lamidone-card border rounded-2xl p-6 flex flex-col gap-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-semibold text-gray-600 dark:text-white/60 mb-1.5 block">Organisation Name *</label>

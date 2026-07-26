@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function ClosingCta() {
   return (
-    <section className="relative aivora-section py-24 px-4 overflow-hidden">
+    <section className="relative lamidone-section py-24 px-4 overflow-hidden">
       {/* Glow orb */}
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
@@ -33,16 +33,16 @@ export default function ClosingCta() {
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
         >
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6">
-            Get Started
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6">
+            LAMID ONE
           </p>
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
-            Ready to see where you stand?
+            See LAMID ONE in action.
           </h2>
 
           <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base leading-relaxed mb-10">
-            Takes two minutes. No commitment, no cost.
+            Let's build something great.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -51,11 +51,11 @@ export default function ClosingCta() {
               whileTap={{ scale: 0.97 }}
             >
               <Link
-                href="/premium/business-diagnostic"
+                href="/contact"
                 className="group relative inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm overflow-hidden bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
               >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/18 to-transparent skew-x-12 pointer-events-none" />
-                <span className="relative z-10">Take your Lamid One Diagnostic</span>
+                <span className="relative z-10">Book a Demo</span>
               </Link>
             </motion.div>
 
@@ -64,10 +64,10 @@ export default function ClosingCta() {
               whileTap={{ scale: 0.97 }}
             >
               <Link
-                href="/contact"
+                href="/ecosystem"
                 className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-semibold text-sm border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white/75 hover:border-[#2563EB]/60 hover:text-[#2563EB] transition-all duration-200"
               >
-                Talk to Us
+                Explore the Ecosystem
               </Link>
             </motion.div>
           </div>

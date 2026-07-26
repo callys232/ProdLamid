@@ -6,21 +6,21 @@ import { useRouter } from "next/navigation";
 import { Sparkles, Zap, ShieldCheck, Globe } from "lucide-react";
 
 const TILES = [
-  { icon: Sparkles,    href: "/ecosystem", title: "Unified by Design",           body: "Not four separate tools bolted together. One system, built from day one to work as a whole — across strategy, growth, talent, and finance." },
-  { icon: Zap,         href: "/talent",   title: "Human Insight + AI Precision", body: "Our diagnostic engine combines 30+ years of consulting expertise with AI pattern recognition across 40+ organizational variables." },
-  { icon: ShieldCheck, href: "/pricing",  title: "Built for Every Scale",        body: "Whether you're a 20-person startup or a 20,000-person enterprise, LAMID ONE adapts to where you are and grows with where you're going." },
-  { icon: Globe,       href: "/ecosystem", title: "Outcomes Not Reports",        body: "We don't hand you a deck and leave. LAMID ONE connects the diagnostic to action — tools, advisors, and a system that tracks what happens next." },
+  { icon: Sparkles,    href: "/ecosystem", title: "Unified by Design",           body: "One system built to work as a whole — across strategy, growth, talent, and finance. Not four tools bolted together. One connected platform." },
+  { icon: Zap,         href: "/talent",   title: "Human Insight + AI Precision", body: "Human expertise and AI precision working together. Clear thinking, backed by intelligent signal — so your decisions are grounded in what's real." },
+  { icon: ShieldCheck, href: "/pricing",  title: "Built for Every Scale",        body: "From growing teams to global enterprises, LAMID ONE adapts to where you are and grows with where you're going." },
+  { icon: Globe,       href: "/ecosystem", title: "Outcomes Not Reports",        body: "Every recommendation connects to action. Tools, advisors, and a system that tracks what happens after the insight lands." },
 ];
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } };
 const tileV = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
 
-export default function WhyAivora() {
+export default function WhyLamidOne() {
   const [hovered, setHovered] = useState<number | null>(null);
   const router = useRouter();
 
   return (
-    <section className="relative aivora-section py-10 px-4 overflow-hidden">
+    <section className="relative lamidone-section py-10 px-4 overflow-hidden">
 
       {/* Grid bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -44,11 +44,11 @@ export default function WhyAivora() {
           transition={{ duration: 0.5 }}
           className="text-center mb-7"
         >
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             Why LAMID ONE
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug">
-            <span className="aivora-gradient-text">Why LAMID ONE Works.</span>
+            <span className="lamidone-gradient-text">Why LAMID ONE Works.</span>
           </h2>
         </motion.div>
 
@@ -71,7 +71,7 @@ export default function WhyAivora() {
                 onClick={() => router.push(tile.href)}
                 whileHover={{ y: -6, boxShadow: "0 16px 36px rgba(37,99,235,0.2)" }}
                 whileTap={{ scale: 0.97 }}
-                className="relative aivora-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
+                className="relative lamidone-card border rounded-2xl p-7 overflow-hidden cursor-pointer"
                 style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
               >
                 {/* Glow — red */}
@@ -104,7 +104,7 @@ export default function WhyAivora() {
                 <p className="text-gray-600 dark:text-white/65 text-xs leading-relaxed">{tile.body}</p>
 
                 <motion.span
-                  className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
+                  className="text-[10px] font-semibold mt-3 block lamidone-gradient-text"
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >

@@ -40,7 +40,7 @@ const BusinessGrowthSection: React.FC = () => {
       description: "Explore how job roles are evolving and how to stay ahead.",
       date: "Aug 12, 2025",
       time: "10:00 AM - 12:00 PM",
-      location: "Lagos Innovation Hub",
+      location: "Innovation Hub — Virtual",
       hoverColor: "hover:border-orange-400",
     },
     {
@@ -50,7 +50,7 @@ const BusinessGrowthSection: React.FC = () => {
       description: "Learn the latest strategies for workforce reskilling.",
       date: "Aug 15, 2025",
       time: "2:00 PM - 4:00 PM",
-      location: "Abuja Tech Center",
+      location: "Tech Center — Virtual",
       hoverColor: "hover:border-green-400",
     },
     {
@@ -61,7 +61,7 @@ const BusinessGrowthSection: React.FC = () => {
         "Understand which roles are fading and what’s replacing them.",
       date: "Aug 20, 2025",
       time: "1:00 PM - 3:00 PM",
-      location: "Port Harcourt Business School",
+      location: "Business School — Virtual",
       hoverColor: "hover:border-blue-400",
     },
     {
@@ -134,13 +134,13 @@ const BusinessGrowthSection: React.FC = () => {
           <div className="flex justify-center">
             <Image
               src="/help-note.png"
-              alt="We can help you"
+              alt="Ask an advisor for diagnostics"
               width={200}
               height={150}
               className="rounded hover:scale-105 transition-transform"
             />
           </div>
-          <p className="text-sm text-gray-400 group-hover:text-gray-300 transition">We can help you</p>
+          <p className="text-sm text-gray-400 group-hover:text-gray-300 transition">Get a read on where you stand.</p>
         </motion.button>
 
         {/* EVENTS heading */}

@@ -256,7 +256,7 @@ export default function EmploymentHistory({ user }: { user?: any }) {
                 <input
                   value={form.location}
                   onChange={(e) => setForm((p) => ({ ...p, location: e.target.value }))}
-                  placeholder="e.g. Lagos, Nigeria · Remote"
+                  placeholder="e.g. City, Country · Remote"
                   className={inputCls}
                 />
               </Field>

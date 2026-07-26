@@ -27,7 +27,7 @@ export default function TrainingCard() {
 
       <div className="flex-1 flex flex-col justify-center">
         <p className="text-sm md:text-base text-gray-200 mb-4 leading-relaxed">
-          Empowering organizations through strategic hiring, tailored
+          Strengthening organizations through strategic hiring, tailored
           development, and globally competitive team building.
         </p>
         <button

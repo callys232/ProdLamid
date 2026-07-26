@@ -97,7 +97,7 @@ export const mockEvents: EventItem[] = [
     id: 7,
     title: "Business Growth Workshop",
     description:
-      "Hands-on training for entrepreneurs focusing on scaling businesses and leveraging digital tools.",
+      "Hands-on training for entrepreneurs focusing on scaling businesses and using digital tools well.",
     image: "/images/business-workshop.jpg",
     images: [
       { path: "/images/business-workshop.jpg", alt: "Workshop session" },

@@ -101,7 +101,7 @@ export default function BusinessProfile({ user }: { user: any }) {
           </div>
           <div>
             <label className={lbl}>Location</label>
-            <input className={inp} value={form.location} onChange={e => setField("location", e.target.value)} placeholder="Lagos, Nigeria" />
+            <input className={inp} value={form.location} onChange={e => setField("location", e.target.value)} placeholder="City, Country" />
           </div>
           <div>
             <label className={lbl}>Website</label>
@@ -196,7 +196,7 @@ export default function BusinessProfile({ user }: { user: any }) {
                           </div>
                           <div className="sm:col-span-2">
                             <label className={lbl}>Location</label>
-                            <input className={inp} value={job.location ?? ""} onChange={e => setJobField(idx, "location", e.target.value)} placeholder="Remote / Lagos, Nigeria" />
+                            <input className={inp} value={job.location ?? ""} onChange={e => setJobField(idx, "location", e.target.value)} placeholder="Remote / City, Country" />
                           </div>
                           <div className="sm:col-span-2">
                             <label className={lbl}>Description</label>

@@ -79,7 +79,7 @@ const BestTools = () => {
       image: "/opportunities-icon.png",
       description: "Seizing profitable ventures",
       fullDetails:
-        "Identifying and leveraging opportunities that drive sustainable success.",
+        "Find the opportunities that compound, and act on them.",
     },
     {
       id: 5,

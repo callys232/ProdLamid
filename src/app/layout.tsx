@@ -9,6 +9,7 @@ import ClientGlobals from "./ClientGlobal";
 import CookieConsent from "@/components/CookieConsent";
 import StickmanBg from "@/components/StickmanBg";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import AuthRefreshProvider from "@/components/AuthRefreshProvider";
 
 const BASE = process.env.NEXT_PUBLIC_URL ?? "https://lamid.io";
 
@@ -19,9 +20,9 @@ export const metadata: Metadata = {
     template: "%s | LAMID ONE",
   },
   description:
-    "LAMID ONE is the unified HumanAI consulting ecosystem that empowers organizations to diagnose, transform, and accelerate " +
-    "with clarity, intelligence, and trust — through LAMID CORE, LAMID GROW, and LAMID TALENT.",
-  keywords: ["LAMID ONE", "LAMID CORE", "LAMID GROW", "LAMID TALENT", "HumanAI consulting", "consulting ecosystem", "AI consulting", "expert matching", "talent development", "business intelligence", "Africa", "global"],
+    "Diagnose, transform, and accelerate your organization with clarity, intelligence, and trust. " +
+    "One unified HumanAI ecosystem — LAMID CORE, LAMID GROW, LAMID TALENT, and LAMID FINANCE.",
+  keywords: ["LAMID ONE", "LAMID CORE", "LAMID GROW", "LAMID TALENT", "HumanAI consulting", "consulting ecosystem", "AI consulting", "expert matching", "talent development", "business intelligence", "global", "enterprise consulting"],
   authors:  [{ name: "LAMID ONE", url: BASE }],
   openGraph: {
     type:        "website",
@@ -61,6 +62,7 @@ export default function RootLayout({
     >
       <body className="antialiased font-sans min-h-screen flex flex-col">
         <ThemeProvider>
+        <AuthRefreshProvider>
         <CartProvider>
           {/* Running stickman background — fixed, behind all content */}
           <StickmanBg />
@@ -75,6 +77,7 @@ export default function RootLayout({
           <ClientGlobals />
           <CookieConsent />
         </CartProvider>
+        </AuthRefreshProvider>
         </ThemeProvider>
       </body>
     </html>

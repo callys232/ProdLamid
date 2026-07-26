@@ -71,7 +71,7 @@ const BizPhere: React.FC = () => {
             className={`relative rounded-2xl p-6 sm:p-8 overflow-hidden space-y-4 ${styles.descCard}`}
           >
             <p className="hover:text-gray-300 transition">
-              The platform to secure cutting edge information on finance,
+              The platform for current information on finance,
               suppliers, assets, land and more resources. It sorts buyers and
               sellers and protects merchants as they advertise and interact!
             </p>

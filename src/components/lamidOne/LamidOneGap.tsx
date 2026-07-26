@@ -33,7 +33,7 @@ export default function LamidOneGap() {
   const router = useRouter();
 
   return (
-    <section className="relative aivora-section py-10 px-4 overflow-hidden">
+    <section className="relative lamidone-section py-10 px-4 overflow-hidden">
 
       {/* Subtle vertical column lines */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -56,11 +56,11 @@ export default function LamidOneGap() {
           transition={{ duration: 0.55 }}
           className="text-center mb-7"
         >
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             The Signal Gap
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
-            <span className="aivora-gradient-text">Every Tool Sees One Piece.</span>
+            <span className="lamidone-gradient-text">Every Tool Sees One Piece.</span>
           </h2>
           <p className="text-gray-500 dark:text-white/50 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Most organizations have data. What they lack is a unified signal — one view that
@@ -88,7 +88,7 @@ export default function LamidOneGap() {
                 onClick={() => router.push(stat.authHref)}
                 whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(37,99,235,0.2)" }}
                 whileTap={{ scale: 0.98 }}
-                className="relative aivora-card border rounded-2xl p-8 overflow-hidden cursor-pointer transition-colors duration-300"
+                className="relative lamidone-card border rounded-2xl p-8 overflow-hidden cursor-pointer transition-colors duration-300"
                 style={{ borderColor: isHov ? "rgba(37,99,235,0.45)" : undefined }}
               >
                 {/* Top accent bar */}
@@ -119,7 +119,7 @@ export default function LamidOneGap() {
                 </p>
 
                 <motion.span
-                  className="text-[10px] font-semibold mt-3 block aivora-gradient-text"
+                  className="text-[10px] font-semibold mt-3 block lamidone-gradient-text"
                   animate={{ opacity: isHov ? 1 : 0, y: isHov ? 0 : 4 }}
                   transition={{ duration: 0.16 }}
                 >

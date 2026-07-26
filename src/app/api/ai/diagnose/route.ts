@@ -4,6 +4,7 @@ import { rateLimit } from "@/lib/rateLimit";
 import { sanitiseInput, isBodyTooLarge, getClientIP } from "@/lib/sanitize";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import { getJwtSecret } from "@/lib/jwt";
 
 const client = () =>
   new OpenAI({
@@ -15,13 +16,13 @@ const client = () =>
     },
   });
 
-const SYSTEM_PROMPT = `You are a Senior Partner at Lamid Consulting — an elite pan-African management consulting firm with deep expertise across strategy, operations, HR, technology, and sustainable development. You have conducted hundreds of business diagnostics for companies ranging from early-stage startups to listed corporates across Africa and globally.
+const SYSTEM_PROMPT = `You are a Senior Partner at Lamid Consulting — a global management consulting firm with deep expertise across strategy, operations, HR, technology, and sustainable development. You have conducted hundreds of business diagnostics for companies ranging from early-stage startups to listed corporates across every major market.
 
 Your diagnostic assessments are known for:
 - Brutally honest yet constructive scoring across 7 business dimensions
 - Specific, evidence-backed insights (not generic advice)
 - Actionable recommendations calibrated to the business's stage and context
-- Deep understanding of African market dynamics, regulatory environments, and growth challenges
+- Deep understanding of market dynamics, regulatory environments, and growth challenges in the region the client operates in
 - Connecting business health indicators to Lamid's specific service offerings
 
 You MUST return ONLY valid JSON — no markdown, no code fences, no commentary outside the JSON object.`;
@@ -39,7 +40,7 @@ export async function POST(req: NextRequest) {
   let userId: string | null = null;
   if (token) {
     try {
-      const decoded: any = jwt.verify(token, process.env.JWT_SECRET ?? "");
+      const decoded: any = jwt.verify(token, getJwtSecret());
       userId = decoded.userId;
     } catch {}
   }
@@ -132,7 +133,7 @@ Return this exact JSON structure. Every field is REQUIRED. Every array must have
     { "service": "<BIZ|HCD|SDC|Marketplace>", "name": "<full service name>", "reason": "<1-2 sentences connecting this service to this business's specific needs>" }
   ],
 
-  "benchmarkInsight": "<1-2 sentences comparing this business to similar-stage companies in the African market or relevant sector>",
+  "benchmarkInsight": "<1-2 sentences comparing this business to similar-stage companies in its own market and sector>",
 
   "callToAction": "<A compelling 2-3 sentence close with a specific Lamid next step and statement of confidence.>"
 }

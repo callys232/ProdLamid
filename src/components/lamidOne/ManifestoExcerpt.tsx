@@ -29,7 +29,7 @@ const dots = [
 
 export default function ManifestoExcerpt() {
   return (
-    <section className="relative aivora-section py-12 px-4 overflow-hidden">
+    <section className="relative lamidone-section py-12 px-4 overflow-hidden">
 
       {/* Radial lines bg */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -70,7 +70,7 @@ export default function ManifestoExcerpt() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-8"
+          className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-8"
         >
           Our Belief
         </motion.p>
@@ -102,7 +102,7 @@ export default function ManifestoExcerpt() {
         >
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 text-sm font-semibold aivora-gradient-text hover:opacity-80 transition-opacity group"
+            className="inline-flex items-center gap-2 text-sm font-semibold lamidone-gradient-text hover:opacity-80 transition-opacity group"
           >
             Read the full LAMID ONE manifesto
             <motion.span

@@ -20,11 +20,11 @@
         <div className="bg-gray-800 p-4 rounded-md">
           <img
             src="/icons/structure.png"
-            alt="State-of-the-art structures & systems"
+            alt="Modern structures & systems"
             className="mx-auto w-12 h-12"
           />
           <h3 className="text-lg font-semibold mt-2">
-            State-of-the-art Structures & Systems
+            Modern Structures & Systems
           </h3>
         </div>
 

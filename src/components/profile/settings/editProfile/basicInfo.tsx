@@ -220,7 +220,7 @@ export default function StepBasicInfo({ data, onChange }: Props) {
             focus:ring-2 focus:ring-[#2563EB] outline-none transition
             group-hover:shadow-md hover:scale-[1.01]
           "
-                    placeholder="Lagos, Nigeria"
+                    placeholder="City, Country"
                 />
                 {renderError("location")}
             </div>

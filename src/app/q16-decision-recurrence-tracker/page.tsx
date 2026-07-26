@@ -1,6 +1,6 @@
 ﻿"use client";
-import DashboardTierGate from "@/components/aivora/DashboardTierGate";
-import IntelligenceModule from "@/components/aivora/IntelligenceModule";
+import DashboardTierGate from "@/components/lamidOne/DashboardTierGate";
+import IntelligenceModule from "@/components/lamidOne/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function Q16Page() {

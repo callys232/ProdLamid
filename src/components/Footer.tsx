@@ -36,7 +36,7 @@ const COLUMNS = [
 
 const Footer = () => {
   return (
-    <footer className="aivora-section border-t border-white/8 dark:border-white/8 border-gray-200">
+    <footer className="lamidone-section border-t border-white/8 dark:border-white/8 border-gray-200">
 
       {/* ── Main: brand block left + 3 columns ── */}
       <div className="max-w-5xl mx-auto px-6 md:px-10 pt-14 pb-10">
@@ -45,12 +45,12 @@ const Footer = () => {
           {/* Brand block: LAMID ONE + taglines at top, LAMID logo at base */}
           <div className="col-span-2 sm:col-span-1 flex flex-col gap-2 pr-4">
             {/* LAMID ONE — ecosystem brand name */}
-            <span className="text-xl font-black tracking-tight aivora-gradient-text leading-none">
+            <span className="text-xl font-black tracking-tight lamidone-gradient-text leading-none">
               LAMID ONE
             </span>
 
             {/* Taglines */}
-            <p className="text-xs aivora-gradient-text font-semibold">Human Insight. AI Precision. One Ecosystem.</p>
+            <p className="text-xs lamidone-gradient-text font-semibold">Human Insight. AI Precision. One Ecosystem.</p>
             <p className="text-xs text-gray-500 dark:text-white/40 leading-relaxed">
               The HumanAI Consulting &amp; Growth Ecosystem.
             </p>

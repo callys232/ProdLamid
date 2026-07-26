@@ -11,13 +11,13 @@ interface Props {
 
 const g = (d = 0) => ({ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: d } });
 
-export default function SovereignIntake({ onSubmit, loading, onUseMock }: Props) {
+export default function OperatingModelIntake({ onSubmit, loading, onUseMock }: Props) {
   const [form, setForm] = useState({
     organisationName:  "",
     industry:          "",
     size:              "",
     currentChallenge:  "",
-    sovereignGoal:     "",
+    operatingModelGoal:     "",
     additionalContext: "",
   });
 
@@ -39,10 +39,10 @@ export default function SovereignIntake({ onSubmit, loading, onUseMock }: Props)
               <rect x="2" y="19" width="24" height="2" rx="1" fill="#C9A84C" opacity="0.5" />
             </svg>
           </div>
-          <p className="text-[10px] tracking-[0.5em] uppercase text-[#C9A84C] mb-2">Sovereign Assessment</p>
-          <h2 className="text-2xl font-black text-[#E8E0CC] mb-2" style={{ fontFamily: "Georgia, serif" }}>Initiate Your Sovereign Assessment</h2>
+          <p className="text-[10px] tracking-[0.5em] uppercase text-[#C9A84C] mb-2">Operating Model Assessment</p>
+          <h2 className="text-2xl font-black text-[#E8E0CC] mb-2" style={{ fontFamily: "Georgia, serif" }}>Initiate Your Operating Model Assessment</h2>
           <p className="text-[11px] text-[#E8E0CC]/40 leading-relaxed">
-            Provide enterprise context to generate a personalised Sovereign Architecture assessment. Every score, milestone, and action plan will be specific to your organisation.
+            Provide enterprise context to generate a personalised Operating Model assessment. Every score, milestone, and action plan will be specific to your organisation.
           </p>
         </motion.div>
 
@@ -75,16 +75,16 @@ export default function SovereignIntake({ onSubmit, loading, onUseMock }: Props)
             </div>
 
             <div>
-              <label className={labelCls}>Current Sovereign Challenge <span className="text-[#C9A84C]">*</span></label>
+              <label className={labelCls}>Current Operating Model Challenge <span className="text-[#C9A84C]">*</span></label>
               <textarea rows={2} value={form.currentChallenge} onChange={set("currentChallenge")} disabled={loading}
                 placeholder="What is the primary governance or operational challenge this enterprise faces right now?"
                 className={inputCls + " resize-none"} />
             </div>
 
             <div>
-              <label className={labelCls}>Sovereign Goal <span className="text-[#C9A84C]">*</span></label>
-              <textarea rows={2} value={form.sovereignGoal} onChange={set("sovereignGoal")} disabled={loading}
-                placeholder="What does full sovereign operational governance look like for this enterprise?"
+              <label className={labelCls}>Operating Model Goal <span className="text-[#C9A84C]">*</span></label>
+              <textarea rows={2} value={form.operatingModelGoal} onChange={set("operatingModelGoal")} disabled={loading}
+                placeholder="What does full operating model operational governance look like for this enterprise?"
                 className={inputCls + " resize-none"} />
             </div>
 
@@ -103,20 +103,20 @@ export default function SovereignIntake({ onSubmit, loading, onUseMock }: Props)
                       style={{ animationDelay: `${i * 0.15}s` }} />
                   ))}
                 </div>
-                <p className="text-[10px] text-[#C9A84C]/70 tracking-widest">Analysing your enterprise against the Sovereign Architecture…</p>
+                <p className="text-[10px] text-[#C9A84C]/70 tracking-widest">Analysing your enterprise against the Enterprise Operating Model…</p>
               </div>
             )}
 
             <button type="button"
               onClick={() => {
-                if (!form.organisationName || !form.currentChallenge || !form.sovereignGoal) return;
+                if (!form.organisationName || !form.currentChallenge || !form.operatingModelGoal) return;
                 onSubmit(form);
               }}
-              disabled={loading || !form.organisationName || !form.currentChallenge || !form.sovereignGoal}
+              disabled={loading || !form.organisationName || !form.currentChallenge || !form.operatingModelGoal}
               className="w-full py-4 border border-[#C9A84C]/40 bg-[#C9A84C]/10 hover:bg-[#C9A84C]/18 text-[#C9A84C] text-[11px] font-bold tracking-[0.3em] uppercase disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2">
               {loading
-                ? <><Loader2 className="w-4 h-4 animate-spin" />Generating Sovereign Assessment…</>
-                : <>✦ Initiate Sovereign Assessment</>}
+                ? <><Loader2 className="w-4 h-4 animate-spin" />Generating Operating Model Assessment…</>
+                : <>✦ Initiate Operating Model Assessment</>}
             </button>
 
             <div className="relative">
@@ -134,7 +134,7 @@ export default function SovereignIntake({ onSubmit, loading, onUseMock }: Props)
         </motion.div>
 
         <motion.p {...g(0.3)} className="text-center text-[9px] text-[#E8E0CC]/20 tracking-widest mt-4">
-          Sovereign Architecture · Phase II · Classified · Q3 2026
+          Enterprise Operating Model · Phase II · Classified · Q3 2026
         </motion.p>
       </div>
     </div>

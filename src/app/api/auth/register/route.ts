@@ -11,8 +11,9 @@ import { awardPoints, SIGNUP_BONUS } from "@/lib/services/pointsService";
 import { rateLimit } from "@/lib/rateLimit";
 import { RegisterSchema, validate } from "@/lib/validation/schemas";
 import { verifyTurnstile } from "@/lib/turnstile";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 export async function POST(request: NextRequest) {
     try {

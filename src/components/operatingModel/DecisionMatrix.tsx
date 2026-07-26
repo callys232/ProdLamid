@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import type { DecisionType } from "@/mocks/sovereign";
+import type { DecisionType } from "@/mocks/operatingModel";
 
 interface Props { decisions: DecisionType[] }
 const g = (d = 0) => ({ initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: d } });
@@ -62,7 +62,7 @@ export default function DecisionMatrix({ decisions }: Props) {
                 { label: "Tactical", sub: "" },
                 { label: "Operational", sub: "48h" },
                 { label: "Strategic", sub: "72h" },
-                { label: "Sovereign Review", sub: "Quarterly / Emergency", highlight: true },
+                { label: "Operating Model Review", sub: "Quarterly / Emergency", highlight: true },
               ].map((s, i) => (
                 <div key={s.label} className="flex items-center gap-2">
                   {i > 0 && <span className="text-[#C9A84C]/30">→</span>}

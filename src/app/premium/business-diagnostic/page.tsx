@@ -245,7 +245,7 @@ export default function BusinessDiagnostic() {
   const textaCls  = inputCls + " resize-none";
 
   return (
-    <div className="min-h-screen aivora-section text-gray-900 dark:text-white px-4 py-10 md:px-12">
+    <div className="min-h-screen lamidone-section text-gray-900 dark:text-white px-4 py-10 md:px-12">
 
       {/* ── Page Header ── */}
       <div className="max-w-6xl mx-auto mb-8">
@@ -356,7 +356,14 @@ export default function BusinessDiagnostic() {
               <label className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 block mb-1.5">Primary Market</label>
               <select value={form.primaryMarket} onChange={set("primaryMarket")} className={selectCls} aria-label="Primary Market" title="Primary Market">
                 <option value="">Select…</option>
-                {["Nigeria", "West Africa", "East Africa", "Southern Africa", "Pan-Africa", "Global"].map((o) => (
+                {[
+                  "North America", "Latin America & Caribbean",
+                  "Western Europe", "Central & Eastern Europe",
+                  "Middle East", "North Africa",
+                  "West Africa", "East Africa", "Southern Africa",
+                  "South Asia", "Southeast Asia", "East Asia",
+                  "Oceania", "Global / Multi-region",
+                ].map((o) => (
                   <option key={o}>{o}</option>
                 ))}
               </select>
@@ -679,7 +686,7 @@ export default function BusinessDiagnostic() {
                     transition={{ duration: 0.4, delay: 0.3 }}
                     className="rounded-2xl border border-[#2563EB]/40 bg-gradient-to-br from-[#2563EB]/10 via-black to-black px-6 py-6 text-center"
                   >
-                    <p className="text-[10px] font-black uppercase tracking-widest aivora-gradient-text mb-2">Save your results</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest lamidone-gradient-text mb-2">Save your results</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to save, share, and act on this report.</h3>
                     <p className="text-xs text-gray-400 mb-4 leading-relaxed">
                       Sign up to copy your full report, track your progress over time, and connect with the right consultants to close your gaps.

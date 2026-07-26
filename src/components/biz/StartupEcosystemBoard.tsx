@@ -239,10 +239,10 @@ export default function StartupEcosystemBoard() {
             </div>
           </Card>
 
-          {/* 2 · State-of-the-art structures — icon BOTTOM */}
+          {/* 2 · Modern structures — icon BOTTOM */}
           <Card index={1} borderCls="border border-gray-500/35" href="/portal" onClick={go}>
             <div className="flex flex-col justify-between items-center h-full p-3">
-              <Tag text="State-of-the-art structures & systems" />
+              <Tag text="Modern structures & systems" />
               <GrayOval className="w-[52px] h-[52px]" />
             </div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -294,11 +294,11 @@ export default function StartupEcosystemBoard() {
             </div>
           </Card>
 
-          {/* 7 · State-of-the-art (2) — icon TOP */}
+          {/* 7 · Modern structures (2) — icon TOP */}
           <Card index={6} borderCls="border border-gray-500/35" href="/biz" onClick={go}>
             <div className="flex flex-col justify-between items-center h-full p-3">
               <GrayOval className="w-[52px] h-[52px]" />
-              <Tag text="State-of-the-art structures & systems" />
+              <Tag text="Modern structures & systems" />
             </div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <CurlyArrow color="#9ca3af" delay={2.4} rotate={180} />

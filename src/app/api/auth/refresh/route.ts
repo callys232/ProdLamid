@@ -15,8 +15,9 @@ import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/User";
 import { revokeToken } from "@/lib/tokenBlocklist";
 import { v4 as uuidv4 } from "uuid";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET          = process.env.JWT_SECRET!;
+const JWT_SECRET          = getJwtSecret();
 const ACCESS_TOKEN_TTL    = 15 * 60;        // 15 minutes
 const REFRESH_TOKEN_TTL   = 7 * 24 * 3600; // 7 days
 

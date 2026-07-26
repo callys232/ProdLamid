@@ -8,12 +8,12 @@
 @property --scroll-bg-from {
   syntax: "<color>";
   inherits: true;
-  initial-value: #EFF6FF;
+  initial-value: #C7DBF5;
 }
 @property --scroll-bg-to {
   syntax: "<color>";
   inherits: true;
-  initial-value: #F8FAFF;
+  initial-value: #F7FAFE;
 }
 
 /* ── LAMID ONE Theme: Day / Night ── */
@@ -29,70 +29,97 @@
   --navbar-bg:      rgba(248, 250, 255, 0.96);
   --navbar-border:  rgba(37, 99, 235, 0.10);
 
-  /* Light mode: visible sky-blue → white gradient */
-  --scroll-bg-from: #BFE3FF;
-  --scroll-bg-to:   #F8FAFF;
+  /* Light mode: soft desaturated blue → near-white */
+  --scroll-bg-from: #C7DBF5;
+  --scroll-bg-to:   #F7FAFE;
 }
 
 .dark {
-  --bg-page:        #04111F;
-  --bg-section:     #04111F;
+  --bg-page:        #030A16;
+  --bg-section:     #030A16;
   --bg-card:        rgba(255, 255, 255, 0.04);
-  --bg-card-hover:  rgba(6, 182, 212, 0.08);
-  --border-card:    rgba(6, 182, 212, 0.12);
+  --bg-card-hover:  rgba(59, 130, 246, 0.08);
+  --border-card:    rgba(59, 130, 246, 0.14);
   --text-primary:   #E2E8F0;
   --text-secondary: rgba(226, 232, 240, 0.65);
   --text-muted:     rgba(226, 232, 240, 0.30);
-  --navbar-bg:      rgba(4, 17, 31, 0.94);
-  --navbar-border:  rgba(6, 182, 212, 0.12);
+  --navbar-bg:      rgba(3, 10, 22, 0.94);
+  --navbar-border:  rgba(59, 130, 246, 0.12);
 
-  /* Dark mode: vivid teal → deep navy diagonal gradient */
-  --scroll-bg-from: #0D6E8A;
-  --scroll-bg-to:   #04111F;
+  /* Dark mode: deep sapphire → near-black navy */
+  --scroll-bg-from: #1E3A8A;
+  --scroll-bg-to:   #030A16;
+}
+
+/* Film grain — breaks up gradient banding. Static, sits above the color layers. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
 }
 
 body {
-  /* Full-page diagonal gradient — both stops animate via @property on scroll */
+  /* Layered atmosphere — both stops animate via @property on scroll */
   background-color: var(--scroll-bg-to);
   background-image:
-    linear-gradient(135deg, var(--scroll-bg-from) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 45% at 88% 12%, var(--scroll-bg-from) 0%, transparent 55%);
+    /* edge vignette — pulls focus toward the centre */
+    radial-gradient(ellipse 130% 90% at 50% 0%,   transparent 45%, rgba(2, 8, 20, 0.10) 100%),
+    /* upper-right light source */
+    radial-gradient(ellipse 62% 52% at 86% 6%,    var(--scroll-bg-from) 0%, transparent 62%),
+    /* lower-left counterweight, softer */
+    radial-gradient(ellipse 52% 42% at 10% 96%,   var(--scroll-bg-from) 0%, transparent 60%),
+    /* base diagonal wash */
+    linear-gradient(152deg, var(--scroll-bg-from) 0%, transparent 58%);
+  background-attachment: fixed;
   color: var(--text-primary);
-  transition: color 0.25s ease;
+  transition: color 0.3s ease;
 }
 
-/* Cinematic morph — both gradient stops transition on scroll */
+/* Cinematic morph — easeOutQuint for a slow, weighted settle */
 body.scroll-bg-active {
   transition:
-    --scroll-bg-from 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    --scroll-bg-to   1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    color 0.25s ease;
+    --scroll-bg-from 1.8s cubic-bezier(0.22, 1, 0.36, 1),
+    --scroll-bg-to   1.8s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.3s ease;
 }
 
 /* Let sections be transparent so the body bg shows through */
-body.scroll-bg-active .aivora-section {
+body.scroll-bg-active .lamidone-section {
   background: transparent;
 }
 
-.aivora-section {
+.lamidone-section {
   background-color: var(--scroll-bg-to);
   background-image:
-    linear-gradient(135deg, var(--scroll-bg-from) 0%, transparent 62%),
-    radial-gradient(ellipse 52% 46% at 88% 8%,  var(--scroll-bg-from) 0%, transparent 58%),
-    radial-gradient(ellipse 45% 35% at 50% 105%, var(--scroll-bg-from) 0%, transparent 52%);
+    radial-gradient(ellipse 58% 50% at 86% 4%,   var(--scroll-bg-from) 0%, transparent 62%),
+    radial-gradient(ellipse 48% 38% at 12% 100%, var(--scroll-bg-from) 0%, transparent 58%),
+    linear-gradient(152deg, var(--scroll-bg-from) 0%, transparent 60%);
 }
-.aivora-card       { background: var(--bg-card); border-color: var(--border-card); color: var(--text-primary); transition: background 0.25s ease, border-color 0.25s ease; }
-.aivora-nav        { background: var(--navbar-bg); border-bottom: 1px solid var(--navbar-border); transition: background 0.25s ease; }
-.aivora-text-muted { color: var(--text-muted); }
+
+/* Fixed attachment is expensive on touch devices — drop to scroll there */
+@media (hover: none) and (pointer: coarse) {
+  body { background-attachment: scroll; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.scroll-bg-active { transition: color 0.3s ease; }
+}
+.lamidone-card       { background: var(--bg-card); border-color: var(--border-card); color: var(--text-primary); transition: background 0.25s ease, border-color 0.25s ease; }
+.lamidone-nav        { background: var(--navbar-bg); border-bottom: 1px solid var(--navbar-border); transition: background 0.25s ease; }
+.lamidone-text-muted { color: var(--text-muted); }
 
 /* Accent Blue gradient for all prominent brand text */
-.aivora-gradient-text {
+.lamidone-gradient-text {
   background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 40%, #60A5FA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.dark .aivora-gradient-text {
+.dark .lamidone-gradient-text {
   background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 40%, #93C5FD 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

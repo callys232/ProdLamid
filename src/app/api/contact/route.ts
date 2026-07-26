@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
         html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:20px;">
           <h2 style="color:#2563EB;">Thanks for reaching out, ${safeName}!</h2>
           <p>We received your message and will respond within 1 business day.</p>
-          <p style="color:#999;font-size:12px;">The Lamid Team · Lagos, Nigeria · London, UK</p>
+          <p style="color:#999;font-size:12px;">The LAMID ONE Team</p>
         </div>`,
       });
     }

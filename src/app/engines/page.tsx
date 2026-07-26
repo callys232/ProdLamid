@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { BarChart3, TrendingUp, Users, ArrowRight, Zap, Lock } from "lucide-react";
+import ToolUsageHistory from "@/components/lamidOne/ToolUsageHistory";
 
 const ENGINES = [
   {
@@ -11,7 +12,7 @@ const ENGINES = [
     icon:        BarChart3,
     label:       "LAMID CORE",
     tagline:     "Strategy, alignment, and execution made clear.",
-    description: "Your consulting operating system for modern leadership — align strategy, execution, and performance in one place.",
+    description: "The operating system for modern leadership — align strategy, execution, and performance in one place.",
     accent:      "from-blue-500/20 to-blue-600/5",
     border:      "border-blue-500/30 hover:border-blue-500/60",
     iconBg:      "bg-blue-500/10 border-blue-500/25",
@@ -68,7 +69,7 @@ export default function EnginesPage() {
           >
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8">
               <Zap className="w-3 h-3 text-[#2563EB]" strokeWidth={2} />
-              <span className="aivora-gradient-text">Engine Access</span>
+              <span className="lamidone-gradient-text">Engine Access</span>
             </span>
           </motion.div>
 
@@ -79,7 +80,7 @@ export default function EnginesPage() {
             className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-gray-900 dark:text-white mb-5"
           >
             Your engines.{" "}
-            <span className="aivora-gradient-text">Ready to run.</span>
+            <span className="lamidone-gradient-text">Ready to run.</span>
           </motion.h1>
 
           <motion.p
@@ -107,7 +108,7 @@ export default function EnginesPage() {
               <motion.div key={engine.id} variants={cardV}>
                 <Link
                   href={engine.href}
-                  className={`group relative flex flex-col aivora-card border rounded-2xl p-8 overflow-hidden transition-all duration-300 ${engine.border}`}
+                  className={`group relative flex flex-col lamidone-card border rounded-2xl p-8 overflow-hidden transition-all duration-300 ${engine.border}`}
                 >
                   {/* Top accent line */}
                   <div className={`absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-gradient-to-r ${engine.accentBar} to-transparent`} />
@@ -130,7 +131,7 @@ export default function EnginesPage() {
                       {engine.description}
                     </p>
 
-                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold aivora-gradient-text group-hover:gap-2.5 transition-all duration-200">
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold lamidone-gradient-text group-hover:gap-2.5 transition-all duration-200">
                       Open engine <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
                     </span>
                   </div>
@@ -139,6 +140,13 @@ export default function EnginesPage() {
             );
           })}
         </motion.div>
+      </section>
+
+      {/* Tool history — members only, renders nothing for visitors */}
+      <section className="px-4 pb-16">
+        <div className="max-w-3xl mx-auto">
+          <ToolUsageHistory />
+        </div>
       </section>
 
       {/* Upgrade CTA */}

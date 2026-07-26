@@ -10,7 +10,7 @@ const MAX_FIELD: Record<string, number> = {
   industry:          80,
   size:              40,
   currentChallenge:  800,
-  sovereignGoal:     800,
+  operatingModelGoal:     800,
   additionalContext: 600,
   /* Diagnostic */
   businessName:      120,

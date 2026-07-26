@@ -5,11 +5,12 @@ import { Users } from "@/lib/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { rateLimit } from "@/lib/rateLimit";
+import { signRefreshToken, getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 // ── Hardcoded demo accounts ─────────────────────────────────────────────────
-// Active when NODE_ENV !== "production" OR DEMO_MODE=true.
+// Active ONLY when DEMO_MODE=true is explicitly set (see DEMO_ENABLED below).
 // These never touch the database.
 const DEMO_CREDENTIALS: Record<string, {
   password:           string;
@@ -89,8 +90,21 @@ const DEMO_CREDENTIALS: Record<string, {
   },
 };
 
-// Demo accounts are a product feature — enabled everywhere unless explicitly turned off
+/* ⚠️ TEMPORARY — demo accounts enabled by default (fail OPEN) ⚠️
+   The credentials above are hardcoded in this file, so anyone who can read
+   this repo can sign in as Enterprise/org_admin on any environment where
+   this is deployed.
+
+   TO LOCK DOWN LATER: change to `=== "true"` so it fails closed, then set
+   DEMO_MODE=true only where the demo is actually wanted. */
 const DEMO_ENABLED = process.env.DEMO_MODE !== "false";
+
+if (DEMO_ENABLED && process.env.NODE_ENV === "production") {
+  console.warn(
+    "[SECURITY] Demo credentials are LIVE in production. " +
+    "Set DEMO_MODE=false to disable them."
+  );
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -192,7 +206,15 @@ export async function POST(request: NextRequest) {
         if ((user as any).orgId)   tokenPayload.orgId   = String((user as any).orgId);
         if ((user as any).orgRole) tokenPayload.orgRole = (user as any).orgRole;
 
-        const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: "7d" });
+        /* Access token: 24h (was 7d — a stolen token was usable for a week).
+           A refresh token is now issued alongside it so /api/auth/refresh —
+           which already implements JTI rotation and reuse detection but was
+           previously unreachable — can shorten this further once the client
+           gains a 401 interceptor. */
+        const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: "15m" });
+
+        const { token: refreshToken, jti } = signRefreshToken(String(user._id));
+        await Users.findByIdAndUpdate(user._id, { $set: { refreshTokenJTI: jti } });
 
         // Sanitise user object — never send password to client
         const safeUser = { ...((user as any).toObject?.() ?? user) };
@@ -208,6 +230,15 @@ export async function POST(request: NextRequest) {
 
         // HttpOnly token cookie (secure, not readable by JS)
         response.cookies.set("token", token, {
+            httpOnly: true,
+            secure:   process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge:   15 * 60,           // match the 15m token TTL
+            path:     "/",
+        });
+
+        // Refresh token — consumed by POST /api/auth/refresh (rotates JTI)
+        response.cookies.set("refresh_token", refreshToken, {
             httpOnly: true,
             secure:   process.env.NODE_ENV === "production",
             sameSite: "lax",

@@ -202,7 +202,7 @@ export default function ProposalDrafter() {
   const selectCls = inputCls + " appearance-none cursor-pointer bg-white dark:bg-[#0a0a0a]";
 
   return (
-    <div className="min-h-screen aivora-section text-gray-900 dark:text-white px-4 py-10 md:px-12">
+    <div className="min-h-screen lamidone-section text-gray-900 dark:text-white px-4 py-10 md:px-12">
       {/* ── Header ── */}
       <div className="max-w-6xl mx-auto mb-8">
         <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 rounded-full mb-3">
@@ -510,7 +510,7 @@ export default function ProposalDrafter() {
                     transition={{ duration: 0.4, delay: 0.3 }}
                     className="rounded-2xl border border-[#2563EB]/40 bg-gradient-to-br from-[#2563EB]/10 via-black to-black px-6 py-6 text-center"
                   >
-                    <p className="text-[10px] font-black uppercase tracking-widest aivora-gradient-text mb-2">Save your proposal</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest lamidone-gradient-text mb-2">Save your proposal</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to copy, share, and use this proposal.</h3>
                     <p className="text-xs text-gray-400 mb-4 leading-relaxed">
                       Sign up to unlock the full copy, submit the proposal through LAMID ONE, and connect with the right consultants to deliver on it.

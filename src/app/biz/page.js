@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import AivoraTestimonials from "@/components/aivora/AivoraTestimonials";
+import LamidOneTestimonials from "@/components/lamidOne/LamidOneTestimonials";
 
 /* ── AIHero repurposed content: 4 pain points ── */
 const PAIN_POINTS = [
@@ -109,7 +109,7 @@ export default function BizPage() {
   const router = useRouter();
 
   return (
-    <div className="aivora-section min-h-screen">
+    <div className="lamidone-section min-h-screen">
 
       {/* ── Hero ── */}
       <section className="relative px-4 pt-28 pb-10 text-center overflow-hidden">
@@ -125,11 +125,11 @@ export default function BizPage() {
         </svg>
 
         <motion.div {...fadeUp(0)} className="relative z-10 max-w-3xl mx-auto">
-          <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+          <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
             LAMID GROW
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-            <span className="aivora-gradient-text">Your AI Command Center</span>
+            <span className="lamidone-gradient-text">AI Command Center</span>
           </h1>
           <p className="text-gray-500 dark:text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Real-time analytics, strategic dashboards, and AI-powered governance tools — all in one unified ecosystem.
@@ -151,7 +151,7 @@ export default function BizPage() {
                 onClick={() => router.push(f.href)}
                 whileHover={{ x: 4, boxShadow: "0 8px 30px rgba(37,99,235,0.15)" }}
                 whileTap={{ scale: 0.99 }}
-                className="aivora-card border rounded-2xl p-6 flex items-start gap-5 cursor-pointer transition-all duration-250"
+                className="lamidone-card border rounded-2xl p-6 flex items-start gap-5 cursor-pointer transition-all duration-250"
                 style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
               >
                 {/* Icon square */}
@@ -160,7 +160,7 @@ export default function BizPage() {
                   animate={{ scale: isHov ? 1.1 : 1, boxShadow: isHov ? "0 0 14px rgba(37,99,235,0.35)" : "none" }}
                   transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 >
-                  <span className="text-lg aivora-gradient-text">{f.icon}</span>
+                  <span className="text-lg lamidone-gradient-text">{f.icon}</span>
                 </motion.div>
 
                 <div className="flex-1 min-w-0">
@@ -200,7 +200,7 @@ export default function BizPage() {
                   onClick={() => router.push(p.href)}
                   whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(37,99,235,0.18)" }}
                   whileTap={{ scale: 0.98 }}
-                  className="aivora-card border rounded-2xl p-7 flex flex-col items-center text-center cursor-pointer"
+                  className="lamidone-card border rounded-2xl p-7 flex flex-col items-center text-center cursor-pointer"
                   style={{ borderColor: isHov ? "rgba(37,99,235,0.4)" : undefined }}
                 >
                   {/* Circle icon */}
@@ -209,7 +209,7 @@ export default function BizPage() {
                     animate={{ scale: isHov ? 1.12 : 1 }}
                     transition={{ type: "spring", stiffness: 280, damping: 18 }}
                   >
-                    <span className="text-xl aivora-gradient-text">{p.icon}</span>
+                    <span className="text-xl lamidone-gradient-text">{p.icon}</span>
                   </motion.div>
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{p.title}</h3>
                   <p className="text-gray-500 dark:text-white/55 text-xs leading-relaxed">{p.body}</p>
@@ -220,7 +220,7 @@ export default function BizPage() {
         </div>
       </section>
 
-      <AivoraTestimonials pillar="grow" />
+      <LamidOneTestimonials pillar="grow" />
 
       {/* ── Subtle CTA strip at bottom ── */}
       <section className="px-4 pb-12">
@@ -270,7 +270,7 @@ export default function BizPage() {
                 {/* Header */}
                 <div className="flex items-start justify-between gap-4 mb-6">
                   <div>
-                    <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-2">Platform Overview</p>
+                    <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-2">Platform Overview</p>
                     <h2 className="text-xl font-bold text-white leading-snug">
                       One Ecosystem. Every Layer of Growth.
                     </h2>
@@ -331,7 +331,7 @@ export default function BizPage() {
                           <span className="text-sm text-[#2563EB]">{portal.icon}</span>
                         </motion.div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-[9px] font-bold uppercase tracking-wider aivora-gradient-text mb-0.5">{portal.area}</p>
+                          <p className="text-[9px] font-bold uppercase tracking-wider lamidone-gradient-text mb-0.5">{portal.area}</p>
                           <p className="text-xs font-bold text-white mb-2">{portal.title}</p>
                           <ul className="space-y-1">
                             {portal.bullets.map((b) => (

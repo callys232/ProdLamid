@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import type { CommandOverviewData } from "@/mocks/sovereign";
+import type { CommandOverviewData } from "@/mocks/operatingModel";
 
 interface Props { data: CommandOverviewData }
 
@@ -17,8 +17,8 @@ export default function CommandOverview({ data }: Props) {
   const cards = [
     { num: data.artifacts,       label: "Artifacts Translated into Live Operational Frameworks", note: data.artifactsNote,    icon: ICONS[0] },
     { num: data.governanceTiers, label: "Governance Tiers Activated",                             note: data.governanceNote,   icon: ICONS[1] },
-    { num: data.thronePositions, label: "Throne Positions Mapped to Enterprise Systems",          note: data.throneNote,       icon: ICONS[2] },
-    { num: data.realmPhases,     label: "Realm Activation Phases Initiated",                      note: data.realmNote,        icon: ICONS[3] },
+    { num: data.leadershipRoles, label: "Leadership Roles Mapped to Enterprise Systems",          note: data.roleNote,       icon: ICONS[2] },
+    { num: data.rolloutPhases,     label: "Domain Activation Phases Initiated",                      note: data.phaseNote,        icon: ICONS[3] },
   ];
 
   return (
@@ -27,7 +27,7 @@ export default function CommandOverview({ data }: Props) {
         <motion.div {...g(0)} className="mb-8">
           <p className="text-[9px] tracking-[0.4em] uppercase text-[#C9A84C]/70 mb-1">Phase II — Command Overview</p>
           <h2 className="text-xl font-bold text-[#E8E0CC]" style={{ fontFamily: "Georgia, serif" }}>Command Overview</h2>
-          <p className="text-xs text-[#E8E0CC]/40 mt-1">Four pillars define the post-Seal construction scope</p>
+          <p className="text-xs text-[#E8E0CC]/40 mt-1">Four pillars define the post-approval build scope</p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

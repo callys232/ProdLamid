@@ -1,12 +1,12 @@
 "use client";
-import DashboardTierGate from "@/components/aivora/DashboardTierGate";
-import IntelligenceModule from "@/components/aivora/IntelligenceModule";
+import DashboardTierGate from "@/components/lamidOne/DashboardTierGate";
+import IntelligenceModule from "@/components/lamidOne/IntelligenceModule";
 import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleRegistry";
 
 export default function R19Page() {
   const config = MODULE_REGISTRY["R19"] ?? buildFallbackConfig("R19", "R-Series — Cadence Intelligence", "Cadence Impact Area Engine");
   return (
-    <DashboardTierGate pillar="R19 — Cadence Impact Area Engine" backHref="/r18-rhythm-spirit" backLabel="Cultural Cadence Fit">
+    <DashboardTierGate pillar="R19 — Cadence Impact Area Engine" backHref="/r18-cultural-cadence-fit" backLabel="Cultural Cadence Fit">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

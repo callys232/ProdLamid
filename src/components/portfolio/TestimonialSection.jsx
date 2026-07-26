@@ -8,7 +8,7 @@ const TESTIMONIALS = [
   {
     quote: "LAMID helped us transform our workforce, our culture, and our community impact — all through one ecosystem.",
     name: "Adaeze Okonkwo",
-    role: "CEO, African Growth Company",
+    role: "CEO, International Growth Company",
     initial: "A",
     tag: "Workforce Transformation",
     hex: "#2563EB",

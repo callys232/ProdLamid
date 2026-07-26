@@ -70,7 +70,7 @@ Generate a precise capability diagnostic. Return ONLY this JSON structure:
   "topGaps": [
     { "skill": "skill name", "insight": "why this gap matters for their role and goals", "action": "specific, immediately actionable development step" }
   ],
-  "strengths": ["2-3 specific strengths worth leveraging"],
+  "strengths": ["2-3 specific strengths worth building on"],
   "thirtyDayPlan": ["3 specific, actionable development activities for the next 30 days"],
   "ninetyDayPlan": ["3 specific, actionable development activities for 30-90 days"],
   "recommendedRoles": ["2-3 roles this professional is well-suited for given their trajectory"]

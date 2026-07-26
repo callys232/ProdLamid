@@ -23,6 +23,7 @@ import Messaging from "./messaging/ProjectWorkspace";
 import WalletPanel from "@/components/shared/WalletPanel";
 import InvoiceHistory from "./InvoiceHistory";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
+import ToolUsageHistory from "@/components/lamidOne/ToolUsageHistory";
 
 export default function ClientProfileDashboard() {
   const { isAuthenticated, loading: authLoading } = useAuth();
@@ -76,7 +77,12 @@ export default function ClientProfileDashboard() {
 
     switch (activeTab) {
       case "overview":
-        return <Overview client={client} consultants={client.consultants || []} />;
+        return (
+          <div className="space-y-6">
+            <Overview client={client} consultants={client.consultants || []} />
+            <ToolUsageHistory />
+          </div>
+        );
       case "settings":
         return <Settings client={client} />;
       case "teams":

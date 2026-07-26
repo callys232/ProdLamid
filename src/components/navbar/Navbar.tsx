@@ -231,13 +231,13 @@ const Navbar: React.FC = () => {
       transition={{ duration: 0.28, ease: "easeInOut" }}
       className="fixed top-0 left-0 right-0 z-50"
     >
-      <nav className="aivora-nav w-full" role="navigation" aria-label="Main navigation">
+      <nav className="lamidone-nav w-full" role="navigation" aria-label="Main navigation">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
 
           {/* Logo */}
           <Link href="/" aria-label="LAMID ONE Home" className="flex-shrink-0 flex items-center gap-2">
             <Image src="/Logo.png" alt="LAMID" width={90} height={30} priority className="object-contain" />
-            <span className="text-base font-black tracking-tight aivora-gradient-text hidden sm:block">LAMID ONE</span>
+            <span className="text-base font-black tracking-tight lamidone-gradient-text hidden sm:block">LAMID ONE</span>
           </Link>
 
           {/* Desktop nav */}
@@ -351,7 +351,7 @@ const Navbar: React.FC = () => {
                 </Link>
 
                 <div className="h-px bg-gray-200 dark:bg-white/8 my-1" />
-                <p className="px-4 text-[10px] font-bold uppercase tracking-widest aivora-gradient-text mb-1">Engines</p>
+                <p className="px-4 text-[10px] font-bold uppercase tracking-widest lamidone-gradient-text mb-1">Engines</p>
                 {ENGINES.map((e) => (
                   <Link key={e.href} href={e.href} onClick={() => setIsOpen(false)}
                     className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-gray-600 dark:text-white/55 hover:bg-[#2563EB]/8 hover:text-[#2563EB] transition-colors duration-200"
@@ -388,7 +388,7 @@ const Navbar: React.FC = () => {
                 <div className="h-px bg-gray-200 dark:bg-white/8 my-2" />
                 <div className="flex items-center gap-3 px-4 py-2">
                   <ThemeToggle />
-                  <span className="text-xs aivora-text-muted">Day / Night</span>
+                  <span className="text-xs lamidone-text-muted">Day / Night</span>
                 </div>
 
                 {!authLoading && !isAuthenticated && (

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Network, TrendingUp, GraduationCap, Landmark } from "lucide-react";
 import { useScrollBackground } from "@/hooks/useScrollBackground";
+import EcosystemOverview from "@/components/lamidOne/EcosystemOverview";
 
 const ENGINES = [
   {
@@ -22,7 +23,7 @@ const ENGINES = [
     label: "LAMID GROW",
     badge: "Customer & Digital",
     tagline: "Growth That Reads the Market in Real Time.",
-    body: "Market timing intelligence, localized advisory for Africa and emerging markets, and a digital transformation pathway built for where your business is going, not just where it's been.",
+    body: "Market timing intelligence, localized advisory for every market you operate in, and a digital transformation pathway built for where your business is going, not just where it's been.",
     href: "/grow",
     cta: "Explore Lamid Grow",
   },
@@ -69,7 +70,7 @@ const container = { hidden: {}, show: { transition: { staggerChildren: 0.1, dela
 export default function EcosystemPage() {
   useScrollBackground();
   return (
-    <main className="min-h-screen aivora-section">
+    <main className="min-h-screen lamidone-section">
 
       {/* Hero */}
       <section data-scroll-section data-bg-from-dark="#0D6E8A" data-bg-to-dark="#04111F" data-bg-from-light="#BFE3FF" data-bg-to-light="#F8FAFF" className="relative py-28 px-4 text-center overflow-hidden">
@@ -96,7 +97,7 @@ export default function EcosystemPage() {
           >
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8 mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
-              <span className="aivora-gradient-text">The HumanAI Consulting Operating System</span>
+              <span className="lamidone-gradient-text">The HumanAI Consulting Operating System</span>
             </span>
           </motion.div>
 
@@ -108,7 +109,7 @@ export default function EcosystemPage() {
           >
             <span className="text-gray-900 dark:text-white">One Ecosystem.</span>
             <br />
-            <span className="aivora-gradient-text">Four Engines.</span>
+            <span className="lamidone-gradient-text">Four Engines.</span>
             <br />
             <span className="text-gray-900 dark:text-white">Endless Possibilities.</span>
           </motion.h1>
@@ -157,11 +158,11 @@ export default function EcosystemPage() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
               The Four Engines
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-              Every layer of your business. <span className="aivora-gradient-text">One system.</span>
+              Every layer of your business. <span className="lamidone-gradient-text">One system.</span>
             </h2>
           </motion.div>
 
@@ -177,7 +178,7 @@ export default function EcosystemPage() {
                 key={engine.id}
                 variants={cardV}
                 whileHover={{ y: -6, boxShadow: "0 20px 50px rgba(37,99,235,0.18)" }}
-                className="group relative aivora-card border rounded-2xl p-8 overflow-hidden"
+                className="group relative lamidone-card border rounded-2xl p-8 overflow-hidden"
               >
                 {/* Left accent bar on hover */}
                 <motion.div
@@ -196,7 +197,7 @@ export default function EcosystemPage() {
                 <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#2563EB]/70 mb-2 block">
                   {engine.badge}
                 </span>
-                <p className="text-base font-bold aivora-gradient-text mb-2">{engine.label}</p>
+                <p className="text-base font-bold lamidone-gradient-text mb-2">{engine.label}</p>
                 <p className="text-gray-900 dark:text-white text-sm font-semibold leading-snug mb-3">
                   {engine.tagline}
                 </p>
@@ -204,7 +205,7 @@ export default function EcosystemPage() {
                   {engine.body}
                 </p>
                 <Link href={engine.href}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold aivora-gradient-text hover:opacity-80 transition-opacity"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold lamidone-gradient-text hover:opacity-80 transition-opacity"
                 >
                   {engine.cta} →
                 </Link>
@@ -212,6 +213,11 @@ export default function EcosystemPage() {
             ))}
           </motion.div>
         </div>
+      </section>
+
+      {/* Featured tools per engine — tabbed deep dive */}
+      <section data-scroll-section data-bg-from-dark="#1A3060" data-bg-to-dark="#060A1A" data-bg-from-light="#FFD8AA" data-bg-to-light="#EEF2FF" className="relative">
+        <EcosystemOverview />
       </section>
 
       {/* Cross-engine & platform tools */}
@@ -223,7 +229,7 @@ export default function EcosystemPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="aivora-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6 text-center">
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6 text-center">
               Cross-Engine Tools
             </p>
             <div className="flex flex-wrap gap-3 justify-center mb-10">

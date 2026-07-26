@@ -6,8 +6,9 @@ import { scoreProject } from "@/lib/ai/projectMatcher";
 import type { ConsultantProfile, ProjectMatchResult } from "@/types/aiProjectmatch";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { getJwtSecret } from "@/lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
+const JWT_SECRET = getJwtSecret();
 
 function normalizeSkills(value: unknown): string[] {
     if (!Array.isArray(value)) return [];
