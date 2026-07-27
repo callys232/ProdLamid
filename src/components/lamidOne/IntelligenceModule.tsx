@@ -15,12 +15,14 @@ import TimeSeriesIntake from "./TimeSeriesIntake";
 import FinancialIntake from "./FinancialIntake";
 import RosterIntake from "./RosterIntake";
 import ScenarioIntake from "./ScenarioIntake";
+import AssessmentIntake from "./AssessmentIntake";
 import { financialsToPrompt } from "@/lib/intelligence/financial";
 import type { SeriesStats } from "@/lib/intelligence/inputSpec";
 import { seriesStatsToPrompt } from "@/lib/intelligence/inputSpec";
 import type { ComputedDimension } from "@/lib/intelligence/dimensions";
 import {
   seriesDimensions, financialDimensions, rosterDimensions, scenarioDimensions,
+  assessmentDimensions,
 } from "@/lib/intelligence/dimensions";
 import { savePendingRun, loadPendingRun, clearPendingRun } from "@/lib/intelligence/pendingRun";
 
@@ -788,6 +790,15 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
                   loading={loading}
                   onSubmit={({ context, measured, summary }) =>
                     run(context, undefined, measured, scenarioDimensions(summary))
+                  }
+                />
+              ) : config.inputs?.kind === "assessment" ? (
+                <AssessmentIntake
+                  dimensions={config.inputs.dimensions ?? config.dimensionLabels}
+                  engineName={config.engineName}
+                  loading={loading}
+                  onSubmit={({ context, measured, summary }) =>
+                    run(context, undefined, measured, assessmentDimensions(summary))
                   }
                 />
               ) : (

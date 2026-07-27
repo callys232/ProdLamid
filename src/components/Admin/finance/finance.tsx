@@ -6,135 +6,140 @@ import FundDistributionChart from "./funddistrchat";
 import EscrowBarChart from "./escrowChart";
 import EscrowTable from "./escrowTable";
 
-type FinanceData = {
-  totalProjects: number;
-  completedAmount: number;
-  pendingAmount: number;
-  availableAmount: number;
-  heldAmount: number;
-  escrowTransactions: any[];
-  escrowSummary: {
-    labels: string[];
-    counts: number[];
-    amounts: number[];
-  };
-};
+/**
+ * Admin finance.
+ *
+ * This component used to assign the raw envelope — { success, data } — to state
+ * and then read `finance.totalProjects`, which is undefined on it. Calling
+ * .toString() on that threw, so the panel only ever rendered when the request
+ * FAILED and a hardcoded fallback took over: 124 projects, $275,000 completed.
+ * An administrator had no way to tell those invented figures from real ones.
+ *
+ * It now reads the shape /api/admin/finance actually returns, and shows nothing
+ * rather than something fictional when the call fails.
+ */
 
-/* Empty, not invented.
-   This used to fall back to plausible-looking figures — 124 projects,
-   $275,000 completed — whenever the fetch failed. An administrator had no way
-   to tell fabricated money from real money, which is worse than showing
-   nothing. Zeros plus a visible error is the honest failure state. */
-const emptyFinance: FinanceData = {
-  totalProjects: 0,
-  completedAmount: 0,
-  pendingAmount: 0,
-  availableAmount: 0,
-  heldAmount: 0,
-  escrowTransactions: [],
-  escrowSummary: { labels: [], counts: [], amounts: [] },
-};
+type StatusBucket = { count: number; total: number };
+
+interface FinanceApi {
+  escrows: { total: number; funded: number; released: number; disputed: number; refunded: number };
+  value:   { funded: number; released: number; disputed: number; refunded: number; held: number };
+  byStatus: Record<string, StatusBucket>;
+  wallets: number;
+}
+
+interface EscrowRow {
+  _id: string;
+  amount: number;
+  status: string;
+  projectId?: string | null;
+  createdAt?: string;
+}
+
+/** Maps an escrow status onto the three buckets the table renders. */
+const TABLE_STATUS = (s: string): "Held" | "Released" | "Pending" =>
+  s === "released" ? "Released" : s === "funded" || s === "disputed" ? "Held" : "Pending";
+
+const money = (n: number) => `$${(n ?? 0).toLocaleString()}`;
 
 export default function FinanceAgent() {
-  const [finance, setFinance] = useState<FinanceData>(emptyFinance);
+  const [fin, setFin]         = useState<FinanceApi | null>(null);
+  const [rows, setRows]       = useState<EscrowRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError]     = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchFinance = async () => {
+    let cancelled = false;
+
+    const load = async () => {
       try {
-        setLoading(true);
-        const res = await fetch("/api/admin/finance", { cache: "no-store", credentials: "include" });
-        if (res.status === 403) throw new Error("Administrator access required.");
-        if (!res.ok) throw new Error("Could not load finance data.");
-        const json = await res.json();
+        /* Figures and rows come from different endpoints — /finance aggregates,
+           /escrow lists. Both are admin-guarded server-side. */
+        const [fRes, eRes] = await Promise.all([
+          fetch("/api/admin/finance", { cache: "no-store", credentials: "include" }),
+          fetch("/api/admin/escrow?status=all&limit=50", { cache: "no-store", credentials: "include" }),
+        ]);
+        if (!fRes.ok) throw new Error("Could not load finance data.");
 
-        /* The API answers { success, data: { escrows, value, byStatus, wallets } }.
-           This component stored that envelope directly and then read
-           finance.totalProjects — undefined — so `.toLocaleString()` threw and
-           the tab blew up on every SUCCESSFUL response. It only ever rendered
-           when the request failed and the mock took over. */
-        const d = json?.data ?? {};
-        const escrows = d.escrows ?? {};
-        const value   = d.value   ?? {};
+        const fJson = await fRes.json();
+        if (cancelled) return;
 
-        setFinance({
-          totalProjects:   escrows.total ?? 0,
-          completedAmount: value.released ?? 0,
-          pendingAmount:   value.funded ?? 0,
-          availableAmount: value.refunded ?? 0,
-          // Money taken from a client and neither released nor returned.
-          heldAmount:      value.held ?? 0,
-          escrowTransactions: d.transactions ?? [],
-          escrowSummary: {
-            labels:  ["Funded", "Released", "Disputed", "Refunded"],
-            counts:  [escrows.funded ?? 0, escrows.released ?? 0, escrows.disputed ?? 0, escrows.refunded ?? 0],
-            amounts: [value.funded ?? 0, value.released ?? 0, value.disputed ?? 0, value.refunded ?? 0],
-          },
-        });
+        setFin(fJson?.data ?? null);
+        if (eRes.ok) {
+          const eJson = await eRes.json();
+          setRows(Array.isArray(eJson?.escrows) ? eJson.escrows : []);
+        }
         setError(null);
-      } catch (err: any) {
-        setError(err.message);
-        setFinance(emptyFinance);   // never invented figures
+      } catch (e: unknown) {
+        if (!cancelled) setError(e instanceof Error ? e.message : "Could not load finance data.");
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
-    fetchFinance();
-    const interval = setInterval(fetchFinance, 30000); // refresh every 30s
-    return () => clearInterval(interval);
+    load();
+    const interval = setInterval(load, 30000);
+    return () => { cancelled = true; clearInterval(interval); };
   }, []);
+
+  if (loading && !fin) {
+    return <p className="p-6 text-sm text-gray-400">Loading finance data…</p>;
+  }
+
+  /* No invented numbers. If the call failed there is nothing truthful to show. */
+  if (error || !fin) {
+    return (
+      <div className="m-6 rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+        <p className="text-sm text-red-400">{error ?? "Finance data unavailable."}</p>
+        <p className="mt-1 text-xs text-red-400/70">
+          No figures are shown rather than placeholder ones.
+        </p>
+      </div>
+    );
+  }
+
+  const summary = {
+    labels:  ["Funded", "Released", "Disputed", "Refunded"],
+    counts:  [fin.escrows.funded, fin.escrows.released, fin.escrows.disputed, fin.escrows.refunded],
+    amounts: [fin.value.funded, fin.value.released, fin.value.disputed, fin.value.refunded],
+  };
 
   return (
     <div className="space-y-6">
       <Section title="Financial Overview">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <MetricCard
-            label="Escrows"
-            value={finance.totalProjects.toString()}
-          />
-          <MetricCard
-            label="Released"
-            value={`$${finance.completedAmount.toLocaleString()}`}
-          />
-          <MetricCard
-            label="Funded (in escrow)"
-            value={`$${finance.pendingAmount.toLocaleString()}`}
-          />
-          <MetricCard
-            label="Refunded"
-            value={`$${finance.availableAmount.toLocaleString()}`}
-          />
-          <MetricCard
-            label="Held (funded + disputed)"
-            value={`$${finance.heldAmount.toLocaleString()}`}
-          />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <MetricCard label="Escrows"        value={String(fin.escrows.total)} />
+          <MetricCard label="Released"       value={money(fin.value.released)} />
+          <MetricCard label="Funded"         value={money(fin.value.funded)} />
+          {/* Money taken from a client and neither released nor returned —
+              the figure the old panel omitted entirely. */}
+          <MetricCard label="Held"           value={money(fin.value.held)} />
+          <MetricCard label="Held in dispute" value={money(fin.value.disputed)} />
+          <MetricCard label="Wallets"        value={String(fin.wallets)} />
         </div>
       </Section>
 
       <Section title="Fund Distribution">
         <FundDistributionChart
-          completed={finance.completedAmount}
-          pending={finance.pendingAmount}
-          available={finance.availableAmount}
-          held={finance.heldAmount}
+          completed={fin.value.released}
+          pending={fin.value.funded}
+          available={fin.value.refunded}
+          held={fin.value.disputed}
         />
       </Section>
 
       <Section title="Escrow Transactions">
-        <EscrowBarChart summary={finance.escrowSummary} />
-        <EscrowTable transactions={finance.escrowTransactions} />
+        <EscrowBarChart summary={summary} />
+        <EscrowTable
+          transactions={rows.map((r) => ({
+            id:      String(r._id).slice(-8),
+            project: r.projectId ? String(r.projectId).slice(-8) : "—",
+            date:    r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "—",
+            amount:  r.amount ?? 0,
+            status:  TABLE_STATUS(r.status),
+          }))}
+        />
       </Section>
-
-      {loading && (
-        <p className="text-gray-400 text-sm">Loading finance data...</p>
-      )}
-      {error && (
-        <p className="text-sm text-red-400">
-          {error} — figures below are not live.
-        </p>
-      )}
     </div>
   );
 }

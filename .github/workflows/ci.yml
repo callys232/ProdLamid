@@ -1,0 +1,49 @@
+name: CI
+
+# Every push and every pull request. The escrow authorization hole and the
+# broken PDF parser both survived because nothing ran these checks except by
+# hand, and by hand means "when someone remembers".
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+# A new push supersedes an in-flight run on the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      # `npm ci` fails loudly when package.json and the lockfile disagree,
+      # which `npm install` would quietly paper over.
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Tests
+        run: npm test
+
+      # Compiles all 396 routes. Catches the class of breakage — a bad import,
+      # a renamed route — that typecheck and unit tests both miss.
+      - name: Build
+        run: npm run build
+        env:
+          # Placeholders: the build must not need real credentials, and if it
+          # ever does, that is itself the thing to fix.
+          MONGODB_URI: mongodb://localhost:27017/ci
+          JWT_SECRET: ci-placeholder-secret-not-used-at-runtime
+          NEXT_TELEMETRY_DISABLED: "1"

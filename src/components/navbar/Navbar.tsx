@@ -16,6 +16,7 @@ const FLAT_LINKS = [
   { label: "Home",      href: "/"          },
   { label: "Ecosystem", href: "/ecosystem" },
   { label: "Solutions", href: "/solutions" },
+  { label: "Usecase",   href: "/use-case"  },
   { label: "Pricing",   href: "/pricing"   },
   { label: "About",     href: "/about"     },
 ];
@@ -364,9 +365,10 @@ const Navbar: React.FC = () => {
 
                 <div className="h-px bg-gray-200 dark:bg-white/8 my-1" />
 
-                {/* Solutions · Pricing · About */}
+                {/* Solutions · Usecase · Pricing · About */}
                 {[
                   { label: "Solutions", href: "/solutions" },
+                  { label: "Usecase",   href: "/use-case"  },
                   { label: "Pricing",   href: "/pricing"   },
                   { label: "About",     href: "/about"     },
                 ].map((link) => {

@@ -21,6 +21,7 @@ import AdminHeader from "./Header";
 
 /* -------------------- Skeleton Loader -------------------- */
 function SkeletonLoader() {
+
   return (
     <div className="animate-pulse p-6 space-y-4">
       <div className="h-6 bg-[#1f1f1f] rounded w-1/3"></div>
@@ -40,53 +41,52 @@ export default function AdminDashboard() {
   const [denied, setDenied] = useState(false);
   const router = useRouter();
 
-  /* -------------------- Fetch Admin Data -------------------- */
+  /* -------------------- Authorise, then fetch -------------------- */
+  /* The console used to render for anyone who typed /admin. Every API behind it
+     enforces the admin role server-side, so no data leaked — but the 403 was
+     caught and discarded, leaving a non-admin looking at the full shell with
+     empty panels. Access is now decided before anything is drawn. */
+  const [authorised, setAuthorised] = useState<boolean | null>(null);
+
   useEffect(() => {
-    const fetchAdminData = async () => {
+    let cancelled = false;
+
+    (async () => {
       try {
-        setLoading(true);
         const { data } = await axios.get("/api/admin/admin");
+        if (cancelled) return;
         setProjectId(data.projectId);
         setClientId(data.clientId);
-      } catch (err: any) {
-        /* The catch was empty, so a 403 was swallowed, loading flipped false,
-           and the whole admin shell rendered for a non-admin — every panel
-           empty behind it. The server routes held, but it read as broken and
-           showed an interface nobody outside the team should see. */
-        const status = err?.response?.status;
-        if (status === 401 || status === 403) {
-          setDenied(true);
-          return;
+        setAuthorised(true);
+      } catch (err: unknown) {
+        if (cancelled) return;
+        const status = axios.isAxiosError(err) ? err.response?.status : undefined;
+        setAuthorised(false);
+
+        if (status === 401) {
+          router.replace(`/signin?next=${encodeURIComponent("/admin")}`);
+        } else {
+          // 403 and anything else: this is not their console.
+          router.replace("/");
         }
-        console.error("[Admin] could not load admin context", err);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
-    };
-    fetchAdminData();
-  }, []);
+    })();
 
-  /* Send anyone without admin rights away rather than showing them the shell. */
-  useEffect(() => {
-    if (!denied) return;
-    const t = setTimeout(() => router.replace("/"), 2200);
-    return () => clearTimeout(t);
-  }, [denied, router]);
+    return () => { cancelled = true; };
+  }, [router]);
 
-  if (denied) {
+  /* -------------------- Tab Switcher -------------------- */
+  /* Nothing is drawn until the role is known: no shell, no sidebar, no tabs. */
+  if (authorised !== true) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#010101] px-6">
-        <div className="max-w-sm rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-8 text-center">
-          <p className="mb-2 text-sm font-bold text-white">Administrator access required</p>
-          <p className="text-xs text-gray-500">
-            This area is restricted. Returning you to the site.
-          </p>
-        </div>
+      <div className="min-h-screen bg-black p-6">
+        <SkeletonLoader />
       </div>
     );
   }
 
-  /* -------------------- Tab Switcher -------------------- */
   const renderTab = () => {
     if (loading) return <SkeletonLoader />;
 

@@ -49,11 +49,26 @@ export interface NarrativeInputSpec {
   kind: "narrative";       // the existing six-field form
 }
 
+/**
+ * Archetype G — the module's own dimensions, rated with evidence.
+ *
+ * Fits any module whose output is a set of scored dimensions but which has no
+ * measurable series, roster or ledger behind it. The dimensions come from the
+ * registry entry, so the thing being scored is the thing the module claims to
+ * assess rather than a generic questionnaire.
+ */
+export interface AssessmentInputSpec {
+  kind: "assessment";
+  /** Falls back to the module's dimensionLabels when omitted. */
+  dimensions?: string[];
+}
+
 export type ModuleInputSpec =
   | TimeSeriesInputSpec
   | FinancialInputSpec
   | RosterInputSpec
   | ScenarioInputSpec
+  | AssessmentInputSpec
   | NarrativeInputSpec;
 
 /** A-Series modules that assess workforce STRUCTURE rather than sentiment. */

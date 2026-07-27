@@ -12,14 +12,17 @@
  * the model to frame the narrative sections, so per-module specificity survives
  * in the prose — but the scores are now the same numbers the tables show.
  *
- * Narrative modules have no compute layer and are unaffected: they keep the
- * model's dimensions, which is the honest fallback when nothing was measured.
+ * Every module now has a compute layer. The 144 that had none are assessed
+ * against their own dimensions — rated, weighted, and discounted where the
+ * rating has no evidence behind it — so no score on any result page originates
+ * from the model.
  */
 
 import type { SeriesStats } from "./inputSpec";
 import type { FinancialSummary } from "./financial";
 import type { RosterSummary } from "./roster";
 import type { ScenarioSummary } from "./scenario";
+import type { AssessmentSummary } from "./assessment";
 import type { ComputedBudget } from "@/lib/budget/types";
 
 export interface ComputedDimension {
@@ -236,4 +239,25 @@ export function budgetDimensions(b: ComputedBudget): ComputedDimension[] {
           insight: `No actuals entered yet — add spend against lines to track variance.`,
         },
   ];
+}
+
+/* ── Archetype G — assessment ─────────────────────────────────────────── */
+
+/**
+ * The module's own dimensions, scored from the ratings rather than by a model.
+ *
+ * Evidence-adjusted values are used, not raw ones: a dimension asserted at 5
+ * with nothing behind it should not read the same as one that is documented.
+ * The insight names the evidence level so the discount is never silent.
+ */
+export function assessmentDimensions(s: AssessmentSummary): ComputedDimension[] {
+  const EV = ["no evidence", "anecdotal evidence", "documented"] as const;
+
+  return s.dimensions.map((d) => ({
+    label:   d.label,
+    value:   clamp(d.adjustedPct),
+    insight: d.unsupported
+      ? `Rated ${d.scorePct}% with no evidence — discounted to ${d.adjustedPct}%.`
+      : `${d.scorePct}% on ${EV[d.evidence]}, weight ${d.weight} of 3.`,
+  }));
 }

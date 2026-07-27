@@ -1874,6 +1874,12 @@ for (const [id, cfg] of Object.entries(MODULE_REGISTRY)) {
   } else if (SCENARIO_MODULES.has(id)) {
     // Modules that weigh discrete options rather than assess a capability.
     cfg.inputs = { kind: "scenario" };
+  } else {
+    /* Everything else declares scored dimensions but has no series, roster or
+       ledger behind it — the shape that was leaving 144 modules asking a model
+       to invent their numbers. They are assessed against their own dimensions,
+       weighted by importance and discounted for missing evidence. */
+    cfg.inputs = { kind: "assessment", dimensions: cfg.dimensionLabels };
   }
 }
 
@@ -1898,6 +1904,9 @@ export function buildFallbackConfig(moduleId: string, seriesName: string, engine
     engineName,
     purpose:             `${engineName} — an enterprise intelligence engine that provides deep diagnostic analysis and corrective intelligence for this domain.`,
     dimensionLabels:     ["Primary Dimension", "Secondary Dimension", "Tertiary Dimension", "Quaternary Dimension"],
+    /* Even an unrecognised module gets a real compute layer rather than a
+       narrative form the model has to score for it. */
+    inputs:              { kind: "assessment" },
     driverContext:       "All seven drivers (Identity, Market, Cultural, Human, Structural, Timing, Direction) shape the intelligence in this module.",
     correctionProtocols: ["Stabilisation","Synchronisation","Amplification","Alignment","Improvement","Lock-In"],
     backHref:            "/intelligence-hub",
