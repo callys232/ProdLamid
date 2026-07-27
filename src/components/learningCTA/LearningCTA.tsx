@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import LearningCanvas from "./LearningCanvas";
+import { LMS_URL } from "@/lib/externalPlatforms";
 
-const LEARNING_URL = "https://learn-by-lamid.vercel.app/";
+const LEARNING_URL = LMS_URL;
 
 export interface LearningCTAProps {
   /** Small eyebrow label above the headline */

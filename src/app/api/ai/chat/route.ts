@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { isBodyTooLarge } from "@/lib/sanitize";
+import { LMS_URL } from "@/lib/externalPlatforms";
 
 function getClient() {
   return new OpenAI({
@@ -27,7 +28,7 @@ Premium features: AI matching, intelligence dashboards, advisory console, milest
 
 Rules: Be concise (under 120 words), always suggest the most relevant page or action, be professional and warm.`,
 
-  learning: `You are Lamid Learning Coach — the AI advisor for LAMID's external learning platform at https://learn-by-lamid.vercel.app/
+  learning: `You are Lamid Learning Coach — the AI advisor for LAMID's external learning platform at ${LMS_URL}
 
 This is a dedicated, fully-featured learning tool separate from the main LAMID ONE platform. It hosts all learning programmes, course content, certifications, and learning paths. Always direct users there for actual learning.
 
@@ -43,7 +44,7 @@ You can:
 - Recommend the right programme based on user goals, role, and seniority
 - Explain what each programme covers, its format, and expected outcomes
 - Describe AI-personalised learning paths, mentorship matching, and certifications
-- ALWAYS end by directing the user to https://learn-by-lamid.vercel.app/ to enrol
+- ALWAYS end by directing the user to ${LMS_URL} to enrol
 
 Be encouraging, specific, and educational. Under 150 words.`,
 

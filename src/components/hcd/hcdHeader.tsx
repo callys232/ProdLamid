@@ -128,7 +128,7 @@ const HcdHeader: React.FC = () => {
                     Start Your Assessment →
                   </Link>
                   <Link
-                    href="/hcd/recruitment"
+                    href="/events"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold
                                border border-orange-500/60 text-orange-400
                                hover:bg-orange-500/10 hover:border-orange-400 transition

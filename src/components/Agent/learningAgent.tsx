@@ -3,8 +3,9 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, ChevronRight, Loader2, Send, Bot, ExternalLink } from "lucide-react";
+import { LMS_URL } from "@/lib/externalPlatforms";
 
-const LAMID_LEARNING_URL = "https://learn-by-lamid.vercel.app/";
+const LAMID_LEARNING_URL = LMS_URL;
 
 const PROGRAMMES = [
   { emoji: "🎯", title: "Strategic Leadership Excellence",    duration: "6 weeks", format: "Cohort",     level: "Senior",     href: LAMID_LEARNING_URL },

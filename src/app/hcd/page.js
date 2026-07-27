@@ -218,7 +218,9 @@ export default function HCDPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/premium/business-diagnostic"
+              {/* The learning assessment lives on the LMS, not the AI diagnostic.
+                  /talent/lms mints a one-time SSO code and hands off. */}
+              <Link href="/talent/lms"
                 className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_18px_rgba(37,99,235,0.4)]">
                 Start Your Free Assessment
               </Link>
@@ -346,7 +348,7 @@ export default function HCDPage() {
             <p className="text-xs text-gray-500 dark:text-white/40">Start with an AI-powered skills assessment. Receive your personalised learning path.</p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
-            <Link href="/premium/business-diagnostic"
+            <Link href="/talent/lms"
               className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_14px_rgba(37,99,235,0.35)]">
               Start Your Assessment
             </Link>

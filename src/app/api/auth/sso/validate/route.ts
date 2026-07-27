@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { SsoCode } from "@/lib/models/SsoCode";
 import { rateLimit } from "@/lib/rateLimit";
+import { LMS_ORIGIN } from "@/lib/externalPlatforms";
 
 const SHARED_SECRET = process.env.LAMID_SSO_SHARED_SECRET ?? "";
 
 // Allowed origins — external apps that may call this endpoint
 const ALLOWED_ORIGINS = [
-  process.env.LMS_URL        ? new URL(process.env.LMS_URL).origin        : "https://learn-by-lamid.vercel.app",
+  LMS_ORIGIN,
   process.env.DOCUSHARE_URL  ? new URL(process.env.DOCUSHARE_URL).origin  : "https://fileshare-six-phi.vercel.app",
 ];
 

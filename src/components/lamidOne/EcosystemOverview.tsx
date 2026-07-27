@@ -24,7 +24,7 @@ const ENGINES = [
         code: "Q46",
         name: "Predictive Foresight Engine",
         desc: "Model decision paths before committing. Understand outcomes, assess probability, and move with confidence.",
-        href: "/q46-predictive-foresight-engine",
+        href: "/q46-predictive-foresight",
       },
     ],
     stat: { value: "137", label: "modules" },
@@ -237,48 +237,45 @@ export default function EcosystemOverview() {
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.24, delay: i * 0.08 }}
-                        className="flex gap-4"
                       >
-                        {/* Code badge + left rule */}
-                        <div className="flex flex-col items-center gap-1 shrink-0">
-                          <span
-                            className="font-mono text-[10px] font-bold px-2 py-1 rounded-md"
-                            style={{
-                              background: `${active.color}14`,
-                              color: active.color,
-                            }}
-                          >
-                            {tool.code}
-                          </span>
-                          {i < active.tools.length - 1 && (
-                            <div
-                              className="w-px flex-1 min-h-[16px]"
-                              style={{ background: `${active.color}20` }}
-                            />
-                          )}
-                        </div>
-
-                        {/* Text */}
-                        <div className="pb-2">
-                          <Link
-                            href={tool.href}
-                            className="group inline-flex items-center gap-1"
-                          >
-                            <span className="text-sm font-semibold text-gray-900 dark:text-white group-hover:underline decoration-[1px] underline-offset-2">
-                              {tool.name}
-                            </span>
+                        {/* The whole row is the link. Previously only the title
+                            was clickable, so clicking the description — the
+                            largest part of the card — did nothing at all. */}
+                        <Link href={tool.href} className="group flex gap-4">
+                          {/* Pillar dot + connecting rule. The module code used
+                              to sit here; codes are an internal key. */}
+                          <div className="flex shrink-0 flex-col items-center gap-1 pt-1.5">
                             <span
-                              className="text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-                              style={{ color: active.color }}
+                              className="h-2.5 w-2.5 shrink-0 rounded-full"
+                              style={{ background: active.color }}
                               aria-hidden="true"
-                            >
-                              →
+                            />
+                            {i < active.tools.length - 1 && (
+                              <div
+                                className="w-px flex-1 min-h-[16px]"
+                                style={{ background: `${active.color}20` }}
+                              />
+                            )}
+                          </div>
+
+                          <div className="pb-2">
+                            <span className="inline-flex items-center gap-1">
+                              <span className="text-sm font-semibold text-gray-900 decoration-[1px] underline-offset-2 group-hover:underline dark:text-white">
+                                {tool.name}
+                              </span>
+                              <span
+                                className="text-xs opacity-0 transition-opacity group-hover:opacity-100"
+                                style={{ color: active.color }}
+                                aria-hidden="true"
+                              >
+                                &rarr;
+                              </span>
                             </span>
-                          </Link>
-                          <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed mt-0.5">
-                            {tool.desc}
-                          </p>
-                        </div>
+                            <p className="mt-0.5 text-xs leading-relaxed text-gray-500 dark:text-white/45">
+                              {tool.desc}
+                            </p>
+                          </div>
+                        </Link>
                       </motion.div>
                     ))}
                   </div>

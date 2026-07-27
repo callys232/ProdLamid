@@ -7,6 +7,7 @@ import { Users } from "@/lib/models/User";
 import { Profile } from "@/lib/models/Profile";
 import { SsoCode } from "@/lib/models/SsoCode";
 import { getJwtSecret } from "@/lib/jwt";
+import { LMS_URL } from "@/lib/externalPlatforms";
 
 export const dynamic = "force-dynamic";
 
@@ -45,7 +46,7 @@ export default async function LmsRedirectPage() {
   const code = randomUUID();
   await SsoCode.create({ code, userId, email, name, accountType });
 
-  const base = process.env.LMS_URL ?? "https://learn-by-lamid.vercel.app/";
+  const base = LMS_URL;
   const dest  = new URL(base);
   dest.searchParams.set("sso", code);
 

@@ -12,7 +12,7 @@ const STEPS = [
     borderCls: "border-orange-500/30",
     body: "Your AI-powered skills assessment takes 12 minutes and creates a personalized learning profile for you and your team.",
     cta: "Start Your Assessment",
-    href: "/hcd/recruitment",
+    href: "/talent/lms",
   },
   {
     num: "02",
@@ -22,7 +22,7 @@ const STEPS = [
     borderCls: "border-violet-500/30",
     body: "Your learning path is built around your goals, your gaps, and your timeline. AI-personalized. Expert-designed. Adjust it anytime.",
     cta: "Explore Programs",
-    href: "/hcd/recruitment",
+    href: "/events",
   },
   {
     num: "03",

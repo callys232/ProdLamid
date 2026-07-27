@@ -20,23 +20,23 @@ type FinanceData = {
   };
 };
 
-/* ---------- Fallback Mock ---------- */
-const fallbackFinance: FinanceData = {
-  totalProjects: 124,
-  completedAmount: 275000,
-  pendingAmount: 83000,
-  availableAmount: 152000,
-  heldAmount: 68000,
+/* Empty, not invented.
+   This used to fall back to plausible-looking figures — 124 projects,
+   $275,000 completed — whenever the fetch failed. An administrator had no way
+   to tell fabricated money from real money, which is worse than showing
+   nothing. Zeros plus a visible error is the honest failure state. */
+const emptyFinance: FinanceData = {
+  totalProjects: 0,
+  completedAmount: 0,
+  pendingAmount: 0,
+  availableAmount: 0,
+  heldAmount: 0,
   escrowTransactions: [],
-  escrowSummary: {
-    labels: ["Held", "Released", "Pending"],
-    counts: [2, 2, 1],
-    amounts: [26000, 18300, 4500],
-  },
+  escrowSummary: { labels: [], counts: [], amounts: [] },
 };
 
 export default function FinanceAgent() {
-  const [finance, setFinance] = useState<FinanceData>(fallbackFinance);
+  const [finance, setFinance] = useState<FinanceData>(emptyFinance);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,14 +44,38 @@ export default function FinanceAgent() {
     const fetchFinance = async () => {
       try {
         setLoading(true);
-        const res = await fetch("/api/admin/finance", { cache: "no-store" });
-        if (!res.ok) throw new Error("Failed to fetch finance data");
+        const res = await fetch("/api/admin/finance", { cache: "no-store", credentials: "include" });
+        if (res.status === 403) throw new Error("Administrator access required.");
+        if (!res.ok) throw new Error("Could not load finance data.");
         const json = await res.json();
-        setFinance(json);
+
+        /* The API answers { success, data: { escrows, value, byStatus, wallets } }.
+           This component stored that envelope directly and then read
+           finance.totalProjects — undefined — so `.toLocaleString()` threw and
+           the tab blew up on every SUCCESSFUL response. It only ever rendered
+           when the request failed and the mock took over. */
+        const d = json?.data ?? {};
+        const escrows = d.escrows ?? {};
+        const value   = d.value   ?? {};
+
+        setFinance({
+          totalProjects:   escrows.total ?? 0,
+          completedAmount: value.released ?? 0,
+          pendingAmount:   value.funded ?? 0,
+          availableAmount: value.refunded ?? 0,
+          // Money taken from a client and neither released nor returned.
+          heldAmount:      value.held ?? 0,
+          escrowTransactions: d.transactions ?? [],
+          escrowSummary: {
+            labels:  ["Funded", "Released", "Disputed", "Refunded"],
+            counts:  [escrows.funded ?? 0, escrows.released ?? 0, escrows.disputed ?? 0, escrows.refunded ?? 0],
+            amounts: [value.funded ?? 0, value.released ?? 0, value.disputed ?? 0, value.refunded ?? 0],
+          },
+        });
         setError(null);
       } catch (err: any) {
         setError(err.message);
-        setFinance(fallbackFinance); // fallback
+        setFinance(emptyFinance);   // never invented figures
       } finally {
         setLoading(false);
       }
@@ -67,23 +91,23 @@ export default function FinanceAgent() {
       <Section title="Financial Overview">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <MetricCard
-            label="Total Projects"
+            label="Escrows"
             value={finance.totalProjects.toString()}
           />
           <MetricCard
-            label="Completed Amount"
+            label="Released"
             value={`$${finance.completedAmount.toLocaleString()}`}
           />
           <MetricCard
-            label="Pending Amount"
+            label="Funded (in escrow)"
             value={`$${finance.pendingAmount.toLocaleString()}`}
           />
           <MetricCard
-            label="Available Balance"
+            label="Refunded"
             value={`$${finance.availableAmount.toLocaleString()}`}
           />
           <MetricCard
-            label="Held Balance"
+            label="Held (funded + disputed)"
             value={`$${finance.heldAmount.toLocaleString()}`}
           />
         </div>
@@ -107,8 +131,8 @@ export default function FinanceAgent() {
         <p className="text-gray-400 text-sm">Loading finance data...</p>
       )}
       {error && (
-        <p className="text-blue-400 text-sm">
-          Failed to load finance data. Showing fallback.
+        <p className="text-sm text-red-400">
+          {error} — figures below are not live.
         </p>
       )}
     </div>

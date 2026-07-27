@@ -80,6 +80,61 @@ export function clearPendingRun(): void {
   try { store()?.removeItem(KEY); } catch { /* nothing to do */ }
 }
 
+/* ── Budget drafts ─────────────────────────────────────────────────────────
+   The budget engine holds a document rather than a computed run: line items,
+   loaded-cost settings and the project brief. Losing that to a sign-up detour
+   is worse than losing a form, because the user typed every line of it. */
+
+const BUDGET_KEY = "lamid-pending-budget";
+
+export interface PendingBudget {
+  savedAt:      number;
+  settings:     unknown;
+  lineItems:    unknown[];
+  scope?:       string;
+  region?:      string;
+  teamSize?:    string;
+  targetBudget?: string;
+  assumptions?: string[];
+  risks?:       string[];
+  generated?:   boolean;
+}
+
+export function savePendingBudget(draft: Omit<PendingBudget, "savedAt">): void {
+  const s = store();
+  if (!s) return;
+  try {
+    s.setItem(BUDGET_KEY, JSON.stringify({ ...draft, savedAt: Date.now() }));
+  } catch {
+    /* quota or private mode — the draft is not worth an error */
+  }
+}
+
+export function loadPendingBudget(): PendingBudget | null {
+  const s = store();
+  if (!s) return null;
+  try {
+    const raw = s.getItem(BUDGET_KEY);
+    if (!raw) return null;
+
+    const draft = JSON.parse(raw) as PendingBudget;
+    if (!draft.savedAt || Date.now() - draft.savedAt > TTL_MS) {
+      s.removeItem(BUDGET_KEY);
+      return null;
+    }
+    // A draft with nothing in it is not worth restoring over a fresh form.
+    if (!Array.isArray(draft.lineItems) || draft.lineItems.length === 0) return null;
+    return draft;
+  } catch {
+    s.removeItem(BUDGET_KEY);
+    return null;
+  }
+}
+
+export function clearPendingBudget(): void {
+  try { store()?.removeItem(BUDGET_KEY); } catch { /* nothing to do */ }
+}
+
 /**
  * A same-origin return path for the auth links.
  *

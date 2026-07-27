@@ -12,6 +12,7 @@ import RecruitmentForm from "@/forms/RecruitmentForm";
 import TalentClub from "@/forms/talentClub";
 import LearningCTA from "@/components/learningCTA/LearningCTA";
 import { useAuth } from "@/hooks/useAuth";
+import { LMS_URL } from "@/lib/externalPlatforms";
 
 type FormType = "training" | "recruitment" | "talent" | null;
 
@@ -382,7 +383,7 @@ const HcdTrainer: React.FC<{ homepage?: boolean }> = ({ homepage = false }) => {
                       </button>
 
                       <a
-                        href="https://learn-by-lamid.vercel.app/"
+                        href={LMS_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold

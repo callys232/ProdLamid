@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import AdminSidebar, { TabName } from "./sideBar"; // ✅ import TabName type
 import Ecosystem from "./ecosystem/Ecosystem";
 import EscrowQueue from "./escrow/EscrowQueue";
@@ -36,6 +37,9 @@ export default function AdminDashboard() {
   const [projectId, setProjectId] = useState<string | null>(null);
   const [clientId, setClientId] = useState<string | null>(null);
 
+  const [denied, setDenied] = useState(false);
+  const router = useRouter();
+
   /* -------------------- Fetch Admin Data -------------------- */
   useEffect(() => {
     const fetchAdminData = async () => {
@@ -44,13 +48,43 @@ export default function AdminDashboard() {
         const { data } = await axios.get("/api/admin/admin");
         setProjectId(data.projectId);
         setClientId(data.clientId);
-      } catch (err) {
+      } catch (err: any) {
+        /* The catch was empty, so a 403 was swallowed, loading flipped false,
+           and the whole admin shell rendered for a non-admin — every panel
+           empty behind it. The server routes held, but it read as broken and
+           showed an interface nobody outside the team should see. */
+        const status = err?.response?.status;
+        if (status === 401 || status === 403) {
+          setDenied(true);
+          return;
+        }
+        console.error("[Admin] could not load admin context", err);
       } finally {
         setLoading(false);
       }
     };
     fetchAdminData();
   }, []);
+
+  /* Send anyone without admin rights away rather than showing them the shell. */
+  useEffect(() => {
+    if (!denied) return;
+    const t = setTimeout(() => router.replace("/"), 2200);
+    return () => clearTimeout(t);
+  }, [denied, router]);
+
+  if (denied) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#010101] px-6">
+        <div className="max-w-sm rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] p-8 text-center">
+          <p className="mb-2 text-sm font-bold text-white">Administrator access required</p>
+          <p className="text-xs text-gray-500">
+            This area is restricted. Returning you to the site.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   /* -------------------- Tab Switcher -------------------- */
   const renderTab = () => {

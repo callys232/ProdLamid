@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
+import { LMS_URL } from "@/lib/externalPlatforms";
 
 export interface Tool {
   id:            string;
@@ -130,11 +131,11 @@ export const TOOLS: Tool[] = [
     description:   "Training, workshops & certifications",
     icon:          "/hcdLogo.png",
     fallbackEmoji: "📘",
-    href:          "https://learn-by-lamid.vercel.app/",
-    accent:        "orange",
-    accentHex:     "#f97316",
+    href:          LMS_URL,
+    accent:        "teal",
+    accentHex:     "#0d9488",
     badge:         "Free",
-    badgeColor:    "bg-orange-500/20 text-orange-400",
+    badgeColor:    "bg-teal-500/20 text-teal-300",
     external:      true,
   },
   /* ── Member tools — requires any logged-in account ─────────── */

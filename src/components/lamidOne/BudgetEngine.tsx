@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -11,6 +11,10 @@ import { PROJECT_TYPES, COST_CATEGORIES } from "@/lib/budget/types";
 import type { LineItem, BudgetSettings, CostCategory, ProjectType } from "@/lib/budget/types";
 import { computeBudget, formatMoney, budgetToCSV, lineTotal } from "@/lib/budget/compute";
 import { budgetDimensions } from "@/lib/intelligence/dimensions";
+import { useGate } from "@/contexts/GateContext";
+import {
+  savePendingBudget, loadPendingBudget, clearPendingBudget,
+} from "@/lib/intelligence/pendingRun";
 import EngineResultsGate from "./EngineResultsGate";
 
 const ACCENT = "#2563EB";
@@ -58,8 +62,42 @@ export default function BudgetEngine() {
   const [error, setError]         = useState("");
   const [generated, setGenerated] = useState(false);
 
+  const { mode } = useGate();
+
   /* Every figure on screen comes from here — recomputed on any edit. */
   const budget = useMemo(() => computeBudget(lineItems, settings), [lineItems, settings]);
+
+  /* Hold the draft while a visitor goes off to sign up. The gate appears once
+     there are line items, which is exactly the point at which the user has
+     typed the most — losing it would mean rebuilding the budget by hand. */
+  useEffect(() => {
+    if (mode === "full" || lineItems.length === 0) return;
+    savePendingBudget({
+      settings, lineItems, scope, region, teamSize, targetBudget,
+      assumptions, risks, generated,
+    });
+  }, [mode, settings, lineItems, scope, region, teamSize, targetBudget, assumptions, risks, generated]);
+
+  /* Restore it once they are back and the gate has opened. */
+  const restored = useRef(false);
+  useEffect(() => {
+    if (mode !== "full" || restored.current || lineItems.length > 0) return;
+
+    const draft = loadPendingBudget();
+    if (!draft) return;
+
+    restored.current = true;
+    clearPendingBudget();
+    setSettings(draft.settings as BudgetSettings);
+    setLineItems(draft.lineItems as LineItem[]);
+    setScope(draft.scope ?? "");
+    setRegion(draft.region ?? "");
+    setTeamSize(draft.teamSize ?? "");
+    setTarget(draft.targetBudget ?? "");
+    setAssumptions(draft.assumptions ?? []);
+    setRisks(draft.risks ?? []);
+    setGenerated(Boolean(draft.generated));
+  }, [mode, lineItems.length]);
 
   const set = <K extends keyof BudgetSettings>(k: K, v: BudgetSettings[K]) =>
     setSettings((s) => ({ ...s, [k]: v }));

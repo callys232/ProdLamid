@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import HowWeServeModal from "./navbar/HowWeServeModal";
 import s from "./FloatingHelp.module.css";
+import { LMS_URL } from "@/lib/externalPlatforms";
 
 type LinkItem   = { label: string; desc: string; icon: React.ReactNode; href: string; action?: never };
 type ActionItem = { label: string; desc: string; icon: React.ReactNode; action: () => void; href?: never };
@@ -37,7 +38,7 @@ function buildMenu(onGetStarted: () => void): MenuItem[] {
     {
       label: "LAMID Learning",
       desc:  "Courses, workshops & certifications",
-      href:  "https://learn-by-lamid.vercel.app/",
+      href:  LMS_URL,
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="4" width="18" height="18" rx="2" />

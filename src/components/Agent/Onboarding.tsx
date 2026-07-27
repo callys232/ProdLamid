@@ -256,7 +256,7 @@ export default function AIAgent() {
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
             onClick={() => { setIsOpen(true); setIsMinimized(false); }}
-            className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-[#2563EB] to-[#7f0d11] rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(194,18,25,0.5)] z-40"
+            className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(37,99,235,0.45)] z-40"
             aria-label="Open Lamid AI"
           >
             <img src="/aibot.png" alt="" className="w-8 h-8" onError={e => { (e.target as HTMLImageElement).style.display="none"; }} />
@@ -277,7 +277,7 @@ export default function AIAgent() {
             className="fixed bottom-6 right-6 w-[92%] sm:w-[420px] max-h-[82vh] bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-[0_24px_80px_rgba(0,0,0,0.8)] flex flex-col z-50 overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#2563EB] to-[#7f0d11] flex-shrink-0">
+            <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] flex-shrink-0">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 flex-shrink-0">
                 <Bot className="h-4 w-4 text-white" />
               </div>
@@ -383,7 +383,7 @@ export default function AIAgent() {
                       <div className={`max-w-[78%] text-sm leading-relaxed px-3.5 py-2.5 rounded-2xl ${
                         msg.sender === "bot"
                           ? "bg-white/8 border border-white/8 text-gray-200 rounded-tl-none"
-                          : "bg-gradient-to-br from-[#2563EB] to-[#7f0d11] text-white rounded-tr-none"
+                          : "bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] text-white rounded-tr-none"
                       }`}>
                         {msg.text || (msg.streaming && (
                           <span className="flex gap-1 items-center h-4">
@@ -452,7 +452,7 @@ export default function AIAgent() {
             initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
             whileHover={{ scale: 1.06 }}
             onClick={() => setIsMinimized(false)}
-            className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-br from-[#2563EB] to-[#7f0d11] rounded-full flex items-center justify-center shadow-lg z-40"
+            className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] rounded-full flex items-center justify-center shadow-lg z-40"
           >
             <Bot className="w-5 h-5 text-white" />
           </motion.button>
