@@ -18,11 +18,14 @@ export async function GET(request: NextRequest) {
     const isCron =
       !!cronSecret && request.headers.get("x-cron-secret") === cronSecret;
 
+    let callerId: string | null = null;
+
     if (!isCron) {
       const auth = await verifyAuth(request);
       if (!auth?.userId) {
         return NextResponse.json({ message: "Unauthorised." }, { status: 401 });
       }
+      callerId = auth.userId;
       // Throttle user-triggered sweeps; cron is exempt.
       const limit = await rateLimit(`escrow-autorelease:${auth.userId}`, {
         windowMs: 60_000,
@@ -41,11 +44,37 @@ export async function GET(request: NextRequest) {
     // - aiAutoReleaseAt has passed
     // - still in ai_certified status (not yet released)
     // - AI certified flag is true
-    const eligibleMilestones = await Milestone.find({
+    /* Cron sweeps the platform. A signed-in caller sweeps only their own
+       escrows — triggering a release across everyone else's milestones is not
+       theirs to do, even when each one is already certified and overdue. */
+    /* Release on silence only. The milestone must still be sitting in
+       ai_certified. Disputing sets status to "dispute", approving sets
+       "approved", and a stop or rejection moves it too — so any client action at
+       all takes the milestone out of this filter, which is exactly the
+       intention. The deadline is the long silence window from
+       lib/escrow/autoReleasePolicy, not an overnight timer. */
+    const milestoneFilter: Record<string, unknown> = {
       aiAutoReleaseAt: { $lte: now },
       status:          "ai_certified",
       aiCertified:     true,
-    }).lean() as any[];
+    };
+
+    if (callerId) {
+      const own = await Escrow.find(
+        {
+          status: "funded",
+          $or: [{ clientId: callerId }, { consultantId: callerId }, { userId: callerId }],
+        },
+        { milestoneId: 1 },
+      ).lean() as any[];
+
+      if (own.length === 0) {
+        return NextResponse.json({ success: true, released: 0, milestones: [] });
+      }
+      milestoneFilter._id = { $in: own.map((e) => e.milestoneId) };
+    }
+
+    const eligibleMilestones = await Milestone.find(milestoneFilter).lean() as any[];
 
     if (eligibleMilestones.length === 0) {
       return NextResponse.json({ success: true, released: 0, milestones: [] });

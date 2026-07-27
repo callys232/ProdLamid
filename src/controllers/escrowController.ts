@@ -5,11 +5,15 @@ import connectDB from "@/lib/db";
 import * as paystack from "@/utils/paystack";
 import { Users } from "@/lib/models/User";
 import { awardPoints } from "@/lib/services/pointsService";
+import { assertEscrowAccess } from "@/lib/escrow/authorize";
+import { Organization } from "@/lib/models/Organization";
 
 export const fundEscrow = async (escrowId: string, userId: string) => {
     await connectDB();
     const escrow = await Escrow.findById(escrowId).populate("milestoneId");
     if (!escrow) throw new Error("Escrow not found");
+    // Client, consultant, their dedicated PM, or the account owner.
+    await assertEscrowAccess(escrow, userId, undefined, { Users, Organization });
 
     const user = await Users.findById(userId);
     if (!user) throw new Error("User not found");
@@ -26,6 +30,9 @@ export const releaseEscrow = async (escrowId: string, userId: string) => {
     await connectDB();
     const escrow = await Escrow.findById(escrowId) as any;
     if (!escrow) throw new Error("Escrow not found");
+    /* userId arrived here from the route and was then ignored entirely, so any
+       account with the client role could release any escrow by id. */
+    await assertEscrowAccess(escrow, userId, undefined, { Users, Organization });
 
     if (escrow.status === "released") return { success: true, alreadyReleased: true };
 
@@ -55,14 +62,18 @@ export const cancelEscrow = async (escrowId: string, userId: string) => {
     await connectDB();
     const escrow = await Escrow.findById(escrowId) as any;
     if (!escrow) throw new Error("Escrow not found");
+    await assertEscrowAccess(escrow, userId, undefined, { Users, Organization });
 
     if (escrow.status === "canceled") return { success: true, alreadyCanceled: true };
 
     escrow.status = "canceled";
     await escrow.save();
 
-    // Refund the client who funded this escrow
-    const clientId = escrow.clientId ?? userId;
+    /* Refund the client recorded on the escrow. This previously fell back to
+       the caller's own id, so cancelling an escrow with no clientId credited
+       the caller's wallet with someone else's money. No fallback now — if the
+       client is unknown the refund does not move. */
+    const clientId = escrow.clientId ?? escrow.userId ?? null;
     if (clientId) {
         let wallet = await Wallet.findOne({ user: clientId });
         if (!wallet) wallet = await Wallet.create({ user: clientId, balance: 0, transactions: [] });

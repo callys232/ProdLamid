@@ -23,25 +23,43 @@ export async function GET(req: NextRequest) {
       Wallet.countDocuments(),
     ]);
 
-    // Total value in funded escrows
-    const fundedAgg = await Escrow.aggregate([
-      { $match: { status: "funded" } },
-      { $group: { _id: null, total: { $sum: "$amount" } } },
+    /* One pass over every status rather than a query per bucket. The previous
+       version only asked about "funded" and "released", so escrows sitting in
+       dispute, refunded or canceled appeared in no figure at all — money could
+       be held indefinitely and show up nowhere on this panel. */
+    const byStatusAgg = await Escrow.aggregate([
+      { $group: { _id: "$status", count: { $sum: 1 }, total: { $sum: "$amount" } } },
     ]);
-    const totalFundedValue = fundedAgg[0]?.total ?? 0;
+    const byStatus: Record<string, { count: number; total: number }> = {};
+    for (const row of byStatusAgg) {
+      byStatus[row._id ?? "unknown"] = { count: row.count, total: row.total ?? 0 };
+    }
+    const bucket = (k: string) => byStatus[k] ?? { count: 0, total: 0 };
 
-    // Total released
-    const releasedAgg = await Escrow.aggregate([
-      { $match: { status: "released" } },
-      { $group: { _id: null, total: { $sum: "$amount" } } },
-    ]);
-    const totalReleasedValue = releasedAgg[0]?.total ?? 0;
+    const totalFundedValue   = bucket("funded").total;
+    const totalReleasedValue = bucket("released").total;
+    const disputed = bucket("disputed");
+    const refunded = bucket("refunded");
 
     return NextResponse.json({
       success: true,
       data: {
-        escrows: { total: totalEscrows, funded: fundedEscrows, released: releasedEscrows },
-        value:   { funded: totalFundedValue, released: totalReleasedValue },
+        escrows: {
+          total:    totalEscrows,
+          funded:   fundedEscrows,
+          released: releasedEscrows,
+          disputed: disputed.count,
+          refunded: refunded.count,
+        },
+        value: {
+          funded:   totalFundedValue,
+          released: totalReleasedValue,
+          disputed: disputed.total,
+          refunded: refunded.total,
+          /* Money taken from a client and neither released nor returned. */
+          held:     totalFundedValue + disputed.total,
+        },
+        byStatus,
         wallets: walletCount,
       },
     });

@@ -103,10 +103,17 @@ export const approveMilestone = async (milestoneId: string, userId: string) => {
 
     milestone.status = "approved";
     milestone.completedAt = new Date();
+    /* The schema carries releaseMethod and only the auto-release sweep was
+       setting it, so an approved release and a released-on-silence one were
+       indistinguishable afterwards. */
+    milestone.releaseMethod = "client_approved";
+    // Approval settles it, so the silence timer no longer applies.
+    milestone.aiAutoReleaseAt = null;
     await milestone.save();
 
     // Release escrow funds
     escrow.status = "released";
+    escrow.releasedAt = new Date();
     await escrow.save();
 
     // Notify consultant

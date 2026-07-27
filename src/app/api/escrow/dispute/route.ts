@@ -45,7 +45,8 @@ export async function POST(request: NextRequest) {
     const escrow = await Escrow.findByIdAndUpdate(
       escrowId,
       { $set: { status: "disputed", disputeReason: reason.trim(), disputeEvidence: evidenceUrls, disputedBy: auth.userId, disputedAt: new Date() } },
-      { new: true }
+      // runValidators stops an undeclared status slipping through again.
+      { new: true, runValidators: true }
     ).lean() as any;
 
     if (!escrow) return NextResponse.json({ success: false, message: "Escrow not found" }, { status: 404 });

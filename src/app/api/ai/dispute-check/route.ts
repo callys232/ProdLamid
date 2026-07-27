@@ -5,6 +5,7 @@ import { Milestone } from "@/lib/models/Milestone";
 import { Project } from "@/lib/models/Project";
 import { Notification } from "@/lib/models/Notification";
 import { rateLimit } from "@/lib/rateLimit";
+import { autoReleaseDeadline } from "@/lib/escrow/autoReleasePolicy";
 
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
@@ -108,7 +109,9 @@ verdict "invalid" = client dispute is not justified, work meets requirements`;
 
     if (result.verdict === "invalid") {
       // Dispute overruled — restore certification, set shorter auto-release (2 hours)
-      const newAutoReleaseAt = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+      /* Was two hours. A dispute that the arbitrator rejected still leaves the
+             client entitled to escalate, and two hours is not a chance to do so. */
+          const newAutoReleaseAt = autoReleaseDeadline(now);
 
       await Milestone.findByIdAndUpdate(milestoneId, {
         $set: {

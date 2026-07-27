@@ -5,6 +5,9 @@ import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { EscrowTransaction } from "@/lib/models/EscrowTransaction";
 import { Wallet } from "@/lib/models/Wallet";
 import { Project } from "@/lib/models/Project";
+import { Users } from "@/lib/models/User";
+import { Organization } from "@/lib/models/Organization";
+import { visibleEscrowUserIds } from "@/lib/escrow/authorize";
 
 export async function GET(request: NextRequest) {
     try {
@@ -17,8 +20,37 @@ export async function GET(request: NextRequest) {
         const { searchParams } = new URL(request.url);
         const projectId = searchParams.get("projectId");
 
+        /* Without a projectId this ran find({}) and handed every escrow
+           transaction on the platform to any signed-in caller. EscrowTransaction
+           carries no user reference, so access is resolved through the projects
+           the caller actually belongs to — as owner or as an assigned
+           consultant. Administrators are unscoped. */
         const query: any = {};
-        if (projectId) query.projectId = projectId;
+
+        if (auth.userRole === "admin") {
+            if (projectId) query.projectId = projectId;
+        } else {
+            /* Projects belonging to this caller, plus those of any account
+               they act for — the concierge clients they manage as dedicated PM,
+               and the members of an organisation they own. */
+            const entitled = await visibleEscrowUserIds(auth.userId, auth.userRole, { Users, Organization });
+            const own = await Project.find(
+                { $or: [{ ownerId: { $in: entitled } }, { consultants: { $in: entitled } }] },
+                { _id: 1 },
+            ).lean();
+            const ownIds = own.map((p: any) => String(p._id));
+
+            if (projectId) {
+                // Asking about someone else's project returns nothing, not a 403.
+                if (!ownIds.includes(String(projectId))) {
+                    return NextResponse.json({ success: true, data: [] });
+                }
+                query.projectId = projectId;
+            } else {
+                if (ownIds.length === 0) return NextResponse.json({ success: true, data: [] });
+                query.projectId = { $in: ownIds };
+            }
+        }
 
         const transactions = await EscrowTransaction.find(query).sort({ createdAt: -1 });
 

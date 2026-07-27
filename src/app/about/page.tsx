@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import HeroStickmen from "@/components/HeroStickmen";
 
@@ -8,6 +9,15 @@ const VALUES = [
   { icon: "🤝", title: "Trust-First",             body: "Transparency, security, and ethical AI are non-negotiable." },
   { icon: "⚡", title: "Relentless Innovation",  body: "We push the boundaries of what Human+AI can achieve." },
   { icon: "🌍", title: "Global Impact",            body: "We build for the world, not just one market." },
+];
+
+/* Moved from the homepage — these are entry points, which suits a page
+   people read when deciding where to start. */
+const QUICK_TOOLS = [
+  { label: "Enterprise Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
+  { label: "Lamid Core",   href: "/core",   icon: "◈" },
+  { label: "Lamid Grow",   href: "/grow",   icon: "▣" },
+  { label: "Lamid Talent", href: "/talent", icon: "✦" },
 ];
 
 const STATS = [
@@ -133,7 +143,7 @@ export default function AboutPage() {
         </motion.div>
 
         {/* ── Global Presence ── */}
-        <motion.div {...fadeUp(0)}>
+        <motion.div {...fadeUp(0)} className="mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-3">
             Global Presence
           </h2>
@@ -145,6 +155,25 @@ export default function AboutPage() {
                 <p className="text-3xl font-extrabold lamidone-gradient-text mb-1">{s.value}</p>
                 <p className="text-xs text-gray-500 dark:text-white/40">{s.label}</p>
               </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Quick access — moved here from the homepage's How It Works section */}
+        <motion.div {...fadeUp(0)}>
+          <p className="mb-6 text-center text-[10px] uppercase tracking-wider lamidone-text-muted">
+            Quick access
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {QUICK_TOOLS.map((tool) => (
+              <Link
+                key={tool.label}
+                href={tool.href}
+                className="flex items-center gap-1.5 rounded-full border border-[#2563EB]/30 px-5 py-2 text-xs font-medium text-gray-600 shadow-[0_0_10px_rgba(37,99,235,0.2)] transition-all duration-200 hover:scale-[1.06] hover:border-[#2563EB] hover:text-[#2563EB] hover:shadow-[0_0_22px_rgba(37,99,235,0.55)] dark:text-white/60"
+              >
+                <span className="lamidone-gradient-text">{tool.icon}</span>
+                {tool.label}
+              </Link>
             ))}
           </div>
         </motion.div>

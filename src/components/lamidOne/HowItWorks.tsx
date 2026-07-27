@@ -12,12 +12,6 @@ const STEPS = [
   { num: 5, title: "Grow",      body: "Track progress. Refine your position. See your organization evolve in real time — quarter by quarter.",   href: "/ecosystem",                   accent: "#2563EB" },
 ];
 
-const QUICK_TOOLS = [
-  { label: "Enterprise Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
-  { label: "Lamid Core",   href: "/core",   icon: "◈" },
-  { label: "Lamid Grow",   href: "/grow",   icon: "▣" },
-  { label: "Lamid Talent", href: "/talent", icon: "✦" },
-];
 
 export default function HowItWorks() {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -152,21 +146,6 @@ export default function HowItWorks() {
           })}
         </div>
 
-        {/* Quick tools — repositioned here below steps */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
-          <span className="text-[10px] lamidone-text-muted tracking-wider uppercase shrink-0 w-full text-center mb-2">Quick access</span>
-          {QUICK_TOOLS.map((tool) => (
-            <motion.button key={tool.label} type="button"
-              onClick={() => router.push(tool.href)}
-              whileHover={{ scale: 1.08, borderColor: "#2563EB", color: "#2563EB", boxShadow: "0 0 22px rgba(37,99,235,0.65)" }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ duration: 0.16 }}
-              className="flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-medium border border-[#2563EB]/30 text-gray-600 dark:text-white/60 cursor-pointer transition-colors shadow-[0_0_10px_rgba(37,99,235,0.2)]"
-            >
-              <span className="lamidone-gradient-text">{tool.icon}</span>{tool.label}
-            </motion.button>
-          ))}
-        </div>
       </div>
     </section>
   );

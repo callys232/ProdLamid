@@ -9,6 +9,7 @@ export type TabName =
   | "Outreach & SEO Agent"
   | "Communication Agent"
   | "Finance & Billing"
+  | "Escrow"
   | "Policy & Compliance"
   | "Activity Logs"
   | "KYC Review"
@@ -28,6 +29,7 @@ const tabs: TabName[] = [
   "Outreach & SEO Agent",
   "Communication Agent",
   "Finance & Billing",
+  "Escrow",
   "Policy & Compliance",
   "Activity Logs",
   "KYC Review",

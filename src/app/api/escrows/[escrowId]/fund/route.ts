@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/middleware/auth";
 import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import * as escrowController from "@/controllers/escrowController";
+import { EscrowAccessError } from "@/lib/escrow/authorize";
 
 type Params = Promise<{ escrowId: string }>;
 
@@ -24,6 +25,9 @@ export async function POST(
 
         return NextResponse.json(result);
     } catch (error: any) {
+        if (error instanceof EscrowAccessError) {
+            return NextResponse.json({ error: error.message }, { status: 403 });
+        }
         return NextResponse.json({ error: error.message }, { status: 400 });
     }
 }

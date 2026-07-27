@@ -25,8 +25,21 @@ export async function GET(req: NextRequest) {
       OrgMember.countDocuments({ orgId: auth.orgId, status: "active", role: { $in: ["org_admin", "org_manager"] } }),
       OrgMember.countDocuments({ orgId: auth.orgId, status: "pending" }),
       Project.countDocuments({ ownerId: { $in: memberUserIds }, status: { $in: ["open", "ongoing"] } }),
+      /* Every other figure here is scoped to the organisation, but this one
+         matched on status alone — so each enterprise was shown the platform's
+         entire released-escrow total as if it were their own. Restricted to
+         escrows where a member of this org is a party. */
       Escrow.aggregate([
-        { $match: { status: "released" } },
+        {
+          $match: {
+            status: "released",
+            $or: [
+              { clientId:     { $in: memberUserIds } },
+              { consultantId: { $in: memberUserIds } },
+              { userId:       { $in: memberUserIds } },
+            ],
+          },
+        },
         { $group: { _id: null, total: { $sum: "$amount" } } },
       ]),
     ]);

@@ -3,6 +3,9 @@ import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
 import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Project } from "@/lib/models/Project";
+import { Users } from "@/lib/models/User";
+import { Organization } from "@/lib/models/Organization";
+import { visibleEscrowUserIds } from "@/lib/escrow/authorize";
 
 export async function POST(request: NextRequest) {
     try {
@@ -21,8 +24,15 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const project = await Project.findByIdAndUpdate(
-            escrowId,
+        /* This updated any project by id with no check that the caller had
+           anything to do with it. Scoped to the owner and the assigned
+           consultants; anyone else gets a 404 rather than a hint it exists. */
+        const entitled = await visibleEscrowUserIds(auth.userId, auth.userRole, { Users, Organization });
+        const project = await Project.findOneAndUpdate(
+            {
+                _id: escrowId,
+                $or: [{ ownerId: { $in: entitled } }, { consultants: { $in: entitled } }],
+            },
             { $set: { escrowStatus: "finished" } },
             { new: true }
         );

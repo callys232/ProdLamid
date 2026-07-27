@@ -3,6 +3,8 @@ import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/middleware/auth";
 import { denyEngineUsers } from "@/lib/middleware/engineGuard";
 import { Escrow } from "@/lib/models/Escrow";
+import { Organization } from "@/lib/models/Organization";
+import { visibleEscrowUserIds } from "@/lib/escrow/authorize";
 import { Users } from "@/lib/models/User";
 import { initializePayment } from "@/lib/paystack";
 import { rateLimit } from "@/lib/rateLimit";
@@ -47,8 +49,21 @@ export async function POST(request: NextRequest) {
 
     // ── Atomic status transition: pending → initializing ──────────────────
     // This prevents two simultaneous requests both passing the status check
+    /* Restricted to those entitled to this escrow — previously any signed-in
+       user could move someone else's escrow to "initializing" and obtain a
+       payment link for it. The set covers the two parties plus anyone acting
+       for them: a dedicated PM, or the owner of their organisation. */
+    const entitled = await visibleEscrowUserIds(auth.userId, auth.userRole, { Users, Organization });
     const escrow = await Escrow.findOneAndUpdate(
-      { _id: escrowId, status: "pending" },
+      {
+        _id: escrowId,
+        status: "pending",
+        $or: [
+          { clientId:     { $in: entitled } },
+          { consultantId: { $in: entitled } },
+          { userId:       { $in: entitled } },
+        ],
+      },
       { $set: { status: "initializing", ...(idempotencyKey && { idempotencyKey }) } },
       { new: true }
     ) as any;

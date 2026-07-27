@@ -34,6 +34,13 @@ const UserSchema = new mongoose.Schema({
   orgId:   { type: mongoose.Schema.Types.ObjectId, ref: "Organization", default: null },
   orgRole: { type: String, enum: ["org_admin", "org_manager", "org_member", "org_viewer"], default: null },
 
+  /* Concierge: the dedicated project manager for this account.
+     /api/concierge/pm already reads this field, but it was never declared —
+     strict mode meant it could not be written, so the lookup always failed and
+     the client fell back to placeholder data. A PM may see the escrows of the
+     accounts assigned to them. */
+  assignedPmId: { type: mongoose.Schema.Types.ObjectId, ref: "Users", default: null },
+
   // Password reset
   resetToken:       { type: String, default: null },
   resetTokenExpiry: { type: Date,   default: null },
