@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Users, Workflow, Gauge, CheckCircle2, AlertTriangle, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { GateProvider } from "@/contexts/GateContext";
-import EngineResultsGate from "@/components/lamidOne/EngineResultsGate";
 
 const DEFAULT_INSIGHTS = [
   { severity: "High",   title: "Consultant capacity tight in Compliance & Risk", action: "Open vetting for 3 new specialists" },
@@ -83,9 +82,6 @@ export default function CoreDashboardPage() {
           </p>
         </motion.div>
 
-        {/* Results — gated for non-members */}
-        <EngineResultsGate>
-
         {/* KPI row */}
         <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {KPIS.map((kpi) => (
@@ -154,8 +150,6 @@ export default function CoreDashboardPage() {
             </div>
           </motion.div>
         </div>
-
-        </EngineResultsGate>
 
         {/* Sub-module navigation */}
         <motion.div {...fadeUp(0.2)} className="mt-10">

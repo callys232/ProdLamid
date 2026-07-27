@@ -3,7 +3,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface FormData {
   UserName: string;
@@ -41,6 +41,7 @@ export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -96,7 +97,12 @@ export default function SignUpPage() {
     try {
       // Save data temporarily for the next step (Account Type selection)
       sessionStorage.setItem("signupData", JSON.stringify(formData));
-      router.push("/account-type");
+      /* Carry the return path across the account-type step, so someone who was
+         mid-analysis when the results gate appeared lands back on it. Relative
+         paths only — an absolute one here would be an open redirect. */
+      const rawNext  = searchParams.get("next");
+      const safeNext = rawNext?.startsWith("/") && !rawNext.startsWith("//") ? rawNext : null;
+      router.push(safeNext ? `/account-type?next=${encodeURIComponent(safeNext)}` : "/account-type");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

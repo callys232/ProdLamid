@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -22,6 +22,7 @@ import type { ComputedDimension } from "@/lib/intelligence/dimensions";
 import {
   seriesDimensions, financialDimensions, rosterDimensions, scenarioDimensions,
 } from "@/lib/intelligence/dimensions";
+import { savePendingRun, loadPendingRun, clearPendingRun } from "@/lib/intelligence/pendingRun";
 
 /* ── Types ────────────────────────────────────────────────── */
 interface KPI        { label: string; value: string; trend: string }
@@ -591,8 +592,16 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
   ) => {
     setOrgName(context.organisationName);
 
-    // Non-members: show a preview result immediately without calling the API
+    /* Non-members see a preview and get sent to sign up. Keep the computed run
+       so signing up returns them to results rather than to an empty form. */
     if (mode !== "full") {
+      savePendingRun({
+        moduleId:   config.id,
+        context,
+        measured:   measuredOverride,
+        stats:      stats as unknown[] | undefined,
+        dimensions: computedDims,
+      });
       setResult(PREVIEW_RESULT);
       return;
     }
@@ -659,6 +668,29 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
       setLoading(false);
     }
   };
+
+  /* Resume a run held over the sign-up detour.
+     Fires once the gate has opened — the analysis was already computed before
+     the user was interrupted, so this replays it rather than asking them to
+     fill the form in a second time. */
+  const resumed = useRef(false);
+  useEffect(() => {
+    if (mode !== "full" || resumed.current) return;
+
+    const pending = loadPendingRun(config.id);
+    if (!pending) return;
+
+    resumed.current = true;
+    clearPendingRun();
+    void run(
+      pending.context,
+      pending.stats as SeriesStats[] | undefined,
+      pending.measured,
+      pending.dimensions,
+    );
+    // `run` is stable for the lifetime of this component.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, config.id]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white pt-24 pb-16 px-4">

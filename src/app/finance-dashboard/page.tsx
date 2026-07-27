@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Landmark, TrendingUp, BarChart3, ShieldCheck, DollarSign, AlertCircle, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { GateProvider } from "@/contexts/GateContext";
-import EngineResultsGate from "@/components/lamidOne/EngineResultsGate";
 
 const PLACEHOLDER_SIGNALS = [
   { severity: "High"   as const, title: "Cost leakage detected in Operations division",  action: "Run Cost Optimization Diagnostic" },
@@ -95,9 +94,6 @@ export default function FinanceDashboardPage() {
           </motion.div>
         )}
 
-        {/* Results — gated for non-members */}
-        <EngineResultsGate>
-
         {/* KPI row */}
         <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {KPIS.map(kpi => (
@@ -163,8 +159,6 @@ export default function FinanceDashboardPage() {
             </div>
           </motion.div>
         </div>
-
-        </EngineResultsGate>
 
         {/* F-Series module navigation */}
         <motion.div {...fadeUp(0.2)} className="mt-10">

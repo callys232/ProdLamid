@@ -6,7 +6,6 @@ import Link from "next/link";
 import { GraduationCap, Users2, TrendingUp, BadgeCheck, Lightbulb, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { GateProvider } from "@/contexts/GateContext";
-import EngineResultsGate from "@/components/lamidOne/EngineResultsGate";
 
 const DEFAULT_SIGNALS = [
   { severity: "High",   title: "Digital capability gap in Operations team",  action: "Assign upskilling pathway" },
@@ -94,9 +93,6 @@ export default function TalentDashboardPage() {
           </p>
         </motion.div>
 
-        {/* Results — gated for non-members */}
-        <EngineResultsGate>
-
         {/* KPI row */}
         <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {KPIS.map((kpi) => (
@@ -162,8 +158,6 @@ export default function TalentDashboardPage() {
             </div>
           </motion.div>
         </div>
-
-        </EngineResultsGate>
 
         {/* Sub-module navigation */}
         <motion.div {...fadeUp(0.2)} className="mt-10">

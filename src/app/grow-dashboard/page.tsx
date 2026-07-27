@@ -6,7 +6,6 @@ import Link from "next/link";
 import { TrendingUp, Clock, Gauge, Briefcase, Target, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { GateProvider } from "@/contexts/GateContext";
-import EngineResultsGate from "@/components/lamidOne/EngineResultsGate";
 
 const DEFAULT_OPPORTUNITIES = [
   { impact: "High",   title: "Digital modernization gap in Operations",     action: "Recommend phased automation roadmap" },
@@ -97,9 +96,6 @@ export default function GrowDashboardPage() {
           </p>
         </motion.div>
 
-        {/* Results — gated for non-members */}
-        <EngineResultsGate>
-
         {/* KPI row */}
         <motion.div {...fadeUp(0.05)} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {KPIS.map((kpi) => (
@@ -165,8 +161,6 @@ export default function GrowDashboardPage() {
             </div>
           </motion.div>
         </div>
-
-        </EngineResultsGate>
 
         {/* Sub-module navigation */}
         <motion.div {...fadeUp(0.2)} className="mt-10">

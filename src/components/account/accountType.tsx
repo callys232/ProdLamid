@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import {
   Shield,
@@ -287,6 +287,7 @@ export default function AccountTypePage() {
   const [show2FA, setShow2FA] = useState(false);
   const [redirectTo, setRedirectTo] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -361,12 +362,18 @@ export default function AccountTypePage() {
       sessionStorage.removeItem("signupData");
       localStorage.removeItem("signupData");
 
+      /* A return path set by the results gate wins over the default landing
+         page — the user was part-way through something. */
+      const rawNext  = searchParams.get("next");
+      const safeNext = rawNext?.startsWith("/") && !rawNext.startsWith("//") ? rawNext : null;
+
       const dest =
-        accountType === "Enterprise"
+        safeNext ??
+        (accountType === "Enterprise"
           ? "/enterprise"
           : role === "seller"
             ? "/profile"
-            : "/client";
+            : "/client");
 
       setRedirectTo(dest);
       setShow2FA(true); // Offer 2FA before final redirect

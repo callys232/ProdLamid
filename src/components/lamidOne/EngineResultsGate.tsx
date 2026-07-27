@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Lock, Building2, Crown } from "lucide-react";
 import { useGate, GateMode } from "@/contexts/GateContext";
+import { currentReturnPath } from "@/lib/intelligence/pendingRun";
 
 interface EngineResultsGateProps {
   children: React.ReactNode;
@@ -60,6 +61,18 @@ const GATE_CONTENT: Record<Exclude<GateMode, "full">, {
  * Wraps result sections. Members with the right tier see results; everyone else
  * sees a blurred preview with the appropriate gate prompt.
  */
+/**
+ * Sends the auth pages back where the user came from.
+ *
+ * Without this the gate was a one-way door: sign up, land on a dashboard, and
+ * the analysis you were three clicks into is gone.
+ */
+function withReturn(href: string): string {
+  if (!href.startsWith("/signin") && !href.startsWith("/signup")) return href;
+  const back = currentReturnPath();
+  return back === "/" ? href : `${href}?next=${encodeURIComponent(back)}`;
+}
+
 export default function EngineResultsGate({ children }: EngineResultsGateProps) {
   const { mode } = useGate();
 
@@ -97,13 +110,13 @@ export default function EngineResultsGate({ children }: EngineResultsGateProps) 
 
               <div className="flex flex-col gap-3">
                 <Link
-                  href={gate.primaryHref}
+                  href={withReturn(gate.primaryHref)}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-sm bg-[#2563EB] text-white hover:bg-[#1d4ed8] transition-colors"
                 >
                   {gate.primaryLabel}
                 </Link>
                 <Link
-                  href={gate.secondaryHref}
+                  href={withReturn(gate.secondaryHref)}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-medium text-sm border border-white/15 text-white/70 hover:border-white/30 hover:text-white transition-colors"
                 >
                   {gate.secondaryLabel}
