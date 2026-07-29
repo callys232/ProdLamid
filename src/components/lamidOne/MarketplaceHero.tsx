@@ -14,7 +14,7 @@ const VALUE_PROPS = [
     icon: "⬡",
     iconCls: "text-blue-400",
     title: "Faster Delivery, Built In",
-    body: "Every engagement is supported by Lamid Core's AI delivery tools, cutting average project timelines by up to 40% without sacrificing quality.",
+    body: "Every engagement is supported by LAMID CORE's AI delivery tools, cutting average project timelines by up to 40% without sacrificing quality.",
   },
   {
     icon: "⬟",
@@ -51,7 +51,7 @@ export default function MarketplaceHero() {
             transition={{ duration: 0.4 }}
             className="lamidone-gradient-text text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
           >
-            Lamid Core
+            LAMID CORE
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -68,7 +68,7 @@ export default function MarketplaceHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-gray-500 dark:text-white/60 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8"
           >
-            Lamid Core connects your organization with vetted, AI-matched consultants — ready to deliver results from day one.
+            LAMID CORE connects your organization with vetted, AI-matched consultants — ready to deliver results from day one.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -95,7 +95,7 @@ export default function MarketplaceHero() {
       {/* How matching works */}
       <section className="lamidone-section py-6 px-4 border-y border-white/8 dark:border-white/8 border-gray-200">
         <div className="max-w-5xl mx-auto">
-          <p className="text-center text-gray-400 dark:text-white/40 text-xs uppercase tracking-widest mb-6">
+          <p className="text-center text-gray-600 dark:text-white/55 text-xs uppercase tracking-widest mb-6">
             How Matching Works
           </p>
           <div className="flex flex-wrap justify-center gap-10">

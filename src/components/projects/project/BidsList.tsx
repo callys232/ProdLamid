@@ -67,12 +67,12 @@ export default function BidsList({ projectId }: BidsListProps) {
         }
     };
 
-    if (loading) return <div className="text-gray-400 p-4">Loading bids...</div>;
+    if (loading) return <div className="text-gray-600 p-4">Loading bids...</div>;
 
     return (
         <Card title="📈 Project Bids">
             {bids.length === 0 ? (
-                <p className="text-gray-400 py-4 text-center italic">No bids yet for this project.</p>
+                <p className="text-gray-600 py-4 text-center italic">No bids yet for this project.</p>
             ) : (
                 <div className="space-y-4">
                     <AnimatePresence>
@@ -95,18 +95,18 @@ export default function BidsList({ projectId }: BidsListProps) {
                                     </div>
                                     <div className="text-right">
                                         <p className="text-xl font-bold text-blue-500">${bid.amount}</p>
-                                        {bid.duration && <p className="text-xs text-gray-400 flex items-center justify-end gap-1"><FaClock size={10} /> {bid.duration}</p>}
+                                        {bid.duration && <p className="text-xs text-gray-600 flex items-center justify-end gap-1"><FaClock size={10} /> {bid.duration}</p>}
                                     </div>
                                 </div>
 
                                 {bid.coverLetter && (
-                                    <p className="text-sm text-gray-300 italic mb-4 line-clamp-3 bg-white/5 p-2 rounded border border-white/5">
+                                    <p className="text-sm text-gray-600 italic mb-4 line-clamp-3 bg-white/5 p-2 rounded border border-white/5">
                                         "{bid.coverLetter}"
                                     </p>
                                 )}
 
                                 <div className="flex justify-between items-center">
-                                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium uppercase tracking-wider ${bid.status === "accepted" ? "bg-green-600 text-white" : "bg-gray-800 text-gray-400"
+                                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium uppercase tracking-wider ${bid.status === "accepted" ? "bg-green-600 text-white" : "bg-gray-800 text-gray-600"
                                         }`}>
                                         {bid.status}
                                     </span>

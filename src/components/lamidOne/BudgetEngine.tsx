@@ -165,7 +165,7 @@ export default function BudgetEngine() {
             F-Series · Financial Intelligence
           </p>
           <h1 className="text-2xl sm:text-3xl font-bold mb-2" style={{ color: ACCENT }}>
-            Budgeting &amp; Forecasting Engine
+            Budgeting &amp; Forecasting
           </h1>
           <p className="text-gray-600 dark:text-white/60 text-sm max-w-2xl">
             Build a costed, itemised budget for any project type. Generate a starting
@@ -291,7 +291,7 @@ export default function BudgetEngine() {
             )}
             {lineItems.length > 0 && (
               <button type="button" onClick={() => { setLineItems([]); setAssumptions([]); setRisks([]); setGenerated(false); }}
-                className="inline-flex items-center gap-1.5 text-xs text-gray-500 dark:text-white/40 hover:text-[#2563EB] transition">
+                className="inline-flex items-center gap-1.5 text-xs text-gray-600 dark:text-white/55 hover:text-[#2563EB] transition">
                 <RefreshCw className="w-3.5 h-3.5" />Clear
               </button>
             )}
@@ -342,7 +342,7 @@ export default function BudgetEngine() {
                           style={{ width: `${d.value}%`, background: ACCENT }}
                         />
                       </div>
-                      <p className="text-[11px] leading-relaxed text-gray-600 dark:text-white/45">{d.insight}</p>
+                      <p className="text-[11px] leading-relaxed text-gray-600 dark:text-white/55">{d.insight}</p>
                     </div>
                   ))}
                 </section>
@@ -395,7 +395,7 @@ export default function BudgetEngine() {
                             <span className="min-w-0 flex-1 truncate text-black dark:text-white">
                               {l.name || "Untitled line"}
                             </span>
-                            <span className="shrink-0 tabular-nums text-gray-600 dark:text-white/45">
+                            <span className="shrink-0 tabular-nums text-gray-600 dark:text-white/55">
                               {money(l.budgeted)} → {money(l.actual)}
                             </span>
                             <span className="w-16 shrink-0 text-right font-semibold tabular-nums text-red-600">
@@ -429,7 +429,7 @@ export default function BudgetEngine() {
                   <p className="text-xs font-bold uppercase tracking-widest" style={{ color: ACCENT }}>
                     Line Items ({lineItems.length})
                   </p>
-                  <p className="text-[11px] text-gray-500 dark:text-white/40">Every field is editable</p>
+                  <p className="text-[11px] text-gray-600 dark:text-white/55">Every field is editable</p>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -484,7 +484,7 @@ export default function BudgetEngine() {
                           <td className="px-3 py-1.5 text-right text-xs font-semibold tabular-nums whitespace-nowrap">
                             {(() => {
                               const v = budget.variance.lines.find((l) => l.id === li.id);
-                              if (!v) return <span className="text-gray-400 dark:text-white/25">—</span>;
+                              if (!v) return <span className="text-gray-600 dark:text-white/55">—</span>;
                               const colour = v.status === "over" ? "#DC2626" : v.status === "under" ? "#059669" : "#6B7280";
                               return (
                                 <span style={{ color: colour }}>
@@ -500,7 +500,7 @@ export default function BudgetEngine() {
                           </td>
                           <td className="px-3 py-1.5 w-10">
                             <button type="button" aria-label={`Remove ${li.name || "line item"}`} onClick={() => removeItem(li.id)}
-                              className="text-gray-400 dark:text-white/30 hover:text-red-500 transition p-1">
+                              className="text-gray-600 dark:text-white/55 hover:text-red-500 transition p-1">
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           </td>
@@ -534,7 +534,7 @@ export default function BudgetEngine() {
                         <div className="h-1.5 rounded-full bg-gray-200 dark:bg-white/10 overflow-hidden">
                           <div className="h-full rounded-full transition-all" style={{ width: `${c.pctOfDirect}%`, background: ACCENT }} />
                         </div>
-                        <p className="text-[10px] text-gray-500 dark:text-white/40 mt-0.5">
+                        <p className="text-[10px] text-gray-600 dark:text-white/55 mt-0.5">
                           {c.pctOfDirect}% of direct · {c.itemCount} item{c.itemCount > 1 ? "s" : ""}
                         </p>
                       </div>
@@ -566,7 +566,7 @@ export default function BudgetEngine() {
                       </tbody>
                     </table>
                   </div>
-                  <p className="text-[10px] text-gray-500 dark:text-white/40 mt-3">
+                  <p className="text-[10px] text-gray-600 dark:text-white/55 mt-3">
                     Loaded spreads overhead, contingency, and tax pro-rata across direct spend.
                   </p>
                 </section>

@@ -27,7 +27,7 @@ const spring = { type: "spring", stiffness: 400, damping: 22 } as const;
 
 /* ── Status config ───────────────────────────────────────────────── */
 const MILESTONE_STATUS: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-  pending:     { label: "Pending",     color: "bg-gray-500/20 text-gray-400",   icon: <Circle className="h-3 w-3" /> },
+  pending:     { label: "Pending",     color: "bg-gray-500/20 text-gray-600",   icon: <Circle className="h-3 w-3" /> },
   in_progress: { label: "In Progress", color: "bg-yellow-500/20 text-yellow-400", icon: <Clock className="h-3 w-3" /> },
   funded:      { label: "Funded",      color: "bg-blue-500/20 text-blue-400",    icon: <DollarSign className="h-3 w-3" /> },
   completed:   { label: "Completed",   color: "bg-green-500/20 text-green-400",  icon: <CheckCheck className="h-3 w-3" /> },
@@ -36,7 +36,7 @@ const MILESTONE_STATUS: Record<string, { label: string; color: string; icon: Rea
 };
 
 function getMilestoneStatus(status?: string) {
-  return MILESTONE_STATUS[status ?? ""] ?? { label: status ?? "—", color: "bg-gray-500/20 text-gray-400", icon: <Circle className="h-3 w-3" /> };
+  return MILESTONE_STATUS[status ?? ""] ?? { label: status ?? "—", color: "bg-gray-500/20 text-gray-600", icon: <Circle className="h-3 w-3" /> };
 }
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
@@ -127,7 +127,7 @@ export default function JobModal({
           <motion.button
             onClick={onClose}
             whileHover={{ scale: 1.15, rotate: 90 }} whileTap={{ scale: 0.9 }} transition={spring}
-            className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white"
+            className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-gray-600 hover:bg-white/20 hover:text-white"
           >
             <X className="h-4 w-4" />
           </motion.button>
@@ -177,10 +177,10 @@ export default function JobModal({
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
             {job.title}
           </motion.h2>
-          <p className="mb-1 text-sm text-gray-300">
+          <p className="mb-1 text-sm text-gray-600">
             {job.organization}{job.location && ` — ${job.location}`}
           </p>
-          <p className="mb-4 text-sm text-gray-400">
+          <p className="mb-4 text-sm text-gray-600">
             {job.category}{job.tech && ` | ${job.tech}`}
           </p>
 
@@ -188,12 +188,12 @@ export default function JobModal({
           <div className="mb-6 flex flex-wrap items-center gap-2">
             {job.type && (
               <motion.span whileHover={{ scale: 1.05 }} transition={spring}
-                className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-gray-300">
+                className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-gray-600">
                 {job.type}
               </motion.span>
             )}
             {job.status && (
-              <span className="rounded-full bg-white/10 border border-white/10 px-3 py-1 text-xs font-semibold capitalize text-gray-300">
+              <span className="rounded-full bg-white/10 border border-white/10 px-3 py-1 text-xs font-semibold capitalize text-gray-600">
                 {job.status}
               </span>
             )}
@@ -234,7 +234,7 @@ export default function JobModal({
                 <span className="mt-0.5 text-[#2563EB]">{m.icon}</span>
                 <div>
                   <p className="text-base font-semibold text-white">{m.value}</p>
-                  <p className="text-xs text-gray-400">{m.label}</p>
+                  <p className="text-xs text-gray-600">{m.label}</p>
                 </div>
               </motion.div>
             ))}
@@ -243,7 +243,7 @@ export default function JobModal({
           {/* ── Description ── */}
           {job.description && (
             <Section title="Description">
-              <p className="leading-relaxed text-gray-300 whitespace-pre-line">{job.description}</p>
+              <p className="leading-relaxed text-gray-600 whitespace-pre-line">{job.description}</p>
             </Section>
           )}
 
@@ -254,7 +254,7 @@ export default function JobModal({
                 <div className="mb-1 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-500">
                   <Briefcase className="h-3 w-3" /> Why they&apos;re hiring
                 </div>
-                <p className="text-sm leading-relaxed text-gray-300">{job.purpose}</p>
+                <p className="text-sm leading-relaxed text-gray-600">{job.purpose}</p>
               </div>
             </Section>
           )}
@@ -285,7 +285,7 @@ export default function JobModal({
                   <motion.span key={tag}
                     variants={{ hidden: { opacity: 0, scale: 0.85 }, show: { opacity: 1, scale: 1 } }}
                     whileHover={{ scale: 1.08, borderColor: "rgba(255,255,255,0.3)" }} transition={spring}
-                    className="cursor-default rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-400">
+                    className="cursor-default rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-600">
                     {tag}
                   </motion.span>
                 ))}
@@ -308,7 +308,7 @@ export default function JobModal({
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="font-medium text-white">{phase.name}</p>
-                      {phase.description && <p className="mt-0.5 text-xs text-gray-400">{phase.description}</p>}
+                      {phase.description && <p className="mt-0.5 text-xs text-gray-600">{phase.description}</p>}
                       <div className="mt-1 flex flex-wrap gap-3 text-xs text-gray-500">
                         {phase.duration && <span><Clock className="mr-1 inline h-3 w-3" />{phase.duration}</span>}
                         {phase.status   && <span className="capitalize">{phase.status}</span>}
@@ -336,7 +336,7 @@ export default function JobModal({
                     >
                       <div className="flex items-start justify-between gap-3 mb-2">
                         <div className="flex items-center gap-2 min-w-0">
-                          <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-[10px] font-bold text-gray-400">
+                          <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-[10px] font-bold text-gray-600">
                             {idx + 1}
                           </span>
                           <p className="font-semibold text-white truncate">{ms.title}</p>
@@ -354,7 +354,7 @@ export default function JobModal({
                       </div>
 
                       {ms.description && (
-                        <p className="mb-2 text-xs text-gray-400 leading-relaxed">{ms.description}</p>
+                        <p className="mb-2 text-xs text-gray-600 leading-relaxed">{ms.description}</p>
                       )}
 
                       {/* Progress bar */}
@@ -403,7 +403,7 @@ export default function JobModal({
           {(job as any).extraField && (
             <Section title="Additional Notes">
               <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-4">
-                <p className="text-sm leading-relaxed text-gray-300">{(job as any).extraField}</p>
+                <p className="text-sm leading-relaxed text-gray-600">{(job as any).extraField}</p>
               </div>
             </Section>
           )}
@@ -423,7 +423,7 @@ export default function JobModal({
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold text-white">{job.organization ?? "Anonymous Client"}</p>
                   {job.location && (
-                    <p className="mt-0.5 flex items-center gap-1 text-xs text-gray-400">
+                    <p className="mt-0.5 flex items-center gap-1 text-xs text-gray-600">
                       <MapPin className="h-3 w-3 flex-shrink-0" /> {job.location}
                     </p>
                   )}
@@ -449,9 +449,9 @@ export default function JobModal({
               </div>
 
               <div className="flex flex-wrap items-center gap-x-6 gap-y-1 border-t border-white/10 pt-3 text-xs text-gray-500">
-                {job.deadline && <span className="flex items-center gap-1"><CalendarClock className="h-3.5 w-3.5" /> Deadline: <span className="ml-1 text-gray-300">{fmtDate(job.deadline)}</span></span>}
-                {job.timeline && <span>Timeline: <span className="text-gray-300">{job.timeline}</span></span>}
-                {job.status   && <span>Status: <span className="capitalize text-gray-300">{job.status}</span></span>}
+                {job.deadline && <span className="flex items-center gap-1"><CalendarClock className="h-3.5 w-3.5" /> Deadline: <span className="ml-1 text-gray-600">{fmtDate(job.deadline)}</span></span>}
+                {job.timeline && <span>Timeline: <span className="text-gray-600">{job.timeline}</span></span>}
+                {job.status   && <span>Status: <span className="capitalize text-gray-600">{job.status}</span></span>}
               </div>
             </motion.div>
           </Section>
@@ -491,7 +491,7 @@ export default function JobModal({
                       exit={{ opacity: 0, height: 0 }} transition={spring}
                       className="flex justify-between rounded-lg border border-white/20 bg-white/10 px-4 py-3">
                       <span className="font-semibold text-gray-200">{fmt(b.amount, cur)}</span>
-                      <span className="text-sm text-gray-400">{new Date(b.date).toLocaleString()}</span>
+                      <span className="text-sm text-gray-600">{new Date(b.date).toLocaleString()}</span>
                     </motion.div>
                   ))}
                 </AnimatePresence>
@@ -509,7 +509,7 @@ export default function JobModal({
               whileTap={!deadlinePassed ? { scale: 0.96 } : {}}
               transition={spring}
               onClick={() => !deadlinePassed && setShowApplyModal(true)}
-              className={`flex items-center gap-2 rounded-xl px-6 py-3 font-semibold shadow-lg transition ${deadlinePassed ? "cursor-not-allowed bg-gray-600 text-gray-300" : "bg-[#2563EB] text-white hover:bg-blue-700"}`}
+              className={`flex items-center gap-2 rounded-xl px-6 py-3 font-semibold shadow-lg transition ${deadlinePassed ? "cursor-not-allowed bg-gray-600 text-gray-600" : "bg-[#2563EB] text-white hover:bg-blue-700"}`}
             >
               {deadlinePassed ? "Deadline Passed" : (
                 <>

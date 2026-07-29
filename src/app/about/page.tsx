@@ -15,9 +15,9 @@ const VALUES = [
    people read when deciding where to start. */
 const QUICK_TOOLS = [
   { label: "Enterprise Diagnostic", href: "/premium/business-diagnostic", icon: "⚡" },
-  { label: "Lamid Core",   href: "/core",   icon: "◈" },
-  { label: "Lamid Grow",   href: "/grow",   icon: "▣" },
-  { label: "Lamid Talent", href: "/talent", icon: "✦" },
+  { label: "LAMID CORE",   href: "/core",   icon: "◈" },
+  { label: "LAMID GROW",   href: "/grow",   icon: "▣" },
+  { label: "LAMID TALENT", href: "/talent", icon: "✦" },
 ];
 
 const STATS = [
@@ -136,7 +136,7 @@ export default function AboutPage() {
                 className="lamidone-card border rounded-2xl p-6 text-center hover:border-[#2563EB]/30 transition-colors duration-200">
                 <div className="text-2xl mb-4">{v.icon}</div>
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{v.title}</h3>
-                <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">{v.body}</p>
+                <p className="text-xs text-gray-600 dark:text-white/55 leading-relaxed">{v.body}</p>
               </motion.div>
             ))}
           </div>
@@ -147,13 +147,13 @@ export default function AboutPage() {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-3">
             Global Presence
           </h2>
-          <p className="text-gray-500 dark:text-white/45 text-sm text-center mb-10">Making an impact across borders.</p>
+          <p className="text-gray-600 dark:text-white/55 text-sm text-center mb-10">Making an impact across borders.</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {STATS.map((s, i) => (
               <motion.div key={s.label} {...fadeUp(i * 0.07)}
                 className="lamidone-card border rounded-2xl p-6 text-center hover:border-[#2563EB]/25 transition-colors duration-200">
                 <p className="text-3xl font-extrabold lamidone-gradient-text mb-1">{s.value}</p>
-                <p className="text-xs text-gray-500 dark:text-white/40">{s.label}</p>
+                <p className="text-xs text-gray-600 dark:text-white/55">{s.label}</p>
               </motion.div>
             ))}
           </div>

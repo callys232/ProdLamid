@@ -199,7 +199,7 @@ export default function EnterpriseDashboard() {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="flex items-center gap-2 text-sm text-gray-400"
+            className="flex items-center gap-2 text-sm text-gray-600"
           >
             {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             <span>Menu</span>

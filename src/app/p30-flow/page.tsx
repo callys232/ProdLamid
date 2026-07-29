@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function P30Page() {
   const config = MODULE_REGISTRY["P30"] ?? buildFallbackConfig("P30", "P-Series — Enterprise Productivity", "Flow Engine");
   return (
-    <DashboardTierGate pillar="Flow Engine" backHref="/p29-synchronization" backLabel="Synchronization Engine">
+    <DashboardTierGate pillar="Flow" backHref="/p29-synchronization" backLabel="Synchronization Engine">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

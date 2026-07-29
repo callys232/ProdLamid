@@ -69,7 +69,7 @@ export default function LeaveReview({ projectId, revieweeId, revieweeName, role,
           </motion.button>
         ))}
         {rating > 0 && (
-          <span className="ml-2 self-center text-xs text-gray-400">
+          <span className="ml-2 self-center text-xs text-gray-600">
             {["","Poor","Fair","Good","Great","Excellent"][rating]}
           </span>
         )}

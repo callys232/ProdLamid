@@ -101,7 +101,7 @@ export default function ConsultantModal({
 
   const renderStars = (r: number) =>
     Array.from({ length: 5 }, (_, i) => (
-      <Star key={i} className={`w-4 h-4 ${i + 1 <= Math.round(r) ? "text-blue-500 fill-blue-500" : "text-gray-300"}`} />
+      <Star key={i} className={`w-4 h-4 ${i + 1 <= Math.round(r) ? "text-blue-500 fill-blue-500" : "text-gray-600"}`} />
     ));
 
   const handleHire = async () => {
@@ -240,7 +240,7 @@ export default function ConsultantModal({
                       <CheckCircle className="w-4 h-4" />
                     </span>
                   ) : (
-                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 text-gray-400">
+                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 text-gray-600">
                       <Shield className="w-4 h-4" />
                     </span>
                   )}

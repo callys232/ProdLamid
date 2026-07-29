@@ -8,7 +8,7 @@ import { useScrollBackground } from "@/hooks/useScrollBackground";
 const FEATURES = [
   {
     Icon: Search,
-    title: "40+ Signal Matching Engine",
+    title: "40+ Signal Talent Matching",
     body: "Goes far beyond CVs. LAMID TALENT evaluates capability, culture fit, leadership potential, and role trajectory — across 40+ organizational signals — to surface the right person for the right role.",
     href: "/jobs",
     cta: "Find Expert Talent →",
@@ -84,7 +84,7 @@ export default function TalentPage() {
           >
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
-              <span className="lamidone-gradient-text">People Intelligence Engine</span>
+              <span className="lamidone-gradient-text">People Intelligence Suite</span>
             </span>
           </motion.div>
 

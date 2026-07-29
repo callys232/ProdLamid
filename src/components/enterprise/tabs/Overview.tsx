@@ -41,7 +41,7 @@ const MILESTONE_CONFIG: Record<string, { card: string; badge: string; dot: strin
   in_progress: { card: "border-yellow-500/30 bg-yellow-500/8",  badge: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",  dot: "bg-yellow-400",  bar: "bg-yellow-500",  pct: "text-yellow-400",  shadow: "0 6px 20px rgba(234,179,8,0.2)"   },
   disputed:    { card: "border-blue-500/30    bg-blue-500/8",     badge: "text-blue-400    border-blue-500/30    bg-blue-500/10",     dot: "bg-blue-400",     bar: "bg-blue-500",     pct: "text-blue-400",     shadow: "0 6px 20px rgba(37,99,235,0.2)"   },
   funded:      { card: "border-purple-500/30 bg-purple-500/8",  badge: "text-purple-400 border-purple-500/30 bg-purple-500/10",  dot: "bg-purple-400",  bar: "bg-purple-500",  pct: "text-purple-400",  shadow: "0 6px 20px rgba(168,85,247,0.2)"  },
-  pending:     { card: "border-white/10      bg-white/5",        badge: "text-gray-400   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",    bar: "bg-gray-600",    pct: "text-gray-400",    shadow: "0 6px 20px rgba(0,0,0,0.3)"       },
+  pending:     { card: "border-white/10      bg-white/5",        badge: "text-gray-600   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",    bar: "bg-gray-600",    pct: "text-gray-600",    shadow: "0 6px 20px rgba(0,0,0,0.3)"       },
   cancelled:   { card: "border-white/8       bg-white/3",        badge: "text-gray-500   border-gray-600/20   bg-gray-600/10",   dot: "bg-gray-600",    bar: "bg-gray-700",    pct: "text-gray-500",    shadow: "0 6px 20px rgba(0,0,0,0.2)"       },
 };
 
@@ -101,7 +101,7 @@ const PROJECTS = [
 const STATUS_STYLE: Record<string, string> = {
   open:      "border-blue-500/30 bg-blue-500/10 text-blue-400",
   ongoing:   "border-emerald-500/30 bg-emerald-500/10 text-emerald-400",
-  completed: "border-gray-500/30 bg-gray-500/10 text-gray-400",
+  completed: "border-gray-500/30 bg-gray-500/10 text-gray-600",
 };
 
 const STATUS_ICON: Record<string, React.ReactNode> = {
@@ -129,7 +129,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
         className="rounded-xl border border-[#2563EB]/20 bg-[#2563EB]/5 px-5 py-4"
       >
         <h2 className="text-base font-semibold text-white">Welcome back, {orgName}</h2>
-        <p className="mt-0.5 text-sm text-gray-400">
+        <p className="mt-0.5 text-sm text-gray-600">
           {tier === "enterprise_plus"
             ? "Enterprise+ workspace · 100+ member capacity"
             : "Enterprise workspace · 50 member capacity"}
@@ -243,7 +243,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
                         {/* Description */}
                         <div>
                           <p className="text-[11px] uppercase tracking-widest text-gray-500 mb-1">Description</p>
-                          <p className="text-sm text-gray-300 leading-relaxed">{p.description}</p>
+                          <p className="text-sm text-gray-600 leading-relaxed">{p.description}</p>
                         </div>
 
                         {/* Skills */}
@@ -319,7 +319,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
                           <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
                             <Link
                               href={`/projects/${p.id}/workspace?tab=escrow`}
-                              className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-400 transition hover:text-white hover:bg-white/10"
+                              className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-600 transition hover:text-white hover:bg-white/10"
                             >
                               <Lock className="h-3.5 w-3.5" /> Escrow
                             </Link>
@@ -327,7 +327,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
                           <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
                             <Link
                               href={`/projects/${p.id}/workspace?tab=chat`}
-                              className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-400 transition hover:text-white hover:bg-white/10"
+                              className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-600 transition hover:text-white hover:bg-white/10"
                             >
                               <MessageSquare className="h-3.5 w-3.5" /> Messages
                             </Link>
@@ -346,7 +346,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {/* Activity feed */}
         <div className={card}>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">Recent Activity</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-600">Recent Activity</h3>
           <ul className="space-y-3">
             {MOCK_ACTIVITY.map((item, i) => (
               <motion.li
@@ -359,7 +359,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
               >
                 <span className="mt-0.5 flex-shrink-0">{STATUS_ICON[item.status]}</span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm text-gray-300">{item.text}</p>
+                  <p className="text-sm text-gray-600">{item.text}</p>
                   <p className="text-[11px] text-gray-600">{item.time}</p>
                 </div>
               </motion.li>
@@ -369,7 +369,7 @@ export default function Overview({ stats, tier, orgName, onTabChange }: Props) {
 
         {/* Top consultants */}
         <div className={card}>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">Top Consultants</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-600">Top Consultants</h3>
           <ul className="space-y-3">
             {MOCK_CONSULTANTS.map((c, i) => (
               <motion.li

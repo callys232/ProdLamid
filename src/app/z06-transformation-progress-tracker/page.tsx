@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Z06Page() {
   const config = MODULE_REGISTRY["Z06"] ?? buildFallbackConfig("Z06", "Z-Series — Transformation Intelligence", "Transformation Progress Tracker Engine");
   return (
-    <DashboardTierGate pillar="Transformation Progress Tracker Engine" backHref="/z05-transformation-alignment-across-teams" backLabel="Transformation Alignment Across Teams">
+    <DashboardTierGate pillar="Transformation Progress Tracker" backHref="/z05-transformation-alignment-across-teams" backLabel="Transformation Alignment Across Teams">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

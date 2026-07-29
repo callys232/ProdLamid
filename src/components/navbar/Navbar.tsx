@@ -21,8 +21,8 @@ const FLAT_LINKS = [
   { label: "About",     href: "/about"     },
 ];
 
-/* ── Engines dropdown — four engine pages ── */
-const ENGINES = [
+/* ── The four suites, shown on hover under Ecosystem ── */
+const SUITES = [
   { label: "LAMID CORE",    Icon: Network,       badge: "Strategy", href: "/core",    emoji: "◈" },
   { label: "LAMID GROW",    Icon: TrendingUp,    badge: "Growth",   href: "/grow",    emoji: "▣" },
   { label: "LAMID TALENT",  Icon: GraduationCap, badge: "People",   href: "/talent",  emoji: "✦" },
@@ -56,40 +56,41 @@ function useNotifications() {
   return count;
 }
 
-/* ── Engines panel ── */
-function EnginesPanel({ onClose }: { onClose: () => void }) {
+/* ── The suites panel, shown on hover under Ecosystem ── */
+function SuitesPanel({ onClose }: { onClose: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: -6, scale: 0.96 }}
       animate={{ opacity: 1, y: 0,  scale: 1    }}
       exit={{    opacity: 0, y: -6, scale: 0.96 }}
       transition={{ duration: 0.18, ease: [0.33, 1, 0.68, 1] as const }}
-      className="absolute left-0 top-full mt-2 w-80 bg-[#0b0b0b] border border-white/10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.7)] overflow-hidden z-50"
+      /* pt-2 rather than mt-2: the offset is padding inside the hoverable
+         element, so the pointer never crosses dead space on its way down. */
+      className="absolute left-0 top-full pt-2 w-80 z-50"
     >
+     <div className="bg-[#0b0b0b] border border-white/10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.7)] overflow-hidden">
       {/* Header */}
       <div className="flex items-center gap-2.5 px-4 py-3 border-b border-white/8">
         <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#2563EB]/20 border border-[#2563EB]/30 flex-shrink-0">
           <span className="text-[10px] font-black text-[#2563EB] leading-none">L</span>
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] font-bold text-white leading-none">The Engines</p>
-          <p className="text-[9px] text-white/45 mt-0.5">Four unified engines</p>
+          <p className="text-[11px] font-bold text-white leading-none">The Four Suites</p>
+          <p className="text-[9px] text-white/55 mt-0.5">Every layer of your business</p>
         </div>
-        <motion.button
-          type="button"
-          whileTap={{ scale: 0.9 }}
+        <Link
+          href="/ecosystem"
           onClick={onClose}
-          className="ml-auto text-white/45 hover:text-white/70 transition-colors cursor-pointer"
-          aria-label="Close engines menu"
+          className="ml-auto shrink-0 text-[9px] font-semibold text-[#2563EB] hover:opacity-70 transition-opacity"
         >
-          <X className="w-3.5 h-3.5" />
-        </motion.button>
+          See all →
+        </Link>
       </div>
 
-      {/* 2 × 2 engine card grid */}
+      {/* 2 × 2 suite card grid */}
       <div className="p-3">
         <div className="grid grid-cols-2 gap-2">
-          {ENGINES.map((engine, i) => (
+          {SUITES.map((engine, i) => (
             <motion.div
               key={engine.label}
               initial={{ opacity: 0, scale: 0.88 }}
@@ -121,13 +122,14 @@ function EnginesPanel({ onClose }: { onClose: () => void }) {
 
       {/* Footer */}
       <div className="px-4 py-2.5 border-t border-white/8 flex items-center justify-between">
-        <p className="text-[9px] text-white/45">One Ecosystem. Four Engines. Endless Possibilities.</p>
+        <p className="text-[9px] text-white/55">One Ecosystem. Four Suites. Endless Possibilities.</p>
         <div className="flex gap-1">
-          {ENGINES.map((e) => (
+          {SUITES.map((e) => (
             <div key={e.label} className="h-1.5 w-1.5 rounded-full bg-[#2563EB] opacity-40" />
           ))}
         </div>
       </div>
+     </div>
     </motion.div>
   );
 }
@@ -149,11 +151,11 @@ function Chevron({ open }: { open: boolean }) {
 /* ── Navbar ── */
 const Navbar: React.FC = () => {
   const [isOpen,      setIsOpen]      = useState(false);
-  const [enginesOpen, setEnginesOpen] = useState(false);
+  const [suitesOpen, setSuitesOpen] = useState(false);
   const [navVisible,  setNavVisible]  = useState(true);
 
   const lastScrollY  = useRef(0);
-  const enginesRef   = useRef<HTMLDivElement>(null);
+  const suitesRef   = useRef<HTMLDivElement>(null);
 
   const pathname   = usePathname() ?? "";
   const notifCount = useNotifications();
@@ -174,11 +176,11 @@ const Navbar: React.FC = () => {
   /* Close on outside click / escape */
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (enginesRef.current && !enginesRef.current.contains(e.target as Node))
-        setEnginesOpen(false);
+      if (suitesRef.current && !suitesRef.current.contains(e.target as Node))
+        setSuitesOpen(false);
     };
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setEnginesOpen(false); setIsOpen(false); }
+      if (e.key === "Escape") { setSuitesOpen(false); setIsOpen(false); }
     };
     document.addEventListener("mousedown", handleClick);
     document.addEventListener("keydown", handleKey);
@@ -188,12 +190,12 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => { setIsOpen(false); setEnginesOpen(false); }, [pathname]);
+  useEffect(() => { setIsOpen(false); setSuitesOpen(false); }, [pathname]);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  const enginesActive = ENGINES.some((e) => pathname.startsWith(e.href));
+  const suitesActive = SUITES.some((e) => pathname.startsWith(e.href));
 
   const renderNotifBadge = () =>
     notifCount > 0 ? (
@@ -246,26 +248,42 @@ const Navbar: React.FC = () => {
             {/* Home */}
             <FlatLink link={FLAT_LINKS[0]} />
 
-            {/* Ecosystem — single link */}
-            <FlatLink link={FLAT_LINKS[1]} />
-
-            {/* Engines ▾ — dropdown */}
-            <div ref={enginesRef} className="relative">
-              <motion.button
-                type="button"
-                onClick={() => setEnginesOpen((v) => !v)}
-                whileTap={{ scale: 0.96 }}
-                className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 cursor-pointer
-                  ${enginesOpen || enginesActive
+            {/* Ecosystem — a link in its own right, with the four suites on
+                hover. The suites used to be a separate "Engines" tab, which
+                split one idea across two nav items. */}
+            <div
+              ref={suitesRef}
+              className="relative"
+              onMouseEnter={() => setSuitesOpen(true)}
+              onMouseLeave={() => setSuitesOpen(false)}
+            >
+              <Link
+                href={FLAT_LINKS[1].href}
+                aria-haspopup="true"
+                aria-expanded={suitesOpen}
+                /* Keyboard users get the same panel — hover alone would put the
+                   suites out of reach without a mouse. */
+                onFocus={() => setSuitesOpen(true)}
+                className={`group relative flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200
+                  ${suitesOpen || suitesActive || pathname === FLAT_LINKS[1].href
                     ? "text-[#2563EB]"
-                    : "text-gray-500 dark:text-white/50 hover:text-gray-900 dark:hover:text-white hover:bg-white/5 dark:hover:bg-white/5"
+                    : "text-gray-600 dark:text-white/55 hover:text-gray-900 dark:hover:text-white hover:bg-white/5 dark:hover:bg-white/5"
                   }`}
               >
-                Engines
-                <Chevron open={enginesOpen} />
-              </motion.button>
+                {FLAT_LINKS[1].label}
+                <Chevron open={suitesOpen} />
+                {pathname === FLAT_LINKS[1].href && (
+                  <motion.span layoutId="nav-underline"
+                    className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[#2563EB]"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </Link>
+
+              {/* No gap between trigger and panel, or the pointer crossing the
+                  space between them would close it mid-travel. */}
               <AnimatePresence>
-                {enginesOpen && <EnginesPanel onClose={() => setEnginesOpen(false)} />}
+                {suitesOpen && <SuitesPanel onClose={() => setSuitesOpen(false)} />}
               </AnimatePresence>
             </div>
 
@@ -285,6 +303,17 @@ const Navbar: React.FC = () => {
                 <Link href="/contact"
                   className="px-5 py-2 rounded-xl text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_12px_rgba(37,99,235,0.4)] hover:shadow-[0_0_20px_rgba(37,99,235,0.7)] whitespace-nowrap">
                   Book a Demo
+                </Link>
+              </motion.div>
+            )}
+
+            {/* Members get the way back to their own work, where a visitor
+                gets the demo CTA. */}
+            {!authLoading && isAuthenticated && (
+              <motion.div className="hidden lg:block" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Link href="/workspace"
+                  className="px-5 py-2 rounded-xl text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_12px_rgba(37,99,235,0.4)] hover:shadow-[0_0_20px_rgba(37,99,235,0.7)] whitespace-nowrap">
+                  Workspace
                 </Link>
               </motion.div>
             )}
@@ -351,17 +380,20 @@ const Navbar: React.FC = () => {
                   Ecosystem
                 </Link>
 
-                <div className="h-px bg-gray-200 dark:bg-white/8 my-1" />
-                <p className="px-4 text-[10px] font-bold uppercase tracking-widest lamidone-gradient-text mb-1">Engines</p>
-                {ENGINES.map((e) => (
-                  <Link key={e.href} href={e.href} onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-gray-600 dark:text-white/55 hover:bg-[#2563EB]/8 hover:text-[#2563EB] transition-colors duration-200"
-                  >
-                    <span className="text-[#2563EB]">{e.emoji}</span>
-                    {e.label}
-                    <span className="ml-auto text-[9px] font-bold text-white/30">{e.badge}</span>
-                  </Link>
-                ))}
+                {/* The suites sit under Ecosystem rather than in a section of
+                    their own — indented, so the nesting is the grouping.
+                    There is no hover on a touch screen, so they stay visible. */}
+                <div className="ml-4 flex flex-col border-l border-gray-200 dark:border-white/10 pl-2">
+                  {SUITES.map((e) => (
+                    <Link key={e.href} href={e.href} onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-600 dark:text-white/55 hover:bg-[#2563EB]/8 hover:text-[#2563EB] transition-colors duration-200"
+                    >
+                      <span className="text-[#2563EB]">{e.emoji}</span>
+                      {e.label}
+                      <span className="ml-auto text-[9px] font-bold text-gray-600 dark:text-white/55">{e.badge}</span>
+                    </Link>
+                  ))}
+                </div>
 
                 <div className="h-px bg-gray-200 dark:bg-white/8 my-1" />
 
@@ -398,6 +430,15 @@ const Navbar: React.FC = () => {
                     <Link href="/contact" onClick={() => setIsOpen(false)}
                       className="block text-center py-3 rounded-xl text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-[0_0_12px_rgba(37,99,235,0.4)]">
                       Book a Demo
+                    </Link>
+                  </div>
+                )}
+
+                {!authLoading && isAuthenticated && (
+                  <div className="pt-2">
+                    <Link href="/workspace" onClick={() => setIsOpen(false)}
+                      className="block text-center py-3 rounded-xl text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-[0_0_12px_rgba(37,99,235,0.4)]">
+                      Workspace
                     </Link>
                   </div>
                 )}

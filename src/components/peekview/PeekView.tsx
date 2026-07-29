@@ -125,7 +125,7 @@ export default function PeekView() {
         className={`flex items-center justify-center w-8 h-8 rounded-xl transition-all
           ${open
             ? "text-white bg-white/12 border border-white/15"
-            : "text-gray-400 hover:text-white hover:bg-white/6 border border-transparent"
+            : "text-gray-600 hover:text-white hover:bg-white/6 border border-transparent"
           }`}
       >
         <Layers className="w-4 h-4" />
@@ -153,7 +153,7 @@ export default function PeekView() {
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setOpen(false)}
-                className="ml-auto text-white/45 hover:text-gray-400 transition-colors text-xs leading-none"
+                className="ml-auto text-white/45 hover:text-gray-600 transition-colors text-xs leading-none"
                 aria-label="Close"
               >
                 ✕

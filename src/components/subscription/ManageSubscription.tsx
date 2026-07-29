@@ -21,7 +21,7 @@ const TIER_LABEL: Record<string, string> = {
 
 const STATUS_STYLE: Record<string, string> = {
   active:       "text-green-400",
-  inactive:     "text-gray-400",
+  inactive:     "text-gray-600",
   cancelled:    "text-blue-400",
   "non-renewing": "text-yellow-400",
 };
@@ -71,7 +71,7 @@ export default function ManageSubscription() {
     <div className="space-y-5">
       {/* Current plan */}
       <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-        <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">Current Plan</h3>
+        <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-600">Current Plan</h3>
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-lg font-bold text-white">{TIER_LABEL[info?.tier ?? "free"]}</p>
@@ -94,7 +94,7 @@ export default function ManageSubscription() {
             <Zap className="h-4 w-4 text-[#2563EB]" />
             <p className="text-sm font-semibold text-white">Upgrade to Premium</p>
           </div>
-          <p className="mb-4 text-xs text-gray-400">Unlock AI matching, unlimited projects, priority support and more.</p>
+          <p className="mb-4 text-xs text-gray-600">Unlock AI matching, unlimited projects, priority support and more.</p>
           <div className="flex flex-wrap gap-3">
             <SubscribeButton plan="premium_monthly"   label="Monthly — $49/mo"   className="text-xs px-4 py-2" />
             <SubscribeButton plan="premium_quarterly" label="Quarterly — $129/qtr" className="text-xs px-4 py-2 bg-white/10 text-white hover:bg-white/20" />
@@ -123,7 +123,7 @@ export default function ManageSubscription() {
                 {cancelling && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                 Yes, cancel
               </motion.button>
-              <button onClick={() => setConfirm(false)} className="rounded-lg border border-white/10 px-4 py-2 text-xs text-gray-400 hover:text-white">
+              <button onClick={() => setConfirm(false)} className="rounded-lg border border-white/10 px-4 py-2 text-xs text-gray-600 hover:text-white">
                 Keep plan
               </button>
             </div>

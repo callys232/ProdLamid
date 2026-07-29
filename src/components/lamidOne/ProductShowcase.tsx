@@ -7,8 +7,8 @@ import Link from "next/link";
 const TABS = [
   {
     id: "core",
-    label: "Lamid Core",
-    tagline: "Every strategic initiative, tracked in flight.",
+    label: "LAMID CORE",
+    tagline: "Your strategic initiatives, tracked in flight.",
     description:
       "Live diagnostic scores, alignment signals, and the correction priorities your leadership team should act on first.",
     href: "/core",
@@ -18,8 +18,8 @@ const TABS = [
   },
   {
     id: "grow",
-    label: "Lamid Grow",
-    tagline: "Growth signals, moving as they happen.",
+    label: "LAMID GROW",
+    tagline: "Your growth signals, moving as they happen.",
     description:
       "Engagement trends, funnel health, and digital performance — refreshing as the data lands, not a month later.",
     href: "/grow",
@@ -29,10 +29,10 @@ const TABS = [
   },
   {
     id: "talent",
-    label: "Lamid Talent",
-    tagline: "The whole workforce on one screen.",
+    label: "LAMID TALENT",
+    tagline: "Your whole workforce on one screen.",
     description:
-      "Capability maps, culture health scores, and readiness gaps — surfaced before they turn into vacancies.",
+      "Your capability maps, culture health scores, and readiness gaps — surfaced before they turn into vacancies.",
     href: "/talent",
     src: "/screenshots/a25-career.png" as string | null,
     accent: "#2563EB",
@@ -40,8 +40,8 @@ const TABS = [
   },
   {
     id: "finance",
-    label: "Lamid Finance",
-    tagline: "Cost, cash, and enterprise value — live.",
+    label: "LAMID FINANCE",
+    tagline: "Your cost, cash, and enterprise value — live.",
     description:
       "Rolling forecasts, burn tracking, and value modelling that update with the business instead of trailing it.",
     href: "/finance",
@@ -87,7 +87,7 @@ function DashboardPlaceholder({ tab }: { tab: (typeof TABS)[0] }) {
               style={{ color: i === 0 ? tab.accent : undefined }}
             >
               {val}
-              <span className="text-xs font-normal text-gray-400 dark:text-white/30">%</span>
+              <span className="text-xs font-normal text-gray-600 dark:text-white/55">%</span>
             </p>
             <div className="w-16 h-2 rounded bg-gray-100 dark:bg-white/8" />
           </div>
@@ -225,7 +225,7 @@ export default function ProductShowcase() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.18 }}
-                  className="bg-white dark:bg-white/8 rounded-lg px-3 py-1.5 text-[10px] text-gray-400 dark:text-white/30 font-mono truncate"
+                  className="bg-white dark:bg-white/8 rounded-lg px-3 py-1.5 text-[10px] text-gray-600 dark:text-white/55 font-mono truncate"
                 >
                   🔒 {active.url}
                 </motion.div>
@@ -264,7 +264,7 @@ export default function ProductShowcase() {
               <p className="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">
                 {active.tagline}
               </p>
-              <p className="text-xs text-gray-500 dark:text-white/45 max-w-md leading-relaxed">
+              <p className="text-xs text-gray-600 dark:text-white/55 max-w-md leading-relaxed">
                 {active.description}
               </p>
             </div>

@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q95Page() {
   const config = MODULE_REGISTRY["Q95"] ?? buildFallbackConfig("Q95", "Q-Series — Decision Intelligence", "Executive Mandate Tracker Engine");
   return (
-    <DashboardTierGate pillar="Executive Mandate Tracker Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Executive Mandate Tracker" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

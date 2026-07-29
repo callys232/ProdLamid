@@ -83,7 +83,7 @@ export default function EnterpriseHeader({ org, stats, onTabChange, alertCount =
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => onTabChange("notifications")}
-            className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition hover:border-[#2563EB]/30 hover:text-white"
+            className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-600 transition hover:border-[#2563EB]/30 hover:text-white"
           >
             <Bell className="h-4 w-4" />
             {alertCount > 0 && (

@@ -7,7 +7,7 @@ const CategoryLegend = () => (
     {LEGEND_CATEGORIES.map(({ label, color }) => (
       <div key={label} className="flex items-center gap-2">
         <span className={`inline-block w-2.5 h-2.5 rounded-full flex-shrink-0 ${color.bg}`} />
-        <span className="text-xs text-gray-300 whitespace-nowrap">{label}</span>
+        <span className="text-xs text-gray-600 whitespace-nowrap">{label}</span>
       </div>
     ))}
   </div>

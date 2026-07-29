@@ -78,7 +78,7 @@ export default function DeletionRequests() {
       </div>
 
       {loading ? (
-        <div className="flex items-center gap-2 text-gray-400 text-sm"><Loader2 className="h-4 w-4 animate-spin" />Loading…</div>
+        <div className="flex items-center gap-2 text-gray-600 text-sm"><Loader2 className="h-4 w-4 animate-spin" />Loading…</div>
       ) : requests.length === 0 ? (
         <div className="rounded-xl border border-white/10 bg-white/5 p-8 text-center text-sm text-gray-500">
           No deletion requests yet.
@@ -88,14 +88,14 @@ export default function DeletionRequests() {
           {/* Pending */}
           {pending.length > 0 && (
             <div className="space-y-3">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Pending Review</p>
+              <p className="text-xs font-semibold text-gray-600 uppercase tracking-widest">Pending Review</p>
               {pending.map((r, i) => (
                 <motion.div key={r._id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
                   className="rounded-xl border border-yellow-500/20 bg-yellow-500/5 p-5">
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div>
                       <p className="text-sm font-semibold text-white">{r.name || r.username}</p>
-                      <p className="text-xs text-gray-400">{r.email}</p>
+                      <p className="text-xs text-gray-600">{r.email}</p>
                       <p className="text-xs text-gray-500 mt-0.5">
                         Requested: {new Date(r.deletionRequest.requestedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
                       </p>
@@ -106,7 +106,7 @@ export default function DeletionRequests() {
                   </div>
 
                   <div className="rounded-lg bg-black/30 border border-white/10 px-4 py-3 mb-4">
-                    <p className="text-xs text-gray-400 mb-1">Reason</p>
+                    <p className="text-xs text-gray-600 mb-1">Reason</p>
                     <p className="text-sm text-gray-200">{r.deletionRequest.reason}</p>
                   </div>
 
@@ -117,7 +117,7 @@ export default function DeletionRequests() {
                       Delete Account
                     </button>
                     <button onClick={() => act(r._id, "reject")} disabled={acting === r._id}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-white/15 text-gray-300 hover:bg-white/10 text-xs font-semibold transition disabled:opacity-50">
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-white/15 text-gray-600 hover:bg-white/10 text-xs font-semibold transition disabled:opacity-50">
                       <XCircle className="h-3.5 w-3.5" />Reject Request
                     </button>
                   </div>
@@ -129,7 +129,7 @@ export default function DeletionRequests() {
           {/* Resolved */}
           {resolved.length > 0 && (
             <div className="space-y-2">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Resolved</p>
+              <p className="text-xs font-semibold text-gray-600 uppercase tracking-widest">Resolved</p>
               {resolved.map((r) => {
                 const cfg = STATUS_CONFIG[r.deletionRequest?.status] ?? STATUS_CONFIG.pending;
                 const Icon = cfg.icon;

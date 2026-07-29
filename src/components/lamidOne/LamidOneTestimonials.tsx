@@ -24,7 +24,7 @@ const TESTIMONIALS = [
   },
   {
     pillar: "finance",
-    quote: "Lamid Finance didn't just give us visibility — it showed us where our capital was working and where it wasn't, in real time. That changes how you lead.",
+    quote: "LAMID FINANCE didn't just give us visibility — it showed us where our capital was working and where it wasn't, in real time. That changes how you lead.",
     name: "Chief Financial Officer",
     role: "Atlas Logistics",
   },
@@ -101,7 +101,7 @@ export default function LamidOneTestimonials({ pillar }: { pillar?: "core" | "gr
               style={{ borderColor: "rgba(37,99,235,0.15)" }}
             >
               {/* Large quote marks */}
-              <span className="text-6xl font-serif text-gray-200 dark:text-white/10 leading-none select-none block mb-8">
+              <span className="text-6xl font-serif text-gray-600 dark:text-white/50 leading-none select-none block mb-8">
                 &ldquo;&ldquo;
               </span>
 

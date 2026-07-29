@@ -45,7 +45,7 @@ export default function DescriptionStep({
           {errors.description
             ? <p className="pj-error-msg">{errors.description}</p>
             : <span />}
-          <span className="text-xs text-gray-400 ml-auto">
+          <span className="text-xs text-gray-600 ml-auto">
             {project.description?.length ?? 0} chars
           </span>
         </div>
@@ -86,7 +86,7 @@ export default function DescriptionStep({
                   type="button"
                   onClick={() => removeSkill(idx)}
                   className="w-3.5 h-3.5 flex items-center justify-center rounded-full
-                             text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-colors duration-150 text-base leading-none"
+                             text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-colors duration-150 text-base leading-none"
                 >
                   ×
                 </button>
@@ -137,7 +137,7 @@ export default function DescriptionStep({
                 <button
                   type="button"
                   onClick={() => removeMilestone(idx)}
-                  className="text-gray-300 hover:text-blue-500 transition-colors duration-150 text-xl leading-none"
+                  className="text-gray-600 hover:text-blue-500 transition-colors duration-150 text-xl leading-none"
                 >
                   ×
                 </button>

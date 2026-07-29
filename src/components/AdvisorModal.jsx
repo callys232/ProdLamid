@@ -104,7 +104,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors duration-200"
+              className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:text-white hover:bg-white/10 transition-colors duration-200"
             >
               <X className="h-4 w-4" />
             </button>
@@ -133,7 +133,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
                     </motion.div>
                     <div>
                       <h3 className="text-2xl font-black text-white">Request Received!</h3>
-                      <p className="mt-2 text-sm text-gray-400 leading-relaxed max-w-xs mx-auto">
+                      <p className="mt-2 text-sm text-gray-600 leading-relaxed max-w-xs mx-auto">
                         An advisor will review your details and reach out via WhatsApp or email within 1 business day.
                       </p>
                     </div>
@@ -159,7 +159,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
                       </div>
                     </div>
 
-                    <p className="text-sm text-gray-400 leading-relaxed mb-5">
+                    <p className="text-sm text-gray-600 leading-relaxed mb-5">
                       Get a free business diagnostic — tell us your challenge and an expert will map the path forward.
                     </p>
 
@@ -168,7 +168,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
                     <form onSubmit={handleSubmit} className="space-y-4">
                       {/* Name */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                           Full name <span className="text-blue-400">*</span>
                         </label>
                         <div className="relative">
@@ -190,7 +190,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
 
                       {/* Email */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                           Email <span className="text-blue-400">*</span>
                         </label>
                         <div className="relative">
@@ -212,7 +212,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
 
                       {/* WhatsApp */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                           WhatsApp <span className="text-blue-400">*</span>
                         </label>
                         <div className="relative">
@@ -234,7 +234,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
 
                       {/* Service interest */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                           Service <span className="text-gray-600 normal-case font-normal">(optional)</span>
                         </label>
                         <div className="relative">
@@ -258,7 +258,7 @@ export default function AdvisorModal({ isOpen, onClose }) {
 
                       {/* Challenge */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                           Your challenge <span className="text-blue-400">*</span>
                         </label>
                         <textarea

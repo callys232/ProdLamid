@@ -192,7 +192,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 18 }}
                 onClick={onClose}
-                className="flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#2563EB]/40 transition-colors"
+                className="flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-600 hover:text-white hover:border-[#2563EB]/40 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </motion.button>
@@ -258,7 +258,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                       color: "#fff",
                     }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03] text-[10px] font-medium text-gray-400 cursor-default transition-colors"
+                    className="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03] text-[10px] font-medium text-gray-600 cursor-default transition-colors"
                   >
                     {tag}
                   </motion.span>
@@ -343,7 +343,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                     <p className="text-[15px] font-bold text-white mb-1.5">
                       {step.label}
                     </p>
-                    <p className="text-xs text-gray-400 leading-relaxed">
+                    <p className="text-xs text-gray-600 leading-relaxed">
                       {step.desc}
                     </p>
                   </div>
@@ -434,7 +434,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-start gap-3 text-[13px] text-gray-300 leading-loose"
+                  className="flex items-start gap-3 text-[13px] text-gray-600 leading-loose"
                 >
                   <CheckCircle className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" />
                   {e}
@@ -464,7 +464,7 @@ export default function HowItWorksModal({ onClose }: { onClose: () => void }) {
                     initial={{ opacity: 0, x: -6 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.07 }}
-                    className="flex items-start gap-2.5 text-[13px] text-gray-300 leading-relaxed"
+                    className="flex items-start gap-2.5 text-[13px] text-gray-600 leading-relaxed"
                   >
                     <span className="mt-1 h-1.5 w-1.5 rounded-full bg-orange-400 flex-shrink-0" />
                     {r}

@@ -43,7 +43,7 @@ export default function ConsultantDetail({ consultant }: ConsultantDetailProps) 
         key={i}
         className={`w-5 h-5 ${i + 1 <= Math.round(rating)
             ? "text-blue-500 fill-blue-500"
-            : "text-gray-400"
+            : "text-gray-600"
           }`}
       />
     ));

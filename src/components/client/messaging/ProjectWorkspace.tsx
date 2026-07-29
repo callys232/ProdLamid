@@ -74,7 +74,7 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                 <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/5">
                     <FaProjectDiagram className="h-6 w-6 text-gray-500" />
                 </div>
-                <p className="text-sm font-medium text-gray-400">No project selected</p>
+                <p className="text-sm font-medium text-gray-600">No project selected</p>
                 <p className="text-xs text-gray-600">
                     Open a project from your Projects tab to view its workspace.
                 </p>
@@ -104,7 +104,7 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                 <div className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-[#2563EB]/30 pb-6 md:flex-row md:items-center">
                     <div>
                         <h1 className="text-3xl font-bold text-white">{project.title}</h1>
-                        <p className="mt-1 text-gray-400">
+                        <p className="mt-1 text-gray-600">
                             Status:{" "}
                             <span className="font-semibold uppercase text-blue-500">
                                 {project.status}
@@ -113,7 +113,7 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                     </div>
                     <div className="flex items-center gap-4 rounded-lg border border-white/10 bg-white/5 p-3">
                         <div className="text-right">
-                            <p className="text-xs uppercase text-gray-400">Budget</p>
+                            <p className="text-xs uppercase text-gray-600">Budget</p>
                             <p className="text-xl font-bold text-green-500">
                                 ${project.budget?.toLocaleString()}
                             </p>
@@ -129,7 +129,7 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-3 transition-all ${activeTab === tab.id
                                     ? "bg-blue-600 text-white shadow-lg shadow-blue-900/40"
-                                    : "border border-white/5 bg-white/5 text-gray-400 hover:bg-white/10"
+                                    : "border border-white/5 bg-white/5 text-gray-600 hover:bg-white/10"
                                 }`}
                         >
                             {tab.icon}
@@ -170,11 +170,11 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                         <div className="space-y-6">
                             <div>
                                 <h3 className="mb-2 text-xl font-bold">Description</h3>
-                                <p className="leading-relaxed text-gray-300">{project.description}</p>
+                                <p className="leading-relaxed text-gray-600">{project.description}</p>
                             </div>
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                 <div className="rounded-xl border border-white/5 bg-white/5 p-4">
-                                    <h4 className="mb-2 text-sm uppercase tracking-widest text-gray-400">
+                                    <h4 className="mb-2 text-sm uppercase tracking-widest text-gray-600">
                                         Skills Required
                                     </h4>
                                     <div className="flex flex-wrap gap-2">
@@ -189,7 +189,7 @@ export default function ProjectWorkspace({ projectId: propId }: ProjectWorkspace
                                     </div>
                                 </div>
                                 <div className="rounded-xl border border-white/5 bg-white/5 p-4">
-                                    <h4 className="mb-2 text-sm uppercase tracking-widest text-gray-400">
+                                    <h4 className="mb-2 text-sm uppercase tracking-widest text-gray-600">
                                         Category
                                     </h4>
                                     <p className="font-medium text-white">{project.category}</p>

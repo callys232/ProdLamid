@@ -38,7 +38,7 @@ const TIERS: Tier[] = [
     description: "Everything you need to get started on the platform.",
     cta:         "Get Started Free",
     ctaHref:     "/signup",
-    ctaStyle:    "border border-white/10 text-gray-300 hover:border-white/20 hover:text-white",
+    ctaStyle:    "border border-white/10 text-gray-600 hover:border-white/20 hover:text-white",
     highlight:   false,
     features: [
       "Post up to 3 projects",
@@ -193,7 +193,7 @@ export default function SaasPricingSection() {
         <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-5">
           Simple pricing for every stage
         </h2>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
           Start free, scale to Premium for AI-assisted tools, or deploy a full enterprise workspace with dedicated account management.
         </p>
       </div>
@@ -206,7 +206,7 @@ export default function SaasPricingSection() {
             whileTap={{ scale: 0.95 }}
             onClick={() => setCycle(c)}
             className={`relative rounded-full px-5 py-2 text-sm font-semibold transition ${
-              cycle === c ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-400 hover:text-white"
+              cycle === c ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-600 hover:text-white"
             }`}
           >
             {CYCLE_DISPLAY[c]}
@@ -277,7 +277,7 @@ export default function SaasPricingSection() {
             {/* Features */}
             <ul className="mt-auto space-y-2.5">
               {t.features.map(f => (
-                <li key={f} className="flex items-start gap-2.5 text-xs text-gray-400">
+                <li key={f} className="flex items-start gap-2.5 text-xs text-gray-600">
                   <CheckCircle className={`mt-0.5 h-3.5 w-3.5 flex-shrink-0 ${
                     t.key === "enterprise_plus" ? "text-purple-400" : "text-[#2563EB]"
                   }`} />
@@ -299,7 +299,7 @@ export default function SaasPricingSection() {
               className="rounded-xl border border-white/10 bg-white/5 p-5 text-center transition hover:border-[#2563EB]/20"
             >
               <p className="text-2xl font-bold text-[#2563EB]">{s.value}</p>
-              <p className="text-xs text-gray-400 mt-1">{s.label}</p>
+              <p className="text-xs text-gray-600 mt-1">{s.label}</p>
             </motion.div>
           ))}
         </div>
@@ -330,7 +330,7 @@ export default function SaasPricingSection() {
 
       {/* ── Bottom CTA ── */}
       <div className="mx-auto max-w-2xl text-center mt-20">
-        <p className="text-gray-400 text-sm mb-6">
+        <p className="text-gray-600 text-sm mb-6">
           Trusted by PE-backed companies, Fortune 500 divisions, and high-growth startups across 24 countries.
         </p>
         <motion.a

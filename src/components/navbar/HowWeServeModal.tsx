@@ -326,7 +326,7 @@ function BenefitsPanel() {
                   className="h-3 w-3 shrink-0"
                   style={{ color: group.color }}
                 />
-                <span className="text-xs font-medium text-gray-300">
+                <span className="text-xs font-medium text-gray-600">
                   {item}
                 </span>
               </motion.div>
@@ -396,7 +396,7 @@ function ServiceRow({
             </span>
           )}
         </div>
-        <p className="text-[13px] text-gray-500 leading-relaxed truncate group-hover:text-gray-400 transition-colors duration-150">
+        <p className="text-[13px] text-gray-500 leading-relaxed truncate group-hover:text-gray-600 transition-colors duration-150">
           {s.desc}
         </p>
       </div>
@@ -489,7 +489,7 @@ export default function HowWeServeModal({
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 18 }}
                 onClick={onClose}
-                className="w-8 h-8 rounded-xl border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+                className="w-8 h-8 rounded-xl border border-white/10 flex items-center justify-center text-gray-600 hover:text-white transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </motion.button>
@@ -525,7 +525,7 @@ export default function HowWeServeModal({
                     )}
                     <div className="flex items-center gap-1.5 mb-0.5">
                       <p
-                        className={`text-[13px] font-semibold leading-tight transition-colors duration-150 ${active === i ? "text-white" : "text-gray-300 group-hover:text-white"}`}
+                        className={`text-[13px] font-semibold leading-tight transition-colors duration-150 ${active === i ? "text-white" : "text-gray-600 group-hover:text-white"}`}
                       >
                         {sec.label}
                       </p>
@@ -539,7 +539,7 @@ export default function HowWeServeModal({
                       })()}
                     </div>
                     <p
-                      className={`text-[10px] mt-0.5 transition-colors duration-150 ${active === i ? "text-[#2563EB]" : "text-gray-500 group-hover:text-gray-400"}`}
+                      className={`text-[10px] mt-0.5 transition-colors duration-150 ${active === i ? "text-[#2563EB]" : "text-gray-500 group-hover:text-gray-600"}`}
                     >
                       {(sec as any).benefits
                         ? `${BENEFIT_GROUPS.reduce((a, g) => a + g.items.length, 0)} benefits included`

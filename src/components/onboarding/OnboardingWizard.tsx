@@ -59,7 +59,7 @@ function StepWelcome({ user, onNext }: { user: AuthUser; onNext: () => void }) {
           Welcome to LAMID ONE,{" "}
           <span className="text-[#2563EB]">{firstName}</span>
         </h1>
-        <p className="text-sm text-gray-400 max-w-xs mx-auto leading-relaxed">
+        <p className="text-sm text-gray-600 max-w-xs mx-auto leading-relaxed">
           Let&apos;s set up your workspace in 3 quick steps.
         </p>
       </div>
@@ -129,7 +129,7 @@ function StepProfile({
       {/* Client — category checkboxes */}
       {type === "Client" && (
         <div className="space-y-2">
-          <p className="text-sm text-gray-300 font-medium">
+          <p className="text-sm text-gray-600 font-medium">
             What type of projects do you need help with?
           </p>
           <div className="grid grid-cols-2 gap-2">
@@ -143,7 +143,7 @@ function StepProfile({
                   className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium border transition-all ${
                     active
                       ? "bg-[#2563EB]/15 border-[#2563EB]/50 text-white"
-                      : "bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:text-white"
+                      : "bg-white/5 border-white/10 text-gray-600 hover:border-white/20 hover:text-white"
                   }`}
                 >
                   <span
@@ -166,7 +166,7 @@ function StepProfile({
       {/* Freelancer — skills input */}
       {type === "Freelancer" && (
         <div className="space-y-2">
-          <label className="text-sm text-gray-300 font-medium block">
+          <label className="text-sm text-gray-600 font-medium block">
             What are your top skills?
           </label>
           <input
@@ -183,7 +183,7 @@ function StepProfile({
       {/* Enterprise — org name */}
       {type === "Enterprise" && (
         <div className="space-y-2">
-          <label className="text-sm text-gray-300 font-medium block">
+          <label className="text-sm text-gray-600 font-medium block">
             Your organisation name
           </label>
           <input
@@ -198,7 +198,7 @@ function StepProfile({
 
       {/* Concierge / fallback */}
       {type !== "Client" && type !== "Freelancer" && type !== "Enterprise" && (
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-600">
           Your account is being configured by our team. We&apos;ll be in touch shortly.
         </p>
       )}
@@ -214,7 +214,7 @@ function StepProfile({
         </motion.button>
         <button
           onClick={onSkip}
-          className="text-xs text-gray-600 hover:text-gray-400 transition-colors px-2"
+          className="text-xs text-gray-600 hover:text-gray-600 transition-colors px-2"
         >
           Skip for now
         </button>
@@ -291,7 +291,7 @@ function StepFirstAction({ user, onNext }: { user: AuthUser; onNext: () => void 
 
       <button
         onClick={onNext}
-        className="text-xs text-gray-600 hover:text-gray-400 transition-colors text-center"
+        className="text-xs text-gray-600 hover:text-gray-600 transition-colors text-center"
       >
         I&apos;ll do this later
       </button>
@@ -329,7 +329,7 @@ function StepReady({ onComplete }: { onComplete: () => void }) {
         <h2 className="text-2xl font-bold text-white font-[var(--font-space-grotesk)]">
           Your workspace is ready
         </h2>
-        <p className="text-sm text-gray-400 max-w-xs mx-auto">
+        <p className="text-sm text-gray-600 max-w-xs mx-auto">
           Here are some quick links to get you moving.
         </p>
       </div>
@@ -342,7 +342,7 @@ function StepReady({ onComplete }: { onComplete: () => void }) {
               className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3.5 cursor-pointer transition-colors"
             >
               {item.icon}
-              <span className="text-[11px] text-gray-300 font-medium leading-tight text-center">
+              <span className="text-[11px] text-gray-600 font-medium leading-tight text-center">
                 {item.label}
               </span>
             </motion.div>

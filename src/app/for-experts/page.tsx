@@ -91,7 +91,7 @@ export default function ForExpertsPage() {
               Apply to Join →
             </Link>
           </motion.div>
-          <p className="text-xs text-gray-400 dark:text-white/30 mt-3">
+          <p className="text-xs text-gray-600 dark:text-white/55 mt-3">
             Applications reviewed within 5 business days. No fees to apply.
           </p>
         </motion.div>
@@ -210,7 +210,7 @@ export default function ForExpertsPage() {
             <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
               Join a network shaping the future of consulting.
             </p>
-            <p className="text-xs text-gray-500 dark:text-white/40">
+            <p className="text-xs text-gray-600 dark:text-white/55">
               Applications reviewed within 5 business days. No fees to apply.
             </p>
           </div>

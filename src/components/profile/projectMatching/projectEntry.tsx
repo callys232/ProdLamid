@@ -102,7 +102,7 @@ export default function ProjectMatchEntry({
     const renderPremiumHint = () => {
         if (!isPremiumUser) {
             return (
-                <p className="text-[10px] text-gray-400 text-right max-w-[200px]">
+                <p className="text-[10px] text-gray-600 text-right max-w-[200px]">
                     🔒 Includes AI scoring, smart ranking & bid recommendations
                 </p>
             );

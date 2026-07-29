@@ -79,7 +79,7 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
                 </div>
                 <div>
                     <h3 className="text-xl font-bold">Secure Escrow</h3>
-                    <p className="text-gray-400 text-sm max-w-lg">
+                    <p className="text-gray-600 text-sm max-w-lg">
                         Funds are held securely in escrow and only released when the milestone is approved by you.
                     </p>
                 </div>
@@ -89,7 +89,7 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
                 {escrows.map((m) => (
                     <div key={m._id} className="bg-white/5 border border-white/5 rounded-xl p-6 flex flex-col md:flex-row justify-between items-center gap-4">
                         <div className="flex items-center gap-4">
-                            <div className="p-3 rounded-full bg-white/5 text-gray-400">
+                            <div className="p-3 rounded-full bg-white/5 text-gray-600">
                                 <FaLock />
                             </div>
                             <div>
@@ -100,7 +100,7 @@ export default function EscrowManager({ projectId }: EscrowManagerProps) {
 
                         <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
                             <div className="text-right">
-                                <p className="text-sm text-gray-400">Milestone Amount</p>
+                                <p className="text-sm text-gray-600">Milestone Amount</p>
                                 <p className="text-xl font-bold text-white">₦{(m.amount / 100).toLocaleString()}</p>
                             </div>
 

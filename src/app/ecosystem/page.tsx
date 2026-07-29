@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Network, TrendingUp, GraduationCap, Landmark } from "lucide-react";
 import { useScrollBackground } from "@/hooks/useScrollBackground";
+import { toolBlurb } from "@/lib/intelligence/toolBlurbs";
 import EcosystemOverview from "@/components/lamidOne/EcosystemOverview";
 
 const ENGINES = [
@@ -15,7 +16,7 @@ const ENGINES = [
     tagline: "Strategy That Never Goes Stale.",
     body: "Continuous diagnostics, real-time coherence checks, and early-warning signals — so your strategy stays aligned with what's actually happening in your organization.",
     href: "/core",
-    cta: "Explore Lamid Core",
+    cta: "Explore LAMID CORE",
   },
   {
     id: "grow",
@@ -25,7 +26,7 @@ const ENGINES = [
     tagline: "Growth That Reads the Market in Real Time.",
     body: "Market timing intelligence, localized advisory for every market you operate in, and a digital transformation pathway built for where your business is going, not just where it's been.",
     href: "/grow",
-    cta: "Explore Lamid Grow",
+    cta: "Explore LAMID GROW",
   },
   {
     id: "talent",
@@ -35,7 +36,7 @@ const ENGINES = [
     tagline: "The Right Person, the Right Role, Every Time.",
     body: "A 40+ signal matching engine that goes beyond CVs — AI-assisted capability diagnostics, LMS-driven learning acceleration, and workforce intelligence that compounds over time.",
     href: "/talent",
-    cta: "Explore Lamid Talent",
+    cta: "Explore LAMID TALENT",
   },
   {
     id: "finance",
@@ -45,7 +46,7 @@ const ENGINES = [
     tagline: "Finance That Drives Decisions, Not Just Reports Them.",
     body: "Real-time financial visibility, CFO-grade intelligence, budget-to-strategy linkage, and cost optimization signals — so capital works as hard as the rest of your organization.",
     href: "/finance",
-    cta: "Explore Lamid Finance",
+    cta: "Explore LAMID FINANCE",
   },
 ];
 
@@ -109,7 +110,7 @@ export default function EcosystemPage() {
           >
             <span className="text-gray-900 dark:text-white">One Ecosystem.</span>
             <br />
-            <span className="lamidone-gradient-text">Four Engines.</span>
+            <span className="lamidone-gradient-text">Four Suites.</span>
             <br />
             <span className="text-gray-900 dark:text-white">Endless Possibilities.</span>
           </motion.h1>
@@ -120,7 +121,7 @@ export default function EcosystemPage() {
             transition={{ duration: 0.55, delay: 0.22 }}
             className="text-gray-500 dark:text-white/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10"
           >
-            Your strategy, growth, talent, and finance — unified under one intelligent layer, so every part of your organization moves in the same direction at the same time.
+            Four suites, 245 tools, one signal — see your whole organization in one place, and act on what it shows you.
           </motion.p>
 
           <motion.div
@@ -134,7 +135,7 @@ export default function EcosystemPage() {
                 className="group relative inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm overflow-hidden bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
               >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/18 to-transparent skew-x-12 pointer-events-none" />
-                <span className="relative z-10">Take your Lamid One Diagnostic</span>
+                <span className="relative z-10">Take your LAMID ONE Diagnostic</span>
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
@@ -159,7 +160,7 @@ export default function EcosystemPage() {
             className="text-center mb-12"
           >
             <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
-              The Four Engines
+              The Four Suites
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
               Every layer of your business. <span className="lamidone-gradient-text">One system.</span>
@@ -201,7 +202,7 @@ export default function EcosystemPage() {
                 <p className="text-gray-900 dark:text-white text-sm font-semibold leading-snug mb-3">
                   {engine.tagline}
                 </p>
-                <p className="text-gray-500 dark:text-white/45 text-xs leading-relaxed mb-6">
+                <p className="text-gray-600 dark:text-white/55 text-xs leading-relaxed mb-6">
                   {engine.body}
                 </p>
                 <Link href={engine.href}
@@ -230,26 +231,40 @@ export default function EcosystemPage() {
             transition={{ duration: 0.5 }}
           >
             <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6 text-center">
-              Cross-Engine Tools
+              Cross-Suite Tools
             </p>
-            <div className="flex flex-wrap gap-3 justify-center mb-10">
+            {/* Each protection tool states what it does — the definition it
+                carries on its own page. */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
               {CROSS_ENGINE_TOOLS.map((tool) => (
                 <Link key={tool.label} href={tool.href}
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold border border-[#2563EB]/25 bg-[#2563EB]/6 text-gray-700 dark:text-white/70 hover:border-[#2563EB]/55 hover:text-[#2563EB] hover:bg-[#2563EB]/12 transition-all duration-200"
+                  className="group rounded-xl border border-[#2563EB]/20 bg-[#2563EB]/5 p-4 hover:border-[#2563EB]/55 hover:bg-[#2563EB]/10 transition-all duration-200"
                 >
-                  {tool.label} <span className="opacity-60">→</span>
+                  <p className="flex items-center gap-1.5 text-sm font-semibold text-gray-800 dark:text-white/85 group-hover:text-[#2563EB] transition-colors">
+                    {tool.label}
+                    <span className="opacity-60 transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-gray-600 dark:text-white/55 line-clamp-2">
+                    {toolBlurb(tool.href)}
+                  </p>
                 </Link>
               ))}
             </div>
-            <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-4 text-center text-gray-400 dark:text-white/30">
+            <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-4 text-center text-gray-600 dark:text-white/55">
               Platform Tools
             </p>
-            <div className="flex flex-wrap gap-3 justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {PLATFORM_TOOLS.map((tool) => (
                 <Link key={tool.label} href={tool.href}
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold border border-gray-200 dark:border-white/12 text-gray-500 dark:text-white/50 hover:border-[#2563EB]/40 hover:text-[#2563EB] hover:bg-[#2563EB]/6 transition-all duration-200"
+                  className="group rounded-xl border border-gray-200 dark:border-white/12 p-4 hover:border-[#2563EB]/45 hover:bg-[#2563EB]/6 transition-all duration-200"
                 >
-                  {tool.label} <span className="opacity-50">→</span>
+                  <p className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 dark:text-white/70 group-hover:text-[#2563EB] transition-colors">
+                    {tool.label}
+                    <span className="opacity-50 transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-gray-600 dark:text-white/55 line-clamp-2">
+                    {toolBlurb(tool.href)}
+                  </p>
                 </Link>
               ))}
             </div>
@@ -275,7 +290,7 @@ export default function EcosystemPage() {
             <Link href="/premium/business-diagnostic"
               className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
             >
-              Take your Lamid One Diagnostic
+              Take your LAMID ONE Diagnostic
             </Link>
           </motion.div>
         </div>

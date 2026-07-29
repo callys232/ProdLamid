@@ -142,7 +142,7 @@ export default function CareerPathTool() {
               </select>
             </div>
           </div>
-          <p className="mt-3 text-[11px] text-gray-600 dark:text-white/45">
+          <p className="mt-3 text-[11px] text-gray-600 dark:text-white/55">
             {targetRole} is measured on {requirements.length} skills, weighted by how much the role depends on each.
           </p>
         </section>
@@ -170,7 +170,7 @@ export default function CareerPathTool() {
                 <span className="w-6 shrink-0 text-center text-sm font-bold tabular-nums">{s.level}</span>
                 <button type="button" aria-label={`Remove ${s.name || "skill"}`}
                   onClick={() => setSkills((r) => r.filter((x) => x.id !== s.id))}
-                  className="p-1 text-gray-400 transition hover:text-red-500 dark:text-white/30">
+                  className="p-1 text-gray-600 transition hover:text-red-500 dark:text-white/55">
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
               </div>
@@ -217,7 +217,7 @@ export default function CareerPathTool() {
                 </label>
                 <button type="button" aria-label={`Remove ${c.title || "course"}`}
                   onClick={() => setLearning((r) => r.filter((x) => x.id !== c.id))}
-                  className="p-1 text-gray-400 transition hover:text-red-500 dark:text-white/30">
+                  className="p-1 text-gray-600 transition hover:text-red-500 dark:text-white/55">
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
               </div>
@@ -291,7 +291,7 @@ export default function CareerPathTool() {
                       <li key={g.skill}>
                         <div className="mb-1 flex items-baseline justify-between gap-3 text-xs">
                           <span className="font-semibold text-black dark:text-white">{g.skill}</span>
-                          <span className="tabular-nums text-gray-600 dark:text-white/45">
+                          <span className="tabular-nums text-gray-600 dark:text-white/55">
                             at {g.held} · needs {g.needed} · weight {g.weight}
                           </span>
                         </div>
@@ -300,7 +300,7 @@ export default function CareerPathTool() {
                             style={{ width: `${Math.min(100, (g.held / g.needed) * 100)}%`, background: ACCENT }} />
                         </div>
                         {g.evidencedBy.length > 0 && (
-                          <p className="mt-1 text-[10px] text-gray-600 dark:text-white/40">
+                          <p className="mt-1 text-[10px] text-gray-600 dark:text-white/55">
                             Partial evidence: {g.evidencedBy.join(", ")}
                           </p>
                         )}

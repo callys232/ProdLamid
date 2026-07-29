@@ -350,7 +350,7 @@ function FragmentedModal({ onClose, onReveal }: { onClose: () => void; onReveal:
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 18 }}
                 onClick={onClose}
-                className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white hover:border-[#2563EB]/40 transition-colors"
+                className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-xl border border-white/10 bg-white/[0.03] text-gray-600 hover:text-white hover:border-[#2563EB]/40 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </motion.button>
@@ -437,7 +437,7 @@ export default function AISystemSection() {
                 transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                 className="h-1.5 w-1.5 rounded-full bg-[#2563EB] flex-shrink-0"
               />
-              <p className="text-xs text-gray-400 leading-snug">
+              <p className="text-xs text-gray-600 leading-snug">
                 LAMID ONE — The HumanAI Consulting Ecosystem. Expert matching, AI-powered intelligence, and talent development in one unified platform.
               </p>
             </motion.div>
@@ -504,7 +504,7 @@ export default function AISystemSection() {
                           </motion.span>
                         </motion.button>
 
-                        <p className="text-[13px] text-gray-300 leading-relaxed">{PROBLEM.full}</p>
+                        <p className="text-[13px] text-gray-600 leading-relaxed">{PROBLEM.full}</p>
 
                         <div className="flex flex-wrap gap-2 mt-1">
                           <motion.button
@@ -526,7 +526,7 @@ export default function AISystemSection() {
                             whileHover={{ scale: 1.03, backgroundColor: "rgba(255,255,255,0.07)" }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setModalOpen(true)}
-                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-gray-400 border border-white/10 bg-white/[0.03] transition-colors"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-gray-600 border border-white/10 bg-white/[0.03] transition-colors"
                           >
                             Platform Overview
                             <ArrowRight className="h-3 w-3" />
@@ -567,7 +567,7 @@ export default function AISystemSection() {
                               {/* Tool bullets */}
                               <ul className="flex flex-col gap-1 mt-auto">
                                 {card.tools.map((t) => (
-                                  <li key={t} className="flex items-start gap-1.5 text-[10.5px] text-gray-400 leading-snug">
+                                  <li key={t} className="flex items-start gap-1.5 text-[10.5px] text-gray-600 leading-snug">
                                     <span className={`mt-[4px] h-1 w-1 rounded-full flex-shrink-0 ${card.dotCls}`} />
                                     {t}
                                   </li>
@@ -611,7 +611,7 @@ export default function AISystemSection() {
                           whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.08)" }}
                           whileTap={{ scale: 0.94 }}
                           onClick={() => setRevealed(false)}
-                          className="inline-flex items-center gap-1.5 rounded-lg border border-white/12 bg-white/5 px-3.5 py-2 text-xs font-semibold text-gray-400 transition-colors"
+                          className="inline-flex items-center gap-1.5 rounded-lg border border-white/12 bg-white/5 px-3.5 py-2 text-xs font-semibold text-gray-600 transition-colors"
                         >
                           <motion.span
                             animate={{ x: [0, -3, 0] }}
@@ -657,7 +657,7 @@ export default function AISystemSection() {
                                       initial={{ opacity: 0, x: -6 }}
                                       animate={{ opacity: 1, x: 0 }}
                                       transition={{ delay: i * 0.08 + bi * 0.07 + 0.15, duration: 0.3 }}
-                                      className="flex items-start gap-2 text-xs text-gray-400 leading-relaxed"
+                                      className="flex items-start gap-2 text-xs text-gray-600 leading-relaxed"
                                     >
                                       <motion.span
                                         animate={isHov ? { x: 2, opacity: 1 } : { x: 0, opacity: 0.7 }}

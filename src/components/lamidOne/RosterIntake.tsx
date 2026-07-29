@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useOrganizationProfile, useProfileSeed } from "@/hooks/useOrganizationProfile";
 import { motion } from "framer-motion";
 import { Loader2, Plus, Trash2, TriangleAlert } from "lucide-react";
 import type { RoleRow } from "@/lib/intelligence/roster";
@@ -28,15 +29,28 @@ const seed = (): RoleRow[] => [
 ];
 
 export default function RosterIntake({
-  engineName, onSubmit, loading,
+  engineName, onSubmit, loading, initial,
 }: {
   engineName: string;
-  onSubmit: (payload: { context: Record<string, string>; measured: string; summary: RosterSummary }) => void;
+  onSubmit: (payload: {
+    context: Record<string, string>;
+    measured: string;
+    summary: RosterSummary;
+    /** Echoed back so the roster can be revisited without retyping it. */
+    seed: { rows: RoleRow[] };
+  }) => void;
+  initial?: { rows?: RoleRow[] };
   loading: boolean;
 }) {
   const [orgName, setOrgName]   = useState("");
   const [industry, setIndustry] = useState("");
-  const [rows, setRows]         = useState<RoleRow[]>(seed);
+  const [rows, setRows]         = useState<RoleRow[]>(initial?.rows?.length ? initial.rows : seed);
+
+  const { profile, ready, update: saveOrg } = useOrganizationProfile();
+  useProfileSeed(ready, profile, (p) => {
+    if (p.organisationName) setOrgName(p.organisationName);
+    if (p.industry)         setIndustry(p.industry);
+  });
 
   const summary = useMemo(() => computeRoster(rows), [rows]);
 
@@ -116,7 +130,7 @@ export default function RosterIntake({
                   <td className="w-10 px-3 py-2">
                     <button type="button" aria-label={`Remove ${r.role || "role"}`}
                       onClick={() => setRows((rs) => rs.filter((x) => x.id !== r.id))}
-                      className="p-1 text-gray-400 transition hover:text-red-500 dark:text-white/30">
+                      className="p-1 text-gray-400 transition hover:text-red-500 dark:text-white/55">
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>
                   </td>
@@ -146,7 +160,7 @@ export default function RosterIntake({
           <div key={k.label} className="rounded-2xl border border-gray-200 dark:border-white/15 bg-white dark:bg-black p-5">
             <p className="mb-1 text-lg font-bold tabular-nums leading-none text-black dark:text-white">{k.value}</p>
             <p className="text-[11px] text-gray-600 dark:text-white/50">{k.label}</p>
-            <p className="mt-0.5 text-[10px] text-gray-600 dark:text-white/40">{k.sub}</p>
+            <p className="mt-0.5 text-[10px] text-gray-600 dark:text-white/55">{k.sub}</p>
           </div>
         ))}
       </div>
@@ -165,15 +179,19 @@ export default function RosterIntake({
       )}
 
       <button type="button" disabled={!canSubmit}
-        onClick={() => onSubmit({
-          context: {
-            organisationName: orgName, industry,
-            challenge: `Workforce structure across ${summary.roleCount} roles`,
-            goal: "Strengthen capability, succession and retention",
-          },
-          measured: rosterToPrompt(summary),
-          summary,
-        })}
+        onClick={() => {
+          saveOrg({ organisationName: orgName, industry, headcount: summary.totalHeadcount || null });
+          onSubmit({
+            context: {
+              organisationName: orgName, industry,
+              challenge: `Workforce structure across ${summary.roleCount} roles`,
+              goal: "Strengthen capability, succession and retention",
+            },
+            measured: rosterToPrompt(summary),
+            summary,
+            seed: { rows },
+          });
+        }}
         className="w-full rounded-2xl py-3.5 text-sm font-extrabold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
         style={{ background: ACCENT }}>
         {loading

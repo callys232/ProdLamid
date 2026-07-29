@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q11Page() {
   const config = MODULE_REGISTRY["Q11"] ?? buildFallbackConfig("Q11", "Q-Series — Decision Intelligence", "Scenario Reality Check Engine");
   return (
-    <DashboardTierGate pillar="Scenario Reality Check Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Scenario Reality Check" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

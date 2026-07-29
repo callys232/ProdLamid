@@ -56,18 +56,18 @@ export default function OrgSettings({ org, orgRole }: Props) {
     <div className="space-y-4 p-4">
       {/* Org profile */}
       <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-        <h3 className="mb-5 text-sm font-semibold uppercase tracking-widest text-gray-400">Organisation Profile</h3>
+        <h3 className="mb-5 text-sm font-semibold uppercase tracking-widest text-gray-600">Organisation Profile</h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-gray-400">Organisation Name</label>
+            <label className="mb-1.5 block text-xs font-medium text-gray-600">Organisation Name</label>
             <input className={input} value={form.name} disabled={!isAdmin} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} />
           </div>
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-gray-400">Industry</label>
+            <label className="mb-1.5 block text-xs font-medium text-gray-600">Industry</label>
             <input className={input} value={form.industry} disabled={!isAdmin} placeholder="e.g. Financial Services" onChange={e => setForm(p => ({ ...p, industry: e.target.value }))} />
           </div>
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-gray-400">Organisation Size</label>
+            <label className="mb-1.5 block text-xs font-medium text-gray-600">Organisation Size</label>
             <div className="relative">
               <select value={form.orgSize} disabled={!isAdmin} onChange={e => setForm(p => ({ ...p, orgSize: e.target.value }))}
                 className={`${input} appearance-none pr-8 ${!isAdmin ? "opacity-50 cursor-not-allowed" : ""}`}>
@@ -78,11 +78,11 @@ export default function OrgSettings({ org, orgRole }: Props) {
             </div>
           </div>
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-gray-400">Website</label>
+            <label className="mb-1.5 block text-xs font-medium text-gray-600">Website</label>
             <input className={input} value={form.website} disabled={!isAdmin} placeholder="https://yourcompany.com" onChange={e => setForm(p => ({ ...p, website: e.target.value }))} />
           </div>
           <div className="sm:col-span-2">
-            <label className="mb-1.5 block text-xs font-medium text-gray-400">Description</label>
+            <label className="mb-1.5 block text-xs font-medium text-gray-600">Description</label>
             <textarea className={`${input} resize-none`} rows={3} value={form.description} disabled={!isAdmin}
               placeholder="Tell us about your organisation…" onChange={e => setForm(p => ({ ...p, description: e.target.value }))} />
           </div>
@@ -94,8 +94,8 @@ export default function OrgSettings({ org, orgRole }: Props) {
         <div className="mb-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Briefcase className="h-4 w-4 text-[#2563EB]" />
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-400">Work / Employment History</h3>
-            <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-gray-400">{form.employmentHistory.length}</span>
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-600">Work / Employment History</h3>
+            <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-gray-600">{form.employmentHistory.length}</span>
           </div>
           {isAdmin && (
             <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
@@ -145,7 +145,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
                             { key: "location",  label: "Location",       placeholder: "Remote / City"    },
                           ].map(({ key, label, placeholder }) => (
                             <div key={key}>
-                              <label className="mb-1.5 block text-xs font-medium text-gray-400">{label}</label>
+                              <label className="mb-1.5 block text-xs font-medium text-gray-600">{label}</label>
                               <input className={input} disabled={!isAdmin} value={(job as any)[key] ?? ""}
                                 placeholder={placeholder}
                                 onChange={e => {
@@ -157,7 +157,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
                             </div>
                           ))}
                           <div>
-                            <label className="mb-1.5 block text-xs font-medium text-gray-400">Start Date</label>
+                            <label className="mb-1.5 block text-xs font-medium text-gray-600">Start Date</label>
                             <input className={input} type="month" disabled={!isAdmin} value={job.startDate ?? ""}
                               onChange={e => {
                                 if (!isAdmin) return;
@@ -167,7 +167,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
                               }} />
                           </div>
                           <div>
-                            <label className="mb-1.5 block text-xs font-medium text-gray-400">End Date</label>
+                            <label className="mb-1.5 block text-xs font-medium text-gray-600">End Date</label>
                             <input className={input} disabled={!isAdmin} placeholder="Present or YYYY-MM" value={job.endDate ?? ""}
                               onChange={e => {
                                 if (!isAdmin) return;
@@ -177,7 +177,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
                               }} />
                           </div>
                           <div className="sm:col-span-2">
-                            <label className="mb-1.5 block text-xs font-medium text-gray-400">Description</label>
+                            <label className="mb-1.5 block text-xs font-medium text-gray-600">Description</label>
                             <textarea className={`${input} resize-none`} rows={3} disabled={!isAdmin} value={job.description ?? ""}
                               placeholder="Key responsibilities, achievements…"
                               onChange={e => {
@@ -212,7 +212,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
 
       {/* Platform settings */}
       <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-        <h3 className="mb-5 text-sm font-semibold uppercase tracking-widest text-gray-400">Platform Settings</h3>
+        <h3 className="mb-5 text-sm font-semibold uppercase tracking-widest text-gray-600">Platform Settings</h3>
         <div className="space-y-4">
           {[
             { key: "allowPublicProjects",    label: "Allow Public Projects",    desc: "Projects posted by org members appear in the public marketplace" },
@@ -299,7 +299,7 @@ export default function OrgSettings({ org, orgRole }: Props) {
               >
                 Yes, delete permanently
               </motion.button>
-              <button onClick={() => setConfirmDelete(false)} className="rounded-lg border border-white/10 px-4 py-2 text-sm text-gray-400 hover:text-white">
+              <button onClick={() => setConfirmDelete(false)} className="rounded-lg border border-white/10 px-4 py-2 text-sm text-gray-600 hover:text-white">
                 Cancel
               </button>
             </div>

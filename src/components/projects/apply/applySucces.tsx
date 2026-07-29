@@ -52,7 +52,7 @@ export default function ApplySuccess({
           <h2 className="text-2xl font-bold mb-2 text-white">
             Application Submitted 🎉
           </h2>
-          <p className="text-gray-300 mb-6">
+          <p className="text-gray-600 mb-6">
             Your bid has been successfully submitted. We’ll notify you once the
             client reviews your application.
           </p>
@@ -60,20 +60,20 @@ export default function ApplySuccess({
           {/* Recap Section */}
           {bidDetails && (
             <div className="bg-white/5 rounded-lg p-4 mb-6 text-left space-y-1">
-              <p className="text-sm text-gray-300">You proposed:</p>
+              <p className="text-sm text-gray-600">You proposed:</p>
               <p className="text-lg font-semibold text-white">
                 ${bidDetails.amount}
               </p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-600">
                 Timeline: {bidDetails.timeline}
               </p>
 
               {/* New fields */}
               {bidDetails.name && (
-                <p className="text-sm text-gray-400">Name: {bidDetails.name}</p>
+                <p className="text-sm text-gray-600">Name: {bidDetails.name}</p>
               )}
               {bidDetails.email && (
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-600">
                   Email: {bidDetails.email}
                 </p>
               )}

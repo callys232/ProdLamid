@@ -91,7 +91,7 @@ export default function EscrowDashboard({
     return (
       <div className="flex flex-col items-center justify-center p-12 space-y-4">
         <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-gray-400 font-medium">Loading your financial dashboard...</p>
+        <p className="text-gray-600 font-medium">Loading your financial dashboard...</p>
       </div>
     );
   }
@@ -102,7 +102,7 @@ export default function EscrowDashboard({
         <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto text-3xl">🗂️</div>
         <div className="space-y-1">
           <h3 className="text-xl font-bold text-white">No active projects found</h3>
-          <p className="text-gray-400 max-w-sm mx-auto">You don't have any projects with active escrow accounts yet.</p>
+          <p className="text-gray-600 max-w-sm mx-auto">You don't have any projects with active escrow accounts yet.</p>
         </div>
       </div>
     );
@@ -124,7 +124,7 @@ export default function EscrowDashboard({
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#1a0d0d] border border-gray-800 p-6 rounded-xl">
         <div>
           <h2 className="text-2xl font-bold text-white">Financial Dashboard</h2>
-          <p className="text-gray-400 text-sm">Manage your wallet and project-specific escrows</p>
+          <p className="text-gray-600 text-sm">Manage your wallet and project-specific escrows</p>
         </div>
 
         <div className="flex items-center gap-3 w-full md:w-auto">
@@ -163,7 +163,7 @@ export default function EscrowDashboard({
 
             <div className="space-y-4">
               <div className="flex justify-between items-center p-4 bg-gray-900 rounded-lg border border-gray-800">
-                <span className="text-gray-400">Available Balance</span>
+                <span className="text-gray-600">Available Balance</span>
                 <span className="text-xl font-bold text-white">USD {balance.toLocaleString()}</span>
               </div>
 

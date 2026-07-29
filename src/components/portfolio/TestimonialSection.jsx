@@ -199,7 +199,7 @@ export default function TestimonialSection() {
                 >
                   <motion.span animate={{ scale: [1, 1.35, 1] }} transition={{ repeat: Infinity, duration: 2.5 }}
                     className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: t.hex }} />
-                  <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">{t.tag}</span>
+                  <span className="text-[10px] font-medium text-gray-600 uppercase tracking-wide">{t.tag}</span>
                 </motion.div>
               </AnimatePresence>
 
@@ -230,7 +230,7 @@ export default function TestimonialSection() {
                   whileTap={{ scale: 0.88 }}
                   animate={{ x: pressed === "prev" ? -2 : 0 }}
                   onClick={prev}
-                  className="w-8 h-8 rounded-xl border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-xl border border-white/10 flex items-center justify-center text-gray-600 hover:text-white transition-colors"
                 >
                   <ChevronLeft className="h-3.5 w-3.5" />
                 </motion.button>
@@ -244,7 +244,7 @@ export default function TestimonialSection() {
                   whileTap={{ scale: 0.88 }}
                   animate={{ x: pressed === "next" ? 2 : 0 }}
                   onClick={next}
-                  className="w-8 h-8 rounded-xl border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-xl border border-white/10 flex items-center justify-center text-gray-600 hover:text-white transition-colors"
                 >
                   <ChevronRight className="h-3.5 w-3.5" />
                 </motion.button>

@@ -124,7 +124,7 @@ export default function SearchBar({ placeholder = "Search projects or consultant
             <Link
               href={`/jobs?q=${encodeURIComponent(query)}`}
               onClick={() => setOpen(false)}
-              className="flex items-center justify-center gap-1.5 border-t border-white/10 px-4 py-2.5 text-xs text-gray-400 transition hover:text-white"
+              className="flex items-center justify-center gap-1.5 border-t border-white/10 px-4 py-2.5 text-xs text-gray-600 transition hover:text-white"
             >
               <Search className="h-3 w-3" /> See all results for &ldquo;{query}&rdquo;
             </Link>

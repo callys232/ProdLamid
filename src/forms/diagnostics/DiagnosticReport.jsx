@@ -37,7 +37,7 @@ export default function DiagnosticReport({ formData, onDone }) {
   if (loading) return (
     <div className="flex flex-col items-center justify-center py-12 gap-4">
       <Loader2 className="h-8 w-8 text-[#2563EB] animate-spin" />
-      <p className="text-sm text-gray-400">Analysing your submission…</p>
+      <p className="text-sm text-gray-600">Analysing your submission…</p>
     </div>
   );
 
@@ -59,14 +59,14 @@ export default function DiagnosticReport({ formData, onDone }) {
     >
       <div className="text-center mb-2">
         <p className="text-xs font-semibold tracking-widest text-[#2563EB] uppercase mb-1">Your AI Diagnostic Report</p>
-        <p className="text-sm text-gray-300">{report.summary}</p>
+        <p className="text-sm text-gray-600">{report.summary}</p>
       </div>
 
       {/* Recommended Service */}
       <div className={`rounded-xl border p-4 ${colors.border} ${colors.bg}`}>
-        <p className="text-xs text-gray-400 mb-1">Recommended Service</p>
+        <p className="text-xs text-gray-600 mb-1">Recommended Service</p>
         <p className={`font-bold text-lg ${colors.text}`}>{report.recommendedService}</p>
-        <p className="text-xs text-gray-300 mt-1">{report.recommendedServiceReason}</p>
+        <p className="text-xs text-gray-600 mt-1">{report.recommendedServiceReason}</p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
@@ -78,7 +78,7 @@ export default function DiagnosticReport({ formData, onDone }) {
           </div>
           <ul className="space-y-1">
             {(report.strengths || []).map((s, i) => (
-              <li key={i} className="text-xs text-gray-300">• {s}</li>
+              <li key={i} className="text-xs text-gray-600">• {s}</li>
             ))}
           </ul>
         </div>
@@ -91,7 +91,7 @@ export default function DiagnosticReport({ formData, onDone }) {
           </div>
           <ul className="space-y-1">
             {(report.challenges || []).map((c, i) => (
-              <li key={i} className="text-xs text-gray-300">• {c}</li>
+              <li key={i} className="text-xs text-gray-600">• {c}</li>
             ))}
           </ul>
         </div>
@@ -106,7 +106,7 @@ export default function DiagnosticReport({ formData, onDone }) {
           </div>
           <ul className="space-y-1.5">
             {report.recommendations.map((r, i) => (
-              <li key={i} className="text-xs text-gray-300">
+              <li key={i} className="text-xs text-gray-600">
                 <span className="text-white font-medium">{r.title}:</span> {r.description}
               </li>
             ))}

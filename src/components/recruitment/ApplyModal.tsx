@@ -17,7 +17,7 @@ const inputCls = "w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-wh
 
 function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <label className="block text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">
+    <label className="block text-[11px] font-bold uppercase tracking-widest text-gray-600 mb-1.5">
       {children}{required && <span className="ml-0.5 text-orange-500">*</span>}
     </label>
   );
@@ -144,7 +144,7 @@ export default function ApplyModal({ job, onClose, onSuccess }: ApplyModalProps)
               </div>
             </div>
             <button type="button" aria-label="Close" onClick={onClose}
-              className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.12] transition">
+              className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-gray-600 hover:text-white hover:bg-white/[0.12] transition">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -158,7 +158,7 @@ export default function ApplyModal({ job, onClose, onSuccess }: ApplyModalProps)
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white mb-1">Application Submitted!</h3>
-                <p className="text-sm text-gray-400">We'll review your profile and be in touch.</p>
+                <p className="text-sm text-gray-600">We'll review your profile and be in touch.</p>
               </div>
               <button type="button" onClick={onClose} className="px-8 py-2.5 rounded-full text-sm font-bold bg-orange-500 hover:bg-orange-600 text-white transition">
                 Done
@@ -235,7 +235,7 @@ export default function ApplyModal({ job, onClose, onSuccess }: ApplyModalProps)
                 <Full>
                   <Label>CV / Resume</Label>
                   <button type="button" title="Upload your CV or Resume" onClick={() => fileRef.current?.click()}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-dashed border-white/20 text-xs text-gray-400 hover:border-orange-500/50 hover:text-orange-300 transition">
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-dashed border-white/20 text-xs text-gray-600 hover:border-orange-500/50 hover:text-orange-300 transition">
                     <Upload className="w-4 h-4 shrink-0" />
                     {cvFile ? cvFile.name : "Click to upload PDF or DOCX"}
                   </button>

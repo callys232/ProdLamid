@@ -131,7 +131,7 @@ function FeatureList({ features, accent = "text-[#2563EB]", tools }: {
     <div className="mt-auto space-y-4">
       <ul className="space-y-2">
         {features.map(f => (
-          <li key={f} className={`flex items-start gap-2 text-xs text-gray-400 ${f.startsWith("⚡") ? "text-yellow-300" : ""}`}>
+          <li key={f} className={`flex items-start gap-2 text-xs text-gray-600 ${f.startsWith("⚡") ? "text-yellow-300" : ""}`}>
             <CheckCircle className={`mt-0.5 h-3.5 w-3.5 flex-shrink-0 ${f.startsWith("⚡") ? "text-yellow-400" : accent}`} />
             {f.replace("⚡ ", "")}
           </li>
@@ -139,7 +139,7 @@ function FeatureList({ features, accent = "text-[#2563EB]", tools }: {
       </ul>
       {tools && tools.length > 0 && (
         <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+          <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-widest mb-2 flex items-center gap-1.5">
             <Sparkles className="h-3 w-3 text-[#2563EB]" />AI Tools & Agents unlocked
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -162,7 +162,7 @@ function InternalToggle<T extends string>({ options, value, onChange }: {
     <div className="flex rounded-xl border border-white/10 overflow-hidden mb-4 text-xs font-semibold">
       {options.map(o => (
         <button key={o.key} onClick={() => onChange(o.key)}
-          className={`flex-1 py-2 transition ${value === o.key ? "bg-[#2563EB] text-white" : "text-gray-400 hover:text-white"}`}>
+          className={`flex-1 py-2 transition ${value === o.key ? "bg-[#2563EB] text-white" : "text-gray-600 hover:text-white"}`}>
           {o.label}
         </button>
       ))}
@@ -209,7 +209,7 @@ export default function SaasPricingSection() {
         <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-5">
           Flexible Plans for Every Stage of Growth.
         </h2>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
           Whether you're a growing SME or a global enterprise, LAMID ONE scales with you. No contracts. No surprises. Cancel anytime.
         </p>
       </div>
@@ -237,7 +237,7 @@ export default function SaasPricingSection() {
               </div>
             ))}
           </div>
-          <div className="mt-4 flex items-center gap-2 text-xs text-gray-400">
+          <div className="mt-4 flex items-center gap-2 text-xs text-gray-600">
             <ShoppingCart className="h-3.5 w-3.5 text-gray-500 flex-shrink-0" />
             Points packages: 100 pts = ₦500 · 500 pts = ₦2,000 · 1,000 pts = ₦3,500 · 5,000 pts = ₦15,000
           </div>
@@ -249,7 +249,7 @@ export default function SaasPricingSection() {
         {(["monthly", "annual"] as BillingCycle[]).map(c => (
           <motion.button key={c} whileTap={{ scale: 0.95 }} onClick={() => setCycle(c)}
             className={`relative rounded-full px-5 py-2 text-sm font-semibold transition ${
-              cycle === c ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-400 hover:text-white"
+              cycle === c ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-600 hover:text-white"
             }`}>
             {c === "monthly" ? "Monthly" : "Annual"}
             {c === "annual" && (
@@ -475,7 +475,7 @@ export default function SaasPricingSection() {
           <motion.div key={s.label} whileHover={{ y: -2 }}
             className="rounded-xl border border-white/10 bg-white/5 p-5 text-center hover:border-[#2563EB]/20 transition">
             <p className="text-2xl font-bold text-[#2563EB]">{s.value}</p>
-            <p className="text-xs text-gray-400 mt-1">{s.label}</p>
+            <p className="text-xs text-gray-600 mt-1">{s.label}</p>
           </motion.div>
         ))}
       </div>
@@ -502,7 +502,7 @@ export default function SaasPricingSection() {
 
       {/* ── CTA ── */}
       <div className="mx-auto max-w-2xl text-center mt-20">
-        <p className="text-gray-400 text-sm mb-6">
+        <p className="text-gray-600 text-sm mb-6">
           Trusted by government agencies, Fortune 500 divisions, NGOs, and high-growth startups across 24 countries.
         </p>
         <motion.a href="/contact-sales" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}

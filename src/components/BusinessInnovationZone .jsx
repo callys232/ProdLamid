@@ -153,7 +153,7 @@ const BusinessInnovationZone = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-left animate-rainbowPulse drop-shadow-md mb-3">
                 Business Innovation Zone
               </h2>
-              <p className="text-sm md:text-base text-gray-300 leading-relaxed text-left">
+              <p className="text-sm md:text-base text-gray-600 leading-relaxed text-left">
                 The one-stop place that rapidly nurtures and expands startups to
                 deliver exceptional value — through digitalized, client-centered
                 systems and processes.
@@ -197,7 +197,7 @@ const BusinessInnovationZone = () => {
                 </span>{" "}
                 — our all-in-one growth toolbox
               </h3>
-              <p className="text-sm md:text-base text-gray-300 leading-relaxed text-left mt-3">
+              <p className="text-sm md:text-base text-gray-600 leading-relaxed text-left mt-3">
                 A portfolio of simple, easy-to-use Human-AI assisted management
                 know-how that delivers sustainable growth
               </p>
@@ -463,7 +463,7 @@ const BusinessInnovationZone = () => {
           >
             <button
               onClick={() => setShowPopup(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition text-xl"
+              className="absolute top-4 right-4 text-gray-600 hover:text-white transition text-xl"
             >
               ✕
             </button>

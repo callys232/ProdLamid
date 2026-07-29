@@ -10,7 +10,7 @@ function getBadge(spend: number) {
   if (spend >= 100_000) return { label: "$100k+ Spent",  color: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",  glow: "rgba(234,179,8,0.15)" };
   if (spend >= 50_000)  return { label: "$50k+ Spent",   color: "text-emerald-400 border-emerald-500/30 bg-emerald-500/10",glow: "rgba(34,197,94,0.15)" };
   if (spend >= 10_000)  return { label: "$10k+ Spent",   color: "text-blue-400 border-blue-500/30 bg-blue-500/10",        glow: "rgba(59,130,246,0.15)"};
-  if (spend >= 1_000)   return { label: "$1k+ Spent",    color: "text-gray-300 border-white/20 bg-white/5",               glow: "rgba(255,255,255,0.05)"};
+  if (spend >= 1_000)   return { label: "$1k+ Spent",    color: "text-gray-600 border-white/20 bg-white/5",               glow: "rgba(255,255,255,0.05)"};
   return null;
 }
 

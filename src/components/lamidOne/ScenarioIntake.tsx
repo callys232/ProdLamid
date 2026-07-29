@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useOrganizationProfile, useProfileSeed } from "@/hooks/useOrganizationProfile";
 import { motion } from "framer-motion";
 import { Loader2, Plus, Trash2, TriangleAlert, Trophy, Shield } from "lucide-react";
 import type { ScenarioOption } from "@/lib/intelligence/scenario";
@@ -28,15 +29,29 @@ const seed = (): ScenarioOption[] => [
 ];
 
 export default function ScenarioIntake({
-  engineName, onSubmit, loading,
+  engineName, onSubmit, loading, initial,
 }: {
   engineName: string;
-  onSubmit: (payload: { context: Record<string, string>; measured: string; summary: ScenarioSummary }) => void;
+  onSubmit: (payload: {
+    context: Record<string, string>;
+    measured: string;
+    summary: ScenarioSummary;
+    /** Echoed back so the options can be revised rather than re-entered. */
+    seed: { decision: string; options: ScenarioOption[] };
+  }) => void;
+  initial?: { decision?: string; options?: ScenarioOption[] };
   loading: boolean;
 }) {
   const [orgName, setOrgName] = useState("");
-  const [decision, setDecision] = useState("");
-  const [options, setOptions] = useState<ScenarioOption[]>(seed);
+  const [decision, setDecision] = useState(initial?.decision ?? "");
+
+  const { profile, ready, update: saveOrg } = useOrganizationProfile();
+  useProfileSeed(ready, profile, (p) => {
+    if (p.organisationName) setOrgName(p.organisationName);
+  });
+  const [options, setOptions] = useState<ScenarioOption[]>(
+    initial?.options?.length ? initial.options : seed,
+  );
 
   const summary = useMemo(() => computeScenarios(options), [options]);
 
@@ -118,7 +133,7 @@ export default function ScenarioIntake({
                   <td className="w-10 px-3 py-2">
                     <button type="button" aria-label={`Remove ${o.name || "option"}`}
                       onClick={() => setOptions((os) => os.filter((x) => x.id !== o.id))}
-                      className="p-1 text-gray-400 transition hover:text-red-500 dark:text-white/30">
+                      className="p-1 text-gray-400 transition hover:text-red-500 dark:text-white/55">
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>
                   </td>
@@ -179,15 +194,19 @@ export default function ScenarioIntake({
       )}
 
       <button type="button" disabled={!canSubmit}
-        onClick={() => onSubmit({
-          context: {
-            organisationName: orgName,
-            challenge: decision,
-            goal: "Choose the option with the best risk-adjusted outcome",
-          },
-          measured: scenariosToPrompt(summary),
-          summary,
-        })}
+        onClick={() => {
+          saveOrg({ organisationName: orgName });
+          onSubmit({
+            context: {
+              organisationName: orgName,
+              challenge: decision,
+              goal: "Choose the option with the best risk-adjusted outcome",
+            },
+            measured: scenariosToPrompt(summary),
+            summary,
+            seed: { decision, options },
+          });
+        }}
         className="w-full rounded-2xl py-3.5 text-sm font-extrabold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
         style={{ background: ACCENT }}>
         {loading

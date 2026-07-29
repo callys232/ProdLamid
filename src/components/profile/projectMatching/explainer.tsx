@@ -41,7 +41,7 @@ export default function ExplainabilityPanel({ score }: Props) {
                     AI Insight
                 </h4>
 
-                <span className="text-[10px] text-gray-400">
+                <span className="text-[10px] text-gray-600">
                     Explainable Match
                 </span>
             </div>
@@ -70,7 +70,7 @@ export default function ExplainabilityPanel({ score }: Props) {
 
             {/* EMPTY STATE */}
             {reasons.length === 0 && (
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-600">
                     No detailed insights available.
                 </p>
             )}
@@ -138,7 +138,7 @@ export default function ExplainabilityPanel({ score }: Props) {
             )}
 
             {/* FOOTER */}
-            <div className="mt-4 text-[10px] text-gray-400 border-t pt-2">
+            <div className="mt-4 text-[10px] text-gray-600 border-t pt-2">
                 AI score is based on skill match, experience, rating, and semantic relevance.
             </div>
         </div>

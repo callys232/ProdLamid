@@ -143,7 +143,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
             whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
             transition={{ duration: 0.15 }}
             onClick={onClose}
-            className="flex-shrink-0 rounded-xl border border-white/10 bg-white/5 p-2 text-gray-400 hover:text-white transition"
+            className="flex-shrink-0 rounded-xl border border-white/10 bg-white/5 p-2 text-gray-600 hover:text-white transition"
           >
             <X className="h-4 w-4" />
           </motion.button>
@@ -160,7 +160,7 @@ function PMChatModal({ pm, currentUserId, onClose }: {
               <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/5">
                 <MessageSquare className="h-6 w-6 text-gray-500" />
               </div>
-              <p className="text-sm text-gray-400 font-medium">Start the conversation</p>
+              <p className="text-sm text-gray-600 font-medium">Start the conversation</p>
               <p className="text-xs text-gray-600">Send {pm.name} a message — they typically reply within 2 hours.</p>
             </div>
           ) : (
@@ -323,8 +323,8 @@ export default function ConciergePM() {
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Online
                 </span>
               </div>
-              <p className="text-sm text-gray-400">{pm.title}</p>
-              <div className="flex items-center gap-4 mt-2 text-xs text-gray-400 flex-wrap">
+              <p className="text-sm text-gray-600">{pm.title}</p>
+              <div className="flex items-center gap-4 mt-2 text-xs text-gray-600 flex-wrap">
                 <span className="flex items-center gap-1"><Star className="h-3 w-3 text-yellow-400" />{pm.rating}/5.0</span>
                 <span>{pm.projectsManaged} projects managed</span>
                 <span>{pm.yearsExperience} yrs experience</span>
@@ -340,7 +340,7 @@ export default function ConciergePM() {
               className="flex items-center gap-2 rounded-xl bg-black/30 border border-white/10 px-3 py-2.5 hover:border-white/20 transition"
             >
               <Mail className="h-3.5 w-3.5 text-[#2563EB] flex-shrink-0" />
-              <p className="text-xs text-gray-300 truncate">{pm.email}</p>
+              <p className="text-xs text-gray-600 truncate">{pm.email}</p>
             </motion.a>
             <motion.a
               href={`tel:${pm.phone}`}
@@ -348,14 +348,14 @@ export default function ConciergePM() {
               className="flex items-center gap-2 rounded-xl bg-black/30 border border-white/10 px-3 py-2.5 hover:border-white/20 transition"
             >
               <Phone className="h-3.5 w-3.5 text-[#2563EB] flex-shrink-0" />
-              <p className="text-xs text-gray-300 truncate">{pm.phone}</p>
+              <p className="text-xs text-gray-600 truncate">{pm.phone}</p>
             </motion.a>
             <motion.div
               whileHover={{ scale: 1.03 }}
               className="flex items-center gap-2 rounded-xl bg-black/30 border border-white/10 px-3 py-2.5 cursor-default"
             >
               <Clock className="h-3.5 w-3.5 text-[#2563EB] flex-shrink-0" />
-              <p className="text-xs text-gray-300 truncate">{pm.availability}</p>
+              <p className="text-xs text-gray-600 truncate">{pm.availability}</p>
             </motion.div>
           </div>
 
@@ -364,7 +364,7 @@ export default function ConciergePM() {
             <p className="text-xs text-gray-500 mb-2">Specialties</p>
             <div className="flex flex-wrap gap-2">
               {pm.specialties.map(s => (
-                <span key={s} className="text-xs px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">{s}</span>
+                <span key={s} className="text-xs px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-600">{s}</span>
               ))}
             </div>
           </div>
@@ -395,7 +395,7 @@ export default function ConciergePM() {
           initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-5 py-4"
         >
-          <p className="text-xs text-gray-400 mb-1">Next scheduled check-in</p>
+          <p className="text-xs text-gray-600 mb-1">Next scheduled check-in</p>
           <p className="text-sm font-semibold text-white">{pm.nextCheckIn}</p>
         </motion.div>
 
@@ -407,7 +407,7 @@ export default function ConciergePM() {
           <p className="text-sm font-semibold text-white mb-3">Projects currently managed</p>
           <ul className="space-y-2">
             {pm.currentProjects.map((p, i) => (
-              <li key={i} className="flex items-center gap-2 text-sm text-gray-300">
+              <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#2563EB] flex-shrink-0" />{p}
               </li>
             ))}
@@ -486,7 +486,7 @@ export default function ConciergePM() {
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
                   onClick={() => setShowBooking(false)}
-                  className="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-400 hover:text-white transition"
+                  className="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-600 hover:text-white transition"
                 >
                   <X className="h-4 w-4" />
                 </motion.button>
@@ -507,7 +507,7 @@ export default function ConciergePM() {
                     </motion.div>
                     <div>
                       <p className="text-base font-bold text-white">Call Booked!</p>
-                      <p className="text-sm text-gray-400 mt-1">
+                      <p className="text-sm text-gray-600 mt-1">
                         {selectedSlot ? `${selectedSlot.day} at ${selectedSlot.time} WAT` : "Your PM will confirm the time."}
                       </p>
                     </div>
@@ -530,7 +530,7 @@ export default function ConciergePM() {
                       <p className="text-xs text-gray-500">Your PM will suggest an available time.</p>
                     )}
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Agenda / note <span className="text-gray-600">(optional)</span></label>
+                      <label className="block text-xs text-gray-600 mb-1.5">Agenda / note <span className="text-gray-600">(optional)</span></label>
                       <textarea
                         rows={3}
                         value={note}
@@ -541,7 +541,7 @@ export default function ConciergePM() {
                     </div>
                     <p className="text-[11px] text-gray-600">A calendar invite will be sent to your email. If our scheduler is unavailable, your email client will open.</p>
                     <div className="flex items-center justify-end gap-3 pt-1">
-                      <button onClick={() => setShowBooking(false)} className="text-sm text-gray-400 hover:text-white transition px-3 py-2">Cancel</button>
+                      <button onClick={() => setShowBooking(false)} className="text-sm text-gray-600 hover:text-white transition px-3 py-2">Cancel</button>
                       <motion.button
                         whileHover={{ scale: 1.04, boxShadow: "0 4px 16px rgba(194,18,25,0.35)" }} whileTap={{ scale: 0.96 }}
                         disabled={booking}

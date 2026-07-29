@@ -411,7 +411,7 @@ export default function AIAgent() {
                   {/* Clear history */}
                   {chatHistory.length > 3 && (
                     <button onClick={clearHistory}
-                      className="w-full text-[10px] text-gray-600 hover:text-gray-400 transition-colors py-1">
+                      className="w-full text-[10px] text-gray-600 hover:text-gray-600 transition-colors py-1">
                       Clear conversation
                     </button>
                   )}

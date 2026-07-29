@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function R21Page() {
   const config = MODULE_REGISTRY["R21"] ?? buildFallbackConfig("R21", "R-Series — Cadence Intelligence", "Business Unit Cadence View Engine");
   return (
-    <DashboardTierGate pillar="Business Unit Cadence View Engine" backHref="/r20-department-cadence-view" backLabel="Department Cadence View">
+    <DashboardTierGate pillar="Business Unit Cadence View" backHref="/r20-department-cadence-view" backLabel="Department Cadence View">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

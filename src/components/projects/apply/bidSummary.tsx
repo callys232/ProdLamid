@@ -12,7 +12,7 @@ interface BidSummaryProps {
 export default function BidSummary({ projectId, project }: BidSummaryProps) {
   if (!project) {
     return (
-      <div className="text-gray-400 text-sm">Loading project summary...</div>
+      <div className="text-gray-600 text-sm">Loading project summary...</div>
     );
   }
 
@@ -31,7 +31,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
           <FaMoneyBillWave className="text-[#2563EB] text-xl" />
           <div>
             <p className="font-semibold text-white">{project.budget}</p>
-            <p className="text-xs text-gray-300">Budget</p>
+            <p className="text-xs text-gray-600">Budget</p>
           </div>
         </div>
       )}
@@ -45,7 +45,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
               ${project.suggestedBidRange.min} – $
               {project.suggestedBidRange.max}
             </p>
-            <p className="text-xs text-gray-300">Suggested Bid Range</p>
+            <p className="text-xs text-gray-600">Suggested Bid Range</p>
           </div>
         </div>
       )}
@@ -56,7 +56,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
           <FaClock className="text-[#2563EB] text-xl" />
           <div>
             <p className="font-semibold text-white">{project.deadline}</p>
-            <p className="text-xs text-gray-300">Deadline</p>
+            <p className="text-xs text-gray-600">Deadline</p>
           </div>
         </div>
       )}
@@ -67,7 +67,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
           <FaFlag className="text-[#2563EB] text-xl" />
           <div>
             <p className="font-semibold text-white">{project.priority}</p>
-            <p className="text-xs text-gray-300">Priority</p>
+            <p className="text-xs text-gray-600">Priority</p>
           </div>
         </div>
       )}
@@ -79,12 +79,12 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
             <FaTasks className="text-[#2563EB] text-xl" />
             <p className="font-semibold text-white">Milestones</p>
           </div>
-          <ul className="space-y-1 text-sm text-gray-300">
+          <ul className="space-y-1 text-sm text-gray-600">
             {project.milestones.slice(0, 3).map((m, i) => (
               <li key={m.id || i}>
                 <span className="text-white">{m.title}</span>
                 {m.status && (
-                  <span className="ml-2 text-xs text-gray-400">
+                  <span className="ml-2 text-xs text-gray-600">
                     [{m.status}]
                   </span>
                 )}
@@ -92,7 +92,7 @@ export default function BidSummary({ projectId, project }: BidSummaryProps) {
             ))}
           </ul>
           {project.milestones.length > 3 && (
-            <p className="text-xs text-gray-400 mt-2">
+            <p className="text-xs text-gray-600 mt-2">
               +{project.milestones.length - 3} more milestones
             </p>
           )}

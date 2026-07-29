@@ -108,7 +108,7 @@ export default function AvailabilityToggle({ initial }: Props) {
                 key={key}
                 onClick={() => { setStatus(key); save({ openToWork, availabilityStatus: key, hoursPerWeek: hours }); setOpen(false); }}
                 className={`w-full flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-xs font-medium transition-colors ${
-                  status === key ? c.color : "border-white/5 bg-white/5 text-gray-400 hover:bg-white/8"
+                  status === key ? c.color : "border-white/5 bg-white/5 text-gray-600 hover:bg-white/8"
                 }`}
               >
                 <span className={`h-2 w-2 rounded-full flex-shrink-0 ${c.dot}`} />

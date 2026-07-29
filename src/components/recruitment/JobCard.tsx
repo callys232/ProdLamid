@@ -69,15 +69,15 @@ export default function JobCard({ job, onApply }: JobCardProps) {
               </span>
             )}
           </div>
-          <p className="text-xs text-gray-400 mt-0.5">{job.department}</p>
+          <p className="text-xs text-gray-600 mt-0.5">{job.department}</p>
         </div>
-        <span className={`shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${DELIVERY_COLORS[job.delivery] ?? "bg-white/10 text-gray-300 border-white/20"}`}>
+        <span className={`shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${DELIVERY_COLORS[job.delivery] ?? "bg-white/10 text-gray-600 border-white/20"}`}>
           {job.delivery}
         </span>
       </div>
 
       {/* Meta row */}
-      <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-[11px] text-gray-400">
+      <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-[11px] text-gray-600">
         <span className="flex items-center gap-1">
           <Briefcase className="w-3 h-3" />{TYPE_LABELS[job.type] ?? job.type}
         </span>
@@ -111,12 +111,12 @@ export default function JobCard({ job, onApply }: JobCardProps) {
       {job.skills.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {job.skills.slice(0, 5).map((s) => (
-            <span key={s} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-300">
+            <span key={s} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-600">
               {s}
             </span>
           ))}
           {job.skills.length > 5 && (
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-400">
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-600">
               +{job.skills.length - 5}
             </span>
           )}

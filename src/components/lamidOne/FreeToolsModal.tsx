@@ -38,7 +38,7 @@ type Tool = {
 /* The flagship — the tool worth opening the modal for. */
 const HERO = {
   code:   "F02",
-  name:   "Budgeting & Forecasting Engine",
+  name:   "Budgeting & Forecasting",
   pillar: "LAMID FINANCE",
   href:   "/f02-budgeting-forecasting",
   color:  "#B45309",
@@ -254,7 +254,7 @@ export default function FreeToolsModal({
                     style={{ background: HERO.color }}
                     aria-hidden="true"
                   />
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500 dark:text-white/40">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gray-600 dark:text-white/55">
                     {HERO.pillar}
                   </span>
                 </div>
@@ -281,7 +281,7 @@ export default function FreeToolsModal({
                   className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                   style={{ background: HERO.color }}
                 >
-                  Launch this engine
+                  Launch this tool
                   <ArrowUpRight className="h-4 w-4" strokeWidth={2} />
                 </Link>
               </div>
@@ -289,7 +289,7 @@ export default function FreeToolsModal({
 
             {/* ── Every other free tool ── */}
             <div className="border-t border-gray-200 px-6 py-6 dark:border-white/10 sm:px-8">
-              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.35em] text-gray-500 dark:text-white/40">
+              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.35em] text-gray-600 dark:text-white/55">
                 More free tools
               </p>
 
@@ -319,13 +319,13 @@ export default function FreeToolsModal({
                     </span>
 
                     <span className="flex flex-1 flex-col p-3.5">
-                      <span className="mb-1 text-[9px] font-bold uppercase tracking-wider text-gray-500 dark:text-white/40">
+                      <span className="mb-1 text-[9px] font-bold uppercase tracking-wider text-gray-600 dark:text-white/55">
                         {t.pillar}
                       </span>
                       <span className="mb-1.5 text-[13px] font-bold leading-snug text-gray-900 dark:text-white">
                         {t.name}
                       </span>
-                      <span className="text-[11px] leading-relaxed text-gray-600 dark:text-white/45">
+                      <span className="text-[11px] leading-relaxed text-gray-600 dark:text-white/55">
                         {t.blurb}
                       </span>
                     </span>

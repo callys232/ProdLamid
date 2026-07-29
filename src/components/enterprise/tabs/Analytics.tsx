@@ -90,7 +90,7 @@ export default function Analytics() {
           { label: "Completion Rate",   value: `${kpi.avgCompletionRate}%`,                      icon: Target,      color: "text-emerald-400", bg: "bg-emerald-500/10",border: "border-emerald-500/20"},
           { label: "Avg Duration",      value: `${kpi.avgProjectDuration} mo`,                   icon: Briefcase,   color: "text-orange-400",  bg: "bg-orange-500/10", border: "border-orange-500/20" },
           { label: "Team Members",      value: kpi.memberCount,                                  icon: Users,       color: "text-pink-400",    bg: "bg-pink-500/10",   border: "border-pink-500/20"   },
-          { label: "Pending Invites",   value: kpi.pendingInvites,                               icon: Users,       color: "text-gray-400",    bg: "bg-white/5",       border: "border-white/10"      },
+          { label: "Pending Invites",   value: kpi.pendingInvites,                               icon: Users,       color: "text-gray-600",    bg: "bg-white/5",       border: "border-white/10"      },
         ].map(({ label, value, icon: Icon, color, bg, border }, i) => (
           <motion.div
             key={label} {...fadeUp(i + 1)}
@@ -130,7 +130,7 @@ export default function Analytics() {
       {/* ── Spend + Category charts ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div {...fadeUp(15)} className={card}>
-          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Monthly Spend vs Budget</h3>
+          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Monthly Spend vs Budget</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={monthlySpend}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -145,7 +145,7 @@ export default function Analytics() {
         </motion.div>
 
         <motion.div {...fadeUp(16)} className={card}>
-          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Projects by Category</h3>
+          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Projects by Category</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={categoryData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -162,7 +162,7 @@ export default function Analytics() {
       {/* ── Milestone trend + Hiring activity ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div {...fadeUp(17)} className={card}>
-          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Milestone Completion Trend</h3>
+          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Milestone Completion Trend</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={milestoneTrend}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -177,7 +177,7 @@ export default function Analytics() {
         </motion.div>
 
         <motion.div {...fadeUp(18)} className={card}>
-          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Hiring Activity</h3>
+          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Hiring Activity</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={hiringActivity}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -196,14 +196,14 @@ export default function Analytics() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Status breakdown */}
         <motion.div {...fadeUp(19)} className={card}>
-          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Project Pipeline</h3>
+          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Project Pipeline</h3>
           <div className="space-y-3">
             {statusBreakdown.map((b: ProjectStatusDataPoint) => {
               const pct = Math.round((b.count / totalStatusProjects) * 100);
               return (
                 <div key={b.status}>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-gray-400 capitalize">{b.status}</span>
+                    <span className="text-gray-600 capitalize">{b.status}</span>
                     <span className="text-white font-semibold">{b.count} <span className="text-gray-500 font-normal">({pct}%)</span></span>
                   </div>
                   <div className="h-1.5 w-full rounded-full bg-white/8 overflow-hidden">
@@ -236,20 +236,20 @@ export default function Analytics() {
             <div className="flex-1 space-y-1.5">
               <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-2">Milestones</p>
               <div className="flex justify-between text-xs">
-                <span className="text-gray-400">Completed</span>
+                <span className="text-gray-600">Completed</span>
                 <span className="text-green-400 font-semibold">{kpi.completedMilestones}</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-gray-400">Remaining</span>
+                <span className="text-gray-600">Remaining</span>
                 <span className="text-white font-semibold">{kpi.totalMilestones - kpi.completedMilestones}</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-gray-400">Disputes open</span>
+                <span className="text-gray-600">Disputes open</span>
                 <span className="text-blue-400 font-semibold">{kpi.openDisputes}</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-gray-400">Disputes resolved</span>
-                <span className="text-gray-400 font-semibold">{kpi.resolvedDisputes}</span>
+                <span className="text-gray-600">Disputes resolved</span>
+                <span className="text-gray-600 font-semibold">{kpi.resolvedDisputes}</span>
               </div>
             </div>
           </div>
@@ -257,7 +257,7 @@ export default function Analytics() {
 
         {/* Escrow activity */}
         <motion.div {...fadeUp(20)} className={card}>
-          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Escrow Activity</h3>
+          <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Escrow Activity</h3>
           <div className="flex items-end gap-1.5 h-36 mb-3">
             {escrowActivity.map((e, i) => (
               <div key={e.month} className="flex-1 flex flex-col items-center gap-1">
@@ -277,16 +277,16 @@ export default function Analytics() {
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-emerald-500/60 inline-block" />Released</span>
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-[#2563EB]/70 inline-block" />Held</span>
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-blue-800/50 inline-block" />Disputed</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-600"><span className="h-2 w-2 rounded-sm bg-emerald-500/60 inline-block" />Released</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-600"><span className="h-2 w-2 rounded-sm bg-[#2563EB]/70 inline-block" />Held</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-600"><span className="h-2 w-2 rounded-sm bg-blue-800/50 inline-block" />Disputed</span>
           </div>
         </motion.div>
       </div>
 
       {/* ── Consultant performance ── */}
       <motion.div {...fadeUp(21)} className={card}>
-        <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Consultant Performance</h3>
+        <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Consultant Performance</h3>
         <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
           <table className="w-full text-sm min-w-[560px]">
             <thead>
@@ -316,7 +316,7 @@ export default function Analytics() {
                     </div>
                   </td>
                   <td className="py-3 text-gray-500 text-xs">{c.specialty}</td>
-                  <td className="py-3 text-center text-gray-400">{c.projects}</td>
+                  <td className="py-3 text-center text-gray-600">{c.projects}</td>
                   <td className="py-3 text-center font-semibold text-yellow-400">★ {c.avgRating}</td>
                   <td className="py-3 text-center">
                     <span className={`text-xs font-semibold ${c.onTime >= 98 ? "text-green-400" : c.onTime >= 90 ? "text-yellow-400" : "text-blue-400"}`}>

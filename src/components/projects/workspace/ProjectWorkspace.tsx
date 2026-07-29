@@ -50,11 +50,11 @@ export default function ProjectWorkspace() {
                 <div className="mb-8 border-b border-[#2563EB]/30 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h1 className="text-3xl font-bold text-white">{project.title}</h1>
-                        <p className="text-gray-400 mt-1">Status: <span className="text-blue-500 font-semibold uppercase">{project.status}</span></p>
+                        <p className="text-gray-600 mt-1">Status: <span className="text-blue-500 font-semibold uppercase">{project.status}</span></p>
                     </div>
                     <div className="flex items-center gap-4 bg-white/5 p-3 rounded-lg border border-white/10">
                         <div className="text-right">
-                            <p className="text-xs text-gray-400 uppercase">Budget</p>
+                            <p className="text-xs text-gray-600 uppercase">Budget</p>
                             <p className="text-xl font-bold text-green-500">${project.budget?.toLocaleString()}</p>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ export default function ProjectWorkspace() {
                             className={`flex items-center gap-2 px-6 py-3 rounded-full transition-all whitespace-nowrap ${
                                 activeTab === tab.id
                                     ? "bg-blue-600 text-white shadow-lg shadow-blue-900/40"
-                                    : "bg-white/5 text-gray-400 hover:bg-white/10 border border-white/5"
+                                    : "bg-white/5 text-gray-600 hover:bg-white/10 border border-white/5"
                             }`}
                         >
                             {tab.icon}
@@ -93,11 +93,11 @@ export default function ProjectWorkspace() {
                         <div className="space-y-6">
                             <div>
                                 <h3 className="text-xl font-bold mb-2">Description</h3>
-                                <p className="text-gray-300 leading-relaxed">{project.description}</p>
+                                <p className="text-gray-600 leading-relaxed">{project.description}</p>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                                    <h4 className="text-sm text-gray-400 mb-2 uppercase">Skills Required</h4>
+                                    <h4 className="text-sm text-gray-600 mb-2 uppercase">Skills Required</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {project.skills?.map((skill: string) => (
                                             <span key={skill} className="bg-blue-900/30 text-blue-400 px-3 py-1 rounded-full text-xs font-semibold">
@@ -107,7 +107,7 @@ export default function ProjectWorkspace() {
                                     </div>
                                 </div>
                                 <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                                    <h4 className="text-sm text-gray-400 mb-2 uppercase">Category</h4>
+                                    <h4 className="text-sm text-gray-600 mb-2 uppercase">Category</h4>
                                     <p className="text-white font-medium">{project.category}</p>
                                 </div>
                             </div>

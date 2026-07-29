@@ -35,7 +35,7 @@ function Stage({ s, delay }: { s: UseCaseStage; delay: number }) {
     >
       <div className="mb-4 flex flex-wrap items-center gap-2.5">
         <Icon className="h-5 w-5 shrink-0" strokeWidth={2} style={{ color: s.colour }} />
-        <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500 dark:text-white/40">
+        <span className="text-[9px] font-bold uppercase tracking-wider text-gray-600 dark:text-white/55">
           {s.pillar}
         </span>
         <span
@@ -48,7 +48,7 @@ function Stage({ s, delay }: { s: UseCaseStage; delay: number }) {
 
       <h2 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">{s.question}</h2>
       <p className="mb-1 text-xs font-semibold" style={{ color: s.colour }}>{s.engine}</p>
-      <p className="mb-5 text-xs leading-relaxed text-gray-500 dark:text-white/45">
+      <p className="mb-5 text-xs leading-relaxed text-gray-600 dark:text-white/55">
         <span className="font-semibold">Input:</span> {s.input}
       </p>
 
@@ -62,7 +62,7 @@ function Stage({ s, delay }: { s: UseCaseStage; delay: number }) {
               <span className={t.bad ? "" : "text-gray-900 dark:text-white"}>{t.value}</span>
             </p>
             <p className="mt-1 text-[11px] font-semibold text-gray-600 dark:text-white/50">{t.label}</p>
-            {t.sub && <p className="text-[10px] text-gray-500 dark:text-white/35">{t.sub}</p>}
+            {t.sub && <p className="text-[10px] text-gray-600 dark:text-white/55">{t.sub}</p>}
           </div>
         ))}
       </div>
@@ -82,7 +82,7 @@ function Stage({ s, delay }: { s: UseCaseStage; delay: number }) {
         href={s.href}
         className="group mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 dark:text-white"
       >
-        Run this engine on your own numbers
+        Run this tool on your own numbers
         <ArrowRight
           className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1"
           strokeWidth={2} style={{ color: s.colour }}
@@ -101,7 +101,7 @@ export default function UseCaseView({ useCase }: { useCase: UseCase }) {
 
         <Link
           href="/use-case"
-          className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 transition-colors hover:text-gray-900 dark:text-white/40 dark:hover:text-white"
+          className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold text-gray-600 transition-colors hover:text-gray-900 dark:text-white/55 dark:hover:text-white"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> All use cases
         </Link>
@@ -115,7 +115,7 @@ export default function UseCaseView({ useCase }: { useCase: UseCase }) {
           </h1>
           <p className="max-w-2xl text-base leading-relaxed text-gray-600 dark:text-white/60">
             {u.name} put the question to the ecosystem. This is what came back —
-            {" "}{u.stages.length} engines, {u.stages.length} kinds of input, one answer.
+            {" "}{u.stages.length} tools, {u.stages.length} kinds of input, one answer.
           </p>
 
           {/* The claim the page rests on. */}
@@ -126,7 +126,7 @@ export default function UseCaseView({ useCase }: { useCase: UseCase }) {
             <Calculator className="mt-0.5 h-4 w-4 shrink-0" style={{ color: ACCENT }} />
             <p className="text-xs leading-relaxed text-gray-700 dark:text-white/65">
               Every figure below was produced by the same compute layers the product runs,
-              from the inputs described at each step. The findings are the engines&apos; own
+              from the inputs described at each step. The findings are the tools&apos; own
               output, quoted exactly. Nothing here was written to be persuasive.
             </p>
           </div>

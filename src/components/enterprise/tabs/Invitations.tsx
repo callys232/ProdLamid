@@ -227,7 +227,7 @@ export default function EnterpriseInvitations({ orgId }: Props) {
           <div className="relative">
             <button
               onClick={() => setShowDrop(p => !p)}
-              className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-left text-gray-300 hover:border-white/20 transition"
+              className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-left text-gray-600 hover:border-white/20 transition"
             >
               <span className={selectedConsultant ? "text-white" : "text-gray-600"}>
                 {selectedConsultant
@@ -251,7 +251,7 @@ export default function EnterpriseInvitations({ orgId }: Props) {
                       key={c._id ?? c.id}
                       whileHover={{ backgroundColor: "rgba(37,99,235,0.1)" }}
                       onClick={() => { setSelectedId(c._id ?? c.id); setShowDrop(false); }}
-                      className="flex items-center gap-3 px-4 py-2.5 cursor-pointer text-sm text-gray-300 border-b border-white/5 last:border-0"
+                      className="flex items-center gap-3 px-4 py-2.5 cursor-pointer text-sm text-gray-600 border-b border-white/5 last:border-0"
                     >
                       <div className="h-7 w-7 rounded-full bg-[#2563EB]/20 flex items-center justify-center text-[11px] font-bold text-[#2563EB] flex-shrink-0">
                         {(c.name ?? c.username ?? "?")[0].toUpperCase()}
@@ -377,7 +377,7 @@ export default function EnterpriseInvitations({ orgId }: Props) {
                   className="flex items-center justify-between gap-4 rounded-xl border border-white/8 bg-black/30 px-4 py-3"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="h-8 w-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs font-bold text-gray-400 flex-shrink-0">
+                    <div className="h-8 w-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs font-bold text-gray-600 flex-shrink-0">
                       {label[0]?.toUpperCase() ?? "?"}
                     </div>
                     <div className="min-w-0">
@@ -397,7 +397,7 @@ export default function EnterpriseInvitations({ orgId }: Props) {
                           whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
                           onClick={() => handleResend(inv.id)}
                           title="Resend"
-                          className="rounded-lg border border-white/10 bg-white/5 p-1.5 text-gray-400 transition hover:text-white"
+                          className="rounded-lg border border-white/10 bg-white/5 p-1.5 text-gray-600 transition hover:text-white"
                         >
                           <RotateCcw className="h-3 w-3" />
                         </motion.button>

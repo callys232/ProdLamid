@@ -16,18 +16,18 @@ const ENGINES = [
     tools: [
       {
         code: "C03",
-        name: "Diagnostic Engine",
+        name: "Core Diagnostic",
         desc: "Where your strategy stands — what's aligned, what's stalling, and what needs to move first.",
         href: "/core-diagnostic",
       },
       {
         code: "Q46",
-        name: "Predictive Foresight Engine",
-        desc: "Model decision paths before committing. Understand outcomes, assess probability, and move with confidence.",
+        name: "Predictive Foresight",
+        desc: "See the consequences, scenarios, and futures of your decisions before they arrive — and commit with confidence.",
         href: "/q46-predictive-foresight",
       },
     ],
-    stat: { value: "137", label: "modules" },
+    stat: { value: "137", label: "tools" },
     series: ["C-Series", "S-Series", "Q-Series", "Z-Series", "Operating Model"],
   },
   {
@@ -48,17 +48,17 @@ const ENGINES = [
       {
         code: "P01",
         name: "Productivity Mapping",
-        desc: "See where work flows and where it stalls — across every team, every layer of your operation.",
+        desc: "See where your work flows and where it stalls — across every team and layer of your operation.",
         href: "/p01-productivity-mapping",
       },
       {
         code: "P30",
-        name: "Flow Engine",
-        desc: "The operational ideal state. Every system, team, and process moving without friction.",
+        name: "Flow Intelligence",
+        desc: "Your operational ideal state — every system, team, and process moving without friction.",
         href: "/p30-flow",
       },
     ],
-    stat: { value: "69", label: "modules" },
+    stat: { value: "69", label: "tools" },
     series: ["G-Series", "R-Series", "P-Series"],
   },
   {
@@ -66,7 +66,7 @@ const ENGINES = [
     badge: "People",
     label: "LAMID TALENT",
     tagline: "Better teams, better culture, better performance.",
-    desc: "Better teams, better culture, better performance. LAMID TALENT gives you the complete picture of your workforce — capability, readiness, culture health, and leadership depth.",
+    desc: "LAMID TALENT gives you the complete picture of your workforce — capability, readiness, culture health, and leadership depth — so you build teams before you need them.",
     color: "#6D28D9",
     href: "/talent",
     tools: [
@@ -79,11 +79,11 @@ const ENGINES = [
       {
         code: "A32",
         name: "ETOS — Enterprise Talent OS",
-        desc: "The complete people intelligence operating system. Every talent signal, unified under one platform.",
+        desc: "Every talent signal in your organisation, unified under one operating platform.",
         href: "/a32-etos",
       },
     ],
-    stat: { value: "32", label: "modules" },
+    stat: { value: "32", label: "tools" },
     series: ["A-Series"],
   },
   {
@@ -91,24 +91,24 @@ const ENGINES = [
     badge: "Capital",
     label: "LAMID FINANCE",
     tagline: "Every financial decision, grounded in the full picture.",
-    desc: "Real-time visibility, forecasting, cost clarity, enterprise value. Every financial decision grounded in the full picture — not just last quarter's report.",
+    desc: "Real-time visibility, forecasting, cost clarity, enterprise value. Every financial decision you make, grounded in your full picture — not just last quarter's report.",
     color: "#B45309",
     href: "/finance",
     tools: [
       {
         code: "F01",
-        name: "Financial Visibility Engine",
-        desc: "Real-time clarity across every financial dimension — cost, cash, and performance in one place.",
+        name: "Financial Visibility",
+        desc: "Real-time clarity across your finances — your cost, cash, and performance in one place.",
         href: "/f01-financial-visibility",
       },
       {
         code: "F05",
-        name: "Enterprise Value Engine",
-        desc: "Understand and grow enterprise value — the metric that matters most to owners and boards.",
+        name: "Enterprise Value",
+        desc: "Understand and grow what your business is worth — the number that matters most to your owners and board.",
         href: "/f05-enterprise-value",
       },
     ],
-    stat: { value: "7", label: "modules" },
+    stat: { value: "7", label: "tools" },
     series: ["F-Series"],
   },
 ];
@@ -135,14 +135,12 @@ export default function EcosystemOverview() {
             The Ecosystem
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-3">
-            One Platform.{" "}
-            <span className="lamidone-gradient-text">Four Engines.</span>
-            <br className="hidden sm:block" />
-            Every Layer of Your Business.
+            What Each Suite{" "}
+            <span className="lamidone-gradient-text">Does for You.</span>
           </h2>
           <p className="text-gray-500 dark:text-white/50 text-sm max-w-lg leading-relaxed">
-            LAMID ONE gives leaders a simple, intelligent way to understand their business,
-            support their people, and lift performance.
+            Pick a suite. See what it runs for you, what each tool inside it does,
+            and where to start.
           </p>
         </motion.div>
 
@@ -186,7 +184,7 @@ export default function EcosystemOverview() {
                 >
                   {engine.label}
                 </span>
-                <span className="block text-[11px] text-gray-400 dark:text-white/28 mt-1 leading-snug line-clamp-2">
+                <span className="block text-[11px] text-gray-600 dark:text-white/55 mt-1 leading-snug line-clamp-2">
                   {engine.tagline}
                 </span>
               </button>
@@ -271,7 +269,7 @@ export default function EcosystemOverview() {
                                 &rarr;
                               </span>
                             </span>
-                            <p className="mt-0.5 text-xs leading-relaxed text-gray-500 dark:text-white/45">
+                            <p className="mt-0.5 text-xs leading-relaxed text-gray-600 dark:text-white/55">
                               {tool.desc}
                             </p>
                           </div>
@@ -292,7 +290,7 @@ export default function EcosystemOverview() {
                     </Link>
                     <Link
                       href="/ecosystem"
-                      className="text-sm text-gray-400 dark:text-white/35 hover:text-gray-600 dark:hover:text-white/60 transition-colors"
+                      className="text-sm text-gray-600 dark:text-white/55 hover:text-gray-600 dark:hover:text-white/60 transition-colors"
                     >
                       View full ecosystem
                     </Link>
@@ -309,18 +307,18 @@ export default function EcosystemOverview() {
                       style={{ color: active.color }}
                     >
                       {active.stat.value}
-                      <span className="text-sm font-semibold text-gray-400 dark:text-white/30 ml-1 tracking-normal">
+                      <span className="text-sm font-semibold text-gray-600 dark:text-white/55 ml-1 tracking-normal">
                         {active.stat.label}
                       </span>
                     </p>
-                    <p className="text-xs text-gray-400 dark:text-white/30">
-                      intelligence modules
+                    <p className="text-xs text-gray-600 dark:text-white/55">
+                      intelligence tools in this suite
                     </p>
                   </div>
 
                   {/* Series list */}
                   <div>
-                    <p className="text-[10px] uppercase tracking-[0.18em] font-bold text-gray-400 dark:text-white/28 mb-3">
+                    <p className="text-[10px] uppercase tracking-[0.18em] font-bold text-gray-600 dark:text-white/55 mb-3">
                       Intelligence Series
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -342,15 +340,15 @@ export default function EcosystemOverview() {
 
                   {/* X06 cross-engine badge */}
                   <div className="mt-8 pt-6 border-t border-gray-100 dark:border-white/8">
-                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-gray-400 dark:text-white/28 mb-2">
-                      Cross-Engine Layer
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-gray-600 dark:text-white/55 mb-2">
+                      Cross-Suite Layer
                     </p>
                     <div className="flex items-start gap-2">
                       <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-red-50 dark:bg-red-500/10 text-red-500 shrink-0 mt-0.5">
                         X06
                       </span>
-                      <span className="text-xs text-gray-400 dark:text-white/30 leading-relaxed">
-                        Resilience Intelligence — built into every engine
+                      <span className="text-xs text-gray-600 dark:text-white/55 leading-relaxed">
+                        Resilience Intelligence — built into every suite
                       </span>
                     </div>
                   </div>

@@ -28,14 +28,14 @@ export default function BidMeter({ amount, min, max }: BidMeterProps) {
       transition={{ duration: 0.3 }}
       className="mt-4"
     >
-      <p className="text-sm text-gray-300 mb-1">Bid Confidence</p>
+      <p className="text-sm text-gray-600 mb-1">Bid Confidence</p>
       <div className="w-full bg-white/10 rounded-full h-3">
         <div
           className={`h-3 rounded-full ${confidence.color}`}
           style={{ width: `${confidence.score}%` }}
         />
       </div>
-      <p className="text-xs text-gray-400 mt-1">{confidence.label}</p>
+      <p className="text-xs text-gray-600 mt-1">{confidence.label}</p>
     </motion.div>
   );
 }

@@ -395,7 +395,7 @@ export default function IntelligenceHubPage() {
           <motion.div {...fadeUp(0)} className="mb-12">
             <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID ONE</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Intelligence Hub</h1>
-            <p className="text-gray-500 dark:text-white/45 text-sm max-w-xl mb-4">
+            <p className="text-gray-600 dark:text-white/55 text-sm max-w-xl mb-4">
               Every intelligence module in the LAMID ONE ecosystem — {totalModules} engines across {SECTIONS.length} series. One entry point.
             </p>
             <div className="flex flex-wrap gap-2">
@@ -418,14 +418,14 @@ export default function IntelligenceHubPage() {
                     className="w-full flex items-center gap-3 mb-3 group"
                   >
                     <section.icon className="w-4 h-4 text-[#2563EB] shrink-0" strokeWidth={2.2} />
-                    <p className="text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-white/40 flex-1 text-left group-hover:text-gray-700 dark:group-hover:text-white/60 transition-colors">
+                    <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 flex-1 text-left group-hover:text-gray-700 dark:group-hover:text-white/60 transition-colors">
                       {section.label}
                     </p>
                     <span className="text-[9px] font-bold text-[#2563EB] bg-[#2563EB]/10 px-1.5 py-0.5 rounded-full">
                       {section.modules.length}
                     </span>
                     <ChevronDown
-                      className={`w-3.5 h-3.5 text-gray-400 dark:text-white/30 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                      className={`w-3.5 h-3.5 text-gray-600 dark:text-white/55 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                     />
                   </button>
 

@@ -49,10 +49,10 @@ export default async function ProjectPage({ params }: Props) {
           <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
             <div>
               <span className={`mb-2 inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest ${
-                isOpen ? "border-green-500/30 bg-green-500/10 text-green-400" : "border-gray-500/30 bg-gray-500/10 text-gray-400"
+                isOpen ? "border-green-500/30 bg-green-500/10 text-green-400" : "border-gray-500/30 bg-gray-500/10 text-gray-600"
               }`}>{p.status}</span>
               <h1 className="text-2xl font-bold text-white">{p.title}</h1>
-              {p.category && <p className="mt-1 text-sm text-gray-400">{p.category}</p>}
+              {p.category && <p className="mt-1 text-sm text-gray-600">{p.category}</p>}
             </div>
             {isOpen && (
               <Link href={`/postjobs?apply=${id}`}
@@ -75,16 +75,16 @@ export default async function ProjectPage({ params }: Props) {
           <div className="space-y-6 lg:col-span-2">
             {p.description && (
               <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-400">Description</h2>
-                <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-300">{p.description}</p>
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-600">Description</h2>
+                <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-600">{p.description}</p>
               </div>
             )}
             {p.skills?.length > 0 && (
               <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-400">Skills Required</h2>
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-600">Skills Required</h2>
                 <div className="flex flex-wrap gap-2">
                   {p.skills.map((s: string) => (
-                    <span key={s} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300">{s}</span>
+                    <span key={s} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-600">{s}</span>
                   ))}
                 </div>
               </div>
@@ -103,7 +103,7 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             )}
             <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-400">Details</h2>
+              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest text-gray-600">Details</h2>
               <ul className="space-y-2 text-xs">
                 {[
                   { label: "Category",  value: p.category },

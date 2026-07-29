@@ -37,7 +37,7 @@ export default function RhythmIntelligencePage() {
           <motion.div {...fadeUp(0)} className="mb-10">
             <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">R-Series · Cadence Intelligence</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Cadence Intelligence</h1>
-            <p className="text-gray-500 dark:text-white/45 text-sm max-w-xl">
+            <p className="text-gray-600 dark:text-white/55 text-sm max-w-xl">
               The enterprise heartbeat. Map timing, detect cadence drift, and synchronise every dimension of organisational cadence.
             </p>
           </motion.div>
@@ -47,8 +47,8 @@ export default function RhythmIntelligencePage() {
               <div key={kpi.label} className="lamidone-card border rounded-2xl p-5">
                 <kpi.icon className="w-4 h-4 text-[#2563EB] mb-3" strokeWidth={2.2} />
                 <p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1.5">{kpi.value}</p>
-                <p className="text-xs text-gray-500 dark:text-white/45">{kpi.label}</p>
-                <p className="text-[10px] text-gray-400 dark:text-white/30 mt-1">{kpi.trend}</p>
+                <p className="text-xs text-gray-600 dark:text-white/55">{kpi.label}</p>
+                <p className="text-[10px] text-gray-600 dark:text-white/55 mt-1">{kpi.trend}</p>
               </div>
             ))}
           </motion.div>
@@ -56,14 +56,14 @@ export default function RhythmIntelligencePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             <motion.div {...fadeUp(0.1)} className="lamidone-card border rounded-2xl p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Cadence Signals</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Cadence Signals</p>
               <div className="flex flex-col gap-3">
                 {SIGNALS.map((s) => (
                   <div key={s.title} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
-                    <AlertCircle className={`w-4 h-4 mt-0.5 shrink-0 ${s.severity === "Medium" ? "text-[#2563EB]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
+                    <AlertCircle className={`w-4 h-4 mt-0.5 shrink-0 ${s.severity === "Medium" ? "text-[#2563EB]" : "text-gray-600 dark:text-white/55"}`} strokeWidth={2} />
                     <div>
                       <p className="text-sm text-gray-900 dark:text-white leading-snug">{s.title}</p>
-                      <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5">{s.action}</p>
+                      <p className="text-xs text-gray-600 dark:text-white/55 mt-0.5">{s.action}</p>
                     </div>
                   </div>
                 ))}
@@ -71,7 +71,7 @@ export default function RhythmIntelligencePage() {
             </motion.div>
 
             <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Cadence Dimensions</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Cadence Dimensions</p>
               <div className="flex flex-col gap-4">
                 {DIMENSIONS.map((d) => (
                   <div key={d.label}>

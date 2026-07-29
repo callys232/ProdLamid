@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function R28Page() {
   const config = MODULE_REGISTRY["R28"] ?? buildFallbackConfig("R28", "R-Series — Cadence Intelligence", "Cadence Governance Console Engine");
   return (
-    <DashboardTierGate pillar="Cadence Governance Console Engine" backHref="/r27-peak-performance-cadence" backLabel="Peak Performance Cadence">
+    <DashboardTierGate pillar="Cadence Governance Console" backHref="/r27-peak-performance-cadence" backLabel="Peak Performance Cadence">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

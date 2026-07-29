@@ -77,10 +77,10 @@ export default function AIMilestoneGenerator({
           >
             {/* Summary bar */}
             <div className="flex flex-wrap gap-3 text-xs">
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-600">
                 <Clock className="h-3 w-3" /> {plan.totalDurationWeeks} weeks total
               </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-600">
                 {plan.phases.length} phases · {plan.phases.reduce((s, p) => s + p.milestones.length, 0)} milestones
               </span>
             </div>
@@ -94,10 +94,10 @@ export default function AIMilestoneGenerator({
                 >
                   <span className="font-medium text-white">
                     Phase {pi + 1}: {phase.name}
-                    <span className="ml-2 text-xs text-gray-400 font-normal">({phase.duration})</span>
+                    <span className="ml-2 text-xs text-gray-600 font-normal">({phase.duration})</span>
                   </span>
                   <motion.span animate={{ rotate: expanded === pi ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                    <ChevronDown className="h-4 w-4 text-gray-400" />
+                    <ChevronDown className="h-4 w-4 text-gray-600" />
                   </motion.span>
                 </button>
 
@@ -117,7 +117,7 @@ export default function AIMilestoneGenerator({
                                 {ms.payment_percentage}% payment
                               </span>
                             </div>
-                            <p className="text-xs text-gray-400">{ms.description}</p>
+                            <p className="text-xs text-gray-600">{ms.description}</p>
                             <div className="flex items-center gap-3 text-[10px] text-gray-500">
                               <span><Clock className="inline h-3 w-3 mr-1" />{ms.durationDays}d</span>
                               <span className="flex items-center gap-1"><CheckCircle2 className="h-3 w-3 text-emerald-500" />{ms.acceptance_criteria}</span>
@@ -138,14 +138,14 @@ export default function AIMilestoneGenerator({
                   <AlertTriangle className="h-3.5 w-3.5" />Risk flags
                 </p>
                 <ul className="space-y-0.5">
-                  {plan.riskFlags.map((r, i) => <li key={i} className="text-xs text-gray-400">• {r}</li>)}
+                  {plan.riskFlags.map((r, i) => <li key={i} className="text-xs text-gray-600">• {r}</li>)}
                 </ul>
               </div>
             )}
 
             {/* Recommendations */}
             {plan.recommendations && (
-              <p className="text-xs text-gray-400 italic border-l-2 border-purple-500/40 pl-3">{plan.recommendations}</p>
+              <p className="text-xs text-gray-600 italic border-l-2 border-purple-500/40 pl-3">{plan.recommendations}</p>
             )}
 
             {/* Apply button */}

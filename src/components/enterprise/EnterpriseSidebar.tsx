@@ -55,7 +55,7 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
         whileTap={{ scale: 0.9 }}
         onClick={() => setCollapsed(c => !c)}
         title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        className="absolute -right-3 top-6 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-white/15 bg-[#0d1117] text-gray-400 shadow-lg transition hover:text-white"
+        className="absolute -right-3 top-6 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-white/15 bg-[#0d1117] text-gray-600 shadow-lg transition hover:text-white"
       >
         {collapsed
           ? <ChevronRight className="h-3 w-3" />
@@ -79,7 +79,7 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
               className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-2.5 text-sm font-medium transition-colors ${
                 active
                   ? "border border-[#2563EB]/30 bg-[#2563EB]/10 text-white"
-                  : "border border-transparent text-gray-400 hover:text-white"
+                  : "border border-transparent text-gray-600 hover:text-white"
               } ${collapsed ? "justify-center" : ""}`}
             >
               <Icon className={`h-4 w-4 flex-shrink-0 transition-colors ${active ? "text-[#2563EB]" : ""}`} />
@@ -103,7 +103,7 @@ export default function EnterpriseSidebar({ activeTab, onTabChange, memberCount 
               {!collapsed && key === "members" && memberCount > 0 && (
                 <motion.span
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  className="ml-auto rounded-full bg-white/10 px-1.5 py-0.5 text-[10px] font-semibold text-gray-400"
+                  className="ml-auto rounded-full bg-white/10 px-1.5 py-0.5 text-[10px] font-semibold text-gray-600"
                 >
                   {memberCount}
                 </motion.span>

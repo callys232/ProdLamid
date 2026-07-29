@@ -149,7 +149,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ align = "right" }) => {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label="Account menu"
-        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition hover:border-blue-600/50 hover:bg-white/10 hover:text-white focus:outline-none"
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-600 transition hover:border-blue-600/50 hover:bg-white/10 hover:text-white focus:outline-none"
       >
         <svg
           aria-hidden="true"

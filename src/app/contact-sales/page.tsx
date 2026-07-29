@@ -41,7 +41,7 @@ export default function ContactSalesPage() {
             Enterprise Sales
           </span>
           <h1 className="text-4xl font-bold">Talk to our sales team</h1>
-          <p className="mt-3 text-gray-400 max-w-xl mx-auto">
+          <p className="mt-3 text-gray-600 max-w-xl mx-auto">
             Get a personalised walkthrough, custom pricing for your organisation, and answers to your enterprise questions.
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function ContactSalesPage() {
             >
               <CheckCircle className="h-12 w-12 text-green-400" />
               <h2 className="text-lg font-semibold text-white">Message received!</h2>
-              <p className="text-sm text-gray-400">Our enterprise team will reach out within 1 business day.</p>
+              <p className="text-sm text-gray-600">Our enterprise team will reach out within 1 business day.</p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border border-white/10 bg-white/5 p-6">

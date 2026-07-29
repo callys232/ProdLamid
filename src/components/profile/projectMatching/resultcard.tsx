@@ -70,7 +70,7 @@ export default function ProjectResultCard({
             <div className="flex justify-between items-start">
                 <div>
                     <h3 className="font-semibold text-black text-sm">{project.title}</h3>
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className="text-xs text-gray-600 mt-1">
                         {project.categories} • {project.location || "Remote"}
                     </p>
                 </div>

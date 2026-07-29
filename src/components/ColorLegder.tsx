@@ -75,12 +75,12 @@ export default function EcosystemLedger() {
               />
               <item.Icon className="h-9 w-9 mb-3 text-[#2563EB]" />
               <h3 className="text-base font-semibold text-white">{item.title}</h3>
-              <p className="text-sm text-gray-400 mt-1">{item.tagline}</p>
+              <p className="text-sm text-gray-600 mt-1">{item.tagline}</p>
               <div className="mt-4 flex items-center gap-2 text-xs text-gray-500 font-mono">
                 <span className="rounded px-2 py-0.5 border border-white/15 bg-white/5">
                   {item.color}
                 </span>
-                <span className="uppercase tracking-wide text-gray-400">{item.label}</span>
+                <span className="uppercase tracking-wide text-gray-600">{item.label}</span>
               </div>
             </div>
 

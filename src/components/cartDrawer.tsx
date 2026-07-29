@@ -38,7 +38,7 @@ const CartDrawer: React.FC = () => {
           {/* Items */}
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
             {cart.length === 0 ? (
-              <p className="text-gray-400 text-sm">Your cart is empty.</p>
+              <p className="text-gray-600 text-sm">Your cart is empty.</p>
             ) : (
               cart.map((item) => (
                 <div
@@ -58,7 +58,7 @@ const CartDrawer: React.FC = () => {
                   {/* Name + Price */}
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold">{item.name}</span>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-600">
                       {item.quantity} × ${item.price.toFixed(2)}
                     </span>
                   </div>
@@ -78,7 +78,7 @@ const CartDrawer: React.FC = () => {
           {/* Footer */}
           <div className="px-4 py-3 border-t border-gray-700 space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-400">Subtotal</span>
+              <span className="text-gray-600">Subtotal</span>
               <span className="font-bold text-white">
                 ${subtotal.toFixed(2)}
               </span>

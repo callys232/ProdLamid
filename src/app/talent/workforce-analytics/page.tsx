@@ -43,7 +43,7 @@ function TagInput({ label, tags, onAdd, onRemove, placeholder }: {
           <Plus className="w-4 h-4" />
         </button>
       </div>
-      <p className="text-[10px] text-gray-400 dark:text-white/25 mt-1">Press Enter or comma to add</p>
+      <p className="text-[10px] text-gray-600 dark:text-white/55 mt-1">Press Enter or comma to add</p>
     </div>
   );
 }
@@ -59,9 +59,9 @@ function ScoreCard({ label, value, icon: Icon, invert }: { label: string; value:
       <Icon className="w-4 h-4 text-[#2563EB]" strokeWidth={2} />
       <div className="flex items-end gap-1">
         <span className={`text-2xl font-extrabold leading-none ${color}`}>{value}</span>
-        <span className="text-xs text-gray-400 dark:text-white/30 mb-0.5">/ 100</span>
+        <span className="text-xs text-gray-600 dark:text-white/55 mb-0.5">/ 100</span>
       </div>
-      <p className="text-xs text-gray-500 dark:text-white/40">{label}</p>
+      <p className="text-xs text-gray-600 dark:text-white/55">{label}</p>
       <div className="h-1 rounded-full bg-gray-100 dark:bg-white/8 overflow-hidden mt-1">
         <motion.div
           className="h-full rounded-full bg-[#2563EB]"
@@ -77,7 +77,7 @@ function ScoreCard({ label, value, icon: Icon, invert }: { label: string; value:
 const SEVERITY_COLOR: Record<string, string> = {
   High:   "text-[#2563EB]",
   Medium: "text-amber-500",
-  Low:    "text-gray-400 dark:text-white/30",
+  Low:    "text-gray-600 dark:text-white/55",
 };
 
 /* ── Page content ── */
@@ -126,7 +126,7 @@ function WorkforceContent() {
             <Loader2 className="w-6 h-6 text-[#2563EB] animate-spin" />
           </div>
           <p className="text-sm font-semibold text-gray-900 dark:text-white">Analysing workforce data…</p>
-          <p className="text-xs text-gray-500 dark:text-white/40">Building your workforce health report</p>
+          <p className="text-xs text-gray-600 dark:text-white/55">Building your workforce health report</p>
         </motion.div>
       </main>
     );
@@ -139,7 +139,7 @@ function WorkforceContent() {
           <motion.div {...fadeUp(0)} className="mb-10">
             <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Workforce Analytics</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Workforce Health Report</h1>
-            <p className="text-sm text-gray-500 dark:text-white/45 max-w-2xl">{result.executiveSummary}</p>
+            <p className="text-sm text-gray-600 dark:text-white/55 max-w-2xl">{result.executiveSummary}</p>
           </motion.div>
 
           {/* Score cards */}
@@ -156,8 +156,8 @@ function WorkforceContent() {
               {result.kpis.map((k: any, i: number) => (
                 <div key={i} className="lamidone-card border rounded-2xl p-4">
                   <p className="text-lg font-bold text-gray-900 dark:text-white leading-none">{k.value}</p>
-                  <p className="text-xs text-gray-500 dark:text-white/40 mt-1">{k.label}</p>
-                  {k.trend && <p className="text-[10px] text-gray-400 dark:text-white/25 mt-1 leading-snug">{k.trend}</p>}
+                  <p className="text-xs text-gray-600 dark:text-white/55 mt-1">{k.label}</p>
+                  {k.trend && <p className="text-[10px] text-gray-600 dark:text-white/55 mt-1 leading-snug">{k.trend}</p>}
                 </div>
               ))}
             </motion.div>
@@ -167,14 +167,14 @@ function WorkforceContent() {
             {/* Signals */}
             {result.signals?.length > 0 && (
               <motion.div {...fadeUp(0.12)} className="lamidone-card border rounded-2xl p-6">
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Workforce Signals</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Workforce Signals</p>
                 <div className="flex flex-col gap-3">
                   {result.signals.map((s: any, i: number) => (
                     <div key={i} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
                       <AlertCircle className={`w-4 h-4 mt-0.5 shrink-0 ${SEVERITY_COLOR[s.severity] ?? ""}`} strokeWidth={2} />
                       <div>
                         <p className="text-sm text-gray-900 dark:text-white leading-snug">{s.title}</p>
-                        <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5">{s.action}</p>
+                        <p className="text-xs text-gray-600 dark:text-white/55 mt-0.5">{s.action}</p>
                       </div>
                     </div>
                   ))}
@@ -185,12 +185,12 @@ function WorkforceContent() {
             {/* Critical gaps */}
             {result.criticalGaps?.length > 0 && (
               <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Critical Capability Gaps</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Critical Capability Gaps</p>
                 <div className="flex flex-col gap-3">
                   {result.criticalGaps.map((g: any, i: number) => (
                     <div key={i} className="pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{g.area}</p>
-                      <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5 leading-snug">{g.impact}</p>
+                      <p className="text-xs text-gray-600 dark:text-white/55 mt-0.5 leading-snug">{g.impact}</p>
                       <p className="text-xs text-[#2563EB] mt-1">→ {g.remedy}</p>
                     </div>
                   ))}
@@ -203,7 +203,7 @@ function WorkforceContent() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             {result.thirtyDayPlan?.length > 0 && (
               <motion.div {...fadeUp(0.18)} className="lamidone-card border rounded-2xl p-5">
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-3">30-Day Actions</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-3">30-Day Actions</p>
                 <ol className="flex flex-col gap-2 list-decimal list-inside">
                   {result.thirtyDayPlan.map((a: string, i: number) => <li key={i} className="text-xs text-gray-700 dark:text-white/70 leading-snug">{a}</li>)}
                 </ol>
@@ -211,7 +211,7 @@ function WorkforceContent() {
             )}
             {result.ninetyDayPlan?.length > 0 && (
               <motion.div {...fadeUp(0.2)} className="lamidone-card border rounded-2xl p-5">
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-3">90-Day Actions</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-3">90-Day Actions</p>
                 <ol className="flex flex-col gap-2 list-decimal list-inside">
                   {result.ninetyDayPlan.map((a: string, i: number) => <li key={i} className="text-xs text-gray-700 dark:text-white/70 leading-snug">{a}</li>)}
                 </ol>
@@ -219,7 +219,7 @@ function WorkforceContent() {
             )}
             {result.hiringRecommendations?.length > 0 && (
               <motion.div {...fadeUp(0.22)} className="lamidone-card border rounded-2xl p-5">
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-3">Hiring Priorities</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-3">Hiring Priorities</p>
                 <div className="flex flex-col gap-2">
                   {result.hiringRecommendations.map((r: string, i: number) => (
                     <div key={i} className="flex items-start gap-2">
@@ -240,7 +240,7 @@ function WorkforceContent() {
             <Link href="/talent/mentorship" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors inline-flex items-center gap-1.5">
               Find Mentors <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
-            <Link href="/talent/capability-diagnostics" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition-colors">
+            <Link href="/talent/capability-diagnostics" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-600 dark:text-white/55 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition-colors">
               Capability Diagnostics
             </Link>
           </motion.div>
@@ -255,7 +255,7 @@ function WorkforceContent() {
         <motion.div {...fadeUp(0)} className="mb-10">
           <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Workforce Analytics</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Workforce Analytics Engine</h1>
-          <p className="text-sm text-gray-500 dark:text-white/45 max-w-lg">
+          <p className="text-sm text-gray-600 dark:text-white/55 max-w-lg">
             Input your organisation's workforce composition and our AI delivers a full health analysis — skill coverage, talent risks, and a strategic hiring plan.
           </p>
         </motion.div>
@@ -306,11 +306,11 @@ function WorkforceContent() {
         </motion.div>
 
         <motion.div {...fadeUp(0.12)} className="mt-6 flex flex-wrap gap-3">
-          <Link href="/talent/capability-diagnostics" className="text-xs text-gray-500 dark:text-white/40 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
+          <Link href="/talent/capability-diagnostics" className="text-xs text-gray-600 dark:text-white/55 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
             Capability Diagnostic <ArrowUpRight className="w-3 h-3" />
           </Link>
-          <span className="text-gray-300 dark:text-white/15">·</span>
-          <Link href="/talent/mentorship" className="text-xs text-gray-500 dark:text-white/40 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
+          <span className="text-gray-600 dark:text-white/50">·</span>
+          <Link href="/talent/mentorship" className="text-xs text-gray-600 dark:text-white/55 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
             Mentorship Matching <ArrowUpRight className="w-3 h-3" />
           </Link>
         </motion.div>

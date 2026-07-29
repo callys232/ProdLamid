@@ -63,7 +63,7 @@ function TagInput({ label, tags, onAdd, onRemove, placeholder }: {
           <Plus className="w-4 h-4" />
         </button>
       </div>
-      <p className="text-[10px] text-gray-400 dark:text-white/25 mt-1">Press Enter or comma to add</p>
+      <p className="text-[10px] text-gray-600 dark:text-white/55 mt-1">Press Enter or comma to add</p>
     </div>
   );
 }
@@ -90,12 +90,12 @@ function MentorCard({ match, delay }: { match: any; delay: number }) {
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-tight line-clamp-1">{mentor.name}</h3>
-          <p className="text-[11px] text-gray-500 dark:text-white/40 mt-0.5 line-clamp-1">{mentor.title}</p>
+          <p className="text-[11px] text-gray-600 dark:text-white/55 mt-0.5 line-clamp-1">{mentor.title}</p>
         </div>
         {/* Score badge */}
         <div className="shrink-0 flex flex-col items-center">
           <span className="text-lg font-extrabold lamidone-gradient-text leading-none">{score}%</span>
-          <span className="text-[9px] text-gray-400 dark:text-white/30">match</span>
+          <span className="text-[9px] text-gray-600 dark:text-white/55">match</span>
         </div>
       </div>
 
@@ -109,7 +109,7 @@ function MentorCard({ match, delay }: { match: any; delay: number }) {
             </div>
           )}
           {mentor.experience > 0 && (
-            <span className="text-xs text-gray-500 dark:text-white/40">{mentor.experience} yrs experience</span>
+            <span className="text-xs text-gray-600 dark:text-white/55">{mentor.experience} yrs experience</span>
           )}
         </div>
       )}
@@ -118,7 +118,7 @@ function MentorCard({ match, delay }: { match: any; delay: number }) {
       {mentor.skills?.length > 0 && (
         <div className="flex flex-wrap gap-1">
           {mentor.skills.slice(0, 4).map((s: string) => (
-            <span key={s} className="text-[9px] font-bold px-2 py-0.5 rounded-full border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40">
+            <span key={s} className="text-[9px] font-bold px-2 py-0.5 rounded-full border border-gray-200 dark:border-white/10 text-gray-600 dark:text-white/55">
               {s}
             </span>
           ))}
@@ -186,7 +186,7 @@ function MentorshipContent() {
             <Loader2 className="w-6 h-6 text-[#2563EB] animate-spin" />
           </div>
           <p className="text-sm font-semibold text-gray-900 dark:text-white">Finding your ideal mentors…</p>
-          <p className="text-xs text-gray-500 dark:text-white/40">Matching against the LAMID expert network</p>
+          <p className="text-xs text-gray-600 dark:text-white/55">Matching against the LAMID expert network</p>
         </motion.div>
       </main>
     );
@@ -199,7 +199,7 @@ function MentorshipContent() {
           <motion.div {...fadeUp(0)} className="mb-8">
             <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Mentorship Matching</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Your Mentor Matches</h1>
-            <p className="text-sm text-gray-500 dark:text-white/45">
+            <p className="text-sm text-gray-600 dark:text-white/55">
               {matches.length > 0
                 ? `Found ${matches.length} experts aligned with your development goals.`
                 : "No matches found yet — try broadening your goals or skill list."}
@@ -213,8 +213,8 @@ function MentorshipContent() {
           ) : (
             <motion.div {...fadeUp(0.05)} className="lamidone-card border rounded-2xl p-10 text-center mb-8">
               <Users className="w-10 h-10 text-[#2563EB]/40 mx-auto mb-3" />
-              <p className="text-sm text-gray-500 dark:text-white/40">No mentors matched your criteria yet.</p>
-              <p className="text-xs text-gray-400 dark:text-white/25 mt-1">Try broadening your skill list or adjusting your industry focus.</p>
+              <p className="text-sm text-gray-600 dark:text-white/55">No mentors matched your criteria yet.</p>
+              <p className="text-xs text-gray-600 dark:text-white/55 mt-1">Try broadening your skill list or adjusting your industry focus.</p>
             </motion.div>
           )}
 
@@ -238,7 +238,7 @@ function MentorshipContent() {
         <motion.div {...fadeUp(0)} className="mb-10">
           <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Mentorship</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Mentorship Matching Engine</h1>
-          <p className="text-sm text-gray-500 dark:text-white/45 max-w-lg">
+          <p className="text-sm text-gray-600 dark:text-white/55 max-w-lg">
             Tell us your growth goals and we'll match you with experts from the LAMID network who can accelerate your development.
           </p>
         </motion.div>
@@ -311,11 +311,11 @@ function MentorshipContent() {
         </motion.div>
 
         <motion.div {...fadeUp(0.12)} className="mt-6 flex flex-wrap gap-3">
-          <Link href="/talent/capability-diagnostics" className="text-xs text-gray-500 dark:text-white/40 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
+          <Link href="/talent/capability-diagnostics" className="text-xs text-gray-600 dark:text-white/55 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
             Capability Diagnostic <ArrowUpRight className="w-3 h-3" />
           </Link>
-          <span className="text-gray-300 dark:text-white/15">·</span>
-          <Link href="/talent/lms" className="text-xs text-gray-500 dark:text-white/40 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
+          <span className="text-gray-600 dark:text-white/50">·</span>
+          <Link href="/talent/lms" className="text-xs text-gray-600 dark:text-white/55 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
             <BookOpen className="w-3 h-3" /> Learning Platform
           </Link>
         </motion.div>

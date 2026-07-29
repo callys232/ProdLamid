@@ -63,7 +63,7 @@ export default function ToolUsageHistory({ limit = 8 }: { limit?: number }) {
       <div className="flex items-start justify-between gap-4 mb-5">
         <div className="flex items-center gap-2.5">
           <History className="w-4 h-4 text-[#2563EB]" strokeWidth={2.2} />
-          <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55">
             Your Tool History
           </p>
         </div>
@@ -71,24 +71,24 @@ export default function ToolUsageHistory({ limit = 8 }: { limit?: number }) {
           <div className="flex items-center gap-4 shrink-0">
             <div className="text-right">
               <p className="text-lg font-bold text-gray-900 dark:text-white leading-none">{stats.totalRuns}</p>
-              <p className="text-[10px] text-gray-400 dark:text-white/30 mt-0.5">runs</p>
+              <p className="text-[10px] text-gray-600 dark:text-white/55 mt-0.5">runs</p>
             </div>
             <div className="text-right">
               <p className="text-lg font-bold text-gray-900 dark:text-white leading-none">{stats.uniqueTools}</p>
-              <p className="text-[10px] text-gray-400 dark:text-white/30 mt-0.5">tools</p>
+              <p className="text-[10px] text-gray-600 dark:text-white/55 mt-0.5">tools</p>
             </div>
           </div>
         )}
       </div>
 
       {loading ? (
-        <div className="flex items-center gap-2 py-6 text-sm text-gray-400 dark:text-white/30">
+        <div className="flex items-center gap-2 py-6 text-sm text-gray-600 dark:text-white/55">
           <Loader2 className="w-4 h-4 animate-spin" />
           Loading your history…
         </div>
       ) : items.length === 0 ? (
         <div className="py-6 text-center">
-          <p className="text-sm text-gray-500 dark:text-white/45 mb-4">
+          <p className="text-sm text-gray-600 dark:text-white/55 mb-4">
             You haven&apos;t run any intelligence tools yet.
           </p>
           <Link
@@ -114,16 +114,16 @@ export default function ToolUsageHistory({ limit = 8 }: { limit?: number }) {
                   <p className="text-sm text-gray-900 dark:text-white truncate group-hover:text-[#2563EB] transition-colors">
                     {item.engineName}
                   </p>
-                  <p className="text-[11px] text-gray-400 dark:text-white/30 truncate">
+                  <p className="text-[11px] text-gray-600 dark:text-white/55 truncate">
                     {item.organisationName ? `${item.organisationName} · ` : ""}
                     {item.seriesName ?? "Intelligence"}
                   </p>
                 </div>
 
-                <span className="text-[11px] text-gray-400 dark:text-white/30 shrink-0 tabular-nums">
+                <span className="text-[11px] text-gray-600 dark:text-white/55 shrink-0 tabular-nums">
                   {relativeTime(item.runAt)}
                 </span>
-                <ArrowUpRight className="w-3.5 h-3.5 shrink-0 text-gray-300 dark:text-white/20 opacity-0 group-hover:opacity-100 group-hover:text-[#2563EB] transition-all" />
+                <ArrowUpRight className="w-3.5 h-3.5 shrink-0 text-gray-600 dark:text-white/50 opacity-0 group-hover:opacity-100 group-hover:text-[#2563EB] transition-all" />
               </Link>
             </li>
           ))}

@@ -6,7 +6,7 @@ import { MODULE_REGISTRY } from "@/lib/intelligence/moduleRegistry";
 export default function S03Page() {
   const config = MODULE_REGISTRY["S03"]!;
   return (
-    <DashboardTierGate pillar="Strategy Consistency Check Engine" backHref="/s02-strategic-direction" backLabel="Back to Strategic Direction Setter">
+    <DashboardTierGate pillar="Strategy Consistency Check" backHref="/s02-strategic-direction" backLabel="Back to Strategic Direction Setter">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

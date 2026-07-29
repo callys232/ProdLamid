@@ -35,7 +35,7 @@ export default function CandidateCard({ candidate, onMove, onClick }: CandidateC
   const score = candidate.matchScore ?? 0;
   const scoreColor =
     score >= 75 ? "text-emerald-400" :
-    score >= 50 ? "text-amber-400"   : "text-gray-400";
+    score >= 50 ? "text-amber-400"   : "text-gray-600";
 
   return (
     <motion.div
@@ -59,7 +59,7 @@ export default function CandidateCard({ candidate, onMove, onClick }: CandidateC
         )}
       </div>
 
-      <p className="text-[10px] text-gray-400 truncate">
+      <p className="text-[10px] text-gray-600 truncate">
         {candidate.currentRole ?? candidate.email}
       </p>
 

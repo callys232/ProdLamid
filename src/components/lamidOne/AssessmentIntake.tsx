@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useOrganizationProfile, useProfileSeed } from "@/hooks/useOrganizationProfile";
 import { motion } from "framer-motion";
 import { Loader2, TriangleAlert, FileCheck2, FileQuestion, FileX2 } from "lucide-react";
 import type { AssessmentRow, AssessmentSummary, EvidenceLevel } from "@/lib/intelligence/assessment";
@@ -40,7 +41,7 @@ const inputCls =
 const uid = () => `a-${Math.random().toString(36).slice(2, 9)}`;
 
 export default function AssessmentIntake({
-  dimensions, engineName, onSubmit, loading,
+  dimensions, engineName, onSubmit, loading, initial,
 }: {
   dimensions: string[];
   engineName: string;
@@ -48,15 +49,32 @@ export default function AssessmentIntake({
     context: Record<string, string>;
     measured: string;
     summary: AssessmentSummary;
+    /** Echoed back so last quarter's ratings become this quarter's starting point. */
+    seed: { goal: string; rows: AssessmentRow[] };
   }) => void;
+  initial?: { goal?: string; rows?: AssessmentRow[] };
   loading: boolean;
 }) {
   const [orgName, setOrgName]   = useState("");
   const [industry, setIndustry] = useState("");
-  const [goal, setGoal]         = useState("");
+  const [goal, setGoal]         = useState(initial?.goal ?? "");
 
+  /* Who you are is entered once for the whole platform, not once per tool. */
+  const { profile, ready, update: saveOrg } = useOrganizationProfile();
+  useProfileSeed(ready, profile, (p) => {
+    if (p.organisationName) setOrgName(p.organisationName);
+    if (p.industry)         setIndustry(p.industry);
+  });
+
+  /* Repeating an assessment starts from the previous ratings — the point is to
+     see what moved, which is impossible from a blank sheet. */
   const [rows, setRows] = useState<AssessmentRow[]>(() =>
-    dimensions.map((label) => ({ id: uid(), label, rating: 3, weight: 2, evidence: 1 as EvidenceLevel })),
+    dimensions.map((label) => {
+      const prev = initial?.rows?.find((r) => r.label === label);
+      return prev
+        ? { ...prev, id: uid(), label }
+        : { id: uid(), label, rating: 3, weight: 2, evidence: 1 as EvidenceLevel };
+    }),
   );
 
   const summary = useMemo(() => computeAssessment(rows), [rows]);
@@ -136,7 +154,7 @@ export default function AssessmentIntake({
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.4fr_0.8fr_1fr]">
                   {/* Rating */}
                   <div>
-                    <label htmlFor={`r-${r.id}`} className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-gray-600 dark:text-white/40">
+                    <label htmlFor={`r-${r.id}`} className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-gray-600 dark:text-white/55">
                       Rating — {RATING_ANCHORS[r.rating] ?? ""}
                     </label>
                     <input
@@ -148,7 +166,7 @@ export default function AssessmentIntake({
 
                   {/* Weight */}
                   <div>
-                    <label htmlFor={`w-${r.id}`} className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-gray-600 dark:text-white/40">
+                    <label htmlFor={`w-${r.id}`} className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-gray-600 dark:text-white/55">
                       Importance
                     </label>
                     <select
@@ -163,7 +181,7 @@ export default function AssessmentIntake({
 
                   {/* Evidence */}
                   <div>
-                    <span className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-gray-600 dark:text-white/40">
+                    <span className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-gray-600 dark:text-white/55">
                       Evidence
                     </span>
                     <div className="flex gap-1.5">
@@ -174,7 +192,7 @@ export default function AssessmentIntake({
                           className={`flex flex-1 items-center justify-center gap-1 rounded-lg border px-2 py-2 text-[10px] font-semibold transition ${
                             r.evidence === e.level
                               ? "border-[#2563EB] text-[#2563EB]"
-                              : "border-gray-200 text-gray-500 hover:border-gray-400 dark:border-white/15 dark:text-white/40"
+                              : "border-gray-200 text-gray-600 hover:border-gray-400 dark:border-white/15 dark:text-white/55"
                           }`}
                         >
                           <e.Icon className="h-3 w-3" />{e.label}
@@ -200,7 +218,7 @@ export default function AssessmentIntake({
           <div key={t.label} className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-white/15 dark:bg-black">
             <p className="mb-1 text-lg font-bold tabular-nums text-black dark:text-white">{t.value}</p>
             <p className="text-[11px] font-semibold text-gray-600 dark:text-white/50">{t.label}</p>
-            <p className="mt-0.5 text-[10px] text-gray-500 dark:text-white/35">{t.sub}</p>
+            <p className="mt-0.5 text-[10px] text-gray-600 dark:text-white/55">{t.sub}</p>
           </div>
         ))}
       </div>
@@ -220,7 +238,10 @@ export default function AssessmentIntake({
 
       <button
         type="button" disabled={!canSubmit}
-        onClick={() => onSubmit({
+        onClick={() => {
+          // What was typed here becomes the prefill for every other tool.
+          saveOrg({ organisationName: orgName, industry });
+          onSubmit({
           context: {
             organisationName: orgName,
             industry,
@@ -229,7 +250,9 @@ export default function AssessmentIntake({
           },
           measured: assessmentToPrompt(summary),
           summary,
-        })}
+          seed: { goal, rows },
+          });
+        }}
         className="w-full rounded-2xl py-3.5 text-sm font-extrabold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
         style={{ background: ACCENT }}
       >

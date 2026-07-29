@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q22Page() {
   const config = MODULE_REGISTRY["Q22"] ?? buildFallbackConfig("Q22", "Q-Series — Decision Intelligence", "Decision Structure Mapper Engine");
   return (
-    <DashboardTierGate pillar="Decision Structure Mapper Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Decision Structure Mapper" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

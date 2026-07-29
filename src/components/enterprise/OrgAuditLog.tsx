@@ -29,7 +29,7 @@ const OUTCOME_STYLE: Record<AuditEntry["outcome"], { cls: string; icon: React.Re
   success: { cls: "border-green-500/30  bg-green-500/10  text-green-400",  icon: <CheckCircle2 className="h-3 w-3" /> },
   failure: { cls: "border-blue-500/30    bg-blue-500/10    text-blue-400",    icon: <XCircle      className="h-3 w-3" /> },
   warning: { cls: "border-yellow-500/30 bg-yellow-500/10 text-yellow-400", icon: <AlertTriangle className="h-3 w-3" /> },
-  info:    { cls: "border-gray-600/30   bg-gray-800      text-gray-400",   icon: <Info          className="h-3 w-3" /> },
+  info:    { cls: "border-gray-600/30   bg-gray-800      text-gray-600",   icon: <Info          className="h-3 w-3" /> },
 };
 
 const ACTION_TYPES = ["All", "login", "invite", "project", "escrow", "settings", "member", "billing"];
@@ -172,7 +172,7 @@ export default function OrgAuditLog() {
             className={`flex items-center gap-1.5 rounded-xl border px-4 py-2 text-xs font-medium transition ${
               filtersOpen
                 ? "border-purple-500/40 bg-purple-500/10 text-purple-400"
-                : "border-gray-700 bg-gray-950 text-gray-400 hover:text-white"
+                : "border-gray-700 bg-gray-950 text-gray-600 hover:text-white"
             }`}
           >
             <Filter className="h-3.5 w-3.5" />
@@ -183,7 +183,7 @@ export default function OrgAuditLog() {
             whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
             onClick={() => load(true)}
             disabled={refreshing}
-            className="flex items-center gap-1.5 rounded-xl border border-gray-700 bg-gray-950 px-4 py-2 text-xs font-medium text-gray-400 transition hover:text-white disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-xl border border-gray-700 bg-gray-950 px-4 py-2 text-xs font-medium text-gray-600 transition hover:text-white disabled:opacity-50"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
             Refresh
@@ -316,11 +316,11 @@ export default function OrgAuditLog() {
                           hour: "2-digit", minute: "2-digit",
                         })}
                       </td>
-                      <td className="px-4 py-3 text-xs text-gray-300 max-w-[160px] truncate">
+                      <td className="px-4 py-3 text-xs text-gray-600 max-w-[160px] truncate">
                         {entry.user}
                       </td>
                       <td className="px-4 py-3">
-                        <span className="rounded-full border border-gray-700 bg-gray-800 px-2.5 py-0.5 text-[10px] font-medium text-gray-300 capitalize">
+                        <span className="rounded-full border border-gray-700 bg-gray-800 px-2.5 py-0.5 text-[10px] font-medium text-gray-600 capitalize">
                           {entry.action}
                         </span>
                       </td>
@@ -354,7 +354,7 @@ export default function OrgAuditLog() {
               <button
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-1.5 text-[11px] text-gray-400 transition hover:text-white disabled:opacity-40"
+                className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-1.5 text-[11px] text-gray-600 transition hover:text-white disabled:opacity-40"
               >
                 ← Prev
               </button>
@@ -369,7 +369,7 @@ export default function OrgAuditLog() {
                     className={`rounded-lg border px-3 py-1.5 text-[11px] transition ${
                       p === page
                         ? "border-purple-500/40 bg-purple-500/10 text-purple-400"
-                        : "border-gray-700 bg-gray-950 text-gray-400 hover:text-white"
+                        : "border-gray-700 bg-gray-950 text-gray-600 hover:text-white"
                     }`}
                   >
                     {p}
@@ -379,7 +379,7 @@ export default function OrgAuditLog() {
               <button
                 onClick={() => setPage(p => Math.min(pageCount, p + 1))}
                 disabled={page === pageCount}
-                className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-1.5 text-[11px] text-gray-400 transition hover:text-white disabled:opacity-40"
+                className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-1.5 text-[11px] text-gray-600 transition hover:text-white disabled:opacity-40"
               >
                 Next →
               </button>

@@ -217,7 +217,7 @@ export default function ConciergeKPIs() {
           <span className="text-xs font-semibold text-amber-400 uppercase tracking-widest">KPI Dashboard</span>
         </div>
         <h2 className="text-xl font-bold text-white">Service Quality Metrics</h2>
-        <p className="text-sm text-gray-400 mt-0.5">Live indicators of your concierge service performance</p>
+        <p className="text-sm text-gray-600 mt-0.5">Live indicators of your concierge service performance</p>
       </motion.div>
 
       {/* 2×3 KPI grid */}
@@ -236,7 +236,7 @@ export default function ConciergeKPIs() {
                 <div className={`flex h-8 w-8 items-center justify-center rounded-xl ${kpi.bg} border ${kpi.border}`}>
                   <kpi.icon className="h-4 w-4" style={{ color: kpi.color }} />
                 </div>
-                <p className="text-xs text-gray-400 font-medium">{kpi.label}</p>
+                <p className="text-xs text-gray-600 font-medium">{kpi.label}</p>
               </div>
               <Trend pct={kpi.trend} />
             </div>

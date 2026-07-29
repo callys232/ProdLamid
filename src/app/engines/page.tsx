@@ -121,7 +121,7 @@ export default function EnginesPage() {
                       <Icon className={`w-6 h-6 ${engine.iconColor}`} strokeWidth={1.75} />
                     </div>
 
-                    <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-gray-400 dark:text-white/35 mb-2">
+                    <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-gray-600 dark:text-white/55 mb-2">
                       {engine.label}
                     </p>
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-snug mb-3">

@@ -20,7 +20,7 @@ const BY_ROLE = [
     need: "You need a strategy that stays relevant as the market moves — not a plan you revisit once a year and hope still holds.",
     engines: ["LAMID CORE"],
     hrefs: ["/core"],
-    cta: "Explore Lamid Core",
+    cta: "Explore LAMID CORE",
     ctaHref: "/core",
   },
   {
@@ -29,7 +29,7 @@ const BY_ROLE = [
     need: "You need market timing intelligence and customer insight that tells you where to move, not just where you've been.",
     engines: ["LAMID GROW"],
     hrefs: ["/grow"],
-    cta: "Explore Lamid Grow",
+    cta: "Explore LAMID GROW",
     ctaHref: "/grow",
   },
   {
@@ -38,7 +38,7 @@ const BY_ROLE = [
     need: "You need to put the right people in the right roles — and prove the impact of your people strategy in business terms.",
     engines: ["LAMID TALENT"],
     hrefs: ["/talent"],
-    cta: "Explore Lamid Talent",
+    cta: "Explore LAMID TALENT",
     ctaHref: "/talent",
   },
   {
@@ -47,7 +47,7 @@ const BY_ROLE = [
     need: "You need real-time financial visibility that connects capital decisions to organizational performance — not month-end surprises.",
     engines: ["LAMID FINANCE"],
     hrefs: ["/finance"],
-    cta: "Explore Lamid Finance",
+    cta: "Explore LAMID FINANCE",
     ctaHref: "/finance",
   },
   {
@@ -56,7 +56,7 @@ const BY_ROLE = [
     need: "You need to scale without losing control — clear strategy, proven growth levers, and a people system that builds as you grow.",
     engines: ["LAMID CORE", "LAMID GROW", "LAMID TALENT"],
     hrefs: ["/core", "/grow", "/talent"],
-    cta: "Take your Lamid One Diagnostic",
+    cta: "Take your LAMID ONE Diagnostic",
     ctaHref: "/premium/business-diagnostic",
   },
   {
@@ -203,7 +203,7 @@ export default function SolutionsPage() {
               <Link href="/premium/business-diagnostic"
                 className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
               >
-                Take your Lamid One Diagnostic
+                Take your LAMID ONE Diagnostic
               </Link>
               <Link href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-semibold text-sm border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white/75 hover:border-[#2563EB]/60 hover:text-[#2563EB] transition-all duration-200"

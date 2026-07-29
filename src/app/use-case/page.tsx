@@ -36,7 +36,7 @@ export default function UseCaseIndex() {
             Four organisations. One question each.
           </h1>
           <p className="text-base leading-relaxed text-gray-600 dark:text-white/60">
-            Every figure in these came out of the same engines you can run yourself,
+            Every figure in these came out of the same tools you can run yourself,
             from the inputs shown. Three of the four ended somewhere the organisation
             did not expect.
           </p>
@@ -55,7 +55,7 @@ export default function UseCaseIndex() {
                     style={{ background: u.accent }}
                     aria-hidden="true"
                   />
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500 dark:text-white/40">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gray-600 dark:text-white/55">
                     {u.sector} · {u.size}
                   </span>
                 </div>
@@ -72,7 +72,7 @@ export default function UseCaseIndex() {
                   {[...new Set(u.stages.map((s) => s.archetype))].map((a) => (
                     <span
                       key={a}
-                      className="rounded-full border border-gray-200 px-2 py-0.5 text-[10px] font-semibold text-gray-500 dark:border-white/12 dark:text-white/40"
+                      className="rounded-full border border-gray-200 px-2 py-0.5 text-[10px] font-semibold text-gray-600 dark:border-white/12 dark:text-white/55"
                     >
                       {a}
                     </span>
@@ -80,9 +80,9 @@ export default function UseCaseIndex() {
                 </div>
 
                 <div className="mt-auto flex items-center justify-between gap-3 border-t border-gray-100 pt-4 dark:border-white/8">
-                  <span className="text-[11px] text-gray-500 dark:text-white/40">
+                  <span className="text-[11px] text-gray-600 dark:text-white/55">
                     <span className="font-semibold text-gray-700 dark:text-white/60">{u.name}</span>
-                    {" · "}{u.stages.length} engines
+                    {" · "}{u.stages.length} tools
                   </span>
                   <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 dark:text-white">
                     Read
@@ -106,7 +106,7 @@ export default function UseCaseIndex() {
             <Calculator className="mt-0.5 h-4 w-4 shrink-0" style={{ color: ACCENT }} />
             <p className="max-w-xl text-xs leading-relaxed text-gray-700 dark:text-white/65">
               None of these numbers were written by hand. Each was produced by running the
-              stated inputs through the engines, and the flagged findings are those
+              stated inputs through the tools, and the flagged findings are those
               functions&apos; own output, quoted exactly.
             </p>
           </div>
@@ -115,7 +115,7 @@ export default function UseCaseIndex() {
             className="inline-flex shrink-0 items-center gap-1.5 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
             style={{ background: ACCENT }}
           >
-            <Layers className="h-4 w-4" /> See every engine
+            <Layers className="h-4 w-4" /> See every tool
           </Link>
         </motion.div>
 

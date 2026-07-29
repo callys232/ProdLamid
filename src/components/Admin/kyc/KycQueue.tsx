@@ -66,7 +66,7 @@ export default function KycQueue() {
             <motion.button key={s} whileTap={{ scale: 0.95 }}
               onClick={() => { setFilter(s); setPage(1); }}
               className={`rounded-full px-3 py-1 text-xs font-semibold capitalize transition ${
-                filter === s ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-400 hover:text-white"
+                filter === s ? "bg-[#2563EB] text-white" : "border border-white/10 text-gray-600 hover:text-white"
               }`}>
               {s}
             </motion.button>
@@ -103,7 +103,7 @@ export default function KycQueue() {
                   <div className="mt-1.5 flex flex-wrap gap-1.5">
                     {u.kycDocuments.map((url, idx) => (
                       <a key={idx} href={url} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-1 rounded border border-white/10 px-2 py-0.5 text-[11px] text-gray-400 hover:text-white transition">
+                        className="flex items-center gap-1 rounded border border-white/10 px-2 py-0.5 text-[11px] text-gray-600 hover:text-white transition">
                         <ExternalLink className="h-3 w-3" /> Doc {idx + 1}
                       </a>
                     ))}

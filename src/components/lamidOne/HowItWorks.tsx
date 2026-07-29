@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 const STEPS = [
   { num: 1, title: "Diagnose",  body: "Take the Enterprise Diagnostic. Tell us where you are across Strategy, Growth, People, and Finance.",   href: "/premium/business-diagnostic", accent: "#2563EB" },
-  { num: 2, title: "Reveal",    body: "See your real score. LAMID ONE surfaces the gaps and strengths across all four pillars — honestly.",      href: "/ecosystem",                   accent: "#2563EB" },
+  { num: 2, title: "Reveal",    body: "See your real score. LAMID ONE surfaces your gaps and strengths across all four pillars — honestly.",      href: "/ecosystem",                   accent: "#2563EB" },
   { num: 3, title: "Unlock",    body: "Get personalized recommendations matched to your scale, sector, and situation — not a generic report.",   href: "/premium/proposal-drafter",    accent: "#2563EB" },
   { num: 4, title: "Act",       body: "Engage the suite, the experts, or the tools your score says you need most. One ecosystem, one entry point.", href: "/client",                   accent: "#2563EB" },
   { num: 5, title: "Grow",      body: "Track progress. Refine your position. See your organization evolve in real time — quarter by quarter.",   href: "/ecosystem",                   accent: "#2563EB" },

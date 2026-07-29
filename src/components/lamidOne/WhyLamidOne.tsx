@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import { Sparkles, Zap, ShieldCheck, Globe } from "lucide-react";
 
 const TILES = [
-  { icon: Sparkles,    href: "/ecosystem", title: "Unified by Design",           body: "One system built to work as a whole — across strategy, growth, talent, and finance. Not four tools bolted together. One connected platform." },
-  { icon: Zap,         href: "/talent",   title: "Human Insight + AI Precision", body: "Human expertise and AI precision working together. Clear thinking, backed by intelligent signal — so your decisions are grounded in what's real." },
+  { icon: Sparkles,    href: "/ecosystem", title: "Unified by Design",           body: "One system built to work as a whole — across your strategy, growth, talent, and finance. Not four tools bolted together. One connected platform." },
+  { icon: Zap,         href: "/talent",   title: "Human Insight + AI Precision", body: "Human expertise and AI precision working together. Clear thinking, backed by intelligent signal — so you decide on evidence, not assumption." },
   { icon: ShieldCheck, href: "/pricing",  title: "Built for Every Scale",        body: "From growing teams to global enterprises, LAMID ONE adapts to where you are and grows with where you're going." },
-  { icon: Globe,       href: "/ecosystem", title: "Outcomes Not Reports",        body: "Every recommendation connects to action. Tools, advisors, and a system that tracks what happens after the insight lands." },
+  { icon: Globe,       href: "/ecosystem", title: "Outcomes Not Reports",        body: "Every recommendation you get connects to action. Tools, advisors, and a system that tracks what happens after the insight lands." },
 ];
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } };

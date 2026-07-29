@@ -57,7 +57,7 @@ export default function AIPreferences() {
   return (
     <div className="p-6 bg-gray-950 rounded-xl max-w-2xl border border-gray-800 shadow-lg">
       <h2 className="text-2xl font-bold mb-2 text-white">AI Preferences</h2>
-      <p className="text-gray-400 mb-6 text-sm">
+      <p className="text-gray-600 mb-6 text-sm">
         Fine-tune how <span className="text-blue-500 font-medium">Lamid AI</span>{" "}
         assists your workflow.
       </p>
@@ -65,7 +65,7 @@ export default function AIPreferences() {
       <div className="space-y-8">
         {/* Tone */}
         <div>
-          <label className="block text-sm text-gray-400 mb-2">
+          <label className="block text-sm text-gray-600 mb-2">
             Communication Tone
           </label>
           <select
@@ -82,7 +82,7 @@ export default function AIPreferences() {
 
         {/* Automation Level */}
         <div>
-          <label className="block text-sm text-gray-400 mb-2">
+          <label className="block text-sm text-gray-600 mb-2">
             Automation Level
           </label>
           <select
@@ -104,7 +104,7 @@ export default function AIPreferences() {
               key={key}
               className="flex justify-between items-center bg-gray-900 px-4 py-3 rounded-md border border-gray-800 hover:border-blue-500 transition"
             >
-              <span className="text-gray-300 text-sm">{label}</span>
+              <span className="text-gray-600 text-sm">{label}</span>
               <button
                 aria-label="btn"
                 onClick={() => toggle(key)}

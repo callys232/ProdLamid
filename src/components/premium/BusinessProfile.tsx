@@ -10,7 +10,7 @@ const ORG_SIZES: OrgSize[] = ["1–10", "11–50", "51–200", "201–500", "501
 const EMPTY_JOB: EmploymentEntry = { company: "", role: "", startDate: "", endDate: "", location: "", description: "" };
 
 const inp = "w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2.5 text-sm text-white placeholder-gray-600 transition focus:border-blue-500 focus:outline-none";
-const lbl = "mb-1.5 block text-xs font-medium text-gray-400";
+const lbl = "mb-1.5 block text-xs font-medium text-gray-600";
 
 interface BusinessForm {
   companyName: string;
@@ -132,7 +132,7 @@ export default function BusinessProfile({ user }: { user: any }) {
           <div className="flex items-center gap-2">
             <Briefcase className="h-4 w-4 text-[#2563EB]" />
             <h3 className="text-sm font-semibold text-white">Work / Employment History</h3>
-            <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-gray-400">
+            <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-gray-600">
               {form.employmentHistory.length}
             </span>
           </div>

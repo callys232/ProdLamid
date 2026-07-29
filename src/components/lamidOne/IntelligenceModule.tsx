@@ -12,10 +12,15 @@ import type { ModuleConfig } from "@/lib/intelligence/moduleRegistry";
 import { useGate } from "@/contexts/GateContext";
 import EngineResultsGate from "./EngineResultsGate";
 import TimeSeriesIntake from "./TimeSeriesIntake";
+import type { TimeSeriesSeed } from "./TimeSeriesIntake";
 import FinancialIntake from "./FinancialIntake";
+import type { FinancialSeed } from "./FinancialIntake";
 import RosterIntake from "./RosterIntake";
 import ScenarioIntake from "./ScenarioIntake";
 import AssessmentIntake from "./AssessmentIntake";
+import type { RoleRow } from "@/lib/intelligence/roster";
+import type { ScenarioOption } from "@/lib/intelligence/scenario";
+import type { AssessmentRow } from "@/lib/intelligence/assessment";
 import { financialsToPrompt } from "@/lib/intelligence/financial";
 import type { SeriesStats } from "@/lib/intelligence/inputSpec";
 import { seriesStatsToPrompt } from "@/lib/intelligence/inputSpec";
@@ -25,6 +30,8 @@ import {
   assessmentDimensions,
 } from "@/lib/intelligence/dimensions";
 import { savePendingRun, loadPendingRun, clearPendingRun } from "@/lib/intelligence/pendingRun";
+import { handoffsFor } from "@/lib/intelligence/handoffs";
+import { useOrganizationProfile, useProfileSeed } from "@/hooks/useOrganizationProfile";
 
 /* ── Types ────────────────────────────────────────────────── */
 interface KPI        { label: string; value: string; trend: string }
@@ -62,8 +69,6 @@ function IntakeForm({ config, onSubmit, loading }: {
   onSubmit: (context: Record<string, string>) => void;
   loading: boolean;
 }) {
-  const STORAGE_KEY = "lamid-intake-context";
-
   const [form, setForm] = useState({
     organisationName:  "",
     industry:          "",
@@ -73,26 +78,21 @@ function IntakeForm({ config, onSubmit, loading }: {
     additionalContext: "",
   });
 
-  /* Organisation context is the same across every module — restore it so users
-     aren't retyping the same four fields on each run. Module-specific fields
+  /* Organisation context is the same across every tool, so it comes from the
+     shared profile rather than this form's own cache. Module-specific fields
      (challenge, goal) stay blank deliberately. */
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) return;
-      const { organisationName, industry, size } = JSON.parse(saved);
-      setForm((f) => ({ ...f, organisationName: organisationName ?? "", industry: industry ?? "", size: size ?? "" }));
-    } catch {
-      /* corrupt or unavailable storage — fall back to an empty form */
-    }
-  }, []);
+  const { profile, ready, update: saveOrg } = useOrganizationProfile();
+  useProfileSeed(ready, profile, (p) => {
+    setForm((f) => ({
+      ...f,
+      organisationName: p.organisationName || f.organisationName,
+      industry:         p.industry         || f.industry,
+      size:             p.size             || f.size,
+    }));
+  });
 
   const persistContext = (f: typeof form) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        organisationName: f.organisationName, industry: f.industry, size: f.size,
-      }));
-    } catch { /* storage full or blocked — not worth interrupting the run */ }
+    saveOrg({ organisationName: f.organisationName, industry: f.industry, size: f.size });
   };
 
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -186,12 +186,13 @@ function IntakeForm({ config, onSubmit, loading }: {
 }
 
 /* ── Result Display ───────────────────────────────────────── */
-function ResultDisplay({ result, config, onReset, orgName, baseline }: {
+function ResultDisplay({ result, config, onReset, orgName, baseline, handoffs }: {
   result: IntelligenceResult;
   config: ModuleConfig;
   onReset: () => void;
   orgName: string;
   baseline: { at: string; scores: Record<string, number> } | null;
+  handoffs: ReturnType<typeof handoffsFor>;
 }) {
   const [copied,       setCopied]       = useState(false);
   const [planExpanded, setPlanExpanded] = useState(false);
@@ -485,6 +486,42 @@ function ResultDisplay({ result, config, onReset, orgName, baseline }: {
         )}
       </motion.div>
 
+      {/* What to do with this.
+          A finding the reader cannot act on is just information. These are the
+          tools that answer the question this run raises next, each carrying the
+          organisation across so nothing is retyped. */}
+      {handoffs.length > 0 && (
+        <motion.div
+          {...fadeUp(0.28)}
+          className="rounded-2xl border border-[#2563EB]/20 bg-[#2563EB]/[0.04] p-6"
+        >
+          <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">
+            What to do next
+          </p>
+          <p className="mb-5 text-xs text-gray-600 dark:text-white/50">
+            Your details carry over — these start where this run left off.
+          </p>
+
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {handoffs.map((h) => (
+              <Link
+                key={h.to}
+                href={h.href}
+                className="group flex flex-col rounded-xl border border-gray-200 bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#2563EB]/50 hover:shadow-[0_8px_24px_rgba(37,99,235,0.10)] dark:border-white/12 dark:bg-black"
+              >
+                <p className="mb-1.5 flex items-center gap-1.5 text-sm font-bold text-black dark:text-white group-hover:text-[#2563EB]">
+                  {h.name}
+                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </p>
+                <p className="text-xs leading-relaxed text-gray-600 dark:text-white/55">
+                  {h.reason}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
       {/* Navigation */}
       <motion.div {...fadeUp(0.3)} className="flex flex-wrap gap-3">
         {config.nextHref && (
@@ -544,6 +581,14 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
   const [orgName, setOrgName] = useState("");
   const [history, setHistory] = useState<PastRun[]>([]);
 
+  /* Inputs restored from a previous run. seedKey remounts the intake so its
+     state initialisers see them. */
+  const [seed, setSeed]       = useState<Record<string, unknown> | null>(null);
+  const [seedKey, setSeedKey] = useState(0);
+
+  /** Where this run's findings are acted on next. */
+  const handoffs = useMemo(() => handoffsFor(config.id), [config.id]);
+
   /* Past runs of THIS module — powers "vs last run" deltas and re-open. */
   useEffect(() => {
     if (mode !== "full") return;
@@ -579,6 +624,31 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
   };
 
   /**
+   * Load a past run's inputs back into the form so this period starts from the
+   * last one. Re-running from a blank sheet every quarter is what stopped this
+   * being a habit — you cannot see what moved if you have to retype it first.
+   *
+   * The seed key remounts the intake, so its useState initialisers pick the
+   * restored figures up.
+   */
+  const repeatPastRun = async (id: string) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/tools/usage/${id}`, { credentials: "include" });
+      const d = await res.json();
+      if (res.ok && d?.data?.inputs) {
+        setSeed(d.data.inputs);
+        setSeedKey((k) => k + 1);
+        setResult(null);
+      }
+    } catch {
+      /* non-fatal — the blank form is still usable */
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /**
    * @param stats            Archetype B — time-series statistics
    * @param measuredOverride Archetype C/E/F — pre-formatted deterministic summary
    * @param computedDims     Dimension scores derived from the compute layer.
@@ -591,6 +661,9 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
     stats?: SeriesStats[],
     measuredOverride?: string,
     computedDims?: ComputedDimension[],
+    /** What was typed in, stored so this run can be repeated next period.
+        Shape varies by archetype, so it is only ever read back as a seed. */
+    inputs?: object,
   ) => {
     setOrgName(context.organisationName);
 
@@ -661,6 +734,7 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
           seriesName:       config.seriesName,
           organisationName: context.organisationName,
           result:           finalResult,
+          inputs:           inputs ? { ...inputs, context } : { context },
           href:             typeof window !== "undefined" ? window.location.pathname : undefined,
         }),
       }).catch(() => {});
@@ -732,11 +806,14 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
                         ? Math.round(h.scores.reduce((s, x) => s + x.value, 0) / h.scores.length)
                         : null;
                       return (
-                        <li key={h._id}>
+                        <li
+                          key={h._id}
+                          className="flex items-center gap-2 border-b border-gray-100 dark:border-white/8 last:border-0"
+                        >
                           <button
                             type="button"
                             onClick={() => openPastRun(h._id)}
-                            className="group flex w-full items-center gap-3 rounded-lg px-1 py-2.5 text-left transition hover:bg-[#2563EB]/[0.04] border-b border-gray-100 dark:border-white/8 last:border-0"
+                            className="group flex min-w-0 flex-1 items-center gap-3 rounded-lg px-1 py-2.5 text-left transition hover:bg-[#2563EB]/[0.04]"
                           >
                             {avg !== null && (
                               <span className="shrink-0 rounded-md bg-[#2563EB]/10 px-2 py-1 font-mono text-[11px] font-bold tabular-nums text-[#2563EB]">
@@ -746,9 +823,21 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
                             <span className="min-w-0 flex-1 truncate text-sm text-black dark:text-white group-hover:text-[#2563EB]">
                               {h.organisationName || "Untitled assessment"}
                             </span>
-                            <span className="shrink-0 text-[11px] tabular-nums text-gray-600 dark:text-white/40">
+                            <span className="shrink-0 text-[11px] tabular-nums text-gray-600 dark:text-white/55">
                               {new Date(h.runAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
                             </span>
+                          </button>
+
+                          {/* Load these figures back into the form so this
+                              period starts from the last one. */}
+                          <button
+                            type="button"
+                            onClick={() => repeatPastRun(h._id)}
+                            title="Start a new run from these figures"
+                            className="shrink-0 inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-white/15 px-2.5 py-1.5 text-[11px] font-semibold text-gray-600 dark:text-white/50 transition hover:border-[#2563EB]/50 hover:text-[#2563EB]"
+                          >
+                            <RefreshCw className="h-3 w-3" />
+                            Repeat
                           </button>
                         </li>
                       );
@@ -759,46 +848,56 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
 
               {config.inputs?.kind === "timeseries" ? (
                 <TimeSeriesIntake
+                  key={seedKey}
                   spec={config.inputs}
                   engineName={config.engineName}
                   loading={loading}
-                  onSubmit={({ context, stats }) =>
-                    run(context, stats, undefined, seriesDimensions(stats))
+                  initial={seed as TimeSeriesSeed | undefined}
+                  onSubmit={({ context, stats, seed: s }) =>
+                    run(context, stats, undefined, seriesDimensions(stats), s)
                   }
                 />
               ) : config.inputs?.kind === "financial" ? (
                 <FinancialIntake
+                  key={seedKey}
                   periodLabel={config.inputs.periodLabel}
                   defaultPeriods={config.inputs.periods}
                   engineName={config.engineName}
                   loading={loading}
-                  onSubmit={({ context, summary }) =>
-                    run(context, undefined, financialsToPrompt(summary), financialDimensions(summary))
+                  initial={seed as FinancialSeed | undefined}
+                  onSubmit={({ context, summary, seed: s }) =>
+                    run(context, undefined, financialsToPrompt(summary), financialDimensions(summary), s)
                   }
                 />
               ) : config.inputs?.kind === "roster" ? (
                 <RosterIntake
+                  key={seedKey}
                   engineName={config.engineName}
                   loading={loading}
-                  onSubmit={({ context, measured, summary }) =>
-                    run(context, undefined, measured, rosterDimensions(summary))
+                  initial={seed as { rows?: RoleRow[] } | undefined}
+                  onSubmit={({ context, measured, summary, seed: s }) =>
+                    run(context, undefined, measured, rosterDimensions(summary), s)
                   }
                 />
               ) : config.inputs?.kind === "scenario" ? (
                 <ScenarioIntake
+                  key={seedKey}
                   engineName={config.engineName}
                   loading={loading}
-                  onSubmit={({ context, measured, summary }) =>
-                    run(context, undefined, measured, scenarioDimensions(summary))
+                  initial={seed as { decision?: string; options?: ScenarioOption[] } | undefined}
+                  onSubmit={({ context, measured, summary, seed: s }) =>
+                    run(context, undefined, measured, scenarioDimensions(summary), s)
                   }
                 />
               ) : config.inputs?.kind === "assessment" ? (
                 <AssessmentIntake
+                  key={seedKey}
                   dimensions={config.inputs.dimensions ?? config.dimensionLabels}
                   engineName={config.engineName}
                   loading={loading}
-                  onSubmit={({ context, measured, summary }) =>
-                    run(context, undefined, measured, assessmentDimensions(summary))
+                  initial={seed as { goal?: string; rows?: AssessmentRow[] } | undefined}
+                  onSubmit={({ context, measured, summary, seed: s }) =>
+                    run(context, undefined, measured, assessmentDimensions(summary), s)
                   }
                 />
               ) : (
@@ -808,7 +907,7 @@ export default function IntelligenceModule({ config }: IntelligenceModuleProps) 
           ) : (
             <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <EngineResultsGate>
-                <ResultDisplay result={result} config={config} onReset={() => setResult(null)} orgName={orgName} baseline={baseline} />
+                <ResultDisplay result={result} config={config} onReset={() => setResult(null)} orgName={orgName} baseline={baseline} handoffs={handoffs} />
               </EngineResultsGate>
             </motion.div>
           )}

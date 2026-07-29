@@ -68,7 +68,7 @@ export default function PurchasePoints({ open, onClose, onSuccess }: Props) {
               <motion.button
                 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
                 onClick={onClose}
-                className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 text-gray-400 hover:text-white"
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 text-gray-600 hover:text-white"
               >
                 <X className="h-4 w-4" />
               </motion.button>
@@ -99,7 +99,7 @@ export default function PurchasePoints({ open, onClose, onSuccess }: Props) {
                     </span>
                   )}
                   <p className="text-base font-bold text-white">{pkg.label}</p>
-                  <p className="mt-0.5 text-xs text-gray-400">
+                  <p className="mt-0.5 text-xs text-gray-600">
                     ₦{pkg.priceNgn.toLocaleString()}
                   </p>
                   {selected === pkg.id && (
@@ -113,7 +113,7 @@ export default function PurchasePoints({ open, onClose, onSuccess }: Props) {
             {selected && (() => {
               const pkg = PACKAGES.find(p => p.id === selected)!;
               return (
-                <div className="mb-5 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-gray-400">
+                <div className="mb-5 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-gray-600">
                   <div className="flex justify-between"><span>Points</span><span className="font-semibold text-white">{pkg.points.toLocaleString()}</span></div>
                   <div className="flex justify-between mt-1"><span>Amount</span><span className="font-semibold text-white">₦{pkg.priceNgn.toLocaleString()}</span></div>
                   <div className="flex justify-between mt-1"><span>Per point</span><span className="text-gray-500">₦{(pkg.priceNgn / pkg.points).toFixed(1)}</span></div>

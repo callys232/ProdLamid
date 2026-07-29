@@ -43,13 +43,13 @@ export default function Billing({ tier, orgStatus }: Props) {
           className="rounded-xl border border-yellow-500/30 bg-yellow-500/5 px-5 py-4"
         >
           <p className="text-sm font-semibold text-yellow-400">You're on a free trial</p>
-          <p className="mt-0.5 text-xs text-gray-400">Add payment details to keep your workspace active after the trial ends.</p>
+          <p className="mt-0.5 text-xs text-gray-600">Add payment details to keep your workspace active after the trial ends.</p>
         </motion.div>
       )}
 
       {/* Billing cycle toggle */}
       <div className="flex items-center gap-3 flex-wrap">
-        <span className="text-sm text-gray-400">Billing cycle:</span>
+        <span className="text-sm text-gray-600">Billing cycle:</span>
         {(["monthly", "quarterly", "annual"] as BillingCycle[]).map(c => (
           <motion.button
             key={c}
@@ -58,7 +58,7 @@ export default function Billing({ tier, orgStatus }: Props) {
             className={`rounded-full px-4 py-1.5 text-xs font-semibold capitalize transition ${
               cycle === c
                 ? "bg-[#2563EB] text-white"
-                : "border border-white/10 text-gray-400 hover:text-white"
+                : "border border-white/10 text-gray-600 hover:text-white"
             }`}
           >
             {c}
@@ -90,7 +90,7 @@ export default function Billing({ tier, orgStatus }: Props) {
           </p>
           <ul className="mb-5 space-y-2">
             {enterpriseFeatures.map(f => (
-              <li key={f} className="flex items-center gap-2 text-xs text-gray-400">
+              <li key={f} className="flex items-center gap-2 text-xs text-gray-600">
                 <CheckCircle className="h-3.5 w-3.5 flex-shrink-0 text-[#2563EB]" />{f}
               </li>
             ))}
@@ -125,7 +125,7 @@ export default function Billing({ tier, orgStatus }: Props) {
           </p>
           <ul className="mb-5 space-y-2">
             {enterprisePlusFeatures.map(f => (
-              <li key={f} className="flex items-center gap-2 text-xs text-gray-400">
+              <li key={f} className="flex items-center gap-2 text-xs text-gray-600">
                 <CheckCircle className="h-3.5 w-3.5 flex-shrink-0 text-purple-400" />{f}
               </li>
             ))}
@@ -164,8 +164,8 @@ export default function Billing({ tier, orgStatus }: Props) {
                   whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
                   className="transition"
                 >
-                  <td className="px-5 py-3 font-mono text-xs text-gray-300">{inv.id}</td>
-                  <td className="px-5 py-3 text-gray-400">{new Date(inv.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</td>
+                  <td className="px-5 py-3 font-mono text-xs text-gray-600">{inv.id}</td>
+                  <td className="px-5 py-3 text-gray-600">{new Date(inv.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</td>
                   <td className="px-5 py-3 text-right font-semibold text-white">${inv.amount.toLocaleString()}</td>
                   <td className="px-5 py-3 text-center">
                     <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-semibold capitalize ${STATUS_STYLE[inv.status]}`}>

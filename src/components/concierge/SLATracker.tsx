@@ -282,14 +282,14 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
             <span className="text-xs font-semibold text-amber-400 uppercase tracking-widest">SLA Tracking</span>
           </div>
           <h2 className="text-xl font-bold text-white">Service Level Agreements</h2>
-          <p className="text-sm text-gray-400 mt-0.5">Monitor your white-glove service commitments</p>
+          <p className="text-sm text-gray-600 mt-0.5">Monitor your white-glove service commitments</p>
         </div>
         <div className="flex items-center gap-2">
           <motion.button
             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
             onClick={refresh}
             disabled={refreshing}
-            className="p-2 rounded-xl border border-white/10 bg-white/5 text-gray-400 hover:text-white transition"
+            className="p-2 rounded-xl border border-white/10 bg-white/5 text-gray-600 hover:text-white transition"
             title="Refresh SLAs"
           >
             <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
@@ -322,7 +322,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
           >
             <card.icon className={`h-5 w-5 ${card.color}`} />
             <p className={`text-2xl font-bold ${card.color}`}>{card.count}</p>
-            <p className="text-xs text-gray-400">{card.label}</p>
+            <p className="text-xs text-gray-600">{card.label}</p>
           </motion.button>
         ))}
       </div>
@@ -373,7 +373,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
                     <span className={`text-[10px] px-2 py-0.5 rounded-full border ${typeColor}`}>
                       {SLA_TYPE_LABEL[sla.slaType]}
                     </span>
-                    <span className="text-xs text-gray-400">{sla.target}</span>
+                    <span className="text-xs text-gray-600">{sla.target}</span>
                   </div>
                 </div>
 
@@ -383,7 +383,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
                   <span>
                     {sla.dueDate.toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
                     {" · "}
-                    <span className={daysUntil < 0 ? "text-blue-400" : daysUntil < 3 ? "text-amber-400" : "text-gray-400"}>
+                    <span className={daysUntil < 0 ? "text-blue-400" : daysUntil < 3 ? "text-amber-400" : "text-gray-600"}>
                       {daysUntil < 0 ? `${Math.abs(daysUntil)}d overdue` : daysUntil === 0 ? "due today" : `${daysUntil}d left`}
                     </span>
                   </span>
@@ -399,7 +399,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
                 <motion.button
                   whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.95 }}
                   onClick={() => resolve(sla.id)}
-                  className="flex-shrink-0 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition"
+                  className="flex-shrink-0 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-gray-600 hover:text-white hover:bg-white/10 transition"
                 >
                   <CheckCircle2 className="h-3.5 w-3.5" /> Mark Resolved
                 </motion.button>
@@ -436,7 +436,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
                   onClick={() => setShowAdd(false)}
-                  className="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-400 hover:text-white transition"
+                  className="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-600 hover:text-white transition"
                 >
                   <X className="h-4 w-4" />
                 </motion.button>
@@ -446,7 +446,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
               <div className="px-5 py-5 space-y-4">
                 {/* Project selector */}
                 <div>
-                  <label className="block text-xs text-gray-400 mb-1.5">Project <span className="text-amber-400">*</span></label>
+                  <label className="block text-xs text-gray-600 mb-1.5">Project <span className="text-amber-400">*</span></label>
                   <select
                     value={form.projectId}
                     onChange={e => setForm(f => ({ ...f, projectId: e.target.value }))}
@@ -461,7 +461,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
 
                 {/* SLA Type */}
                 <div>
-                  <label className="block text-xs text-gray-400 mb-1.5">SLA Type <span className="text-amber-400">*</span></label>
+                  <label className="block text-xs text-gray-600 mb-1.5">SLA Type <span className="text-amber-400">*</span></label>
                   <select
                     value={form.slaType}
                     onChange={e => setForm(f => ({ ...f, slaType: e.target.value as SLAType }))}
@@ -475,7 +475,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
 
                 {/* Target */}
                 <div>
-                  <label className="block text-xs text-gray-400 mb-1.5">Target / Description <span className="text-amber-400">*</span></label>
+                  <label className="block text-xs text-gray-600 mb-1.5">Target / Description <span className="text-amber-400">*</span></label>
                   <input
                     value={form.target}
                     onChange={e => setForm(f => ({ ...f, target: e.target.value }))}
@@ -486,7 +486,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
 
                 {/* Due Date */}
                 <div>
-                  <label className="block text-xs text-gray-400 mb-1.5">Due Date <span className="text-amber-400">*</span></label>
+                  <label className="block text-xs text-gray-600 mb-1.5">Due Date <span className="text-amber-400">*</span></label>
                   <input
                     type="datetime-local"
                     value={form.dueDate}
@@ -500,7 +500,7 @@ export default function SLATracker({ userId = "demo" }: { userId?: string }) {
                   <button
                     type="button"
                     onClick={() => setShowAdd(false)}
-                    className="text-sm text-gray-400 hover:text-white transition px-3 py-2"
+                    className="text-sm text-gray-600 hover:text-white transition px-3 py-2"
                   >
                     Cancel
                   </button>

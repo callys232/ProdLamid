@@ -26,7 +26,7 @@ function MetricBar({ label, value, color }: { label: string; value: number; colo
   const pct = Math.min(value, 100);
   return (
     <div className="bg-[#1a1a1a] p-4 rounded-lg border border-[#1f1f1f] space-y-2">
-      <div className="flex justify-between text-xs text-gray-400">
+      <div className="flex justify-between text-xs text-gray-600">
         <span>{label}</span>
         <span className="font-semibold text-white">{value}%</span>
       </div>
@@ -149,7 +149,7 @@ export default function AnalyticsAgent() {
                 <AlertTriangle className="h-4 w-4 text-blue-400 flex-shrink-0" />
                 <h4 className="text-xs font-semibold text-blue-300">Bottleneck Detected</h4>
               </div>
-              <p className="text-xs text-gray-400">{data.bottleneck}</p>
+              <p className="text-xs text-gray-600">{data.bottleneck}</p>
               {data.recommendation && (
                 <p className="text-xs text-emerald-400 border-t border-white/8 pt-1.5">{data.recommendation}</p>
               )}

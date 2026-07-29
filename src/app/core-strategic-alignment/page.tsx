@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function CoreStrategicAlignmentPage() {
   const config = MODULE_REGISTRY["C07"] ?? buildFallbackConfig("C07", "LAMID CORE — Consulting Intelligence", "Strategic Alignment Engine");
   return (
-    <DashboardTierGate pillar="Strategic Alignment Engine" backHref="/core-blueprint" backLabel="Blueprint Generator">
+    <DashboardTierGate pillar="Strategic Alignment" backHref="/core-blueprint" backLabel="Blueprint Generator">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

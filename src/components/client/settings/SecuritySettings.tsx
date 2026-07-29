@@ -120,7 +120,7 @@ export default function SecuritySettings({ user }: { user: any }) {
                 twoFA ? "border-emerald-500/30 bg-emerald-500/10" : "border-white/10 bg-white/5"
               }`}
             >
-              <Shield className={`h-5 w-5 ${twoFA ? "text-emerald-400" : "text-gray-400"}`} />
+              <Shield className={`h-5 w-5 ${twoFA ? "text-emerald-400" : "text-gray-600"}`} />
             </motion.div>
             <div>
               <p className="text-sm font-bold text-white">Two-Factor Authentication</p>
@@ -130,7 +130,7 @@ export default function SecuritySettings({ user }: { user: any }) {
           <motion.span layout
             className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${
               twoFA ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
-                    : "border-gray-500/20 bg-white/5 text-gray-400"
+                    : "border-gray-500/20 bg-white/5 text-gray-600"
             }`}
           >
             {twoFA ? <><ShieldCheck className="h-3.5 w-3.5" /> Enabled</>
@@ -193,7 +193,7 @@ export default function SecuritySettings({ user }: { user: any }) {
                 </motion.button>
               </div>
               <button onClick={() => { setShowDis(false); setDisablePw(""); }}
-                className="text-xs text-gray-500 hover:text-gray-300 transition">
+                className="text-xs text-gray-500 hover:text-gray-600 transition">
                 Cancel
               </button>
             </motion.div>
@@ -226,7 +226,7 @@ export default function SecuritySettings({ user }: { user: any }) {
               className="flex items-center gap-3 py-2"
             >
               <Loader2 className="h-4 w-4 animate-spin text-[#2563EB]" />
-              <span className="text-sm text-gray-400">Sending code to your email…</span>
+              <span className="text-sm text-gray-600">Sending code to your email…</span>
             </motion.div>
           )}
 
@@ -262,12 +262,12 @@ export default function SecuritySettings({ user }: { user: any }) {
                 <motion.button
                   whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                   onClick={send2FACode} disabled={faLoading}
-                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs text-gray-400 hover:text-white transition disabled:opacity-50"
+                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs text-gray-600 hover:text-white transition disabled:opacity-50"
                 >
                   Resend
                 </motion.button>
               </div>
-              <button onClick={() => setFaStep("idle")} className="text-xs text-gray-500 hover:text-gray-300 transition">
+              <button onClick={() => setFaStep("idle")} className="text-xs text-gray-500 hover:text-gray-600 transition">
                 Cancel
               </button>
             </motion.div>
@@ -285,7 +285,7 @@ export default function SecuritySettings({ user }: { user: any }) {
       >
         <div className="flex items-center gap-3 mb-6">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-            <Lock className="h-5 w-5 text-gray-400" />
+            <Lock className="h-5 w-5 text-gray-600" />
           </div>
           <div>
             <p className="text-sm font-bold text-white">Change Password</p>
@@ -295,14 +295,14 @@ export default function SecuritySettings({ user }: { user: any }) {
 
         <form onSubmit={handlePasswordSave} className="space-y-4">
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">Current Password</label>
+            <label className="block text-xs text-gray-600 mb-1.5">Current Password</label>
             <input type="password" value={oldPw} onChange={e => setOldPw(e.target.value)} required
               placeholder="Current password"
               className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 transition" />
           </div>
 
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">New Password</label>
+            <label className="block text-xs text-gray-600 mb-1.5">New Password</label>
             <div className="relative">
               <input type={showPw ? "text" : "password"} value={newPw}
                 onChange={e => setNewPw(e.target.value)} required
@@ -331,7 +331,7 @@ export default function SecuritySettings({ user }: { user: any }) {
           </div>
 
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">Confirm New Password</label>
+            <label className="block text-xs text-gray-600 mb-1.5">Confirm New Password</label>
             <input type="password" value={confirmPw}
               onChange={e => setConfirmPw(e.target.value)} required
               placeholder="Repeat new password"

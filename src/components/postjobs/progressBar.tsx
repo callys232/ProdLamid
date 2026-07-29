@@ -29,7 +29,7 @@ export default function ProgressBar({ steps, currentStep }: ProgressBarProps) {
                     "transition-all duration-300 ease-out",
                     isCompleted ? "bg-[#2563EB] text-white shadow-md"                                : "",
                     isActive    ? "bg-[#2563EB] text-white shadow-lg ring-4 ring-blue-100 scale-110" : "",
-                    !isCompleted && !isActive ? "bg-white border-2 border-gray-200 text-gray-400"   : "",
+                    !isCompleted && !isActive ? "bg-white border-2 border-gray-200 text-gray-600"   : "",
                   ].join(" ")}
                 >
                   {isCompleted ? (
@@ -44,7 +44,7 @@ export default function ProgressBar({ steps, currentStep }: ProgressBarProps) {
                 <span
                   className={[
                     "mt-1.5 text-xs font-semibold transition-colors duration-200 whitespace-nowrap",
-                    isActive || isCompleted ? "text-[#2563EB]" : "text-gray-400",
+                    isActive || isCompleted ? "text-[#2563EB]" : "text-gray-600",
                   ].join(" ")}
                 >
                   {step.label}
@@ -68,7 +68,7 @@ export default function ProgressBar({ steps, currentStep }: ProgressBarProps) {
       </div>
 
       <div className="mt-4 flex items-center justify-between">
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-gray-600">
           {currentStep < steps.length - 1
             ? `Next: ${steps[currentStep + 1].label}`
             : "Ready to post"}

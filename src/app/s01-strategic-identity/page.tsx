@@ -6,7 +6,7 @@ import { MODULE_REGISTRY } from "@/lib/intelligence/moduleRegistry";
 export default function S01Page() {
   const config = MODULE_REGISTRY["S01"]!;
   return (
-    <DashboardTierGate pillar="Strategic Identity Statement Engine" backHref="/intelligence-hub" backLabel="Back to Intelligence Hub">
+    <DashboardTierGate pillar="Strategic Identity Statement" backHref="/intelligence-hub" backLabel="Back to Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

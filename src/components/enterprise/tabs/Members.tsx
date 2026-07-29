@@ -19,7 +19,7 @@ interface Props {
 const ROLE_BADGE: Record<string, string> = {
   org_admin:   "border-[#2563EB]/40 bg-[#2563EB]/10 text-[#2563EB]",
   org_manager: "border-blue-500/40 bg-blue-500/10 text-blue-400",
-  org_member:  "border-white/10 bg-white/5 text-gray-400",
+  org_member:  "border-white/10 bg-white/5 text-gray-600",
   org_viewer:  "border-white/10 bg-white/5 text-gray-500",
 };
 
@@ -60,7 +60,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
       joinedAt: m.joinedAt,
       badge: {
         label: ROLE_LABEL[m.role] ?? m.role,
-        color: ROLE_BADGE[m.role] ?? "border-white/10 bg-white/5 text-gray-400",
+        color: ROLE_BADGE[m.role] ?? "border-white/10 bg-white/5 text-gray-600",
       },
     });
   }
@@ -104,7 +104,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
       <div className="rounded-xl border border-white/10 bg-white/5 p-4">
         <div className="mb-2 flex items-center justify-between text-sm">
           <span className="font-medium text-white">Member Capacity</span>
-          <span className="text-gray-400">{memberCount} <span className="text-gray-600">/ {maxMembers}</span></span>
+          <span className="text-gray-600">{memberCount} <span className="text-gray-600">/ {maxMembers}</span></span>
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
           <motion.div
@@ -139,7 +139,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
             <select
               value={role}
               onChange={e => setRole(e.target.value as OrgRole)}
-              className="rounded-lg border border-white/10 bg-black px-3 py-2.5 text-sm text-gray-300 focus:outline-none"
+              className="rounded-lg border border-white/10 bg-black px-3 py-2.5 text-sm text-gray-600 focus:outline-none"
             >
               <option value="org_manager">Manager</option>
               <option value="org_member">Member</option>
@@ -218,7 +218,7 @@ export default function Members({ orgId, orgRole, memberCount, maxMembers, tier 
                         >
                           <button
                             onClick={() => { setMenuOpen(null); toast.success("Promote to manager (backend wired)"); }}
-                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs text-gray-300 transition hover:bg-white/10"
+                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs text-gray-600 transition hover:bg-white/10"
                           >
                             <ShieldCheck className="h-3.5 w-3.5 text-blue-400" /> Make Manager
                           </button>

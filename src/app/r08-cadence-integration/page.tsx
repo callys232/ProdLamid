@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function R08Page() {
   const config = MODULE_REGISTRY["R08"] ?? buildFallbackConfig("R08", "R-Series — Cadence Intelligence", "Cadence Integration Engine");
   return (
-    <DashboardTierGate pillar="Cadence Integration Engine" backHref="/r07-cadence-consistency-check" backLabel="Cadence Consistency Check">
+    <DashboardTierGate pillar="Cadence Integration" backHref="/r07-cadence-consistency-check" backLabel="Cadence Consistency Check">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

@@ -117,7 +117,7 @@ export default function PointsBalance({ compact = false }: Props) {
                   {tx.type === "credit"
                     ? <TrendingUp className="h-3.5 w-3.5 text-green-400" />
                     : <TrendingDown className="h-3.5 w-3.5 text-[#2563EB]" />}
-                  <span className="text-gray-300">{tx.description}</span>
+                  <span className="text-gray-600">{tx.description}</span>
                 </div>
                 <span className={`font-semibold ${tx.type === "credit" ? "text-green-400" : "text-[#2563EB]"}`}>
                   {tx.type === "credit" ? "+" : "-"}{tx.amount}

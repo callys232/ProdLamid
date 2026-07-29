@@ -15,7 +15,7 @@ const STATUS_FILTERS = ["All", "open", "ongoing", "completed"];
 const STATUS_STYLE: Record<string, string> = {
   open:      "border-blue-500/30 bg-blue-500/10 text-blue-400",
   ongoing:   "border-green-500/30 bg-green-500/10 text-green-400",
-  completed: "border-gray-500/30 bg-gray-500/10 text-gray-400",
+  completed: "border-gray-500/30 bg-gray-500/10 text-gray-600",
   cancelled: "border-blue-500/30 bg-blue-500/10 text-blue-400",
 };
 
@@ -85,7 +85,7 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
             className={`flex-shrink-0 rounded-full border px-3 py-1 text-xs font-medium capitalize transition ${
               filter === f
                 ? "border-[#2563EB]/50 bg-[#2563EB]/15 text-[#2563EB]"
-                : "border-white/10 text-gray-400 hover:border-white/20 hover:text-white"
+                : "border-white/10 text-gray-600 hover:border-white/20 hover:text-white"
             }`}
           >
             {f}
@@ -139,7 +139,7 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
             </div>
             <div className="mt-3 flex flex-wrap gap-1">
               {(p.skills ?? []).slice(0, 3).map(s => (
-                <span key={s} className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] text-gray-400">
+                <span key={s} className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] text-gray-600">
                   {s}
                 </span>
               ))}
@@ -151,7 +151,7 @@ export default function Projects({ tier, onOpenMessaging }: Props) {
                 whileHover={{ scale: 1.05, y: -1, boxShadow: "0 4px 14px rgba(0,0,0,0.3)" }} whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.15 }}
                 onClick={onOpenMessaging}
-                className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-gray-400 transition hover:text-white hover:bg-white/10"
+                className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-gray-600 transition hover:text-white hover:bg-white/10"
               >
                 <MessageSquare className="h-3 w-3" /> Messages
               </motion.button>

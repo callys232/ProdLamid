@@ -123,7 +123,7 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
         {recipients.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {recipients.map((r, i) => (
-              <span key={i} className="flex items-center gap-1 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 px-2 py-0.5 text-[10px] text-gray-300">
+              <span key={i} className="flex items-center gap-1 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 px-2 py-0.5 text-[10px] text-gray-600">
                 <Mail className="h-2.5 w-2.5 text-[#2563EB]" /> {r}
                 <button onClick={() => setRecipients(p => p.filter((_, idx) => idx !== i))} className="text-gray-600 hover:text-blue-400 ml-0.5">×</button>
               </span>
@@ -135,7 +135,7 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
         {(subject || content) && (
           <div className="rounded-lg bg-[#0f0f0f] border border-[#333] hover:border-[#2563EB]/40 transition-colors p-3">
             <p className="text-xs font-semibold text-[#2563EB]">{subject || "Draft Subject"}</p>
-            <p className="text-xs text-gray-400 mt-1">{content || "Draft content goes here..."}</p>
+            <p className="text-xs text-gray-600 mt-1">{content || "Draft content goes here..."}</p>
             <p className="text-[10px] text-gray-600 mt-1.5">Recipients: {recipients.length}</p>
           </div>
         )}
@@ -148,7 +148,7 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
           <p className="text-xs font-semibold text-white">Keyword Tracking</p>
         </div>
         {data?.keywords.map((k, i) => (
-          <div key={i} className="flex items-center justify-between text-xs text-gray-300 bg-[#0f0f0f] rounded-lg px-3 py-2 border border-[#333]">
+          <div key={i} className="flex items-center justify-between text-xs text-gray-600 bg-[#0f0f0f] rounded-lg px-3 py-2 border border-[#333]">
             <span className="flex items-center gap-1.5"><Search className="h-3 w-3 text-blue-400" />{k}</span>
             <button onClick={() => setData(d => d ? { ...d, keywords: d.keywords.filter((_, idx) => idx !== i) } : d)}
               className="text-gray-600 hover:text-blue-400 transition-colors text-xs">×</button>
@@ -174,12 +174,12 @@ export default function OutreachSEOAgent({ projectId, isAdmin = false }: Props) 
           {saved ? "Saved!" : "Save Campaign"}
         </motion.button>
         <a href="/contact-sales"
-          className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-300 hover:bg-white/10 transition-colors">
+          className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-600 hover:bg-white/10 transition-colors">
           Manage Lists
         </a>
         <button type="button"
           onClick={() => { const el = document.getElementById("outreach-keyword-input"); el?.focus(); el?.scrollIntoView({ behavior: "smooth" }); }}
-          className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-300 hover:bg-white/10 transition-colors">
+          className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-600 hover:bg-white/10 transition-colors">
           Adjust Keywords
         </button>
       </div>

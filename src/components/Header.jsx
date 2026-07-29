@@ -1,10 +1,53 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import EcosystemTree from "./EcosystemTree";
 
+/* Two rotating leads. Slide one states the positioning; slide two states the
+   scale. The Clarity line, divider and CTAs stay fixed beneath both. */
+const SLIDES = [
+  {
+    id: "positioning",
+    h1: (
+      <>
+        <span className="lamidone-gradient-text">Human Insight + AI Precision</span>
+        <br />
+        <span className="text-gray-900 dark:text-white">
+          in One Ecosystem for Enterprise Growth.
+        </span>
+      </>
+    ),
+    sub: "Your strategy, growth, people, and finance — unified under one intelligent layer, so every part of your organization moves in the same direction at the same time.",
+  },
+  {
+    id: "scale",
+    h1: (
+      <>
+        <span className="text-gray-900 dark:text-white">One Ecosystem. </span>
+        <span className="lamidone-gradient-text">Four Suites.</span>
+        <br />
+        <span className="text-gray-900 dark:text-white">Endless Possibilities.</span>
+      </>
+    ),
+    sub: "Every suite explained. Every tool free to try. Every number computed from yours.",
+  },
+];
+
 export default function Header() {
+  const [slide, setSlide] = useState(0);
+  const reduceMotion = useReducedMotion();
+
+  /* Auto-advance. Under reduced motion the hero simply holds slide one. */
+  useEffect(() => {
+    if (reduceMotion) return;
+    const t = setInterval(() => setSlide((s) => (s + 1) % SLIDES.length), 8000);
+    return () => clearInterval(t);
+  }, [reduceMotion]);
+
+  const active = SLIDES[slide];
+
   return (
     <header
       className="relative w-full overflow-hidden min-h-[80vh] flex flex-col items-center justify-center px-4 text-center"
@@ -44,28 +87,38 @@ export default function Header() {
           </span>
         </motion.div>
 
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.68, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-2xl sm:text-3xl md:text-5xl font-bold leading-[1.18] tracking-[-0.02em]"
-          style={{
-            fontFamily: "var(--font-space-grotesk)",
-            wordSpacing: "0.06em",
-          }}
-        >
-          <span className="text-gray-900 dark:text-white">The </span>
-          <span className="lamidone-gradient-text">HumanAI</span>
-          <span className="text-gray-900 dark:text-white">
-            {" "}
-            Operating System
-          </span>
-          <br />
-          <span className="text-gray-900 dark:text-white">
-            for Enterprise Growth.
-          </span>
-        </motion.h1>
+        {/* Rotating lead: headline + its subline swap together. A minimum
+            height keeps the CTAs from jumping when the copy length changes. */}
+        <div className="min-h-[13rem] sm:min-h-[12.5rem] md:min-h-[15rem] flex flex-col items-center justify-center gap-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active.id}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col items-center gap-6"
+            >
+              <h1
+                className="text-2xl sm:text-3xl md:text-5xl font-bold leading-[1.18] tracking-[-0.02em]"
+                style={{
+                  fontFamily: "var(--font-space-grotesk)",
+                  wordSpacing: "0.06em",
+                }}
+              >
+                {active.h1}
+              </h1>
+
+              {/* The unifying promise, above the Clarity line */}
+              <p
+                className="text-gray-600 dark:text-white/75 text-sm sm:text-base max-w-[38rem] leading-[1.75]"
+                style={{ fontFamily: "var(--font-space-grotesk)" }}
+              >
+                {active.sub}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
         {/* Accent divider */}
         <motion.div
@@ -124,13 +177,13 @@ export default function Header() {
           transition={{ delay: 1.3, duration: 0.5 }}
           className="flex flex-col items-center gap-2 mt-3"
         >
-          <span className="text-[10px] tracking-[0.28em] uppercase text-gray-400 dark:text-white/22">
+          <span className="text-[10px] tracking-[0.28em] uppercase text-gray-600 dark:text-white/55">
             Scroll to explore
           </span>
           <motion.span
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.7, repeat: Infinity, ease: "easeInOut" }}
-            className="text-gray-400 dark:text-white/28 text-sm"
+            className="text-gray-600 dark:text-white/55 text-sm"
           >
             ↓
           </motion.span>

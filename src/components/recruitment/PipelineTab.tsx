@@ -56,7 +56,7 @@ export default function PipelineTab() {
           <Lock className="w-6 h-6 text-orange-400" />
         </div>
         <h3 className="text-base font-bold text-white">Enterprise Feature</h3>
-        <p className="text-sm text-gray-400 max-w-sm">
+        <p className="text-sm text-gray-600 max-w-sm">
           The recruitment pipeline is available to Enterprise, Concierge, and Admin accounts.
           Upgrade to manage candidates through every hiring stage.
         </p>
@@ -85,7 +85,7 @@ export default function PipelineTab() {
         <div className="flex flex-wrap gap-3">
           {COLUMNS.map(({ key, label }) => (
             <div key={key} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
-              <span className="text-[10px] text-gray-400 uppercase tracking-wide">{label}</span>
+              <span className="text-[10px] text-gray-600 uppercase tracking-wide">{label}</span>
               <span className="text-sm font-bold text-white">{pipeline.counts[key] ?? 0}</span>
             </div>
           ))}

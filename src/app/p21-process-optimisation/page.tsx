@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function P21Page() {
   const config = MODULE_REGISTRY["P21"] ?? buildFallbackConfig("P21", "P-Series — Enterprise Productivity", "Process Optimisation Engine");
   return (
-    <DashboardTierGate pillar="Process Optimisation Engine" backHref="/p20-capability-engine" backLabel="Capability Engine">
+    <DashboardTierGate pillar="Process Optimisation" backHref="/p20-capability-engine" backLabel="Capability Engine">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

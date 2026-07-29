@@ -79,7 +79,7 @@ const Testimonial: React.FC = () => {
                   <p className="text-sm text-gray-600 dark:text-white/65 leading-relaxed italic flex-1">{q.text}</p>
                   <div className="pt-3 border-t border-gray-100 dark:border-white/6">
                     <p className="text-xs font-semibold text-gray-900 dark:text-white">{q.role}</p>
-                    <p className="text-[11px] text-gray-400 dark:text-white/30">{q.org}</p>
+                    <p className="text-[11px] text-gray-600 dark:text-white/55">{q.org}</p>
                   </div>
                 </motion.div>
               ))}

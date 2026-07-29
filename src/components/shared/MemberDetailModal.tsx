@@ -40,7 +40,7 @@ const M_CFG: Record<string, { card: string; badge: string; dot: string; bar: str
   in_progress: { card: "border-yellow-500/30 bg-yellow-500/8", badge: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10", dot: "bg-yellow-400", bar: "bg-yellow-500", pct: "text-yellow-400" },
   disputed:    { card: "border-blue-500/40    bg-blue-500/10",   badge: "text-blue-400    border-blue-500/30    bg-blue-500/10",    dot: "bg-blue-400",    bar: "bg-blue-500",    pct: "text-blue-400"    },
   funded:      { card: "border-purple-500/30 bg-purple-500/8", badge: "text-purple-400 border-purple-500/30 bg-purple-500/10", dot: "bg-purple-400", bar: "bg-purple-500", pct: "text-purple-400" },
-  pending:     { card: "border-white/10      bg-white/5",       badge: "text-gray-400   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",   bar: "bg-gray-600",   pct: "text-gray-400"   },
+  pending:     { card: "border-white/10      bg-white/5",       badge: "text-gray-600   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",   bar: "bg-gray-600",   pct: "text-gray-600"   },
   cancelled:   { card: "border-white/8       bg-white/3",       badge: "text-gray-500   border-gray-600/20   bg-gray-600/10",   dot: "bg-gray-600",   bar: "bg-gray-700",   pct: "text-gray-500"   },
 };
 
@@ -133,7 +133,7 @@ function ProjectCardHeader({ p, pct, completedMs, milestones, hasDispute, accent
             <span>{completedMs}/{milestones.length} milestones</span>
           </div>
         </div>
-        <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 text-gray-600 transition-colors group-hover:text-gray-300 mt-1" />
+        <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 text-gray-600 transition-colors group-hover:text-gray-600 mt-1" />
       </div>
       {/* Progress bar */}
       <div className="px-4 pb-3 transition-colors group-hover:bg-white/5">
@@ -246,13 +246,13 @@ export default function MemberDetailModal({ member, onClose, accent = "#2563EB" 
                   <div className="flex items-center gap-2 flex-wrap">
                     <h2 className="text-lg font-bold text-white">{member.name}</h2>
                     {member.status && (
-                      <span className="flex items-center gap-1.5 text-[10px] text-gray-400">
+                      <span className="flex items-center gap-1.5 text-[10px] text-gray-600">
                         <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[member.status] ?? "bg-gray-500"}`} />
                         <span className="capitalize">{member.status}</span>
                       </span>
                     )}
                   </div>
-                  <p className="flex items-center gap-1.5 text-sm text-gray-400 mt-0.5">
+                  <p className="flex items-center gap-1.5 text-sm text-gray-600 mt-0.5">
                     <Mail className="h-3.5 w-3.5" /> {member.email}
                   </p>
                   <div className="flex items-center gap-2 mt-1.5 flex-wrap">
@@ -277,7 +277,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#2563EB" 
                 whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
                 transition={{ duration: 0.15 }}
                 onClick={onClose}
-                className="flex-shrink-0 rounded-xl border border-white/10 bg-white/5 p-2 text-gray-400 transition hover:bg-white/10 hover:text-white"
+                className="flex-shrink-0 rounded-xl border border-white/10 bg-white/5 p-2 text-gray-600 transition hover:bg-white/10 hover:text-white"
               >
                 <X className="h-4 w-4" />
               </motion.button>
@@ -331,7 +331,7 @@ export default function MemberDetailModal({ member, onClose, accent = "#2563EB" 
                   <p className="text-[11px] uppercase tracking-widest text-gray-500 mb-2">Skills</p>
                   <div className="flex flex-wrap gap-1.5">
                     {member.skills.map(s => (
-                      <span key={s} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] text-gray-300">
+                      <span key={s} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] text-gray-600">
                         {s}
                       </span>
                     ))}

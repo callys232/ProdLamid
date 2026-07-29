@@ -69,7 +69,7 @@ function urgencyCls(u: string) {
   switch (u) {
     case "high":   return "bg-blue-500/15 text-blue-400 border-blue-500/30";
     case "medium": return "bg-amber-500/15 text-amber-400 border-amber-500/30";
-    default:       return "bg-gray-500/15 text-gray-400 border-gray-500/30";
+    default:       return "bg-gray-500/15 text-gray-600 border-gray-500/30";
   }
 }
 
@@ -127,7 +127,7 @@ function Section({ icon: Icon, title, color = "text-[#2563EB]", badge, children 
           )}
         </span>
         <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronDown className="h-4 w-4 text-gray-400 dark:text-gray-600" />
+          <ChevronDown className="h-4 w-4 text-gray-600 dark:text-gray-600" />
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
@@ -444,7 +444,7 @@ export default function BusinessDiagnostic() {
                 <Activity className="h-7 w-7 text-gray-600" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-gray-400">Your diagnostic report will appear here</p>
+                <p className="text-sm font-semibold text-gray-600">Your diagnostic report will appear here</p>
                 <p className="text-xs text-gray-600 mt-1">Claude will score 7 business dimensions and build an action plan</p>
               </div>
             </div>
@@ -459,7 +459,7 @@ export default function BusinessDiagnostic() {
                 <Activity className="absolute inset-0 m-auto w-5 h-5 text-[#2563EB]" />
               </div>
               <div className="text-center">
-                <p className="text-sm font-semibold text-gray-300">Analysing your business…</p>
+                <p className="text-sm font-semibold text-gray-600">Analysing your business…</p>
                 <p className="text-xs text-gray-600 mt-1">Scoring 7 dimensions · Building action plan</p>
               </div>
             </div>
@@ -483,7 +483,7 @@ export default function BusinessDiagnostic() {
                   </div>
                   {!authLoading && isAuthenticated ? (
                     <button type="button" onClick={copyAll}
-                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-white/15 text-gray-300 hover:border-white/40 hover:text-white transition">
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-white/15 text-gray-600 hover:border-white/40 hover:text-white transition">
                       {copied ? <><CheckCheck className="h-3.5 w-3.5 text-emerald-400" />Copied!</> : <><Copy className="h-3.5 w-3.5" />Copy report</>}
                     </button>
                   ) : (
@@ -520,7 +520,7 @@ export default function BusinessDiagnostic() {
 
                 {/* ── Executive Summary ── */}
                 <Section icon={BarChart3} title="Executive Summary">
-                  <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line text-justify">
+                  <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line text-justify">
                     {report.executiveSummary}
                   </p>
                 </Section>
@@ -550,7 +550,7 @@ export default function BusinessDiagnostic() {
                             </div>
                             <span className={`text-xs font-bold shrink-0 ${c.text}`}>{d.score}</span>
                           </div>
-                          <p className="text-[11px] text-gray-400 leading-relaxed">{d.insight}</p>
+                          <p className="text-[11px] text-gray-600 leading-relaxed">{d.insight}</p>
                           {d.quickWins?.length > 0 && (
                             <div className="flex flex-col gap-1 pt-1.5 border-t border-white/[0.05]">
                               {d.quickWins.map((w, i) => (
@@ -570,7 +570,7 @@ export default function BusinessDiagnostic() {
                 <Section icon={CheckCircle2} title="Business Strengths" color="text-emerald-400">
                   <ul className="space-y-1.5">
                     {report.strengths.map((s, i) => (
-                      <li key={i} className="text-xs text-gray-300 flex gap-2 leading-relaxed">
+                      <li key={i} className="text-xs text-gray-600 flex gap-2 leading-relaxed">
                         <span className="text-emerald-400 shrink-0 mt-0.5">✓</span>{s}
                       </li>
                     ))}
@@ -588,7 +588,7 @@ export default function BusinessDiagnostic() {
                             {g.urgency}
                           </span>
                         </div>
-                        <p className="text-[11px] text-gray-400 leading-relaxed">{g.impact}</p>
+                        <p className="text-[11px] text-gray-600 leading-relaxed">{g.impact}</p>
                       </div>
                     ))}
                   </div>
@@ -607,7 +607,7 @@ export default function BusinessDiagnostic() {
                             {r.timeframe}
                           </span>
                         </div>
-                        <p className="text-[11px] text-gray-400 leading-relaxed mb-2">{r.description}</p>
+                        <p className="text-[11px] text-gray-600 leading-relaxed mb-2">{r.description}</p>
                         <div className="flex gap-2 flex-wrap">
                           <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${levelCls(r.effort)}`}>
                             Effort: {r.effort}
@@ -633,7 +633,7 @@ export default function BusinessDiagnostic() {
                         <p className={`text-[10px] font-black uppercase tracking-wider ${color} mb-2`}>{label}</p>
                         <ul className="space-y-1.5">
                           {report.actionPlan[key].map((a, i) => (
-                            <li key={i} className="text-[10px] text-gray-400 flex gap-1.5 leading-relaxed">
+                            <li key={i} className="text-[10px] text-gray-600 flex gap-1.5 leading-relaxed">
                               <ArrowRight className={`w-3 h-3 ${color} shrink-0 mt-0.5`} />{a}
                             </li>
                           ))}
@@ -653,7 +653,7 @@ export default function BusinessDiagnostic() {
                         </span>
                         <div>
                           <p className="text-xs font-semibold text-white mb-0.5">{s.name}</p>
-                          <p className="text-[11px] text-gray-400 leading-relaxed">{s.reason}</p>
+                          <p className="text-[11px] text-gray-600 leading-relaxed">{s.reason}</p>
                         </div>
                       </div>
                     ))}
@@ -667,7 +667,7 @@ export default function BusinessDiagnostic() {
                       <TrendingUp className="w-4 h-4 text-blue-400" />
                       <p className="text-[10px] font-black uppercase tracking-widest text-blue-400">Market Benchmark</p>
                     </div>
-                    <p className="text-xs text-gray-300 leading-relaxed">{report.benchmarkInsight}</p>
+                    <p className="text-xs text-gray-600 leading-relaxed">{report.benchmarkInsight}</p>
                   </div>
                 )}
 
@@ -688,7 +688,7 @@ export default function BusinessDiagnostic() {
                   >
                     <p className="text-[10px] font-black uppercase tracking-widest lamidone-gradient-text mb-2">Save your results</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to save, share, and act on this report.</h3>
-                    <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+                    <p className="text-xs text-gray-600 mb-4 leading-relaxed">
                       Sign up to copy your full report, track your progress over time, and connect with the right consultants to close your gaps.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">

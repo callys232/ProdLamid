@@ -144,7 +144,7 @@ function FileShareGateModal({ onClose }: { onClose: () => void }) {
           onClick={onClose}
           aria-label="Close"
           className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/10
-                     flex items-center justify-center text-gray-400
+                     flex items-center justify-center text-gray-600
                      hover:text-white hover:bg-white/20 transition-colors duration-200"
         >
           ✕
@@ -192,10 +192,10 @@ function FileShareGateModal({ onClose }: { onClose: () => void }) {
 
           {/* Description + feature bullets */}
           <div className="h-px bg-white/8 mb-4" />
-          <p className="text-sm text-gray-300 leading-relaxed mb-4">{s.description}</p>
+          <p className="text-sm text-gray-600 leading-relaxed mb-4">{s.description}</p>
           <ul className="space-y-2 mb-6">
             {s.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-2.5 text-sm text-gray-300">
+              <li key={b} className="flex items-start gap-2.5 text-sm text-gray-600">
                 <span className={`mt-0.5 leading-none ${s.modalAccent}`}>✓</span>
                 {b}
               </li>
@@ -216,7 +216,7 @@ function FileShareGateModal({ onClose }: { onClose: () => void }) {
             >
               <div>
                 <p className="text-sm font-bold text-white">Upgrade to Enterprise</p>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-xs text-gray-600 mt-0.5">
                   Full FileShare included — plus all enterprise tools, unlimited users &amp; priority support
                 </p>
               </div>
@@ -231,11 +231,11 @@ function FileShareGateModal({ onClose }: { onClose: () => void }) {
             >
               <div>
                 <p className="text-sm font-bold text-white">Upgrade to Premium</p>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-xs text-gray-600 mt-0.5">
                   Unlock all premium tools — add FileShare as a standalone module to your workspace
                 </p>
               </div>
-              <span className="text-base ml-4 text-gray-400 transition-transform duration-200 group-hover:translate-x-1">→</span>
+              <span className="text-base ml-4 text-gray-600 transition-transform duration-200 group-hover:translate-x-1">→</span>
             </Link>
 
             {/* Add-on */}
@@ -246,11 +246,11 @@ function FileShareGateModal({ onClose }: { onClose: () => void }) {
             >
               <div>
                 <p className="text-sm font-bold text-white">Add FileShare to your plan</p>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-xs text-gray-600 mt-0.5">
                   Keep your current plan — add secure file sharing as a standalone add-on module
                 </p>
               </div>
-              <span className="text-base ml-4 text-gray-400 transition-transform duration-200 group-hover:translate-x-1">→</span>
+              <span className="text-base ml-4 text-gray-600 transition-transform duration-200 group-hover:translate-x-1">→</span>
             </Link>
           </div>
         </div>
@@ -307,7 +307,7 @@ function ServiceModal({ id, onClose }: { id: ServiceId; onClose: () => void }) {
           onClick={onClose}
           aria-label="Close"
           className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/10
-                     flex items-center justify-center text-gray-400
+                     flex items-center justify-center text-gray-600
                      hover:text-white hover:bg-white/20 transition-colors duration-200"
         >
           ✕
@@ -329,11 +329,11 @@ function ServiceModal({ id, onClose }: { id: ServiceId; onClose: () => void }) {
           </div>
 
           <div className="h-px bg-white/8 mb-5" />
-          <p className="text-sm text-gray-300 leading-relaxed mb-5">{s.description}</p>
+          <p className="text-sm text-gray-600 leading-relaxed mb-5">{s.description}</p>
 
           <ul className="space-y-2 mb-6">
             {s.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-2.5 text-sm text-gray-300">
+              <li key={b} className="flex items-start gap-2.5 text-sm text-gray-600">
                 <span className={`mt-0.5 leading-none ${s.modalAccent}`}>✓</span>
                 {b}
               </li>

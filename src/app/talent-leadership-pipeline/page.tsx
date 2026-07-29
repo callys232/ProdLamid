@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function TalentLeadershipPipelinePage() {
   const config = MODULE_REGISTRY["A04"] ?? buildFallbackConfig("A04", "LAMID TALENT — Workforce Intelligence", "Leadership Pipeline Engine");
   return (
-    <DashboardTierGate pillar="Leadership Pipeline Engine" backHref="/talent-workforce-planning" backLabel="Workforce Planning">
+    <DashboardTierGate pillar="Leadership Pipeline" backHref="/talent-workforce-planning" backLabel="Workforce Planning">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

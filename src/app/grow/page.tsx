@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { TrendingUp, Globe, BarChart2, Smartphone } from "lucide-react";
 import { useScrollBackground } from "@/hooks/useScrollBackground";
+import { toolBlurb } from "@/lib/intelligence/toolBlurbs";
 
 const FEATURES = [
   {
@@ -130,7 +131,7 @@ export default function GrowPage() {
           >
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] font-semibold tracking-[0.07em] border border-[#2563EB]/28 bg-[#2563EB]/8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse shrink-0" />
-              <span className="lamidone-gradient-text">Customer & Digital Performance Engine</span>
+              <span className="lamidone-gradient-text">Customer & Digital Performance Suite</span>
             </span>
           </motion.div>
 
@@ -304,24 +305,38 @@ export default function GrowPage() {
             <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-6 text-center">
               All Tools in LAMID GROW
             </p>
-            <div className="flex flex-wrap gap-3 justify-center mb-8">
+            {/* Every tool states what it does — no bare names. The line is the
+                same definition the tool carries on its own page. */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
               {GROW_TOOLS.map((tool) => (
                 <Link key={tool.label} href={tool.href}
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold border border-[#2563EB]/25 bg-[#2563EB]/6 text-gray-700 dark:text-white/70 hover:border-[#2563EB]/55 hover:text-[#2563EB] hover:bg-[#2563EB]/12 transition-all duration-200"
+                  className="group rounded-xl border border-[#2563EB]/20 bg-[#2563EB]/5 p-4 hover:border-[#2563EB]/55 hover:bg-[#2563EB]/10 transition-all duration-200"
                 >
-                  {tool.label} <span className="opacity-60">→</span>
+                  <p className="flex items-center gap-1.5 text-sm font-semibold text-gray-800 dark:text-white/85 group-hover:text-[#2563EB] transition-colors">
+                    {tool.label}
+                    <span className="opacity-60 transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-gray-600 dark:text-white/55 line-clamp-2">
+                    {toolBlurb(tool.href)}
+                  </p>
                 </Link>
               ))}
             </div>
-            <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-4 text-center text-gray-400 dark:text-white/30">
+            <p className="text-[10px] tracking-[0.3em] uppercase font-bold mb-4 text-center text-gray-600 dark:text-white/55">
               Cadence Intelligence Framework
             </p>
-            <div className="flex flex-wrap gap-3 justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {RHYTHM_TOOLS.map((tool) => (
                 <Link key={tool.label} href={tool.href}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[11px] font-medium border border-gray-200 dark:border-white/12 text-gray-500 dark:text-white/50 hover:border-[#2563EB]/40 hover:text-[#2563EB] hover:bg-[#2563EB]/6 transition-all duration-200"
+                  className="group rounded-xl border border-gray-200 dark:border-white/12 p-4 hover:border-[#2563EB]/45 hover:bg-[#2563EB]/6 transition-all duration-200"
                 >
-                  {tool.label} <span className="opacity-50">→</span>
+                  <p className="flex items-center gap-1.5 text-[13px] font-semibold text-gray-700 dark:text-white/70 group-hover:text-[#2563EB] transition-colors">
+                    {tool.label}
+                    <span className="opacity-50 transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-gray-600 dark:text-white/55 line-clamp-2">
+                    {toolBlurb(tool.href)}
+                  </p>
                 </Link>
               ))}
             </div>
@@ -346,7 +361,7 @@ export default function GrowPage() {
             <Link href="/premium/business-diagnostic"
               className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-white text-sm bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors duration-200 shadow-[0_0_24px_rgba(37,99,235,0.45)]"
             >
-              Take your Lamid One Diagnostic
+              Take your LAMID ONE Diagnostic
             </Link>
           </motion.div>
         </div>

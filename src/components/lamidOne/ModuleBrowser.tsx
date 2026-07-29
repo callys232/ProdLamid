@@ -55,7 +55,7 @@ export default function ModuleBrowser() {
 
         {/* Search */}
         <div className="relative mb-4">
-          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500 dark:text-white/40" />
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-600 dark:text-white/55" />
           <input
             type="search"
             value={q}
@@ -66,7 +66,7 @@ export default function ModuleBrowser() {
           />
           {q && (
             <button type="button" onClick={() => setQ("")} aria-label="Clear search"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 transition hover:text-black dark:text-white/40 dark:hover:text-white">
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 transition hover:text-black dark:text-white/55 dark:hover:text-white">
               <X className="h-4 w-4" />
             </button>
           )}
@@ -127,7 +127,7 @@ export default function ModuleBrowser() {
                       Data input
                     </span>
                   )}
-                  <ArrowUpRight className="ml-auto h-3.5 w-3.5 shrink-0 text-gray-400 opacity-0 transition group-hover:opacity-100 dark:text-white/30" />
+                  <ArrowUpRight className="ml-auto h-3.5 w-3.5 shrink-0 text-gray-400 opacity-0 transition group-hover:opacity-100 dark:text-white/55" />
                 </div>
                 <p className="mb-1 text-sm font-semibold leading-snug text-black group-hover:text-[#2563EB] dark:text-white">
                   {m.name}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useOrganizationProfile, useProfileSeed } from "@/hooks/useOrganizationProfile";
 import { motion } from "framer-motion";
 import { Loader2, TrendingUp, TrendingDown, Minus, Activity } from "lucide-react";
 import type { TimeSeriesInputSpec, SeriesStats, SeriesTrend } from "@/lib/intelligence/inputSpec";
@@ -59,24 +60,47 @@ function Spark({ values, color }: { values: number[]; color: string }) {
   );
 }
 
+/** Figures carried over from a previous run, so next quarter starts from last. */
+export interface TimeSeriesSeed {
+  goal?:    string;
+  periods?: number;
+  data?:    Record<string, number[]>;
+  targets?: Record<string, number | null>;
+}
+
 export default function TimeSeriesIntake({
-  spec, engineName, onSubmit, loading,
+  spec, engineName, onSubmit, loading, initial,
 }: {
   spec:       TimeSeriesInputSpec;
   engineName: string;
-  onSubmit:   (payload: { context: Record<string, string>; stats: SeriesStats[] }) => void;
+  onSubmit:   (payload: {
+    context: Record<string, string>;
+    stats:   SeriesStats[];
+    /** Echoed back so the run can be repeated with these figures. */
+    seed:    TimeSeriesSeed;
+  }) => void;
   loading:    boolean;
+  initial?:   TimeSeriesSeed;
 }) {
   const [orgName, setOrgName] = useState("");
   const [industry, setIndustry] = useState("");
-  const [goal, setGoal] = useState("");
-  const [periods, setPeriods] = useState(spec.periods);
+  const [goal, setGoal] = useState(initial?.goal ?? "");
 
-  // Seed from sample values so the grid is never blank on first load.
+  const { profile, ready, update: saveOrg } = useOrganizationProfile();
+  useProfileSeed(ready, profile, (p) => {
+    if (p.organisationName) setOrgName(p.organisationName);
+    if (p.industry)         setIndustry(p.industry);
+  });
+  const [periods, setPeriods] = useState(initial?.periods ?? spec.periods);
+
+  /* Seed from a previous run when repeating, otherwise from sample values so
+     the grid is never blank on first load. */
   const [data, setData] = useState<Record<string, number[]>>(() => {
+    const len = initial?.periods ?? spec.periods;
     const init: Record<string, number[]> = {};
     for (const m of spec.metrics) {
-      init[m.key] = Array.from({ length: spec.periods }, (_, i) => m.sample?.[i] ?? 0);
+      const prev = initial?.data?.[m.key];
+      init[m.key] = Array.from({ length: len }, (_, i) => prev?.[i] ?? m.sample?.[i] ?? 0);
     }
     return init;
   });
@@ -85,7 +109,7 @@ export default function TimeSeriesIntake({
      with nothing to measure against can be described but not judged. */
   const [targets, setTargets] = useState<Record<string, number | null>>(() => {
     const init: Record<string, number | null> = {};
-    for (const m of spec.metrics) init[m.key] = m.target ?? null;
+    for (const m of spec.metrics) init[m.key] = initial?.targets?.[m.key] ?? m.target ?? null;
     return init;
   });
 
@@ -193,7 +217,7 @@ export default function TimeSeriesIntake({
                 <tr key={m.key} className="border-b border-gray-100 dark:border-white/8 last:border-0">
                   <td className="px-4 py-2.5">
                     <p className="font-medium text-black dark:text-white">{m.label}</p>
-                    {m.hint && <p className="text-[10px] text-gray-600 dark:text-white/40">{m.hint}</p>}
+                    {m.hint && <p className="text-[10px] text-gray-600 dark:text-white/55">{m.hint}</p>}
                   </td>
                   {Array.from({ length: periods }, (_, i) => (
                     <td key={i} className="px-1.5 py-2">
@@ -234,13 +258,13 @@ export default function TimeSeriesIntake({
                 </span>
               </p>
               <Spark values={s.values} color={colour} />
-              <p className="mt-1 text-[10px] text-gray-600 dark:text-white/40 tabular-nums">
+              <p className="mt-1 text-[10px] text-gray-600 dark:text-white/55 tabular-nums">
                 range {s.min}–{s.max}{s.unit} · mean {s.mean}{s.unit}
               </p>
 
               {/* Target — editable, and the only thing that turns a trend into a verdict */}
               <label className="mt-2 flex items-center gap-1.5 border-t border-gray-100 pt-2 dark:border-white/8">
-                <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-600 dark:text-white/40">
+                <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-600 dark:text-white/55">
                   Target
                 </span>
                 <input
@@ -275,7 +299,8 @@ export default function TimeSeriesIntake({
       <button
         type="button"
         disabled={!canSubmit}
-        onClick={() =>
+        onClick={() => {
+          saveOrg({ organisationName: orgName, industry });
           onSubmit({
             context: {
               organisationName: orgName,
@@ -284,8 +309,9 @@ export default function TimeSeriesIntake({
               challenge: goal || `Understand ${engineName.toLowerCase()} patterns`,
             },
             stats,
-          })
-        }
+            seed: { goal, periods, data, targets },
+          });
+        }}
         className="w-full rounded-2xl py-3.5 text-sm font-extrabold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
         style={{ background: ACCENT }}
       >

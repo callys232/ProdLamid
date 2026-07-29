@@ -13,7 +13,7 @@ export default function ProjectList({
   allConsultants = [],
 }: ProjectListProps) {
   if (!projects.length)
-    return <p className="text-gray-400 text-sm p-4">No projects available.</p>;
+    return <p className="text-gray-600 text-sm p-4">No projects available.</p>;
 
   const getFreelancerNames = (project: Project) => {
     if (!project.consultants?.length) return "No freelancers assigned";

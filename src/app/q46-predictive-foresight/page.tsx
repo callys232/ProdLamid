@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Q46Page() {
   const config = MODULE_REGISTRY["Q46"] ?? buildFallbackConfig("Q46", "Q-Series — Decision Intelligence", "Predictive Foresight Engine");
   return (
-    <DashboardTierGate pillar="Predictive Foresight Engine" backHref="/intelligence-hub" backLabel="Intelligence Hub">
+    <DashboardTierGate pillar="Predictive Foresight" backHref="/intelligence-hub" backLabel="Intelligence Hub">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

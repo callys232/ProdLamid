@@ -64,7 +64,7 @@ export default function ReviewSection() {
         </span>
       ))}
       {Array.from({ length: 5 - count }).map((_, idx) => (
-        <span key={idx} className="text-gray-300">
+        <span key={idx} className="text-gray-600">
           ★
         </span>
       ))}

@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Not recorded for demo accounts." }, { status: 202 });
     }
 
-    const { moduleId, engineName, seriesName, organisationName, href, result } = await req.json();
+    const { moduleId, engineName, seriesName, organisationName, href, result, inputs } = await req.json();
     if (!moduleId || !engineName) {
       return NextResponse.json({ message: "moduleId and engineName are required." }, { status: 400 });
     }
@@ -51,6 +51,9 @@ export async function POST(req: NextRequest) {
       href,
       result: result ?? undefined,
       scores,
+      /* Capped — a stored input blob is a convenience, not a reason to let one
+         run bloat the collection. */
+      inputs: inputs && JSON.stringify(inputs).length < 20_000 ? inputs : undefined,
       runAt: new Date(),
     });
 

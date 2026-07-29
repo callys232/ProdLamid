@@ -121,7 +121,7 @@ export default function BidSection({
             <Star className="h-4 w-4 text-yellow-400" />
             <div>
               <p className="text-sm font-semibold text-white">Boost Bid</p>
-              <p className="text-xs text-gray-400">2× visibility · {BOOST_BID_COST} pts · Premium consultants only</p>
+              <p className="text-xs text-gray-600">2× visibility · {BOOST_BID_COST} pts · Premium consultants only</p>
             </div>
           </div>
 
@@ -147,7 +147,7 @@ export default function BidSection({
       </div>
 
       {!isRegisteredUser && (
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-600">
           Bidding is available to logged-in users.{" "}
           <Link href="/signin" className="text-[#2563EB] hover:underline">Sign in to continue.</Link>
         </p>
@@ -157,7 +157,7 @@ export default function BidSection({
       <div>
         <h3 className="text-sm font-semibold text-white mb-2">Your Bids</h3>
         {bids.length === 0 ? (
-          <p className="text-sm text-gray-400">No bids placed yet.</p>
+          <p className="text-sm text-gray-600">No bids placed yet.</p>
         ) : (
           <ul className="space-y-2">
             {bids.map((bid, i) => (
@@ -167,7 +167,7 @@ export default function BidSection({
                   : "border-white/20 bg-white/5 text-gray-200"
               }`}>
                 <span>${bid.amount}{bid.boosted && <span className="ml-2 text-xs text-yellow-400">⚡ Boosted</span>}</span>
-                <span className="text-xs text-gray-400">{bid.date}</span>
+                <span className="text-xs text-gray-600">{bid.date}</span>
               </li>
             ))}
           </ul>

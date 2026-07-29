@@ -51,7 +51,7 @@ export default function GenerateInvoiceButton({ toUserId, toEmail, toName, items
     <motion.button
       whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
       onClick={handleGenerate} disabled={loading}
-      className={`flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium text-gray-300 transition hover:border-white/20 hover:text-white disabled:opacity-50 ${className}`}
+      className={`flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium text-gray-600 transition hover:border-white/20 hover:text-white disabled:opacity-50 ${className}`}
     >
       {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <FileText className="h-3.5 w-3.5" />}
       {loading ? "Generating…" : label}

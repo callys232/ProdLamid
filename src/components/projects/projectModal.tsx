@@ -68,7 +68,7 @@ export default function ProjectModal({
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-300 hover:text-white text-2xl font-bold transition-colors"
+            className="absolute top-4 right-4 text-gray-600 hover:text-white text-2xl font-bold transition-colors"
             aria-label="Close"
           >
             ×
@@ -127,10 +127,10 @@ export default function ProjectModal({
           <h2 className="text-3xl font-bold mb-2 text-white">
             {project.title}
           </h2>
-          <p className="text-sm text-gray-300 mb-1">
+          <p className="text-sm text-gray-600 mb-1">
             {project.organization} {project.location && `— ${project.location}`}
           </p>
-          <p className="text-sm text-gray-400 mb-6">
+          <p className="text-sm text-gray-600 mb-6">
             {project.category} {project.tech && `| ${project.tech}`}
           </p>
 
@@ -139,7 +139,7 @@ export default function ProjectModal({
             {project.budget && (
               <div className="px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-md">
                 <p className="font-semibold text-[#2563EB]">{project.budget}</p>
-                <p className="text-sm text-gray-300">Budget</p>
+                <p className="text-sm text-gray-600">Budget</p>
               </div>
             )}
             {project.hourlyRate && (
@@ -147,7 +147,7 @@ export default function ProjectModal({
                 <p className="font-semibold text-[#2563EB]">
                   {project.hourlyRate}
                 </p>
-                <p className="text-sm text-gray-300">Hourly Rate</p>
+                <p className="text-sm text-gray-600">Hourly Rate</p>
               </div>
             )}
             {project.deadline && (
@@ -155,7 +155,7 @@ export default function ProjectModal({
                 <p className="font-semibold text-[#2563EB]">
                   {project.deadline}
                 </p>
-                <p className="text-sm text-gray-300">Deadline</p>
+                <p className="text-sm text-gray-600">Deadline</p>
               </div>
             )}
             {project.priority && (
@@ -163,7 +163,7 @@ export default function ProjectModal({
                 <p className="font-semibold text-[#2563EB]">
                   {project.priority}
                 </p>
-                <p className="text-sm text-gray-300">Priority</p>
+                <p className="text-sm text-gray-600">Priority</p>
               </div>
             )}
           </div>
@@ -174,14 +174,14 @@ export default function ProjectModal({
               <h3 className="text-lg font-semibold text-white mb-3">
                 Milestones
               </h3>
-              <ul className="list-disc pl-5 text-gray-300 space-y-2">
+              <ul className="list-disc pl-5 text-gray-600 space-y-2">
                 {project.milestones.map((m: Milestone, i: number) => (
                   <li key={m.id || m._id || i}>
                     <span className="font-semibold text-[#2563EB]">
                       {m.title}
                     </span>
                     {m.description && (
-                      <span className="ml-2 text-gray-400">
+                      <span className="ml-2 text-gray-600">
                         — {m.description}
                       </span>
                     )}
@@ -217,7 +217,7 @@ export default function ProjectModal({
                       className="px-3 py-2 bg-white/10 backdrop-blur-sm border border-[#2563EB] rounded-lg text-sm"
                     >
                       <p className="text-white font-semibold">{c.name}</p>
-                      {c.role && <p className="text-gray-300">{c.role}</p>}
+                      {c.role && <p className="text-gray-600">{c.role}</p>}
                     </div>
                   )
                 )}
@@ -231,7 +231,7 @@ export default function ProjectModal({
               <h3 className="text-lg font-semibold text-white mb-3">
                 Recent Activity
               </h3>
-              <ul className="space-y-3 text-gray-300">
+              <ul className="space-y-3 text-gray-600">
                 {activity.map((log) => (
                   <li
                     key={log.id}
@@ -243,9 +243,9 @@ export default function ProjectModal({
                       </span>{" "}
                       by {log.user}
                     </p>
-                    <p className="text-xs text-gray-400">{log.timestamp}</p>
+                    <p className="text-xs text-gray-600">{log.timestamp}</p>
                     {log.details && (
-                      <p className="text-sm text-gray-400 mt-1">
+                      <p className="text-sm text-gray-600 mt-1">
                         {log.details}
                       </p>
                     )}
@@ -259,13 +259,13 @@ export default function ProjectModal({
           <div className="flex flex-col gap-3 mt-6">
             <div>
               {project.status && (
-                <p className="text-sm text-gray-300">
+                <p className="text-sm text-gray-600">
                   Status: {project.status}
                 </p>
               )}
               {typeof project.milestoneProgress === "number" && (
                 <>
-                  <p className="text-sm text-gray-300">
+                  <p className="text-sm text-gray-600">
                     Progress: {project.milestoneProgress}%
                   </p>
 

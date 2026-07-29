@@ -114,7 +114,7 @@ const ValuesSection: React.FC = () => {
                 Core Values
               </h2>
               <span className="h-8 w-px bg-white/15 shrink-0" />
-              <p className="text-gray-400 text-sm font-light leading-snug flex-1 min-w-0">
+              <p className="text-gray-600 text-sm font-light leading-snug flex-1 min-w-0">
                 Six principles that govern every decision, every product, and every partnership — from concept to delivery. One Ecosystem. Every Layer of Impact.
               </p>
               <span className="h-8 w-px bg-white/10 shrink-0" />
@@ -123,7 +123,7 @@ const ValuesSection: React.FC = () => {
                   initial={{ opacity: 0, scale: 0.88 }} animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.28 + i * 0.07 }}
                   whileHover={{ scale: 1.06, borderColor: "rgba(194,18,25,0.5)" }}
-                  className="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03] text-[10px] font-medium text-gray-400 cursor-default shrink-0"
+                  className="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03] text-[10px] font-medium text-gray-600 cursor-default shrink-0"
                 >{t}</motion.span>
               ))}
             </motion.div>

@@ -51,7 +51,7 @@ export default function GdprSettings() {
     <div className="space-y-6">
       <div>
         <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-1">Data & Privacy</h3>
-        <p className="text-xs text-gray-500 dark:text-white/45">
+        <p className="text-xs text-gray-600 dark:text-white/55">
           Manage your personal data in accordance with GDPR and data protection laws.
         </p>
       </div>
@@ -61,7 +61,7 @@ export default function GdprSettings() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Export your data</p>
-            <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">
+            <p className="text-xs text-gray-600 dark:text-white/55 leading-relaxed">
               Download a copy of all your personal data, projects, messages, and activity on the platform.
             </p>
           </div>
@@ -82,7 +82,7 @@ export default function GdprSettings() {
           <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Request account deletion</p>
-            <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed">
+            <p className="text-xs text-gray-600 dark:text-white/55 leading-relaxed">
               Account deletion is handled by our admin team to ensure compliance and data integrity.
               Submit a request and we will process it within 30 days per GDPR requirements.
             </p>

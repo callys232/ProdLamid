@@ -51,7 +51,7 @@ const Footer = () => {
 
             {/* Taglines */}
             <p className="text-xs lamidone-gradient-text font-semibold">Human Insight. AI Precision. One Ecosystem.</p>
-            <p className="text-xs text-gray-500 dark:text-white/40 leading-relaxed">
+            <p className="text-xs text-gray-600 dark:text-white/55 leading-relaxed">
               The HumanAI Consulting &amp; Growth Ecosystem.
             </p>
 
@@ -70,7 +70,7 @@ const Footer = () => {
           {/* 3 nav columns */}
           {COLUMNS.map((col) => (
             <div key={col.heading}>
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-400 dark:text-white/30 mb-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-600 dark:text-white/55 mb-4">
                 {col.heading}
               </p>
               <ul className="flex flex-col gap-2.5">
@@ -78,7 +78,7 @@ const Footer = () => {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-500 dark:text-white/40 hover:text-[#2563EB] dark:hover:text-[#2563EB] transition-colors duration-200"
+                      className="text-sm text-gray-600 dark:text-white/55 hover:text-[#2563EB] dark:hover:text-[#2563EB] transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -93,7 +93,7 @@ const Footer = () => {
       {/* ── Copyright bar ── */}
       <div className="border-t border-white/6 dark:border-white/6 border-gray-100">
         <div className="max-w-5xl mx-auto px-6 md:px-10 py-4">
-          <p className="text-xs text-gray-400 dark:text-white/25">
+          <p className="text-xs text-gray-600 dark:text-white/55">
             © 2026 LAMID ONE. All rights reserved. | Human Insight. AI Precision. One Ecosystem.
           </p>
         </div>

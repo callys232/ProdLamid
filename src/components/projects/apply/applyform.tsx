@@ -91,7 +91,7 @@ export default function ApplyForm({ project, onSubmit }: ApplyFormProps) {
           aria-label="file"
           type="file"
           onChange={(e) => setCvFile(e.target.files?.[0] || null)}
-          className="flex-1 text-gray-300"
+          className="flex-1 text-gray-600"
         />
       </div>
 

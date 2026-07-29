@@ -162,13 +162,13 @@ export default function PricingPage() {
                 <option key={c.code} value={c.code}>{c.symbol} {c.code} — {c.label}</option>
               ))}
             </select>
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-white/30 pointer-events-none text-xs">▾</span>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-white/55 pointer-events-none text-xs">▾</span>
           </div>
 
           {/* Monthly / Annual toggle */}
           <div className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl lamidone-card border">
             <button type="button" onClick={() => setAnnual(false)}
-              className={`text-sm font-semibold cursor-pointer transition-colors ${!annual ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-white/35"}`}>
+              className={`text-sm font-semibold cursor-pointer transition-colors ${!annual ? "text-gray-900 dark:text-white" : "text-gray-600 dark:text-white/55"}`}>
               Monthly
             </button>
             <button type="button" onClick={() => setAnnual(v => !v)}
@@ -181,7 +181,7 @@ export default function PricingPage() {
               />
             </button>
             <button type="button" onClick={() => setAnnual(true)}
-              className={`text-sm font-semibold cursor-pointer transition-colors flex items-center gap-1.5 ${annual ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-white/35"}`}>
+              className={`text-sm font-semibold cursor-pointer transition-colors flex items-center gap-1.5 ${annual ? "text-gray-900 dark:text-white" : "text-gray-600 dark:text-white/55"}`}>
               Annual
               <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#2563EB]/12 border border-[#2563EB]/25 lamidone-gradient-text">
                 Save {savings}%
@@ -191,7 +191,7 @@ export default function PricingPage() {
         </div>
 
         {rateLoad && (
-          <p className="text-[10px] text-gray-400 dark:text-white/30 mt-2">Loading live exchange rates…</p>
+          <p className="text-[10px] text-gray-600 dark:text-white/55 mt-2">Loading live exchange rates…</p>
         )}
         {!rateLoad && usingFallback && currency !== "USD" && (
           <p className="text-[10px] text-amber-500/80 mt-2">Using estimated rates — live rates unavailable</p>
@@ -216,7 +216,7 @@ export default function PricingPage() {
             {/* Name */}
             <div className="mb-5">
               <h2 className="text-base font-bold text-gray-900 dark:text-white mb-0.5">{plan.name}</h2>
-              <p className="text-xs text-gray-500 dark:text-white/40">{plan.for}</p>
+              <p className="text-xs text-gray-600 dark:text-white/55">{plan.for}</p>
             </div>
 
             {/* Price */}
@@ -227,10 +227,10 @@ export default function PricingPage() {
                     <span className="text-3xl font-extrabold lamidone-gradient-text">
                       {cur.symbol}{convert(annual ? plan.annual! : plan.monthly)}
                     </span>
-                    <span className="text-xs text-gray-400 dark:text-white/30">/month</span>
+                    <span className="text-xs text-gray-600 dark:text-white/55">/month</span>
                   </div>
                   {annual && (
-                    <p className="text-[10px] text-gray-400 dark:text-white/30 mt-0.5">
+                    <p className="text-[10px] text-gray-600 dark:text-white/55 mt-0.5">
                       Billed annually — save {cur.symbol}{convert((plan.monthly - plan.annual!) * 12)}/yr
                     </p>
                   )}
@@ -283,7 +283,7 @@ export default function PricingPage() {
                   {item.q}
                 </span>
                 <motion.span animate={{ rotate: open === i ? 180 : 0 }} transition={{ duration: 0.2 }}
-                  className="text-gray-400 dark:text-white/30 shrink-0 text-sm">
+                  className="text-gray-600 dark:text-white/55 shrink-0 text-sm">
                   ↓
                 </motion.span>
               </button>

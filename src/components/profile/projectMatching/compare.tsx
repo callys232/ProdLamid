@@ -27,7 +27,7 @@ export default function ProjectComparePanel({ selected }: any) {
                         Compare Projects
                     </h3>
 
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-600">
                         Decision Assistant
                     </span>
                 </div>

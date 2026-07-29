@@ -16,7 +16,7 @@ const LEVEL_LABELS = ["", "Beginner", "Basic", "Intermediate", "Advanced", "Expe
 const PRIORITY_COLOR: Record<string, string> = {
   High:   "text-[#2563EB] border-[#2563EB]/30 bg-[#2563EB]/6",
   Medium: "text-amber-500 border-amber-500/30 bg-amber-500/6",
-  Low:    "text-gray-400 dark:text-white/35 border-gray-200 dark:border-white/10 bg-transparent",
+  Low:    "text-gray-600 dark:text-white/55 border-gray-200 dark:border-white/10 bg-transparent",
 };
 
 const fadeUp = (d = 0) => ({
@@ -48,7 +48,7 @@ function SkillRow({ skill, index, onUpdate, onRemove }: {
       >
         {[1,2,3,4,5].map(n => <option key={n} value={n}>{n} – {LEVEL_LABELS[n]}</option>)}
       </select>
-      <ChevronRight className="w-3.5 h-3.5 text-gray-300 dark:text-white/20 shrink-0 hidden sm:block" />
+      <ChevronRight className="w-3.5 h-3.5 text-gray-600 dark:text-white/50 shrink-0 hidden sm:block" />
       <select
         value={skill.targetLevel}
         onChange={e => onUpdate(index, "targetLevel", Number(e.target.value))}
@@ -60,7 +60,7 @@ function SkillRow({ skill, index, onUpdate, onRemove }: {
       <button
         type="button"
         onClick={() => onRemove(index)}
-        className="p-1.5 rounded-lg text-gray-400 hover:text-[#2563EB] transition-colors cursor-pointer shrink-0"
+        className="p-1.5 rounded-lg text-gray-600 hover:text-[#2563EB] transition-colors cursor-pointer shrink-0"
       >
         <Trash2 className="w-3.5 h-3.5" />
       </button>
@@ -87,7 +87,7 @@ function ScoreRing({ score }: { score: number }) {
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-3xl font-extrabold lamidone-gradient-text leading-none">{score}</span>
-        <span className="text-[9px] text-gray-400 dark:text-white/35 tracking-wide mt-0.5">/ 100</span>
+        <span className="text-[9px] text-gray-600 dark:text-white/55 tracking-wide mt-0.5">/ 100</span>
       </div>
     </div>
   );
@@ -142,7 +142,7 @@ function CapabilityContent() {
             <Loader2 className="w-6 h-6 text-[#2563EB] animate-spin" strokeWidth={2} />
           </div>
           <p className="text-sm font-semibold text-gray-900 dark:text-white">Running capability diagnostic…</p>
-          <p className="text-xs text-gray-500 dark:text-white/40">Analysing skill gaps and building your development plan</p>
+          <p className="text-xs text-gray-600 dark:text-white/55">Analysing skill gaps and building your development plan</p>
         </motion.div>
       </main>
     );
@@ -156,17 +156,17 @@ function CapabilityContent() {
           <motion.div {...fadeUp(0)} className="mb-10">
             <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · Capability Diagnostics</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Your Diagnostic Report</h1>
-            <p className="text-sm text-gray-500 dark:text-white/45">{result.executiveSummary}</p>
+            <p className="text-sm text-gray-600 dark:text-white/55">{result.executiveSummary}</p>
           </motion.div>
 
           {/* Score + readiness */}
           <motion.div {...fadeUp(0.05)} className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
             <div className="lamidone-card border rounded-2xl p-6 flex flex-col items-center justify-center gap-3">
               <ScoreRing score={result.overallScore ?? 0} />
-              <p className="text-xs text-gray-500 dark:text-white/40">Capability Score</p>
+              <p className="text-xs text-gray-600 dark:text-white/55">Capability Score</p>
             </div>
             <div className="lamidone-card border rounded-2xl p-6 flex flex-col justify-center gap-2">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-white/30">Readiness Level</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-white/55">Readiness Level</p>
               <p className="text-xl font-bold text-gray-900 dark:text-white">{result.readinessLevel}</p>
               {result.strengths?.map((s: string, i: number) => (
                 <div key={i} className="flex items-start gap-2 mt-1">
@@ -176,7 +176,7 @@ function CapabilityContent() {
               ))}
             </div>
             <div className="lamidone-card border rounded-2xl p-6 flex flex-col justify-center gap-2">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-white/30">Well-suited For</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-white/55">Well-suited For</p>
               {result.recommendedRoles?.map((r: string, i: number) => (
                 <p key={i} className="text-sm text-gray-800 dark:text-white/80 leading-snug">→ {r}</p>
               ))}
@@ -186,7 +186,7 @@ function CapabilityContent() {
           {/* Skill scores */}
           {result.skillScores?.length > 0 && (
             <motion.div {...fadeUp(0.1)} className="lamidone-card border rounded-2xl p-6 mb-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Skill Scores</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Skill Scores</p>
               <div className="flex flex-col gap-4">
                 {result.skillScores.map((s: any) => (
                   <div key={s.skill}>
@@ -205,7 +205,7 @@ function CapabilityContent() {
                         transition={{ duration: 0.7, ease: "easeOut" }}
                       />
                     </div>
-                    {s.insight && <p className="text-[11px] text-gray-500 dark:text-white/40 mt-1 leading-snug">{s.insight}</p>}
+                    {s.insight && <p className="text-[11px] text-gray-600 dark:text-white/55 mt-1 leading-snug">{s.insight}</p>}
                   </div>
                 ))}
               </div>
@@ -216,14 +216,14 @@ function CapabilityContent() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {result.topGaps?.length > 0 && (
               <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Priority Gaps</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Priority Gaps</p>
                 <div className="flex flex-col gap-3">
                   {result.topGaps.map((g: any) => (
                     <div key={g.skill} className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0">
                       <AlertCircle className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" strokeWidth={2} />
                       <div>
                         <p className="text-sm font-semibold text-gray-900 dark:text-white">{g.skill}</p>
-                        <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5 leading-snug">{g.insight}</p>
+                        <p className="text-xs text-gray-600 dark:text-white/55 mt-0.5 leading-snug">{g.insight}</p>
                         <p className="text-xs text-[#2563EB] mt-1">→ {g.action}</p>
                       </div>
                     </div>
@@ -233,10 +233,10 @@ function CapabilityContent() {
             )}
 
             <motion.div {...fadeUp(0.2)} className="lamidone-card border rounded-2xl p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Action Plans</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Action Plans</p>
               {result.thirtyDayPlan?.length > 0 && (
                 <div className="mb-4">
-                  <p className="text-[10px] font-semibold text-gray-500 dark:text-white/40 mb-2">30-Day</p>
+                  <p className="text-[10px] font-semibold text-gray-600 dark:text-white/55 mb-2">30-Day</p>
                   <ol className="flex flex-col gap-1.5 list-decimal list-inside">
                     {result.thirtyDayPlan.map((a: string, i: number) => (
                       <li key={i} className="text-xs text-gray-700 dark:text-white/70 leading-snug">{a}</li>
@@ -246,7 +246,7 @@ function CapabilityContent() {
               )}
               {result.ninetyDayPlan?.length > 0 && (
                 <div>
-                  <p className="text-[10px] font-semibold text-gray-500 dark:text-white/40 mb-2">90-Day</p>
+                  <p className="text-[10px] font-semibold text-gray-600 dark:text-white/55 mb-2">90-Day</p>
                   <ol className="flex flex-col gap-1.5 list-decimal list-inside">
                     {result.ninetyDayPlan.map((a: string, i: number) => (
                       <li key={i} className="text-xs text-gray-700 dark:text-white/70 leading-snug">{a}</li>
@@ -268,7 +268,7 @@ function CapabilityContent() {
             <Link href="/talent/mentorship" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors inline-flex items-center gap-1.5">
               Find a Mentor <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
-            <Link href="/talent/lms" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1.5">
+            <Link href="/talent/lms" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-600 dark:text-white/55 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1.5">
               <BookOpen className="w-3.5 h-3.5" /> Learning Platform
             </Link>
           </motion.div>
@@ -284,7 +284,7 @@ function CapabilityContent() {
         <motion.div {...fadeUp(0)} className="mb-10">
           <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT · A1</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Capability Diagnostics Engine</h1>
-          <p className="text-sm text-gray-500 dark:text-white/45 max-w-lg">
+          <p className="text-sm text-gray-600 dark:text-white/55 max-w-lg">
             Map your current skills against your target levels. Our AI identifies gaps and builds you a personalised development plan.
           </p>
         </motion.div>
@@ -337,7 +337,7 @@ function CapabilityContent() {
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="text-xs font-semibold text-gray-600 dark:text-white/60">Skills to Assess *</label>
-              <p className="text-[10px] text-gray-400 dark:text-white/30">Current → Target (1–5)</p>
+              <p className="text-[10px] text-gray-600 dark:text-white/55">Current → Target (1–5)</p>
             </div>
             <div className="flex flex-col gap-2">
               {skills.map((s, i) => (
@@ -376,15 +376,15 @@ function CapabilityContent() {
         </motion.div>
 
         <motion.div {...fadeUp(0.12)} className="mt-6 flex flex-wrap gap-3">
-          <Link href="/talent/mentorship" className="text-xs text-gray-500 dark:text-white/40 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
+          <Link href="/talent/mentorship" className="text-xs text-gray-600 dark:text-white/55 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
             Mentorship Matching <ArrowUpRight className="w-3 h-3" />
           </Link>
-          <span className="text-gray-300 dark:text-white/15">·</span>
-          <Link href="/talent/workforce-analytics" className="text-xs text-gray-500 dark:text-white/40 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
+          <span className="text-gray-600 dark:text-white/50">·</span>
+          <Link href="/talent/workforce-analytics" className="text-xs text-gray-600 dark:text-white/55 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
             Workforce Analytics <ArrowUpRight className="w-3 h-3" />
           </Link>
-          <span className="text-gray-300 dark:text-white/15">·</span>
-          <Link href="/talent/lms" className="text-xs text-gray-500 dark:text-white/40 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
+          <span className="text-gray-600 dark:text-white/50">·</span>
+          <Link href="/talent/lms" className="text-xs text-gray-600 dark:text-white/55 hover:text-[#2563EB] transition-colors inline-flex items-center gap-1">
             Learning Platform <ArrowUpRight className="w-3 h-3" />
           </Link>
         </motion.div>

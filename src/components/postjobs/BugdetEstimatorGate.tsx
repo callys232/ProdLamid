@@ -223,7 +223,7 @@ export default function BudgetEstimatorGate({ project, isPremiumUser = true, onR
             </div>
 
             {aiEstimate.explanation && (
-              <p className="rounded-lg bg-white/5 px-3 py-2 text-xs leading-relaxed text-gray-400 italic">
+              <p className="rounded-lg bg-white/5 px-3 py-2 text-xs leading-relaxed text-gray-600 italic">
                 &ldquo;{aiEstimate.explanation}&rdquo;
               </p>
             )}
@@ -307,7 +307,7 @@ export default function BudgetEstimatorGate({ project, isPremiumUser = true, onR
             <Lock className="mt-0.5 h-4 w-4 flex-shrink-0 text-yellow-500" />
             <div className="min-w-0">
               <p className="text-sm font-semibold text-yellow-400">Unlock Full AI Analysis</p>
-              <p className="mt-0.5 text-xs text-gray-400">
+              <p className="mt-0.5 text-xs text-gray-600">
                 Detailed cost breakdowns, risk analysis, milestone scheduling, and real-time market comps.
               </p>
             </div>

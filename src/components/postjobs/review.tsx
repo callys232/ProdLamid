@@ -12,7 +12,7 @@ function Row({ label, value }: { label: string; value?: string | number }) {
   if (!value && value !== 0) return null;
   return (
     <div className="flex items-start justify-between py-2.5 border-b border-gray-100 last:border-0 gap-4">
-      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide shrink-0 w-28">
+      <span className="text-xs font-semibold text-gray-600 uppercase tracking-wide shrink-0 w-28">
         {label}
       </span>
       <span className="text-sm text-gray-900 text-right break-words">{value}</span>
@@ -23,7 +23,7 @@ function Row({ label, value }: { label: string; value?: string | number }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm transition-shadow duration-200 hover:shadow-md">
-      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{title}</p>
+      <p className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-3">{title}</p>
       {children}
     </div>
   );

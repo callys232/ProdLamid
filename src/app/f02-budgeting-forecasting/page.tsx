@@ -4,7 +4,7 @@ import BudgetEngine from "@/components/lamidOne/BudgetEngine";
 
 export default function F02Page() {
   return (
-    <DashboardTierGate pillar="Budgeting & Forecasting Engine" backHref="/finance-dashboard" backLabel="Finance Dashboard">
+    <DashboardTierGate pillar="Budgeting & Forecasting" backHref="/finance-dashboard" backLabel="Finance Dashboard">
       <BudgetEngine />
     </DashboardTierGate>
   );

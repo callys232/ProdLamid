@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useOrganizationProfile, useProfileSeed } from "@/hooks/useOrganizationProfile";
 import { motion } from "framer-motion";
 import { Loader2, TriangleAlert, ChevronDown, ChevronUp } from "lucide-react";
 import type { FinancialInputs, FinancialSummary, OpexBreakdown } from "@/lib/intelligence/financial";
@@ -30,34 +31,67 @@ const ROWS = [
   { key: "opex"    as const, label: "Operating expenses", hint: "Salaries, rent, tooling, overhead" },
 ];
 
+/** Figures carried over from a previous run of this tool. */
+export interface FinancialSeed {
+  currency?:  string;
+  count?:     number;
+  cash?:      number;
+  headcount?: number;
+  rows?:      Record<string, number[]>;
+  split?:     Record<string, number[]>;
+  showSplit?: boolean;
+}
+
 export default function FinancialIntake({
-  periodLabel = "Month", defaultPeriods = 6, engineName, onSubmit, loading,
+  periodLabel = "Month", defaultPeriods = 6, engineName, onSubmit, loading, initial,
 }: {
   periodLabel?:    string;
   defaultPeriods?: number;
   engineName:      string;
-  onSubmit: (payload: { context: Record<string, string>; summary: FinancialSummary }) => void;
+  onSubmit: (payload: {
+    context: Record<string, string>;
+    summary: FinancialSummary;
+    /** Echoed back so next period starts from this period's figures. */
+    seed:    FinancialSeed;
+  }) => void;
   loading: boolean;
+  initial?: FinancialSeed;
 }) {
   const [orgName, setOrgName]   = useState("");
   const [industry, setIndustry] = useState("");
-  const [currency, setCurrency] = useState("USD");
-  const [count, setCount]       = useState(defaultPeriods);
-  const [cash, setCash]         = useState(0);
-  const [headcount, setHead]    = useState(0);
+  const [currency, setCurrency] = useState(initial?.currency ?? "USD");
+  const [count, setCount]       = useState(initial?.count ?? defaultPeriods);
+  const [cash, setCash]         = useState(initial?.cash ?? 0);
+  const [headcount, setHead]    = useState(initial?.headcount ?? 0);
 
-  const [rows, setRows] = useState<Record<string, number[]>>(() => ({
-    revenue: Array(defaultPeriods).fill(0),
-    cogs:    Array(defaultPeriods).fill(0),
-    opex:    Array(defaultPeriods).fill(0),
-  }));
+  /* Currency and headcount are the same facts every other tool already knows —
+     prefill them rather than asking again. */
+  const { profile, ready, update: saveOrg } = useOrganizationProfile();
+  useProfileSeed(ready, profile, (p) => {
+    if (p.organisationName) setOrgName(p.organisationName);
+    if (p.industry)         setIndustry(p.industry);
+    /* Figures carried from a repeated run are more specific than the profile
+       default, so they win. */
+    if (p.currency  && !initial?.currency)  setCurrency(p.currency);
+    if (p.headcount && !initial?.headcount) setHead(p.headcount);
+  });
+
+  const len = initial?.count ?? defaultPeriods;
+
+  const [rows, setRows] = useState<Record<string, number[]>>(() => {
+    const seeded = (key: string) =>
+      Array.from({ length: len }, (_, i) => initial?.rows?.[key]?.[i] ?? 0);
+    return { revenue: seeded("revenue"), cogs: seeded("cogs"), opex: seeded("opex") };
+  });
 
   /* Optional cost split. Without it the engine can report total operating cost
      and nothing more — you cannot locate waste inside a single number. */
-  const [showSplit, setShowSplit] = useState(false);
+  const [showSplit, setShowSplit] = useState(Boolean(initial?.showSplit));
   const [split, setSplit] = useState<Record<string, number[]>>(() => {
     const init: Record<string, number[]> = {};
-    for (const c of OPEX_CATEGORIES) init[c] = Array(defaultPeriods).fill(0);
+    for (const c of OPEX_CATEGORIES) {
+      init[c] = Array.from({ length: len }, (_, i) => initial?.split?.[c]?.[i] ?? 0);
+    }
     return init;
   });
 
@@ -202,7 +236,7 @@ export default function FinancialIntake({
                 <tr key={row.key} className="border-b border-gray-100 dark:border-white/8 last:border-0">
                   <td className="px-4 py-2.5">
                     <p className="font-medium text-black dark:text-white">{row.label}</p>
-                    <p className="text-[10px] text-gray-600 dark:text-white/40">{row.hint}</p>
+                    <p className="text-[10px] text-gray-600 dark:text-white/55">{row.hint}</p>
                   </td>
                   {Array.from({ length: count }, (_, i) => (
                     <td key={i} className="px-1.5 py-2">
@@ -218,7 +252,7 @@ export default function FinancialIntake({
               <tr className="bg-[#2563EB]/[0.03]">
                 <td className="px-4 py-2.5">
                   <p className="font-semibold" style={{ color: ACCENT }}>Operating profit</p>
-                  <p className="text-[10px] text-gray-600 dark:text-white/40">Calculated</p>
+                  <p className="text-[10px] text-gray-600 dark:text-white/55">Calculated</p>
                 </td>
                 {summary.periodsDerived.map((p) => (
                   <td key={p.index} className="px-2 py-2.5 text-right text-xs font-semibold tabular-nums"
@@ -247,7 +281,7 @@ export default function FinancialIntake({
             <span className="ml-2 rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 dark:bg-white/10 dark:text-white/50">
               optional
             </span>
-            <span className="mt-0.5 block text-[11px] text-gray-600 dark:text-white/45">
+            <span className="mt-0.5 block text-[11px] text-gray-600 dark:text-white/55">
               Required to rank cost lines, measure concentration, and see which costs outgrow revenue.
             </span>
           </span>
@@ -350,7 +384,7 @@ export default function FinancialIntake({
           <div key={k.label} className="rounded-2xl border border-gray-200 dark:border-white/15 bg-white dark:bg-black p-5">
             <p className="mb-1 text-lg font-bold tabular-nums leading-none text-black dark:text-white">{k.value}</p>
             <p className="text-[11px] text-gray-600 dark:text-white/50">{k.label}</p>
-            <p className="mt-0.5 text-[10px] text-gray-600 dark:text-white/40">{k.sub}</p>
+            <p className="mt-0.5 text-[10px] text-gray-600 dark:text-white/55">{k.sub}</p>
           </div>
         ))}
       </div>
@@ -371,15 +405,19 @@ export default function FinancialIntake({
       <button
         type="button"
         disabled={!canSubmit}
-        onClick={() => onSubmit({
-          context: {
-            organisationName: orgName,
-            industry,
-            challenge: `Financial performance across ${count} ${periodLabel.toLowerCase()}s`,
-            goal: "Improve financial position and capital efficiency",
-          },
-          summary,
-        })}
+        onClick={() => {
+          saveOrg({ organisationName: orgName, industry, currency, headcount: headcount || null });
+          onSubmit({
+            context: {
+              organisationName: orgName,
+              industry,
+              challenge: `Financial performance across ${count} ${periodLabel.toLowerCase()}s`,
+              goal: "Improve financial position and capital efficiency",
+            },
+            summary,
+            seed: { currency, count, cash, headcount, rows, split, showSplit },
+          });
+        }}
         className="w-full rounded-2xl py-3.5 text-sm font-extrabold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
         style={{ background: ACCENT }}
       >

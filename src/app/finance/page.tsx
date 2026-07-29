@@ -16,7 +16,7 @@ const PAIN_POINTS = [
   {
     icon: "◈",
     title: "Budgeting and forecasting are guesswork",
-    body: "87% of enterprises report their forecasting accuracy falls below 70%. LAMID FINANCE replaces guesswork with an AI-assisted Budgeting & Forecasting Engine — scenario-ready, cash-flow-aware.",
+    body: "87% of enterprises report their forecasting accuracy falls below 70%. LAMID FINANCE replaces guesswork with an AI-assisted Budgeting & Forecasting tool — scenario-ready, cash-flow-aware.",
   },
   {
     icon: "⬡",
@@ -33,13 +33,13 @@ const PAIN_POINTS = [
 const PILLARS = [
   {
     icon: "⚡",
-    title: "Financial Visibility Engine",
+    title: "Financial Visibility",
     body: "Unified dashboards for revenue, cost, margin, cash flow, financial KPIs, and risk — across your organization and site. The single source of financial truth.",
     href: "/f01-financial-visibility",
   },
   {
     icon: "◈",
-    title: "Budgeting & Forecasting Engine",
+    title: "Budgeting & Forecasting",
     body: "AI-assisted budgeting, forecasting, scenario planning, cost modelling, and cash flow projections. Replace guesswork with intelligence.",
     href: "/f02-budgeting-forecasting",
   },
@@ -57,19 +57,19 @@ const PILLARS = [
   },
   {
     icon: "▣",
-    title: "Enterprise Value Engine",
+    title: "Enterprise Value",
     body: "Tracks valuation drivers, licensing ROI, synergy ROI, engine ROI, and long-term value trajectory — the numbers investors ask for, in one place.",
     href: "/f05-enterprise-value",
   },
   {
     icon: "✦",
-    title: "Financial Governance Engine",
+    title: "Financial Governance",
     body: "Installs financial rituals, controls, reporting cadence, and compliance architecture. Ensures financial discipline becomes cultural — not occasional.",
     href: "/f06-financial-governance",
   },
   {
     icon: "◇",
-    title: "CFO Transformation Engine",
+    title: "CFO Transformation",
     body: "Transforms finance teams, CFO capability, and financial culture. Moves finance from reporting on the business to shaping it.",
     href: "/f07-cfo-transformation",
   },
@@ -96,10 +96,10 @@ const STATS = [
 const STAGES = [
   { num: 1, title: "Financial Discovery",      body: "Map financial visibility, cost structure, forecasting maturity, and CFO capability across the enterprise." },
   { num: 2, title: "Dashboard Installation",   body: "Deploy enterprise and engine dashboards. Create the single source of financial truth." },
-  { num: 3, title: "Forecasting Engine Setup", body: "Implement budgeting templates, forecasting models, and scenario planning tools." },
+  { num: 3, title: "Forecasting Setup", body: "Implement budgeting templates, forecasting models, and scenario planning tools." },
   { num: 4, title: "KPI Integration",          body: "Link operational, digital, and talent KPIs directly to financial outcomes." },
   { num: 5, title: "Cost Optimization",        body: "Identify cost leakage, productivity gaps, and synergy-based savings." },
-  { num: 6, title: "Enterprise Value Engine",  body: "Map valuation drivers, licensing ROI, synergy ROI, and long-term value projections." },
+  { num: 6, title: "Enterprise Value",  body: "Map valuation drivers, licensing ROI, synergy ROI, and long-term value projections." },
   { num: 7, title: "Financial Governance",     body: "Install financial rituals, controls, reporting cadence, and CFO leadership systems." },
 ];
 
@@ -197,10 +197,10 @@ export default function FinancePage() {
       <section data-scroll-section data-bg-from-dark="#3D1070" data-bg-to-dark="#0A041E" data-bg-from-light="#E8D8C0" data-bg-to-light="#FFFFF0" className="py-14 px-4 border-t border-gray-100 dark:border-white/8">
         <div className="max-w-6xl mx-auto">
           <motion.div {...fadeUp(0)} className="text-center mb-10">
-            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">The Financial Management Engine</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">The Financial Management Suite</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
               Seven{" "}
-              <span className="lamidone-gradient-text">Financial Engines</span>
+              <span className="lamidone-gradient-text">Financial Tools</span>
             </h2>
             <p className="text-gray-500 dark:text-white/50 text-sm max-w-xl mx-auto mt-3 leading-relaxed">
               Each component solves a distinct financial problem. Together they give finance full control of the numbers.
@@ -239,7 +239,7 @@ export default function FinancePage() {
                     animate={{ opacity: isHov ? 1 : 0.5, x: isHov ? 3 : 0 }}
                     transition={{ duration: 0.15 }}
                   >
-                    Open Engine →
+                    Open Tool →
                   </motion.span>
                 </motion.div>
               );
@@ -281,7 +281,7 @@ export default function FinancePage() {
                     </motion.div>
                     <p className="text-sm font-semibold text-gray-900 dark:text-white flex-1">{stage.title}</p>
                     <motion.span
-                      className="text-[10px] text-gray-400 dark:text-white/30"
+                      className="text-[10px] text-gray-600 dark:text-white/55"
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.2 }}
                     >▼</motion.span>
@@ -312,7 +312,7 @@ export default function FinancePage() {
       <section data-scroll-section data-bg-from-dark="#1A2880" data-bg-to-dark="#020508" data-bg-from-light="#B0C4FF" data-bg-to-light="#E8EEFF" className="py-14 px-4 border-t border-gray-100 dark:border-white/8">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeUp(0)} className="text-center mb-10">
-            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Four-Engine Synergy</p>
+            <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Four-Suite Synergy</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
               FINANCE integrates with{" "}
               <span className="lamidone-gradient-text">every engine</span>
@@ -330,7 +330,7 @@ export default function FinancePage() {
                   <span className="text-xs font-black text-[#2563EB] bg-[#2563EB]/10 px-2.5 py-1 rounded-full border border-[#2563EB]/20">
                     {row.from}
                   </span>
-                  <span className="text-gray-400 dark:text-white/30 text-xs">→</span>
+                  <span className="text-gray-600 dark:text-white/55 text-xs">→</span>
                   <span className="text-xs font-bold text-gray-500 dark:text-white/50 bg-gray-100 dark:bg-white/8 px-2.5 py-1 rounded-full">
                     {row.arrow}
                   </span>
@@ -360,7 +360,7 @@ export default function FinancePage() {
           <motion.div {...fadeUp(0.15)} className="flex flex-wrap justify-center gap-3">
             <Link href="/premium/business-diagnostic"
               className="px-7 py-3.5 rounded-full text-sm font-extrabold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-[0_0_28px_rgba(37,99,235,0.4)] inline-flex items-center gap-2">
-              Take your Lamid One Diagnostic
+              Take your LAMID ONE Diagnostic
             </Link>
             <Link href="/contact"
               className="px-7 py-3.5 rounded-full text-sm font-semibold border border-[#2563EB]/30 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors">

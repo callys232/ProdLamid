@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function GrowMarketIntelligencePage() {
   const config = MODULE_REGISTRY["G05"] ?? buildFallbackConfig("G05", "LAMID GROW — Growth Intelligence", "Market Intelligence Engine");
   return (
-    <DashboardTierGate pillar="Market Intelligence Engine" backHref="/grow-modernisation" backLabel="Modernisation Readiness">
+    <DashboardTierGate pillar="Market Intelligence" backHref="/grow-modernisation" backLabel="Modernisation Readiness">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

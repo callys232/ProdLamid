@@ -117,7 +117,7 @@ export default function ConciergeReports() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {kpis.map((kpi, i) => {
             const Icon  = KPI_ICONS[kpi.key]   ?? BarChart3;
-            const color = KPI_COLORS[kpi.key]  ?? "text-gray-400";
+            const color = KPI_COLORS[kpi.key]  ?? "text-gray-600";
             return (
               <motion.div
                 key={kpi.key}
@@ -172,7 +172,7 @@ export default function ConciergeReports() {
           initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
           className="rounded-xl border border-dashed border-white/15 bg-white/5 p-5 text-center"
         >
-          <p className="text-sm text-gray-400 mb-3">Need a custom impact or progress report?</p>
+          <p className="text-sm text-gray-600 mb-3">Need a custom impact or progress report?</p>
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: "0 6px 20px rgba(194,18,25,0.35)" }}
             whileTap={{ scale: 0.96 }}
@@ -210,7 +210,7 @@ export default function ConciergeReports() {
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
                   onClick={closeRequest}
-                  className="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-400 hover:text-white transition"
+                  className="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-600 hover:text-white transition"
                 >
                   <X className="h-4 w-4" />
                 </motion.button>
@@ -231,7 +231,7 @@ export default function ConciergeReports() {
                     </motion.div>
                     <div>
                       <p className="text-base font-bold text-white">Request Sent!</p>
-                      <p className="text-sm text-gray-400 mt-1">Your PM will prepare the report and share it within 2–3 business days.</p>
+                      <p className="text-sm text-gray-600 mt-1">Your PM will prepare the report and share it within 2–3 business days.</p>
                     </div>
                     <motion.button
                       whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
@@ -244,7 +244,7 @@ export default function ConciergeReports() {
                 ) : (
                   <form onSubmit={handleRequest} className="space-y-4">
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Report Title / Subject <span className="text-[#2563EB]">*</span></label>
+                      <label className="block text-xs text-gray-600 mb-1.5">Report Title / Subject <span className="text-[#2563EB]">*</span></label>
                       <input
                         required
                         value={reqSubject}
@@ -254,7 +254,7 @@ export default function ConciergeReports() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Details <span className="text-[#2563EB]">*</span></label>
+                      <label className="block text-xs text-gray-600 mb-1.5">Details <span className="text-[#2563EB]">*</span></label>
                       <textarea
                         required
                         rows={4}
@@ -265,7 +265,7 @@ export default function ConciergeReports() {
                       />
                     </div>
                     <div className="flex justify-end gap-3 pt-1">
-                      <button type="button" onClick={closeRequest} className="text-sm text-gray-400 hover:text-white transition px-3 py-2">Cancel</button>
+                      <button type="button" onClick={closeRequest} className="text-sm text-gray-600 hover:text-white transition px-3 py-2">Cancel</button>
                       <motion.button
                         type="submit"
                         disabled={sending || !reqSubject.trim() || !reqMsg.trim()}

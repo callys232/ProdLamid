@@ -55,7 +55,7 @@ function Section({
           )}
         </span>
         <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronDown className="h-4 w-4 text-gray-400 dark:text-gray-600" />
+          <ChevronDown className="h-4 w-4 text-gray-600 dark:text-gray-600" />
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
@@ -227,7 +227,7 @@ export default function ProposalDrafter() {
         {/* ── LEFT: Form ── */}
         <div className="flex flex-col gap-5">
           <div className="rounded-2xl border border-gray-100 dark:border-white/[0.08] bg-gray-50/50 dark:bg-white/[0.03] p-5 flex flex-col gap-4">
-            <h2 className="text-xs font-black uppercase tracking-widest text-gray-400">Engagement Brief</h2>
+            <h2 className="text-xs font-black uppercase tracking-widest text-gray-600">Engagement Brief</h2>
 
             {([
               { label: "Project Title",           key: "projectTitle",  ph: "e.g. HR Transformation Programme",    req: true },
@@ -309,7 +309,7 @@ export default function ProposalDrafter() {
                 <FileText className="h-7 w-7 text-gray-600" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-gray-400">Your proposal will appear here</p>
+                <p className="text-sm font-semibold text-gray-600">Your proposal will appear here</p>
                 <p className="text-xs text-gray-600 mt-1">Claude Sonnet 4.6 will draft all 10 sections</p>
               </div>
             </div>
@@ -323,7 +323,7 @@ export default function ProposalDrafter() {
                 <Sparkles className="absolute inset-0 m-auto w-5 h-5 text-[#2563EB]" />
               </div>
               <div className="text-center">
-                <p className="text-sm font-semibold text-gray-300">Crafting your proposal…</p>
+                <p className="text-sm font-semibold text-gray-600">Crafting your proposal…</p>
                 <p className="text-xs text-gray-600 mt-1">Claude is drafting 10 sections</p>
               </div>
             </div>
@@ -346,7 +346,7 @@ export default function ProposalDrafter() {
                   </div>
                   {!authLoading && isAuthenticated ? (
                     <button type="button" onClick={copyAll}
-                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-white/15 text-gray-300 hover:border-white/40 hover:text-white transition">
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl border border-white/15 text-gray-600 hover:border-white/40 hover:text-white transition">
                       {copied ? <><CheckCheck className="h-3.5 w-3.5 text-emerald-400" />Copied!</> : <><Copy className="h-3.5 w-3.5" />Copy all</>}
                     </button>
                   ) : (
@@ -359,21 +359,21 @@ export default function ProposalDrafter() {
 
                 {/* 1 — Executive Summary */}
                 <Section icon={FileText} title="Executive Summary">
-                  <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line text-justify">
+                  <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line text-justify">
                     {proposal.executiveSummary}
                   </p>
                 </Section>
 
                 {/* 2 — Problem Statement */}
                 <Section icon={Target} title="Problem Statement" color="text-orange-400">
-                  <p className="text-sm text-gray-300 leading-relaxed text-justify">
+                  <p className="text-sm text-gray-600 leading-relaxed text-justify">
                     {proposal.problemStatement}
                   </p>
                 </Section>
 
                 {/* 3 — Proposed Approach */}
                 <Section icon={Layers} title="Proposed Approach" color="text-blue-400">
-                  <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line text-justify">
+                  <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line text-justify">
                     {proposal.proposedApproach}
                   </p>
                 </Section>
@@ -387,7 +387,7 @@ export default function ProposalDrafter() {
                     </div>
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-wider text-blue-400 mb-2">Excluded</p>
-                      <BulletList items={proposal.scope.excluded} dot="✕" dotColor="text-blue-400" color="text-gray-400" />
+                      <BulletList items={proposal.scope.excluded} dot="✕" dotColor="text-blue-400" color="text-gray-600" />
                     </div>
                   </div>
                 </Section>
@@ -413,7 +413,7 @@ export default function ProposalDrafter() {
                           <span className="text-xs font-bold text-purple-400">{t.phase}</span>
                           <span className="text-[10px] text-gray-500 bg-white/10 px-1.5 py-0.5 rounded-full">{t.duration}</span>
                         </div>
-                        <p className="text-xs text-gray-300 leading-relaxed mb-1">{t.activities}</p>
+                        <p className="text-xs text-gray-600 leading-relaxed mb-1">{t.activities}</p>
                         {t.milestone && (
                           <p className="text-[10px] text-purple-300/70 flex items-center gap-1">
                             <span className="text-purple-400">◆</span> Milestone: {t.milestone}
@@ -430,7 +430,7 @@ export default function ProposalDrafter() {
                   <div className="flex flex-col gap-2 mb-3">
                     {proposal.investment.breakdown.map((b, i) => (
                       <div key={i} className="flex flex-col sm:flex-row sm:justify-between gap-0.5 text-xs rounded-lg bg-white/[0.03] border border-white/[0.06] px-3 py-2">
-                        <span className="text-gray-300 font-medium">{b.item}</span>
+                        <span className="text-gray-600 font-medium">{b.item}</span>
                         <div className="text-right">
                           <span className="text-yellow-300 font-bold">{b.cost}</span>
                           {b.note && <p className="text-gray-500 text-[10px]">{b.note}</p>}
@@ -438,8 +438,8 @@ export default function ProposalDrafter() {
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs text-gray-400 mb-2">
-                    <span className="font-semibold text-gray-300">Payment: </span>{proposal.investment.paymentTerms}
+                  <p className="text-xs text-gray-600 mb-2">
+                    <span className="font-semibold text-gray-600">Payment: </span>{proposal.investment.paymentTerms}
                   </p>
                   {proposal.investment.roi && (
                     <div className="rounded-xl bg-yellow-500/[0.07] border border-yellow-500/20 px-3 py-2.5">
@@ -461,10 +461,10 @@ export default function ProposalDrafter() {
                               <p className="text-xs font-bold text-white mb-1 flex items-center gap-1.5">
                                 <span className="text-[#2563EB]">▸</span>{(w as { point: string }).point}
                               </p>
-                              <p className="text-xs text-gray-400 leading-relaxed">{(w as { detail: string }).detail}</p>
+                              <p className="text-xs text-gray-600 leading-relaxed">{(w as { detail: string }).detail}</p>
                             </>
                           ) : (
-                            <p className="text-xs text-gray-300 flex gap-2"><span className="text-[#2563EB] shrink-0">▸</span>{w as string}</p>
+                            <p className="text-xs text-gray-600 flex gap-2"><span className="text-[#2563EB] shrink-0">▸</span>{w as string}</p>
                           )}
                         </div>
                       );
@@ -481,7 +481,7 @@ export default function ProposalDrafter() {
                           <p className="text-xs font-semibold text-orange-400 mb-1 flex items-center gap-1.5">
                             <AlertTriangle className="w-3 h-3" />{r.risk}
                           </p>
-                          <p className="text-xs text-gray-400 leading-relaxed flex gap-1.5">
+                          <p className="text-xs text-gray-600 leading-relaxed flex gap-1.5">
                             <span className="text-emerald-400 shrink-0 mt-0.5">✓</span>{r.mitigation}
                           </p>
                         </div>
@@ -491,8 +491,8 @@ export default function ProposalDrafter() {
                 )}
 
                 {/* Terms */}
-                <Section icon={Shield} title="Terms & Conditions" color="text-gray-400">
-                  <BulletList items={proposal.terms} dot="•" dotColor="text-gray-500" color="text-gray-400" />
+                <Section icon={Shield} title="Terms & Conditions" color="text-gray-600">
+                  <BulletList items={proposal.terms} dot="•" dotColor="text-gray-500" color="text-gray-600" />
                 </Section>
 
                 {/* CTA */}
@@ -512,7 +512,7 @@ export default function ProposalDrafter() {
                   >
                     <p className="text-[10px] font-black uppercase tracking-widest lamidone-gradient-text mb-2">Save your proposal</p>
                     <h3 className="text-base font-bold text-white mb-1">Create a free account to copy, share, and use this proposal.</h3>
-                    <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+                    <p className="text-xs text-gray-600 mb-4 leading-relaxed">
                       Sign up to unlock the full copy, submit the proposal through LAMID ONE, and connect with the right consultants to deliver on it.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">

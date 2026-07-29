@@ -88,7 +88,7 @@ export default function TalentDashboardPage() {
         <motion.div {...fadeUp(0)} className="mb-10">
           <p className="lamidone-gradient-text text-[10px] tracking-[0.4em] uppercase font-bold mb-3">LAMID TALENT</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Talent Dashboard</h1>
-          <p className="text-gray-500 dark:text-white/45 text-sm max-w-xl">
+          <p className="text-gray-600 dark:text-white/55 text-sm max-w-xl">
             Capability, readiness, and learning progress — at a glance.
           </p>
         </motion.div>
@@ -105,8 +105,8 @@ export default function TalentDashboardPage() {
             >
               <kpi.icon className="w-4 h-4 text-[#2563EB] mb-3" strokeWidth={2.2} />
               <p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1.5">{kpi.value}</p>
-              <p className="text-xs text-gray-500 dark:text-white/45">{kpi.label}</p>
-              <p className="text-[10px] text-gray-400 dark:text-white/30 mt-1">{kpi.trend}</p>
+              <p className="text-xs text-gray-600 dark:text-white/55">{kpi.label}</p>
+              <p className="text-[10px] text-gray-600 dark:text-white/55 mt-1">{kpi.trend}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -115,7 +115,7 @@ export default function TalentDashboardPage() {
 
           {/* Talent signals */}
           <motion.div {...fadeUp(0.1)} className="lamidone-card border rounded-2xl p-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Talent Signals</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Talent Signals</p>
             <div className="flex flex-col gap-3">
               {signals.map((item) => (
                 <motion.div
@@ -124,10 +124,10 @@ export default function TalentDashboardPage() {
                   transition={{ duration: 0.14 }}
                   className="flex items-start gap-3 pb-3 border-b border-gray-100 dark:border-white/6 last:border-0 last:pb-0 rounded-lg px-1 -mx-1"
                 >
-                  <Lightbulb className={`w-4 h-4 mt-0.5 shrink-0 ${item.severity === "High" ? "text-[#2563EB]" : "text-gray-400 dark:text-white/30"}`} strokeWidth={2} />
+                  <Lightbulb className={`w-4 h-4 mt-0.5 shrink-0 ${item.severity === "High" ? "text-[#2563EB]" : "text-gray-600 dark:text-white/55"}`} strokeWidth={2} />
                   <div>
                     <p className="text-sm text-gray-900 dark:text-white leading-snug">{item.title}</p>
-                    <p className="text-xs text-gray-500 dark:text-white/40 mt-0.5">{item.action}</p>
+                    <p className="text-xs text-gray-600 dark:text-white/55 mt-0.5">{item.action}</p>
                   </div>
                 </motion.div>
               ))}
@@ -136,7 +136,7 @@ export default function TalentDashboardPage() {
 
           {/* Learning progress */}
           <motion.div {...fadeUp(0.15)} className="lamidone-card border rounded-2xl p-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">Learning Progress</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">Learning Progress</p>
             <div className="flex flex-col gap-4">
               {learning.map((l) => (
                 <div key={l.label}>
@@ -161,7 +161,7 @@ export default function TalentDashboardPage() {
 
         {/* Sub-module navigation */}
         <motion.div {...fadeUp(0.2)} className="mt-10">
-          <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-white/30 mb-4">TALENT Intelligence Modules</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-white/55 mb-4">TALENT Intelligence Modules</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
             {[
               { title: "Capability Intelligence",  href: "/talent-capability" },
@@ -191,7 +191,7 @@ export default function TalentDashboardPage() {
             <Link href="/events" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-[#2563EB]/25 text-[#2563EB] hover:bg-[#2563EB]/8 transition-colors">
               Explore Programs
             </Link>
-            <Link href="/intelligence-hub" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition-colors">
+            <Link href="/intelligence-hub" className="px-5 py-2.5 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/10 text-gray-600 dark:text-white/55 hover:border-[#2563EB]/30 hover:text-[#2563EB] transition-colors">
               Intelligence Hub
             </Link>
           </div>

@@ -64,7 +64,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
         <p className="text-gray-200 leading-relaxed">{description}</p>
 
         {secondaryText && (
-          <p className="text-gray-400 text-sm leading-relaxed">
+          <p className="text-gray-600 text-sm leading-relaxed">
             {secondaryText}
           </p>
         )}

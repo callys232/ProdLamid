@@ -53,7 +53,7 @@ export const USE_CASES: UseCase[] = [
     sector: "Freight & distribution",
     size: "240 staff",
     ask: "Should we build a second hub?",
-    teaser: "A board asked about a building. Six engines answered about the business underneath it.",
+    teaser: "A board asked about a building. Six tools answered about the business underneath it.",
     verdict: "Don't build the hub. Not yet.",
     accent: C.finance,
     stages: [
@@ -161,7 +161,7 @@ export const USE_CASES: UseCase[] = [
       },
     ],
     closing: [
-      "The board asked about a building. The engines answered about the business underneath it: a 2.02% operating margin, delivery moving away from every target it has, a workforce at 2.6 out of 5 with two critical roles nobody can cover, and four cost lines already growing faster than revenue.",
+      "The board asked about a building. The tools answered about the business underneath it: a 2.02% operating margin, delivery moving away from every target it has, a workforce at 2.6 out of 5 with two critical roles nobody can cover, and four cost lines already growing faster than revenue.",
       "On the numbers the 3PL partnership returns most — $505,000 net. But that ranking sits on a 3.96-point margin, inside the error bar of anyone's probability estimate. The honest reading is that partnering and leasing are close enough to be a judgement call, and building is not in contention.",
       "The governance assessment is why that matters. It scores 62% on stated ratings and 53.8% once evidence is accounted for, and the dimension holding it down is decision rights. An organisation that cannot evidence who decides what should not commit $2.9m on a fragile ranking.",
     ],
@@ -248,7 +248,7 @@ export const USE_CASES: UseCase[] = [
       },
     ],
     closing: [
-      "Agency cover is the reflex, and the scenario engine is unusually blunt about it: there is no probability at which it wins. At $1.45m of cost against a $400,000 upside, it is the lowest-risk option and a guaranteed loss. Safe and wrong are not the same thing.",
+      "Agency cover is the reflex, and the scenario tool is unusually blunt about it: there is no probability at which it wins. At $1.45m of cost against a $400,000 upside, it is the lowest-risk option and a guaranteed loss. Safe and wrong are not the same thing.",
       "Retention returns $712,000 net, and its nearest rival sits 31.86 points away — the widest margin in any of these examples. This is the rare case where the ranking is not fragile and the decision is not close.",
       "The governance assessment explains why retention is the lever. Escalation Cover scores 1 of 5 against a critical weighting, and it is documented — this is not a rating anyone inflated. Staff are not leaving over pay alone; they are leaving a rota nobody can escalate out of.",
     ],
@@ -319,8 +319,8 @@ export const USE_CASES: UseCase[] = [
     ],
     closing: [
       "A 71% gross margin and 31% revenue growth read like a company working. The operating margin is −103.93% and there are 8.21 months of runway. Both things are true, which is why looking at one number was never going to settle it.",
-      "The productivity engine found the mechanism. Utilisation at 93% sits above the 85% band where work starts queueing instead of completing, and rework nearly doubled over the same six sprints. The team is not underperforming; it is overloaded, and the overload is being paid for twice.",
-      "On expected value, cutting wins at $960,000 net. But the engine flags its own answer: the bridge round overtakes it at 55.71% against the 50% entered, and it warns that a 50% estimate usually means nobody knows. Cutting is the decision you can make without resolving that uncertainty first — which is the argument for doing it now rather than after the raise fails.",
+      "The productivity tool found the mechanism. Utilisation at 93% sits above the 85% band where work starts queueing instead of completing, and rework nearly doubled over the same six sprints. The team is not underperforming; it is overloaded, and the overload is being paid for twice.",
+      "On expected value, cutting wins at $960,000 net. But the tool flags its own answer: the bridge round overtakes it at 55.71% against the 50% entered, and it warns that a 50% estimate usually means nobody knows. Cutting is the decision you can make without resolving that uncertainty first — which is the argument for doing it now rather than after the raise fails.",
     ],
   },
 
@@ -372,7 +372,7 @@ export const USE_CASES: UseCase[] = [
       },
     ],
     closing: [
-      "The programme rated its own fund traceability 5 out of 5 — the highest score on the sheet, weighted critical. It is also the only dimension with no evidence behind it. That combination is what the assessment engine exists to catch, and it is precisely what a donor auditor opens with.",
+      "The programme rated its own fund traceability 5 out of 5 — the highest score on the sheet, weighted critical. It is also the only dimension with no evidence behind it. That combination is what the assessment tool exists to catch, and it is precisely what a donor auditor opens with.",
       "The gap is not rhetorical. Stated, the programme scores 70%. Evidence-adjusted, 51.4%. An auditor does not grade the stated number.",
       "The budget adds urgency rather than reassurance: 9.48% over on the lines being tracked, with rural deployment 20.77% above plan and a projected outturn $50,000 beyond the grant. Overspend against a grant is recoverable when it is documented and difficult when it is not — and documentation is the exact dimension scoring zero.",
     ],

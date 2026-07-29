@@ -128,8 +128,8 @@ export default function ConciergeAnalytics() {
             ))}
           </div>
           <div className="flex items-center gap-4 mt-3">
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-white/20 inline-block" />Budget</span>
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-[#2563EB] inline-block" />Spent</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-600"><span className="h-2 w-2 rounded-sm bg-white/20 inline-block" />Budget</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-600"><span className="h-2 w-2 rounded-sm bg-[#2563EB] inline-block" />Spent</span>
           </div>
         </motion.div>
 
@@ -160,8 +160,8 @@ export default function ConciergeAnalytics() {
             ))}
           </div>
           <div className="flex items-center gap-4 mt-3">
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-white/20 inline-block" />Total</span>
-            <span className="flex items-center gap-1.5 text-[10px] text-gray-400"><span className="h-2 w-2 rounded-sm bg-emerald-500 inline-block" />Completed</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-600"><span className="h-2 w-2 rounded-sm bg-white/20 inline-block" />Total</span>
+            <span className="flex items-center gap-1.5 text-[10px] text-gray-600"><span className="h-2 w-2 rounded-sm bg-emerald-500 inline-block" />Completed</span>
           </div>
         </motion.div>
       </div>
@@ -178,7 +178,7 @@ export default function ConciergeAnalytics() {
               return (
                 <div key={b.status}>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-gray-400 capitalize">{b.status}</span>
+                    <span className="text-gray-600 capitalize">{b.status}</span>
                     <span className="text-white font-semibold">{b.count} <span className="text-gray-500 font-normal">({pct}%)</span></span>
                   </div>
                   <div className="h-1.5 w-full rounded-full bg-white/8 overflow-hidden">
@@ -225,7 +225,7 @@ export default function ConciergeAnalytics() {
               <p className="text-[10px] text-gray-500">Done</p>
             </div>
             <div className="rounded-lg bg-white/5 border border-white/8 py-2">
-              <p className="text-base font-bold text-gray-400">{kpi.totalMilestones - kpi.completedMilestones}</p>
+              <p className="text-base font-bold text-gray-600">{kpi.totalMilestones - kpi.completedMilestones}</p>
               <p className="text-[10px] text-gray-500">Remaining</p>
             </div>
           </div>
@@ -249,7 +249,7 @@ export default function ConciergeAnalytics() {
                 <div className="flex items-center justify-between gap-3 mb-2">
                   <p className="text-sm font-medium text-white truncate flex-1">{p.title}</p>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className={`text-[10px] px-2 py-0.5 rounded-full border capitalize ${STATUS_COLOR[p.status] ?? "text-gray-400 border-gray-500/20 bg-gray-500/10"}`}>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full border capitalize ${STATUS_COLOR[p.status] ?? "text-gray-600 border-gray-500/20 bg-gray-500/10"}`}>
                       {p.status}
                     </span>
                     <span className="text-[10px] text-gray-500">{p.pm}</span>
@@ -265,7 +265,7 @@ export default function ConciergeAnalytics() {
                       transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 + i * 0.06 }}
                     />
                   </div>
-                  <span className="text-[10px] text-gray-400 w-8 text-right">{p.progress}%</span>
+                  <span className="text-[10px] text-gray-600 w-8 text-right">{p.progress}%</span>
                   <span className="text-[10px] text-gray-500">{fmt(p.spent)}/{fmt(p.budget)}</span>
                   <span className={`text-[10px] font-semibold ${spentPct > 90 ? "text-blue-400" : "text-gray-500"}`}>
                     {spentPct}% used

@@ -23,9 +23,13 @@
   --bg-card:        rgba(37, 99, 235, 0.04);
   --bg-card-hover:  rgba(37, 99, 235, 0.08);
   --border-card:    rgba(37, 99, 235, 0.12);
-  --text-primary:   #1E293B;
-  --text-secondary: #475569;
-  --text-muted:     #94A3B8;
+  /* A three-step ladder, every step ≥4.5:1 against the lightest AND the
+     mid-tone gradient stops the page animates through. The old muted value
+     (#94A3B8) measured 2.26:1 — legible on a designer's monitor, invisible on
+     a laptop in daylight. */
+  --text-primary:   #1E293B;  /* slate-800 */
+  --text-secondary: #334155;  /* slate-700 */
+  --text-muted:     #475569;  /* slate-600 — 4.73:1 worst case */
   --navbar-bg:      rgba(248, 250, 255, 0.96);
   --navbar-border:  rgba(37, 99, 235, 0.10);
 
@@ -40,9 +44,11 @@
   --bg-card:        rgba(255, 255, 255, 0.04);
   --bg-card-hover:  rgba(59, 130, 246, 0.08);
   --border-card:    rgba(59, 130, 246, 0.14);
+  /* Same ladder inverted. Below 0.50 alpha nothing clears 4.5:1 on our
+     near-black ground, so 0.30 was never readable. */
   --text-primary:   #E2E8F0;
-  --text-secondary: rgba(226, 232, 240, 0.65);
-  --text-muted:     rgba(226, 232, 240, 0.30);
+  --text-secondary: rgba(226, 232, 240, 0.75);
+  --text-muted:     rgba(226, 232, 240, 0.55);  /* 5.27:1 */
   --navbar-bg:      rgba(3, 10, 22, 0.94);
   --navbar-border:  rgba(59, 130, 246, 0.12);
 
@@ -408,3 +414,22 @@ select option:checked {
 .pj-step-fwd { animation: pj-step-fwd 0.22s ease forwards; }
 .pj-step-bck { animation: pj-step-bck 0.22s ease forwards; }
 .pj-tag-enter { animation: pj-tag-in 0.2s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+/* Ecosystem arrow field — the tiles drift along their own axis.
+   The pattern lattice is rotated -12deg, so a straight sideways nudge would
+   land off-lattice and show a seam. Travelling one tile along the rotated axis
+   (64 * cos12, 64 * sin12) lands exactly on the next tile, so the loop is
+   invisible. */
+@keyframes ecosystem-arrow-flow {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(62.6px, -13.31px); }
+}
+
+.ecosystem-arrow-flow {
+  animation: ecosystem-arrow-flow 7s linear infinite;
+  will-change: transform;
+}
+
+/* Decoration only — it carries no information, so it simply stops. */
+@media (prefers-reduced-motion: reduce) {
+  .ecosystem-arrow-flow { animation: none; }
+}

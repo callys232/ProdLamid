@@ -22,7 +22,7 @@ const GATE_CONTENT: Record<Exclude<GateMode, "full">, {
   "preview-auth": {
     icon: Lock,
     heading: "Sign up to see your results",
-    body: "Create a free LAMID account to access AI insights, diagnostics, and recommendations across all four engines.",
+    body: "Create a free LAMID account to access AI insights, diagnostics, and recommendations across all four suites.",
     primaryLabel: "Create free account",
     primaryHref: "/signup",
     secondaryLabel: "Sign in",

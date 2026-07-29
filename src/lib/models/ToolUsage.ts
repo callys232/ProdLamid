@@ -18,6 +18,10 @@ const ToolUsageSchema = new Schema({
   result:           { type: Schema.Types.Mixed },
   /** Dimension scores flattened for trend queries without loading full results. */
   scores:           [{ label: String, value: Number, _id: false }],
+
+  /* What was fed in, so a run can be repeated next quarter without retyping
+     it. Shape varies by archetype, hence Mixed. */
+  inputs:           { type: Schema.Types.Mixed },
 }, { timestamps: true });
 
 // History is always "this user's runs, newest first"

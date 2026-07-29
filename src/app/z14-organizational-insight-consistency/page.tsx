@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function Z14Page() {
   const config = MODULE_REGISTRY["Z14"] ?? buildFallbackConfig("Z14", "Z-Series — Transformation Intelligence", "Organizational Insight Consistency Engine");
   return (
-    <DashboardTierGate pillar="Organizational Insight Consistency Engine" backHref="/z13-enterprise-insight-index" backLabel="Enterprise Insight Index">
+    <DashboardTierGate pillar="Organizational Insight Consistency" backHref="/z13-enterprise-insight-index" backLabel="Enterprise Insight Index">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

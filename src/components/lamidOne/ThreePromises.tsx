@@ -6,7 +6,7 @@ import Link from "next/link";
 /* Labels match the heading above them — "Clarity. Confidence. Growth." — and
    each states a specific outcome rather than a quality any consultancy claims. */
 const PROMISES = [
-  { label: "Clarity",    body: "See where the business stands today, not where last quarter's report left it." },
+  { label: "Clarity",    body: "See where your business stands today, not where last quarter's report left it." },
   { label: "Confidence", body: "Decide on numbers computed in front of you, with the working shown." },
   { label: "Growth",     body: "Act on what the signals show while there is still time to change the outcome." },
 ];
@@ -21,32 +21,32 @@ const BENEFITS = [
 
 const ENGINES = [
   {
-    id: "Lamid Core",
-    tagline: "Strategy, execution, and alignment — in one view.",
+    id: "LAMID CORE",
+    tagline: "Your strategy, execution, and alignment — in one view.",
     desc: "Clear plans, better decisions, smoother execution.",
     textCls: "text-[#2563EB]",
     bgCls:   "bg-[#2563EB]",
     href: "/core",
   },
   {
-    id: "Lamid Grow",
-    tagline: "Know where growth is happening — and where it's being lost.",
+    id: "LAMID GROW",
+    tagline: "Know where your growth is happening — and where it's being lost.",
     desc: "Track how customers engage — and act on what the signals show.",
     textCls: "text-[#3B82F6]",
     bgCls:   "bg-[#3B82F6]",
     href: "/grow",
   },
   {
-    id: "Lamid Talent",
+    id: "LAMID TALENT",
     tagline: "Put the right people in the right roles.",
-    desc: "Capability, culture health, and hiring readiness in one place.",
+    desc: "Your capability, culture health, and hiring readiness in one place.",
     textCls: "text-[#2563EB]",
     bgCls:   "bg-[#2563EB]",
     href: "/talent",
   },
   {
-    id: "Lamid Finance",
-    tagline: "Every financial decision, grounded in the full picture.",
+    id: "LAMID FINANCE",
+    tagline: "Every financial decision you make, grounded in the full picture.",
     desc: "Real-time visibility, forecasting, cost clarity, enterprise value.",
     textCls: "text-[#F59E0B]",
     bgCls:   "bg-[#F59E0B]",
@@ -275,7 +275,7 @@ export default function ThreePromises() {
                 {/* Closing note */}
                 <motion.p
                   variants={textV}
-                  className="text-[11px] text-gray-400 dark:text-white/28 italic pl-12 pt-2"
+                  className="text-[11px] text-gray-600 dark:text-white/55 italic pl-12 pt-2"
                 >
                   All in one place.
                 </motion.p>
@@ -297,7 +297,7 @@ export default function ThreePromises() {
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Meet the operating system behind modern enterprise growth.
             </h2>
-            <p className="text-gray-500 dark:text-white/45 text-sm">
+            <p className="text-gray-600 dark:text-white/55 text-sm">
               One Platform. Four Engines. Every Layer of Your Business.
             </p>
           </motion.div>
@@ -339,7 +339,7 @@ export default function ThreePromises() {
                 </p>
 
                 {/* Description */}
-                <p className="text-[11.5px] text-gray-400 dark:text-white/38 leading-relaxed flex-1">
+                <p className="text-[11.5px] text-gray-600 dark:text-white/55 leading-relaxed flex-1">
                   {e.desc}
                 </p>
 

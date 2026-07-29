@@ -8,7 +8,7 @@ const TYPE_ICON: Record<string, React.ReactNode> = {
   project:  <FolderOpen  className="h-4 w-4 text-blue-400"    />,
   member:   <Users       className="h-4 w-4 text-green-400"   />,
   billing:  <CreditCard  className="h-4 w-4 text-yellow-400"  />,
-  system:   <Settings    className="h-4 w-4 text-gray-400"    />,
+  system:   <Settings    className="h-4 w-4 text-gray-600"    />,
 };
 
 const MOCK = [
@@ -56,7 +56,7 @@ export default function Notifications() {
               className={`rounded-full px-3 py-1 text-xs font-medium capitalize transition ${
                 filter === f
                   ? "bg-[#2563EB]/20 text-[#2563EB]"
-                  : "text-gray-400 hover:text-white"
+                  : "text-gray-600 hover:text-white"
               }`}
             >
               {f}
@@ -65,7 +65,7 @@ export default function Notifications() {
           <motion.button
             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
             onClick={markAllRead}
-            className="flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-gray-400 transition hover:border-white/20 hover:text-white"
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-gray-600 transition hover:border-white/20 hover:text-white"
           >
             <CheckCheck className="h-3.5 w-3.5" /> Mark all read
           </motion.button>
@@ -94,7 +94,7 @@ export default function Notifications() {
                   <div className="mt-0.5 flex-shrink-0">{TYPE_ICON[n.type]}</div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-2">
-                      <p className={`text-sm font-medium ${n.read ? "text-gray-400" : "text-white"}`}>{n.title}</p>
+                      <p className={`text-sm font-medium ${n.read ? "text-gray-600" : "text-white"}`}>{n.title}</p>
                       <span className="flex-shrink-0 text-[11px] text-gray-600">{n.createdAt}</span>
                     </div>
                     <p className="mt-0.5 text-xs text-gray-500">{n.message}</p>

@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function GrowOpportunitySignalsPage() {
   const config = MODULE_REGISTRY["G02"] ?? buildFallbackConfig("G02", "LAMID GROW — Growth Intelligence", "Opportunity Signals Engine");
   return (
-    <DashboardTierGate pillar="Opportunity Signals Engine" backHref="/grow-dashboard" backLabel="GROW Dashboard">
+    <DashboardTierGate pillar="Opportunity Signals" backHref="/grow-dashboard" backLabel="GROW Dashboard">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

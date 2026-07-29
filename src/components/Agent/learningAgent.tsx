@@ -123,7 +123,7 @@ export default function LearningAgent() {
             messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`max-w-[88%] text-[10px] leading-relaxed px-2.5 py-1.5 rounded-xl ${
-                  m.role === "user" ? "bg-[#06b6d4]/20 text-white/90 rounded-br-sm" : "bg-white/6 text-gray-300 rounded-bl-sm"
+                  m.role === "user" ? "bg-[#06b6d4]/20 text-white/90 rounded-br-sm" : "bg-white/6 text-gray-600 rounded-bl-sm"
                 }`}>
                   {m.content || (streaming && i === messages.length - 1 &&
                     <span className="flex gap-0.5">{[0,1,2].map(j => <motion.span key={j} className="w-1 h-1 rounded-full bg-gray-500" animate={{ opacity: [0.3,1,0.3] }} transition={{ repeat: Infinity, duration: 1, delay: j * 0.2 }} />)}</span>

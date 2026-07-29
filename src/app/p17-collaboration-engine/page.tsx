@@ -6,7 +6,7 @@ import { MODULE_REGISTRY, buildFallbackConfig } from "@/lib/intelligence/moduleR
 export default function P17Page() {
   const config = MODULE_REGISTRY["P17"] ?? buildFallbackConfig("P17", "P-Series — Enterprise Productivity", "Collaboration Engine");
   return (
-    <DashboardTierGate pillar="Collaboration Engine" backHref="/p16-team-productivity" backLabel="Team Productivity">
+    <DashboardTierGate pillar="Collaboration" backHref="/p16-team-productivity" backLabel="Team Productivity">
       <IntelligenceModule config={config} />
     </DashboardTierGate>
   );

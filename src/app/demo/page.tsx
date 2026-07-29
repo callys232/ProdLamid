@@ -199,7 +199,7 @@ export default function DemoPage() {
                 {/* Header */}
                 <p className="text-base font-bold text-gray-900 dark:text-white mb-1">{account.type}</p>
                 <p className={`text-xs font-medium mb-3 ${account.accent}`}>{account.tagline}</p>
-                <p className="text-xs text-gray-500 dark:text-white/45 leading-relaxed mb-6">
+                <p className="text-xs text-gray-600 dark:text-white/55 leading-relaxed mb-6">
                   {account.description}
                 </p>
 
@@ -215,11 +215,11 @@ export default function DemoPage() {
 
                 {/* Credentials */}
                 <div className="rounded-xl border border-[#2563EB]/12 bg-[#2563EB]/4 p-4 mb-5 space-y-2.5">
-                  <p className="text-[9px] tracking-[0.3em] uppercase font-bold text-gray-400 dark:text-white/30 mb-3">
+                  <p className="text-[9px] tracking-[0.3em] uppercase font-bold text-gray-600 dark:text-white/55 mb-3">
                     Demo credentials
                   </p>
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-[10px] text-gray-500 dark:text-white/40 shrink-0">Email</span>
+                    <span className="text-[10px] text-gray-600 dark:text-white/55 shrink-0">Email</span>
                     <div className="flex items-center min-w-0">
                       <span className="text-[10px] font-mono text-gray-700 dark:text-white/70 truncate">
                         {account.email}
@@ -228,7 +228,7 @@ export default function DemoPage() {
                     </div>
                   </div>
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-[10px] text-gray-500 dark:text-white/40 shrink-0">Password</span>
+                    <span className="text-[10px] text-gray-600 dark:text-white/55 shrink-0">Password</span>
                     <div className="flex items-center">
                       <span className="text-[10px] font-mono text-gray-700 dark:text-white/70">
                         {account.password}
@@ -256,7 +256,7 @@ export default function DemoPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="text-center text-[11px] text-gray-400 dark:text-white/25 mt-10 max-w-lg mx-auto"
+          className="text-center text-[11px] text-gray-600 dark:text-white/55 mt-10 max-w-lg mx-auto"
         >
           Demo sessions expire after 2 hours. Data shown is illustrative.{" "}
           <Link href="/signup" className="lamidone-gradient-text hover:opacity-80">

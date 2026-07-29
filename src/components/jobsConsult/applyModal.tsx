@@ -163,7 +163,7 @@ export default function ApplyModal({
       <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">
         {previewMode ? "Review your application" : `Apply for ${job.title}`}
       </h2>
-      <p className="text-sm text-gray-300">
+      <p className="text-sm text-gray-600">
         {job.organization} {job.location && `• ${job.location}`}
       </p>
     </div>
@@ -189,7 +189,7 @@ export default function ApplyModal({
           {/* Close */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-300 hover:text-white text-2xl font-light"
+            className="absolute top-4 right-4 text-gray-600 hover:text-white text-2xl font-light"
           >
             ×
           </button>
@@ -289,7 +289,7 @@ export default function ApplyModal({
                   {/* Prequalification / job requirements */}
                   <FieldSection title="Pre-qualification for this project">
                     {jobSkills.length === 0 ? (
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-600">
                         This project does not specify explicit skill
                         requirements.
                       </p>
@@ -322,7 +322,7 @@ export default function ApplyModal({
                   {/* Expertise (from consultant profile) */}
                   <FieldSection title="Your expertise">
                     {consultantSkills.length === 0 ? (
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-600">
                         Add your skills to your profile to strengthen your
                         applications.
                       </p>
@@ -348,16 +348,16 @@ export default function ApplyModal({
                           {client.name || client.companyname}
                         </p>
                         {client.industry && (
-                          <p className="text-gray-300">
+                          <p className="text-gray-600">
                             Industry: {client.industry}
                           </p>
                         )}
                         {client.location && (
-                          <p className="text-gray-300">
+                          <p className="text-gray-600">
                             Location: {client.location}
                           </p>
                         )}
-                        <p className="text-gray-400 text-xs">
+                        <p className="text-gray-600 text-xs">
                           Projects posted: {client.projects?.length ?? 0} •
                           Consultants engaged: {client.consultants?.length ?? 0}
                         </p>
@@ -384,7 +384,7 @@ export default function ApplyModal({
                           Escrow protected
                         </span>
                         {hasEscrow && (
-                          <span className="text-xs text-gray-300">
+                          <span className="text-xs text-gray-600">
                             Escrow activity detected for this client or project.
                           </span>
                         )}
@@ -422,7 +422,7 @@ export default function ApplyModal({
               <div className="space-y-6 text-sm">
                 {/* Summary header */}
                 <div className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl">
-                  <p className="text-gray-300 mb-1">
+                  <p className="text-gray-600 mb-1">
                     You’re about to submit an application for:
                   </p>
                   <p className="text-white font-semibold">{jobAndOrg}</p>
@@ -470,11 +470,11 @@ export default function ApplyModal({
                 <PreviewBlock title="Pre-qualification and expertise">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <p className="text-xs uppercase text-gray-400 mb-2">
+                      <p className="text-xs uppercase text-gray-600 mb-2">
                         Project requirements
                       </p>
                       {jobSkills.length === 0 ? (
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-600 text-sm">
                           No specific skills listed for this project.
                         </p>
                       ) : (
@@ -495,11 +495,11 @@ export default function ApplyModal({
                       )}
                     </div>
                     <div>
-                      <p className="text-xs uppercase text-gray-400 mb-2">
+                      <p className="text-xs uppercase text-gray-600 mb-2">
                         Your expertise
                       </p>
                       {consultantSkills.length === 0 ? (
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-600 text-sm">
                           No skills found on your profile.
                         </p>
                       ) : (
@@ -527,16 +527,16 @@ export default function ApplyModal({
                           {client.name || client.companyname}
                         </p>
                         {client.industry && (
-                          <p className="text-gray-300">
+                          <p className="text-gray-600">
                             Industry: {client.industry}
                           </p>
                         )}
                         {client.location && (
-                          <p className="text-gray-300">
+                          <p className="text-gray-600">
                             Location: {client.location}
                           </p>
                         )}
-                        <p className="text-gray-400 text-xs">
+                        <p className="text-gray-600 text-xs">
                           Projects posted: {client.projects?.length ?? 0} •
                           Consultants engaged: {client.consultants?.length ?? 0}
                         </p>
@@ -559,7 +559,7 @@ export default function ApplyModal({
                             Escrow protected
                           </span>
                           {hasEscrow && (
-                            <span className="text-xs text-gray-300">
+                            <span className="text-xs text-gray-600">
                               Escrow activity detected for this client or
                               project.
                             </span>
@@ -591,7 +591,7 @@ export default function ApplyModal({
                     disabled={submitting}
                     className={`px-5 py-2 rounded-lg text-sm font-semibold transition shadow-md ${
                       submitting
-                        ? "bg-gray-600 text-gray-300 cursor-not-allowed"
+                        ? "bg-gray-600 text-gray-600 cursor-not-allowed"
                         : "bg-[#2563EB] hover:bg-blue-700 text-white"
                     }`}
                   >

@@ -30,7 +30,7 @@ const MILESTONE_CONFIG: Record<string, { card: string; badge: string; dot: strin
   in_progress: { card: "border-yellow-500/30 bg-yellow-500/8",  badge: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",  dot: "bg-yellow-400",  bar: "bg-yellow-500",  pct: "text-yellow-400",  shadow: "0 6px 20px rgba(234,179,8,0.2)"   },
   disputed:    { card: "border-blue-500/30    bg-blue-500/8",     badge: "text-blue-400    border-blue-500/30    bg-blue-500/10",     dot: "bg-blue-400",     bar: "bg-blue-500",     pct: "text-blue-400",     shadow: "0 6px 20px rgba(37,99,235,0.2)"   },
   funded:      { card: "border-purple-500/30 bg-purple-500/8",  badge: "text-purple-400 border-purple-500/30 bg-purple-500/10",  dot: "bg-purple-400",  bar: "bg-purple-500",  pct: "text-purple-400",  shadow: "0 6px 20px rgba(168,85,247,0.2)"  },
-  pending:     { card: "border-white/10      bg-white/5",        badge: "text-gray-400   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",    bar: "bg-gray-600",    pct: "text-gray-400",    shadow: "0 6px 20px rgba(0,0,0,0.3)"       },
+  pending:     { card: "border-white/10      bg-white/5",        badge: "text-gray-600   border-gray-500/20   bg-gray-500/10",   dot: "bg-gray-500",    bar: "bg-gray-600",    pct: "text-gray-600",    shadow: "0 6px 20px rgba(0,0,0,0.3)"       },
   cancelled:   { card: "border-white/8       bg-white/3",        badge: "text-gray-500   border-gray-600/20   bg-gray-600/10",   dot: "bg-gray-600",    bar: "bg-gray-700",    pct: "text-gray-500",    shadow: "0 6px 20px rgba(0,0,0,0.2)"       },
 };
 
@@ -182,7 +182,7 @@ export default function ConciergeOverview() {
           <span className="text-xs font-semibold text-[#2563EB] uppercase tracking-widest">Concierge Portal</span>
         </div>
         <h1 className="text-2xl font-bold text-white">Welcome back</h1>
-        <p className="text-sm text-gray-400 mt-0.5">Here's your executive summary across all active programmes.</p>
+        <p className="text-sm text-gray-600 mt-0.5">Here's your executive summary across all active programmes.</p>
       </motion.div>
 
       {/* Error banner (non-blocking — mock data still shown) */}
@@ -214,7 +214,7 @@ export default function ConciergeOverview() {
               className={`rounded-xl border p-4 flex flex-col gap-2 cursor-default ${s.bg} ${s.border}`}>
               <s.icon className={`h-5 w-5 ${s.color}`} />
               <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
-              <p className="text-xs text-gray-400">{s.label}</p>
+              <p className="text-xs text-gray-600">{s.label}</p>
             </motion.div>
           ))
         }
@@ -287,7 +287,7 @@ export default function ConciergeOverview() {
                             {p.description && (
                               <div>
                                 <p className="text-[11px] uppercase tracking-widest text-gray-500 mb-1">Description</p>
-                                <p className="text-sm text-gray-300 leading-relaxed">{p.description}</p>
+                                <p className="text-sm text-gray-600 leading-relaxed">{p.description}</p>
                               </div>
                             )}
 
@@ -365,7 +365,7 @@ export default function ConciergeOverview() {
                               <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
                                 <Link
                                   href={`/projects/${p.id}/workspace?tab=escrow`}
-                                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-400 transition hover:text-white hover:bg-white/10"
+                                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-600 transition hover:text-white hover:bg-white/10"
                                 >
                                   <Lock className="h-3.5 w-3.5" /> Escrow
                                 </Link>
@@ -373,7 +373,7 @@ export default function ConciergeOverview() {
                               <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
                                 <Link
                                   href={`/projects/${p.id}/workspace?tab=chat`}
-                                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-400 transition hover:text-white hover:bg-white/10"
+                                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-600 transition hover:text-white hover:bg-white/10"
                                 >
                                   <MessageSquare className="h-3.5 w-3.5" /> Messages
                                 </Link>

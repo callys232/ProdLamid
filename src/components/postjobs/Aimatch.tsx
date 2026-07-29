@@ -132,7 +132,7 @@ export default function AIMatchEntry({
             )}
 
             {/* ---------------- GLOBAL PREMIUM INFO (CONSTANT ACROSS APP) ---------------- */}
-            <p className="text-xs text-gray-400 mt-2">
+            <p className="text-xs text-gray-600 mt-2">
                 🔒 Premium feature — includes AI insights, scoring & consultant comparison
             </p>
 

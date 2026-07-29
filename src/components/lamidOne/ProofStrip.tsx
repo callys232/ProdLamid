@@ -12,7 +12,7 @@ const ITEMS = [
   {
     Icon: Layers,
     bold: "4",
-    text: "unified engines",
+    text: "unified suites",
   },
   {
     Icon: Zap,
@@ -42,7 +42,7 @@ export default function ProofStrip() {
                 </span>
               </span>
               {i < ITEMS.length - 1 && (
-                <span className="hidden sm:inline mx-5 text-gray-200 dark:text-white/15 select-none">|</span>
+                <span className="hidden sm:inline mx-5 text-gray-600 dark:text-white/50 select-none">|</span>
               )}
             </span>
           ))}

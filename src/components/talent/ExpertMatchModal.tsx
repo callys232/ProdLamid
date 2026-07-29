@@ -111,7 +111,7 @@ export default function ExpertMatchModal({ open, onClose }: Props) {
               <button
                 type="button"
                 onClick={onClose}
-                className="flex h-8 w-8 items-center justify-center rounded-xl border border-gray-200 dark:border-white/10 text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-[#2563EB]/30 transition-all"
+                className="flex h-8 w-8 items-center justify-center rounded-xl border border-gray-200 dark:border-white/10 text-gray-600 hover:text-gray-700 dark:hover:text-white hover:border-[#2563EB]/30 transition-all"
                 aria-label="Close"
               >
                 <X className="w-4 h-4" />
@@ -121,7 +121,7 @@ export default function ExpertMatchModal({ open, onClose }: Props) {
             {/* Search */}
             <form onSubmit={onSearch} className="px-6 pt-5 pb-4 flex-shrink-0">
               <div className="relative">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                 <input
                   ref={inputRef}
                   value={query}
@@ -135,7 +135,7 @@ export default function ExpertMatchModal({ open, onClose }: Props) {
                   </button>
                 )}
               </div>
-              <p className="text-[10px] text-gray-400 dark:text-white/30 mt-2 px-1">Our AI scores consultants across 40+ factors to find your ideal match.</p>
+              <p className="text-[10px] text-gray-600 dark:text-white/55 mt-2 px-1">Our AI scores consultants across 40+ factors to find your ideal match.</p>
             </form>
 
             {/* Results */}
@@ -143,18 +143,18 @@ export default function ExpertMatchModal({ open, onClose }: Props) {
               {loading && (
                 <div className="flex flex-col items-center justify-center py-16 gap-3">
                   <Loader2 className="w-6 h-6 text-[#2563EB] animate-spin" />
-                  <p className="text-sm text-gray-500 dark:text-white/40">Matching experts to your needs…</p>
+                  <p className="text-sm text-gray-600 dark:text-white/55">Matching experts to your needs…</p>
                 </div>
               )}
 
               {!loading && experts.length === 0 && fetched && (
                 <div className="flex flex-col items-center justify-center py-14 gap-4 text-center">
                   <div className="w-14 h-14 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center">
-                    <User className="w-6 h-6 text-gray-400" />
+                    <User className="w-6 h-6 text-gray-600" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-700 dark:text-white mb-1">Sign in to unlock expert matching</p>
-                    <p className="text-xs text-gray-400 dark:text-white/35 max-w-xs">Create a free account to access our AI-powered matching engine and connect with vetted consultants.</p>
+                    <p className="text-xs text-gray-600 dark:text-white/55 max-w-xs">Create a free account to access our AI-powered matching engine and connect with vetted consultants.</p>
                   </div>
                   <div className="flex gap-2">
                     <a href="/signup" className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] transition-colors shadow-[0_0_14px_rgba(37,99,235,0.3)]">Create Account</a>
@@ -185,7 +185,7 @@ export default function ExpertMatchModal({ open, onClose }: Props) {
                       <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{exp.name}</p>
                       <BadgeCheck className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-white/45 truncate mb-2">{exp.title}</p>
+                    <p className="text-xs text-gray-600 dark:text-white/55 truncate mb-2">{exp.title}</p>
                     <div className="flex flex-wrap gap-1">
                       {exp.skills.slice(0, 3).map(s => (
                         <span key={s} className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-white/6 text-gray-600 dark:text-white/50">{s}</span>
@@ -215,7 +215,7 @@ export default function ExpertMatchModal({ open, onClose }: Props) {
             {/* Footer */}
             {!loading && experts.length > 0 && (
               <div className="px-6 py-4 border-t border-gray-100 dark:border-white/8 flex items-center justify-between flex-shrink-0">
-                <p className="text-[10px] text-gray-400 dark:text-white/30">{experts.length} experts matched</p>
+                <p className="text-[10px] text-gray-600 dark:text-white/55">{experts.length} experts matched</p>
                 <a href="/jobs" className="flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline">
                   Browse all consultants <ArrowRight className="w-3.5 h-3.5" />
                 </a>
